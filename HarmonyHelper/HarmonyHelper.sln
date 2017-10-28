@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "ContiuousAreggiationExercise\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests", "ContiuousAreggiationExerciseTests\HarmonyHelper.Tests.csproj", "{A179EA40-2903-4DC9-8C6A-744694961245}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests", "HarmonyHelper.Tests\HarmonyHelper.Tests.csproj", "{A179EA40-2903-4DC9-8C6A-744694961245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
