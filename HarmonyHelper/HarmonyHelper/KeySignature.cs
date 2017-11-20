@@ -206,13 +206,44 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        class HasEnharmonicComparer : IEqualityComparer<NoteName>
+        {
+            public bool Equals(NoteName x, NoteName y)
+            {
+                bool result = false;
+                if (x.Value == y.Value
+                    && x.Name != y.Name)
+                    result = true;
+                return result;
+
+            }
+
+            public int GetHashCode(NoteName obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
+
+        
+
         public bool Affects(NoteName note)
         {
             var result = false;
-            if (this.Notes.Contains(note))
+            if (this.Notes.Contains(note, new HasEnharmonicComparer())) 
                 result = true;
             return result;
         }
+
+        public NoteName GetName(NoteName nn)
+        {
+            var result = nn;
+            if (this.Affects(nn))
+            {
+                throw new NotImplementedException();
+            }
+            return result;
+        }
+
         public override string ToString()
         {
             return this.Key.ToString();

@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Tests
             var which = (ict & mask);
             var result = (IntervalsEnum)which;
 
-            var interval = ChordTypesEnum.Major.GetThird();
+            var interval = ChordTypesEnum.Major.GetThirdInterval();
             //IntervalsEnum GetThird(this ChordTypesEnum e)
         }
 

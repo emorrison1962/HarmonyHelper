@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,11 @@ namespace Eric.Morrison.Harmony
             Chords.Add(A7 = new ChordFormula(NoteName.A, dominant7th, dominant, KeySignature.DMajor));
             Chords.Add(D7 = new ChordFormula(NoteName.D, dominant7th, dominant, KeySignature.GMajor));
             Chords.Add(G7 = new ChordFormula(NoteName.G, dominant7th, dominant, KeySignature.CMajor));
+
+            foreach (var chord in Chords)
+            {
+                Debug.WriteLine(chord);
+            }
         }
 
         //private ChordFormula(params NotesEnum[] notes)
@@ -68,21 +74,27 @@ namespace Eric.Morrison.Harmony
         //}
 
         private ChordFormula(NoteName root, ChordTypesEnum chordType, 
-            ChordFunctionEnum chordFunction, KeySignature keySignature)
+            ChordFunctionEnum chordFunction, KeySignature key)
         {
-            this.KeySignature = keySignature;
+            this.KeySignature = key;
             this.ChordType = chordType;
             this.ChordFunction = chordFunction;
 
             this.Root = root;
-            var interval = chordType.GetThird();
-            this.Third = NotesCollection.Get(root, interval);
+            var interval = chordType.GetThirdInterval();
 
-            interval = chordType.GetFifth();
-            this.Fifth = NotesCollection.Get(root, interval);
+            var nn = NotesCollection.Get(root, interval);
+            var enharmonic = key.GetName(nn);
+            this.Third = enharmonic;
 
-            interval = chordType.GetSeventh();
-            this.Seventh = NotesCollection.Get(root, interval);
+
+            interval = chordType.GetFifthInterval();
+            nn = NotesCollection.Get(root, interval);
+            this.Fifth = enharmonic = key.GetName(nn);
+
+            interval = chordType.GetSeventhInterval();
+            nn = NotesCollection.Get(root, interval);
+            this.Seventh = enharmonic = key.GetName(nn);
         }
 
 
