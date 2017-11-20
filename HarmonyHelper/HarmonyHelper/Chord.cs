@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony
 
         NoteRange MinRange { get; set; }
         NoteRange MaxRange { get; set; }
-        public KeySignatureEnum KeySignature { get; set; }
+        public KeySignature KeySignature { get; set; }
         public Note Root { get; set; }
         public Note Third { get; set; }
         public Note Fifth { get; set; }
@@ -25,6 +25,9 @@ namespace Eric.Morrison.Harmony
 
         public Chord(ChordFormula formula, NoteRange noteRange)
         {
+            if (null == formula.KeySignature)
+                throw new ArgumentNullException();
+
             this.KeySignature = formula.KeySignature;
 
             this.Root = noteRange.First(formula.Root);

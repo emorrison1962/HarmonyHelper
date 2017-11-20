@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony
         public NotesEnum Third { get; set; }
         public NotesEnum Fifth { get; set; }
         public NotesEnum Seventh { get; set; }
-        public KeySignatureEnum KeySignature { get; set; }
+        public KeySignature KeySignature { get; set; }
         public ChordTypesEnum ChordType { get; set; }
         public ChordFunctionEnum ChordFunction { get; set; }
 
@@ -41,22 +41,22 @@ namespace Eric.Morrison.Harmony
         {
             var dominant7th = ChordTypesEnum.Dominant7th;
             var dominant = ChordFunctionEnum.V;
-            Chords.Add(C7 = new ChordFormula(NotesEnum.C, dominant7th, dominant, KeySignatureEnum.FMajor));
-            Chords.Add(F7 = new ChordFormula(NotesEnum.F, dominant7th, dominant, KeySignatureEnum.BbMajor));
-            Chords.Add(Bb7 = new ChordFormula(NotesEnum.Bb, dominant7th, dominant, KeySignatureEnum.EbMajor));
-            Chords.Add(Eb7 = new ChordFormula(NotesEnum.Eb, dominant7th, dominant, KeySignatureEnum.AbMajor));
-            Chords.Add(Ab7 = new ChordFormula(NotesEnum.Ab, dominant7th, dominant, KeySignatureEnum.DbMajor));
-            Chords.Add(Db7 = new ChordFormula(NotesEnum.Db, dominant7th, dominant, KeySignatureEnum.GbMajor));
+            Chords.Add(C7 = new ChordFormula(NotesEnum.C, dominant7th, dominant, KeySignature.FMajor));
+            Chords.Add(F7 = new ChordFormula(NotesEnum.F, dominant7th, dominant, KeySignature.BbMajor));
+            Chords.Add(Bb7 = new ChordFormula(NotesEnum.Bb, dominant7th, dominant, KeySignature.EbMajor));
+            Chords.Add(Eb7 = new ChordFormula(NotesEnum.Eb, dominant7th, dominant, KeySignature.AbMajor));
+            Chords.Add(Ab7 = new ChordFormula(NotesEnum.Ab, dominant7th, dominant, KeySignature.DbMajor));
+            Chords.Add(Db7 = new ChordFormula(NotesEnum.Db, dominant7th, dominant, KeySignature.GbMajor));
 
 #warning Gb dominant does not have sharped key signature.
-            Chords.Add(Gb7 = new ChordFormula(NotesEnum.Gb, dominant7th, dominant, KeySignatureEnum.BMajor));
+            Chords.Add(Gb7 = new ChordFormula(NotesEnum.Gb, dominant7th, dominant, KeySignature.BMajor));
 
 
-            Chords.Add(B7 = new ChordFormula(NotesEnum.B, dominant7th, dominant, KeySignatureEnum.EMajor));
-            Chords.Add(E7 = new ChordFormula(NotesEnum.E, dominant7th, dominant, KeySignatureEnum.AMajor));
-            Chords.Add(A7 = new ChordFormula(NotesEnum.A, dominant7th, dominant, KeySignatureEnum.DMajor));
-            Chords.Add(D7 = new ChordFormula(NotesEnum.D, dominant7th, dominant, KeySignatureEnum.GMajor));
-            Chords.Add(G7 = new ChordFormula(NotesEnum.G, dominant7th, dominant, KeySignatureEnum.CMajor));
+            Chords.Add(B7 = new ChordFormula(NotesEnum.B, dominant7th, dominant, KeySignature.EMajor));
+            Chords.Add(E7 = new ChordFormula(NotesEnum.E, dominant7th, dominant, KeySignature.AMajor));
+            Chords.Add(A7 = new ChordFormula(NotesEnum.A, dominant7th, dominant, KeySignature.DMajor));
+            Chords.Add(D7 = new ChordFormula(NotesEnum.D, dominant7th, dominant, KeySignature.GMajor));
+            Chords.Add(G7 = new ChordFormula(NotesEnum.G, dominant7th, dominant, KeySignature.CMajor));
         }
 
         //private ChordFormula(params NotesEnum[] notes)
@@ -68,7 +68,7 @@ namespace Eric.Morrison.Harmony
         //}
 
         private ChordFormula(NotesEnum root, ChordTypesEnum chordType, 
-            ChordFunctionEnum chordFunction, KeySignatureEnum keySignature)
+            ChordFunctionEnum chordFunction, KeySignature keySignature)
         {
             this.KeySignature = keySignature;
             this.ChordType = chordType;
@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
         {
             var txedRoot = NotesEnumCollection.Get(chord.Root, interval);
-            var txedKey = KeySignatureEnumCollection.Get(chord.KeySignature, interval);
+            var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);
             return result;
@@ -100,7 +100,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
         {
             var txedRoot = NotesEnumCollection.Get(chord.Root, interval, DirectionEnum.Descending);
-            var txedKey = KeySignatureEnumCollection.Get(chord.KeySignature, interval, DirectionEnum.Descending);
+            var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval, DirectionEnum.Descending);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);
             return result;

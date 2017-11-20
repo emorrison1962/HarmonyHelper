@@ -63,39 +63,39 @@ namespace Eric.Morrison.Harmony
 
     }//class
 
-    public static class KeySignatureEnumCollection
+    public static class KeySignatureCollection
     {
         #region Properties
 
-        static LinkedList<KeySignatureEnum> LinkedList { get; set; } = new LinkedList<KeySignatureEnum>();
+        static LinkedList<KeySignature> LinkedList { get; set; } = new LinkedList<KeySignature>();
 
         #endregion
 
         #region Construction
-        static KeySignatureEnumCollection()
+        static KeySignatureCollection()
         {
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.C);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.Db);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.D);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.Eb);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.E);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.F);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.Gb);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.G);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.Ab);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.A);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.Bb);
-            LinkedList.AddLast((KeySignatureEnum)NotesEnum.B);
+            LinkedList.AddLast(KeySignature.CMajor);
+            LinkedList.AddLast(KeySignature.DbMajor);
+            LinkedList.AddLast(KeySignature.DMajor);
+            LinkedList.AddLast(KeySignature.EbMajor);
+            LinkedList.AddLast(KeySignature.EMajor);
+            LinkedList.AddLast(KeySignature.FMajor);
+            LinkedList.AddLast(KeySignature.GbMajor);
+            LinkedList.AddLast(KeySignature.GMajor);
+            LinkedList.AddLast(KeySignature.AbMajor);
+            LinkedList.AddLast(KeySignature.AMajor);
+            LinkedList.AddLast(KeySignature.BbMajor);
+            LinkedList.AddLast(KeySignature.BMajor);
         }
 
         #endregion
 
-        public static LinkedListNode<KeySignatureEnum> Get(KeySignatureEnum ne)
+        public static LinkedListNode<KeySignature> Get(KeySignature ne)
         {
             var node = LinkedList.Find(ne);
             return node;
         }
-        public static KeySignatureEnum Get(KeySignatureEnum ne, IntervalsEnum interval)
+        public static KeySignature Get(KeySignature ne, IntervalsEnum interval)
         {
             var node = LinkedList.Find(ne);
             node = node.Find((int)interval);
@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public static KeySignatureEnum Get(KeySignatureEnum ne, IntervalsEnum intervalEnum, DirectionEnum direction)
+        public static KeySignature Get(KeySignature ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
             var interval = (int)intervalEnum;
             if (direction == DirectionEnum.Descending)

@@ -1,5 +1,4 @@
-﻿using Eric.Morrison.Harmony;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -9,7 +8,6 @@ namespace Eric.Morrison.Harmony.Tests
     public class ChordTests
     {
         [TestMethod()]
-
         public void GetThirdTest()
         {
             var cte = ChordTypesEnum.Minor;
@@ -78,14 +76,6 @@ namespace Eric.Morrison.Harmony.Tests
             new object();
         }
 
-    }//class
-}//ns
-
-namespace ContiuousAreggiationExercise.Tests
-{
-    [TestClass()]
-    public class ChordTests
-    {
         [TestMethod()]
         public void ChordTest()
         {
@@ -96,8 +86,6 @@ namespace ContiuousAreggiationExercise.Tests
             }
             new object();
         }
-
-
 
         [TestMethod()]
         public void IteratorTest()
@@ -147,6 +135,49 @@ namespace ContiuousAreggiationExercise.Tests
                 chordFormula = chordFormula + IntervalsEnum.Perfect4th;
                 chord = new Chord(chordFormula, noteRange);
                 chords.Add(chord);
+            }
+
+            ctx.Arpeggiate(chords);
+
+            new object();
+        }
+
+        [TestMethod()]
+        public void TheChickenTest()
+        {
+            var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SixthPosition);
+            var chordFormula = ChordFormula.Bb7;
+            var chord = new Chord(chordFormula, noteRange);
+            var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
+            var notesToPlay = 4;
+
+            var ctx = new ArpeggiationContext(chord,
+                DirectionEnum.Ascending,
+                startingNote,
+                noteRange, notesToPlay);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+            var chords = new List<Chord>() { chord };
+            //for (int i = 0; i <= 16; ++i)
+            {
+                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+                chords.Add(new Chord(ChordFormula.Eb7, noteRange));
+                chords.Add(new Chord(ChordFormula.Eb7, noteRange));
+                chords.Add(new Chord(ChordFormula.D7, noteRange));
+                chords.Add(new Chord(ChordFormula.G7, noteRange));
+                chords.Add(new Chord(ChordFormula.C7, noteRange));
+                chords.Add(new Chord(ChordFormula.C7, noteRange));
+                chords.Add(new Chord(ChordFormula.C7, noteRange));
+                chords.Add(new Chord(ChordFormula.C7, noteRange));
             }
 
             ctx.Arpeggiate(chords);
@@ -262,5 +293,8 @@ namespace ContiuousAreggiationExercise.Tests
         private void Observe_ArpeggiationContextChanged(object sender, ArpeggiationContext ctx)
         {
         }
+
+
     }//class
 }//ns
+

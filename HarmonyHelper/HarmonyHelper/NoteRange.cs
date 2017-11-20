@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
@@ -92,10 +89,40 @@ namespace Eric.Morrison.Harmony
                         this.LowerLimit = new Note(NotesEnum.E, OctaveEnum.Octave1);
                     }
                     break;
-                case FiveStringBassPositionEnum.NinthPosition:
+                case FiveStringBassPositionEnum.SixthPosition:
+                    {
+                        this.UpperLimit = new Note(NotesEnum.F, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NotesEnum.F, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.SeventhPosition:
+                    {
+                        this.UpperLimit = new Note(NotesEnum.Gb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NotesEnum.Gb, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.EigthPosition:
                     {
                         this.UpperLimit = new Note(NotesEnum.G, OctaveEnum.Octave3);
                         this.LowerLimit = new Note(NotesEnum.G, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.NinthPosition:
+                    {
+                        this.UpperLimit = new Note(NotesEnum.Ab, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NotesEnum.Ab, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.TenthPosition:
+                    {
+                        this.UpperLimit = new Note(NotesEnum.A, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NotesEnum.A, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.EleventhPosition:
+                    {
+                        this.UpperLimit = new Note(NotesEnum.Bb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NotesEnum.Bb, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.TwelfthPosition:

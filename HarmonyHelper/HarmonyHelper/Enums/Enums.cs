@@ -87,7 +87,12 @@ namespace Eric.Morrison.Harmony
     {
         FirstPosition = 1,
         FifthPosition = 5,
+        SixthPosition = 6,
+        SeventhPosition = 7,
+        EigthPosition = 8,
         NinthPosition = 9,
+        TenthPosition = 10,
+        EleventhPosition = 11,
         TwelfthPosition = 12,
     }
 
@@ -99,6 +104,7 @@ namespace Eric.Morrison.Harmony
         Diagnostic
     }
 
+    [Obsolete("", true)]
     public enum KeySignatureEnum
     {
         Default = -1,

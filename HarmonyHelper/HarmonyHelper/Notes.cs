@@ -36,8 +36,11 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public string ToString(ToStringEnum verbosity, KeySignatureEnum key)
+        public string ToString(ToStringEnum verbosity, KeySignature key)
         {
+            if (null == key)
+                throw new ArgumentNullException();
+
             var result = string.Empty;
             if (key.Affects(this.NoteName))
             {
