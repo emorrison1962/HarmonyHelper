@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony
                 throw new InvalidOperationException();
 
             this.LinkedList.AddLast(this.LowerLimit);
-            var node = NotesEnumCollection.Get(this.LowerLimit.NoteName);
+            var node = NotesCollection.Get(this.LowerLimit.NoteName);
             var octave = this.LowerLimit.Octave;
             bool wrapped = false;
 
@@ -51,15 +51,15 @@ namespace Eric.Morrison.Harmony
             //this.LinkedList.ToList().ForEach(x => Debug.WriteLine(x
         }
 
-        public Note First(NotesEnum ne)
+        public Note First(NoteName nn)
         {
-            var result = LinkedList.Where(x => x.NoteName == ne).FirstOrDefault();
+            var result = LinkedList.Where(x => x.NoteName == nn).FirstOrDefault();
             return result;
         }
 
-        public Note Next(Note after, NotesEnum ne)
+        public Note Next(Note after, NoteName nn)
         {
-            var result = LinkedList.Where(x => x.NoteName == ne).FirstOrDefault();
+            var result = LinkedList.Where(x => x.NoteName == nn).FirstOrDefault();
             return result;
         }
 
@@ -79,56 +79,56 @@ namespace Eric.Morrison.Harmony
             {
                 case FiveStringBassPositionEnum.FirstPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.B, OctaveEnum.Octave2);
-                        this.LowerLimit = new Note(NotesEnum.B, OctaveEnum.Octave0);
+                        this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave2);
+                        this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave0);
                     }
                     break;
                 case FiveStringBassPositionEnum.FifthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.E, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.E, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.SixthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.F, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.F, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.F, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.F, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.SeventhPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.Gb, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.Gb, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.Gb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Gb, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.EigthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.G, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.G, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.G, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.G, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.NinthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.Ab, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.Ab, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Ab, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.TenthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.A, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.A, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.A, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.EleventhPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.Bb, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.Bb, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.Bb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Bb, OctaveEnum.Octave1);
                     }
                     break;
                 case FiveStringBassPositionEnum.TwelfthPosition:
                     {
-                        this.UpperLimit = new Note(NotesEnum.B, OctaveEnum.Octave3);
-                        this.LowerLimit = new Note(NotesEnum.B, OctaveEnum.Octave1);
+                        this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave1);
                     }
                     break;
                 default:

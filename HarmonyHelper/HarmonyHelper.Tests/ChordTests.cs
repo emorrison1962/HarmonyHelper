@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Tests
             var which = (ict & mask);
             var result = (IntervalsEnum)which;
 
-            var interval = ChordTypesEnum.Major.Get3rd();
+            var interval = ChordTypesEnum.Major.GetThird();
             //IntervalsEnum GetThird(this ChordTypesEnum e)
         }
 
@@ -29,15 +29,15 @@ namespace Eric.Morrison.Harmony.Tests
         {
             //var chordFormula = ChordFormula.A7;
             //var startingNote = chordFormula.Root;
-            var lowerLimit = new Note(NotesEnum.C, OctaveEnum.Octave0);
-            var upperLimit = new Note(NotesEnum.B, OctaveEnum.Octave6);
+            var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave0);
+            var upperLimit = new Note(NoteName.B, OctaveEnum.Octave6);
             var noteRange = new NoteRange(lowerLimit, upperLimit);
 
             //var chord = new Chord(chordFormula, noteRange);
-            var root = new Note(NotesEnum.A, OctaveEnum.Octave0);
-            var third = new Note(NotesEnum.B, OctaveEnum.Octave0);
-            var fifth = new Note(NotesEnum.C, OctaveEnum.Octave0);
-            var seventh = new Note(NotesEnum.D, OctaveEnum.Octave0);
+            var root = new Note(NoteName.A, OctaveEnum.Octave0);
+            var third = new Note(NoteName.B, OctaveEnum.Octave0);
+            var fifth = new Note(NoteName.C, OctaveEnum.Octave0);
+            var seventh = new Note(NoteName.D, OctaveEnum.Octave0);
             var chord = new Chord(root, third, fifth, seventh, noteRange);
 
             const int MAX_NOTES_PER_CHORD = 8;
@@ -53,7 +53,7 @@ namespace Eric.Morrison.Harmony.Tests
             for (int i = 0; i < MAX_ITERATIONS; ++i)
             {
                 var next = chord.GetClosestNoteEx(ctx);
-                Debug.WriteLine(next.ToString(ToStringEnum.Minimal));
+                Debug.WriteLine(next.ToString());
                 ctx.CurrentNote = next;
             }
             new object();
@@ -286,7 +286,7 @@ namespace Eric.Morrison.Harmony.Tests
         {
             if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
                 Debug.WriteLine(" |");
-            Debug.Write(string.Format(" | ({0}7) ", ctx.Chord.Root.ToString(ToStringEnum.Minimal)));
+            Debug.Write(string.Format(" | ({0}7) ", ctx.Chord.Root.ToString(ctx.Chord.KeySignature)));
             ++chordCount;
         }
 

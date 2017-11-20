@@ -7,7 +7,7 @@ namespace Eric.Morrison.Harmony
 
     public static class ChordTypesEnumExtensions
     {
-        public static IntervalsEnum Get3rd(this ChordTypesEnum cte)
+        public static IntervalsEnum GetThird(this ChordTypesEnum cte)
         {
             var result = IntervalsEnum.Unknown;
 
@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony
 
             return result;
         }
-        public static IntervalsEnum Get5th(this ChordTypesEnum cte)
+        public static IntervalsEnum GetFifth(this ChordTypesEnum cte)
         {
             var result = IntervalsEnum.Unknown;
             var icte = (int)cte;
@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony
             result = (IntervalsEnum)which;
             return result;
         }
-        public static IntervalsEnum Get7th(this ChordTypesEnum cte)
+        public static IntervalsEnum GetSeventh(this ChordTypesEnum cte)
         {
             var result = IntervalsEnum.Unknown;
             var icte = (int)cte;
@@ -91,10 +91,6 @@ namespace Eric.Morrison.Harmony
 
             return result;
         }
-
-
-
-
     }
 
     public static class EnumExtensions

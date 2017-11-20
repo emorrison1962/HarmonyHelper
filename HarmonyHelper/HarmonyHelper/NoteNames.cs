@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
+    [Obsolete]
     public static class NotesEnumCollection
     {
         #region Properties
@@ -48,6 +49,64 @@ namespace Eric.Morrison.Harmony
         }
 
         public static NotesEnum Get(NotesEnum ne, IntervalsEnum intervalEnum, DirectionEnum direction)
+        {
+            var interval = (int)intervalEnum;
+            if (direction == DirectionEnum.Descending)
+            {
+                interval *= -1;
+            }
+            var node = LinkedList.Find(ne);
+            node = node.Find((int)interval);
+
+            var result = node.Value;
+            return result;
+        }
+
+    }//class
+
+
+    public static class NotesCollection
+    {
+        #region Properties
+
+        static LinkedList<NoteName> LinkedList { get; set; } = new LinkedList<NoteName>();
+
+        #endregion
+
+        #region Construction
+        static NotesCollection()
+        {
+            LinkedList.AddLast(NoteName.C);
+            LinkedList.AddLast(NoteName.Db);
+            LinkedList.AddLast(NoteName.D);
+            LinkedList.AddLast(NoteName.Eb);
+            LinkedList.AddLast(NoteName.E);
+            LinkedList.AddLast(NoteName.F);
+            LinkedList.AddLast(NoteName.Gb);
+            LinkedList.AddLast(NoteName.G);
+            LinkedList.AddLast(NoteName.Ab);
+            LinkedList.AddLast(NoteName.A);
+            LinkedList.AddLast(NoteName.Bb);
+            LinkedList.AddLast(NoteName.B);
+        }
+
+        #endregion
+
+        public static LinkedListNode<NoteName> Get(NoteName ne)
+        {
+            var node = LinkedList.Find(ne);
+            return node;
+        }
+        public static NoteName Get(NoteName ne, IntervalsEnum interval)
+        {
+            var node = LinkedList.Find(ne);
+            node = node.Find((int)interval);
+
+            var result = node.Value;
+            return result;
+        }
+
+        public static NoteName Get(NoteName ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
             var interval = (int)intervalEnum;
             if (direction == DirectionEnum.Descending)

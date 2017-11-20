@@ -118,7 +118,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        static public string ToString(this NotesEnum note, bool useSharps)
+        static string ToString(this NoteName note, bool useSharps)
         {
             var result = note.ToString();
 
@@ -127,8 +127,8 @@ namespace Eric.Morrison.Harmony
                 if (result.EndsWith("b"))
                 {
                     new object();
-                    var n = NotesEnumCollection.Get(note, IntervalsEnum.Minor2nd, DirectionEnum.Descending);
-                    result = n.ToString() + "#";
+                    var n = NotesCollection.Get(note, IntervalsEnum.Minor2nd, DirectionEnum.Descending);
+                    result = n.ToString();
                 }
             }
 

@@ -2,30 +2,6 @@
 
 namespace Eric.Morrison.Harmony
 {
-    [Flags]
-    public enum NotesEnum
-    {
-        C = 1 << 1,
-        Db = 1 << 2,
-        D = 1 << 3,
-        Eb = 1 << 4,
-        E = 1 << 5,
-        F = 1 << 6,
-        Gb = 1 << 7,
-        G = 1 << 8,
-        Ab = 1 << 9,
-        A = 1 << 10,
-        Bb = 1 << 11,
-        B = 1 << 12,
-
-        Cb = B,
-        Fb = E,
-
-        DSharp = Eb,
-        GSharp = Ab,
-        CSharp = Db,
-        FSharp = Gb,
-    };
 
     [Flags]
     public enum OctaveEnum

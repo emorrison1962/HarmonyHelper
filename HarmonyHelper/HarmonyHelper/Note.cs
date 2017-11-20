@@ -7,11 +7,11 @@ namespace Eric.Morrison.Harmony
     public class Note : IEquatable<Note>, IComparable<Note>
     {
         #region Properties
-        public NotesEnum NoteName { get; set; }
+        public NoteName NoteName { get; private set; }
 
         public OctaveEnum Octave { get; set; }
 
-        public bool UsesSharps { get; set; }
+        //public KeySignature KeySignature { get; private set; }
         #endregion
 
         #region Construction
@@ -20,19 +20,31 @@ namespace Eric.Morrison.Harmony
             this.NoteName = src.NoteName;
             this.Octave = src.Octave;
         }
-        public Note(NotesEnum note, OctaveEnum octave)
+        public Note(NoteName nn, OctaveEnum octave)
         {
-            this.NoteName = note;
+            this.NoteName = nn;
             this.Octave = octave;
-            //this.UsesSharps = usesSharps;
-        }
+        //this.UsesSharps = usesSharps;
+    }
         
         #endregion
 
         public override string ToString()
         {
-            var result = string.Format("{0}, NoteName={1}, Octave={2}", 
-                base.ToString(), this.NoteName, this.Octave);
+            throw new NotSupportedException();
+            var result = this.NoteName.ToString();
+
+            //var result = string.Format("{0}, NoteName={1}, Octave={2}", 
+            //    base.ToString(), this.NoteName, this.Octave);
+            return result;
+        }
+
+        public string ToString(KeySignature key)
+        {
+            if (null == key)
+                throw new ArgumentNullException();
+
+            var result = this.NoteName.ToString(key);
             return result;
         }
 
@@ -41,68 +53,10 @@ namespace Eric.Morrison.Harmony
             if (null == key)
                 throw new ArgumentNullException();
 
-            var result = string.Empty;
-            if (key.Affects(this.NoteName))
-            {
-                if (key.UsesSharps)
-                {
-                    result = this.ToString(ToStringEnum.Minimal, true);
-                }
-                else if (key.UsesFlats)
-                {
-                    result = this.NoteName.ToString();
-                    if ("B" == result)
-                        result = "Cb";
-                    else if ("E" == result)
-                        result = "Fb";
-                }
-            }
-            else
-            {
-                result = this.NoteName.ToString();
-            }
+            var result = this.NoteName.ToString(key);
             return result;
         }
 
-        public string ToString(ToStringEnum verbosity, bool useSharped = false)
-        {
-            var result = string.Empty;
-
-            var noteString = this.NoteName.ToString();
-            if (useSharped)
-            {
-                if (noteString.EndsWith("b"))
-                {
-                    var noteToSharp = Enum.GetValues(typeof(NotesEnum)).OfType<NotesEnum>()
-                        .Where(x => x < this.NoteName).Last().ToString();
-                    if (null != noteToSharp)
-                        noteString = noteToSharp + "#";
-                }
-            }
-
-            if (verbosity == ToStringEnum.Minimal)
-            {
-                //result = string.Format("{0} {1}",
-                //        this.NoteName, 
-                //        this.Octave.ToString().Replace("Octave", string.Empty));
-                result = noteString;
-            }
-            else if (verbosity == ToStringEnum.Normal)
-            {
-                result = this.ToString();
-            }
-            else if (verbosity == ToStringEnum.Detailed)
-            {
-                throw new NotImplementedException();
-            }
-            else if (verbosity == ToStringEnum.Diagnostic)
-            {
-                throw new NotImplementedException();
-            }
-
-            return result;
-        }
-        
 
         public bool Equals(Note other)
         {
