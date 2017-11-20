@@ -114,5 +114,14 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}",
+                this.Root.ToString(ToStringEnum.Minimal, this.KeySignature),
+                this.Third.ToString(ToStringEnum.Minimal, this.KeySignature),
+                this.Fifth.ToString(ToStringEnum.Minimal, this.KeySignature),
+                this.Seventh.ToString(ToStringEnum.Minimal, this.KeySignature));
+        }
+
     }//class
 }//ns

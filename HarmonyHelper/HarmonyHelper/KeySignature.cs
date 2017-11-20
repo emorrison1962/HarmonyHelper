@@ -74,6 +74,7 @@ namespace Eric.Morrison.Harmony
         public NotesEnum Key { get; private set; }
         public List<NotesEnum> Notes { get; private set; }
         public bool UsesSharps { get; private set; }
+        public bool UsesFlats { get; private set; }
 
 
         static KeySignature()
@@ -195,6 +196,9 @@ namespace Eric.Morrison.Harmony
             this.Key = key;
             this.Notes = new List<NotesEnum>(notes);
             this.UsesSharps = usesSharps;
+            this.UsesFlats = !usesSharps;
+            if (0 == this.Notes.Count)
+                this.UsesFlats = false;
         }
         private static KeySignature Clone(KeySignature src)
         {

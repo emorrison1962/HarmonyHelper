@@ -49,7 +49,7 @@
     <Compile Include="KeySignature.cs" />
     <Compile Include="NoteNames.cs" />
     <Compile Include="NoteRange.cs" />
-    <Compile Include="Notes.cs" />
+    <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
