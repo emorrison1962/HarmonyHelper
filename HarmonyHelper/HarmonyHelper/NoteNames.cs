@@ -41,6 +41,7 @@ namespace Eric.Morrison.Harmony
         public static NotesEnum Get(NotesEnum ne, IntervalsEnum interval)
         {
             var node = LinkedList.Find(ne);
+
             node = node.Find((int)interval);
 
             var result = node.Value;
@@ -166,15 +167,26 @@ namespace Eric.Morrison.Harmony
 
         #endregion
 
-        public static LinkedListNode<KeySignature> Get(KeySignature ne)
+        public static LinkedListNode<KeySignature> Get(KeySignature key)
         {
-            var node = LinkedList.Find(ne);
+            var node = LinkedList.Find(key);
+            if (null == node)
+            {
+                throw new ArgumentOutOfRangeException(key.Key.ToString());
+            }
+
             return node;
         }
         public static KeySignature Get(KeySignature ne, IntervalsEnum interval)
         {
             var node = LinkedList.Find(ne);
-            node = node.Find((int)interval);
+            if (null == node)
+                throw new NotImplementedException();
+
+            var ndx = interval.ToIndex();
+            node = node.Find(ndx);
+            if (null == node)
+                throw new NotImplementedException();
 
             var result = node.Value;
             return result;
@@ -182,6 +194,7 @@ namespace Eric.Morrison.Harmony
 
         public static KeySignature Get(KeySignature ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
+            var ndx = intervalEnum.ToIndex();
             var interval = (int)intervalEnum;
             if (direction == DirectionEnum.Descending)
             {

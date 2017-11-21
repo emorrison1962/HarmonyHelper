@@ -95,6 +95,19 @@ namespace Eric.Morrison.Harmony
 
     public static class EnumExtensions
     {
+        public static int ToIndex(this IntervalsEnum ie)
+        {
+            var result = 0;
+            var tmp = ie;
+            while (tmp >= IntervalsEnum.Minor2nd)
+            {
+                ++result;
+                int x = (int)tmp >> 1;
+                tmp = (IntervalsEnum)x;
+            }
+            return result;
+        }
+
         public static T Next<T>(this T src) where T : struct
         {
             if (!typeof(T).IsEnum)
