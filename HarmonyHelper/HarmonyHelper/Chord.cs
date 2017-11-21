@@ -30,16 +30,33 @@ namespace Eric.Morrison.Harmony
 
             this.KeySignature = formula.KeySignature;
 
-            this.Root = noteRange.First(formula.Root);
-            this.Third = noteRange.First(formula.Third);
-            this.Fifth = noteRange.First(formula.Fifth);
-            this.Seventh = noteRange.First(formula.Seventh);
+            this.Root = noteRange.First(formula.Root, this.KeySignature);
+            this.Third = noteRange.First(formula.Third, this.KeySignature);
+            this.Fifth = noteRange.First(formula.Fifth, this.KeySignature);
+            this.Seventh = noteRange.First(formula.Seventh, this.KeySignature);
+
+            if (null == this.Root)
+                throw new NullReferenceException();
+            if (null == this.Third)
+                throw new NullReferenceException();
+            if (null == this.Fifth)
+                throw new NullReferenceException();
+            if (null == this.Seventh)
+                throw new NullReferenceException();
 
             this.PopulateNotes(noteRange);
         }
 
         public Chord(Note root, Note third, Note fifth, Note seventh, NoteRange noteRange)
         {
+            if (null == root)
+                throw new ArgumentNullException();
+            if (null == third)
+                throw new ArgumentNullException();
+            if (null == fifth)
+                throw new ArgumentNullException();
+            if (null == seventh)
+                throw new ArgumentNullException();
             this.Root = root;
             this.Third = third;
             this.Fifth = fifth;

@@ -73,20 +73,26 @@ namespace Eric.Morrison.Harmony
         #endregion
 
         #region Construction
+
+        class NoteNameValueComparer : IEqualityComparer<NoteName>
+        {
+            public bool Equals(NoteName x, NoteName y)
+            {
+                var result = false;
+                if (x.Value == y.Value)
+                    result = true;
+                return result;
+            }
+
+            public int GetHashCode(NoteName obj)
+            {
+                return obj.Value.GetHashCode();
+            }
+        }
         static NotesCollection()
         {
-            LinkedList.AddLast(NoteName.C);
-            LinkedList.AddLast(NoteName.Db);
-            LinkedList.AddLast(NoteName.D);
-            LinkedList.AddLast(NoteName.Eb);
-            LinkedList.AddLast(NoteName.E);
-            LinkedList.AddLast(NoteName.F);
-            LinkedList.AddLast(NoteName.Gb);
-            LinkedList.AddLast(NoteName.G);
-            LinkedList.AddLast(NoteName.Ab);
-            LinkedList.AddLast(NoteName.A);
-            LinkedList.AddLast(NoteName.Bb);
-            LinkedList.AddLast(NoteName.B);
+            var notes = NoteName.GetNoteNames().Distinct(new NoteNameValueComparer()).ToList();
+            notes.ForEach(x => LinkedList.AddLast(x));
         }
 
         #endregion

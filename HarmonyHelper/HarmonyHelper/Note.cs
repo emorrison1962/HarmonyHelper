@@ -17,6 +17,8 @@ namespace Eric.Morrison.Harmony
         #region Construction
         public Note(Note src)
         {
+            if (null == src)
+                throw new ArgumentNullException();
             this.NoteName = src.NoteName;
             this.Octave = src.Octave;
         }
@@ -26,12 +28,17 @@ namespace Eric.Morrison.Harmony
             this.Octave = octave;
         //this.UsesSharps = usesSharps;
     }
-        
+
         #endregion
+
+        public void SetNoteName(NoteName nn)
+        {
+            this.NoteName = nn;
+        }
 
         public override string ToString()
         {
-            throw new NotSupportedException();
+            //throw new NotSupportedException();
             var result = this.NoteName.ToString();
 
             //var result = string.Format("{0}, NoteName={1}, Octave={2}", 
@@ -61,7 +68,7 @@ namespace Eric.Morrison.Harmony
         public bool Equals(Note other)
         {
             var result = false;
-            if (this.NoteName == other.NoteName
+            if (this.NoteName.Equals(other.NoteName)
                 && this.Octave == other.Octave)
                 result = true;
             return result;

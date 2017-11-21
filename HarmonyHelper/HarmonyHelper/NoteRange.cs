@@ -51,9 +51,10 @@ namespace Eric.Morrison.Harmony
             //this.LinkedList.ToList().ForEach(x => Debug.WriteLine(x
         }
 
-        public Note First(NoteName nn)
+        public Note First(NoteName nn, KeySignature key)
         {
-            var result = LinkedList.Where(x => x.NoteName == nn).FirstOrDefault();
+            var result = LinkedList.Where(x => x.NoteName.Value == nn.Value).FirstOrDefault();
+            result.SetNoteName(key.GetNormalized(nn));
             return result;
         }
 

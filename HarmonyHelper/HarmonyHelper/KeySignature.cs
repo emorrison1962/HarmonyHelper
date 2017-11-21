@@ -12,6 +12,7 @@ namespace Eric.Morrison.Harmony
         public static readonly KeySignature NoAccidentals;
         public static readonly KeySignature CMajor;
         public static readonly KeySignature AMinor;
+        List<NoteName> CMajorNotes = new List<NoteName>() { NoteName.C, NoteName.D, NoteName.E, NoteName.F, NoteName.G, NoteName.A, NoteName.B };
 
         public static readonly KeySignature OneSharps;
         public static readonly KeySignature GMajor;
@@ -83,53 +84,53 @@ namespace Eric.Morrison.Harmony
             CMajor = KeySignature.Clone(NoAccidentals);
             AMinor = KeySignature.Clone(NoAccidentals);
 
-            OneSharps = new KeySignature(NoteName.G, new[] { NoteName.Gb }, true); // F#
+            OneSharps = new KeySignature(NoteName.G, new[] { NoteName.FSharp }, true); // F#
             GMajor = KeySignature.Clone(KeySignature.OneSharps);
             EMinor = KeySignature.Clone(KeySignature.OneSharps);
 
-            TwoSharps = new KeySignature(NoteName.D, new[] { NoteName.Gb,
-                NoteName.Db,}, true); // F♯ C♯
+            TwoSharps = new KeySignature(NoteName.D, new[] { NoteName.FSharp,
+                NoteName.CSharp,}, true); // F♯ C♯
             DMajor = KeySignature.Clone(KeySignature.TwoSharps);
             BMinor = KeySignature.Clone(KeySignature.TwoSharps);
 
             ThreeSharps = new KeySignature(NoteName.A,
-                new[] { NoteName.Gb,
-                NoteName.Db,
-                NoteName.Ab,}, true);// F♯, C♯, G♯
+                new[] { NoteName.FSharp,
+                NoteName.CSharp,
+                NoteName.GSharp,}, true);// F♯, C♯, G♯
             AMajor = KeySignature.Clone(KeySignature.ThreeSharps);
             FSharpMinor = KeySignature.Clone(KeySignature.ThreeSharps);
 
-            FourSharps = new KeySignature(NoteName.E, new[] { NoteName.Gb,
-                NoteName.Db,
-                NoteName.Ab,
-                NoteName.Eb,}, true);// F♯, C♯, G♯, D♯
+            FourSharps = new KeySignature(NoteName.E, new[] { NoteName.FSharp,
+                NoteName.CSharp,
+                NoteName.GSharp,
+                NoteName.DSharp,}, true);// F♯, C♯, G♯, D♯
             EMajor = KeySignature.Clone(KeySignature.FourSharps);
             CSharpMinor = KeySignature.Clone(KeySignature.FourSharps);
 
-            FiveSharps = new KeySignature(NoteName.B, new[] { NoteName.Gb,
-                NoteName.Db,
-                NoteName.Ab,
-                NoteName.Eb,
-                NoteName.Bb,}, true);// F♯, C♯, G♯, D♯, A♯
+            FiveSharps = new KeySignature(NoteName.B, new[] { NoteName.FSharp,
+                NoteName.CSharp,
+                NoteName.GSharp,
+                NoteName.DSharp,
+                NoteName.ASharp,}, true);// F♯, C♯, G♯, D♯, A♯
             BMajor = KeySignature.Clone(KeySignature.FiveSharps);
             GSharpMinor = KeySignature.Clone(KeySignature.FiveSharps);
 
-            SixSharps = new KeySignature(NoteName.FSharp, new[] { NoteName.Gb,
-                NoteName.Db,
-                NoteName.Ab,
-                NoteName.Eb,
-                NoteName.Bb,
-                NoteName.F}, true);// F♯, C♯, G♯, D♯, A♯, E♯
+            SixSharps = new KeySignature(NoteName.FSharp, new[] { NoteName.FSharp,
+                NoteName.CSharp,
+                NoteName.GSharp,
+                NoteName.DSharp,
+                NoteName.ASharp,
+                NoteName.ESharp}, true);// F♯, C♯, G♯, D♯, A♯, E♯
             FSharpMajor = KeySignature.Clone(KeySignature.SixSharps);
             DSharpMinor = KeySignature.Clone(KeySignature.SixSharps);
 
-            SevenSharps = new KeySignature(NoteName.CSharp, new[] { NoteName.Gb,
-                NoteName.Db,
-                NoteName.Ab,
-                NoteName.Eb,
-                NoteName.Bb,
-                NoteName.F,
-                NoteName.C }, true);// F♯, C♯, G♯, D♯, A♯, E♯, B♯
+            SevenSharps = new KeySignature(NoteName.CSharp, new[] { NoteName.FSharp,
+                NoteName.CSharp,
+                NoteName.GSharp,
+                NoteName.DSharp,
+                NoteName.ASharp,
+                NoteName.ESharp,
+                NoteName.BSharp }, true);// F♯, C♯, G♯, D♯, A♯, E♯, B♯
             CSharpMajor = KeySignature.Clone(KeySignature.SevenSharps);
             ASharpMinor = KeySignature.Clone(KeySignature.SevenSharps);
 
@@ -224,7 +225,24 @@ namespace Eric.Morrison.Harmony
             }
         }
 
-        
+        class IsInKeyComparer : IEqualityComparer<NoteName>
+        {
+            public bool Equals(NoteName x, NoteName y)
+            {
+                bool result = false;
+                if (x.Value == y.Value
+                    && x.Name == y.Name)
+                    result = true;
+                return result;
+
+            }
+
+            public int GetHashCode(NoteName obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
+
 
         public bool Affects(NoteName note)
         {
@@ -233,13 +251,27 @@ namespace Eric.Morrison.Harmony
                 result = true;
             return result;
         }
+        public bool Contains(NoteName note)
+        {
+            var result = false;
+            if (this.Notes.Contains(note, new IsInKeyComparer()))
+                result = true;
+            return result;
+        }
 
-        public NoteName GetName(NoteName nn)
+        public NoteName GetNormalized(NoteName nn)
         {
             var result = nn;
-            if (this.Affects(nn))
+            if (!this.Contains(nn))
             {
-                throw new NotImplementedException();
+                if (this.Affects(nn))
+                {
+                    result = NoteName.GetEnharmonicEquivalent(nn);
+                }
+                else if (!nn.IsNatural)
+                {
+                    result = NoteName.GetEnharmonicEquivalent(nn);
+                }
             }
             return result;
         }
