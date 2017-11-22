@@ -72,7 +72,7 @@ namespace Eric.Morrison.Harmony
         public static readonly KeySignature AbMinor;
         #endregion KeySignatures
 
-        public NoteName Key { get; private set; }
+        public NoteName NoteName { get; private set; }
         public List<NoteName> Notes { get; private set; }
         public bool UsesSharps { get; private set; }
         public bool UsesFlats { get; private set; }
@@ -194,7 +194,7 @@ namespace Eric.Morrison.Harmony
 
         private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool usesSharps)
         {
-            this.Key = key;
+            this.NoteName = key;
             this.Notes = new List<NoteName>(notes);
             this.UsesSharps = usesSharps;
             this.UsesFlats = !usesSharps;
@@ -203,7 +203,7 @@ namespace Eric.Morrison.Harmony
         }
         private static KeySignature Clone(KeySignature src)
         {
-            var result = new KeySignature(src.Key, src.Notes, src.UsesSharps);
+            var result = new KeySignature(src.NoteName, src.Notes, src.UsesSharps);
             return result;
         }
 
@@ -278,20 +278,20 @@ namespace Eric.Morrison.Harmony
 
         public override string ToString()
         {
-            return this.Key.ToString();
+            return this.NoteName.ToString();
         }
 
         public bool Equals(KeySignature other)
         {
             var result = false;
-            if (other.Key == this.Key)
+            if (other.NoteName == this.NoteName)
                 result = true;
             return result;
         }
 
         public override int GetHashCode()
         {
-            return this.Key.GetHashCode();
+            return this.NoteName.GetHashCode();
         }
 
     }//class

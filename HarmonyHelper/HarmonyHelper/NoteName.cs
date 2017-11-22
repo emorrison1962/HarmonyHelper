@@ -304,5 +304,17 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        public static NoteName operator +(NoteName note, IntervalsEnum interval)
+        {
+            var result = NotesCollection.Get(note, interval);
+            return result;
+        }
+
+        public static NoteName operator -(NoteName note, IntervalsEnum interval)
+        {
+            var result = NotesCollection.Get(note, interval, DirectionEnum.Descending);
+            return result;
+        }
+
     }//class
 }//ns

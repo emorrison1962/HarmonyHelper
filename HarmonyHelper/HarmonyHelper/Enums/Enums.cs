@@ -7,13 +7,13 @@ namespace Eric.Morrison.Harmony
     public enum OctaveEnum
     {
         Unknown = int.MinValue,
-        Octave0 = 1 << 13,
-        Octave1 = 1 << 14,
-        Octave2 = 1 << 15,
-        Octave3 = 1 << 16,
-        Octave4 = 1 << 17,
-        Octave5 = 1 << 18,
-        Octave6 = 1 << 19,
+        Octave0 = 0,
+        Octave1,
+        Octave2,
+        Octave3,
+        Octave4,
+        Octave5,
+        Octave6,
     }
 
 
@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony
     [Flags]
     public enum IntervalsEnum
     {
-        Unknown = 0,
+        None = 0,
         Minor2nd = 1 << 1,
         Major2nd = 1 << 2,
         Minor3rd = 1 << 3,

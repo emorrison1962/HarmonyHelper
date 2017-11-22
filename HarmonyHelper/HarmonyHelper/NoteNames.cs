@@ -172,7 +172,7 @@ namespace Eric.Morrison.Harmony
             var node = LinkedList.Find(key);
             if (null == node)
             {
-                throw new ArgumentOutOfRangeException(key.Key.ToString());
+                throw new ArgumentOutOfRangeException(key.NoteName.ToString());
             }
 
             return node;

@@ -76,7 +76,7 @@ namespace Eric.Morrison.Harmony.Tests
             new object();
         }
 
-        [TestMethod()]
+        [TestMethod()][Ignore]
         public void ChordTest()
         {
             foreach (var chord in ChordFormula.Chords)
@@ -88,6 +88,7 @@ namespace Eric.Morrison.Harmony.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void IteratorTest()
         {
             foreach (var chord in ChordFormula.Chords)

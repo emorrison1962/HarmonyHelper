@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony
     {
         public static IntervalsEnum GetThirdInterval(this ChordTypesEnum cte)
         {
-            var result = IntervalsEnum.Unknown;
+            var result = IntervalsEnum.None;
 
             var icte = (int)cte;
             var mask = (int)(IntervalsEnum.Major3rd | IntervalsEnum.Minor3rd);
@@ -21,7 +21,7 @@ namespace Eric.Morrison.Harmony
         }
         public static IntervalsEnum GetFifthInterval(this ChordTypesEnum cte)
         {
-            var result = IntervalsEnum.Unknown;
+            var result = IntervalsEnum.None;
             var icte = (int)cte;
             var mask = (int)(IntervalsEnum.Diminished5th
                 | IntervalsEnum.Perfect5th
@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony
         }
         public static IntervalsEnum GetSeventhInterval(this ChordTypesEnum cte)
         {
-            var result = IntervalsEnum.Unknown;
+            var result = IntervalsEnum.None;
             var icte = (int)cte;
             var mask = (int)(IntervalsEnum.Minor7th
                 | IntervalsEnum.Major7th);
@@ -44,7 +44,7 @@ namespace Eric.Morrison.Harmony
 
         public static IntervalsEnum Invert(this IntervalsEnum interval)
         {
-            var result = IntervalsEnum.Unknown;
+            var result = IntervalsEnum.None;
             switch (interval)
             {
 

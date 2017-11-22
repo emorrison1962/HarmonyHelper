@@ -47,6 +47,7 @@
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\LinkedListExtensions.cs" />
     <Compile Include="KeySignature.cs" />
+    <Compile Include="Mode.cs" />
     <Compile Include="NoteName.cs" />
     <Compile Include="NoteNames.cs" />
     <Compile Include="NoteRange.cs" />
