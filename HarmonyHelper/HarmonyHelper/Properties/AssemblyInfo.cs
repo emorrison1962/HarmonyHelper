@@ -34,3 +34,7 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: InternalsVisibleTo("HarmonyHelper.Tests1")]
+[assembly: InternalsVisibleTo("HarmonyHelper.Explorables")]
+[assembly: InternalsVisibleTo("HarmonyHelper.Tests2")]
+

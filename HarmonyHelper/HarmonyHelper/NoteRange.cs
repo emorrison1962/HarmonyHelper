@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony
                 throw new InvalidOperationException();
 
             this.LinkedList.AddLast(this.LowerLimit);
-            var node = NotesCollection.Get(this.LowerLimit.NoteName);
+            var node = NoteNamesCollection.Get(this.LowerLimit.NoteName);
             var octave = this.LowerLimit.Octave;
             bool wrapped = false;
 

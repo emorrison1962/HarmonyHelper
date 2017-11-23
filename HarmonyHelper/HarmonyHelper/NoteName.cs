@@ -2,37 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    [Obsolete("", true)]
-    [Flags]
-    public enum NotesEnum
-    {
-        C = 1 << 1,
-        Db = 1 << 2,
-        D = 1 << 3,
-        Eb = 1 << 4,
-        E = 1 << 5,
-        F = 1 << 6,
-        Gb = 1 << 7,
-        G = 1 << 8,
-        Ab = 1 << 9,
-        A = 1 << 10,
-        Bb = 1 << 11,
-        B = 1 << 12,
-
-        Cb = B,
-        Fb = E,
-
-        DSharp = Eb,
-        GSharp = Ab,
-        CSharp = Db,
-        FSharp = Gb,
-    };
-
     public class NoteName
     {
         #region Constants
@@ -68,7 +40,7 @@ namespace Eric.Morrison.Harmony
         public bool IsNatural { get; private set; }
 
 
-        public NoteName(string name, int val)
+        NoteName(string name, int val)
         {
             this.Name = name;
             this.Value = val;
@@ -81,7 +53,7 @@ namespace Eric.Morrison.Harmony
                 this.IsNatural = true;
         }
 
-        public NoteName(NoteName src) : this(src.Name, src.Value)
+        NoteName(NoteName src) : this(src.Name, src.Value)
         {
         }
 
@@ -273,13 +245,10 @@ namespace Eric.Morrison.Harmony
         public static int Compare(NoteName a, NoteName b)
         {
             if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
-                //if (null == a && null == b)
                 return 0;
             else if (object.ReferenceEquals(null, a))
-                //else if (null == a)
                 return -1;
             else if (object.ReferenceEquals(null, b))
-                //else if (null == b)
                 return 1;
 
             return a.Value.CompareTo(b.Value);
@@ -316,13 +285,21 @@ namespace Eric.Morrison.Harmony
 
         public static NoteName operator +(NoteName note, IntervalsEnum interval)
         {
-            var result = NotesCollection.Get(note, interval);
+            var result = note;
+            if (null != note && interval > IntervalsEnum.None)
+            {
+                result = NoteNamesCollection.Get(note, interval);
+            }
             return result;
         }
 
         public static NoteName operator -(NoteName note, IntervalsEnum interval)
         {
-            var result = NotesCollection.Get(note, interval, DirectionEnum.Descending);
+            var result = note;
+            if (null != note && interval > IntervalsEnum.None)
+            {
+                result = NoteNamesCollection.Get(note, interval, DirectionEnum.Descending);
+            }
             return result;
         }
 

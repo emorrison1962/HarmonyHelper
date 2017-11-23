@@ -78,20 +78,20 @@ namespace Eric.Morrison.Harmony
                 throw new NullReferenceException();
 
             var interval = chordType.GetThirdInterval();
-            var third = NotesCollection.Get(root, interval);
+            var third = NoteNamesCollection.Get(root, interval);
             if (null == third)
                 throw new NullReferenceException();
             this.Third = key.Normalize(third);
 
 
             interval = chordType.GetFifthInterval();
-            var fifth = NotesCollection.Get(root, interval);
+            var fifth = NoteNamesCollection.Get(root, interval);
             if (null == fifth)
                 throw new NullReferenceException();
             this.Fifth = key.Normalize(fifth);
 
             interval = chordType.GetSeventhInterval();
-            var seventh = NotesCollection.Get(root, interval);
+            var seventh = NoteNamesCollection.Get(root, interval);
             if (null == seventh)
                 throw new NullReferenceException();
             this.Seventh = key.Normalize(seventh);
@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
         {
             var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval);
-            var txedRoot = NotesCollection.Get(chord.Root, interval);
+            var txedRoot = NoteNamesCollection.Get(chord.Root, interval);
             txedRoot = txedKey.Normalize(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);
@@ -114,7 +114,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
         {
             var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval, DirectionEnum.Descending);
-            var txedRoot = NotesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
+            var txedRoot = NoteNamesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
             txedRoot = txedKey.Normalize(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);

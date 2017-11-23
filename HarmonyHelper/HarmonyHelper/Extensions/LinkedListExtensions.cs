@@ -127,7 +127,7 @@ namespace Eric.Morrison.Harmony
                 if (result.EndsWith("b"))
                 {
                     new object();
-                    var n = NotesCollection.Get(note, IntervalsEnum.Minor2nd, DirectionEnum.Descending);
+                    var n = NoteNamesCollection.Get(note, IntervalsEnum.Minor2nd, DirectionEnum.Descending);
                     result = n.ToString();
                 }
             }

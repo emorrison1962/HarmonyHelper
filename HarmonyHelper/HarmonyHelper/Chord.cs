@@ -25,7 +25,11 @@ namespace Eric.Morrison.Harmony
 
         public Chord(ChordFormula formula, NoteRange noteRange)
         {
+            if (null == formula)
+                throw new ArgumentNullException();
             if (null == formula.KeySignature)
+                throw new ArgumentNullException();
+            if (null == noteRange)
                 throw new ArgumentNullException();
 
             this.KeySignature = formula.KeySignature;

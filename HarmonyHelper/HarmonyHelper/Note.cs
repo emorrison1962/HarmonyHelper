@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -11,7 +10,6 @@ namespace Eric.Morrison.Harmony
 
         public OctaveEnum Octave { get; set; }
 
-        //public KeySignature KeySignature { get; private set; }
         #endregion
 
         #region Construction
@@ -26,8 +24,8 @@ namespace Eric.Morrison.Harmony
         {
             this.NoteName = nn;
             this.Octave = octave;
-        //this.UsesSharps = usesSharps;
-    }
+            //this.UsesSharps = usesSharps;
+        }
 
         #endregion
 
@@ -122,13 +120,13 @@ namespace Eric.Morrison.Harmony
         public static int Compare(Note a, Note b)
         {
             if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
-            //if (null == a && null == b)
+                //if (null == a && null == b)
                 return 0;
             else if (object.ReferenceEquals(null, a))
-            //else if (null == a)
+                //else if (null == a)
                 return -1;
             else if (object.ReferenceEquals(null, b))
-            //else if (null == b)
+                //else if (null == b)
                 return 1;
 
             if (a.Octave == b.Octave)
@@ -137,7 +135,7 @@ namespace Eric.Morrison.Harmony
                     return 0;
                 else if (a.NoteName < b.NoteName)
                     return -1;
-                else 
+                else
                     return 1;
             }
             else if (a.Octave < b.Octave)
