@@ -42,11 +42,11 @@ namespace Eric.Morrison.Harmony.Tests
 
             const int MAX_NOTES_PER_CHORD = 8;
 
-            var ctx = new ArpeggiationContext(chord,
+            var ctx = new ArpeggiationContext(new Chord[] { chord },
                 DirectionEnum.Ascending,
-                root,
                 noteRange,
-                MAX_NOTES_PER_CHORD);
+                MAX_NOTES_PER_CHORD, 
+                root);
 
             const int MAX_ITERATIONS = 100;
             Debug.WriteLine(root);
@@ -121,18 +121,6 @@ namespace Eric.Morrison.Harmony.Tests
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
-            var ctx = new ArpeggiationContext(chord,
-                DirectionEnum.Ascending,
-                startingNote,
-                noteRange, notesToPlay);
-
-            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Ctx_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
-
             var chords = new List<Chord>() { chord };
             for (int i = 0; i <= 10; ++i)
             {
@@ -141,7 +129,101 @@ namespace Eric.Morrison.Harmony.Tests
                 chords.Add(chord);
             }
 
-            ctx.Arpeggiate(chords);
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+            ctx.Arpeggiate();
+
+            new object();
+        }
+
+        [TestMethod()]
+        public void KeySignatureTransposeTest()
+        {
+            var key = KeySignature.CMajor;
+            for (int i = 0; i <= CYCLE_MAX; ++i)
+            {
+                var a = key.NoteName.ToString();
+                var b = key.Normalize(key.NoteName).ToString();
+                Assert.AreEqual(a, b);
+                //key.Notes.ForEach(x => Debug.Write(x + ","));
+                //Debug.WriteLine("");
+                key = key + IntervalsEnum.Perfect4th;
+            }
+        }
+
+        const int CYCLE_MAX = 11;
+        [TestMethod()]
+        public void ii_V_CycleTest()
+        {
+            var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
+
+            var chords = new List<Chord>();
+            NoteName root = null;
+            KeySignature key = null;
+            ChordTypesEnum chordType = ChordTypesEnum.Augmented;
+
+            for (int i = 0; i <= CYCLE_MAX; ++i)
+            {
+                if (null == root)
+                {
+                    root = NoteName.D;
+                    key = KeySignature.CMajor;
+                    chordType = ChordTypesEnum.Minor7th;
+                }
+                else
+                {
+                    if (chordType == ChordTypesEnum.Dominant7th)
+                    {
+                        chordType = ChordTypesEnum.Minor7th;
+                        key = key - IntervalsEnum.Major2nd;
+                    }
+                    else
+                    {
+                        chordType = ChordTypesEnum.Dominant7th;
+                    }
+                    root = root + IntervalsEnum.Perfect4th;
+                    root = key.Normalize(root);
+                }
+
+                var formula = new ChordFormula(root, chordType, key);
+                var chord = new Chord(formula, noteRange);
+                chords.Add(chord);
+
+                //Debug.Write("key="+key.ToString()+":");
+                //Debug.Write("("+chord.Name+"):");
+                //Debug.WriteLine(chord.ToString());
+
+                new object();
+
+            }
+
+            new object();
+
+            var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+            var notesToPlay = 4;
+
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+
+            ctx.Arpeggiate();
 
             new object();
         }
@@ -154,18 +236,6 @@ namespace Eric.Morrison.Harmony.Tests
             var chord = new Chord(chordFormula, noteRange);
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
-
-            var ctx = new ArpeggiationContext(chord,
-                DirectionEnum.Ascending,
-                startingNote,
-                noteRange, notesToPlay);
-
-            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Ctx_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
 
             var chords = new List<Chord>() { chord };
             //for (int i = 0; i <= 16; ++i)
@@ -184,7 +254,20 @@ namespace Eric.Morrison.Harmony.Tests
                 chords.Add(new Chord(ChordFormula.C7, noteRange));
             }
 
-            ctx.Arpeggiate(chords);
+
+
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+            ctx.Arpeggiate();
 
             new object();
         }
@@ -198,18 +281,6 @@ namespace Eric.Morrison.Harmony.Tests
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
-            var ctx = new ArpeggiationContext(chord,
-                DirectionEnum.Ascending,
-                startingNote,
-                noteRange, notesToPlay);
-
-            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Ctx_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
-
             var chords = new List<Chord>() { chord };
             for (int i = 0; i <= 10; ++i)
             {
@@ -218,7 +289,18 @@ namespace Eric.Morrison.Harmony.Tests
                 chords.Add(chord);
             }
 
-            ctx.Arpeggiate(chords);
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+            ctx.Arpeggiate();
 
             new object();
         }
@@ -232,18 +314,6 @@ namespace Eric.Morrison.Harmony.Tests
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
-            var ctx = new ArpeggiationContext(chord,
-                DirectionEnum.Ascending,
-                startingNote,
-                noteRange, notesToPlay);
-
-            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Ctx_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
-
             var chords = new List<Chord>() { chord };
             for (int i = 0; i <= 10; ++i)
             {
@@ -252,7 +322,20 @@ namespace Eric.Morrison.Harmony.Tests
                 chords.Add(chord);
             }
 
-            ctx.Arpeggiate(chords);
+
+
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Ctx_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+            ctx.Arpeggiate();
 
             new object();
         }
@@ -290,7 +373,7 @@ namespace Eric.Morrison.Harmony.Tests
         {
             if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
                 Debug.WriteLine(" |");
-            Debug.Write(string.Format(" | ({0}7) ", ctx.Chord.Root.ToString(ctx.Chord.KeySignature)));
+            Debug.Write(string.Format(" | ({0}) ", ctx.Chord.Name));
             ++chordCount;
         }
 

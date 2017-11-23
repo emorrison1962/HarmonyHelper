@@ -54,12 +54,12 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        [Obsolete]
         public string ToString(ToStringEnum verbosity, KeySignature key)
         {
             if (null == key)
                 throw new ArgumentNullException();
-
-            var result = this.NoteName.ToString(key);
+            var result = key.Normalize(this.NoteName).ToString();
             return result;
         }
 

@@ -45,29 +45,33 @@ namespace Eric.Morrison.Harmony
                 this.OnChordChanged();
             }
         }
+        List<Chord> Chords { get; set; }
 
-        public ArpeggiationContext(Chord chord, DirectionEnum direction,
-            Note nextNote, NoteRange noteRange, int maxNotes)
+        public ArpeggiationContext(IEnumerable<Chord> chords, DirectionEnum direction,
+            NoteRange noteRange, int maxNotes, Note nextNote = null)
         {
             this.Direction = direction;
-            this.Chord = chord;
+
+            this.Chords = new List<Chord>(chords);
+            this.Chord = this.Chords[0];
+            if (null == nextNote)
+                nextNote = this.Chord.Root;
             this.CurrentNote = nextNote;
             this.NoteRange = noteRange;
             this.MaxNotesPerChord = maxNotes;
         }
 
-        public void Arpeggiate(List<Chord> chords)
+        public void Arpeggiate()
         {
             this.OnStarting();
 
             bool firstTime = true;
-            foreach (var chord in chords)
+            foreach (var chord in this.Chords)
             {
                 this.Chord = chord;
                 if (firstTime)
                 {
                     OnDirectionChanged();
-                    //OnCurrentNoteChanged();
                 }
                 for (int i = 0; i < this.MaxNotesPerChord; ++i)
                 {

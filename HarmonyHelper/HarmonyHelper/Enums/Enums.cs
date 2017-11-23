@@ -80,6 +80,7 @@ namespace Eric.Morrison.Harmony
         Diagnostic
     }
 
+    [Obsolete("",true)]
     public enum ChordFunctionEnum
     {
         I,
@@ -90,5 +91,7 @@ namespace Eric.Morrison.Harmony
         vi,
         vii,
     }
+
+
 
 }//ns

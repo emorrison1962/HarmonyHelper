@@ -202,6 +202,7 @@ namespace Eric.Morrison.Harmony
         {
             return this.Name;
         }
+        [Obsolete]
         public string ToString(KeySignature key)
         {
             return this.Name;

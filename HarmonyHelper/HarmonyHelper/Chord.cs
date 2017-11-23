@@ -16,6 +16,7 @@ namespace Eric.Morrison.Harmony
         public Note Third { get; set; }
         public Note Fifth { get; set; }
         public Note Seventh { get; set; }
+        ChordFormula ChordFormula { get; set; }
 
         LinkedList<Note> ChordTones { get; set; } = new LinkedList<Note>();
 
@@ -38,6 +39,7 @@ namespace Eric.Morrison.Harmony
             this.Third = noteRange.First(formula.Third, this.KeySignature);
             this.Fifth = noteRange.First(formula.Fifth, this.KeySignature);
             this.Seventh = noteRange.First(formula.Seventh, this.KeySignature);
+            this.ChordFormula = formula;
 
             if (null == this.Root)
                 throw new NullReferenceException();
@@ -143,6 +145,14 @@ namespace Eric.Morrison.Harmony
                 this.Fifth.ToString(ToStringEnum.Minimal, this.KeySignature),
                 this.Seventh.ToString(ToStringEnum.Minimal, this.KeySignature));
         }
-
+        public string Name {
+            get
+            {
+                var result = string.Format("{0}{1}",
+                    this.Root.ToString(ToStringEnum.Minimal, this.KeySignature),
+                    this.ChordFormula.ChordType.ToStringEx());
+                return result;
+            }
+        }
     }//class
 }//ns

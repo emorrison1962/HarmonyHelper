@@ -34,20 +34,7 @@ namespace Eric.Morrison.Harmony
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
-            var ctx = new ArpeggiationContext(chord,
-                DirectionEnum.Ascending,
-                startingNote,
-                noteRange, notesToPlay);
-
-            ctx.ArpeggiationContextChanged += Ctx_NoOpObserver;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Log_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
-
             var chords = new List<Chord>() { chord };
-            //for (int i = 0; i <= 16; ++i)
             {
                 chords.Add(new Chord(ChordFormula.Bb7, noteRange));
                 chords.Add(new Chord(ChordFormula.Bb7, noteRange));
@@ -62,7 +49,20 @@ namespace Eric.Morrison.Harmony
                 chords.Add(new Chord(ChordFormula.C7, noteRange));
             }
 
-            ctx.Arpeggiate(chords);
+
+            var ctx = new ArpeggiationContext(chords,
+                DirectionEnum.Ascending,
+                noteRange, notesToPlay, startingNote);
+
+            ctx.ArpeggiationContextChanged += Ctx_NoOpObserver;
+            ctx.ChordChanged += Ctx_ChordChanged;
+            ctx.DirectionChanged += Log_DirectionChanged;
+            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            ctx.Starting += Ctx_Starting;
+            ctx.Ending += Ctx_Ending;
+
+
+            ctx.Arpeggiate();
 
             new object();
         }
@@ -123,7 +123,7 @@ namespace Eric.Morrison.Harmony
         {
             if (LogCtx.chordCount > 0 && LogCtx.chordCount % LogCtx.BARS_PER_LINE == 0)
                 Debug.WriteLine(" |");
-            Debug.Write(string.Format(" | ({0}7) ", ctx.Chord.Root.ToString(ctx.Chord.KeySignature)));
+            Debug.Write(string.Format(" | ({0}) ", ctx.Chord.Name));
             ++LogCtx.chordCount;
         }
 

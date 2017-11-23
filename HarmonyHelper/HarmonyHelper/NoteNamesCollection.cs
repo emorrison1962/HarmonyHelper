@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -45,22 +44,14 @@ namespace Eric.Morrison.Harmony
         }
         public static NoteName Get(NoteName ne, IntervalsEnum interval)
         {
-            var values = Enum.GetValues(typeof(IntervalsEnum));
-            var list = new List<IntervalsEnum>();
-
-            for (int i = 0; i < values.Length; ++i)
-            {
-                var v = values.GetValue(i);
-                if (!list.Contains((IntervalsEnum)v))
-                    list.Add((IntervalsEnum)v);
-            }
-            
-            int ndx = list.IndexOf(interval);
-
+            int ndx = interval.ToIndex();
             var node = LinkedList.Find(ne);
             node = node.Find(ndx);
 
             var result = node.Value;
+            if (null == result)
+                throw new NullReferenceException();
+
             return result;
         }
 
