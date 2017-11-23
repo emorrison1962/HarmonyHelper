@@ -14,21 +14,6 @@ namespace Eric.Morrison.Harmony
 
         #region Construction
 
-        class NoteNameValueComparer : IEqualityComparer<NoteName>
-        {
-            public bool Equals(NoteName x, NoteName y)
-            {
-                var result = false;
-                if (x.Value == y.Value)
-                    result = true;
-                return result;
-            }
-
-            public int GetHashCode(NoteName obj)
-            {
-                return obj.Value.GetHashCode();
-            }
-        }
         static NoteNamesCollection()
         {
             var notes = NoteName.GetNoteNames().Distinct(new NoteNameValueComparer()).ToList();

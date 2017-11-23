@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -23,6 +25,23 @@ namespace Eric.Morrison.Harmony.Tests
             //IntervalsEnum GetThird(this ChordTypesEnum e)
         }
 
+        [TestMethod()]
+        public void SubtractionOperatorTest()
+        {
+            var intervals = Enum.GetValues(typeof(IntervalsEnum))
+                .OfType<IntervalsEnum>()
+                .Where(x => x > IntervalsEnum.None)
+                .ToList();
+
+            foreach (var interval in intervals)
+            {
+                var subtrahend = NoteName.C + interval;
+                var result = NoteName.C - subtrahend;
+                Assert.AreEqual(interval, result);
+            }
+
+            new object();
+        }
 
         [TestMethod()]
         public void FindClosestNoteTest()

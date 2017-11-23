@@ -72,9 +72,6 @@ namespace Eric.Morrison.Harmony
         public static Note FindClosest(this LinkedList<Note> ll, Note lastNote, DirectionEnum direction)
         {
             Note result;
-            //var current = ll.Find(lastNote);
-            //if (null == current)
-            //    throw new ArgumentNullException();
 
             if (DirectionEnum.Ascending == direction)
             {
@@ -84,37 +81,6 @@ namespace Eric.Morrison.Harmony
             {
                 result = ll.Where(x => x < lastNote).LastOrDefault();
             }
-
-#if false
-            if (DirectionEnum.Ascending == direction)
-            {
-                while (true)
-                {
-                    current = current.NextOrFirst();
-                    if (null == current)
-                        throw new ArgumentNullException();
-                    if (current.Value > lastNote)
-                    {
-                        result = current.Value;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                while (true)
-                {
-                    current = current.PreviousOrLast();
-                    if (null == current)
-                        throw new ArgumentNullException();
-                    if (current.Value < lastNote)
-                    {
-                        result = current.Value;
-                        break;
-                    }
-                }
-            }
-#endif
             return result;
         }
 
