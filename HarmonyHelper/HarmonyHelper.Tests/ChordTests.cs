@@ -53,7 +53,7 @@ namespace Eric.Morrison.Harmony.Tests
             for (int i = 0; i < MAX_ITERATIONS; ++i)
             {
                 var next = chord.GetClosestNoteEx(ctx);
-                Debug.WriteLine(next.ToString());
+                Debug.WriteLine(string.Format("{0}", next.ToString()));
                 ctx.CurrentNote = next;
             }
             new object();
@@ -76,19 +76,22 @@ namespace Eric.Morrison.Harmony.Tests
             new object();
         }
 
-        [TestMethod()][Ignore]
+        [TestMethod()]
         public void ChordTest()
         {
             foreach (var chord in ChordFormula.Chords)
             {
                 Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
-                var newChord = chord + IntervalsEnum.Perfect4th;
+                var txedUp = chord + IntervalsEnum.Perfect4th;
+                Assert.AreNotEqual(txedUp, chord);
+                var txedDown = txedUp - IntervalsEnum.Perfect4th;
+                var b = txedDown == chord;
+                Assert.AreEqual(txedDown, chord);
             }
             new object();
         }
 
         [TestMethod()]
-        [Ignore]
         public void IteratorTest()
         {
             foreach (var chord in ChordFormula.Chords)

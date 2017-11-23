@@ -95,13 +95,13 @@ namespace Eric.Morrison.Harmony
             if (tonicOffset > IntervalsEnum.None)
                 tonic = this.Key.NoteName + tonicOffset;
 
-            this.Tonic = this.Key.GetNormalized(tonic);
-            this.Second = this.Key.GetNormalized(this.Tonic + this.Formula.Second);
-            this.Third = this.Key.GetNormalized(this.Tonic + this.Formula.Third);
-            this.Fourth = this.Key.GetNormalized(this.Tonic + this.Formula.Fourth);
-            this.Fifth = this.Key.GetNormalized(this.Tonic + this.Formula.Fifth);
-            this.Sixth = this.Key.GetNormalized(this.Tonic + this.Formula.Sixth);
-            this.Seventh = this.Key.GetNormalized(this.Tonic + this.Formula.Seventh);
+            this.Tonic = this.Key.Normalize(tonic);
+            this.Second = this.Key.Normalize(this.Tonic + this.Formula.Second);
+            this.Third = this.Key.Normalize(this.Tonic + this.Formula.Third);
+            this.Fourth = this.Key.Normalize(this.Tonic + this.Formula.Fourth);
+            this.Fifth = this.Key.Normalize(this.Tonic + this.Formula.Fifth);
+            this.Sixth = this.Key.Normalize(this.Tonic + this.Formula.Sixth);
+            this.Seventh = this.Key.Normalize(this.Tonic + this.Formula.Seventh);
         }
 
         IntervalsEnum GetTonicOffset()

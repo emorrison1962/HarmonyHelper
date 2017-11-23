@@ -54,7 +54,7 @@ namespace Eric.Morrison.Harmony
         public Note First(NoteName nn, KeySignature key)
         {
             var result = LinkedList.Where(x => x.NoteName.Value == nn.Value).FirstOrDefault();
-            result.SetNoteName(key.GetNormalized(nn));
+            result.SetNoteName(key.Normalize(nn));
             return result;
         }
 

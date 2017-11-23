@@ -40,6 +40,7 @@ namespace Eric.Morrison.Harmony
         {
             //throw new NotSupportedException();
             var result = this.NoteName.ToString();
+            result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
 
             //var result = string.Format("{0}, NoteName={1}, Octave={2}", 
             //    base.ToString(), this.NoteName, this.Octave);
@@ -73,6 +74,14 @@ namespace Eric.Morrison.Harmony
                 result = true;
             return result;
         }
+        public override bool Equals(object obj)
+        {
+            var result = false;
+            if (obj is Note)
+                result = this.Equals(obj as Note);
+            return result;
+        }
+
 
         public static bool operator <(Note a, Note b)
         {
@@ -104,6 +113,7 @@ namespace Eric.Morrison.Harmony
             var result = Compare(a, b) != 0;
             return result;
         }
+
         public int CompareTo(Note other)
         {
             var result = this.CompareTo(other);
@@ -135,16 +145,11 @@ namespace Eric.Morrison.Harmony
             else
                 return 1;
         }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-
-        }
-
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            var result = this.NoteName.GetHashCode()
+                ^ this.Octave.GetHashCode();
+            return result;
         }
     }//class
 

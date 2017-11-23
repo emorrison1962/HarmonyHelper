@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class ChordFormula
+    public class ChordFormula : IEquatable<ChordFormula>, IComparable<ChordFormula>
     {
         #region Chords
         static public readonly ChordFormula C7;
@@ -81,20 +81,20 @@ namespace Eric.Morrison.Harmony
             var third = NotesCollection.Get(root, interval);
             if (null == third)
                 throw new NullReferenceException();
-            this.Third = key.GetNormalized(third);
+            this.Third = key.Normalize(third);
 
 
             interval = chordType.GetFifthInterval();
             var fifth = NotesCollection.Get(root, interval);
             if (null == fifth)
                 throw new NullReferenceException();
-            this.Fifth = key.GetNormalized(fifth);
+            this.Fifth = key.Normalize(fifth);
 
             interval = chordType.GetSeventhInterval();
             var seventh = NotesCollection.Get(root, interval);
             if (null == seventh)
                 throw new NullReferenceException();
-            this.Seventh = key.GetNormalized(seventh);
+            this.Seventh = key.Normalize(seventh);
 
         }
 
@@ -103,8 +103,9 @@ namespace Eric.Morrison.Harmony
 
         public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
         {
-            var txedRoot = NotesCollection.Get(chord.Root, interval);
             var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval);
+            var txedRoot = NotesCollection.Get(chord.Root, interval);
+            txedRoot = txedKey.Normalize(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);
             return result;
@@ -112,8 +113,9 @@ namespace Eric.Morrison.Harmony
 
         public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
         {
-            var txedRoot = NotesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
             var txedKey = KeySignatureCollection.Get(chord.KeySignature, interval, DirectionEnum.Descending);
+            var txedRoot = NotesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
+            txedRoot = txedKey.Normalize(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, chord.ChordFunction, txedKey);
             return result;
@@ -127,6 +129,93 @@ namespace Eric.Morrison.Harmony
             var seventh = this.Seventh.ToString();
 
             var result = string.Format("{0},{1},{2},{3}", r, third, fifth, seventh);
+            return result;
+        }
+
+        public bool Equals(ChordFormula other)
+        {
+            var result = false;
+            if (this.Root.Equals(other.Root)
+                && this.Third == other.Third
+                && this.Fifth == other.Fifth
+                && this.Seventh == other.Seventh
+                && this.KeySignature == other.KeySignature)
+                result = true;
+            return result;
+        }
+        public override bool Equals(object obj)
+        {
+            var result = false;
+            if (obj is ChordFormula)
+                result = this.Equals(obj as ChordFormula);
+            return result;
+        }
+
+
+        public static bool operator <(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) < 0;
+            return result;
+        }
+        public static bool operator >(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) > 0;
+            return result;
+        }
+        public static bool operator <=(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) <= 0;
+            return result;
+        }
+        public static bool operator >=(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) >= 0;
+            return result;
+        }
+        public static bool operator ==(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) == 0;
+            return result;
+        }
+        public static bool operator !=(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) != 0;
+            return result;
+        }
+
+        public int CompareTo(ChordFormula other)
+        {
+            var result = Compare(this, other);
+            return result;
+        }
+        public static int Compare(ChordFormula a, ChordFormula b)
+        {
+            if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
+                return 0;
+            else if (object.ReferenceEquals(null, a))
+                return -1;
+            else if (object.ReferenceEquals(null, b))
+                return 1;
+
+            var result = a.Root.CompareTo(b.Root);
+            if (0 == result)
+                result = a.Third.CompareTo(b.Third);
+            if (0 == result)
+                result = a.Fifth.CompareTo(b.Fifth);
+            if (0 == result)
+                result = a.Seventh.CompareTo(b.Seventh);
+            if (0 == result)
+                result = a.KeySignature.CompareTo(b.KeySignature);
+            return result;
+        }
+        public override int GetHashCode()
+        {
+            var result = this.Root.GetHashCode()
+                ^ this.Third.GetHashCode()
+                ^ this.Fifth.GetHashCode()
+                ^ this.Seventh.GetHashCode()
+                ^ this.KeySignature.GetHashCode();
+
             return result;
         }
 

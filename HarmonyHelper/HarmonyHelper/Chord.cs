@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony
         public Note Fifth { get; set; }
         public Note Seventh { get; set; }
 
-        LinkedList<Note> Notes { get; set; } = new LinkedList<Note>();
+        LinkedList<Note> ChordTones { get; set; } = new LinkedList<Note>();
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Eric.Morrison.Harmony
             if (null == this.Seventh)
                 throw new NullReferenceException();
 
-            this.PopulateNotes(noteRange);
+            this.PopulateChordTones(noteRange);
         }
 
         public Chord(Note root, Note third, Note fifth, Note seventh, NoteRange noteRange)
@@ -62,10 +62,10 @@ namespace Eric.Morrison.Harmony
             this.Fifth = fifth;
             this.Seventh = seventh;
 
-            this.PopulateNotes(noteRange);
+            this.PopulateChordTones(noteRange);
         }
 
-        List<Note> PopulateNotes(NoteRange noteRange)
+        List<Note> PopulateChordTones(NoteRange noteRange)
         {
             var result = new List<Note>();
             #region Our Chord Notes
@@ -108,7 +108,7 @@ namespace Eric.Morrison.Harmony
                 .ToList().ForEach(x => result.Remove(x));
 
             result.Sort(new NoteComparer());
-            result.ForEach(x => this.Notes.AddLast(x));
+            result.ForEach(x => this.ChordTones.AddLast(x));
             //result.ForEach(x => Debug.WriteLine(x.ToString(ToStringEnum.Minimal)));
             return result;
         }
@@ -117,11 +117,11 @@ namespace Eric.Morrison.Harmony
 
         public Note GetClosestNoteEx(ArpeggiationContext ctx)
         {
-            var result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
+            var result = this.ChordTones.FindClosest(ctx.CurrentNote, ctx.Direction);
             if (null == result)
             {
                 ctx.Direction = ctx.Direction.Next();
-                result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
+                result = this.ChordTones.FindClosest(ctx.CurrentNote, ctx.Direction);
             }
 
             //Debug.WriteLine(

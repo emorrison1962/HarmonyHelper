@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class KeySignature : IEquatable<KeySignature>
+    public class KeySignature : IEquatable<KeySignature>, IComparable<KeySignature>
     {
         #region KeySignatures
         public static readonly KeySignature NoAccidentals;
@@ -259,21 +259,20 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public NoteName GetNormalized(NoteName nn)
+        public NoteName Normalize(NoteName nn)
         {
-            var result = nn;
             if (!this.Contains(nn))
             {
                 if (this.Affects(nn))
                 {
-                    result = NoteName.GetEnharmonicEquivalent(nn);
+                    nn = NoteName.GetEnharmonicEquivalent(nn);
                 }
                 else if (!nn.IsNatural)
                 {
-                    result = NoteName.GetEnharmonicEquivalent(nn);
+                    nn = NoteName.GetEnharmonicEquivalent(nn);
                 }
             }
-            return result;
+            return nn;
         }
 
         public override string ToString()
@@ -291,7 +290,55 @@ namespace Eric.Morrison.Harmony
 
         public override int GetHashCode()
         {
-            return this.NoteName.GetHashCode();
+            var result = this.NoteName.GetHashCode()
+                ^ this.Notes.GetHashCode()
+                ^ this.UsesSharps.GetHashCode()
+                ^ this.UsesFlats.GetHashCode();
+            return result;
+        }
+        public override bool Equals(object obj)
+        {
+            var result = false;
+            if (obj is KeySignature)
+                result = this.Equals(obj as KeySignature);
+            return result;
+        }
+
+        public static bool operator ==(KeySignature a, KeySignature b)
+        {
+            var result = Compare(a, b) == 0;
+            return result;
+        }
+        public static bool operator !=(KeySignature a, KeySignature b)
+        {
+            var result = Compare(a, b) != 0;
+            return result;
+        }
+
+        public int CompareTo(KeySignature other)
+        {
+            var result = Compare(this, other);
+            return result;
+        }
+        public static int Compare(KeySignature a, KeySignature b)
+        {
+            if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
+                return 0;
+            else if (object.ReferenceEquals(null, a))
+                return -1;
+            else if (object.ReferenceEquals(null, b))
+                return 1;
+
+            var result = a.NoteName.CompareTo(b.NoteName);
+            if (0 == result)
+            {
+                result = a.Notes.GetHashCode().CompareTo(b.Notes.GetHashCode());
+            }
+            if (0 == result)
+                result = a.UsesSharps.CompareTo(b.UsesSharps);
+            if (0 == result)
+                result = a.UsesFlats.CompareTo(b.UsesFlats);
+            return result;
         }
 
     }//class

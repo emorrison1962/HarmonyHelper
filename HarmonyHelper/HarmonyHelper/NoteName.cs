@@ -81,6 +81,11 @@ namespace Eric.Morrison.Harmony
                 this.IsNatural = true;
         }
 
+        public NoteName(NoteName src) : this(src.Name, src.Value)
+        {
+        }
+
+
         public class EnharmonicEquivalent
         {
             public NoteName Key { get; private set; }
@@ -110,6 +115,11 @@ namespace Eric.Morrison.Harmony
             {
                 return new EnharmonicEquivalent[] {
                     new EnharmonicEquivalent(x,x) };
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0}:{1}", this.Key.ToString(), this.Other.ToString());
             }
         }
 
@@ -204,9 +214,9 @@ namespace Eric.Morrison.Harmony
 
         static public NoteName GetEnharmonicEquivalent(NoteName nn)
         {
-            var seq = NoteName.EnharmonicEquivalents.Where(x => x.Key == nn).ToList();
+            var seq = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).ToList();
             Debug.Assert(seq.Count == 1);
-            var pairing = NoteName.EnharmonicEquivalents.Where(x => x.Key == nn).First();
+            var pairing = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
             var result = pairing.Other;
             return result;
         }
@@ -257,7 +267,7 @@ namespace Eric.Morrison.Harmony
         }
         public int CompareTo(NoteName other)
         {
-            var result = this.CompareTo(other);
+            var result = Compare(this, other);
             return result;
         }
         public static int Compare(NoteName a, NoteName b)
@@ -272,7 +282,7 @@ namespace Eric.Morrison.Harmony
                 //else if (null == b)
                 return 1;
 
-            return a.Name.CompareTo(b.Name);
+            return a.Value.CompareTo(b.Value);
         }
 
         public bool Equals(NoteName other)

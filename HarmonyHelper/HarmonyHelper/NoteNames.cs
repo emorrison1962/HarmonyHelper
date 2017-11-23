@@ -50,7 +50,7 @@ namespace Eric.Morrison.Harmony
 
         public static NotesEnum Get(NotesEnum ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
-            var interval = (int)intervalEnum;
+            var interval = intervalEnum.ToIndex();
             if (direction == DirectionEnum.Descending)
             {
                 interval *= -1;
@@ -126,13 +126,13 @@ namespace Eric.Morrison.Harmony
 
         public static NoteName Get(NoteName ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
-            var interval = (int)intervalEnum;
+            var interval = intervalEnum.ToIndex();
             if (direction == DirectionEnum.Descending)
             {
                 interval *= -1;
             }
             var node = LinkedList.Find(ne);
-            node = node.Find((int)interval);
+            node = node.Find(interval);
 
             var result = node.Value;
             return result;
@@ -194,8 +194,7 @@ namespace Eric.Morrison.Harmony
 
         public static KeySignature Get(KeySignature ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
-            var ndx = intervalEnum.ToIndex();
-            var interval = (int)intervalEnum;
+            var interval = intervalEnum.ToIndex();
             if (direction == DirectionEnum.Descending)
             {
                 interval *= -1;

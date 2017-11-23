@@ -163,7 +163,7 @@ namespace Eric.Morrison.Harmony
       </note>";
             #endregion
 
-            var octave = 1 + (int)ctx.CurrentNote.Octave;
+            var octave = 2 + (int)ctx.CurrentNote.Octave;
             var note = ctx.CurrentNote.NoteName.ToString();
 
             var alter = string.Empty;
