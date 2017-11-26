@@ -1,0 +1,21 @@
+Minor modes.
+
+Scales
+	Major
+	Minor
+	Melodic Minor
+
+Chords
+	Substitutions (including Modal Interchange?)
+	Chords - Extended
+
+Quartal Harmony?
+
+Harmonized scales?
+
+Generated melodies?
+Generated improvisations?
+
+MusicXml: How for do I go with it?
+
+Use a factories instead of statics.
