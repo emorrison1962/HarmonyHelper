@@ -19,3 +19,5 @@ Generated improvisations?
 MusicXml: How for do I go with it?
 
 Use a factories instead of statics.
+
+Never-ending scale exersize (CM7, A7alt, Dm7, G7alt)

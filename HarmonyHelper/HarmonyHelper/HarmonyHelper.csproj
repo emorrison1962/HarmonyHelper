@@ -41,19 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArpeggiationContext.cs" />
-    <Compile Include="Chord.cs" />
-    <Compile Include="ChordFormula.cs" />
+    <Compile Include="Chords\Chord.cs" />
+    <Compile Include="Chords\ChordFormula.cs" />
+    <Compile Include="ChordScaleMapping.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\LinkedListExtensions.cs" />
     <Compile Include="KeySignature.cs" />
     <Compile Include="KeySignaturesCollection.cs" />
-    <Compile Include="Mode.cs" />
+    <Compile Include="Scales\Mode.cs" />
     <Compile Include="NoteName.cs" />
     <Compile Include="NoteNamesCollection.cs" />
     <Compile Include="NoteRange.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scales\Scale.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
