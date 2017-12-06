@@ -59,6 +59,7 @@
     <Compile Include="Scales\ModeFormula.cs" />
     <Compile Include="Scales\Scale.cs" />
     <Compile Include="Scales\ScaleFormula.cs" />
+    <Compile Include="Scales\VariousScales.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
