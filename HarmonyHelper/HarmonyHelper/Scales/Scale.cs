@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public abstract class ScaleBase
+    public abstract class ScaleBase : HarmonyEntityBase
     {
-        public KeySignature Key { get; protected set; }
-        public List<NoteName> Notes { get; protected set; } = new List<NoteName>();
-        NoteName CurrentNote { get; set; }
+        public List<Note> Notes { get; protected set; } = new List<Note>();
+        Note CurrentNote { get; set; }
         int MaxIndex
         {
             get
@@ -19,9 +18,9 @@ namespace Eric.Morrison.Harmony
             }
         }
 
-        public NoteName Next(DirectionEnum direction = DirectionEnum.Ascending)
+        public Note Next(DirectionEnum direction = DirectionEnum.Ascending)
         {
-            NoteName result = null;
+            Note result = null;
             var currentNdx = this.Notes.IndexOf(this.CurrentNote);
 
             if (DirectionEnum.Ascending == direction)
@@ -46,62 +45,75 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        protected ScaleBase(KeySignature key)
+        protected ScaleBase(KeySignature key) : base(key)
         {
             this.Key = key;
         }
-        protected ScaleBase(KeySignature key, IEnumerable<NoteName> notes)
+        protected ScaleBase(KeySignature key, IEnumerable<Note> notes) : this(key)
         {
             this.Key = key;
-            this.Notes = new List<NoteName>(notes);
+            this.Notes = new List<Note>(notes);
         }
+
+        protected ScaleBase(KeySignature key, IEnumerable<IntervalsEnum> intervals, NoteRange noteRange) : this(key)
+        {
+            if (null == key)
+                throw new ArgumentNullException();
+            if (null == intervals)
+                throw new ArgumentNullException();
+            if (null == noteRange)
+                throw new ArgumentNullException();
+
+            this.Key = key;
+        }
+
     }
 
     public class Scale : ScaleBase
     {
-        public Scale(KeySignature key, IEnumerable<NoteName> notes) : base (key, notes)
+        public Scale(KeySignature key, IEnumerable<Note> notes) : base (key)
         {
         }
     }
 
     public class HarmonicMinor : ScaleBase
     {
-        public HarmonicMinor(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public HarmonicMinor(KeySignature key, IEnumerable<Note> notes) : base(key)
         {
         }
     }
 
     public class MelodicMinor : ScaleBase
     {
-        public MelodicMinor(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public MelodicMinor(KeySignature key, IEnumerable<NoteName> notes, NoteRange noteRange) : base(key)
         {
         }
     }
 
     public class Pentatonic : ScaleBase
     {
-        public Pentatonic(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public Pentatonic(KeySignature key, IEnumerable<NoteName> notes, NoteRange noteRange) : base(key)
         {
         }
     }
 
     public class WholeTone : ScaleBase
     {
-        public WholeTone(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public WholeTone(KeySignature key, IEnumerable<NoteName> notes, NoteRange noteRange) : base(key)
         {
         }
     }
 
     public class Diminished : ScaleBase
     {
-        public Diminished(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public Diminished(KeySignature key, IEnumerable<NoteName> notes, NoteRange noteRange) : base(key)
         {
         }
     }
 
     public class Chromatic : ScaleBase
     {
-        public Chromatic(KeySignature key, IEnumerable<NoteName> notes) : base(key, notes)
+        public Chromatic(KeySignature key, IEnumerable<NoteName> notes, NoteRange noteRange) : base(key)
         {
         }
     }

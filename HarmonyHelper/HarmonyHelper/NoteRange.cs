@@ -6,6 +6,7 @@ namespace Eric.Morrison.Harmony
 {
     public class NoteRange
     {
+        public static readonly NoteRange Default = new NoteRange(new Note(NoteName.C, OctaveEnum.Octave3), new Note(NoteName.C, OctaveEnum.Octave4));
         public Note LowerLimit { get; set; }
         public Note UpperLimit { get; set; }
 
@@ -63,6 +64,57 @@ namespace Eric.Morrison.Harmony
             var result = LinkedList.Where(x => x.NoteName == nn).FirstOrDefault();
             return result;
         }
+
+        public List<Note> GetNotes(List<Note> wantedNotes)
+        {
+            var result = new List<Note>();
+
+            #region Remove out of range octaves
+
+            var octaves = Enum.GetValues(typeof(OctaveEnum)).OfType<OctaveEnum>().ToList();
+            octaves.Where(x => x < this.LowerLimit.Octave || x > this.UpperLimit.Octave)
+                .ToList().ForEach(x => octaves.Remove(x));
+
+            #endregion
+
+            foreach (var note in wantedNotes)
+            {
+                var copy = new Note(note);
+                foreach (var octave in octaves)
+                {
+                    copy = new Note(copy);
+                    copy.Octave = octave;
+
+                    if (copy <= this.UpperLimit)
+                    {
+                        result.Add(copy);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
+                .ToList().ForEach(x => result.Remove(x));
+
+            result.Sort(new NoteComparer());
+            return result;
+        }
+
+        public List<Note> GetNotes(List<NoteName> wantedNames)
+        {
+            var wantedNotes = new List<Note>();
+            foreach (var nn in wantedNames)
+            {
+                var tmp = new Note(nn, OctaveEnum.Unknown);
+                wantedNotes.Add(tmp);
+            }
+            var result = this.GetNotes(wantedNotes);
+            return result;
+        }
+
 
     }
 

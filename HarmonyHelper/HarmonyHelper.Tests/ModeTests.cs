@@ -45,7 +45,7 @@ namespace Eric.Morrison.Harmony.Tests
             {
                 foreach (var formula in modes)
                 {
-                    var mode = new Mode(formula, key);
+                    var mode = new Mode(key, formula, NoteRange.Default);
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony.Tests
             {
                 foreach (var formula in modes)
                 {
-                    var mode = new Mode(formula, key);
+                    var mode = new Mode(key, formula, NoteRange.Default);
                     Debug.WriteLine(mode);
                 }
                 Debug.WriteLine("");

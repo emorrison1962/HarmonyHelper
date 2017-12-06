@@ -45,7 +45,8 @@ namespace Eric.Morrison.Harmony
                 Locrian });
         }
 
-        public ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third, IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh)
+        public ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third, 
+            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh)
         {
             this.Mode = me;
             this.Second = second;
@@ -55,6 +56,8 @@ namespace Eric.Morrison.Harmony
             this.Sixth = sixth;
             this.Seventh = seventh;
         }
+
+
 
         public override string ToString()
         {

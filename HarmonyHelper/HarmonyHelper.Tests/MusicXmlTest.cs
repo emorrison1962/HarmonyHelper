@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony
 
         private void Log_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
         {
-            var noteStr = ctx.CurrentNote.ToString(ToStringEnum.Minimal, ctx.Chord.KeySignature);
+            var noteStr = ctx.CurrentNote.ToString(ToStringEnum.Minimal, ctx.Chord.Key);
             noteStr = string.Format("{0}", noteStr);
             noteStr += string.Format("{0,-3}", (int)ctx.CurrentNote.Octave);
             Debug.Write(noteStr);
@@ -140,7 +140,7 @@ namespace Eric.Morrison.Harmony
         private void XML_ChordChanged(object sender, ArpeggiationContext ctx)
         {
             ++XmlCtx.MeasureNumber;
-            this.CreateMeasure(ctx.Chord.Root.ToString(ctx.Chord.KeySignature));
+            this.CreateMeasure(ctx.Chord.Root.ToString(ctx.Chord.Key));
         }
         private void XML_Ending(object sender, ArpeggiationContext e)
         {

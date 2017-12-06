@@ -18,17 +18,20 @@ namespace Eric.Morrison.Harmony
     public class Mode : ScaleBase
     {
         public NoteName Tonic { get; private set; }
-        public NoteName Second { get; private set; }
+        NoteName Second { get; set; }
         public NoteName Third { get; private set; }
         public NoteName Fourth { get; private set; }
         public NoteName Fifth { get; private set; }
         public NoteName Sixth { get; private set; }
         public NoteName Seventh { get; private set; }
         public ModeFormula Formula { get; private set; }
-        public Mode(ModeFormula formula, KeySignature key) : base(key)
+        public NoteRange NoteRange { get; private set; }
+
+        public Mode(KeySignature key, ModeFormula formula, NoteRange noteRange) : base(key)
         {
             this.Key = key;
             this.Formula = formula;
+            this.NoteRange = noteRange;
             this.Create();
         }
 
@@ -46,7 +49,10 @@ namespace Eric.Morrison.Harmony
             this.Fifth = this.Key.Normalize(this.Tonic + this.Formula.Fifth);
             this.Sixth = this.Key.Normalize(this.Tonic + this.Formula.Sixth);
             this.Seventh = this.Key.Normalize(this.Tonic + this.Formula.Seventh);
-            this.Notes = new List<NoteName>() { this.Tonic, this.Second, this.Third, this.Fourth, this.Fifth, this.Sixth, this.Seventh };
+
+            var wantedNotes = new List<NoteName>() { this.Tonic, this.Second, this.Third, this.Fourth, this.Fifth, this.Sixth, this.Seventh };
+            this.Notes = this.NoteRange.GetNotes(wantedNotes);
+            
         }
 
         IntervalsEnum GetTonicOffset()

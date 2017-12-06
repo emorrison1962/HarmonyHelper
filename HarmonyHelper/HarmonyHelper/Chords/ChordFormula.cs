@@ -6,28 +6,41 @@ namespace Eric.Morrison.Harmony
     public class ChordFormula : IEquatable<ChordFormula>, IComparable<ChordFormula>
     {
         #region Chords
+        [Obsolete]
         static public readonly ChordFormula C7;
+        [Obsolete]
         static public readonly ChordFormula F7;
+        [Obsolete]
         static public readonly ChordFormula Bb7;
+        [Obsolete]
         static public readonly ChordFormula Eb7;
+        [Obsolete]
         static public readonly ChordFormula Ab7;
+        [Obsolete]
         static public readonly ChordFormula Db7;
+        [Obsolete]
         static public readonly ChordFormula Gb7;
+        [Obsolete]
         static public readonly ChordFormula B7;
+        [Obsolete]
         static public readonly ChordFormula E7;
+        [Obsolete]
         static public readonly ChordFormula A7;
+        [Obsolete]
         static public readonly ChordFormula D7;
+        [Obsolete]
         static public readonly ChordFormula G7;
         #endregion
 
         #region Properties
+        [Obsolete]
         static public List<ChordFormula> Chords { get; private set; } = new List<ChordFormula>();
 
         public NoteName Root { get; set; }
         public NoteName Third { get; set; }
         public NoteName Fifth { get; set; }
         public NoteName Seventh { get; set; }
-        public KeySignature KeySignature { get; set; }
+        public KeySignature Key { get; set; }
         public ChordTypesEnum ChordType { get; set; }
 
         #endregion
@@ -60,7 +73,7 @@ namespace Eric.Morrison.Harmony
 
             this.Root = root;
             this.ChordType = chordType;
-            this.KeySignature = key;
+            this.Key = key;
 
             var interval = chordType.GetThirdInterval();
             var third = NoteNamesCollection.Get(root, interval);
@@ -82,7 +95,7 @@ namespace Eric.Morrison.Harmony
 
         public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
         {
-            var txedKey = chord.KeySignature + interval;
+            var txedKey = chord.Key + interval;
             var txedRoot = NoteNamesCollection.Get(chord.Root, interval);
             txedRoot = txedKey.Normalize(txedRoot);
 
@@ -92,7 +105,7 @@ namespace Eric.Morrison.Harmony
 
         public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
         {
-            var txedKey = chord.KeySignature - interval;
+            var txedKey = chord.Key - interval;
             var txedRoot = NoteNamesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
             txedRoot = txedKey.Normalize(txedRoot);
 
@@ -118,7 +131,7 @@ namespace Eric.Morrison.Harmony
                 && this.Third == other.Third
                 && this.Fifth == other.Fifth
                 && this.Seventh == other.Seventh
-                && this.KeySignature == other.KeySignature)
+                && this.Key == other.Key)
                 result = true;
             return result;
         }
@@ -184,7 +197,7 @@ namespace Eric.Morrison.Harmony
             if (0 == result)
                 result = a.Seventh.CompareTo(b.Seventh);
             if (0 == result)
-                result = a.KeySignature.CompareTo(b.KeySignature);
+                result = a.Key.CompareTo(b.Key);
             return result;
         }
         public override int GetHashCode()
@@ -193,7 +206,7 @@ namespace Eric.Morrison.Harmony
                 ^ this.Third.GetHashCode()
                 ^ this.Fifth.GetHashCode()
                 ^ this.Seventh.GetHashCode()
-                ^ this.KeySignature.GetHashCode();
+                ^ this.Key.GetHashCode();
 
             return result;
         }

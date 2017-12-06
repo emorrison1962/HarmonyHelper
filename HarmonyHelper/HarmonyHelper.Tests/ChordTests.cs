@@ -251,26 +251,29 @@ namespace Eric.Morrison.Harmony.Tests
         public void TheChickenTest()
         {
             var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SixthPosition);
-            var chordFormula = ChordFormula.Bb7;
-            var chord = new Chord(chordFormula, noteRange);
-            var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
+            var Bb7 = new Chord(new ChordFormula(NoteName.Bb, ChordTypesEnum.Dominant7th, KeySignature.EbMajor), noteRange);
+            var startingNote = new Note(Bb7.Root.NoteName, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
-            var chords = new List<Chord>() { chord };
+            var chords = new List<Chord>() { Bb7 };
             //for (int i = 0; i <= 16; ++i)
             {
-                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
-                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
-                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
-                chords.Add(new Chord(ChordFormula.Bb7, noteRange));
-                chords.Add(new Chord(ChordFormula.Eb7, noteRange));
-                chords.Add(new Chord(ChordFormula.Eb7, noteRange));
-                chords.Add(new Chord(ChordFormula.D7, noteRange));
-                chords.Add(new Chord(ChordFormula.G7, noteRange));
-                chords.Add(new Chord(ChordFormula.C7, noteRange));
-                chords.Add(new Chord(ChordFormula.C7, noteRange));
-                chords.Add(new Chord(ChordFormula.C7, noteRange));
-                chords.Add(new Chord(ChordFormula.C7, noteRange));
+                chords.Add(Bb7);
+                chords.Add(Bb7);
+                chords.Add(Bb7);
+                chords.Add(Bb7);
+                var Eb7 = new Chord(new ChordFormula(NoteName.Eb, ChordTypesEnum.Dominant7th, KeySignature.AbMajor), noteRange);
+                chords.Add(Eb7);
+                chords.Add(Eb7);
+                var D7 = new Chord(new ChordFormula(NoteName.D, ChordTypesEnum.Dominant7th, KeySignature.GMajor), noteRange);
+                chords.Add(D7);
+                var G7 = new Chord(new ChordFormula(NoteName.G, ChordTypesEnum.Dominant7th, KeySignature.CMajor), noteRange);
+                chords.Add(G7);
+                var C7 = new Chord(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, KeySignature.FMajor), noteRange);
+                chords.Add(C7);
+                chords.Add(C7);
+                chords.Add(C7);
+                chords.Add(C7);
             }
 
 
@@ -372,7 +375,7 @@ namespace Eric.Morrison.Harmony.Tests
 
         private void Ctx_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
         {
-            var noteStr = ctx.CurrentNote.ToString(ToStringEnum.Minimal, ctx.Chord.KeySignature);
+            var noteStr = ctx.CurrentNote.ToString(ToStringEnum.Minimal, ctx.Chord.Key);
             noteStr = string.Format("{0,-3}", noteStr);
             Debug.Write(noteStr);
         }
