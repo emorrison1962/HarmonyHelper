@@ -84,21 +84,5 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        static string ToString(this NoteName note, bool useSharps)
-        {
-            var result = note.ToString();
-
-            if (useSharps)
-            {
-                if (result.EndsWith("b"))
-                {
-                    new object();
-                    var n = NoteNamesCollection.Get(note, IntervalsEnum.Minor2nd, DirectionEnum.Descending);
-                    result = n.ToString();
-                }
-            }
-
-            return result;
-        }
     }//class
 }//ns

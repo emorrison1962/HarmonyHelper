@@ -76,17 +76,17 @@ namespace Eric.Morrison.Harmony
             this.Key = key;
 
             var interval = chordType.GetThirdInterval();
-            var third = NoteNamesCollection.Get(root, interval);
-            this.Third = key.Normalize(third);
+            var third = NoteNamesCollection.Get(key, root, interval);
+            this.Third = third;
 
 
             interval = chordType.GetFifthInterval();
-            var fifth = NoteNamesCollection.Get(root, interval);
-            this.Fifth = key.Normalize(fifth);
+            var fifth = NoteNamesCollection.Get(key, root, interval);
+            this.Fifth = fifth;
 
             interval = chordType.GetSeventhInterval();
-            var seventh = NoteNamesCollection.Get(root, interval);
-            this.Seventh = key.Normalize(seventh);
+            var seventh = NoteNamesCollection.Get(key, root, interval);
+            this.Seventh = seventh;
 
         }
 
@@ -96,8 +96,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
         {
             var txedKey = chord.Key + interval;
-            var txedRoot = NoteNamesCollection.Get(chord.Root, interval);
-            txedRoot = txedKey.Normalize(txedRoot);
+            var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
             return result;
@@ -106,7 +105,7 @@ namespace Eric.Morrison.Harmony
         public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
         {
             var txedKey = chord.Key - interval;
-            var txedRoot = NoteNamesCollection.Get(chord.Root, interval, DirectionEnum.Descending);
+            var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval, DirectionEnum.Descending);
             txedRoot = txedKey.Normalize(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);

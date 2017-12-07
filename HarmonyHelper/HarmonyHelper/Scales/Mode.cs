@@ -40,15 +40,15 @@ namespace Eric.Morrison.Harmony
             var tonicOffset = this.GetTonicOffset();
             var tonic = this.Key.NoteName;
             if (tonicOffset > IntervalsEnum.None)
-                tonic = this.Key.NoteName + tonicOffset;
+                tonic = this.Key.NoteName + new IntervalContext(this.Key, tonicOffset);
 
-            this.Tonic = this.Key.Normalize(tonic);
-            this.Second = this.Key.Normalize(this.Tonic + this.Formula.Second);
-            this.Third = this.Key.Normalize(this.Tonic + this.Formula.Third);
-            this.Fourth = this.Key.Normalize(this.Tonic + this.Formula.Fourth);
-            this.Fifth = this.Key.Normalize(this.Tonic + this.Formula.Fifth);
-            this.Sixth = this.Key.Normalize(this.Tonic + this.Formula.Sixth);
-            this.Seventh = this.Key.Normalize(this.Tonic + this.Formula.Seventh);
+            this.Tonic = tonic;
+            this.Second = this.Tonic + new IntervalContext(this.Key, this.Formula.Second);
+            this.Third = this.Tonic + new IntervalContext(this.Key, this.Formula.Third);
+            this.Fourth = this.Tonic + new IntervalContext(this.Key, this.Formula.Fourth);
+            this.Fifth = this.Tonic + new IntervalContext(this.Key, this.Formula.Fifth);
+            this.Sixth = this.Tonic + new IntervalContext(this.Key, this.Formula.Sixth);
+            this.Seventh = this.Tonic + new IntervalContext(this.Key, this.Formula.Seventh);
 
             var wantedNotes = new List<NoteName>() { this.Tonic, this.Second, this.Third, this.Fourth, this.Fifth, this.Sixth, this.Seventh };
             this.Notes = this.NoteRange.GetNotes(wantedNotes);

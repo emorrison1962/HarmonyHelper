@@ -284,22 +284,22 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public static NoteName operator +(NoteName note, IntervalsEnum interval)
+        public static NoteName operator +(NoteName note, IntervalContext ctx)
         {
             var result = note;
-            if (null != note && interval > IntervalsEnum.None)
+            if (null != note && ctx.Interval > IntervalsEnum.None)
             {
-                result = NoteNamesCollection.Get(note, interval);
+                result = NoteNamesCollection.Get(ctx.Key, note, ctx.Interval);
             }
             return result;
         }
 
-        public static NoteName operator -(NoteName note, IntervalsEnum interval)
+        public static NoteName operator -(NoteName note, IntervalContext ctx)
         {
             var result = note;
-            if (null != note && interval > IntervalsEnum.None)
+            if (null != note && ctx.Interval > IntervalsEnum.None)
             {
-                result = NoteNamesCollection.Get(note, interval, DirectionEnum.Descending);
+                result = NoteNamesCollection.Get(ctx.Key, note, ctx.Interval, DirectionEnum.Descending);
             }
             return result;
         }
@@ -326,6 +326,18 @@ namespace Eric.Morrison.Harmony
 
 
     }//class
+
+    public class IntervalContext
+    {
+        public KeySignature Key { get; private set; }
+        public IntervalsEnum Interval { get; private set; }
+
+        public IntervalContext(KeySignature key, IntervalsEnum interval)
+        {
+            this.Key = key;
+            this.Interval = Interval;
+        }
+    }
 
     class NoteNameValueComparer : IEqualityComparer<NoteName>
     {

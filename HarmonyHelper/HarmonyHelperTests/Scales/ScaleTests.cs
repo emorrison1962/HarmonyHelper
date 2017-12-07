@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.Tests
         public void todoTest()
         {
 
-            "TODO"
+#warning *** "TODO" ***
 #if false
 
             Chord = Bb7;

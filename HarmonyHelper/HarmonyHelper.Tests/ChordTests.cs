@@ -35,7 +35,8 @@ namespace Eric.Morrison.Harmony.Tests
 
             foreach (var interval in intervals)
             {
-                var subtrahend = NoteName.C + interval;
+                var key = KeySignature.BbMajor;
+                var subtrahend = NoteName.C + new IntervalContext(key, interval);
                 var result = NoteName.C - subtrahend;
                 Assert.AreEqual(interval, result);
             }
@@ -209,8 +210,7 @@ namespace Eric.Morrison.Harmony.Tests
                     {
                         chordType = ChordTypesEnum.Dominant7th;
                     }
-                    root = root + IntervalsEnum.Perfect4th;
-                    root = key.Normalize(root);
+                    root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
                 }
 
                 var formula = new ChordFormula(root, chordType, key);

@@ -22,25 +22,25 @@ namespace Eric.Morrison.Harmony
 
         #endregion
 
-        public static LinkedListNode<NoteName> Get(NoteName ne)
+        public static LinkedListNode<NoteName> Get(NoteName nn)
         {
-            var node = LinkedList.Find(ne);
+            var node = LinkedList.Find(nn);
             return node;
         }
-        public static NoteName Get(NoteName ne, IntervalsEnum interval)
+        public static NoteName Get(KeySignature key, NoteName nn, IntervalsEnum interval)
         {
             int ndx = interval.ToIndex();
-            var node = LinkedList.Find(ne);
+            var node = LinkedList.Find(nn);
             node = node.Find(ndx);
 
             var result = node.Value;
             if (null == result)
                 throw new NullReferenceException();
-
+            key.Normalize(result);
             return result;
         }
 
-        public static NoteName Get(NoteName ne, IntervalsEnum intervalEnum, DirectionEnum direction)
+        public static NoteName Get(KeySignature key, NoteName ne, IntervalsEnum intervalEnum, DirectionEnum direction)
         {
             var interval = intervalEnum.ToIndex();
             if (direction == DirectionEnum.Descending)
@@ -51,6 +51,7 @@ namespace Eric.Morrison.Harmony
             node = node.Find(interval);
 
             var result = node.Value;
+            key.Normalize(result);
             return result;
         }
 

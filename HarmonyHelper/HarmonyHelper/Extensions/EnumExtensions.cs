@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -87,20 +85,18 @@ namespace Eric.Morrison.Harmony
             var result = IntervalsEnum.None;
             switch (interval)
             {
-
-
-        case IntervalsEnum.Minor2nd:
-            result = IntervalsEnum.Major7th;
-            break;
+                case IntervalsEnum.Minor2nd:
+                    result = IntervalsEnum.Major7th;
+                    break;
                 case IntervalsEnum.Major2nd:
-            result = IntervalsEnum.Minor7th;
-            break;
+                    result = IntervalsEnum.Minor7th;
+                    break;
                 case IntervalsEnum.Minor3rd:
-            result = IntervalsEnum.Major6th;
-            break;
+                    result = IntervalsEnum.Major6th;
+                    break;
                 case IntervalsEnum.Major3rd:
-            result = IntervalsEnum.Minor6th;
-            break;
+                    result = IntervalsEnum.Minor6th;
+                    break;
                 case IntervalsEnum.Perfect4th:
                     result = IntervalsEnum.Perfect5th;
                     break;
@@ -112,7 +108,7 @@ namespace Eric.Morrison.Harmony
                     break;
                 //case IntervalsEnum.Augmented5th:
                 //    result = IntervalsEnum.Diminished4th;
-                    //break;
+                //break;
                 case IntervalsEnum.Minor6th:
                     result = IntervalsEnum.Major3rd;
                     break;
