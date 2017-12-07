@@ -104,16 +104,16 @@ namespace Eric.Morrison.Harmony
         public override string ToString()
         {
             return string.Format("{0},{1},{2},{3}",
-                this.Root.ToString(ToStringEnum.Minimal, this.Key),
-                this.Third.ToString(ToStringEnum.Minimal, this.Key),
-                this.Fifth.ToString(ToStringEnum.Minimal, this.Key),
-                this.Seventh.ToString(ToStringEnum.Minimal, this.Key));
+                this.Root.ToString(),
+                this.Third.ToString(),
+                this.Fifth.ToString(),
+                this.Seventh.ToString());
         }
         public string Name {
             get
             {
                 var result = string.Format("{0}{1}",
-                    this.Root.ToString(ToStringEnum.Minimal, this.Key),
+                    this.Root.ToString(),
                     this.ChordFormula.ChordType.ToStringEx());
                 return result;
             }

@@ -99,7 +99,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ChordTest()
         {
-            foreach (var chord in ChordFormula.Chords)
+            foreach (var chord in ChordFormula.Formulas)
             {
                 Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
                 var txedUp = chord + IntervalsEnum.Perfect4th;
@@ -114,7 +114,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void IteratorTest()
         {
-            foreach (var chord in ChordFormula.Chords)
+            foreach (var chord in ChordFormula.Formulas)
             {
                 var newChord = chord + IntervalsEnum.Perfect5th;
                 //Debug.WriteLine(newChord.ToString());
@@ -125,7 +125,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ToStringTest()
         {
-            foreach (var chord in ChordFormula.Chords)
+            foreach (var chord in ChordFormula.Formulas)
             {
                 Debug.WriteLine(chord.ToString());
             }
@@ -375,7 +375,7 @@ namespace Eric.Morrison.Harmony.Tests
 
         private void Ctx_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
         {
-            var noteStr = ctx.CurrentNote.ToString(ToStringEnum.Minimal, ctx.Chord.Key);
+            var noteStr = ctx.CurrentNote.ToString();
             noteStr = string.Format("{0,-3}", noteStr);
             Debug.Write(noteStr);
         }

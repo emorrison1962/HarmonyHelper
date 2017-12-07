@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony
             var result = node.Value;
             if (null == result)
                 throw new NullReferenceException();
-            key.Normalize(result);
+            result = key.Normalize(result);
             return result;
         }
 

@@ -36,7 +36,6 @@ namespace Eric.Morrison.Harmony
 
         public override string ToString()
         {
-            //throw new NotSupportedException();
             var result = this.NoteName.ToString();
             result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
 
@@ -44,25 +43,6 @@ namespace Eric.Morrison.Harmony
             //    base.ToString(), this.NoteName, this.Octave);
             return result;
         }
-
-        public string ToString(KeySignature key)
-        {
-            if (null == key)
-                throw new ArgumentNullException();
-
-            var result = this.NoteName.ToString(key);
-            return result;
-        }
-
-        [Obsolete]
-        public string ToString(ToStringEnum verbosity, KeySignature key)
-        {
-            if (null == key)
-                throw new ArgumentNullException();
-            var result = key.Normalize(this.NoteName).ToString();
-            return result;
-        }
-
 
         public bool Equals(Note other)
         {

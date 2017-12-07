@@ -202,11 +202,6 @@ namespace Eric.Morrison.Harmony
         {
             return this.Name;
         }
-        [Obsolete]
-        public string ToString(KeySignature key)
-        {
-            return this.Name;
-        }
 
         public static bool operator <(NoteName a, NoteName b)
         {
@@ -335,7 +330,7 @@ namespace Eric.Morrison.Harmony
         public IntervalContext(KeySignature key, IntervalsEnum interval)
         {
             this.Key = key;
-            this.Interval = Interval;
+            this.Interval = interval;
         }
     }
 

@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.Tests
 
         List<ModeFormula> GetModeFormulas()
         {
-            var result = new List<ModeFormula>(ModeFormula.Catalog);
+            var result = new List<ModeFormula>(ModeFormula.Catalog.All);
             return result;
         }
 

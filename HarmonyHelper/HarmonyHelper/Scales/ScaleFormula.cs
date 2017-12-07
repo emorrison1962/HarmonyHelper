@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class ScaleFormula : HarmonyEntityBase
+    public abstract class ScaleFormulaBase
     {
-        public List<IntervalsEnum> Intervals { get; protected set; } = new List<IntervalsEnum>();
-        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
-        public ScaleFormula(KeySignature key, IEnumerable<IntervalsEnum> intervals) : base(key)
+        public List<IntervalsEnum> Intervals { get; set; } = new List<IntervalsEnum>();
+        abstract protected void PopulateIntervals();
+        abstract protected void Init();
+        public ScaleFormulaBase()
         {
-            this.Intervals = new List<IntervalsEnum>(intervals);
+            Task.Run((Action)this.InitImpl);
         }
 
-        void Init()
+        protected void InitImpl()
         {
-            foreach (var interval in this.Intervals)
-            {
-                var scaleTone = NoteNamesCollection.Get(this.Key, this.Key.NoteName, interval);
-                this.NoteNames.Add(scaleTone);
-            }
+            this.PopulateIntervals();
         }
+
+
     }//class
 }//ns

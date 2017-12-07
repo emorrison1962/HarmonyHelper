@@ -9,7 +9,10 @@ namespace Eric.Morrison.Harmony
     public abstract class ScaleBase : HarmonyEntityBase
     {
         public List<Note> Notes { get; protected set; } = new List<Note>();
-        Note CurrentNote { get; set; }
+        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
+        public Note CurrentNote { get; set; }
+        public NoteRange NoteRange { get; protected set; }
+        protected ScaleFormulaBase Formula { get; set; }
         int MaxIndex
         {
             get
@@ -45,35 +48,33 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        protected ScaleBase(KeySignature key) : base(key)
-        {
-            this.Key = key;
-        }
-        protected ScaleBase(KeySignature key, IEnumerable<Note> notes) : this(key)
-        {
-            this.Key = key;
-            this.Notes = new List<Note>(notes);
-        }
-
-        protected ScaleBase(KeySignature key, IEnumerable<IntervalsEnum> intervals, NoteRange noteRange) : this(key)
+        protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : base(key)
         {
             if (null == key)
                 throw new ArgumentNullException();
-            if (null == intervals)
+            if (null == formula)
                 throw new ArgumentNullException();
             if (null == noteRange)
                 throw new ArgumentNullException();
-
-            this.Key = key;
         }
 
     }
 
     public class Scale : ScaleBase
     {
-        public Scale(KeySignature key, IEnumerable<Note> notes) : base (key)
+        public Scale(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : base(key, formula, noteRange)
         {
         }
-    }
+
+        void Init()
+        {
+            foreach (var interval in this.Formula.Intervals)
+            {
+                var scaleTone = NoteNamesCollection.Get(this.Key, this.Key.NoteName, interval);
+                this.NoteNames.Add(scaleTone);
+            }
+        }
+
+    }//class
 
 }//ns
