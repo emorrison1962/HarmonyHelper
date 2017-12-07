@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scales\ModeFormula.cs" />
     <Compile Include="Scales\Scale.cs" />
+    <Compile Include="Scales\_ScaleBase.cs" />
     <Compile Include="Scales\ScaleFormula.cs" />
     <Compile Include="Scales\VariousScaleFormulas.cs" />
   </ItemGroup>

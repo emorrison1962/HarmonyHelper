@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -9,13 +8,15 @@ namespace Eric.Morrison.Harmony
     {
         #region Properties
 
-        public Note Root { get; set; }
-        public Note Third { get; set; }
-        public Note Fifth { get; set; }
-        public Note Seventh { get; set; }
-        ChordFormula ChordFormula { get; set; }
+        public Note Root { get; protected set; }
+        Note Third { get; set; }
+        Note Fifth { get; set; }
+        Note Seventh { get; set; }
+        ChordFormula Formula { get; set; }
 
-        LinkedList<Note> ChordTones { get; set; } = new LinkedList<Note>();
+        LinkedList<Note> Notes { get; set; } = new LinkedList<Note>();
+        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
+
 
         #endregion
 
@@ -36,7 +37,7 @@ namespace Eric.Morrison.Harmony
             this.Third = noteRange.First(formula.Third, this.Key);
             this.Fifth = noteRange.First(formula.Fifth, this.Key);
             this.Seventh = noteRange.First(formula.Seventh, this.Key);
-            this.ChordFormula = formula;
+            this.Formula = formula;
 
             if (null == this.Root)
                 throw new NullReferenceException();
@@ -47,10 +48,10 @@ namespace Eric.Morrison.Harmony
             if (null == this.Seventh)
                 throw new NullReferenceException();
 
-            this.PopulateChordTones(noteRange);
+            this.PopulateNotes(noteRange);
         }
 
-        public Chord(Note root, Note third, Note fifth, Note seventh, NoteRange noteRange) 
+        public Chord(Note root, Note third, Note fifth, Note seventh, NoteRange noteRange)
             : base(KeySignature.CMajor)
         {
             if (null == root)
@@ -66,10 +67,10 @@ namespace Eric.Morrison.Harmony
             this.Fifth = fifth;
             this.Seventh = seventh;
 
-            this.PopulateChordTones(noteRange);
+            this.PopulateNotes(noteRange);
         }
 
-        void PopulateChordTones(NoteRange noteRange)
+        void PopulateNotes(NoteRange noteRange)
         {
             var notes = new List<Note>()
             {
@@ -78,26 +79,23 @@ namespace Eric.Morrison.Harmony
                 this.Fifth,
                 this.Seventh,
             };
+            this.NoteNames = notes.Select(x => x.NoteName).ToList();
 
             var result = noteRange.GetNotes(notes);
-            result.ForEach(x => this.ChordTones.AddLast(x));
+            result.ForEach(x => this.Notes.AddLast(x));
         }
 
         #endregion
 
         public Note GetClosestNoteEx(ArpeggiationContext ctx)
         {
-            var result = this.ChordTones.FindClosest(ctx.CurrentNote, ctx.Direction);
+            var result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
             if (null == result)
             {
                 ctx.Direction = ctx.Direction.Next();
-                result = this.ChordTones.FindClosest(ctx.CurrentNote, ctx.Direction);
+                result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
             }
 
-            //Debug.WriteLine(
-            //    string.Format("Last={0}, Next={1}",
-            //        ctx.CurrentNote.ToString(ToStringEnum.Minimal),
-            //        next.ToString(ToStringEnum.Minimal)));
             return result;
         }
 
@@ -109,12 +107,13 @@ namespace Eric.Morrison.Harmony
                 this.Fifth.ToString(),
                 this.Seventh.ToString());
         }
-        public string Name {
+        public string Name
+        {
             get
             {
                 var result = string.Format("{0}{1}",
                     this.Root.ToString(),
-                    this.ChordFormula.ChordType.ToStringEx());
+                    this.Formula.ChordType.ToStringEx());
                 return result;
             }
         }
