@@ -42,6 +42,9 @@ namespace Eric.Morrison.Harmony
         public NoteName Seventh { get; set; }
         public KeySignature Key { get; set; }
         public ChordTypesEnum ChordType { get; set; }
+        public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
+        public string Name { get { return this.Root.ToString()+this.ChordType.ToString(); } }
+
 
         #endregion
 
@@ -71,22 +74,22 @@ namespace Eric.Morrison.Harmony
             if (null == key)
                 throw new NullReferenceException();
 
-            this.Root = root;
+            this.NoteNames.Add(this.Root = root);
             this.ChordType = chordType;
             this.Key = key;
 
             var interval = chordType.GetThirdInterval();
             var third = NoteNamesCollection.Get(key, root, interval);
-            this.Third = third;
+            this.NoteNames.Add(this.Third = third);
 
 
             interval = chordType.GetFifthInterval();
             var fifth = NoteNamesCollection.Get(key, root, interval);
-            this.Fifth = fifth;
+            this.NoteNames.Add(this.Fifth = fifth);
 
             interval = chordType.GetSeventhInterval();
             var seventh = NoteNamesCollection.Get(key, root, interval);
-            this.Seventh = seventh;
+            this.NoteNames.Add(this.Seventh = seventh);
 
         }
 

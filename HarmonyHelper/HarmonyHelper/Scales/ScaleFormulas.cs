@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class HarmonicMinor : ScaleFormulaBase
+    public class HarmonicMinorFormula : ScaleFormulaBase
     {
-        public HarmonicMinor(IEnumerable<IntervalsEnum> intervals)
+        public HarmonicMinorFormula()
         {
         }
         protected override void Init()
@@ -16,114 +13,23 @@ namespace Eric.Morrison.Harmony
             base.InitImpl();
         }
 
-        protected override void PopulateIntervals()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class MelodicMinor : ScaleFormulaBase
-    {
-        public MelodicMinor(IEnumerable<IntervalsEnum> intervals)
-        {
-        }
-        protected override void Init()
-        {
-            base.InitImpl();
-        }
-        protected override void PopulateIntervals()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class PentatonicMajor : ScaleFormulaBase
-    {
-        public PentatonicMajor(IEnumerable<IntervalsEnum> intervals)
-        {
-        }
-        protected override void Init()
-        {
-            base.InitImpl();
-        }
         protected override void PopulateIntervals()
         {
             this.Intervals = new List<IntervalsEnum>() {
                 IntervalsEnum.Major2nd,
-                IntervalsEnum.Major3rd,
-                IntervalsEnum.Perfect5th,
-                IntervalsEnum.Major6th,
-            };
-        }
-    }
-
-    public class PentatonicMinor : ScaleFormulaBase
-    {
-        public PentatonicMinor(IEnumerable<IntervalsEnum> intervals)
-        {
-        }
-        protected override void Init()
-        {
-            base.InitImpl();
-        }
-        protected override void PopulateIntervals()
-        {
-            this.Intervals = new List<IntervalsEnum>() {
                 IntervalsEnum.Minor3rd,
                 IntervalsEnum.Perfect4th,
                 IntervalsEnum.Perfect5th,
-                IntervalsEnum.Minor7th,
+                IntervalsEnum.Minor6th,
+                IntervalsEnum.Major7th,
             };
+
         }
     }
 
-    public class WholeTone : ScaleFormulaBase
+    public class MelodicMinorFormula : ScaleFormulaBase
     {
-        public WholeTone(IEnumerable<IntervalsEnum> intervals)
-        {
-        }
-        protected override void Init()
-        {
-            base.InitImpl();
-        }
-        protected override void PopulateIntervals()
-        {
-            this.Intervals = new List<IntervalsEnum>() {
-                IntervalsEnum.Major2nd,
-                IntervalsEnum.Major3rd,
-                IntervalsEnum.Augmented4th,
-                IntervalsEnum.Augmented5th,
-                IntervalsEnum.Minor7th
-            };
-        }
-    }
-
-    public class DiminishedHalfWhole : ScaleFormulaBase
-    {
-        public DiminishedHalfWhole(IEnumerable<IntervalsEnum> intervals)
-        {
-        }
-        protected override void Init()
-        {
-            base.InitImpl();
-        }
-        protected override void PopulateIntervals()
-        {
-            this.Intervals = new List<IntervalsEnum>() {
-                IntervalsEnum.Minor2nd,
-                IntervalsEnum.Minor3rd,
-                IntervalsEnum.Major3rd,
-                IntervalsEnum.Augmented4th,
-                IntervalsEnum.Perfect5th,
-                IntervalsEnum.Major6th,
-                IntervalsEnum.Minor7th,
-            };
-        }
-    }
-
-    public class DiminishedWholeHalf : ScaleFormulaBase
-    {
-        public DiminishedWholeHalf(IEnumerable<IntervalsEnum> intervals)
+        public MelodicMinorFormula()
         {
         }
         protected override void Init()
@@ -149,9 +55,116 @@ namespace Eric.Morrison.Harmony
         }
     }
 
+    public class PentatonicMajorFormula : ScaleFormulaBase
+    {
+        public PentatonicMajorFormula()
+        {
+        }
+        protected override void Init()
+        {
+            base.InitImpl();
+        }
+        protected override void PopulateIntervals()
+        {
+            this.Intervals = new List<IntervalsEnum>() {
+                IntervalsEnum.Major2nd,
+                IntervalsEnum.Major3rd,
+                IntervalsEnum.Perfect5th,
+                IntervalsEnum.Major6th,
+            };
+        }
+    }
+
+    public class PentatonicMinorFormula : ScaleFormulaBase
+    {
+        public PentatonicMinorFormula()
+        {
+        }
+        protected override void Init()
+        {
+            base.InitImpl();
+        }
+        protected override void PopulateIntervals()
+        {
+            this.Intervals = new List<IntervalsEnum>() {
+                IntervalsEnum.Minor3rd,
+                IntervalsEnum.Perfect4th,
+                IntervalsEnum.Perfect5th,
+                IntervalsEnum.Minor7th,
+            };
+        }
+    }
+
+    public class WholeToneFormula : ScaleFormulaBase
+    {
+        public WholeToneFormula()
+        {
+        }
+        protected override void Init()
+        {
+            base.InitImpl();
+        }
+        protected override void PopulateIntervals()
+        {
+            this.Intervals = new List<IntervalsEnum>() {
+                IntervalsEnum.Major2nd,
+                IntervalsEnum.Major3rd,
+                IntervalsEnum.Augmented4th,
+                IntervalsEnum.Augmented5th,
+                IntervalsEnum.Minor7th
+            };
+        }
+    }
+
+    public class DiminishedHalfWholeFormula : ScaleFormulaBase
+    {
+        public DiminishedHalfWholeFormula()
+        {
+        }
+        protected override void Init()
+        {
+            base.InitImpl();
+        }
+        protected override void PopulateIntervals()
+        {
+            this.Intervals = new List<IntervalsEnum>() {
+                IntervalsEnum.Minor2nd,
+                IntervalsEnum.Minor3rd,
+                IntervalsEnum.Major3rd,
+                IntervalsEnum.Augmented4th,
+                IntervalsEnum.Perfect5th,
+                IntervalsEnum.Major6th,
+                IntervalsEnum.Minor7th,
+            };
+        }
+    }
+
+    public class DiminishedWholeHalfFormula : ScaleFormulaBase
+    {
+        public DiminishedWholeHalfFormula()
+        {
+        }
+        protected override void Init()
+        {
+            base.InitImpl();
+        }
+        protected override void PopulateIntervals()
+        {
+            this.Intervals = new List<IntervalsEnum>() {
+                IntervalsEnum.Major2nd,
+                IntervalsEnum.Minor3rd,
+                IntervalsEnum.Perfect4th,
+                IntervalsEnum.Diminished5th,
+                IntervalsEnum.Minor6th,
+                IntervalsEnum.Major6th,
+                IntervalsEnum.Major7th,
+            };
+        }
+    }
+
     public class Chromatic : ScaleFormulaBase
     {
-        public Chromatic(IEnumerable<IntervalsEnum> intervals)
+        public Chromatic()
         {
         }
         protected override void Init()

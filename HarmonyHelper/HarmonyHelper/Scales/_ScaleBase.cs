@@ -11,6 +11,7 @@ namespace Eric.Morrison.Harmony
         public Note CurrentNote { get; set; }
         public NoteRange NoteRange { get; protected set; }
         protected ScaleFormulaBase Formula { get; set; }
+        virtual public string Name { get;  protected set; }
         int MaxIndex
         {
             get

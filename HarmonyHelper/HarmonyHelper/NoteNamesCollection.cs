@@ -9,6 +9,14 @@ namespace Eric.Morrison.Harmony
         #region Properties
 
         static LinkedList<NoteName> LinkedList { get; set; } = new LinkedList<NoteName>();
+        public static IEnumerable<NoteName> Catalog
+        {
+            get
+            {
+                var result = LinkedList.Select(x => x).ToList();
+                return result;
+            }
+        }
 
         #endregion
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
@@ -38,10 +34,11 @@ namespace Eric.Morrison.Harmony
         public IntervalsEnum Sixth { get; private set; }
         public IntervalsEnum Seventh { get; private set; }
 
-        public ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third, 
-            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh) 
+        public ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third,
+            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh)
         {
             this.Mode = me;
+            this.Name = this.Mode.ToString("G");
             this.Second = second;
             this.Third = third;
             this.Fourth = fourth;
@@ -52,10 +49,28 @@ namespace Eric.Morrison.Harmony
 
 
 
-        public override string ToString()
-        {
-            return this.Mode.ToString();
-        }
+        //public override string ToString()
+        //{
+        //    const string FORMAT = @"{0}: {1}";
+        //    var result = string.Format(FORMAT,
+        //        this.Mode.ToString("G"),
+        //        this.Name,
+        //        string.Join(",", this.NoteNames));
+
+        //    return result;
+        //}
+
+        //public override string ToString()
+        //{
+        //    var result = string.Empty;
+        //    const string FORMAT = @"{0} Mode in {1}: {2}";
+        //    result = string.Format(FORMAT,
+        //        this.Formula.ToString(),
+        //        this.Key.NoteName,
+        //        string.Join(",", this.NoteNames));
+        //    return result;
+        //}
+
 
         protected override void PopulateIntervals()
         {
