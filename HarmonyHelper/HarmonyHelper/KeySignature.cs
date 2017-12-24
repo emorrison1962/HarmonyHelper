@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-    public class KeySignature : IEquatable<KeySignature>, IComparable<KeySignature>
+    public class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
     {
         #region KeySignatures
         public static readonly KeySignature NoAccidentals;
@@ -354,20 +354,21 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public NoteName Normalize(NoteName nn)
+        public NoteName GetNormalized(NoteName nn)
         {
-            if (!this.Contains(nn))
+            var copy = nn.Copy();
+            if (!this.Contains(copy))
             {
-                if (this.Affects(nn))
+                if (this.Affects(copy))
                 {
-                    nn = NoteName.GetEnharmonicEquivalent(nn);
+                    copy = NoteName.GetEnharmonicEquivalent(copy);
                 }
                 else if (!nn.IsNatural)
                 {
-                    nn = NoteName.GetEnharmonicEquivalent(nn);
+                    copy = NoteName.GetEnharmonicEquivalent(nn);
                 }
             }
-            return nn;
+            return copy;
         }
 
         public override string ToString()

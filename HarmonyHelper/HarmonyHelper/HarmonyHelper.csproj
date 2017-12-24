@@ -44,6 +44,7 @@
     <Compile Include="Chords\Chord.cs" />
     <Compile Include="Chords\ChordFormula.cs" />
     <Compile Include="ChordScaleMapping.cs" />
+    <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\LinkedListExtensions.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony
@@ -8,19 +9,40 @@ namespace Eric.Morrison.Harmony
     {
         #region Properties
 
+        public bool IsValid()
+        {
+            var result = false;
+            if (this.Key.UsesFlats)
+            {
+                if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlat)
+                    if (this.NoteNames.All(x => x.IsNatural || x.IsFlat))
+                        if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat))
+                            result = true;
+            }
+            else if (this.Key.UsesSharps)
+            {
+                if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharp)
+                    if (this.NoteNames.All(x => x.IsNatural || x.IsSharp))
+                        if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp))
+                            result = true;
+            }
+            Debug.Assert(result);
+            return result;
+        }
+
         public Note Root { get; protected set; }
         Note Third { get; set; }
         Note Fifth { get; set; }
         Note Seventh { get; set; }
         ChordFormula Formula { get; set; }
 
-        LinkedList<Note> Notes { get; set; } = new LinkedList<Note>();
-        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
-
+        public List<Note> Notes { get; private set; } = new List<Note>();
+        public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
 
         #endregion
 
         #region Construction
+
 
         public Chord(ChordFormula formula, NoteRange noteRange) : base(formula.Key)
         {
@@ -82,7 +104,7 @@ namespace Eric.Morrison.Harmony
             this.NoteNames = notes.Select(x => x.NoteName).ToList();
 
             var result = noteRange.GetNotes(notes);
-            result.ForEach(x => this.Notes.AddLast(x));
+            result.ForEach(x => this.Notes.Add(x));
         }
 
         #endregion
@@ -102,20 +124,43 @@ namespace Eric.Morrison.Harmony
         public override string ToString()
         {
             return string.Format("{0},{1},{2},{3}",
-                this.Root.ToString(),
-                this.Third.ToString(),
-                this.Fifth.ToString(),
-                this.Seventh.ToString());
+                this.Root.NoteName.ToString(),
+                this.Third.NoteName.ToString(),
+                this.Fifth.NoteName.ToString(),
+                this.Seventh.NoteName.ToString());
         }
         public string Name
         {
             get
             {
+                var root = this.Root.ToString();
+                var chordType = this.Formula.ChordType.ToStringEx();
+
                 var result = string.Format("{0}{1}",
-                    this.Root.ToString(),
-                    this.Formula.ChordType.ToStringEx());
+                    root,
+                    chordType);
                 return result;
             }
         }
     }//class
+
+    static public class ListExtensions
+    {
+        public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
+        {
+            Note result;
+
+            if (DirectionEnum.Ascending == direction)
+            {
+                result = list.Where(x => x > lastNote).FirstOrDefault();
+            }
+            else
+            {
+                result = list.Where(x => x < lastNote).LastOrDefault();
+            }
+            return result;
+        }
+
+    }
+
 }//ns

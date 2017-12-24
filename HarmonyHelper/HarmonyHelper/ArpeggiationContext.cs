@@ -45,7 +45,7 @@ namespace Eric.Morrison.Harmony
                 this.OnChordChanged();
             }
         }
-        List<Chord> Chords { get; set; }
+        List<Chord> Chords { get; set; } = new List<Chord>();
 
         public ArpeggiationContext(IEnumerable<Chord> chords, DirectionEnum direction,
             NoteRange noteRange, int maxNotes, Note nextNote = null)

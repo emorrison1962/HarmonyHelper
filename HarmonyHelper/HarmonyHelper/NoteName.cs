@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-    public class NoteName
+    public class NoteName : ClassBase
     {
         #region Constants
         const int VALUE_C = 1 << 1;
@@ -57,6 +57,16 @@ namespace Eric.Morrison.Harmony
         {
         }
 
+        public NoteName Copy()
+        {
+            var result = new NoteName(this);
+            return result;
+        }
+        public static NoteName Copy(NoteName src)
+        {
+            var result = new NoteName(src);
+            return result;
+        }
 
         public class EnharmonicEquivalent
         {
@@ -189,7 +199,7 @@ namespace Eric.Morrison.Harmony
             var seq = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).ToList();
             Debug.Assert(seq.Count == 1);
             var pairing = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
-            var result = pairing.Other;
+            var result = pairing.Other.Copy();
             return result;
         }
 

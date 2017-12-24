@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
-    public class Note : IEquatable<Note>, IComparable<Note>
+    public class Note : ClassBase, IEquatable<Note>, IComparable<Note>
     {
         #region Properties
         public NoteName NoteName { get; private set; }
@@ -17,16 +17,20 @@ namespace Eric.Morrison.Harmony
         {
             if (null == src)
                 throw new ArgumentNullException();
-            this.NoteName = src.NoteName;
+            this.NoteName = src.NoteName.Copy();
             this.Octave = src.Octave;
         }
         public Note(NoteName nn, OctaveEnum octave)
         {
             this.NoteName = nn;
             this.Octave = octave;
-            //this.UsesSharps = usesSharps;
         }
 
+        public Note Copy()
+        {
+            var result = new Note(this);
+            return result;
+        }
         #endregion
 
         public void SetNoteName(NoteName nn)
@@ -37,6 +41,7 @@ namespace Eric.Morrison.Harmony
         public override string ToString()
         {
             var result = this.NoteName.ToString();
+            return result;
             result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
 
             //var result = string.Format("{0}, NoteName={1}, Octave={2}", 

@@ -135,17 +135,44 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void TheCycleTest()
         {
-            var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
+            var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
             var chordFormula = ChordFormula.C7;
             var chord = new Chord(chordFormula, noteRange);
             var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
             var notesToPlay = 4;
 
             var chords = new List<Chord>() { chord };
+
             for (int i = 0; i <= 10; ++i)
             {
+                if (chord.Key.NoteName == NoteName.Bb)
+                    new Object();
+                if (chord.Key.NoteName == NoteName.ASharp)
+                    new Object();
                 chordFormula = chordFormula + IntervalsEnum.Perfect4th;
+                if (KeySignature.BMajor == chordFormula.Key)
+                    new object();
+
                 chord = new Chord(chordFormula, noteRange);
+
+                //if (KeySignature.EbMajor == chordFormula.Key)
+                //    new object();
+                //if (chordFormula.Key.UsesFlats)
+                //{
+                //    Assert.IsTrue(chord.Root.NoteName.IsNatural || chord.Root.NoteName.IsFlat);
+                //    Assert.IsTrue(chord.NoteNames.All(x => x.IsNatural || x.IsFlat));
+                //    Assert.IsTrue(chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat));
+                //}
+                //else if (chordFormula.Key.UsesSharps)
+                //{
+                //    Assert.IsTrue(chord.Root.NoteName.IsNatural || chord.Root.NoteName.IsSharp);
+                //    Assert.IsTrue(chord.NoteNames.All(x => x.IsNatural || x.IsSharp));
+                //    Assert.IsTrue(chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp));
+                //}
+                //else { }
+
+                //Assert.IsTrue(chord.IsValid());
+
                 chords.Add(chord);
             }
 
@@ -172,7 +199,7 @@ namespace Eric.Morrison.Harmony.Tests
             for (int i = 0; i <= CYCLE_MAX; ++i)
             {
                 var a = key.NoteName.ToString();
-                var b = key.Normalize(key.NoteName).ToString();
+                var b = key.GetNormalized(key.NoteName).ToString();
                 Assert.AreEqual(a, b);
                 //key.Notes.ForEach(x => Debug.Write(x + ","));
                 //Debug.WriteLine("");
@@ -393,6 +420,23 @@ namespace Eric.Morrison.Harmony.Tests
         const int BARS_PER_LINE = 2;
         private void Ctx_ChordChanged(object sender, ArpeggiationContext ctx)
         {
+
+            if (ctx.Chord.Key.UsesFlats)
+            {
+                Assert.IsTrue(ctx.Chord.Root.NoteName.IsNatural || ctx.Chord.Root.NoteName.IsFlat);
+                Assert.IsTrue(ctx.Chord.NoteNames.All(x => x.IsNatural || x.IsFlat));
+                Assert.IsTrue(ctx.Chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat));
+            }
+            else if (ctx.Chord.Key.UsesSharps)
+            {
+                Assert.IsTrue(ctx.Chord.Root.NoteName.IsNatural || ctx.Chord.Root.NoteName.IsSharp);
+                Assert.IsTrue(ctx.Chord.NoteNames.All(x => x.IsNatural || x.IsSharp));
+                Assert.IsTrue(ctx.Chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp));
+            }
+            else { }
+
+
+
             if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
                 Debug.WriteLine(" |");
             Debug.Write(string.Format(" | ({0}) ", ctx.Chord.Name));

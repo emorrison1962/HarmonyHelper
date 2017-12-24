@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
-    public class ChordFormula : IEquatable<ChordFormula>, IComparable<ChordFormula>
+    public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>
     {
         #region Chords
         [Obsolete]
@@ -109,7 +109,7 @@ namespace Eric.Morrison.Harmony
         {
             var txedKey = chord.Key - interval;
             var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval, DirectionEnum.Descending);
-            txedRoot = txedKey.Normalize(txedRoot);
+            txedRoot = txedKey.GetNormalized(txedRoot);
 
             var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
             return result;

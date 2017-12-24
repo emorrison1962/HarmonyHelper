@@ -41,10 +41,10 @@ namespace Eric.Morrison.Harmony
             var node = LinkedList.Find(nn);
             node = node.Find(ndx);
 
-            var result = node.Value;
+            var result = NoteName.Copy(node.Value);
             if (null == result)
                 throw new NullReferenceException();
-            result = key.Normalize(result);
+            result = key.GetNormalized(result);
             return result;
         }
 
@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony
             node = node.Find(interval);
 
             var result = node.Value;
-            key.Normalize(result);
+            key.GetNormalized(result);
             return result;
         }
 
