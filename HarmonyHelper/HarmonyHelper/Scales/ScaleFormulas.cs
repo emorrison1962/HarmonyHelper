@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony
 
     public abstract class PentatonicFormula : ScaleFormulaBase
     {
-        public PentatonicFormula(KeySignature key, bool? isMinor = default(bool?)) : base(key, isMinor)
+        public PentatonicFormula(KeySignature key) : base(key)
         {
         }
     }
@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony
 
     public class PentatonicMinorFormula : PentatonicFormula
     {
-        public PentatonicMinorFormula(KeySignature key) : base(key, true)
+        public PentatonicMinorFormula(KeySignature key) : base(key)
         {
             this.Init();
         }

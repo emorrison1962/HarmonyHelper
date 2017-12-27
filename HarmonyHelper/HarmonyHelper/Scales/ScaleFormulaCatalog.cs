@@ -28,9 +28,9 @@ namespace Eric.Morrison.Harmony
                 this.Formulas.Add(new PentatonicMajorFormula(key));
                 this.Formulas.Add(new PentatonicMinorFormula(key + IntervalsEnum.Minor3rd));
 #warning *** FIXME ***
-                //this.Formulas.Add(new WholeToneFormula(key));
-                //this.Formulas.Add(new DiminishedHalfWholeFormula(key));
-                //this.Formulas.Add(new DiminishedWholeHalfFormula(key));
+                this.Formulas.Add(new WholeToneFormula(key));
+                this.Formulas.Add(new DiminishedHalfWholeFormula(key));
+                this.Formulas.Add(new DiminishedWholeHalfFormula(key));
             }
         }
 

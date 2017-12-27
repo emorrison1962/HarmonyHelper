@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -89,6 +90,38 @@ Scales containing the chord tones from: B♭Minor7th
         [TestMethod()]
         public void CantaloupeIslandTest()
         {
+            var chords = new List<ChordFormula>() {
+                 new ChordFormula(NoteName.F, ChordTypesEnum.Minor7th, KeySignature.EbMajor),
+                 new ChordFormula(NoteName.Db, ChordTypesEnum.Dominant7th, KeySignature.GbMajor),
+                 new ChordFormula(NoteName.D, ChordTypesEnum.Minor7th, KeySignature.CMajor)
+            };
+
+            var catalog = new ScaleFormulaCatalog();
+            foreach (var chord in chords)
+            {
+                Debug.WriteLine("Scales containing the chord tones from: " + chord.Name.ToString());
+                Debug.Indent();
+
+                var scales = catalog.GetScalesContaining(chord);
+                foreach (var scale in scales)
+                {
+                    //Debug.Write(scale.Name.ToString());
+
+                    var copy = new List<NoteName>(scale.NoteNames);
+                    copy.Sort(new NoteNameAlphaComparer());
+
+                    Debug.Write(scale.ToString());
+                    Debug.WriteLine("");
+                }
+                Debug.Unindent();
+            }
+            new object();
+        }
+
+        [TestMethod()]
+        public void AlteredDominants()
+        {
+            throw new NotImplementedException();
             var chords = new List<ChordFormula>() {
                  new ChordFormula(NoteName.F, ChordTypesEnum.Minor7th, KeySignature.EbMajor),
                  new ChordFormula(NoteName.Db, ChordTypesEnum.Dominant7th, KeySignature.GbMajor),
