@@ -1,31 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
     public class ModeFormula : ScaleFormulaBase
     {
-        static public class Catalog
-        {
-            static public readonly ModeFormula Ionian;
-            static public readonly ModeFormula Dorian;
-            static public readonly ModeFormula Phrygian;
-            static public readonly ModeFormula Lydian;
-            static public readonly ModeFormula Mixolydian;
-            static public readonly ModeFormula Aeolian;
-            static public readonly ModeFormula Locrian;
-            static public readonly List<ModeFormula> All = new List<ModeFormula>();
-
-            static Catalog()
-            {
-                All.Add(Ionian = new ModeFormula(ModeEnum.Ionian, IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Major7th));
-                All.Add(Dorian = new ModeFormula(ModeEnum.Dorian, IntervalsEnum.Major2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Minor7th));
-                All.Add(Phrygian = new ModeFormula(ModeEnum.Phrygian, IntervalsEnum.Minor2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th));
-                All.Add(Lydian = new ModeFormula(ModeEnum.Lydian, IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Augmented4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Major7th));
-                All.Add(Mixolydian = new ModeFormula(ModeEnum.Mixolydian, IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Minor7th));
-                All.Add(Aeolian = new ModeFormula(ModeEnum.Aeolian, IntervalsEnum.Major2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th));
-                All.Add(Locrian = new ModeFormula(ModeEnum.Locrian, IntervalsEnum.Minor2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Diminished5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th));
-            }
-        }
         public ModeEnum Mode { get; private set; }
         public IntervalsEnum Second { get; private set; }
         public IntervalsEnum Third { get; private set; }
@@ -34,8 +13,16 @@ namespace Eric.Morrison.Harmony
         public IntervalsEnum Sixth { get; private set; }
         public IntervalsEnum Seventh { get; private set; }
 
-        public ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third,
-            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh)
+
+        public ModeFormula(KeySignature key, ModeEnum mode) : base (key)
+        {
+            this.Mode = mode;
+            this.Init();
+        }
+        [Obsolete("", true)]
+        ModeFormula(ModeEnum me, IntervalsEnum second, IntervalsEnum third,
+            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh, KeySignature key = null)
+            : base(key)
         {
             this.Mode = me;
             this.Name = this.Mode.ToString("G");
@@ -46,6 +33,66 @@ namespace Eric.Morrison.Harmony
             this.Sixth = sixth;
             this.Seventh = seventh;
         }
+
+
+        [Obsolete("", true)]
+        public ModeFormula(KeySignature key,  ModeEnum me, IntervalsEnum second, IntervalsEnum third,
+            IntervalsEnum fourth, IntervalsEnum fifth, IntervalsEnum sixth, IntervalsEnum seventh) 
+            : this(me, second, third, fourth, fifth, sixth, seventh, key)
+        {
+            var interval = this.GetDistanceFromKeyRoot(me);
+            var root = key.NoteName + new IntervalContext(key, interval);
+        }
+
+        IntervalsEnum GetDistanceFromKeyRoot(ModeEnum mode)
+        {
+            var result = IntervalsEnum.None;
+            switch (mode)
+            {
+                case ModeEnum.Dorian:
+                    result = IntervalsEnum.Major2nd;
+                    break;
+                case ModeEnum.Phrygian:
+                    result = IntervalsEnum.Major3rd;
+                    break;
+                case ModeEnum.Lydian:
+                    result = IntervalsEnum.Perfect4th;
+                    break;
+                case ModeEnum.Mixolydian:
+                    result = IntervalsEnum.Perfect5th;
+                    break;
+                case ModeEnum.Aeolian:
+                    result = IntervalsEnum.Major6th;
+                    break;
+                case ModeEnum.Locrian:
+                    result = IntervalsEnum.Major7th;
+                    break;
+                default:
+                    result = IntervalsEnum.None;
+                    break;
+            }
+            return result;
+        }
+
+        override protected void PopulateNoteNames()
+        {
+            var offsetFromKeyRoot = GetDistanceFromKeyRoot(this.Mode);
+
+            var root = NoteNamesCollection.Get(this.Key, this.Key.NoteName, offsetFromKeyRoot);
+            this.Name = root.Name + " " + this.Mode.ToString("G");
+
+            var result = new List<NoteName>();
+            result.Add(root);
+            foreach (var interval in this.Intervals)
+            {
+                var nn = NoteNamesCollection.Get(this.Key, root, interval);
+                result.Add(nn);
+            }
+
+            this.NoteNames = result;
+        }
+
+
 
 
 
@@ -60,26 +107,54 @@ namespace Eric.Morrison.Harmony
         //    return result;
         //}
 
-        //public override string ToString()
-        //{
-        //    var result = string.Empty;
-        //    const string FORMAT = @"{0} Mode in {1}: {2}";
-        //    result = string.Format(FORMAT,
-        //        this.Formula.ToString(),
-        //        this.Key.NoteName,
-        //        string.Join(",", this.NoteNames));
-        //    return result;
-        //}
+        public override string ToString()
+        {
+            var result = string.Empty;
+            const string FORMAT = @"{0} {1}: {2}";
+            result = string.Format(FORMAT,
+                this.NoteNames[0],
+                this.Mode.ToString("G"),
+                string.Join(",", this.NoteNames));
+            return result;
+        }
 
 
         protected override void PopulateIntervals()
         {
-            this.Intervals = new List<IntervalsEnum>(new[] { Second, Third, Fourth, Fifth, Sixth, Seventh });
+            var result = new List<IntervalsEnum>();
+            switch (this.Mode)
+            {
+                case ModeEnum.Ionian:
+                    result.AddRange(new[] { IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Major7th });
+                    break;
+                case ModeEnum.Dorian:
+                    result.AddRange(new[] { IntervalsEnum.Major2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Minor7th });
+                    break;
+                case ModeEnum.Phrygian:
+                    result.AddRange(new[] { IntervalsEnum.Minor2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th });
+                    break;
+                case ModeEnum.Lydian:
+                    result.AddRange(new[] { IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Augmented4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Major7th });
+                    break;
+                case ModeEnum.Mixolydian:
+                    result.AddRange(new[] { IntervalsEnum.Major2nd, IntervalsEnum.Major3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Major6th, IntervalsEnum.Minor7th });
+                    break;
+                case ModeEnum.Aeolian:
+                    result.AddRange(new[] { IntervalsEnum.Major2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Perfect5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th });
+                    break;
+                case ModeEnum.Locrian:
+                    result.AddRange(new[] { IntervalsEnum.Minor2nd, IntervalsEnum.Minor3rd, IntervalsEnum.Perfect4th, IntervalsEnum.Diminished5th, IntervalsEnum.Minor6th, IntervalsEnum.Minor7th });
+                    break;
+
+            }
+
+            this.Intervals = result;
         }
 
         protected override void Init()
         {
             base.InitImpl();
         }
+
     }
 }

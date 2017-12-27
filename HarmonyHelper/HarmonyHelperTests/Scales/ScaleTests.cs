@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -13,45 +14,6 @@ namespace Eric.Morrison.Harmony.Tests
             Assert.Fail();
         }
 
-        public class AlphaNoteNameComparer : IComparer<NoteName>
-        {
-            public int Compare(NoteName x, NoteName y)
-            {
-                return x.Name.CompareTo(y.Name);
-            }
-        }
-
-        class NoteNameListValueComparer : IEqualityComparer<List<NoteName>>
-        {
-            public bool Equals(List<NoteName> x, List<NoteName> y)
-            {
-                var result = true;
-                foreach (var nn in x)
-                {
-                    if (!y.Contains(nn))
-                    {
-                        result = false;
-                        break;
-                    }
-                }
-                return result;
-            }
-
-            public int GetHashCode(List<NoteName> obj)
-            {
-                var result = 0;
-                foreach (var nn in obj)
-                {
-                    result ^= nn.Value.GetHashCode();
-                }
-                return result;
-            }
-
-            public int GetHashCode(NoteName obj)
-            {
-                return obj.Value.GetHashCode();
-            }
-        }
 
         [TestMethod()]
         public void todoTest()
@@ -67,8 +29,8 @@ namespace Eric.Morrison.Harmony.Tests
 
             var reported = new List<List<NoteName>>();
 
-            var thesaurus = new ScaleFormulaCatalog();
-            foreach (var scale in thesaurus.Formulas)
+            var catalog = new ScaleFormulaCatalog();
+            foreach (var scale in catalog.Formulas)
             {
                 if (scale.Key.NoteName == NoteName.Bb)
                     new object();
@@ -83,12 +45,12 @@ namespace Eric.Morrison.Harmony.Tests
                     //Debug.Write(scale.Name.ToString());
 
                     var copy = new List<NoteName>(scale.NoteNames);
-                    copy.Sort(new AlphaNoteNameComparer());
+                    copy.Sort(new NoteNameAlphaComparer());
 
 #warning *** Okay, got rid of enharmonic equivelents. But now I need to select WHICH enharmonic equivelent I want to use. ***
 
-                    //if (!reported.Contains(copy, new NoteNameListValueComparer()))
-                    if (true)
+                    if (!reported.Contains(copy, new NoteNameListValueComparer()))
+                    //if (true)
                     {
                         reported.Add(copy);
 
@@ -122,6 +84,37 @@ Scales containing the chord tones from: B♭Minor7th
 
 #endif
 
+        }
+
+        [TestMethod()]
+        public void CantaloupeIslandTest()
+        {
+            var chords = new List<ChordFormula>() {
+                 new ChordFormula(NoteName.F, ChordTypesEnum.Minor7th, KeySignature.EbMajor),
+                 new ChordFormula(NoteName.Db, ChordTypesEnum.Dominant7th, KeySignature.GbMajor),
+                 new ChordFormula(NoteName.D, ChordTypesEnum.Minor7th, KeySignature.CMajor)
+            };
+
+            var catalog = new ScaleFormulaCatalog();
+            foreach (var chord in chords)
+            {
+                Debug.WriteLine("Scales containing the chord tones from: " + chord.Name.ToString());
+                Debug.Indent();
+
+                var scales = catalog.GetScalesContaining(chord);
+                foreach (var scale in scales)
+                {
+                    //Debug.Write(scale.Name.ToString());
+
+                    var copy = new List<NoteName>(scale.NoteNames);
+                    copy.Sort(new NoteNameAlphaComparer());
+
+                    Debug.Write(scale.ToString());
+                    Debug.WriteLine("");
+                }
+                Debug.Unindent();
+            }
+            new object();
         }
 
 

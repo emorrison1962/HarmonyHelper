@@ -344,7 +344,7 @@ namespace Eric.Morrison.Harmony
         }
     }
 
-    class NoteNameValueComparer : IEqualityComparer<NoteName>
+    public class NoteNameValueComparer : IEqualityComparer<NoteName>
     {
         public bool Equals(NoteName x, NoteName y)
         {
@@ -359,5 +359,47 @@ namespace Eric.Morrison.Harmony
             return obj.Value.GetHashCode();
         }
     }
+
+    public class NoteNameAlphaComparer : IComparer<NoteName>
+    {
+        public int Compare(NoteName x, NoteName y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+    }
+
+    public class NoteNameListValueComparer : IEqualityComparer<List<NoteName>>
+    {
+        public bool Equals(List<NoteName> x, List<NoteName> y)
+        {
+            var result = true;
+            var valueComparer = new NoteNameValueComparer();
+            foreach (var nn in x)
+            {
+                if (!y.Contains(nn, valueComparer))
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public int GetHashCode(List<NoteName> obj)
+        {
+            var result = 0;
+            foreach (var nn in obj)
+            {
+                result ^= nn.Value.GetHashCode();
+            }
+            return result;
+        }
+
+        public int GetHashCode(NoteName obj)
+        {
+            return obj.Value.GetHashCode();
+        }
+    }
+
 
 }//ns

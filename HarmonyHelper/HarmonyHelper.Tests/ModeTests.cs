@@ -30,9 +30,12 @@ namespace Eric.Morrison.Harmony.Tests
             };
         }
 
-        List<ModeFormula> GetModeFormulas()
+        List<ModeEnum> GetModeFormulas()
         {
-            var result = new List<ModeFormula>(ModeFormula.Catalog.All);
+            var result = new List<ModeEnum>();
+            var arr = Enum.GetValues(typeof(ModeEnum));
+            foreach (var val in arr)
+                result.Add((ModeEnum)val);
             return result;
         }
 

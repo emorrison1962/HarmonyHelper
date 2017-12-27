@@ -5,8 +5,9 @@ namespace Eric.Morrison.Harmony
 {
     public class HarmonicMinorFormula : ScaleFormulaBase
     {
-        public HarmonicMinorFormula()
+        public HarmonicMinorFormula(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {
@@ -29,8 +30,9 @@ namespace Eric.Morrison.Harmony
 
     public class MelodicMinorFormula : ScaleFormulaBase
     {
-        public MelodicMinorFormula()
+        public MelodicMinorFormula(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {
@@ -55,10 +57,17 @@ namespace Eric.Morrison.Harmony
         }
     }
 
-    public class PentatonicMajorFormula : ScaleFormulaBase
+    public abstract class PentatonicFormula : ScaleFormulaBase
     {
-        public PentatonicMajorFormula()
+        public PentatonicFormula(KeySignature key, bool? isMinor = default(bool?)) : base(key, isMinor)
         {
+        }
+    }
+    public class PentatonicMajorFormula : PentatonicFormula
+    {
+        public PentatonicMajorFormula(KeySignature key) : base(key)
+        {
+            this.Init();
         }
         protected override void Init()
         {
@@ -75,14 +84,16 @@ namespace Eric.Morrison.Harmony
         }
     }
 
-    public class PentatonicMinorFormula : ScaleFormulaBase
+    public class PentatonicMinorFormula : PentatonicFormula
     {
-        public PentatonicMinorFormula()
+        public PentatonicMinorFormula(KeySignature key) : base(key, true)
         {
+            this.Init();
         }
         protected override void Init()
         {
             base.InitImpl();
+            this.Key += IntervalsEnum.Minor3rd;
         }
         protected override void PopulateIntervals()
         {
@@ -97,8 +108,9 @@ namespace Eric.Morrison.Harmony
 
     public class WholeToneFormula : ScaleFormulaBase
     {
-        public WholeToneFormula()
+        public WholeToneFormula(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {
@@ -118,8 +130,9 @@ namespace Eric.Morrison.Harmony
 
     public class DiminishedHalfWholeFormula : ScaleFormulaBase
     {
-        public DiminishedHalfWholeFormula()
+        public DiminishedHalfWholeFormula(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {
@@ -141,8 +154,9 @@ namespace Eric.Morrison.Harmony
 
     public class DiminishedWholeHalfFormula : ScaleFormulaBase
     {
-        public DiminishedWholeHalfFormula()
+        public DiminishedWholeHalfFormula(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {
@@ -164,8 +178,9 @@ namespace Eric.Morrison.Harmony
 
     public class Chromatic : ScaleFormulaBase
     {
-        public Chromatic()
+        public Chromatic(KeySignature key) : base(key)
         {
+            this.Init();
         }
         protected override void Init()
         {

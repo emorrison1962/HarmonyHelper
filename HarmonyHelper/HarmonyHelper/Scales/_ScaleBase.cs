@@ -46,19 +46,21 @@ namespace Eric.Morrison.Harmony
 
             return result;
         }
-
-        protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : base(key)
+        protected ScaleBase(KeySignature key, NoteRange noteRange) : base(key)
         {
             if (null == key)
                 throw new ArgumentNullException();
-            if (null == formula)
-                throw new ArgumentNullException();
             if (null == noteRange)
                 throw new ArgumentNullException();
-            this.Formula = formula;
             this.NoteRange = noteRange;
-
             this.Init(noteRange);
+        }
+
+        protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : this(key, noteRange)
+        {
+            if (null == formula)
+                throw new ArgumentNullException();
+            this.Formula = formula;
         }
 
         void Init(NoteRange noteRange)

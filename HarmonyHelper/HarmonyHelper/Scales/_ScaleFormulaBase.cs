@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
     public abstract class ScaleFormulaBase
     {
+        public KeySignature Key { get; protected set; }
+        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
+
         public List<IntervalsEnum> Intervals { get; set; } = new List<IntervalsEnum>();
         virtual public string Name { get; protected set; }
 
@@ -15,39 +16,33 @@ namespace Eric.Morrison.Harmony
 
         abstract protected void PopulateIntervals();
         abstract protected void Init();
-        public ScaleFormulaBase()
+        public ScaleFormulaBase(KeySignature key)
         {
-            this.Name = this.GetType().Name; 
-            Task.Run((Action)this.InitImpl);
+            this.Key = key;
+            this.Name = string.Format("{0} {1}",
+                this.Key.NoteName,
+                this.GetType().Name.Replace("Formula", string.Empty));
         }
 
         protected void InitImpl()
         {
             this.PopulateIntervals();
+            this.PopulateNoteNames();
         }
-    }//class
 
-    public class KeyedScaleFormulaBase : ScaleFormulaBase
-    {
-        public KeySignature Key { get; private set; }
-        public ScaleFormulaBase Formula { get; private set; }
-        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
-
-        public KeyedScaleFormulaBase(KeySignature key, ScaleFormulaBase formula)
+        public bool Contains(ChordFormula formula)
         {
-            this.Key = key;
-            this.Formula = formula;
-            this.Name = formula.Name;
+            var result = this.Contains(formula.NoteNames);
+            return result;
         }
 
         public bool Contains(IEnumerable<NoteName> chordTones)
         {
             var result = false;
-            this.NoteNames = this.PopulateNoteNames();
             Debug.Assert(this.NoteNames.Count > 0);
             foreach (var chordTone in chordTones)
             {
-                if (!this.NoteNames.Contains(chordTone))
+                if (!this.NoteNames.Contains(chordTone, new NoteNameValueComparer()))
                 {
                     result = false;
                     break;
@@ -63,25 +58,17 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        override protected void Init()
-        {
-        }
-
-        protected override void PopulateIntervals()
-        {
-        }
-
-        List<NoteName> PopulateNoteNames()
+        virtual protected void PopulateNoteNames()
         {
             var result = new List<NoteName>();
             result.Add(this.Key.NoteName);
-            foreach (var interval in this.Formula.Intervals)
+            foreach (var interval in this.Intervals)
             {
                 var nn = NoteNamesCollection.Get(this.Key, this.Key.NoteName, interval);
                 result.Add(nn);
             }
 
-            return result;
+            this.NoteNames = result;
         }
 
         public override string ToString()
@@ -89,11 +76,12 @@ namespace Eric.Morrison.Harmony
             var result = string.Empty;
             const string FORMAT = @"{0}: {1}";
             result = string.Format(FORMAT,
-                //this.Formula.ToString(),
+                //this.Key.NoteName.ToString(),
                 this.Name,
                 string.Join(",", this.NoteNames));
             return result;
         }
 
-    }
+    }//class
+
 }//ns

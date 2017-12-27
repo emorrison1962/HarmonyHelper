@@ -26,10 +26,10 @@ namespace Eric.Morrison.Harmony
         public NoteName Seventh { get; private set; }
         new public ModeFormula Formula { get; private set; }
 
-        public Mode(KeySignature key, ModeFormula formula, NoteRange noteRange) : base(key, formula, noteRange)
+        public Mode(KeySignature key, ModeEnum modeEnum, NoteRange noteRange) : base(key, noteRange)
         {
             this.Key = key;
-            this.Formula = formula;
+            this.Formula = new ModeFormula(key, modeEnum);
             this.NoteRange = noteRange;
             this.Create();
         }
@@ -63,22 +63,22 @@ namespace Eric.Morrison.Harmony
                     result = IntervalsEnum.None;
                     break;
                 case ModeEnum.Dorian:
-                    result = ModeFormula.Catalog.Ionian.Second;
+                    result = IntervalsEnum.Major2nd;
                     break;
                 case ModeEnum.Phrygian:
-                    result = ModeFormula.Catalog.Ionian.Third;
+                    result = IntervalsEnum.Major3rd;
                     break;
                 case ModeEnum.Lydian:
-                    result = ModeFormula.Catalog.Ionian.Fourth;
+                    result = IntervalsEnum.Perfect4th;
                     break;
                 case ModeEnum.Mixolydian:
-                    result = ModeFormula.Catalog.Ionian.Fifth;
+                    result = IntervalsEnum.Perfect5th;
                     break;
                 case ModeEnum.Aeolian:
-                    result = ModeFormula.Catalog.Ionian.Sixth;
+                    result = IntervalsEnum.Major6th;
                     break;
                 case ModeEnum.Locrian:
-                    result = ModeFormula.Catalog.Ionian.Seventh;
+                    result = IntervalsEnum.Major7th;
                     break;
             }
             return result;

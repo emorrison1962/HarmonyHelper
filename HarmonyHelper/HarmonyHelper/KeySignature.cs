@@ -98,7 +98,7 @@ namespace Eric.Morrison.Harmony
                 NoteName.G,
                 NoteName.A,
                 NoteName.B
-                }, false);
+                }, null);
             CMajor = KeySignature.Clone(NoAccidentals, true);
             AMinor = KeySignature.Clone(NoAccidentals, false);
 
@@ -260,7 +260,7 @@ namespace Eric.Morrison.Harmony
                 NoteName.Eb,
                 NoteName.F,
             }, false);// B♭, E♭, A♭, D♭, G♭, C♭
-            GbMajor = KeySignature.Clone(KeySignature.SixFlats);
+            GbMajor = KeySignature.Clone(KeySignature.SixFlats, true);
             EbMinor = KeySignature.Clone(KeySignature.SixFlats);
 
             SevenFlats = new KeySignature(NoteName.Cb,
@@ -277,12 +277,15 @@ namespace Eric.Morrison.Harmony
             AbMinor = KeySignature.Clone(KeySignature.SevenFlats);
         }
 
-        private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool usesSharps, bool isMinor = false)
+        private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMinor = false)
         {
             this.NoteName = key;
             this.Notes = new List<NoteName>(notes);
-            this.UsesSharps = usesSharps;
-            this.UsesFlats = !usesSharps;
+            if (usesSharps.HasValue)
+            {
+                this.UsesSharps = usesSharps.Value;
+                this.UsesFlats = !usesSharps.Value;
+            }
             if (0 == this.Notes.Count)
                 this.UsesFlats = false;
             Catalog.Add(this);
@@ -294,9 +297,9 @@ namespace Eric.Morrison.Harmony
             if (isMajor.HasValue)
             {
                 if (isMajor.Value)
-                    MinorKeys.Add(result);
-                else
                     MajorKeys.Add(result);
+                else
+                    MinorKeys.Add(result);
             }
 
             return result;
