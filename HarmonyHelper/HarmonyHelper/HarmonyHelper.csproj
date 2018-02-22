@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArpeggiationContext.cs" />
+    <Compile Include="Arpeggiator.cs" />
     <Compile Include="Chords\Chord.cs" />
     <Compile Include="Chords\ChordFormula.cs" />
     <Compile Include="ChordScaleMapping.cs" />

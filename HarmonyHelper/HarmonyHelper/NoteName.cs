@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-    public class NoteName : ClassBase
+    public class NoteName : ClassBase, IComparable<NoteName>
     {
         #region Constants
         const int VALUE_C = 1 << 1;

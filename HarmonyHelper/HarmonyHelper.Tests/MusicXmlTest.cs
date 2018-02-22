@@ -50,59 +50,62 @@ namespace Eric.Morrison.Harmony
             }
 
 
-            var ctx = new ArpeggiationContext(chords,
+            var contexts = new List<ArpeggiationContext>();
+            chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+            var arpeggiator = new Arpeggiator(contexts,
                 DirectionEnum.Ascending,
-                noteRange, notesToPlay, startingNote);
+                noteRange, 4, startingNote);
 
-            ctx.ArpeggiationContextChanged += Ctx_NoOpObserver;
-            ctx.ChordChanged += Ctx_ChordChanged;
-            ctx.DirectionChanged += Log_DirectionChanged;
-            ctx.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-            ctx.Starting += Ctx_Starting;
-            ctx.Ending += Ctx_Ending;
+            arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
+            arpeggiator.ChordChanged += Ctx_ChordChanged;
+            arpeggiator.DirectionChanged += Log_DirectionChanged;
+            arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+            arpeggiator.Starting += Ctx_Starting;
+            arpeggiator.Ending += Ctx_Ending;
 
 
-            ctx.Arpeggiate();
+            arpeggiator.Arpeggiate();
 
             new object();
         }
 
-        private void Ctx_Starting(object sender, ArpeggiationContext e)
+        private void Ctx_Starting(object sender, Arpeggiator e)
         {
             this.Log_Starting(sender, e);
             this.XML_Starting(sender, e);
         }
-        private void Ctx_ChordChanged(object sender, ArpeggiationContext ctx)
+        private void Ctx_ChordChanged(object sender, Arpeggiator ctx)
         {
             this.Log_ChordChanged(sender, ctx);
             this.XML_ChordChanged(sender, ctx);
         }
-        private void Ctx_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
+        private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
         {
             this.Log_CurrentNoteChanged(sender, ctx);
             this.XML_CurrentNoteChanged(sender, ctx);
         }
-        private void Ctx_Ending(object sender, ArpeggiationContext e)
+        private void Ctx_Ending(object sender, Arpeggiator e)
         {
             this.Log_Ending(sender, e);
             this.XML_Ending(sender, e);
         }
-        private void Ctx_NoOpObserver(object sender, ArpeggiationContext ctx)
+        private void Ctx_NoOpObserver(object sender, Arpeggiator ctx)
         { }
 
 
 
-        private void Log_Ending(object sender, ArpeggiationContext e)
+        private void Log_Ending(object sender, Arpeggiator e)
         {
             Debug.WriteLine("||");
         }
 
-        private void Log_Starting(object sender, ArpeggiationContext e)
+        private void Log_Starting(object sender, Arpeggiator e)
         {
             Debug.Write("|");
         }
 
-        private void Log_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
+        private void Log_CurrentNoteChanged(object sender, Arpeggiator ctx)
         {
             var noteStr = ctx.CurrentNote.ToString();
             noteStr = string.Format("{0}", noteStr);
@@ -110,7 +113,7 @@ namespace Eric.Morrison.Harmony
             Debug.Write(noteStr);
         }
 
-        private void Log_DirectionChanged(object sender, ArpeggiationContext ctx)
+        private void Log_DirectionChanged(object sender, Arpeggiator ctx)
         {
             const string ASC = "˄";
             const string DESC = "˅";
@@ -119,11 +122,11 @@ namespace Eric.Morrison.Harmony
             Debug.Write(direction);
         }
 
-        private void Log_ChordChanged(object sender, ArpeggiationContext ctx)
+        private void Log_ChordChanged(object sender, Arpeggiator ctx)
         {
             if (LogCtx.chordCount > 0 && LogCtx.chordCount % LogCtx.BARS_PER_LINE == 0)
                 Debug.WriteLine(" |");
-            Debug.Write(string.Format(" | ({0}) ", ctx.Chord.Name));
+            Debug.Write(string.Format(" | ({0}) ", ctx.CurrentChord.Name));
             ++LogCtx.chordCount;
         }
 
@@ -131,23 +134,23 @@ namespace Eric.Morrison.Harmony
 
 
 
-        private void XML_Starting(object sender, ArpeggiationContext e)
+        private void XML_Starting(object sender, Arpeggiator e)
         {
             string fileContent = Resources.MusicXML_TEMPLATE;
             XmlCtx.Document = XDocument.Parse(fileContent);
             new object();
         }
-        private void XML_ChordChanged(object sender, ArpeggiationContext ctx)
+        private void XML_ChordChanged(object sender, Arpeggiator ctx)
         {
             ++XmlCtx.MeasureNumber;
-            this.CreateMeasure(ctx.Chord.Root.ToString());
+            this.CreateMeasure(ctx.CurrentChord.Root.ToString());
         }
-        private void XML_Ending(object sender, ArpeggiationContext e)
+        private void XML_Ending(object sender, Arpeggiator e)
         {
             XmlCtx.Document.Save(@"c:\temp\_xml.xml");
             new object();
         }
-        private void XML_CurrentNoteChanged(object sender, ArpeggiationContext ctx)
+        private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
         {
             #region FORMAT
             const string FORMAT = @"

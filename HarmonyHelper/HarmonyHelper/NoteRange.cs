@@ -146,7 +146,7 @@ namespace Eric.Morrison.Harmony
                     break;
                 case FiveStringBassPositionEnum.SixthPosition:
                     {
-                        this.UpperLimit = new Note(NoteName.F, OctaveEnum.Octave3);
+                        this.UpperLimit = new Note(NoteName.Eb, OctaveEnum.Octave3);
                         this.LowerLimit = new Note(NoteName.F, OctaveEnum.Octave1);
                     }
                     break;

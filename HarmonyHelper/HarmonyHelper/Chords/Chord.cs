@@ -109,7 +109,7 @@ namespace Eric.Morrison.Harmony
 
         #endregion
 
-        public Note GetClosestNoteEx(ArpeggiationContext ctx)
+        public Note GetClosestNoteEx(Arpeggiator ctx)
         {
             var result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
             if (null == result)
