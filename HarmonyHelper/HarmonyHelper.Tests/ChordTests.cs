@@ -14,15 +14,15 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var cte = ChordTypesEnum.Minor;
 
-			new object();
 			var ict = (int)cte;
-			var mask = (int)(IntervalsEnum.Major3rd | IntervalsEnum.Minor3rd);
+			var mask = (int)(ChordTonesBitmaskEnum.Third);
 
 			var which = (ict & mask);
 			var result = (IntervalsEnum)which;
 
 			var interval = ChordTypesEnum.Major.GetThirdInterval();
 			//IntervalsEnum GetThird(this ChordTypesEnum e)
+			interval.ToStringEx();
 		}
 
 		[TestMethod()]
