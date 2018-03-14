@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scales\ScaleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">

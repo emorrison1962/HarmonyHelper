@@ -4,79 +4,128 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-    public abstract class ScaleBase : HarmonyEntityBase
-    {
-        public List<Note> Notes { get; protected set; } = new List<Note>();
-        public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
-        public Note CurrentNote { get; set; }
-        public NoteRange NoteRange { get; protected set; }
-        protected ScaleFormulaBase Formula { get; set; }
-        virtual public string Name { get;  protected set; }
-        int MaxIndex
-        {
-            get
-            {
-                return this.Notes.Count - 1;
-            }
-        }
+	public abstract class ScaleBase : HarmonyEntityBase
+	{
+		#region Fields
 
-        public Note Next(DirectionEnum direction = DirectionEnum.Ascending)
-        {
-            Note result = null;
-            var currentNdx = this.Notes.IndexOf(this.CurrentNote);
+		ScaleFormulaBase _formula;
+		List<NoteName> _noteNames;
 
-            if (DirectionEnum.Ascending == direction)
-            {
-                var nextNdx = 0;
-                if (currentNdx < this.MaxIndex)
-                {
-                    nextNdx = currentNdx + 1;
-                }
-                result = this.Notes[nextNdx];
-            }
-            else
-            {
-                var nextNdx = this.MaxIndex;
-                if (currentNdx > 0)
-                {
-                    nextNdx = currentNdx - 1;
-                }
-                result = this.Notes[nextNdx];
-            }
+		#endregion Fields
 
-            return result;
-        }
-        protected ScaleBase(KeySignature key, NoteRange noteRange) : base(key)
-        {
-            if (null == key)
-                throw new ArgumentNullException();
-            if (null == noteRange)
-                throw new ArgumentNullException();
-            this.NoteRange = noteRange;
-            this.Init(noteRange);
-        }
+		#region Properties
+		public List<Note> Notes { get; protected set; } = new List<Note>();
+		public List<NoteName> NoteNames
+		{
+			get { return this._noteNames; }
+			protected set
+			{
+				if (null == value)
+				{
+					throw new ArgumentNullException();
+				}
+				if (null == this._noteNames)
+				{
+					this._noteNames = value;
+					this.Init();
+				}
+			}
+		}
+		public Note CurrentNote { get; set; }
+		public NoteRange NoteRange { get; protected set; }
+		protected ScaleFormulaBase Formula
+		{
+			get { return _formula; }
+			set
+			{
+				if (null == value)
+				{
+					throw new ArgumentNullException();
+				}
+				if (null == this._formula)
+				{
+					this._formula = value;
+					this.Init();
+				}
+			}
+		}
+		virtual public string Name { get; protected set; }
+		int MaxIndex
+		{
+			get
+			{
+				return this.Notes.Count - 1;
+			}
+		}
 
-        protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : this(key, noteRange)
-        {
-            if (null == formula)
-                throw new ArgumentNullException();
-            this.Formula = formula;
-        }
+		#endregion Properties
 
-        void Init(NoteRange noteRange)
-        {
-            this.NoteNames.Add(this.Key.NoteName);
-            foreach (var interval in this.Formula.Intervals)
-            {
-                var nn = this.Key.NoteName + new IntervalContext(this.Key, interval);
-                this.NoteNames.Add(nn);
-            }
+		#region Construction
+		protected ScaleBase(KeySignature key, NoteRange noteRange) : base(key)
+		{
+			if (null == key)
+				throw new ArgumentNullException();
+			if (null == noteRange)
+				throw new ArgumentNullException();
+			this.NoteRange = noteRange;
+			this.Init();
+		}
 
-            var requestedNotes = this.NoteNames.Select(x => new Note(x, OctaveEnum.Octave0)).ToList();
-            var result = noteRange.GetNotes(requestedNotes);
-            result.ForEach(x => this.Notes.Add(x));
-        }
+		protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : this(key, noteRange)
+		{
+			if (null == formula)
+				throw new ArgumentNullException();
+			this.Formula = formula;
+		}
+
+		void Init()
+		{
+			if (null != this.NoteNames
+				&& null != this.Formula)
+			{
+				this.NoteNames.Add(this.Key.NoteName);
+				foreach (var interval in this.Formula.Intervals)
+				{
+					var nn = this.Key.NoteName + new IntervalContext(this.Key, interval);
+					this.NoteNames.Add(nn);
+				}
+
+				var requestedNotes = this.NoteNames.Select(x => new Note(x, OctaveEnum.Octave0)).ToList();
+				var result = this.NoteRange.GetNotes(requestedNotes);
+				result.ForEach(x => this.Notes.Add(x));
+			}
+		}
 
 
-    }//class
+		#endregion Construction
+
+		public Note Next(DirectionEnum direction = DirectionEnum.Ascending)
+		{
+			Note result = null;
+			var currentNdx = this.Notes.IndexOf(this.CurrentNote);
+
+			if (DirectionEnum.Ascending == direction)
+			{
+				var nextNdx = 0;
+				if (currentNdx < this.MaxIndex)
+				{
+					nextNdx = currentNdx + 1;
+				}
+				result = this.Notes[nextNdx];
+			}
+			else
+			{
+				var nextNdx = this.MaxIndex;
+				if (currentNdx > 0)
+				{
+					nextNdx = currentNdx - 1;
+				}
+				result = this.Notes[nextNdx];
+			}
+
+			return result;
+		}
+
+
+	}//class
 }//ns

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as vexflow from 'vexflow';
+import * as Vex from 'vexflow';
 
 @Component({
   selector: 'app-vexflow-component',
@@ -8,16 +8,18 @@ import * as vexflow from 'vexflow';
 })
 export class VexflowComponent implements OnInit {
   renderer: Vex.Flow.Renderer;
-  context: any;
+  context: Vex.IRenderContext;
   stave: Vex.Flow.Stave;
   div: HTMLElement;
   flow: Object;
 
+  
+
   constructor() {}
 
   ngOnInit() {
-    const VF = vexflow.Flow;
-    this.flow = vexflow.Flow;
+    const VF = Vex.Flow;
+    this.flow = Vex.Flow;
     // Create an SVG renderer and attach it to the DIV element named "vexflow".
     this.div = document.getElementById('vexflow');
     this.renderer = new VF.Renderer(this.div, VF.Renderer.Backends.SVG);
@@ -36,7 +38,7 @@ export class VexflowComponent implements OnInit {
   }
 
   getNotes() {
-    const VF = vexflow.Flow;
+    const VF = Vex.Flow;
 
     const notes = [
       // A quarter-note C.
