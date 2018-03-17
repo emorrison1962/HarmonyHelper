@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony
 
         static NoteNamesCollection()
         {
-            var notes = NoteName.GetNoteNames().Distinct(new NoteNameValueComparer()).ToList();
+            var notes = NoteName.GetNoteNames().Distinct(new NoteNameValueEqualityComparer()).ToList();
             notes.ForEach(x => LinkedList.AddLast(x));
         }
 

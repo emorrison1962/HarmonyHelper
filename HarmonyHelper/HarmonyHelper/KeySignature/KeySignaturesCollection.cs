@@ -3,72 +3,138 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
-    public static class KeySignatureCollection
-    {
-        #region Properties
+	public static class KeySignatureCollection
+	{
+		#region Properties
 
-        static LinkedList<KeySignature> LinkedList { get; set; } = new LinkedList<KeySignature>();
+		//static LinkedList<KeySignature> LinkedList { get; set; } = new LinkedList<KeySignature>();
+		static List<KeySignature> KeySignatures { get; set; } = new List<KeySignature>();
 
-        #endregion
+		#endregion
 
-        #region Construction
-        static KeySignatureCollection()
-        {
-            LinkedList.AddLast(KeySignature.CMajor);
-            LinkedList.AddLast(KeySignature.DbMajor);
-            LinkedList.AddLast(KeySignature.DMajor);
-            LinkedList.AddLast(KeySignature.EbMajor);
-            LinkedList.AddLast(KeySignature.EMajor);
-            LinkedList.AddLast(KeySignature.FMajor);
-            LinkedList.AddLast(KeySignature.GbMajor);
-            LinkedList.AddLast(KeySignature.GMajor);
-            LinkedList.AddLast(KeySignature.AbMajor);
-            LinkedList.AddLast(KeySignature.AMajor);
-            LinkedList.AddLast(KeySignature.BbMajor);
-            LinkedList.AddLast(KeySignature.BMajor);
-        }
+		#region Construction
+		static KeySignatureCollection()
+		{
+			KeySignatures.Add(KeySignature.CMajor);
+			KeySignatures.Add(KeySignature.DbMajor);
+			KeySignatures.Add(KeySignature.DMajor);
+			KeySignatures.Add(KeySignature.EbMajor);
+			KeySignatures.Add(KeySignature.EMajor);
+			KeySignatures.Add(KeySignature.FMajor);
+			KeySignatures.Add(KeySignature.GbMajor);
+			KeySignatures.Add(KeySignature.GMajor);
+			KeySignatures.Add(KeySignature.AbMajor);
+			KeySignatures.Add(KeySignature.AMajor);
+			KeySignatures.Add(KeySignature.BbMajor);
+			KeySignatures.Add(KeySignature.BMajor);
+		}
 
-        #endregion
+		#endregion
 
-        public static LinkedListNode<KeySignature> Get(KeySignature key)
-        {
-            var node = LinkedList.Find(key);
-            if (null == node)
-            {
-                throw new ArgumentOutOfRangeException(key.NoteName.ToString());
-            }
+		//public static KeySignature Get(KeySignature key, IntervalsEnum interval)
+		//{
+		//	var node = LinkedList.Find(key);
+		//	if (null == node)
+		//		throw new NotImplementedException();
 
-            return node;
-        }
-        public static KeySignature Get(KeySignature ne, IntervalsEnum interval)
-        {
-            var node = LinkedList.Find(ne);
-            if (null == node)
-                throw new NotImplementedException();
+		//	var ndx = interval.ToIndex();
+		//	node = node.Find(ndx);
+		//	if (null == node)
+		//		throw new NotImplementedException();
 
-            var ndx = interval.ToIndex();
-            node = node.Find(ndx);
-            if (null == node)
-                throw new NotImplementedException();
+		//	var result = node.Value;
+		//	return result;
+		//}
 
-            var result = node.Value;
-            return result;
-        }
 
-        public static KeySignature Get(KeySignature ne, IntervalsEnum intervalEnum, DirectionEnum direction)
-        {
-            var interval = intervalEnum.ToIndex();
-            if (direction == DirectionEnum.Descending)
-            {
-                interval *= -1;
-            }
-            var node = LinkedList.Find(ne);
-            node = node.Find((int)interval);
+		public static KeySignature Get(KeySignature key, IntervalsEnum interval)
+		{
+			var maxNdx = KeySignatures.Count - 1;
+			var currentNdx = KeySignatures.IndexOf(key);
+			var intervalNdx = interval.ToIndex();
 
-            var result = node.Value;
-            return result;
-        }
+			var targetNdx = (currentNdx + intervalNdx) % maxNdx;
 
-    }//class
+			var result = KeySignatures[targetNdx];
+
+			return result;
+		}
+
+		public static KeySignature Get(KeySignature key, int intervalNdx)
+		{
+			var maxNdx = KeySignatures.Count - 1;
+			var currentNdx = KeySignatures.IndexOf(key);
+			var targetNdx = currentNdx + intervalNdx;
+			if (targetNdx < 0)
+				targetNdx = maxNdx + targetNdx;
+
+			var result = KeySignatures[targetNdx];
+
+			return result;
+		}
+
+		public static KeySignature Get(KeySignature key, IntervalsEnum intervalEnum, DirectionEnum direction)
+		{
+			var intervalNdx = intervalEnum.ToIndex();
+			if (direction == DirectionEnum.Descending)
+			{
+				intervalNdx *= -1;
+			}
+			var result = Get(key, (int)intervalNdx);
+
+			return result;
+		}
+
+
+#if false
+		public Note Next(DirectionEnum direction = DirectionEnum.Ascending)
+		{
+			Note result = null;
+			var currentNdx = this.Notes.IndexOf(this.CurrentNote);
+
+			if (DirectionEnum.Ascending == direction)
+			{
+				var nextNdx = 0;
+				if (currentNdx < this.MaxIndex)
+				{
+					nextNdx = currentNdx + 1;
+				}
+				result = this.Notes[nextNdx];
+			}
+			else
+			{
+				var nextNdx = this.MaxIndex;
+				if (currentNdx > 0)
+				{
+					nextNdx = currentNdx - 1;
+				}
+				result = this.Notes[nextNdx];
+			}
+
+			return result;
+		}
+
+#endif
+
+		//public static KeySignature Get(KeySignature ne, IntervalsEnum intervalEnum, DirectionEnum direction)
+		//{
+		//	var interval = intervalEnum.ToIndex();
+
+
+
+
+
+		//	if (direction == DirectionEnum.Descending)
+		//	{
+		//		interval *= -1;
+		//	}
+		//	var node = LinkedList.Find(ne);
+		//	node = node.Find((int)interval);
+
+		//	var result = node.Value;
+		//	return result;
+		//}
+
+	}//class
 
 }//ns

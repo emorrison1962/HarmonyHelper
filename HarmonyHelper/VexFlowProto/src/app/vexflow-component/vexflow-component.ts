@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Vex from 'vexflow';
+import { HarmonyServiceService } from '../harmony-service/harmony-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-vexflow-component',
@@ -13,11 +15,19 @@ export class VexflowComponent implements OnInit {
   div: HTMLElement;
   flow: Object;
 
-  
+  _staveNotes :Vex.Flow.StaveNote[];
 
-  constructor() {}
+  get staveNotes() :Vex.Flow.StaveNote[]{ return this._staveNotes;}
+  set staveNotes(input: Vex.Flow.StaveNote[]) { 
+    this._staveNotes = input;
+    this.setNotes();
+  }
+
+  constructor(private svc: HarmonyServiceService) {}
 
   ngOnInit() {
+
+    this.getData();
     const VF = Vex.Flow;
     this.flow = Vex.Flow;
     // Create an SVG renderer and attach it to the DIV element named "vexflow".
@@ -37,6 +47,49 @@ export class VexflowComponent implements OnInit {
     this.getNotes();
   }
 
+getData(){
+  const promise = this.svc.getData().toPromise();
+  promise.then((notes: Array<IStaveNote>) => {
+
+    const staveNotes = new Array<Vex.Flow.StaveNote> ();
+    
+    notes.forEach((note: IStaveNote)=>{
+      let staveNote = new Vex.Flow.StaveNote({
+        clef: note.clef,
+        keys: note.keys,
+        duration: note.duration,
+        auto_stem: note.auto_stem
+      });
+      staveNotes.push(staveNote);
+    });
+
+        this.staveNotes = staveNotes;
+      })
+    .catch((error:  HttpErrorResponse) => {
+      console.error(error.statusText);
+    });
+}
+
+setNotes() {
+  const VF = Vex.Flow;
+
+
+  // Create a voice in 4/4 and add above notes
+  const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+  voice.setStrict(false);
+  voice.addTickables(this.staveNotes);
+
+  // Format and justify the notes to 400 pixels.
+  const formatter = new VF.Formatter()
+    .joinVoices([voice])
+    .format([voice], 400);
+
+  // Render voice
+  voice.draw(this.context, this.stave);
+
+}
+
+
   getNotes() {
     const VF = Vex.Flow;
 
@@ -45,7 +98,8 @@ export class VexflowComponent implements OnInit {
       new VF.StaveNote({
         clef: 'treble',
         keys: ['c/4'],
-        duration: 'q'
+        duration: 'q',
+        auto_stem: true
       }), // A quarter-note D.
       new VF.StaveNote({
         clef: 'treble',
@@ -67,6 +121,7 @@ export class VexflowComponent implements OnInit {
 
     // Create a voice in 4/4 and add above notes
     const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+    voice.setStrict(false);
     voice.addTickables(notes);
 
     // Format and justify the notes to 400 pixels.
@@ -77,4 +132,11 @@ export class VexflowComponent implements OnInit {
     // Render voice
     voice.draw(this.context, this.stave);
   }
+}
+
+export interface IStaveNote {
+  clef: string; //'treble',
+  keys: string[]; //['c/4'],
+  duration: string;// 'q',
+  auto_stem: boolean
 }

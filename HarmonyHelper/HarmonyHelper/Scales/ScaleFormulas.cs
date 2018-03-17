@@ -93,7 +93,7 @@ namespace Eric.Morrison.Harmony
         protected override void Init()
         {
             base.InitImpl();
-            this.Key += IntervalsEnum.Minor3rd;
+            //this.Key += IntervalsEnum.Minor3rd;
         }
         protected override void PopulateIntervals()
         {
