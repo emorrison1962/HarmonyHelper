@@ -97,23 +97,29 @@ namespace Eric.Morrison.Harmony
 
 		#endregion
 
-		public static ChordFormula operator +(ChordFormula chord, IntervalsEnum interval)
+		public static ChordFormula operator +(ChordFormula chord, IntervalContext ctx)
 		{
-			var txedKey = chord.Key + interval;
-			var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval);
+			// var txedKey = chord.Key + ctx.Interval;
+			var txedRoot = chord.Root + ctx; // new IntervalContext(txedKey, ctx.Interval);
 
-			var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
+			var result = new ChordFormula(txedRoot, chord.ChordType, ctx.Key);// txedKey);
 			return result;
 		}
 
-		public static ChordFormula operator -(ChordFormula chord, IntervalsEnum interval)
+		public static ChordFormula operator -(ChordFormula chord, IntervalContext ctx)
 		{
-			var txedKey = chord.Key - interval;
-			var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval, DirectionEnum.Descending);
-			txedRoot = txedKey.GetNormalized(txedRoot);
+			// var txedKey = chord.Key - ctx.Interval;
+			var txedRoot = chord.Root - ctx;// new IntervalContext(txedKey, ctx.Interval);
 
-			var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
+			var result = new ChordFormula(txedRoot, chord.ChordType, ctx.Key);// txedKey);
 			return result;
+
+			//var txedKey = chord.Key - interval;
+			//var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval, DirectionEnum.Descending);
+			//txedRoot = txedKey.GetNormalized(txedRoot);
+
+			//var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
+			//return result;
 		}
 
 		public override string ToString()

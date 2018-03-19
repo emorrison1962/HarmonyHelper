@@ -83,7 +83,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.G,
 				NoteName.A,
 				NoteName.B
-				}, null);
+				}, null, false, false);
 			CMajor = KeySignature.Clone(NoAccidentals, true);
 			AMinor = KeySignature.Clone(NoAccidentals, false, NoteName.A);
 
@@ -95,7 +95,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.D,
 				NoteName.E,
 				NoteName.FSharp
-			}, true); // F#
+			}, true, false, false); // F#
 			GMajor = KeySignature.Clone(KeySignature.OneSharps, true);
 			EMinor = KeySignature.Clone(KeySignature.OneSharps, false, NoteName.E);
 
@@ -107,7 +107,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.G,
 				NoteName.A,
 				NoteName.B,
-				NoteName.CSharp,}, true); // F♯ C♯
+				NoteName.CSharp,}, true, false, false); // F♯ C♯
 			DMajor = KeySignature.Clone(KeySignature.TwoSharps, true);
 			BMinor = KeySignature.Clone(KeySignature.TwoSharps, false, NoteName.B);
 
@@ -119,7 +119,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.D,
 				NoteName.E,
 				NoteName.FSharp,
-				NoteName.GSharp,}, true);// F♯, C♯, G♯
+				NoteName.GSharp,}, true, false, false);// F♯, C♯, G♯
 			AMajor = KeySignature.Clone(KeySignature.ThreeSharps, true);
 			FSharpMinor = KeySignature.Clone(KeySignature.ThreeSharps, false, NoteName.FSharp);
 
@@ -131,7 +131,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.A,
 				NoteName.B,
 				NoteName.CSharp,
-				NoteName.DSharp,}, true);// F♯, C♯, G♯, D♯
+				NoteName.DSharp,}, true, false, false);// F♯, C♯, G♯, D♯
 			EMajor = KeySignature.Clone(KeySignature.FourSharps, true);
 			CSharpMinor = KeySignature.Clone(KeySignature.FourSharps, false, NoteName.CSharp);
 
@@ -143,7 +143,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.E,
 				NoteName.FSharp,
 				NoteName.GSharp,
-				NoteName.ASharp,}, true);// F♯, C♯, G♯, D♯, A♯
+				NoteName.ASharp,}, true, false, false);// F♯, C♯, G♯, D♯, A♯
 			BMajor = KeySignature.Clone(KeySignature.FiveSharps, true);
 			GSharpMinor = KeySignature.Clone(KeySignature.FiveSharps, false, NoteName.GSharp);
 
@@ -154,7 +154,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.B,
 				NoteName.CSharp,
 				NoteName.DSharp,
-				NoteName.ESharp}, true);// F♯, C♯, G♯, D♯, A♯, E♯
+				NoteName.ESharp}, true, false, false);// F♯, C♯, G♯, D♯, A♯, E♯
 			FSharpMajor = KeySignature.Clone(KeySignature.SixSharps, true);
 			DSharpMinor = KeySignature.Clone(KeySignature.SixSharps, false, NoteName.DSharp);
 
@@ -165,7 +165,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.FSharp,
 				NoteName.GSharp,
 				NoteName.ASharp,
-				NoteName.BSharp }, true);// F♯, C♯, G♯, D♯, A♯, E♯, B♯
+				NoteName.BSharp }, true, false, false);// F♯, C♯, G♯, D♯, A♯, E♯, B♯
 			CSharpMajor = KeySignature.Clone(KeySignature.SevenSharps, true);
 			ASharpMinor = KeySignature.Clone(KeySignature.SevenSharps, false, NoteName.ASharp);
 
@@ -178,7 +178,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.C,
 				NoteName.D,
 				NoteName.E,
-			}, false);// B♭
+			}, false, false, false);// B♭
 			FMajor = KeySignature.Clone(KeySignature.OneFlats, true);
 			DMinor = KeySignature.Clone(KeySignature.OneFlats, false, NoteName.D);
 
@@ -191,7 +191,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.F,
 				NoteName.G,
 				NoteName.A,
-			}, false);// B♭, E♭
+			}, false, false, false);// B♭, E♭
 			BbMajor = KeySignature.Clone(KeySignature.TwoFlats, true);
 			GMinor = KeySignature.Clone(KeySignature.TwoFlats, false, NoteName.G);
 
@@ -204,7 +204,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.Bb,
 				NoteName.C,
 				NoteName.D,
-			}, false);// B♭, E♭, A♭
+			}, false, false, false);// B♭, E♭, A♭
 			EbMajor = KeySignature.Clone(KeySignature.ThreeFlats, true);
 			CMinor = KeySignature.Clone(KeySignature.ThreeFlats, false, NoteName.C);
 
@@ -217,7 +217,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.Eb,
 				NoteName.F,
 				NoteName.G,
-			}, false);// B♭, E♭, A♭, D♭
+			}, false, false, false);// B♭, E♭, A♭, D♭
 			AbMajor = KeySignature.Clone(KeySignature.FourFlats, true);
 			FMinor = KeySignature.Clone(KeySignature.FourFlats, false, NoteName.F);
 
@@ -230,7 +230,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.Ab,
 				NoteName.Bb,
 				NoteName.C,
-			}, false);// B♭, E♭, A♭, D♭, G♭
+			}, false, false, false);// B♭, E♭, A♭, D♭, G♭
 			DbMajor = KeySignature.Clone(KeySignature.FiveFlats, true);
 			BbMinor = KeySignature.Clone(KeySignature.FiveFlats, false, NoteName.Bb);
 
@@ -244,7 +244,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.Db,
 				NoteName.Eb,
 				NoteName.F,
-			}, false);// B♭, E♭, A♭, D♭, G♭, C♭
+			}, false, false, false);// B♭, E♭, A♭, D♭, G♭, C♭
 			GbMajor = KeySignature.Clone(KeySignature.SixFlats, true);
 			EbMinor = KeySignature.Clone(KeySignature.SixFlats, false, NoteName.Eb);
 
@@ -257,7 +257,7 @@ namespace Eric.Morrison.Harmony
 				NoteName.Gb,
 				NoteName.Ab,
 				NoteName.Bb,
-			}, false);// B♭, E♭, A♭, D♭, G♭, C♭, F♭
+			}, false, false, false);// B♭, E♭, A♭, D♭, G♭, C♭, F♭
 			CbMajor = KeySignature.Clone(KeySignature.SevenFlats, true);
 			AbMinor = KeySignature.Clone(KeySignature.SevenFlats, false, NoteName.Ab);
 		}
@@ -272,18 +272,8 @@ namespace Eric.Morrison.Harmony
 					throw new ArgumentNullException();
 				nn = noteName;
 			}
-			var result = new KeySignature(nn, src.Notes, src.UsesSharps);
-			result.IsMajor = isMajor;
-			result.IsMinor = !isMajor;
+			var result = new KeySignature(nn, src.Notes, src.UsesSharps, isMajor, !isMajor);
 
-			if (isMajor)
-			{
-				MajorKeys.Add(result);
-			}
-			else
-			{
-				MinorKeys.Add(result);
-			}
 
 			return result;
 		}

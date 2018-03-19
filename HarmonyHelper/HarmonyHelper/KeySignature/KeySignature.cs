@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 // reference: https://dictionary.onmusic.org/appendix/topics/key-signatures
 
@@ -14,13 +15,16 @@ namespace Eric.Morrison.Harmony
 		public bool UsesFlats { get; private set; }
 		public bool IsMajor { get; private set; }
 		public bool IsMinor { get; private set; }
+		public int AccidentalCount { get; private set; }
 
 
-
-		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMinor = false)
+		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor)
 		{
 			this.NoteName = key;
 			this.Notes = new List<NoteName>(notes);
+			this.AccidentalCount = this.Notes.Where(x => x.Name.EndsWith(Constants.SHARP) 
+				|| x.Name.EndsWith(Constants.FLAT)).Count();
+
 			if (usesSharps.HasValue)
 			{
 				this.UsesSharps = usesSharps.Value;
@@ -28,7 +32,22 @@ namespace Eric.Morrison.Harmony
 			}
 			if (0 == this.Notes.Count)
 				this.UsesFlats = false;
-			Catalog.Add(this);
+
+			this.IsMajor = isMajor;
+			this.IsMinor = isMinor;
+			if (this.IsMajor || this.IsMinor)
+			{
+				Catalog.Add(this);
+			}
+			if (this.IsMajor)
+			{
+				MajorKeys.Add(this);
+			}
+			else if (this.IsMinor)
+			{
+				MinorKeys.Add(this);
+			}
+
 		}
 		class HasEnharmonicComparer : IEqualityComparer<NoteName>
 		{
@@ -173,14 +192,44 @@ namespace Eric.Morrison.Harmony
 
 		public static KeySignature operator -(KeySignature key, IntervalsEnum interval)
 		{
-			var result = KeySignature.GetTransposed(key, interval, DirectionEnum.Descending);
+			var inversion = interval.GetInversion();
+			var result = KeySignature.GetTransposed(key, inversion);
 			return result;
 		}
 
 		public static KeySignature GetTransposed(KeySignature key, IntervalsEnum interval)
 		{
-			var intervalNdx = interval.ToIndex();
-			var result = Get(key, (int)intervalNdx);
+			KeySignature result = null;
+			var txposedNote = NoteName.TransposeUp(key.NoteName, interval);
+			IEnumerable<KeySignature> catalog = null;
+
+			if (key.IsMajor)
+			{
+				catalog = KeySignature.MajorKeys;
+			}
+			else if (key.IsMinor)
+			{
+				catalog = KeySignature.MinorKeys;
+			}
+			else
+			{
+				throw new Exception($"{MethodBase.GetCurrentMethod().Name}");
+			}
+
+			var seq = KeySignature.MajorKeys.Where(x => x.NoteName.Value == txposedNote.Value);
+			if (null == seq)
+			{
+				throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Major key with NoteName{{{txposedNote.Name}}} does not exist");
+			}
+			if (1 == seq.Count())
+			{
+				result = seq.First();
+			}
+			else
+			{
+				result = seq.OrderBy(x => x.AccidentalCount).First();
+				new object();
+			}
 
 			return result;
 		}

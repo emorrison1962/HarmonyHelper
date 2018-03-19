@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ChordTests.cs" />
+    <Compile Include="KeySignature\KeySignatureTests.cs" />
     <Compile Include="ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

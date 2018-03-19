@@ -273,7 +273,7 @@ Scales containing the chord tones from: B♭Minor7th
 		[TestMethod()]
 		public void AlteredDominants()
 		{
-			throw new NotImplementedException();
+			Assert.Fail("throw new NotImplementedException();");
 			var chords = new List<ChordFormula>() {
 				 new ChordFormula(NoteName.F, ChordTypesEnum.Minor7th, KeySignature.EbMajor),
 				 new ChordFormula(NoteName.Db, ChordTypesEnum.Dominant7th, KeySignature.GbMajor),

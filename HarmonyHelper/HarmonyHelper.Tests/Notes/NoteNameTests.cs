@@ -2628,60 +2628,70 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 
+		[Ignore]
 		[TestMethod()]
 		public void CopyTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void CopyTest1()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void GetEnharmonicEquivalentTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void GetNoteNamesTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void ToStringTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void CompareToTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void CompareTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void EqualsTest()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void EqualsTest1()
 		{
 			Assert.Fail();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void GetHashCodeTest()
 		{
