@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="ChordTests.cs" />
     <Compile Include="ModeTests.cs" />
+    <Compile Include="Notes\NoteNameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MusicXmlTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

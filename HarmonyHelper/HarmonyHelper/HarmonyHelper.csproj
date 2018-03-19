@@ -46,6 +46,11 @@
     <Compile Include="Chords\ChordFormula.cs" />
     <Compile Include="ChordScaleMapping.cs" />
     <Compile Include="Chords\ChordTone.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Helpers\DebuggingHelpers.cs" />
+    <Compile Include="KeySignature\KeySignature_Static.cs">
+      <DependentUpon>KeySignature.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scales\ModeFormula_bak.cs">
       <DependentUpon>ModeFormula.cs</DependentUpon>
     </Compile>

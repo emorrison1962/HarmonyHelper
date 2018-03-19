@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Eric.Morrison.Harmony
 {
 	public class NoteName : ClassBase, IComparable<NoteName>
 	{
 		#region Constants
-		const int VALUE_C = 1 << 1;
+		public const int MIN_LOWER_SHIFT = 1;
+		const int VALUE_C = 1 << MIN_LOWER_SHIFT;
 		const int VALUE_Db = 1 << 2;
 		const int VALUE_D = 1 << 3;
 		const int VALUE_Eb = 1 << 4;
@@ -19,7 +21,10 @@ namespace Eric.Morrison.Harmony
 		const int VALUE_Ab = 1 << 9;
 		const int VALUE_A = 1 << 10;
 		const int VALUE_Bb = 1 << 11;
-		const int VALUE_B = 1 << 12;
+		public const int MAX_UPPER_SHIFT = 12;
+		const int VALUE_B = 1 << MAX_UPPER_SHIFT;
+		static public int MinValue { get { return VALUE_C; } }
+		static public int MaxValue { get { return VALUE_B; } }
 
 		//const int VALUE_Cb = VALUE_B;
 		//const int VALUE_Fb = VALUE_E;
@@ -31,7 +36,7 @@ namespace Eric.Morrison.Harmony
 		#endregion Constants
 
 
-		static List<NoteName> NoteNames { get; set; } = new List<NoteName>();
+		static public List<NoteName> Catalog { get; set; } = new List<NoteName>();
 		static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
 		public string Name { get; private set; }
 		public int Value { get; private set; }
@@ -45,9 +50,9 @@ namespace Eric.Morrison.Harmony
 			this.Name = name;
 			this.Value = val;
 
-			if (this.Name.EndsWith("♯"))
+			if (this.Name.EndsWith(Constants.SHARP))
 				this.IsSharp = true;
-			else if (this.Name.EndsWith("♭"))
+			else if (this.Name.EndsWith(Constants.FLAT))
 				this.IsFlat = true;
 			else
 				this.IsNatural = true;
@@ -107,46 +112,46 @@ namespace Eric.Morrison.Harmony
 
 		static NoteName()
 		{
-			NoteNames.Add(BSharp = new NoteName("B♯", VALUE_C));
-			NoteNames.Add(C = new NoteName("C", VALUE_C));
+			Catalog.Add(BSharp = new NoteName("B♯", VALUE_C));
+			Catalog.Add(C = new NoteName("C", VALUE_C));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(C, BSharp));
 
-			NoteNames.Add(CSharp = new NoteName("C♯", VALUE_Db));
-			NoteNames.Add(Db = new NoteName("D♭", VALUE_Db));
+			Catalog.Add(CSharp = new NoteName("C♯", VALUE_Db));
+			Catalog.Add(Db = new NoteName("D♭", VALUE_Db));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(CSharp, Db));
 
-			NoteNames.Add(D = new NoteName("D", VALUE_D));
+			Catalog.Add(D = new NoteName("D", VALUE_D));
 
-			NoteNames.Add(DSharp = new NoteName("D♯", VALUE_Eb));
-			NoteNames.Add(Eb = new NoteName("E♭", VALUE_Eb));
+			Catalog.Add(DSharp = new NoteName("D♯", VALUE_Eb));
+			Catalog.Add(Eb = new NoteName("E♭", VALUE_Eb));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(DSharp, Eb));
 
-			NoteNames.Add(E = new NoteName("E", VALUE_E));
-			NoteNames.Add(Fb = new NoteName("F♭", VALUE_E));
+			Catalog.Add(E = new NoteName("E", VALUE_E));
+			Catalog.Add(Fb = new NoteName("F♭", VALUE_E));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(E, Fb));
 
-			NoteNames.Add(ESharp = new NoteName("E♯", VALUE_F));
-			NoteNames.Add(F = new NoteName("F", VALUE_F));
+			Catalog.Add(ESharp = new NoteName("E♯", VALUE_F));
+			Catalog.Add(F = new NoteName("F", VALUE_F));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ESharp, F));
 
-			NoteNames.Add(FSharp = new NoteName("F♯", VALUE_Gb));
-			NoteNames.Add(Gb = new NoteName("G♭", VALUE_Gb));
+			Catalog.Add(FSharp = new NoteName("F♯", VALUE_Gb));
+			Catalog.Add(Gb = new NoteName("G♭", VALUE_Gb));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(FSharp, Gb));
 
-			NoteNames.Add(G = new NoteName("G", VALUE_G));
+			Catalog.Add(G = new NoteName("G", VALUE_G));
 
-			NoteNames.Add(GSharp = new NoteName("G♯", VALUE_Ab));
-			NoteNames.Add(Ab = new NoteName("A♭", VALUE_Ab));
+			Catalog.Add(GSharp = new NoteName("G♯", VALUE_Ab));
+			Catalog.Add(Ab = new NoteName("A♭", VALUE_Ab));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(GSharp, Ab));
 
-			NoteNames.Add(A = new NoteName("A", VALUE_A));
+			Catalog.Add(A = new NoteName("A", VALUE_A));
 
-			NoteNames.Add(ASharp = new NoteName("A♯", VALUE_Bb));
-			NoteNames.Add(Bb = new NoteName("B♭", VALUE_Bb));
+			Catalog.Add(ASharp = new NoteName("A♯", VALUE_Bb));
+			Catalog.Add(Bb = new NoteName("B♭", VALUE_Bb));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharp, Bb));
 
-			NoteNames.Add(B = new NoteName("B", VALUE_B));
-			NoteNames.Add(Cb = new NoteName("C♭", VALUE_B));
+			Catalog.Add(B = new NoteName("B", VALUE_B));
+			Catalog.Add(Cb = new NoteName("C♭", VALUE_B));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(B, Cb));
 
 
@@ -205,7 +210,7 @@ namespace Eric.Morrison.Harmony
 
 		static public List<NoteName> GetNoteNames()
 		{
-			return NoteName.NoteNames;
+			return NoteName.Catalog;
 		}
 
 		public override string ToString()
@@ -300,7 +305,8 @@ namespace Eric.Morrison.Harmony
 			var result = note;
 			if (null != note && ctx.Interval > IntervalsEnum.None)
 			{
-				result = NoteNamesCollection.Get(ctx.Key, note, ctx.Interval);
+				result = TransposeUp(note, ctx.Interval);
+				result = ctx.Key.GetNormalized(result);
 			}
 			return result;
 		}
@@ -310,7 +316,8 @@ namespace Eric.Morrison.Harmony
 			var result = note;
 			if (null != note && ctx.Interval > IntervalsEnum.None)
 			{
-				result = NoteNamesCollection.Get(ctx.Key, note, ctx.Interval, DirectionEnum.Descending);
+				result = TransposeDown(note, ctx.Interval);
+				result = ctx.Key.GetNormalized(result);
 			}
 			return result;
 		}
@@ -332,6 +339,79 @@ namespace Eric.Morrison.Harmony
 				var pow = 1 << diff;
 				result = (IntervalsEnum)pow;
 			}
+			return result;
+		}
+
+		public static NoteName TransposeUp(NoteName src, IntervalsEnum interval)
+		{
+			NoteName result = null;
+			const uint MASK_ABOVE_NOTENAME_B = 0x000001fff;
+
+			uint val = (uint)src.Value;
+			var count = interval.ToIndex();
+
+			var upperByte = (val << count);     //shift the val.
+			upperByte &= MASK_ABOVE_NOTENAME_B; //mask bits above MASK_ABOVE_NOTENAME_B
+			var lowerByte = (val >> (NoteName.MAX_UPPER_SHIFT - count));
+			if (0 != upperByte)
+			{// If we have a value in the upper byte, disregard the lower byte.
+				lowerByte = 0;
+			}
+
+			var txposed = (upperByte | lowerByte);
+
+
+			var seq = NoteName.Catalog.Where(x => x.Value == txposed);
+			Debug.Assert(null != seq);
+
+			var success = false;
+			if (!success)
+			{
+				var optimalResult = seq.Where(x => x.IsFlat == src.IsFlat
+					&& x.IsNatural == src.IsNatural
+					&& x.IsSharp == src.IsSharp).FirstOrDefault();
+				if (null != optimalResult)
+				{
+					result = optimalResult;
+					success = true;
+				}
+			}
+			if (!success)
+			{
+				var nextBestResult = seq.Where(x => x.IsNatural).FirstOrDefault();
+				if (null != nextBestResult)
+				{
+					result = nextBestResult;
+					success = true;
+				}
+			}
+			if (!success)
+			{
+#warning FIXME: # if ascending....
+				var defaultResult = seq.Where(x => x.IsSharp).FirstOrDefault();
+				if (null != defaultResult)
+				{
+					result = defaultResult;
+					success = true;
+				}
+			}
+			if (!success)
+			{
+				throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Unable to transpose input.");
+			}
+
+			//var srcName = src.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
+			//var expectedName = result.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
+			//Debug.WriteLine($"else if (note == NoteName.{srcName} && (IntervalsEnum)interval == IntervalsEnum.{interval}){{");
+			//Debug.WriteLine($"Assert.IsTrue(expected == NoteName.{expectedName});}}");
+			return result;
+		}
+
+		public static NoteName TransposeDown(NoteName src, IntervalsEnum interval)
+		{
+
+			var inversion = interval.GetInversion();
+			var result = TransposeUp(src, inversion);
 			return result;
 		}
 

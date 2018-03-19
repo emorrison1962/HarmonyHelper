@@ -1,10 +1,64 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
 
 	public static class IntervalsEnumExtensions
 	{
+		class IntervalsEnumValueComparer : IEqualityComparer<IntervalsEnum>
+		{
+			public bool Equals(IntervalsEnum x, IntervalsEnum y)
+			{
+				bool result = false;
+				if ((int)x == (int)y)
+					result = true;
+				return result;
+
+			}
+
+			public int GetHashCode(IntervalsEnum obj)
+			{
+				return obj.GetHashCode();
+			}
+		}
+
+		public static int ToIndex(this IntervalsEnum ie)
+		{
+			var result = 0;
+			var tmp = ie;
+			while (tmp >= IntervalsEnum.Minor2nd)
+			{
+				++result;
+				int x = (int)tmp >> 1;
+				tmp = (IntervalsEnum)x;
+			}
+			return result;
+		}
+
+		public static IntervalsEnum GetInversion(this IntervalsEnum interval)
+		{
+			IntervalsEnum result = IntervalsEnum.None;
+			if (IntervalsEnum.None != interval)
+			{
+				var comparer = new IntervalsEnumValueComparer();
+				var list = Enum.GetValues(typeof(IntervalsEnum)).Cast<IntervalsEnum>()
+					.Where(x => x != IntervalsEnum.None)
+					.Distinct(comparer)
+					.OrderBy(x => x)
+					.ToList();
+
+				//list.ForEach(x => Debug.WriteLine($"{x}: {(int)x}"));
+
+				var ndx = list.IndexOf(interval);
+				var inversionNdx = (list.Count - 1) - ndx;
+				result = list[inversionNdx];
+			}
+
+			return result;
+		}
+
 
 		public static string ToStringEx(this IntervalsEnum e)
 		{
@@ -210,19 +264,6 @@ namespace Eric.Morrison.Harmony
 
 	public static class EnumExtensions
 	{
-		public static int ToIndex(this IntervalsEnum ie)
-		{
-			var result = 0;
-			var tmp = ie;
-			while (tmp >= IntervalsEnum.Minor2nd)
-			{
-				++result;
-				int x = (int)tmp >> 1;
-				tmp = (IntervalsEnum)x;
-			}
-			return result;
-		}
-
 		public static T Next<T>(this T src) where T : struct
 		{
 			if (!typeof(T).IsEnum)

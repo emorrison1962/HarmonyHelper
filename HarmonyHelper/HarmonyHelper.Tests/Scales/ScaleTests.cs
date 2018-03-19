@@ -324,7 +324,7 @@ Scales containing the chord tones from: B♭Minor7th
 			}
 		}
 	}
-	static class Extensions
+	static partial class Extensions
 	{
 		static public EnharmonicEquivalents GetEnharmonicEquivalents(this List<ScaleFormulaBase> src)
 		{

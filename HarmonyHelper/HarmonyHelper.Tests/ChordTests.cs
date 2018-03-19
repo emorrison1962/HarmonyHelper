@@ -97,11 +97,27 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		[TestMethod()]
+		public void Gb7ModulationTest()
+		{
+			var chord = ChordFormula.Formulas.First(x => x.Root == NoteName.Gb && x.ChordType == ChordTypesEnum.Dominant7th);
+			Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
+
+			var txedUp = chord + IntervalsEnum.Perfect4th;
+			Assert.AreNotEqual(txedUp, chord);
+			var txedDown = txedUp - IntervalsEnum.Perfect4th;
+			var b = txedDown == chord;
+			Assert.AreEqual(txedDown, chord);
+			new object();
+		}
+
+
+		[TestMethod()]
 		public void ChordTest()
 		{
 			foreach (var chord in ChordFormula.Formulas)
 			{
 				Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
+
 				var txedUp = chord + IntervalsEnum.Perfect4th;
 				Assert.AreNotEqual(txedUp, chord);
 				var txedDown = txedUp - IntervalsEnum.Perfect4th;

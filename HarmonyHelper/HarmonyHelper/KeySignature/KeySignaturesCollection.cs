@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
+	[Obsolete("***", true)]
 	public static class KeySignatureCollection
 	{
 		#region Properties

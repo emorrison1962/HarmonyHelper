@@ -118,13 +118,7 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			var r = this.Root.ToString();
-			var third = this.Third.ToString();
-			var fifth = this.Fifth.ToString();
-			var seventh = this.Seventh.ToString();
-
-			var result = string.Format("{0},{1},{2},{3}", r, third, fifth, seventh);
-			return result;
+			return $"{this.Name}: {this.Root.ToString()},{this.Third.ToString()},{this.Fifth.ToString()},{this.Seventh.ToString()}";
 		}
 
 		public bool Equals(ChordFormula other)
