@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public abstract class ScaleFormulaBase
+	public abstract class ScaleFormulaBase: IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
 	{
 		public KeySignature Key { get; protected set; }
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
@@ -87,6 +88,58 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		public int CompareTo(ScaleFormulaBase other)
+		{
+			var result = this.Name.CompareTo(other.Name);
+			if (0 == result)
+			{
+				result = -(this.NoteNames.Sum(x => x.Value).CompareTo(other.NoteNames.Sum(x => x.Value)));
+			}
+			return result;
+		}
+
+		public bool Equals(ScaleFormulaBase other)
+		{
+			var result = this.Name == other.Name;
+			if (result)
+				new object();
+			if (!result)
+			{
+				result = this.NoteNames.Sum(x => x.Value) == other.NoteNames.Sum(x => x.Value);
+				if (result)
+					new object();
+			}
+			if (!result)
+			{
+				result = this.Key.ToString() == other.Key.ToString();
+				if (result)
+					new object();
+			}
+			return result;
+		}
 	}//class
 
+	public class ScaleFormulaBaseEqualityComparer : IEqualityComparer<ScaleFormulaBase>
+	{
+		public bool Equals(ScaleFormulaBase x, ScaleFormulaBase y)
+		{
+			return x.Equals(y);
+		}
+
+		public int GetHashCode(ScaleFormulaBase obj)
+		{
+			return obj.NoteNames.Sum(x => x.Value).GetHashCode();
+		}
+	}
+
+	public class ScaleFormulaBasePrecedenceComparer : IComparer<ScaleFormulaBase>
+	{
+		public int Compare(ScaleFormulaBase a, ScaleFormulaBase b)
+		{
+			var result = 0;
+			result = -(a.NoteNames.Sum(x => x.Value)
+				.CompareTo(b.NoteNames.Sum(x => x.Value)));
+			return result;
+		}
+	}
 }//ns

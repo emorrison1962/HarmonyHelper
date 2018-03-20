@@ -45,6 +45,7 @@
     <Compile Include="Chords\ChordCompareResult.cs" />
     <Compile Include="Chords\ChordFormula.cs" />
     <Compile Include="ChordScaleMapping.cs" />
+    <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
     <Compile Include="Chords\ChordTone.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Scales\ModeFormula_bak.cs">
       <DependentUpon>ModeFormula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />
