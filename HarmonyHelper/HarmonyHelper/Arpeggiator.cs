@@ -7,7 +7,6 @@ namespace Eric.Morrison.Harmony
 	public class Arpeggiator
 	{
 		public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
-		public event EventHandler<Arpeggiator> BarChanged;
 		public event EventHandler<Arpeggiator> ChordChanged;
 		public event EventHandler<Arpeggiator> DirectionChanged;
 		public event EventHandler<Arpeggiator> CurrentNoteChanged;
@@ -125,6 +124,7 @@ namespace Eric.Morrison.Harmony
 				{
 					result = true;
 				}
+#if false
 #warning FIXME: debug logic start.
 				else
 				{
@@ -144,7 +144,7 @@ namespace Eric.Morrison.Harmony
 					}
 				}
 #warning FIXME: debug logic end.
-
+#endif
 				return result;
 			}
 		}

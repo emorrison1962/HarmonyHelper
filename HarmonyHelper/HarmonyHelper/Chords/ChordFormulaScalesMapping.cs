@@ -33,22 +33,12 @@ namespace Eric.Morrison.Harmony
 
 		static public ChordFormulaScalesMapping GetScalesFor(ChordFormula chord)
 		{
-#warning *** THIS IS THE LOGIC!!! ***
-
 			var mapping = new ChordFormulaScalesMapping(chord);
 			var catalog = new ScaleFormulaCatalog();
 			var formulas = catalog.Formulas.OrderBy(x => x.Name).ToList();
 
 			var matching = formulas.Where(x => x.Contains(chord));
 			mapping.ScaleFormulas.AddRange(matching);
-			//foreach (var scale in formulas)
-			//{
-			//	var hasChord = scale.Contains(chord);
-			//	if (hasChord)
-			//	{
-			//		mapping.ScaleFormulas.Add(scale);
-			//	}
-			//}
 
 			var enharmonicEquivalents = mapping.ScaleFormulas.GetEnharmonicEquivalents();
 
@@ -95,6 +85,8 @@ namespace Eric.Morrison.Harmony
 						result.ScaleFormulas.Add(selectedScale);
 					}
 				}
+
+#warning Here's whee the scale precednce is implemented. Order this.ScaleFormulas according to the scale precednce we want to set.
 			}
 
 
@@ -113,16 +105,19 @@ namespace Eric.Morrison.Harmony
 				select s).ToList();
 
 
-			var alpha = scaleFormulas.OrderBy(x => x.Name);
+#warning Actually, we really want to order by scale precedence here.
+#if false
+			Precedence factors:
+			Popularity, NotesPerScale(Complexity?), IsMode, KeyCentric, ChordCentric, "In", "Out", ScaleType
+#endif
 
 			var comparer = new ScaleFormulaBaseEqualityComparer();
-
 			var scaleGroups = scaleFormulas
 					.GroupBy(x => x, comparer)
 					.OrderBy(x => x.Count())
 					.ToList();
 			var popularScales = scaleGroups.Distinct().Select(g => g.Key).ToList();
-			var mostPopularScales = mappings.Select(m => m.ScaleFormulas.Where(b => popularScales.Contains(b)).First()).ToList();
+			var mostPopularScales = mappings.Select(m => m.ScaleFormulas.Where(s => popularScales.Contains(s)).First()).ToList();
 
 
 			var pairings = mappings
@@ -144,8 +139,6 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
-
-
 
 	}//class
 }//ns

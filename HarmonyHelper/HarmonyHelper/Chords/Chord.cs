@@ -139,24 +139,4 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 	}//class
-
-	static public class ListExtensions
-	{
-		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
-		{
-			Note result;
-
-			if (DirectionEnum.Ascending == direction)
-			{
-				result = list.Where(x => x > lastNote).FirstOrDefault();
-			}
-			else
-			{
-				result = list.Where(x => x < lastNote).LastOrDefault();
-			}
-			return result;
-		}
-
-	}
-
 }//ns

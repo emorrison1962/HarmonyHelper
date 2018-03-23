@@ -45,6 +45,7 @@
     <Compile Include="Chords\ChordCompareResult.cs" />
     <Compile Include="Chords\ChordFormula.cs" />
     <Compile Include="ChordScaleMapping.cs" />
+    <Compile Include="Chords\ChordFormulaCatalog.cs" />
     <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
     <Compile Include="Chords\ChordTone.cs" />
     <Compile Include="Constants.cs" />
@@ -59,13 +60,12 @@
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />
-    <Compile Include="Extensions\LinkedListExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="HarmonyEntityBase.cs" />
     <Compile Include="KeySignature\KeySignature.cs" />
     <Compile Include="KeySignature\KeySignaturesCollection.cs" />
     <Compile Include="Scales\Mode.cs" />
     <Compile Include="Notes\NoteName.cs" />
-    <Compile Include="Notes\NoteNamesCollection.cs" />
     <Compile Include="Notes\NoteRange.cs" />
     <Compile Include="Notes\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

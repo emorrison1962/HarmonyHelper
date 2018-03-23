@@ -503,5 +503,15 @@ namespace Eric.Morrison.Harmony
 		}
 	}
 
+	public static class NoteNameCatalogExtensions{
+
+		public static NoteName Get(this List<NoteName> src,KeySignature key, NoteName nn, IntervalsEnum interval)
+		{
+			var result = NoteName.TransposeUp(nn, interval);
+			result = key.GetNormalized(result);
+			return result;
+		}
+
+	}
 
 }//ns

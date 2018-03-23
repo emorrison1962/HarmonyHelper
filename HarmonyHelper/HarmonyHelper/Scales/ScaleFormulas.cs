@@ -41,19 +41,19 @@ namespace Eric.Morrison.Harmony
         protected override void PopulateIntervals()
         {
             throw new NotImplementedException();
-            this.Intervals = new List<IntervalsEnum>() {
-                IntervalsEnum.Minor2nd,
-                IntervalsEnum.Major2nd,
-                IntervalsEnum.Minor3rd,
-                IntervalsEnum.Major3rd,
-                IntervalsEnum.Perfect4th,
-                IntervalsEnum.Augmented4th,
-                IntervalsEnum.Perfect5th,
-                IntervalsEnum.Augmented5th,
-                IntervalsEnum.Major6th,
-                IntervalsEnum.Minor7th,
-                IntervalsEnum.Major7th,
-            };
+            //this.Intervals = new List<IntervalsEnum>() {
+            //    IntervalsEnum.Minor2nd,
+            //    IntervalsEnum.Major2nd,
+            //    IntervalsEnum.Minor3rd,
+            //    IntervalsEnum.Major3rd,
+            //    IntervalsEnum.Perfect4th,
+            //    IntervalsEnum.Augmented4th,
+            //    IntervalsEnum.Perfect5th,
+            //    IntervalsEnum.Augmented5th,
+            //    IntervalsEnum.Major6th,
+            //    IntervalsEnum.Minor7th,
+            //    IntervalsEnum.Major7th,
+            //};
         }
     }
 

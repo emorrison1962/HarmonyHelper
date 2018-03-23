@@ -70,7 +70,7 @@ namespace Eric.Morrison.Harmony
 			result.Add(this.Key.NoteName);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteNamesCollection.Get(this.Key, this.Key.NoteName, interval);
+				var nn = NoteNames.Get(this.Key, this.Key.NoteName, interval);
 				result.Add(nn);
 			}
 

@@ -99,7 +99,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void Gb7ModulationTest()
 		{
-			var chord = ChordFormula.Formulas.First(x => x.Root == NoteName.Gb && x.ChordType == ChordTypesEnum.Dominant7th);
+			var chord = ChordFormulaCatalog.Formulas.First(x => x.Root == NoteName.Gb && x.ChordType == ChordTypesEnum.Dominant7th);
 			Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
 			var origKey = chord.Key;
 			var txedUp = chord + new IntervalContext(origKey, IntervalsEnum.Perfect4th);
@@ -114,7 +114,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void ChordTest()
 		{
-			foreach (var origChord in ChordFormula.Formulas)
+			foreach (var origChord in ChordFormulaCatalog.Formulas)
 			{
 				Debug.WriteLine(string.Format("{0}7 = {1}", origChord.Root.ToString(), origChord.ToString()));
 
@@ -134,7 +134,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void IteratorTest()
 		{
-			foreach (var chord in ChordFormula.Formulas)
+			foreach (var chord in ChordFormulaCatalog.Formulas)
 			{
 				var newChord = chord + new IntervalContext(chord.Key, IntervalsEnum.Perfect5th);
 				//Debug.WriteLine(newChord.ToString());
@@ -145,7 +145,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void ToStringTest()
 		{
-			foreach (var chord in ChordFormula.Formulas)
+			foreach (var chord in ChordFormulaCatalog.Formulas)
 			{
 				Debug.WriteLine(chord.ToString());
 			}
@@ -156,7 +156,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void TheCycleTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
-			var chordFormula = ChordFormula.C7;
+			var chordFormula = ChordFormulaCatalog.C7;
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var chord = new Chord(chordFormula, noteRange);
 			var key = chord.Key;
@@ -500,7 +500,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void CycleOfMinor3rdsTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
-			var chordFormula = ChordFormula.Eb7;
+			var chordFormula = ChordFormulaCatalog.Eb7;
 			var chord = new Chord(chordFormula, noteRange);
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var notesToPlay = 4;
@@ -536,7 +536,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void ColtraneChangesTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.NinthPosition);
-			var chordFormula = ChordFormula.Bb7;
+			var chordFormula = ChordFormulaCatalog.Bb7;
 			var chord = new Chord(chordFormula, noteRange);
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var notesToPlay = 4;

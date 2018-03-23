@@ -16,7 +16,7 @@ namespace Eric.Morrison.Harmony
         {
             foreach (var interval in this.Formula.Intervals)
             {
-                var scaleTone = NoteNamesCollection.Get(this.Key, this.Key.NoteName, interval);
+                var scaleTone = NoteNames.Get(this.Key, this.Key.NoteName, interval);
                 this.NoteNames.Add(scaleTone);
             }
         }

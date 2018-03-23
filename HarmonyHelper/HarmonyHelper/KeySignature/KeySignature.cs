@@ -234,50 +234,5 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static KeySignature GetTransposed(KeySignature key, IntervalsEnum intervalEnum, DirectionEnum direction)
-		{
-			var intervalNdx = intervalEnum.ToIndex();
-			if (direction == DirectionEnum.Descending)
-			{
-				intervalNdx *= -1;
-			}
-			var result = Get(key, (int)intervalNdx);
-
-			return result;
-		}
-
-		public static KeySignature Get(KeySignature key, int intervalNdx)
-		{
-			List<KeySignature> keys = null;
-			if (key.IsMajor)
-			{
-				keys = KeySignature.MajorKeys.OrderBy(x => x.NoteName.Value).ToList();
-			}
-			if (key.IsMinor)
-			{
-				keys = KeySignature.MinorKeys.OrderBy(x => x.NoteName.Value).ToList();
-			}
-
-			throw new NotImplementedException("15 NoteNames. UGH!");
-			var maxNdx = keys.Count - 1;
-			var currentNdx = keys.IndexOf(key);
-			var targetNdx = currentNdx + intervalNdx;
-
-			if (targetNdx < 0)
-			{
-				targetNdx = maxNdx + targetNdx;
-			}
-			else if (targetNdx > maxNdx)
-			{
-				targetNdx = targetNdx - maxNdx;
-			}
-
-			var result = keys[targetNdx];
-
-			return result;
-		}
-
-
-
 	}//class
 }//ns
