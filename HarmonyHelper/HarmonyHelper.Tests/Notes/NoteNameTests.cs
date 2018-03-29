@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -1323,7 +1319,6 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_SubtractionTest()
 		{
-# warning ******  next test KeySignature Transpose, the Gg7ModulationTest. ******
 			var intervals = Enum.GetValues(typeof(IntervalsEnum));
 			foreach (var note in NoteName.Catalog)
 			{
@@ -1339,27 +1334,6 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			new object();
 		}
-
-		// Test this
-		//public static IntervalsEnum operator -(NoteName a, NoteName b)
-		//{
-		//	var result = IntervalsEnum.None;
-		//	if (null != a && null != b)
-		//	{
-		//		var notes = NoteName.GetNoteNames()
-		//			.Distinct(new NoteNameValueEqualityComparer())
-		//			.OrderBy(x => x.Value)
-		//			.ToList();
-
-		//		var ndxA = notes.FindIndex(x => x.Value == a.Value);
-		//		var ndxB = notes.FindIndex(x => x.Value == b.Value);
-
-		//		var diff = Math.Abs(ndxA - ndxB);
-		//		var pow = 1 << diff;
-		//		result = (IntervalsEnum)pow;
-		//	}
-		//	return result;
-		//}
 
 		void ValidateTransposeDown(NoteName input, IntervalsEnum interval, NoteName expected)
 		{
@@ -2625,6 +2599,34 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.C);
 			}
 			#endregion VALIDATION
+		}
+
+		[TestMethod()]
+		public void NoteName_Subtraction_Test()
+		{
+			var cat1 = NoteName.Catalog;
+			var cat2 = NoteName.Catalog;
+
+			foreach (var nn1 in cat1)
+			{
+				foreach (var nn2 in cat2)
+				{
+					var interval = nn1 - nn2;
+					//Debug.WriteLine($"{nn1} - {nn2} = {interval}");
+					var interval2 = nn2 - nn1;
+					//Debug.WriteLine($"{nn2} - {nn1} = {interval}");
+					if (interval == IntervalsEnum.None)
+					{
+						Assert.IsTrue(nn1.Value == nn2.Value);
+					}
+					else
+					{
+						Assert.IsTrue(nn1.Value != nn2.Value);
+						Assert.IsTrue(interval.GetInversion() == interval2);
+					}
+				}
+			}
+			new object();
 		}
 
 

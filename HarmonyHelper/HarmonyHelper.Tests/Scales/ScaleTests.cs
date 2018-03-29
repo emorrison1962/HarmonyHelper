@@ -297,9 +297,6 @@ namespace Eric.Morrison.Harmony.Tests
 			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, KeySignature.CMajor));
 
 			var chordPairs = chords.GetPairs().ToList();
-#warning ******************************************
-#warning ****** resume work ***********************
-#warning ******************************************
 
 			foreach (var chordPair in chordPairs)
 			{

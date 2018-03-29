@@ -97,7 +97,6 @@ namespace Eric.Morrison.Harmony
 				success = true;
 			if (!success)
 			{
-				throw new NotImplementedException("*** BUSTED ***");
 				var interval = this.Root - note;
 				if (interval >= IntervalsEnum.Minor2nd && interval <= IntervalsEnum.Major2nd)
 				{
