@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony
 				this.Add(new ModeFormula(key, ModeEnum.Locrian));
 
 				this.Add(new PentatonicMajorFormula(key));
-				this.Add(new BluesScaleFormula(key));
+				this.Add(new NonatonicBluesScaleFormula(key));
 
 				this.Add(new WholeToneFormula(key));
 				this.Add(new DiminishedHalfWholeFormula(key));
@@ -43,8 +43,9 @@ namespace Eric.Morrison.Harmony
 				//this.Add(new MelodicMinorFormula(key));
 
 				this.Add(new PentatonicMinorFormula(key));
+				this.Add(new HexatonicBluesScaleFormula(key));
+				this.Add(new HeptatonicBluesScaleFormula(key));
 			}
-
 		}
 
 		public List<ScaleFormulaBase> GetScalesContaining(ChordFormula cf)

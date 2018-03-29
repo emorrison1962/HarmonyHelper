@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public abstract class ScaleFormulaBase: IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
+	public abstract class ScaleFormulaBase : IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
 	{
 		public KeySignature Key { get; protected set; }
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
@@ -122,6 +122,15 @@ namespace Eric.Morrison.Harmony
 			}
 			return result;
 		}
+
+		public override int GetHashCode()
+		{
+			var result = 0;
+			this.NoteNames.ForEach(x => result ^= x.GetHashCode());
+			//Debug.WriteLine($"{this.ToString()}: HashCode={result}");
+			return result;
+		}
+
 	}//class
 
 	public class ScaleFormulaBaseEqualityComparer : IEqualityComparer<ScaleFormulaBase>
@@ -133,7 +142,7 @@ namespace Eric.Morrison.Harmony
 
 		public int GetHashCode(ScaleFormulaBase obj)
 		{
-			return obj.NoteNames.Sum(x => x.Value).GetHashCode();
+			return obj.GetHashCode();
 		}
 	}
 

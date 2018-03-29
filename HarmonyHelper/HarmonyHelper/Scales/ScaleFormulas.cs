@@ -203,9 +203,9 @@ namespace Eric.Morrison.Harmony
 		}
 	}
 
-	public class BluesScaleFormula : ScaleFormulaBase
+	public class NonatonicBluesScaleFormula : ScaleFormulaBase
 	{
-		public BluesScaleFormula(KeySignature key) : base(key)
+		public NonatonicBluesScaleFormula(KeySignature key) : base(key)
 		{
 			this.Init();
 		}
@@ -228,6 +228,50 @@ namespace Eric.Morrison.Harmony
 		}
 	}
 
+	public class HexatonicBluesScaleFormula : ScaleFormulaBase
+	{
+		public HexatonicBluesScaleFormula(KeySignature key) : base(key)
+		{
+			this.Init();
+		}
+		protected override void Init()
+		{
+			base.InitImpl();
+		}
+		protected override void PopulateIntervals()
+		{
+			this.Intervals = new List<IntervalsEnum>() {
+				IntervalsEnum.Minor3rd,
+				IntervalsEnum.Perfect4th,
+				IntervalsEnum.Augmented4th,
+				IntervalsEnum.Perfect5th,
+				IntervalsEnum.Minor7th,
+			};
+		}
+	}
+
+	public class HeptatonicBluesScaleFormula : ScaleFormulaBase
+	{
+		public HeptatonicBluesScaleFormula(KeySignature key) : base(key)
+		{
+			this.Init();
+		}
+		protected override void Init()
+		{
+			base.InitImpl();
+		}
+		protected override void PopulateIntervals()
+		{
+			this.Intervals = new List<IntervalsEnum>() {
+				IntervalsEnum.Major2nd,
+				IntervalsEnum.Minor3rd,
+				IntervalsEnum.Perfect4th,
+				IntervalsEnum.Diminished5th,
+				IntervalsEnum.Major6th,
+				IntervalsEnum.Minor7th,
+			};
+		}
+	}
 
 
 #if false

@@ -336,8 +336,11 @@ namespace Eric.Morrison.Harmony
 				var ndxB = notes.FindIndex(x => x.Value == b.Value);
 
 				var diff = Math.Abs(ndxA - ndxB);
-				var pow = 1 << diff;
-				result = (IntervalsEnum)pow;
+				if (diff > 0)
+				{
+					var pow = 1 << diff;
+					result = (IntervalsEnum)pow;
+				}
 			}
 			return result;
 		}

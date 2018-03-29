@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony
 		public KeySignature Key { get; set; }
 		public ChordTypesEnum ChordType { get; set; }
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
-		public string Name { get { return this.Root.ToString()+this.ChordType.ToStringEx(); } }
+		public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
 
 		#endregion
@@ -50,6 +50,183 @@ namespace Eric.Morrison.Harmony
 
 
 		#endregion
+
+		public bool Contains(NoteName note)
+		{
+			bool result = false;
+			result = this.NoteNames.Contains(note);
+			return result;
+		}
+
+		public ChordToneFunctionEnum GetChordToneFunction(NoteName note)
+		{
+			var result = ChordToneFunctionEnum.None;
+			var success = false;
+			if (this.Contains(note))
+				success = true;
+			if (success)
+			{
+				var interval = this.Root - note;
+
+				if (interval == IntervalsEnum.None)
+				{
+					result = ChordToneFunctionEnum.Root;
+				}
+				else if (this.Third.Value == note.Value)
+				{
+					result = ChordToneFunctionEnum.Third;
+				}
+				else if (this.Fifth.Value == note.Value)
+				{
+					result = ChordToneFunctionEnum.Fifth;
+				}
+				else if (this.Seventh.Value == note.Value)
+				{
+					result = ChordToneFunctionEnum.Seventh;
+				}
+
+			}
+			return result;
+		}
+
+		public ChordToneFunctionEnum GetRelationship(NoteName note)
+		{
+			var result = this.GetChordToneFunction(note);
+			var success = false;
+			if (ChordToneFunctionEnum.None != result)
+				success = true;
+			if (!success)
+			{
+				throw new NotImplementedException("*** BUSTED ***");
+				var interval = this.Root - note;
+				if (interval >= IntervalsEnum.Minor2nd && interval <= IntervalsEnum.Major2nd)
+				{
+					result = ChordToneFunctionEnum.Ninth;
+				}
+				else if (interval >= IntervalsEnum.Minor3rd && interval <= IntervalsEnum.Major3rd)
+				{// 3rd
+					if (interval == IntervalsEnum.Minor3rd)
+					{
+						if (this.Contains(note + new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
+						{// Okay. We have a major 3rd. This must be the #9.
+							result = ChordToneFunctionEnum.Ninth;
+						}
+						else
+						{
+							result = ChordToneFunctionEnum.Third;
+						}
+					}
+					else
+					{
+						result = ChordToneFunctionEnum.Third;
+					}
+				}
+				else if (interval >= IntervalsEnum.Diminished4th && interval <= IntervalsEnum.Perfect4th)
+				{// 11th
+#warning Suspended chords?
+					if (this.Contains(note - new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
+					{// Okay. We have a minor 3rd. This must be the b11.
+						result = ChordToneFunctionEnum.Eleventh;
+					}
+				}
+				else if (interval >= IntervalsEnum.Diminished5th && interval <= IntervalsEnum.Augmented5th)
+				{// 5th
+					result = ChordToneFunctionEnum.Fifth;
+					if (interval == IntervalsEnum.Diminished5th)
+					{
+						if (IntervalsEnum.Diminished5th == (IntervalsEnum)((int)this.ChordType & (int)IntervalsEnum.Diminished5th))
+						{
+							result = ChordToneFunctionEnum.Fifth;
+						}
+					}
+				}
+				else if (interval >= IntervalsEnum.Minor6th && interval <= IntervalsEnum.Major6th)
+				{// 13th
+					if (this.Contains(note - new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
+					{// Okay. We have a perfect 5th. This must be the b13.
+						result = ChordToneFunctionEnum.Thirteenth;
+					}
+				}
+				else if (interval >= IntervalsEnum.Major6th && interval <= IntervalsEnum.Major7th)
+				{// 7th
+					if (interval == IntervalsEnum.Major6th)
+					{
+						if (this.IsDiminished())
+						{
+							result = ChordToneFunctionEnum.Seventh;
+						}
+					}
+					else
+					{
+						result = ChordToneFunctionEnum.Seventh;
+					}
+				}
+			}
+			return result;
+		}
+
+
+		bool IsDiminished()
+		{
+			var result = true;
+			var pairs = this.NoteNames.AsEnumerable().GetPairs();
+			foreach (var pair in pairs)
+			{
+				var interval = pair[0] - pair[1];
+				if (interval != IntervalsEnum.Minor3rd
+					&& interval != IntervalsEnum.Diminished5th
+					&& interval != IntervalsEnum.Major6th)
+				{
+					result = false;
+					break;
+				}
+			}
+			return result;
+		}
+
+		bool HasThird()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetThirdInterval())
+				result = true;
+			return result;
+		}
+		bool HasFifth()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetFifthInterval())
+				result = true;
+			return result;
+		}
+		bool HasSeventh()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetSeventhInterval())
+				result = true;
+			return result;
+		}
+		bool HasNinth()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetNinthInterval())
+				result = true;
+			return result;
+		}
+		bool HasEleventh()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetEleventhInterval())
+				result = true;
+			return result;
+		}
+		bool HasThirteenth()
+		{
+			var result = false;
+			if (IntervalsEnum.None == this.ChordType.GetThirteenthInterval())
+				result = true;
+			return result;
+		}
+
 
 		public static ChordFormula operator +(ChordFormula chord, IntervalContext ctx)
 		{
@@ -185,7 +362,7 @@ namespace Eric.Morrison.Harmony
 			var diff = new List<ChordTone>(otherExcept);
 			diff.AddRange(thisExcept);
 
-			result.DifferingTones = diff; 
+			result.DifferingTones = diff;
 
 			return result;
 		}

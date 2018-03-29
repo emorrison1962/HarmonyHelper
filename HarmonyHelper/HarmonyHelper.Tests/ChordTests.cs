@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Eric.Morrison.Harmony;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -747,7 +748,49 @@ namespace Eric.Morrison.Harmony.Tests
 
 		}
 
+		[TestMethod()]
+		public void GetChordToneFunctionTest()
+		{
+			var chordTypes = Enum.GetValues(typeof(ChordTypesEnum)).Cast<ChordTypesEnum>();
+			foreach (var chordType in chordTypes)
+			{
+				var chord = new ChordFormula(NoteName.C, chordType, KeySignature.CMajor);
+				foreach (var note in NoteName.Catalog)
+				{
+					if (chord.Contains(note))
+					{
+						if (chord.Name == "Cdim" && note.Name == "G♭")
+							new object();
+						var function = chord.GetChordToneFunction(note);
+						if (function == ChordToneFunctionEnum.None)
+						{
+							function = chord.GetChordToneFunction(note);
+						}
+						Debug.WriteLine($"{note}'s relationship to {chord.Name}, is {function}");
+						new object();
+					}
+					else
+					{
+						if (chord.Name == "Cdim" && note.Name == "G♭")
+							new object();
+						var function = chord.GetChordToneFunction(note);
+						var msg = $"{note}'s relationship to {chord.Name}, is {function}";
+						Debug.WriteLine($"{note}'s relationship to {chord.Name}, is {function}");
+						new object();
+						if (function == ChordToneFunctionEnum.None)
+						{
+							function = chord.GetChordToneFunction(note);
+						}
+						if (function != ChordToneFunctionEnum.None)
+						{
+							function = chord.GetChordToneFunction(note);
+						}
+					}
+				}
+			}
+			new object();
 
+		}
 	}//class
 }//ns
 

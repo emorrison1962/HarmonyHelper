@@ -52,7 +52,10 @@
     <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
     <Compile Include="Chords\ChordTone.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums\IntervalsEnumExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
+    <Compile Include="INeedOperators.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
       <DependentUpon>KeySignature.cs</DependentUpon>
     </Compile>

@@ -107,16 +107,16 @@ Major7th
 		Diagnostic
 	}
 
-	[Obsolete("", true)]
-	public enum ChordFunctionEnum
+	public enum ChordToneFunctionEnum
 	{
-		I,
-		ii,
-		iii,
-		IV,
-		V,
-		vi,
-		vii,
+		None = 0,
+		Root,
+		Third,
+		Fifth,
+		Seventh,
+		Ninth,
+		Eleventh,
+		Thirteenth,
 	}
 
 
