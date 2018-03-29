@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public class Arpeggiator
+	public partial class Arpeggiator
 	{
 		public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
 		public event EventHandler<Arpeggiator> ChordChanged;
@@ -75,84 +76,21 @@ namespace Eric.Morrison.Harmony
 		}
 
 		public Arpeggiator(IEnumerable<ArpeggiationContext> contexts, DirectionEnum direction,
-	NoteRange noteRange, int beatsPerBar, bool untilPatternRepeats)
-			: this(contexts, direction, noteRange, beatsPerBar)
+	NoteRange noteRange, int beatsPerBar, Note startingNote = null, bool untilPatternRepeats = false)
+			: this(contexts, direction, noteRange, beatsPerBar, startingNote)
 		{
 			this.UntilPatternRepeats = untilPatternRepeats;
 		}
 		bool UntilPatternRepeats { get; set; } = false;
 
-		class StartingState
-		{
-			ArpeggiationContext ArpeggiationContext { get; set; }
-			Chord StartingChord { get; set; }
-			DirectionEnum StartingDirection { get; set; }
-			Note StartingNote { get; set; }
-			public StartingState(Arpeggiator arp)
-			{
-				this.ArpeggiationContext = arp.CurrentContext;
-				this.StartingChord = arp.CurrentChord;
-				this.StartingNote = arp.CurrentNote;
-				this.StartingDirection = arp.Direction;
-			}
-
-			public bool Equals(Arpeggiator arp)
-			{
-				var result = false;
-				bool success = true;
-				if (success)
-				{
-					success = this.ArpeggiationContext == arp.CurrentContext;
-					if (!success) { new object(); }
-				}
-				if (success)
-				{
-					success = this.StartingChord == arp.CurrentChord;
-					if (!success) { new object(); }
-				}
-				if (success)
-				{
-					success = this.StartingNote == arp.CurrentNote;
-					if (!success) { new object(); }
-				}
-				if (success)
-				{
-					success = this.StartingDirection == arp.Direction;
-					if (!success) { new object(); }
-				}
-				if (success)
-				{
-					result = true;
-				}
-#if false
-#warning FIXME: debug logic start.
-				else
-				{
-					var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
-					var key = KeySignature.GMajor;
-					var chord = new Chord(
-						new ChordFormula(NoteName.A,
-							ChordTypesEnum.Minor7th,
-							key),
-						noteRange);
-
-
-					if (chord.ToString() == this.StartingChord.ToString()
-						&& chord.ToString() == arp.CurrentChord.ToString())
-					{
-						new object();
-					}
-				}
-#warning FIXME: debug logic end.
-#endif
-				return result;
-			}
-		}
 		public void Arpeggiate()
 		{
 			this.OnStarting();
 
-			var snapshot = new StartingState(this);
+			var snapshots = new List<StateSnapshot>();
+			var snapshot = new StateSnapshot(this);
+			snapshots.Add(snapshot);
+
 			var repeat = false;
 			if (this.UntilPatternRepeats)
 				repeat = true;
@@ -185,7 +123,17 @@ namespace Eric.Morrison.Harmony
 						}
 					}
 					if (this.UntilPatternRepeats)
-						repeat = !snapshot.Equals(this);
+					{
+						var count = snapshots.Count(x => x.Equals(this));
+						if (0 < count)
+						{
+							repeat = false;
+						}
+						else
+						{
+							snapshots.Add(new StateSnapshot(this));
+						}
+					}
 					if (!repeat)
 						new object();
 				}
@@ -194,9 +142,6 @@ namespace Eric.Morrison.Harmony
 				this._currentNote = this.CurrentChord.GetClosestNoteEx(this);
 
 				new object();
-				if (this.UntilPatternRepeats)
-					// "this is broke. infinite repeat...."
-					repeat = !snapshot.Equals(this);
 			}
 			while (repeat);
 
@@ -232,7 +177,7 @@ namespace Eric.Morrison.Harmony
 
 	}//class
 
-	public class ArpeggiationContext
+	public class ArpeggiationContext : IEquatable<ArpeggiationContext>, IComparable<ArpeggiationContext>
 	{
 		public Chord Chord { get; set; }
 		public int NotesToPlay { get; set; }
@@ -245,6 +190,41 @@ namespace Eric.Morrison.Harmony
 		public override string ToString()
 		{
 			return this.Chord.ToString();
+		}
+
+		public bool Equals(ArpeggiationContext other)
+		{
+			var result = this.Chord.CompareTo(other.Chord) == 0;
+			return result;
+		}
+
+		public int CompareTo(ArpeggiationContext other)
+		{
+			return this.Chord.CompareTo(other.Chord);
+		}
+
+		public override bool Equals(object obj)
+		{
+			var result = false;
+			if (obj is ArpeggiationContext)
+				result = this.Equals(obj as Note);
+			return result;
+		}
+
+		public static bool operator ==(ArpeggiationContext a, ArpeggiationContext b)
+		{
+			var result = a.CompareTo(b) == 0;
+			return result;
+		}
+		public static bool operator !=(ArpeggiationContext a, ArpeggiationContext b)
+		{
+			var result = a.CompareTo(b) != 0;
+			return result;
+		}
+
+		public override int GetHashCode()
+		{
+			return this.Chord.GetHashCode();
 		}
 	}
 

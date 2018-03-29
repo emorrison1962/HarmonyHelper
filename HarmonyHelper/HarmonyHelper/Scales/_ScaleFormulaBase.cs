@@ -21,9 +21,14 @@ namespace Eric.Morrison.Harmony
 		public ScaleFormulaBase(KeySignature key)
 		{
 			this.Key = key;
+
+			var name = this.GetType().Name;
+			name = name.Replace("Formula", string.Empty);
+			name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+
 			this.Name = string.Format("{0} {1}",
 				this.Key.NoteName,
-				this.GetType().Name.Replace("Formula", string.Empty));
+				name);
 		}
 
 		protected void InitImpl()

@@ -47,8 +47,8 @@ namespace Eric.Morrison.Harmony
 			{
 #warning **** 031618: Chord-centric or key-centric? ****
 				//var scale = list.Where(x => x.Root == chord.Root).FirstOrDefault();
-				//var scale = list.Where(x => x.Root == chord.Key.NoteName).FirstOrDefault();
-				var scale = list.Where(x => x.Root == chord.Key.NoteName || x.Root == chord.Root).FirstOrDefault();
+				var scale = list.Where(x => x.Root == chord.Key.NoteName).FirstOrDefault();
+				//var scale = list.Where(x => x.Root == chord.Key.NoteName || x.Root == chord.Root).FirstOrDefault();
 				if (null != scale)
 				{
 					result.ScaleFormulas.Add(scale);
@@ -92,6 +92,17 @@ namespace Eric.Morrison.Harmony
 
 			new object();
 
+			return result;
+		}
+
+		static public List<ScaleFormulaBase> GetCommonScales(ChordFormula a, ChordFormula b)
+		{
+			var result = new List<ScaleFormulaBase>();
+
+			var aMapping = GetScalesFor(a);
+			var bMapping = GetScalesFor(b);
+
+			result = aMapping.ScaleFormulas.Intersect(bMapping.ScaleFormulas).ToList();
 			return result;
 		}
 

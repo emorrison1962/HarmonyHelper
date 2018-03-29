@@ -5,39 +5,30 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public class Chord : HarmonyEntityBase
+	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>
 	{
 		#region Properties
-
-		public bool IsValid()
-		{
-			var result = false;
-			if (this.Key.UsesFlats)
-			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlat)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsFlat))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat))
-							result = true;
-			}
-			else if (this.Key.UsesSharps)
-			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharp)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsSharp))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp))
-							result = true;
-			}
-			Debug.Assert(result);
-			return result;
-		}
 
 		public Note Root { get; protected set; }
 		Note Third { get; set; }
 		Note Fifth { get; set; }
 		Note Seventh { get; set; }
 		ChordFormula Formula { get; set; }
-
 		public List<Note> Notes { get; private set; } = new List<Note>();
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
+		public string Name
+		{
+			get
+			{
+				var root = this.Root.ToString();
+				var chordType = this.Formula.ChordType.ToStringEx();
+
+				var result = string.Format("{0}{1}",
+					root,
+					chordType);
+				return result;
+			}
+		}
 
 		#endregion
 
@@ -109,6 +100,27 @@ namespace Eric.Morrison.Harmony
 
 		#endregion
 
+		public bool IsValid()
+		{
+			var result = false;
+			if (this.Key.UsesFlats)
+			{
+				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlat)
+					if (this.NoteNames.All(x => x.IsNatural || x.IsFlat))
+						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat))
+							result = true;
+			}
+			else if (this.Key.UsesSharps)
+			{
+				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharp)
+					if (this.NoteNames.All(x => x.IsNatural || x.IsSharp))
+						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp))
+							result = true;
+			}
+			Debug.Assert(result);
+			return result;
+		}
+
 		public Note GetClosestNoteEx(Arpeggiator ctx)
 		{
 			var result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
@@ -125,18 +137,55 @@ namespace Eric.Morrison.Harmony
 		{
 			return $"{this.Name}: {this.Root.NoteName.ToString()},{this.Third.NoteName.ToString()},{this.Fifth.NoteName.ToString()},{this.Seventh.NoteName.ToString()}";
 		}
-		public string Name
-		{
-			get
-			{
-				var root = this.Root.ToString();
-				var chordType = this.Formula.ChordType.ToStringEx();
 
-				var result = string.Format("{0}{1}",
-					root,
-					chordType);
-				return result;
-			}
+		public override bool Equals(object obj)
+		{
+			var result = false;
+			if (obj is Chord)
+				result = this.Equals(obj as Note);
+			return result;
 		}
+
+		public bool Equals(Chord other)
+		{
+			var result = false;
+			if (0 == this.CompareTo(other))
+			{
+				result = true;
+			}
+			return result;
+		}
+
+		public int CompareTo(Chord other)
+		{
+			var result = 0;
+			var nonintersect = this.Notes.Except(other.Notes).Union(other.Notes.Except(this.Notes));
+			var count = nonintersect.Count();
+			if (count > 0)
+			{
+#warning HACK ALERT!!
+				result = -1;
+			}
+			return result;
+		}
+
+		public static bool operator ==(Chord a, Chord b)
+		{
+			var result = a.CompareTo(b) == 0;
+			return result;
+		}
+		public static bool operator !=(Chord a, Chord b)
+		{
+			var result = a.CompareTo(b) != 0;
+			return result;
+		}
+
+		public override int GetHashCode()
+		{
+			var result = 0;
+			this.Notes.ForEach(x => result ^= x.GetHashCode());
+			return result;
+		}
+
 	}//class
 }//ns

@@ -28,6 +28,7 @@ namespace Eric.Morrison.Harmony
 				this.Add(new ModeFormula(key, ModeEnum.Locrian));
 
 				this.Add(new PentatonicMajorFormula(key));
+				this.Add(new BluesScaleFormula(key));
 
 				this.Add(new WholeToneFormula(key));
 				this.Add(new DiminishedHalfWholeFormula(key));

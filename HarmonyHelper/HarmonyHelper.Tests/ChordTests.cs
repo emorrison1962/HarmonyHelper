@@ -256,7 +256,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
-				noteRange, 4);
+				noteRange, 4, null);
 
 			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Ctx_ChordChanged;
@@ -356,6 +356,77 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		[TestMethod()]
+		public void ii_V_Cycle_12Frets_Test()
+		{
+			var noteRange = new NoteRange(
+				new Note(NoteName.B, OctaveEnum.Octave0),
+				new Note(NoteName.G, OctaveEnum.Octave3));
+
+			var chords = new List<Chord>();
+			NoteName root = null;
+			KeySignature key = null;
+			ChordTypesEnum chordType = ChordTypesEnum.Augmented;
+
+			for (int i = 0; i <= CYCLE_MAX; ++i)
+			{
+				if (null == root)
+				{
+					root = NoteName.D;
+					key = KeySignature.CMajor;
+					chordType = ChordTypesEnum.Minor7th;
+				}
+				else
+				{
+					if (chordType == ChordTypesEnum.Dominant7th)
+					{
+						chordType = ChordTypesEnum.Minor7th;
+						key = key - IntervalsEnum.Major2nd;
+					}
+					else
+					{
+						chordType = ChordTypesEnum.Dominant7th;
+					}
+					root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
+				}
+
+				var formula = new ChordFormula(root, chordType, key);
+				var chord = new Chord(formula, noteRange);
+				chords.Add(chord);
+
+				//Debug.Write("key="+key.ToString()+":");
+				//Debug.Write("("+chord.Name+"):");
+				//Debug.WriteLine(chord.ToString());
+
+				new object();
+
+			}
+
+			new object();
+
+			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+			var notesToPlay = 4;
+
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, 4, startingNote, true);
+
+			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Ctx_ChordChanged;
+			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+			arpeggiator.Starting += Ctx_Starting;
+			arpeggiator.Ending += Ctx_Ending;
+
+
+			arpeggiator.Arpeggiate();
+
+			new object();
+		}
+
+		[TestMethod()]
 		public void TheChickenTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SixthPosition);
@@ -408,7 +479,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void AutumnLeavesTest()
 		{
-			Assert.Fail("This test proves that a arpeggiation context can be created that never repeats its first context rendering.");
+			// Assert.Fail("This test proves that a arpeggiation context can be created that never repeats its first context rendering.");
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
 			var startingNote = new Note(NoteName.A, OctaveEnum.Octave2);
 			var notesToPlay = 8;
@@ -480,7 +551,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
-				noteRange, 8, true);
+				noteRange, 8, null, true);
 
 			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Ctx_ChordChanged;
@@ -582,10 +653,28 @@ namespace Eric.Morrison.Harmony.Tests
 			Debug.Write("|");
 		}
 
+		DirectionEnum? _lastDirection;
 		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
+			var directionChanged = true;
+			if (_lastDirection.HasValue)
+			{
+				if (_lastDirection.Value == ctx.Direction)
+				{
+					directionChanged = false;
+				}
+			}
+			_lastDirection = ctx.Direction;
+
 			var noteStr = ctx.CurrentNote.ToString();
-			noteStr = string.Format("{0,-3}", noteStr);
+			if (!directionChanged)
+			{
+				noteStr = string.Format(" {0,-3}", noteStr);
+			}
+			else
+			{
+				noteStr = string.Format("{0,-2}", noteStr);
+			}
 			Debug.Write(noteStr);
 		}
 
@@ -621,7 +710,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
-			Debug.Write(string.Format(" | ({0}) ", ctx.CurrentChord.Name));
+			Debug.Write(string.Format(" | {0,8} ", "(" + ctx.CurrentChord.Name + ")"));
 			++chordCount;
 		}
 

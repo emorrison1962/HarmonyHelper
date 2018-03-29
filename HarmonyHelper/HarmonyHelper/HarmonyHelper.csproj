@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arpeggiator.cs" />
+    <Compile Include="Arpeggiator_Snapshot.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Chords\Chord.cs" />
     <Compile Include="Chords\ChordCompareResult.cs" />
     <Compile Include="Chords\ChordFormula.cs" />

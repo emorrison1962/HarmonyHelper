@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -156,6 +158,49 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			new object();
 		}
+
+
+		[TestMethod()]
+		public void BluesTest()
+		{
+			//var key = KeySignature.AMinor;
+			var chords = new List<ChordFormula>();
+
+			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, KeySignature.CMajor));
+			chords.Add(new ChordFormula(NoteName.F, ChordTypesEnum.Dominant7th, KeySignature.CMajor));
+			chords.Add(new ChordFormula(NoteName.G, ChordTypesEnum.Dominant7th, KeySignature.CMajor));
+
+			var mappings = new List<ChordFormulaScalesMapping>();
+
+			var pairs = chords.Select((x, index) => new { Index = chords.IndexOf(x), Value = x })
+				  .GroupBy(x => x.Index % 2)
+				  .Select(g =>
+					new Tuple<ChordFormula, ChordFormula>(g.ElementAt(0).Value,
+														 g.ElementAt(1).Value));
+
+
+			foreach (var pair in pairs)
+			{
+				var scales = ChordFormulaScalesMapping.GetCommonScales(pair.Item1, pair.Item2);
+				new object();
+			}
+
+
+			Debug.WriteLine("The Blues: For these chords, these scales contain these chords, verbatim.");
+			foreach (var mapping in mappings)
+			{
+				Debug.WriteLine(mapping.ChordFormula.Name);
+				Debug.Indent();
+				foreach (var scale in mapping.ScaleFormulas)
+				{
+					Debug.WriteLine(scale.ToString());
+				}
+				Debug.Unindent();
+			}
+
+			new object();
+		}
+
 
 
 	}//class
