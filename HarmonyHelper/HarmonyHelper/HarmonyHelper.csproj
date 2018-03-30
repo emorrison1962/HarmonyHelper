@@ -83,9 +83,12 @@
     <Compile Include="Scales\ScaleFormulas.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <Content Include="_TODO.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Sunny Resolutions MusicXML Test.mscz" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

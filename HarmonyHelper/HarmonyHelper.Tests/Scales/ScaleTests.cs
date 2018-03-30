@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -263,7 +262,6 @@ namespace Eric.Morrison.Harmony.Tests
 		public void GetCommonScalesFor_Sunny_Test()
 		{
 			var chords = new List<ChordFormula>();
-
 			chords.Add(new ChordFormula(NoteName.A, ChordTypesEnum.Minor7th, KeySignature.AMinor));
 			chords.Add(new ChordFormula(NoteName.G, ChordTypesEnum.Minor7th, KeySignature.FMajor));
 			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, KeySignature.FMajor));
@@ -359,6 +357,67 @@ namespace Eric.Morrison.Harmony.Tests
 			chords.Add(new ChordFormula(NoteName.G, ChordTypesEnum.Dominant7th, key));
 			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, key));
 			chords.Add(new ChordFormula(NoteName.Bb, ChordTypesEnum.Dominant7th, key));
+
+			var chordPairs = chords.GetPairs().ToList();
+
+			foreach (var chordPair in chordPairs)
+			{
+				var chord1 = chordPair[0];
+				var chord2 = chordPair[1];
+				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
+				Debug.Indent();
+				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var count = scales.Count;
+				new object();
+				if (0 == count)
+					Debug.WriteLine($"No mutually inclusive scales exist for these chords.");
+				foreach (var scale in scales)
+				{
+					Debug.WriteLine($"Using the mutually inclusive scale: {scale}");
+					Debug.Indent();
+
+					var sb1 = new StringBuilder();
+					var sb2 = new StringBuilder();
+					foreach (var note in scale.NoteNames)
+					{
+						if (chord1.Name == "C7" && note.Name == "A")
+							new object();
+						//if (chord1.Contains(note))
+						{
+							var role = chord1.GetRelationship(note);
+							Debug.WriteLine($"Note {note}'s relationship to {chord1.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
+							//sb1.AppendLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
+						}
+						//if (chord2.Contains(note))
+						{
+							var role = chord2.GetRelationship(note);
+							Debug.WriteLine($"Note {note}'s relationship to {chord2.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
+							//sb2.AppendLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
+						}
+					}
+					//Debug.WriteLine(sb1.ToString());
+					//Debug.WriteLine(sb2.ToString());
+					Debug.Unindent();
+				}
+				Debug.Unindent();
+
+				new object();
+			}
+			new object();
+		}
+
+		[TestMethod()]
+		public void GetResolutionsFor_Sunny_Test()
+		{
+			var chords = new List<ChordFormula>();
+			chords.Add(new ChordFormula(NoteName.A, ChordTypesEnum.Minor7th, KeySignature.AMinor));
+			chords.Add(new ChordFormula(NoteName.G, ChordTypesEnum.Minor7th, KeySignature.FMajor));
+			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, KeySignature.FMajor));
+			chords.Add(new ChordFormula(NoteName.F, ChordTypesEnum.Major7th, KeySignature.FMajor));
+			chords.Add(new ChordFormula(NoteName.B, ChordTypesEnum.HalfDiminished, KeySignature.AMinor));
+			chords.Add(new ChordFormula(NoteName.E, ChordTypesEnum.Dominant7th, KeySignature.AMinor));
 
 			var chordPairs = chords.GetPairs().ToList();
 
