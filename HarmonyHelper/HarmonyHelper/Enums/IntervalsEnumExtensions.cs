@@ -60,25 +60,36 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		const string NONE = "none";
+		const string MINOR_2ND = "m2";
+		const string MAJOR_2ND = Constants.MAJOR + "2";
+		const string MINOR_3RD = "m3";
+		const string MAJOR_3RD = Constants.MAJOR + "3";
+		const string DIMINISHED_4TH = "dim4";
+		const string PERFECT_4TH = "P4";
+		const string AUGMENTED_4TH = "+4";
+		const string DIMINISHED_5TH = "dim5";
+		const string PERFECT_5TH = "P5";
+		const string AUGMENTED_5TH = "+5";
+		const string MINOR_6TH = "m6";
+		const string MAJOR_6TH = Constants.MAJOR + "6";
+		const string MINOR_7TH = "m7";
+		const string MAJOR_7TH = Constants.MAJOR + "7";
+
+		const string ROOT = "R";
+		const string FLAT_9TH = Constants.FLAT + "9th";
+		const string NINTH = "9th";
+		const string SHARP_9TH = Constants.SHARP + "9th";
+		const string FLAT_11TH = Constants.FLAT + "11th";
+		const string ELEVENTH = "11th";
+		const string SHARP_11TH = Constants.SHARP + "11th";
+		const string FLAT_13TH = Constants.FLAT + "13th";
+		const string THIRTEENTH = "13th";
+		const string SHARP_13TH = Constants.SHARP + "13th";
+
 
 		public static string ToStringEx(this IntervalsEnum e)
 		{
-			const string NONE = "none";
-			const string MINOR_2ND = "m2";
-			const string MAJOR_2ND = "M2";
-			const string MINOR_3RD = "m3";
-			const string MAJOR_3RD = "M3";
-			const string DIMINISHED_4TH = "dim4";
-			const string PERFECT_4TH = "P4";
-			const string AUGMENTED_4TH = "+4";
-			const string DIMINISHED_5TH = "dim5";
-			const string PERFECT_5TH = "P5";
-			const string AUGMENTED_5TH = "+5";
-			const string MINOR_6TH = "m6";
-			const string MAJOR_6TH = "M6";
-			const string MINOR_7TH = "m7";
-			const string MAJOR_7TH = "M7";
-
 			var result = string.Empty;
 
 			switch (e)
@@ -126,6 +137,70 @@ namespace Eric.Morrison.Harmony
 					result = MINOR_7TH;
 					break;
 				case IntervalsEnum.Major7th:
+					result = MAJOR_7TH;
+					break;
+				default: throw new NotSupportedException();
+
+			}
+
+			return result;
+		}
+
+		public static string ToStringEx(this ChordToneFunctionEnum e)
+		{
+			var result = string.Empty;
+
+			switch (e)
+			{
+				case ChordToneFunctionEnum.None:
+					result = NONE;
+					break;
+				case ChordToneFunctionEnum.Root:
+					result = ROOT;
+					break;
+				case ChordToneFunctionEnum.Flat9th:
+					result = FLAT_9TH;
+					break;
+				case ChordToneFunctionEnum.Ninth:
+					result = NINTH;
+					break;
+				case ChordToneFunctionEnum.Sharp9th:
+					result = SHARP_9TH;
+					break;
+				case ChordToneFunctionEnum.Minor3rd:
+					result = MINOR_3RD;
+					break;
+				case ChordToneFunctionEnum.Major3rd:
+					result = MAJOR_3RD;
+					break;
+				case ChordToneFunctionEnum.Flat11th:
+					result = FLAT_11TH;
+					break;
+				case ChordToneFunctionEnum.Eleventh:
+					result = ELEVENTH;
+					break;
+				case ChordToneFunctionEnum.Augmented11th:
+					result = SHARP_11TH;
+					break;
+				case ChordToneFunctionEnum.Diminished5th:
+					result = DIMINISHED_5TH;
+					break;
+				case ChordToneFunctionEnum.Perfect5th:
+					result = PERFECT_5TH;
+					break;
+				case ChordToneFunctionEnum.Augmented5th:
+					result = AUGMENTED_5TH;
+					break;
+				case ChordToneFunctionEnum.Flat13th:
+					result = FLAT_13TH;
+					break;
+				case ChordToneFunctionEnum.Thirteenth:
+					result = THIRTEENTH;
+					break;
+				case ChordToneFunctionEnum.Minor7th:
+					result = MINOR_7TH;
+					break;
+				case ChordToneFunctionEnum.Major7th:
 					result = MAJOR_7TH;
 					break;
 				default: throw new NotSupportedException();

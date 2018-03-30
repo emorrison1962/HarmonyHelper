@@ -111,11 +111,27 @@ Major7th
 	{
 		None = 0,
 		Root,
-		Third,
-		Fifth,
-		Seventh,
+
+		Minor3rd,
+		Major3rd,
+
+		Diminished5th,
+		Perfect5th,
+		Augmented5th,
+
+		Diminished7th,
+		Minor7th,
+		Major7th,
+
+		Flat9th,
 		Ninth,
+		Sharp9th,
+
+		Flat11th,
 		Eleventh,
+		Augmented11th,
+
+		Flat13th,
 		Thirteenth,
 	}
 

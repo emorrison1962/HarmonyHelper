@@ -55,9 +55,7 @@ namespace Eric.Morrison.Harmony
 			{
 				if (this.NoteNames.Contains(chordTone, comparer))
 				{
-					// We've got a match!!
 					result = true;
-					new object();
 				}
 				else
 				{

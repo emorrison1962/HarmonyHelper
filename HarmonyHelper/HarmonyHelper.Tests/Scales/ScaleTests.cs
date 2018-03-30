@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -286,7 +287,7 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		[TestMethod()]
-		public void GetResolutionsFor_BluesTest()
+		public void GetResolutionsFor_Blues_Test()
 		{
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
@@ -305,21 +306,37 @@ namespace Eric.Morrison.Harmony.Tests
 				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
 				Debug.Indent();
 				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var count = scales.Count;
+				new object();
 				foreach (var scale in scales)
 				{
+					Debug.WriteLine($"Using the mutually inclusive scale: {scale}");
+					Debug.Indent();
+
+					var sb1 = new StringBuilder();
+					var sb2 = new StringBuilder();
 					foreach (var note in scale.NoteNames)
 					{
-						if (chord1.Contains(note))
+						if (chord1.Name == "C7" && note.Name == "A")
+							new object();
+						//if (chord1.Contains(note))
 						{
 							var role = chord1.GetRelationship(note);
-							Debug.WriteLine($"{chord1.Name}: note {note}'s relationship is the {role}");
+							Debug.WriteLine($"Note {note}'s relationship to {chord1.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
+							//sb1.AppendLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
 						}
-						if (chord1.Contains(note))
+						//if (chord2.Contains(note))
 						{
 							var role = chord2.GetRelationship(note);
-							Debug.WriteLine($"{chord2.Name}: note {note}'s relationship is the {role}");
+							Debug.WriteLine($"Note {note}'s relationship to {chord2.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
+							//sb2.AppendLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
 						}
 					}
+					//Debug.WriteLine(sb1.ToString());
+					//Debug.WriteLine(sb2.ToString());
+					Debug.Unindent();
 				}
 				Debug.Unindent();
 
@@ -327,6 +344,72 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			new object();
 		}
+
+
+		[TestMethod()]
+		public void GetResolutionsFor_TheChicken_Test()
+		{
+			//var key = KeySignature.AMinor;
+			var chords = new List<ChordFormula>();
+
+			var key = KeySignature.BbMajor;
+			chords.Add(new ChordFormula(NoteName.Bb, ChordTypesEnum.Dominant7th, key));
+			chords.Add(new ChordFormula(NoteName.Eb, ChordTypesEnum.Dominant7th, key));
+			chords.Add(new ChordFormula(NoteName.D, ChordTypesEnum.Dominant7th, key));
+			chords.Add(new ChordFormula(NoteName.G, ChordTypesEnum.Dominant7th, key));
+			chords.Add(new ChordFormula(NoteName.C, ChordTypesEnum.Dominant7th, key));
+			chords.Add(new ChordFormula(NoteName.Bb, ChordTypesEnum.Dominant7th, key));
+
+			var chordPairs = chords.GetPairs().ToList();
+
+			foreach (var chordPair in chordPairs)
+			{
+				var chord1 = chordPair[0];
+				var chord2 = chordPair[1];
+				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
+				Debug.Indent();
+				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var count = scales.Count;
+				new object();
+				if (0 == count)
+					Debug.WriteLine($"No mutually inclusive scales exist for these chords.");
+				foreach (var scale in scales)
+				{
+					Debug.WriteLine($"Using the mutually inclusive scale: {scale}");
+					Debug.Indent();
+
+					var sb1 = new StringBuilder();
+					var sb2 = new StringBuilder();
+					foreach (var note in scale.NoteNames)
+					{
+						if (chord1.Name == "C7" && note.Name == "A")
+							new object();
+						//if (chord1.Contains(note))
+						{
+							var role = chord1.GetRelationship(note);
+							Debug.WriteLine($"Note {note}'s relationship to {chord1.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
+							//sb1.AppendLine($"{note} to {chord1.Name} is the {role.ToStringEx()}");
+						}
+						//if (chord2.Contains(note))
+						{
+							var role = chord2.GetRelationship(note);
+							Debug.WriteLine($"Note {note}'s relationship to {chord2.Name} is the {role.ToStringEx()}");
+							//Debug.WriteLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
+							//sb2.AppendLine($"{note} to {chord2.Name} is the {role.ToStringEx()}");
+						}
+					}
+					//Debug.WriteLine(sb1.ToString());
+					//Debug.WriteLine(sb2.ToString());
+					Debug.Unindent();
+				}
+				Debug.Unindent();
+
+				new object();
+			}
+			new object();
+		}
+
 
 	}//class
 

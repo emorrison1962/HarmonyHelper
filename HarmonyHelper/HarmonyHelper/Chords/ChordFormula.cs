@@ -74,15 +74,21 @@ namespace Eric.Morrison.Harmony
 				}
 				else if (this.Third.Value == note.Value)
 				{
-					result = ChordToneFunctionEnum.Third;
+					result = ChordToneFunctionEnum.Major3rd;
+					interval = this.ChordType.GetThirdInterval();
+					if (IntervalsEnum.Minor3rd == interval)
+						result = ChordToneFunctionEnum.Minor3rd;
 				}
 				else if (this.Fifth.Value == note.Value)
 				{
-					result = ChordToneFunctionEnum.Fifth;
+					result = ChordToneFunctionEnum.Perfect5th;
 				}
 				else if (this.Seventh.Value == note.Value)
 				{
-					result = ChordToneFunctionEnum.Seventh;
+					result = ChordToneFunctionEnum.Major7th;
+					interval = this.ChordType.GetSeventhInterval();
+					if (IntervalsEnum.Minor7th == interval)
+						result = ChordToneFunctionEnum.Minor7th;
 				}
 
 			}
@@ -98,69 +104,62 @@ namespace Eric.Morrison.Harmony
 			if (!success)
 			{
 				var interval = this.Root - note;
-				if (interval >= IntervalsEnum.Minor2nd && interval <= IntervalsEnum.Major2nd)
+				switch (interval)
 				{
-					result = ChordToneFunctionEnum.Ninth;
-				}
-				else if (interval >= IntervalsEnum.Minor3rd && interval <= IntervalsEnum.Major3rd)
-				{// 3rd
-					if (interval == IntervalsEnum.Minor3rd)
-					{
-						if (this.Contains(note + new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
-						{// Okay. We have a major 3rd. This must be the #9.
-							result = ChordToneFunctionEnum.Ninth;
-						}
-						else
-						{
-							result = ChordToneFunctionEnum.Third;
-						}
-					}
-					else
-					{
-						result = ChordToneFunctionEnum.Third;
-					}
-				}
-				else if (interval >= IntervalsEnum.Diminished4th && interval <= IntervalsEnum.Perfect4th)
-				{// 11th
-#warning Suspended chords?
-					if (this.Contains(note - new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
-					{// Okay. We have a minor 3rd. This must be the b11.
+
+					case IntervalsEnum.Minor2nd:
+						result = ChordToneFunctionEnum.Flat9th;
+						break;
+
+					case IntervalsEnum.Major2nd:
+						result = ChordToneFunctionEnum.Ninth;
+						break;
+
+					case IntervalsEnum.Minor3rd:
+						result = ChordToneFunctionEnum.Sharp9th;
+						break;
+
+					case IntervalsEnum.Major3rd: //IntervalsEnum.Diminished4th:
+						result = ChordToneFunctionEnum.Flat11th;
+						break;
+
+					case IntervalsEnum.Perfect4th:
 						result = ChordToneFunctionEnum.Eleventh;
-					}
-				}
-				else if (interval >= IntervalsEnum.Diminished5th && interval <= IntervalsEnum.Augmented5th)
-				{// 5th
-					result = ChordToneFunctionEnum.Fifth;
-					if (interval == IntervalsEnum.Diminished5th)
-					{
-						if (IntervalsEnum.Diminished5th == (IntervalsEnum)((int)this.ChordType & (int)IntervalsEnum.Diminished5th))
-						{
-							result = ChordToneFunctionEnum.Fifth;
-						}
-					}
-				}
-				else if (interval >= IntervalsEnum.Minor6th && interval <= IntervalsEnum.Major6th)
-				{// 13th
-					if (this.Contains(note - new IntervalContext(this.Key, IntervalsEnum.Minor2nd)))
-					{// Okay. We have a perfect 5th. This must be the b13.
+						break;
+
+					case IntervalsEnum.Diminished5th:
+						result = ChordToneFunctionEnum.Augmented11th;
+						break;
+
+					case IntervalsEnum.Perfect5th:
+						result = ChordToneFunctionEnum.Perfect5th;
+						break;
+
+					case IntervalsEnum.Augmented5th://IntervalsEnum.Minor6th
+						result = ChordToneFunctionEnum.Flat13th;
+						break;
+
+					case IntervalsEnum.Major6th:
 						result = ChordToneFunctionEnum.Thirteenth;
-					}
-				}
-				else if (interval >= IntervalsEnum.Major6th && interval <= IntervalsEnum.Major7th)
-				{// 7th
-					if (interval == IntervalsEnum.Major6th)
-					{
 						if (this.IsDiminished())
 						{
-							result = ChordToneFunctionEnum.Seventh;
+							result = ChordToneFunctionEnum.Diminished7th;
 						}
-					}
-					else
-					{
-						result = ChordToneFunctionEnum.Seventh;
-					}
+						break;
+
+					case IntervalsEnum.Minor7th:
+						result = ChordToneFunctionEnum.Minor7th;
+						break;
+
+					case IntervalsEnum.Major7th:
+						result = ChordToneFunctionEnum.Major7th;
+						break;
+
+					default:
+						throw new NotSupportedException();
 				}
 			}
+
 			return result;
 		}
 
