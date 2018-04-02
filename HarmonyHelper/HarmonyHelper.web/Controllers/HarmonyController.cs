@@ -1,7 +1,9 @@
 ﻿using Eric.Morrison.Harmony;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HarmonyHelper.web.Controllers
 {
@@ -17,9 +19,14 @@ namespace HarmonyHelper.web.Controllers
 
 
         [HttpGet]
-        public IEnumerable<StaveNoteVM> GetData()
+		[Route("GetData")]
+        public IActionResult GetData()
         {
-            var result = this.GenerateTestData();
+            var models = this.GenerateTestData();
+			//var json = JsonConvert.SerializeObject(models);
+			//var ob = JsonConvert.DeserializeObject(json);
+			//Debug.WriteLine(json);
+			var result = new JsonResult(models);
             return result;
         }
 

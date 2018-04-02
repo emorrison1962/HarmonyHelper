@@ -15,10 +15,12 @@ export class VexflowComponent implements OnInit {
   div: HTMLElement;
   flow: Object;
 
-  _staveNotes :Vex.Flow.StaveNote[];
+  _staveNotes: Vex.Flow.StaveNote[];
 
-  get staveNotes() :Vex.Flow.StaveNote[]{ return this._staveNotes;}
-  set staveNotes(input: Vex.Flow.StaveNote[]) { 
+  get staveNotes(): Vex.Flow.StaveNote[] {
+    return this._staveNotes;
+  }
+  set staveNotes(input: Vex.Flow.StaveNote[]) {
     this._staveNotes = input;
     this.setNotes();
   }
@@ -26,7 +28,6 @@ export class VexflowComponent implements OnInit {
   constructor(private svc: HarmonyServiceService) {}
 
   ngOnInit() {
-
     this.getData();
     const VF = Vex.Flow;
     this.flow = Vex.Flow;
@@ -47,48 +48,70 @@ export class VexflowComponent implements OnInit {
     this.getNotes();
   }
 
-getData(){
-  const promise = this.svc.getData().toPromise();
-  promise.then((notes: Array<IStaveNote>) => {
+  getData() {
+    const promise = this.svc.getData().toPromise();
+    promise
+      .then((notes: Array<Object>) => {
+        const debug = new Object();
+        const staveNotes = new Array<Vex.Flow.StaveNote>();
 
-    const staveNotes = new Array<Vex.Flow.StaveNote> ();
-    
-    notes.forEach((note: IStaveNote)=>{
-      let staveNote = new Vex.Flow.StaveNote({
-        clef: note.clef,
-        keys: note.keys,
-        duration: note.duration,
-        auto_stem: note.auto_stem
-      });
-      staveNotes.push(staveNote);
-    });
+        notes.forEach((note: IStaveNote) => {
+          const staveNote = new Vex.Flow.StaveNote({
+            clef: note.clef,
+            keys: note.keys,
+            duration: note.duration,
+            auto_stem: note.auto_stem
+          });
+          staveNotes.push(staveNote);
+        });
 
         this.staveNotes = staveNotes;
       })
-    .catch((error:  HttpErrorResponse) => {
-      console.error(error.statusText);
-    });
-}
+      .catch((error: HttpErrorResponse) => {
+        console.error(error.statusText);
+      });
+  }
 
-setNotes() {
-  const VF = Vex.Flow;
+  //   getData() {
+  //     const promise = this.svc.getData().toPromise();
+  //     promise
+  //       .then((notes: Array<IStaveNote>) => {
+  //         const debug = new Object();
+  //         const staveNotes = new Array<Vex.Flow.StaveNote>();
 
+  //         notes.forEach((note: IStaveNote) => {
+  //           const staveNote = new Vex.Flow.StaveNote({
+  //             clef: note.clef,
+  //             keys: note.keys,
+  //             duration: note.duration,
+  //             auto_stem: note.auto_stem
+  //           });
+  //           staveNotes.push(staveNote);
+  //         });
 
-  // Create a voice in 4/4 and add above notes
-  const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
-  voice.setStrict(false);
-  voice.addTickables(this.staveNotes);
+  //         this.staveNotes = staveNotes;
+  //       })
+  //       .catch((error: HttpErrorResponse) => {
+  //         console.error(error.statusText);
+  //       });
+  //   }
 
-  // Format and justify the notes to 400 pixels.
-  const formatter = new VF.Formatter()
-    .joinVoices([voice])
-    .format([voice], 400);
+  setNotes() {
+    const VF = Vex.Flow;
 
-  // Render voice
-  voice.draw(this.context, this.stave);
+    // Create a voice in 4/4 and add above notes
+    const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
+    voice.setStrict(false);
+    voice.addTickables(this.staveNotes);
 
-}
+    // Format and justify the notes to 400 pixels.
+    const formatter = new VF.Formatter()
+      .joinVoices([voice])
+      .format([voice], 400);
 
+    // Render voice
+    voice.draw(this.context, this.stave);
+  }
 
   getNotes() {
     const VF = Vex.Flow;
@@ -135,8 +158,8 @@ setNotes() {
 }
 
 export interface IStaveNote {
-  clef: string; //'treble',
-  keys: string[]; //['c/4'],
-  duration: string;// 'q',
-  auto_stem: boolean
+  clef: string; // 'treble',
+  keys: string[]; // ['c/4'],
+  duration: string; // 'q',
+  auto_stem: boolean;
 }
