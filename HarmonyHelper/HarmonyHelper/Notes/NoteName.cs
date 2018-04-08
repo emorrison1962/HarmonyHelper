@@ -263,10 +263,11 @@ namespace Eric.Morrison.Harmony
 				return 1;
 
 			var result = a.Value.CompareTo(b.Value);
-			if (0 == result)
-			{
-				result = a.Name.CompareTo(b.Name);
-			}
+#warning **** IS THIS GOING TO BREAK EVERYTHING? ****
+			//if (0 == result)
+			//{
+			//	result = a.Name.CompareTo(b.Name);
+			//}
 
 			return result;
 		}

@@ -20,7 +20,7 @@ namespace Eric.Morrison.Harmony
 		{
 			get
 			{
-				var root = this.Root.ToString();
+				var root = this.Root.NoteName.ToString();
 				var chordType = this.Formula.ChordType.ToStringEx();
 
 				var result = string.Format("{0}{1}",
@@ -130,6 +130,7 @@ namespace Eric.Morrison.Harmony
 				result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
 			}
 
+			Debug.Assert(ctx.CurrentNote.NoteName.Value != result.NoteName.Value);
 			return result;
 		}
 

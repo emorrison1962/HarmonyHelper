@@ -1,5 +1,4 @@
-﻿using Eric.Morrison.Harmony;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -286,6 +285,18 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
+
+		[TestMethod()]
+		public void NoteTest_GSharpGreaterThanAFlat_Test()
+		{
+			var gSharp = new Note(NoteName.GSharp, OctaveEnum.Octave2);
+			var aFlat = new Note(NoteName.Ab, OctaveEnum.Octave2);
+
+			Assert.IsFalse(gSharp > aFlat);
+			Assert.IsFalse(aFlat > gSharp);
+			Assert.AreEqual(aFlat, gSharp);
+		}
+
 		const int CYCLE_MAX = 11;
 		[TestMethod()]
 		public void ii_V_CycleTest()
@@ -425,6 +436,81 @@ namespace Eric.Morrison.Harmony.Tests
 			arpeggiator.Arpeggiate();
 
 			new object();
+		}
+
+		[TestMethod()]
+		public void TheCycle_12Frets_Test()
+		{
+			var noteRange = new NoteRange(
+				new Note(NoteName.B, OctaveEnum.Octave0),
+				new Note(NoteName.G, OctaveEnum.Octave3));
+
+			var chords = new List<Chord>();
+			NoteName root = null;
+			KeySignature key = null;
+			ChordTypesEnum chordType = ChordTypesEnum.None;
+
+			for (int i = 0; i <= CYCLE_MAX; ++i)
+			{
+				if (null == root)
+				{
+					root = NoteName.G;
+					key = KeySignature.CMajor;
+					chordType = ChordTypesEnum.Dominant7th;
+				}
+				else
+				{
+					chordType = ChordTypesEnum.Dominant7th;
+					key = key + IntervalsEnum.Perfect4th;
+					root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
+				}
+
+				var formula = new ChordFormula(root, chordType, key);
+				var chord = new Chord(formula, noteRange);
+				chords.Add(chord);
+			}
+
+
+			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+			var notesToPlay = 4;
+
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, 4, startingNote, true);
+
+			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Ctx_ChordChanged;
+			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+			arpeggiator.Starting += Ctx_Starting;
+			arpeggiator.Ending += Ctx_Ending;
+
+			arpeggiator.Arpeggiate();
+
+			var noteUsage = this.noteRangeUsageStatistics.NoteUsages.ToList();
+			//noteUsage.ForEach(kvp => Debug.WriteLine($"{kvp.Key.ToString()} was used {kvp.Value} times."));
+
+			new object();
+		}
+
+		NoteRangeUsageStatistics noteRangeUsageStatistics { get; set; }
+		class NoteRangeUsageStatistics
+		{
+			public Dictionary<Note, int> NoteUsages { get; private set; } = new Dictionary<Note, int>();
+			public NoteRangeUsageStatistics(NoteRange nr)
+			{
+				nr.Notes.ForEach(x => this.NoteUsages.Add(x, 0));
+			}
+
+			public void AddReference(Note note)
+			{
+				var currentCount = this.NoteUsages[note];
+				this.NoteUsages[note] = ++currentCount;
+			}
 		}
 
 		[TestMethod()]
@@ -657,6 +743,7 @@ namespace Eric.Morrison.Harmony.Tests
 		DirectionEnum? _lastDirection;
 		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
+			this.noteRangeUsageStatistics.AddReference(ctx.CurrentNote);
 			var directionChanged = true;
 			if (_lastDirection.HasValue)
 			{
@@ -667,14 +754,14 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			_lastDirection = ctx.Direction;
 
-			var noteStr = ctx.CurrentNote.ToString();
+			var noteStr = ctx.CurrentNote.NoteName.ToString();
 			if (!directionChanged)
 			{
-				noteStr = string.Format(" {0,-3}", noteStr);
+				noteStr = string.Format(" {0,-2}", noteStr);
 			}
 			else
 			{
-				noteStr = string.Format("{0,-2}", noteStr);
+				noteStr = string.Format("{0,-1}", noteStr);
 			}
 			Debug.Write(noteStr);
 		}
@@ -711,7 +798,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
-			Debug.Write(string.Format(" | {0,8} ", "(" + ctx.CurrentChord.Name + ")"));
+			Debug.Write(string.Format(" | {0,4} ", "(" + ctx.CurrentChord.Name + ")"));
 			++chordCount;
 		}
 

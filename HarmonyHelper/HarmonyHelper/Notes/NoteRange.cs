@@ -10,7 +10,7 @@ namespace Eric.Morrison.Harmony
 		public Note LowerLimit { get; set; }
 		public Note UpperLimit { get; set; }
 
-		List<Note> Notes { get; set; } = new List<Note>();
+		public List<Note> Notes { get; private set; } = new List<Note>();
 
 		protected NoteRange()
 		{
@@ -30,9 +30,7 @@ namespace Eric.Morrison.Harmony
 				throw new InvalidOperationException();
 
 			var notes = new List<Note>();
-			var note = this.UpperLimit.Copy();
-			notes.Add(note);
-			note = this.LowerLimit.Copy();
+			var note = this.LowerLimit.Copy();
 			notes.Add(note);
 
 			var chromatic = new Chromatic(KeySignature.CMajor);

@@ -104,6 +104,7 @@ namespace Eric.Morrison.Harmony
 				foreach (var ctx in this.ArpeggiationContexts)
 				{
 					this.CurrentContext = ctx;
+
 					if (firstTime)
 					{
 						OnDirectionChanged();
@@ -138,8 +139,8 @@ namespace Eric.Morrison.Harmony
 						new object();
 				}
 
-				this._currentContext = this.ArpeggiationContexts[0];
-				this._currentNote = this.CurrentChord.GetClosestNoteEx(this);
+				//this._currentContext = this.ArpeggiationContexts[0];
+				//this._currentNote = this.CurrentChord.GetClosestNoteEx(this);
 
 				new object();
 			}

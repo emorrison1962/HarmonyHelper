@@ -20,6 +20,7 @@ namespace Eric.Morrison.Harmony
 	[Flags]
 	public enum ChordTypesEnum
 	{
+		None = 0,
 		Major = IntervalsEnum.Major3rd | IntervalsEnum.Perfect5th,
 		Minor = IntervalsEnum.Minor3rd | IntervalsEnum.Perfect5th,
 		Augmented = IntervalsEnum.Major3rd | IntervalsEnum.Augmented5th,
