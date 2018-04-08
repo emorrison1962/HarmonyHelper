@@ -60,6 +60,7 @@
     <Compile Include="KeySignature\KeySignatureTests.cs" />
     <Compile Include="ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
+    <Compile Include="Notes\NoteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MusicXmlTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

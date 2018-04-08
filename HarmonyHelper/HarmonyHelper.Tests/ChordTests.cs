@@ -743,7 +743,8 @@ namespace Eric.Morrison.Harmony.Tests
 		DirectionEnum? _lastDirection;
 		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
-			this.noteRangeUsageStatistics.AddReference(ctx.CurrentNote);
+			if (null != this.noteRangeUsageStatistics)
+				this.noteRangeUsageStatistics.AddReference(ctx.CurrentNote);
 			var directionChanged = true;
 			if (_lastDirection.HasValue)
 			{
@@ -846,8 +847,6 @@ namespace Eric.Morrison.Harmony.Tests
 				{
 					if (chord.Contains(note))
 					{
-						if (chord.Name == "Cdim" && note.Name == "G♭")
-							new object();
 						var function = chord.GetChordToneFunction(note);
 						if (function == ChordToneFunctionEnum.None)
 						{
@@ -858,8 +857,6 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 					else
 					{
-						if (chord.Name == "Cdim" && note.Name == "G♭")
-							new object();
 						var function = chord.GetChordToneFunction(note);
 						var msg = $"{note}'s relationship to {chord.Name}, is {function}";
 						Debug.WriteLine($"{note}'s relationship to {chord.Name}, is {function}");

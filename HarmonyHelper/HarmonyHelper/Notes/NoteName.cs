@@ -155,7 +155,6 @@ namespace Eric.Morrison.Harmony
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(B, Cb));
 
 
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(C));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(D));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(G));
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(A));
@@ -206,11 +205,6 @@ namespace Eric.Morrison.Harmony
 			var pairing = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
 			var result = pairing.Other.Copy();
 			return result;
-		}
-
-		static public List<NoteName> GetNoteNames()
-		{
-			return NoteName.Catalog;
 		}
 
 		public override string ToString()
@@ -328,7 +322,7 @@ namespace Eric.Morrison.Harmony
 			var result = IntervalsEnum.None;
 			if (null != a && null != b)
 			{
-				var notes = NoteName.GetNoteNames()
+				var notes = NoteName.Catalog
 					.Distinct(new NoteNameValueEqualityComparer())
 					.OrderBy(x => x.Value)
 					.ToList();

@@ -13,6 +13,9 @@ namespace Eric.Morrison.Harmony
 
 			switch (cte)
 			{
+				case ChordTypesEnum.None:
+					result = "no chord";
+					break;
 				case ChordTypesEnum.Major:
 					break;
 				case ChordTypesEnum.Minor:

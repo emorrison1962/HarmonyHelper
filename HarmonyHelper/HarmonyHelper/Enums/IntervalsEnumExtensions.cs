@@ -60,34 +60,6 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		const string NONE = "none";
-		const string MINOR_2ND = "m2";
-		const string MAJOR_2ND = Constants.MAJOR + "2";
-		const string MINOR_3RD = "m3";
-		const string MAJOR_3RD = Constants.MAJOR + "3";
-		const string DIMINISHED_4TH = "dim4";
-		const string PERFECT_4TH = "P4";
-		const string AUGMENTED_4TH = "+4";
-		const string DIMINISHED_5TH = "dim5";
-		const string PERFECT_5TH = "P5";
-		const string AUGMENTED_5TH = "+5";
-		const string MINOR_6TH = "m6";
-		const string MAJOR_6TH = Constants.MAJOR + "6";
-		const string MINOR_7TH = "m7";
-		const string MAJOR_7TH = Constants.MAJOR + "7";
-
-		const string ROOT = "R";
-		const string FLAT_9TH = Constants.FLAT + "9th";
-		const string NINTH = "9th";
-		const string SHARP_9TH = Constants.SHARP + "9th";
-		const string FLAT_11TH = Constants.FLAT + "11th";
-		const string ELEVENTH = "11th";
-		const string SHARP_11TH = Constants.SHARP + "11th";
-		const string FLAT_13TH = Constants.FLAT + "13th";
-		const string THIRTEENTH = "13th";
-		const string SHARP_13TH = Constants.SHARP + "13th";
-
-
 		public static string ToStringEx(this IntervalsEnum e)
 		{
 			var result = string.Empty;
@@ -95,49 +67,49 @@ namespace Eric.Morrison.Harmony
 			switch (e)
 			{
 				case IntervalsEnum.None:
-					result = NONE;
+					result = Constants.NONE;
 					break;
 				case IntervalsEnum.Minor2nd:
-					result = MINOR_2ND;
+					result = Constants.MINOR_2ND;
 					break;
 				case IntervalsEnum.Major2nd:
-					result = MAJOR_2ND;
+					result = Constants.MAJOR_2ND;
 					break;
 				case IntervalsEnum.Minor3rd:
-					result = MINOR_3RD;
+					result = Constants.MINOR_3RD;
 					break;
 				case IntervalsEnum.Major3rd:
-					result = MAJOR_3RD;
+					result = Constants.MAJOR_3RD;
 					break;
 				//case IntervalsEnum.Diminished4th:
-				//	result = DIMINISHED_4TH;
+				//	result = Constants.DIMINISHED_4TH;
 				//	break;
 				case IntervalsEnum.Perfect4th:
-					result = PERFECT_4TH;
+					result = Constants.PERFECT_4TH;
 					break;
 				//case IntervalsEnum.Augmented4th:
-				//	result = AUGMENTED_4TH;
+				//	result = Constants.AUGMENTED_4TH;
 				//	break;
 				case IntervalsEnum.Diminished5th:
-					result = DIMINISHED_5TH;
+					result = Constants.DIMINISHED_5TH;
 					break;
 				case IntervalsEnum.Perfect5th:
-					result = PERFECT_5TH;
+					result = Constants.PERFECT_5TH;
 					break;
 				case IntervalsEnum.Augmented5th:
-					result = AUGMENTED_5TH;
+					result = Constants.AUGMENTED_5TH;
 					break;
 				//case IntervalsEnum.Minor6th:
 				//	result = MINOR_6TH;
 				//	break;
 				case IntervalsEnum.Major6th:
-					result = MAJOR_6TH;
+					result = Constants.MAJOR_6TH;
 					break;
 				case IntervalsEnum.Minor7th:
-					result = MINOR_7TH;
+					result = Constants.MINOR_7TH;
 					break;
 				case IntervalsEnum.Major7th:
-					result = MAJOR_7TH;
+					result = Constants.MAJOR_7TH;
 					break;
 				default: throw new NotSupportedException();
 
@@ -153,55 +125,55 @@ namespace Eric.Morrison.Harmony
 			switch (e)
 			{
 				case ChordToneFunctionEnum.None:
-					result = NONE;
+					result = Constants.NONE;
 					break;
 				case ChordToneFunctionEnum.Root:
-					result = ROOT;
+					result = Constants.ROOT;
 					break;
 				case ChordToneFunctionEnum.Flat9th:
-					result = FLAT_9TH;
+					result = Constants.FLAT_9TH;
 					break;
 				case ChordToneFunctionEnum.Ninth:
-					result = NINTH;
+					result = Constants.NINTH;
 					break;
 				case ChordToneFunctionEnum.Sharp9th:
-					result = SHARP_9TH;
+					result = Constants.SHARP_9TH;
 					break;
 				case ChordToneFunctionEnum.Minor3rd:
-					result = MINOR_3RD;
+					result = Constants.MINOR_3RD;
 					break;
 				case ChordToneFunctionEnum.Major3rd:
-					result = MAJOR_3RD;
+					result = Constants.MAJOR_3RD;
 					break;
 				case ChordToneFunctionEnum.Flat11th:
-					result = FLAT_11TH;
+					result = Constants.FLAT_11TH;
 					break;
 				case ChordToneFunctionEnum.Eleventh:
-					result = ELEVENTH;
+					result = Constants.ELEVENTH;
 					break;
 				case ChordToneFunctionEnum.Augmented11th:
-					result = SHARP_11TH;
+					result = Constants.SHARP_11TH;
 					break;
 				case ChordToneFunctionEnum.Diminished5th:
-					result = DIMINISHED_5TH;
+					result = Constants.DIMINISHED_5TH;
 					break;
 				case ChordToneFunctionEnum.Perfect5th:
-					result = PERFECT_5TH;
+					result = Constants.PERFECT_5TH;
 					break;
 				case ChordToneFunctionEnum.Augmented5th:
-					result = AUGMENTED_5TH;
+					result = Constants.AUGMENTED_5TH;
 					break;
 				case ChordToneFunctionEnum.Flat13th:
-					result = FLAT_13TH;
+					result = Constants.FLAT_13TH;
 					break;
 				case ChordToneFunctionEnum.Thirteenth:
-					result = THIRTEENTH;
+					result = Constants.THIRTEENTH;
 					break;
 				case ChordToneFunctionEnum.Minor7th:
-					result = MINOR_7TH;
+					result = Constants.MINOR_7TH;
 					break;
 				case ChordToneFunctionEnum.Major7th:
-					result = MAJOR_7TH;
+					result = Constants.MAJOR_7TH;
 					break;
 				default: throw new NotSupportedException();
 

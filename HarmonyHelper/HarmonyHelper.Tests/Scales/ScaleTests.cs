@@ -127,6 +127,7 @@ namespace Eric.Morrison.Harmony.Tests
 			new object();
 		}
 
+		[Ignore]
 		[TestMethod()]
 		public void AlteredDominants()
 		{

@@ -2630,53 +2630,98 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 
-		[Ignore]
 		[TestMethod()]
-		public void CopyTest()
+		public void Copy_Test()
 		{
-			Assert.Fail();
+			foreach (var nn in NoteName.Catalog)
+			{
+				var copy = nn.Copy();
+				Assert.AreEqual(nn, copy);
+			}
 		}
 
-		[Ignore]
 		[TestMethod()]
-		public void CopyTest1()
+		public void Static_Copy_Test()
 		{
-			Assert.Fail();
+			foreach (var nn in NoteName.Catalog)
+			{
+				var copy = NoteName.Copy(nn);
+				Assert.AreEqual(nn, copy);
+			}
 		}
 
-		[Ignore]
 		[TestMethod()]
-		public void GetEnharmonicEquivalentTest()
+		public void GetEnharmonicEquivalent_Test()
 		{
-			Assert.Fail();
+			foreach (var nn in NoteName.Catalog)
+			{
+				var ee = NoteName.GetEnharmonicEquivalent(nn);
+				Assert.AreEqual(nn, ee);
+			}
+			new object();
 		}
 
-		[Ignore]
 		[TestMethod()]
-		public void GetNoteNamesTest()
+		public void ToString_Test()
 		{
-			Assert.Fail();
+			foreach (var nn in NoteName.Catalog)
+			{
+				var s = nn.ToString();
+				Assert.IsNotNull(s);
+				Assert.AreNotEqual(string.Empty, s);
+			}
 		}
 
-		[Ignore]
 		[TestMethod()]
-		public void ToStringTest()
+		public void CompareTo_Test()
 		{
-			Assert.Fail();
+			var count = NoteName.Catalog.Count;
+			var lessThan = 0;
+			var greaterThan = 0;
+			for (int i = 0; i < count; ++i)
+			{
+				var nn1 = NoteName.Catalog[i];
+				foreach (var nn2 in NoteName.Catalog)
+				{
+					int compare = nn1.CompareTo(nn2);
+					if (0 == compare)
+					{
+						var ee = NoteName.GetEnharmonicEquivalent(nn1);
+						Assert.AreEqual(ee, nn2);
+					}
+					if (compare < 0)
+						++lessThan;
+					if (compare > 0)
+						++greaterThan;
+				}
+			}
+			Assert.AreEqual(lessThan, greaterThan);
 		}
 
-		[Ignore]
 		[TestMethod()]
-		public void CompareToTest()
+		public void Compare_Test()
 		{
-			Assert.Fail();
-		}
-
-		[Ignore]
-		[TestMethod()]
-		public void CompareTest()
-		{
-			Assert.Fail();
+			var count = NoteName.Catalog.Count;
+			var lessThan = 0;
+			var greaterThan = 0;
+			for (int i = 0; i < count; ++i)
+			{
+				var nn1 = NoteName.Catalog[i];
+				foreach (var nn2 in NoteName.Catalog)
+				{
+					int compare = NoteName.Compare(nn1, nn2);
+					if (0 == compare)
+					{
+						var ee = NoteName.GetEnharmonicEquivalent(nn1);
+						Assert.AreEqual(ee, nn2);
+					}
+					if (compare < 0)
+						++lessThan;
+					if (compare > 0)
+						++greaterThan;
+				}
+			}
+			Assert.AreEqual(lessThan, greaterThan);
 		}
 
 		[Ignore]
@@ -2692,19 +2737,6 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			Assert.Fail();
 		}
-
-		[Ignore]
-		[TestMethod()]
-		public void GetHashCodeTest()
-		{
-			Assert.Fail();
-
-		}
-	}
-
-	static partial class Extensions
-	{
-
 
 	}
 
