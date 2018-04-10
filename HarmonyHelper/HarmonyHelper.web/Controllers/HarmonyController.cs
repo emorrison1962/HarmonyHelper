@@ -1,132 +1,130 @@
 ﻿using Eric.Morrison.Harmony;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace HarmonyHelper.web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class HarmonyController : Controller
-    {
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "Harmony", "Controller" };
-        //}
+	[Produces("application/json")]
+	[Route("api/[controller]")]
+	public class HarmonyController : Controller
+	{
+		//[HttpGet]
+		//public IEnumerable<string> Get()
+		//{
+		//    return new string[] { "Harmony", "Controller" };
+		//}
 
 
-        [HttpGet]
+		[HttpGet]
 		[Route("GetData")]
-        public IActionResult GetData()
-        {
-            var models = this.GenerateTestData();
+		public IActionResult GetData()
+		{
+			var models = this.GenerateTestData();
 			//var json = JsonConvert.SerializeObject(models);
 			//var ob = JsonConvert.DeserializeObject(json);
 			//Debug.WriteLine(json);
 			var result = new JsonResult(models);
-            return result;
-        }
+			return result;
+		}
 
-        List<StaveNoteVM> GenerateTestData()
-        {
-            const int CYCLE_MAX = 11;
-            var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
+		List<StaveNoteVM> GenerateTestData()
+		{
+			const int CYCLE_MAX = 11;
+			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
 
-            var chords = new List<Chord>();
-            NoteName root = null;
-            KeySignature key = null;
-            ChordTypesEnum chordType = ChordTypesEnum.Augmented;
+			var chords = new List<Chord>();
+			NoteName root = null;
+			KeySignature key = null;
+			ChordTypesEnum chordType = ChordTypesEnum.Augmented;
 
-            for (int i = 0; i <= CYCLE_MAX; ++i)
-            {
-                if (null == root)
-                {
-                    root = NoteName.D;
-                    key = KeySignature.CMajor;
-                    chordType = ChordTypesEnum.Minor7th;
-                }
-                else
-                {
-                    if (chordType == ChordTypesEnum.Dominant7th)
-                    {
-                        chordType = ChordTypesEnum.Minor7th;
-                        key = key - IntervalsEnum.Major2nd;
-                    }
-                    else
-                    {
-                        chordType = ChordTypesEnum.Dominant7th;
-                    }
-                    root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
-                }
+			for (int i = 0; i <= CYCLE_MAX; ++i)
+			{
+				if (null == root)
+				{
+					root = NoteName.D;
+					key = KeySignature.CMajor;
+					chordType = ChordTypesEnum.Minor7th;
+				}
+				else
+				{
+					if (chordType == ChordTypesEnum.Dominant7th)
+					{
+						chordType = ChordTypesEnum.Minor7th;
+						key = key - IntervalsEnum.Major2nd;
+					}
+					else
+					{
+						chordType = ChordTypesEnum.Dominant7th;
+					}
+					root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
+				}
 
-                var formula = new ChordFormula(root, chordType, key);
-                var chord = new Chord(formula, noteRange);
-                chords.Add(chord);
+				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var chord = new Chord(formula, noteRange);
+				chords.Add(chord);
 
-                //Debug.Write("key="+key.ToString()+":");
-                //Debug.Write("("+chord.Name+"):");
-                //Debug.WriteLine(chord.ToString());
+				//Debug.Write("key="+key.ToString()+":");
+				//Debug.Write("("+chord.Name+"):");
+				//Debug.WriteLine(chord.ToString());
 
-                new object();
+				new object();
 
-            }
+			}
 
-            new object();
+			new object();
 
-            var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
-            var notesToPlay = 4;
+			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+			var notesToPlay = 4;
 
-            var contexts = new List<ArpeggiationContext>();
-            chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
 
-            var arpeggiator = new Arpeggiator(contexts,
-                DirectionEnum.Ascending,
-                noteRange, 4, startingNote);
-
-
-            var notes = new List<Note>();
-            var Arpeggiator_CurrentNoteChanged =
-                new EventHandler<Arpeggiator>(
-                    new Action<object, Arpeggiator>((sender, ctx) =>
-                      {
-                          notes.Add(ctx.CurrentNote);
-                      }));
-
-            arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
-            arpeggiator.Arpeggiate();
-            new object();
-
-            var result = new List<StaveNoteVM>();
-            notes.ForEach(x => result.Add(new StaveNoteVM(x)));
-            return result;
-        }
-
-        //private void Arpeggiator_CurrentNoteChanged(object sender, Arpeggiator ctx)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-    }
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, 4, startingNote);
 
 
-    public class StaveNoteVM
-    {
-        public string clef { get { return "treble"; } }
-        public List<string> keys { get; set; } = new List<string>();//['c/4'],
-        public string duration { get { return "q"; } }
-        public bool auto_stem { get { return true; } }
+			var notes = new List<Note>();
+			var Arpeggiator_CurrentNoteChanged =
+				new EventHandler<Arpeggiator>(
+					new Action<object, Arpeggiator>((sender, ctx) =>
+					  {
+						  notes.Add(ctx.CurrentNote);
+					  }));
 
-        public StaveNoteVM(Note note)
-        {
-            var nn = note.NoteName.Name.ToLower().Replace("♯", "#").Replace("♭", "b");
-            var o = 1 + (int)note.Octave;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Arpeggiate();
+			new object();
 
-            var s = $"{nn}/{o}";
-            keys.Add(s);
-        }
-    }
+			var result = new List<StaveNoteVM>();
+			notes.ForEach(x => result.Add(new StaveNoteVM(x)));
+			return result;
+		}
+
+		//private void Arpeggiator_CurrentNoteChanged(object sender, Arpeggiator ctx)
+		//{
+		//    throw new System.NotImplementedException();
+		//}
+	}
+
+
+	public class StaveNoteVM
+	{
+		public string clef { get { return "treble"; } }
+		public List<string> keys { get; set; } = new List<string>();//['c/4'],
+		public string duration { get { return "q"; } }
+		public bool auto_stem { get { return true; } }
+
+		public StaveNoteVM(Note note)
+		{
+			var nn = note.NoteName.Name.ToLower().Replace("♯", "#").Replace("♭", "b");
+			var o = 1 + (int)note.Octave;
+
+			var s = $"{nn}/{o}";
+			keys.Add(s);
+		}
+	}
 
 
 }

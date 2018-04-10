@@ -60,7 +60,7 @@ namespace Eric.Morrison.Harmony
 					var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
 					var key = KeySignature.GMajor;
 					var chord = new Chord(
-						new ChordFormula(NoteName.A,
+						ChordFormulaFactory.Create(NoteName.A,
 							ChordTypesEnum.Minor7th,
 							key),
 						noteRange);

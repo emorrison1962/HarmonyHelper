@@ -4,6 +4,18 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
+	public class ChordFormulaExtensions
+	{
+		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
+		public ChordFormulaExtensions(ChordFormula formula)
+		{// Diatonic extensions.
+			var mode = new ModeFormula(formula.Key, ModeEnum.Ionian);
+			var ninth = formula.Root + new IntervalContext(formula.Key, mode.Second);
+			var eleventh = formula.Root + new IntervalContext(formula.Key, mode.Fourth);
+			var thirteenth = formula.Root + new IntervalContext(formula.Key, mode.Sixth);
+		}
+	}
+
 	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>
 	{
 		#region Properties
@@ -22,7 +34,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Construction
 
-		public ChordFormula(NoteName root, ChordTypesEnum chordType, KeySignature key)
+		public ChordFormula(NoteName root, ChordTypesEnum chordType, KeySignature key, bool addDiatonicExtension = false)
 		{
 			if (null == root)
 				throw new NullReferenceException();
@@ -46,6 +58,20 @@ namespace Eric.Morrison.Harmony
 			var seventh = NoteName.Catalog.Get(key, root, interval);
 			this.NoteNames.Add(this.Seventh = seventh);
 
+			if (addDiatonicExtension)
+			{
+				interval = chordType.GetNinthInterval();
+				var nn = NoteName.Catalog.Get(key, root, interval);
+				this.NoteNames.Add(nn);
+
+				interval = chordType.GetEleventhInterval();
+				nn = NoteName.Catalog.Get(key, root, interval);
+				this.NoteNames.Add(nn);
+
+				interval = chordType.GetThirteenthInterval();
+				nn = NoteName.Catalog.Get(key, root, interval);
+				this.NoteNames.Add(nn);
+			}
 		}
 
 
@@ -231,7 +257,7 @@ namespace Eric.Morrison.Harmony
 			// var txedKey = chord.Key + ctx.Interval;
 			var txedRoot = chord.Root + ctx; // new IntervalContext(txedKey, ctx.Interval);
 
-			var result = new ChordFormula(txedRoot, chord.ChordType, ctx.Key);// txedKey);
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, ctx.Key);// txedKey);
 			return result;
 		}
 
@@ -240,14 +266,14 @@ namespace Eric.Morrison.Harmony
 			// var txedKey = chord.Key - ctx.Interval;
 			var txedRoot = chord.Root - ctx;// new IntervalContext(txedKey, ctx.Interval);
 
-			var result = new ChordFormula(txedRoot, chord.ChordType, ctx.Key);// txedKey);
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, ctx.Key);// txedKey);
 			return result;
 
 			//var txedKey = chord.Key - interval;
 			//var txedRoot = NoteNamesCollection.Get(txedKey, chord.Root, interval, DirectionEnum.Descending);
 			//txedRoot = txedKey.GetNormalized(txedRoot);
 
-			//var result = new ChordFormula(txedRoot, chord.ChordType, txedKey);
+			//var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, txedKey);
 			//return result;
 		}
 
@@ -274,7 +300,6 @@ namespace Eric.Morrison.Harmony
 				result = this.Equals(obj as ChordFormula);
 			return result;
 		}
-
 
 		public static bool operator <(ChordFormula a, ChordFormula b)
 		{
