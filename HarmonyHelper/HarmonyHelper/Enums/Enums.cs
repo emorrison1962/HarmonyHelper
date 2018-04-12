@@ -62,6 +62,7 @@ namespace Eric.Morrison.Harmony
 		Major6th = 1 << 9,
 		Minor7th = 1 << 10,
 		Major7th = 1 << 11,
+		Octave = 1 << 12,
 	}
 #if false
 None

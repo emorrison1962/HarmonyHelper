@@ -22,6 +22,23 @@ namespace Eric.Morrison.Harmony
 			Init();
 		}
 
+		public NoteRange(Note lowerLimit, int numberOfOctaves)
+		{
+			this.LowerLimit = lowerLimit;
+			var upperLimit = this.LowerLimit.Copy();
+			var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
+
+			for (int i = 0; i < numberOfOctaves; ++i)
+			{
+				var octave = upperLimit.Octave;
+				octave = octaves.First(x => x > octave);
+				upperLimit.Octave = octave;
+			}
+
+			this.UpperLimit = upperLimit;
+			Init();
+		}
+
 		protected void Init()
 		{
 			if (null == this.LowerLimit)

@@ -10,6 +10,12 @@ namespace HarmornyHelper.forms
 			InitializeComponent();
 		}
 
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
+			_bnScales.Checked = true;
+		}
+
 		private void _bnIntervals_CheckedChanged(object sender, EventArgs e)
 		{
 			this._contentPanel.Controls.Clear();

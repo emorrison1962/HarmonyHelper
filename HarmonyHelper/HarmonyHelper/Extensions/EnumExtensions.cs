@@ -64,4 +64,15 @@ namespace Eric.Morrison.Harmony
 			return (Arr.Length == j) ? Arr[0] : Arr[j];
 		}
 	}
+
+	public static class ModeEnumExtensions
+	{
+		public static string ToStringEx(this ModeEnum src) 
+		{
+			var str = src.ToString();
+			var result = str;
+			return str;
+		}
+	}
+
 }

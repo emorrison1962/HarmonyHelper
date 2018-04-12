@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony
 		#region Fields
 
 		ScaleFormulaBase _formula;
-		List<NoteName> _noteNames;
+		List<NoteName> _noteNames = new List<NoteName>();
 
 		#endregion Fields
 
@@ -61,21 +61,23 @@ namespace Eric.Morrison.Harmony
 		#endregion Properties
 
 		#region Construction
-		protected ScaleBase(KeySignature key, NoteRange noteRange) : base(key)
+		protected ScaleBase(KeySignature key, NoteRange noteRange, bool runInit = true) : base(key)
 		{
 			if (null == key)
 				throw new ArgumentNullException();
 			if (null == noteRange)
 				throw new ArgumentNullException();
 			this.NoteRange = noteRange;
-			this.Init();
+			if (runInit)
+				this.Init();
 		}
 
-		protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : this(key, noteRange)
+		protected ScaleBase(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : this(key, noteRange, false)
 		{
 			if (null == formula)
 				throw new ArgumentNullException();
 			this.Formula = formula;
+			this.Init();
 		}
 
 		void Init()

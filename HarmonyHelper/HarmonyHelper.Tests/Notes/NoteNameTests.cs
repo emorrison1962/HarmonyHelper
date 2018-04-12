@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -2667,9 +2666,11 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var nn in NoteName.Catalog)
 			{
 				var s = nn.ToString();
+				// Debug.WriteLine($"case \"{s}\": step = Step; break;");
 				Assert.IsNotNull(s);
 				Assert.AreNotEqual(string.Empty, s);
 			}
+			new Object();
 		}
 
 		[TestMethod()]

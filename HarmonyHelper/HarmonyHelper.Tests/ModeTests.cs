@@ -9,65 +9,70 @@ using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Tests
 {
-    [TestClass()]
-    public class ModeTests
-    {
-        List<KeySignature> GetKeySignatures()
-        {
-            return new List<KeySignature>() {
-                KeySignature.CMajor,
-                KeySignature.FMajor,
-                KeySignature.BbMajor,
-                KeySignature.EbMajor,
-                KeySignature.AbMajor,
-                KeySignature.DbMajor,
-                KeySignature.FSharpMajor,
-                KeySignature.BbMajor,
-                KeySignature.EMajor,
-                KeySignature.AMajor,
-                KeySignature.DMajor,
-                KeySignature.GMajor,
-            };
-        }
+	[TestClass()]
+	public class ModeTests
+	{
+		List<KeySignature> GetKeySignatures()
+		{
+			return new List<KeySignature>() {
+				KeySignature.CMajor,
+				KeySignature.FMajor,
+				KeySignature.BbMajor,
+				KeySignature.EbMajor,
+				KeySignature.AbMajor,
+				KeySignature.DbMajor,
+				KeySignature.FSharpMajor,
+				KeySignature.BbMajor,
+				KeySignature.EMajor,
+				KeySignature.AMajor,
+				KeySignature.DMajor,
+				KeySignature.GMajor,
+			};
+		}
 
-        List<ModeEnum> GetModeFormulas()
-        {
-            var result = new List<ModeEnum>();
-            var arr = Enum.GetValues(typeof(ModeEnum));
-            foreach (var val in arr)
-                result.Add((ModeEnum)val);
-            return result;
-        }
+		List<ModeEnum> GetModeFormulas()
+		{
+			var result = new List<ModeEnum>();
+			var arr = Enum.GetValues(typeof(ModeEnum));
+			foreach (var val in arr)
+				result.Add((ModeEnum)val);
+			return result;
+		}
 
-        [TestMethod()]
-        public void ModeTest()
-        {
-            var keys = this.GetKeySignatures();
-            var modes = this.GetModeFormulas();
-            foreach (var key in keys)
-            {
-                foreach (var formula in modes)
-                {
-                    var mode = new Mode(key, formula, NoteRange.Default);
-                }
-            }
-        }
+		[TestMethod()]
+		public void ModeTest()
+		{
+			var keys = this.GetKeySignatures();
+			var modes = this.GetModeFormulas();
+			foreach (var key in keys)
+			{
+				foreach (var formula in modes)
+				{
+					var mode = new Mode(key, formula, NoteRange.Default);
+				}
+			}
+		}
 
-        [TestMethod()]
-        public void ToStringTest()
-        {
-            var keys = this.GetKeySignatures();
-            var modes = this.GetModeFormulas();
-            foreach (var key in keys)
-            {
-                foreach (var formula in modes)
-                {
-                    var mode = new Mode(key, formula, NoteRange.Default);
-                    Debug.WriteLine(mode);
-                }
-                Debug.WriteLine("");
-            }
-            new Object();
-        }
-    }
+		[TestMethod()]
+		public void ToStringTest()
+		{
+			var keys = this.GetKeySignatures();
+			var modes = this.GetModeFormulas();
+			foreach (var key in keys)
+			{
+				foreach (var formula in modes)
+				{
+					var mode = new Mode(key, formula, NoteRange.Default);
+					Debug.WriteLine(mode.ToString());
+					Assert.IsFalse(string.IsNullOrEmpty(mode.Name));
+
+					Debug.WriteLine($"{string.Join(",", mode.Formula.NoteNames)}");
+					Debug.WriteLine($"{string.Join(",", mode.Notes)}");
+					new object();
+				}
+				Debug.WriteLine("");
+			}
+			new Object();
+		}
+	}
 }
