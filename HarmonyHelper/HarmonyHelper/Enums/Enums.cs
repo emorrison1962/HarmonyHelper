@@ -62,7 +62,7 @@ namespace Eric.Morrison.Harmony
 		Major6th = 1 << 9,
 		Minor7th = 1 << 10,
 		Major7th = 1 << 11,
-		Octave = 1 << 12,
+		// Octave = 1 << 12,
 	}
 #if false
 None
@@ -82,10 +82,13 @@ Minor7th
 Major7th
 #endif
 
+	[Flags]
 	public enum DirectionEnum
 	{
-		Ascending = 1,
-		Descending
+		None = 0,
+		Ascending = 1 << 1,
+		Descending = 1 << 2,
+		AllowTemporayReversal = 1 << 3,
 	}
 
 	public enum FiveStringBassPositionEnum

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MusicXML_TEMPLATE.xml" />
+    <Content Include="MusicXML_TEMPLATE_02.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

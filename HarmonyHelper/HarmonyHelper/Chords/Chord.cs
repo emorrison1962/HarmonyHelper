@@ -13,7 +13,7 @@ namespace Eric.Morrison.Harmony
 		Note Third { get; set; }
 		Note Fifth { get; set; }
 		Note Seventh { get; set; }
-		ChordFormula Formula { get; set; }
+		public ChordFormula Formula { get; private set; }
 		public List<Note> Notes { get; private set; } = new List<Note>();
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
 		public string Name
@@ -121,13 +121,48 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		DirectionEnum ReverseDirection(DirectionEnum direction)
+		{
+			var result = DirectionEnum.None;
+			var allowReversal = false;
+			if (DirectionEnum.AllowTemporayReversal == (direction & DirectionEnum.AllowTemporayReversal))
+			{
+				allowReversal = true;
+			}
+			if (DirectionEnum.Descending == (direction & DirectionEnum.Descending))
+			{
+				result = DirectionEnum.Ascending;
+			}
+			if (DirectionEnum.Ascending == (direction & DirectionEnum.Ascending))
+			{
+				result = DirectionEnum.Descending;
+			}
+			if (allowReversal)
+			{
+				result |= DirectionEnum.AllowTemporayReversal;
+			}
+			return result;
+		}
 		public Note GetClosestNoteEx(Arpeggiator ctx)
 		{
-			var result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
-			if (null == result)
+			var direction = ctx.Direction;
+			var result = this.Notes.FindClosest(ctx.CurrentNote, ref direction);
+			if (null != result)
 			{
-				ctx.Direction = ctx.Direction.Next();
-				result = this.Notes.FindClosest(ctx.CurrentNote, ctx.Direction);
+				if (ctx.Direction != direction)
+				{
+					ctx.Direction = direction;
+				}
+			}
+			else
+			{
+				ctx.Direction = ReverseDirection(ctx.Direction);
+				direction = ctx.Direction;
+				result = this.Notes.FindClosest(ctx.CurrentNote, ref direction);
+				if (ctx.Direction != direction)
+				{
+					ctx.Direction = direction;
+				}
 			}
 
 			Debug.Assert(ctx.CurrentNote.NoteName.Value != result.NoteName.Value);

@@ -1,1 +1,1 @@
-<Playlist Version="1.0"><Add Test="Eric.Morrison.Harmony.Tests.ScaleTests.GetResolutionsFor_BluesTest" /><Add Test="Eric.Morrison.Harmony.Tests.ModeTests.ToStringTest" /></Playlist>
+<Playlist Version="1.0"><Add Test="Eric.Morrison.Harmony.Tests.ScaleTests.GetResolutionsFor_BluesTest" /><Add Test="Eric.Morrison.Harmony.Tests.NoteTests.Bug_B_Minus_C_Test" /></Playlist>

@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArpeggiationContext.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Arpeggiator.cs" />
     <Compile Include="Arpeggiator_Snapshot.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>

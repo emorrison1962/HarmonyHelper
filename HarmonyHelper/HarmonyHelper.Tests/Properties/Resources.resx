@@ -121,4 +121,7 @@
   <data name="MusicXML_TEMPLATE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MusicXML_TEMPLATE.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="MusicXML_TEMPLATE_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\musicxml_template_02.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

@@ -54,6 +54,7 @@ namespace Eric.Morrison.Harmony
 
 	public static class EnumExtensions
 	{
+		[Obsolete("This is SLOW.")]
 		public static T Next<T>(this T src) where T : struct
 		{
 			if (!typeof(T).IsEnum)

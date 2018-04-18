@@ -112,5 +112,16 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			Assert.Fail();
 		}
+
+		[TestMethod()]
+		public void Bug_B_Minus_C_Test()
+		{
+			var b = new Note(NoteName.B, OctaveEnum.Octave2);
+			var cSharp = new Note(NoteName.CSharp, OctaveEnum.Octave3);
+
+			var interval = b - cSharp;
+			Assert.IsTrue(IntervalsEnum.Major2nd == interval);
+		}
+
 	}
 }
