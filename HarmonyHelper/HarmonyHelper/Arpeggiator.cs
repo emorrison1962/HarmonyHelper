@@ -143,6 +143,16 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 						}
 						else
 						{
+							if (3 == i)
+							{
+								if (ChordToneFunctionEnum.Minor7th == this.CurrentChord.Formula
+									.GetChordToneFunction(this.CurrentNote.NoteName))
+								{
+									"complete this test"
+									new object();
+								}
+							} 
+
 							if (this.CurrentChord.Name == "C7")
 								//if (this.CurrentNote.NoteName.ToString() == "G")
 									//if (0 == i)
