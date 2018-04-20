@@ -121,53 +121,48 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		DirectionEnum ReverseDirection(DirectionEnum direction)
+		public class ClosestNoteContext
 		{
-			var result = DirectionEnum.None;
-			var allowReversal = false;
-			if (DirectionEnum.AllowTemporayReversal == (direction & DirectionEnum.AllowTemporayReversal))
+			public DirectionEnum Direction { get; set; }
+			public Note LastNote { get; private set; }
+			public Note ClosestNote { get; set; }
+			public List<Note> Notes { get; set; }
+			public bool TemporaryDirectionReversal { get; set; }
+
+			public ClosestNoteContext(Arpeggiator arpeggiator)
 			{
-				allowReversal = true;
+				this.LastNote = arpeggiator.CurrentNote;
+				this.Direction = arpeggiator.Direction;
+				this.Notes = arpeggiator.CurrentChord.Notes;
 			}
-			if (DirectionEnum.Descending == (direction & DirectionEnum.Descending))
+			public ClosestNoteContext(Arpeggiator arpeggiator, DirectionEnum direction) : this(arpeggiator)
 			{
-				result = DirectionEnum.Ascending;
-			}
-			if (DirectionEnum.Ascending == (direction & DirectionEnum.Ascending))
-			{
-				result = DirectionEnum.Descending;
-			}
-			if (allowReversal)
-			{
-				result |= DirectionEnum.AllowTemporayReversal;
-			}
-			return result;
-		}
-		public Note GetClosestNoteEx(Arpeggiator ctx)
-		{
-			var direction = ctx.Direction;
-			var result = this.Notes.FindClosest(ctx.CurrentNote, ref direction);
-			if (null != result)
-			{
-				if (ctx.Direction != direction)
-				{
-					ctx.Direction = direction;
-				}
-			}
-			else
-			{
-				ctx.Direction = ReverseDirection(ctx.Direction);
-				direction = ctx.Direction;
-				result = this.Notes.FindClosest(ctx.CurrentNote, ref direction);
-				if (ctx.Direction != direction)
-				{
-					ctx.Direction = direction;
-				}
+				this.Direction = direction;
 			}
 
-			Debug.Assert(ctx.CurrentNote.NoteName.Value != result.NoteName.Value);
-			return result;
+			public override string ToString()
+			{
+				var result = $"Direction={this.Direction}, LastNote={this.LastNote}, ClosestNote={this.ClosestNote}"; 
+				if (this.TemporaryDirectionReversal)
+					result = $"Direction={this.Direction}, TemporaryDirectionReversal={TemporaryDirectionReversal} LastNote={this.LastNote}, ClosestNote={this.ClosestNote}";
+				return result;
+			}
 		}
+		public void GetClosestNoteEx(ClosestNoteContext ctx)
+		{
+			var result = ctx.FindClosest();
+			if (null == result)
+			{
+				ctx.Direction = ctx.Direction.Reverse();
+				result = ctx.FindClosest();
+				Debug.Assert(null != result);
+			}
+
+			Debug.Assert(ctx.LastNote.NoteName.Value != result.NoteName.Value);
+			ctx.ClosestNote = result;
+		}
+
+
 
 		public override string ToString()
 		{

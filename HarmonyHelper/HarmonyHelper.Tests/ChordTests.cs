@@ -72,7 +72,9 @@ namespace Eric.Morrison.Harmony.Tests
 			Debug.WriteLine(root);
 			for (int i = 0; i < MAX_ITERATIONS; ++i)
 			{
-				var next = chord.GetClosestNoteEx(arpeggiator);
+				var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
+				chord.GetClosestNoteEx(closestNoteCtx);
+				var next = closestNoteCtx.ClosestNote;
 				Debug.WriteLine(string.Format("{0}", next.ToString()));
 				arpeggiator.CurrentNote = next;
 			}

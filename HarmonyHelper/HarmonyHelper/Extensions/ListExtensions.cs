@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using static Eric.Morrison.Harmony.Chord;
 
 namespace Eric.Morrison.Harmony
 {
@@ -26,33 +28,8 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static bool HasBitmask(this DirectionEnum cte, DirectionEnum value)
-		{
-			var result = false;
 
-			var bitmask = (int)value;
-			var icte = (int)cte;
-			var masked = (icte & bitmask);
-			if (masked == bitmask)
-				result = true;
-
-			return result;
-		}
-
-		public static DirectionEnum GetMasked(this DirectionEnum src, DirectionEnum requested)
-		{
-			var result = DirectionEnum.None;
-
-			var bitmask = (int)requested;
-			var iSrc = (int)src;
-			var which = (iSrc & bitmask);
-			result = (DirectionEnum)which;
-
-			return result;
-		}
-
-
-		public static Note FindClosest(this List<Note> list, Note lastNote, ref DirectionEnum direction)
+		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
 		{
 			Note result;
 
@@ -60,61 +37,57 @@ namespace Eric.Morrison.Harmony
 			{
 				result = list.Where(x => x > lastNote).FirstOrDefault();
 			}
-			else if (DirectionEnum.Descending == direction)
+			else
 			{
 				result = list.Where(x => x < lastNote).LastOrDefault();
 			}
-			else // | DirectionEnum.AllowTemporayReversal
+			return result;
+		}
+
+		public static Note FindClosest(this ClosestNoteContext ctx)
+		{
+			Note result;
+
+			if (DirectionEnum.Ascending == (DirectionEnum.Ascending & ctx.Direction))
 			{
-				var ascNote = list.Where(x => x > lastNote).FirstOrDefault();
-				var descNote = list.Where(x => x < lastNote).LastOrDefault();
-
-				if (null != ascNote && null != descNote)
-				{
-					var ascInterval = ascNote - lastNote;
-					ascInterval = (IntervalsEnum)Math.Min((int)ascInterval, (int)ascInterval.GetInversion());
-
-					var descInterval = descNote - lastNote;
-					descInterval = (IntervalsEnum)Math.Min((int)descInterval, (int)descInterval.GetInversion());
-
-					if (descInterval == ascInterval)
-					{
-						var dir = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
-						if (DirectionEnum.Ascending == dir)
-						{
-							result = ascNote;
-							direction = DirectionEnum.AllowTemporayReversal | DirectionEnum.Ascending;
-						}
-						else if (DirectionEnum.Descending == dir)
-						{
-							result = descNote;
-							direction = DirectionEnum.AllowTemporayReversal | DirectionEnum.Descending;
-						}
-						else
-						{
-							result = null;
-						}
-					}
-					else
-					{
-						if (descInterval < ascInterval)
-						{
-							result = descNote;
-							direction = DirectionEnum.AllowTemporayReversal |  DirectionEnum.Descending;
-						}
-						else
-						{
-							result = ascNote;
-							direction = DirectionEnum.AllowTemporayReversal | DirectionEnum.Ascending;
-						}
-					}
-				}
-				else
-				{
-					result = ascNote ?? descNote;
-				}
+				result = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Ascending);
+			}
+			else // (DirectionEnum.Descending == (DirectionEnum.Descending & direction))
+			{
+				result = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Descending);
 			}
 
+			if (DirectionEnum.AllowTemporayReversal == (DirectionEnum.AllowTemporayReversal & ctx.Direction))
+			{
+				Note option = null; 
+				if (DirectionEnum.Ascending == (DirectionEnum.Ascending & ctx.Direction))
+				{
+					option = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Descending);
+				}
+				else //(DirectionEnum.Descending == (DirectionEnum.Descending & direction))
+				{
+					option = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Ascending);
+				}
+
+				if (null != result && null != option)
+				{
+					var optionalInterval = option - ctx.LastNote;
+					optionalInterval = (IntervalsEnum)Math.Min((int)optionalInterval, (int)optionalInterval.GetInversion());
+
+					var currentInterval = result - ctx.LastNote;
+					currentInterval = (IntervalsEnum)Math.Min((int)currentInterval, (int)currentInterval.GetInversion());
+
+					if (optionalInterval < currentInterval)
+					{
+						result = option;
+						ctx.TemporaryDirectionReversal = true;
+						ctx.Direction = ctx.Direction.Reverse();
+					}
+				}
+				Debug.Assert(null != result);
+			}
+
+			// Debug.Assert(null != result);
 			return result;
 		}
 

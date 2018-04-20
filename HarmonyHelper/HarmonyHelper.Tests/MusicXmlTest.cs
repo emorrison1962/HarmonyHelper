@@ -165,19 +165,38 @@ namespace Eric.Morrison.Harmony
 			var function = ctx.CurrentChord.Formula.GetChordToneFunction(ctx.CurrentNote.NoteName);
 			var functionStr = function.ToStringEx();
 
-			var noteStr = ctx.CurrentNote.ToString();
+			var noteStr = string.Empty;
+			noteStr = ctx.CurrentNote.ToString();
 			noteStr = string.Format("{0}", noteStr);
 			noteStr += string.Format("({1}){0,-3}", (int)ctx.CurrentNote.Octave, functionStr);
-			Debug.Write(noteStr);
-		}
+			//if (g_directionChanged)
+			//{
+			//	noteStr = ctx.CurrentNote.ToString();
+			//	noteStr = string.Format("{0}", noteStr);
+			//	noteStr += string.Format("({1}){0,-3}", (int)ctx.CurrentNote.Octave, functionStr);
+			//}
+			//else 
+			//{
+			//	noteStr = $"{"."} {"",-3}";
+			//}
 
+			if (functionStr != "m7" && functionStr != "△3")
+			{// print spaces
+				noteStr = $"{" . "} {" ", 3}";
+			}
+
+			Debug.Write(noteStr);
+			g_directionChanged = false;
+		}
+		bool g_directionChanged = false;
 		private void Log_DirectionChanged(object sender, Arpeggiator ctx)
 		{
 			const string ASC = "˄";
 			const string DESC = "˅";
 
-			var direction = ctx.Direction == DirectionEnum.Ascending ? ASC : DESC;
+			var direction = ctx.Direction.HasFlag(DirectionEnum.Ascending) ? ASC : DESC;
 			Debug.Write(direction);
+			g_directionChanged = true;
 		}
 
 		private void Log_ChordChanged(object sender, Arpeggiator ctx)

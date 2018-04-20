@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
+
 	public static class IntervalsEnumExtensions
 	{
 		class IntervalsEnumValueComparer : IEqualityComparer<IntervalsEnum>

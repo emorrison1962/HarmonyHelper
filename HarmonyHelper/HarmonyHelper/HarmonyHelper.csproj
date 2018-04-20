@@ -56,6 +56,7 @@
     <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
     <Compile Include="Chords\ChordTone.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums\DirectionEnumExtensions.cs" />
     <Compile Include="Enums\IntervalsEnumExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />

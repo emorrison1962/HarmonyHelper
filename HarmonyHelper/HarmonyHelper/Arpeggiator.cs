@@ -110,11 +110,10 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 
 
 			bool firstTime = true;
-			bool allowTemporaryReversal = false;
-			if (this.Direction.HasBitmask(DirectionEnum.AllowTemporayReversal))
+			var direction = this.Direction;
+			if (direction.HasFlag(DirectionEnum.AllowTemporayReversal))
 			{
-				allowTemporaryReversal = true;
-				this.Direction = this.Direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
+				direction = this.Direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
 			}
 
 			do
@@ -130,9 +129,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 					}
 					else
 					{
-						if (allowTemporaryReversal)
-						{
-							this._direction = this.Direction | DirectionEnum.AllowTemporayReversal;
+						if (this.Direction.HasFlag(DirectionEnum.AllowTemporayReversal))
+						{// On the first note, allow temporary reversal.
+							direction = this.Direction | DirectionEnum.AllowTemporayReversal;
 						}
 					}
 					for (int i = 0; i < ctx.NotesToPlay; ++i)
@@ -144,19 +143,41 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 						}
 						else
 						{
-							if (this.CurrentChord.Name == "B7")
-								if (this.CurrentNote.NoteName.ToString() == "C♯")
-									if (0 == i)
-										new object();
-							var next = this.CurrentChord.GetClosestNoteEx(this);
-							if (allowTemporaryReversal)
+							if (this.CurrentChord.Name == "C7")
+								//if (this.CurrentNote.NoteName.ToString() == "G")
+									//if (0 == i)
+								new object();
+
+							var closestNoteCtx = new Chord.ClosestNoteContext(this);
+
+							if (0 == i || closestNoteCtx.Direction != direction)
 							{
-								this._direction = this.Direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
+								closestNoteCtx.Direction = direction;
+							}
+
+							this.CurrentChord.GetClosestNoteEx(closestNoteCtx);
+							var next = closestNoteCtx.ClosestNote;
+							if (direction != closestNoteCtx.Direction)
+							{
+								this.Direction = closestNoteCtx.Direction;
+								if (!closestNoteCtx.Direction.HasFlag(DirectionEnum.AllowTemporayReversal))
+								{
+									direction = closestNoteCtx.Direction;
+								}
+							}
+							new object();
+							if (direction.HasFlag(DirectionEnum.AllowTemporayReversal))
+							{
+								direction = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
 							}
 
 							Debug.Assert(null != next);
 							this.CurrentNote = next;
+							if (closestNoteCtx.TemporaryDirectionReversal)
+								this.Direction = direction;
+							new object();
 						}
+						new object();
 					}
 					if (this.UntilPatternRepeats)
 					{
