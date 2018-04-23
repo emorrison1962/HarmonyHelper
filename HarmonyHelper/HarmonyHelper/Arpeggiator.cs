@@ -203,6 +203,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 						if (0 < count)
 						{
 							repeat = false;
+#if DEBUG
+							snapshots.Count(x => x.Equals(this));
+#endif
 						}
 						else
 						{
