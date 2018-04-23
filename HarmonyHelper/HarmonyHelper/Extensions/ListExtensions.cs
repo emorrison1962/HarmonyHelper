@@ -56,6 +56,10 @@ namespace Eric.Morrison.Harmony
 			{
 				result = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Descending);
 			}
+			if (null == result)
+			{
+				ctx.ExceededRangeLimit = true;
+			}
 
 			if (DirectionEnum.AllowTemporayReversal == (DirectionEnum.AllowTemporayReversal & ctx.Direction))
 			{
@@ -84,7 +88,7 @@ namespace Eric.Morrison.Harmony
 						ctx.Direction = ctx.Direction.Reverse();
 					}
 				}
-				Debug.Assert(null != result);
+				//Debug.Assert(null != result);
 			}
 
 			// Debug.Assert(null != result);

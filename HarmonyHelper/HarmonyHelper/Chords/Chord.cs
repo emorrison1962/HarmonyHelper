@@ -128,6 +128,7 @@ namespace Eric.Morrison.Harmony
 			public Note ClosestNote { get; set; }
 			public List<Note> Notes { get; set; }
 			public bool TemporaryDirectionReversal { get; set; }
+			public bool ExceededRangeLimit { get; set; }
 
 			public ClosestNoteContext(Arpeggiator arpeggiator)
 			{

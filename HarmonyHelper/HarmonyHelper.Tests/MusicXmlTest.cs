@@ -98,7 +98,7 @@ namespace Eric.Morrison.Harmony
 			}
 
 
-			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+			var startingNote = new Note(chords[0].Root.NoteName + new IntervalContext(KeySignature.CMajor, IntervalsEnum.Major3rd), OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
 			var contexts = new List<ArpeggiationContext>();
@@ -106,6 +106,7 @@ namespace Eric.Morrison.Harmony
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+				//DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
 			this.RegisterMusicXmlObservers(arpeggiator);
@@ -170,8 +171,8 @@ namespace Eric.Morrison.Harmony
 
 			var noteStr = string.Empty;
 			noteStr = $"{ctx.CurrentNote.ToString()}{(int)ctx.CurrentNote.Octave}";
-			noteStr = $"{noteStr,-9}";
 			noteStr = $"{noteStr}{g_direction}{functionStr}";
+			noteStr = $"{noteStr,9}";
 			//if (g_directionChanged)
 			//{
 			//	noteStr = ctx.CurrentNote.ToString();
