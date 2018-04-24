@@ -56,7 +56,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArpeggiatorTests.cs" />
+    <Compile Include="Arpeggiator_UseCases.cs" />
     <Compile Include="ChordTests.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
     <Compile Include="ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
