@@ -120,21 +120,21 @@ namespace Eric.Morrison.Harmony
 		{
 			arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
 
-			//arpeggiator.ChordChanged += this.Log_ChordChanged;
+			arpeggiator.ChordChanged += this.Log_ChordChanged;
 			arpeggiator.ChordChanged += this.XML_ChordChanged;
 
 
-			//arpeggiator.DirectionChanged += Log_DirectionChanged;
+			arpeggiator.DirectionChanged += Log_DirectionChanged;
 
 
-			//arpeggiator.CurrentNoteChanged += this.Log_CurrentNoteChanged;
+			arpeggiator.CurrentNoteChanged += this.Log_CurrentNoteChanged;
 			arpeggiator.CurrentNoteChanged += this.XML_CurrentNoteChanged;
 
 			//arpeggiator.Starting += Log_Starting;
 			arpeggiator.Starting += XML_Starting;
 
 
-			//arpeggiator.Ending += this.Log_Ending;
+			arpeggiator.Ending += this.Log_Ending;
 			arpeggiator.Ending += this.XML_Ending;
 		}
 
@@ -146,7 +146,8 @@ namespace Eric.Morrison.Harmony
 
 		private void Log_Ending(object sender, Arpeggiator e)
 		{
-			Debug.WriteLine("||");
+			Debug.WriteLine("");
+			//Debug.WriteLine("||");
 		}
 
 		private void Log_Starting(object sender, Arpeggiator e)
@@ -162,9 +163,9 @@ namespace Eric.Morrison.Harmony
 				functionStr = "    ";
 
 			var noteStr = string.Empty;
-			noteStr = $"{ctx.CurrentNote.ToString()}{(int)ctx.CurrentNote.Octave}";
-			noteStr = $"{noteStr}{g_direction}{functionStr}";
-			noteStr = $"{noteStr,9}";
+			noteStr = $"{g_direction}{ctx.CurrentNote.ToString()}{(int)ctx.CurrentNote.Octave}";
+			//noteStr = $"{noteStr}{g_direction}{functionStr}";
+			//noteStr = $"{noteStr,9}";
 			//if (g_directionChanged)
 			//{
 			//	noteStr = ctx.CurrentNote.ToString();
@@ -199,6 +200,7 @@ namespace Eric.Morrison.Harmony
 
 		private void Log_ChordChanged(object sender, Arpeggiator ctx)
 		{
+
 			if (LogCtx.chordCount > 0 && LogCtx.chordCount % LogCtx.BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
 			Debug.Write(string.Format(" | ({0}) ", ctx.CurrentChord.Name));

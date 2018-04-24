@@ -47,7 +47,7 @@ namespace Eric.Morrison.Harmony
 				_direction = value;
 				this.OnDirectionChanged();
 #if DEBUG
-				Debug.WriteLine($"Direction: {_direction} {this.CurrentChord} {this.CurrentNote}");
+				// Debug.WriteLine($"Direction: {_direction} {this.CurrentChord} {this.CurrentNote}");
 #endif
 			}
 		}
@@ -132,7 +132,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 				foreach (var ctx in this.ArpeggiationContexts)
 				{
 #if DEBUG
-					Debug.WriteLine(ctx);
+					// Debug.WriteLine(ctx);
 
 #endif
 					this.CurrentContext = ctx;
@@ -211,7 +211,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 							foreach (var match in matches)
 							{
 								new object();
-								Debug.WriteLine(match);
+								// Debug.WriteLine(match);
 								var b = match.Equals(this);
 							}
 #endif
