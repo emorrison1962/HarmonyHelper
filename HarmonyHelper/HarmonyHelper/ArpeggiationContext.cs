@@ -18,7 +18,7 @@ namespace Eric.Morrison.Harmony
 		}
 		public override string ToString()
 		{
-			return this.Chord.ToString();
+			return $"{this.GetType().Name}: Chord={this.Chord.ToString()}, NotesToPlay={this.NotesToPlay}";
 		}
 
 		public bool Equals(ArpeggiationContext other)

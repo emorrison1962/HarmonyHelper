@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -11,12 +12,16 @@ namespace Eric.Morrison.Harmony
 			Chord StartingChord { get; set; }
 			DirectionEnum StartingDirection { get; set; }
 			Note StartingNote { get; set; }
+			List<Note> NoteHistory { get; set; } = new List<Note>();
+
 			public StateSnapshot(Arpeggiator arp)
 			{
 				this.ArpeggiationContext = arp.CurrentContext;
 				this.StartingChord = arp.CurrentChord;
 				this.StartingNote = arp.CurrentNote;
 				this.StartingDirection = arp.Direction;
+				this.NoteHistory = arp.NoteHistory;
+
 			}
 
 			public static implicit operator StateSnapshot(Arpeggiator arp)
@@ -51,9 +56,27 @@ namespace Eric.Morrison.Harmony
 				}
 				if (success)
 				{
+					if (this.NoteHistory.Count != arp.NoteHistory.Count)
+						success = false;
+					else
+					{
+						var count = this.NoteHistory.Count;
+						for (int i = 0; i < count; ++count)
+						{
+							if (this.NoteHistory[i] != arp.NoteHistory[i])
+							{
+								success = false;
+								break;
+							}
+						}
+						if (!success) { new object(); }
+					}
+				}
+				if (success)
+				{
 					result = true;
 				}
-#if true
+#if DEBUG
 #warning FIXME: debug logic start.
 				else
 				{
@@ -109,6 +132,11 @@ namespace Eric.Morrison.Harmony
 			{
 				var result = !snapshot.Equals(arp);
 				return result;
+			}
+
+			public override string ToString()
+			{
+				return $"{base.ToString()}: StartingChord={this.StartingChord}, StartingNote={this.StartingNote}, StartingDirection={this.StartingDirection}";
 			}
 
 		}//class

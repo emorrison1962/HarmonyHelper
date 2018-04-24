@@ -27,12 +27,14 @@ namespace Eric.Morrison.Harmony
 
 		#region Properties
 		public int BeatsPerBar { get; set; }
+		public List<Note> NoteHistory { get; private set; } = new List<Note>();
 		public Note CurrentNote
 		{
 			get { return _currentNote; }
 			set
 			{
 				this._currentNote = value;
+				this.NoteHistory.Add(value);
 				OnCurrentNoteChanged();
 			}
 		}
@@ -44,6 +46,9 @@ namespace Eric.Morrison.Harmony
 			{
 				_direction = value;
 				this.OnDirectionChanged();
+#if DEBUG
+				Debug.WriteLine($"Direction: {_direction} {this.CurrentChord} {this.CurrentNote}");
+#endif
 			}
 		}
 		public NoteRange NoteRange { get; set; }
@@ -53,6 +58,7 @@ namespace Eric.Morrison.Harmony
 			set
 			{
 				_chord = value;
+				this.NoteHistory.Clear();
 				this.OnChordChanged();
 			}
 		}
@@ -127,9 +133,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 				foreach (var ctx in this.ArpeggiationContexts)
 				{
 #if DEBUG
-					if (++ctxNo == 27)
-						new object();
-					new object();
+					Debug.WriteLine(ctx);
 
 #endif
 					this.CurrentContext = ctx;
@@ -204,7 +208,13 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 						{
 							repeat = false;
 #if DEBUG
-							snapshots.Count(x => x.Equals(this));
+							var matches = snapshots.Where(x => x.Equals(this));
+							foreach (var match in matches)
+							{
+								new object();
+								Debug.WriteLine(match);
+								var b = match.Equals(this);
+							}
 #endif
 						}
 						else

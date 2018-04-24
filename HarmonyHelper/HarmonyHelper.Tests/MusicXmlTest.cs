@@ -119,34 +119,26 @@ namespace Eric.Morrison.Harmony
 		void RegisterMusicXmlObservers(Arpeggiator arpeggiator)
 		{
 			arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Log_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+
+			//arpeggiator.ChordChanged += this.Log_ChordChanged;
+			arpeggiator.ChordChanged += this.XML_ChordChanged;
+
+
+			//arpeggiator.DirectionChanged += Log_DirectionChanged;
+
+
+			//arpeggiator.CurrentNoteChanged += this.Log_CurrentNoteChanged;
+			arpeggiator.CurrentNoteChanged += this.XML_CurrentNoteChanged;
+
+			//arpeggiator.Starting += Log_Starting;
+			arpeggiator.Starting += XML_Starting;
+
+
+			//arpeggiator.Ending += this.Log_Ending;
+			arpeggiator.Ending += this.XML_Ending;
 		}
 
 
-		private void Ctx_Starting(object sender, Arpeggiator e)
-		{
-			this.Log_Starting(sender, e);
-			this.XML_Starting(sender, e);
-		}
-		private void Ctx_ChordChanged(object sender, Arpeggiator ctx)
-		{
-			this.Log_ChordChanged(sender, ctx);
-			this.XML_ChordChanged(sender, ctx);
-		}
-		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
-		{
-			this.Log_CurrentNoteChanged(sender, ctx);
-			this.XML_CurrentNoteChanged(sender, ctx);
-		}
-		private void Ctx_Ending(object sender, Arpeggiator e)
-		{
-			this.Log_Ending(sender, e);
-			this.XML_Ending(sender, e);
-		}
 		private void Ctx_NoOpObserver(object sender, Arpeggiator ctx)
 		{ }
 
