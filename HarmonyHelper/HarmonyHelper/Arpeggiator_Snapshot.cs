@@ -20,7 +20,7 @@ namespace Eric.Morrison.Harmony
 				this.StartingChord = arp.CurrentChord;
 				this.StartingNote = arp.CurrentNote;
 				this.StartingDirection = arp.Direction;
-				this.NoteHistory = arp.NoteHistory;
+				this.NoteHistory = new List<Note>(arp.NoteHistory);
 
 			}
 
@@ -61,7 +61,7 @@ namespace Eric.Morrison.Harmony
 					else
 					{
 						var count = this.NoteHistory.Count;
-						for (int i = 0; i < count; ++count)
+						for (int i = 0; i < count; ++i)
 						{
 							if (this.NoteHistory[i] != arp.NoteHistory[i])
 							{
@@ -102,6 +102,7 @@ namespace Eric.Morrison.Harmony
 
 			public bool Equals(StateSnapshot other)
 			{
+				throw new NotSupportedException();
 				return this.Equals(other);
 			}
 

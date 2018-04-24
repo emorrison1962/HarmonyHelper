@@ -165,11 +165,11 @@ namespace Eric.Morrison.Harmony
 		}
 		public static int Compare(KeySignature a, KeySignature b)
 		{
-			if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
+			if (a is null && b is null)
 				return 0;
-			else if (object.ReferenceEquals(null, a))
+			else if (a is null)
 				return -1;
-			else if (object.ReferenceEquals(null, b))
+			else if (b is null)
 				return 1;
 
 			var result = a.NoteName.CompareTo(b.NoteName);

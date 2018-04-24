@@ -73,7 +73,7 @@ namespace Eric.Morrison.Harmony.Properties {
         ///			&lt;encoding-date&gt;2017-11-21&lt;/encoding-date&gt;
         ///			&lt;supports element=&quot;accidental&quot; type=&quot;yes&quot;/&gt;
         ///			&lt;supports element=&quot;beam&quot; type=&quot;yes&quot;/&gt;
-        ///			&lt;supports element=&quot;print&quot; attribute=&quot;new-page&quot; type=&quot;yes&quot; value=&quot; [rest of string was truncated]&quot;;.
+        ///			&lt;supports element=&quot;print&quot; attribute=&quot;new-page&quot; type=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MusicXML_TEMPLATE {
             get {
@@ -94,7 +94,7 @@ namespace Eric.Morrison.Harmony.Properties {
         ///      &lt;software&gt;MuseScore 2.1.0&lt;/software&gt;
         ///      &lt;encoding-date&gt;2018-04-14&lt;/encoding-date&gt;
         ///      &lt;supports element=&quot;accidental&quot; type=&quot;yes&quot;/&gt;
-        ///      &lt;supports element=&quot;be [rest of string was truncated]&quot;;.
+        ///      &lt;supports [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MusicXML_TEMPLATE_02 {
             get {

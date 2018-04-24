@@ -58,7 +58,6 @@ namespace Eric.Morrison.Harmony
 			set
 			{
 				_chord = value;
-				this.NoteHistory.Clear();
 				this.OnChordChanged();
 			}
 		}
@@ -111,7 +110,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 			snapshots.Add(snapshot);
 
 #if DEBUG
-			int ctxNo = 1;
+			int timesCalled = 0;
 #endif
 
 			var repeat = false;
@@ -220,6 +219,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 						else
 						{
 							snapshots.Add(new StateSnapshot(this));
+							this.NoteHistory.Clear();
 						}
 					}
 					if (!repeat)

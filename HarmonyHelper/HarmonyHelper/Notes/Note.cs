@@ -111,14 +111,11 @@ namespace Eric.Morrison.Harmony
 		}
 		public static int Compare(Note a, Note b)
 		{
-			if (object.ReferenceEquals(null, a) && object.ReferenceEquals(null, b))
-				//if (null == a && null == b)
+			if (a is null && b is null)
 				return 0;
-			else if (object.ReferenceEquals(null, a))
-				//else if (null == a)
+			else if (a is null)
 				return -1;
-			else if (object.ReferenceEquals(null, b))
-				//else if (null == b)
+			else if (b is null)
 				return 1;
 
 			if (a.Octave == b.Octave)
