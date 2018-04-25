@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace Eric.Morrison.Harmony
 {
+	[Serializable]
 	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
 	{
 		public NoteName NoteName { get; private set; }

@@ -31,6 +31,11 @@ namespace Eric.Morrison.Harmony
 
 		static public bool TryParse(string input, out List<Chord> chords, out string messageResult)
 		{
+			return TryParse(input, null, out chords, out messageResult);
+		}
+
+		static public bool TryParse(string input, KeySignature key, out List<Chord> chords, out string messageResult)
+		{
 			//foo();
 
 			var result = false;
@@ -42,7 +47,7 @@ namespace Eric.Morrison.Harmony
 			var success = false;
 			foreach (var incoming in strings)
 			{
-				success = TryParseImpl(incoming, out Chord chord, out string message);
+				success = TryParseImpl(incoming, out Chord chord, out string message, key);
 				if (success)
 				{
 					chords.Add(chord);
@@ -67,7 +72,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		static bool TryParseImpl(string input, out Chord chord, out string message)
+		static bool TryParseImpl(string input, out Chord chord, out string message, KeySignature key = null)
 		{
 			var result = false;
 			message = null;
@@ -137,7 +142,11 @@ namespace Eric.Morrison.Harmony
 
 			if (success)
 			{
-				var formula = new ChordFormula(root, chordType, KeySignature.Catalog.First(x => x.NoteName.Name == root.Name));
+				if (null == key)
+				{
+					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
+				}
+				var formula = new ChordFormula(root, chordType, key);
 				chord = new Chord(formula, NoteRange.Default);
 			}
 

@@ -11,12 +11,28 @@ namespace HarmornyHelper.forms
 {
 	public partial class ArpeggiosControl 
 	{
+		List<ArpeggiationResult> ArpeggiationResults { get; set; } = new List<ArpeggiationResult>();
+		class ArpeggiationResult
+		{
+			public Chord Chord { get; set; }
+			public List<Note> Notes { get; set; } = new List<Note>();
+			public ArpeggiationResult(Chord chord)
+			{
+				this.Chord = chord;
+			}
+			public override string ToString()
+			{
+				return $"{base.ToString()}: Chord={Chord.Name} Notes={Notes.Count}";  
+			}
+		}
 		private void Arpeggiate(List<Chord> chords)
 		{
 
 			var noteRange = new NoteRange(
 				new Note(NoteName.B, OctaveEnum.Octave0),
-				new Note(NoteName.G, OctaveEnum.Octave3));
+				new Note(NoteName.B, OctaveEnum.Octave5));
+
+			chords.ForEach(x => x.Set(noteRange));
 
 			new object();
 
@@ -48,6 +64,7 @@ namespace HarmornyHelper.forms
 		}
 		private void Ctx_ChordChanged(object sender, Arpeggiator ctx)
 		{
+			this.ArpeggiationResults.Add(new ArpeggiationResult(ctx.CurrentChord));
 		}
 
 		private void Ctx_DirectionChanged(object sender, Arpeggiator ctx)
@@ -56,6 +73,7 @@ namespace HarmornyHelper.forms
 
 		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
+			this.ArpeggiationResults.Last().Notes.Add(ctx.CurrentNote);
 			this.ArpeggiatedNotes.Add(ctx.CurrentNote);
 		}
 
@@ -66,6 +84,7 @@ namespace HarmornyHelper.forms
 		private void Ctx_Starting(object sender, Arpeggiator e)
 		{
 			this.ArpeggiatedNotes.Clear();
+			this.ArpeggiationResults.Clear();
 		}
 
 	}

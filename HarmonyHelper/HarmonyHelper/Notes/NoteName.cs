@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace Eric.Morrison.Harmony
 {
+	[Serializable]
 	public class NoteName : ClassBase, IComparable<NoteName>
 	{
 		#region Constants

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public abstract class ClassBase
+	[Serializable]
+	public abstract class ClassBase
     {
         static int _instances = 0;
         protected int _instanceID = 0;

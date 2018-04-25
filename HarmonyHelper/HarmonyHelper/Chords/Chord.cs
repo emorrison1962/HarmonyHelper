@@ -100,6 +100,10 @@ namespace Eric.Morrison.Harmony
 
 		#endregion
 
+		public void Set(NoteRange noteRange)
+		{
+			this.PopulateNotes(noteRange);
+		}
 		public bool IsValid()
 		{
 			var result = false;
