@@ -1,6 +1,8 @@
 ﻿using HarmornyHelper.forms.Controls;
 using Manufaktura.Controls.Extensions;
+using Manufaktura.Controls.Formatting;
 using Manufaktura.Controls.Model;
+using Manufaktura.Controls.Services;
 using Manufaktura.Music.Model;
 using Manufaktura.Music.Model.MajorAndMinor;
 using System;
@@ -57,6 +59,10 @@ namespace HarmornyHelper.forms
 			this.Arpeggiate(chords);
 			var score = this.BuildScore(chords);
 			this.NoteViewer.DataSource = score;
+			this.NoteViewer.BackColor = System.Drawing.Color.Aquamarine;
+			this.NoteViewer.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.AllPages;
+
+			this.NoteViewer.ClientSize = this._outputPanel.ClientSize;
 			this.NoteViewer.PerformLayout();
 			this.NoteViewer.Refresh();
 		}
@@ -68,7 +74,6 @@ namespace HarmornyHelper.forms
 		{
 
 			Score result = null;
-#if true
 
 			#region KeySignature
 			var key = this.SelectedKey;
@@ -85,7 +90,16 @@ namespace HarmornyHelper.forms
 			var trebleStaff = result.Staves.Last();
 			result.AddStaff(Clef.Bass, TimeSignature.CommonTime, key.NoteName.ToStep(), flags);
 			var bassStaff = result.Staves.Last();
-			#endregion
+
+#if DEBUG
+			var staff = new Staff();
+			staff.Add(Clef.Treble);
+			staff.Add(TimeSignature.CommonTime);
+			staff.Add(Key.FromTonic(key.NoteName.ToStep(), flags));
+			var staffFragment = new StaffFragment(staff);
+#endif
+
+#endregion
 
 			foreach (var arpResult in this.ArpeggiationResults)
 			{
@@ -93,33 +107,39 @@ namespace HarmornyHelper.forms
 				//var durations = new List<int>();
 				//pitches.ForEach(x => durations.Add(4));
 
+				var firstTime = true;
 				foreach (var pitch in pitches)
 				{
 					var note = new Note(pitch, RhythmicDuration.Quarter);
 					var rest = new Rest(RhythmicDuration.Quarter);
 					MusicalSymbol trebleSymbol = rest;
 					MusicalSymbol bassSymbol = rest;
+
 					if (pitch >= STAFF_PITCH_THRESHOLD)
 						trebleSymbol = note;
 					else
 						bassSymbol = note;
 
-					trebleStaff.Elements.Add(trebleSymbol);
-							//.AddRhythm(durations.ToArray())
-							//.AddLyrics(arpResult.Chord.Formula.Name));
+					if (firstTime)
+					{
+						firstTime = false;
+						var lyrics = new Lyrics(SyllableType.None, arpResult.Chord.Formula.Name);
+						note.Lyrics.Add(lyrics);
+					}
 
+					trebleStaff.Elements.Add(trebleSymbol);
 					bassStaff.Elements.Add(bassSymbol);
-							//.AddRhythm(durations.ToArray())
-							//.AddLyrics(arpResult.Chord.Formula.Name));
 				}
 				trebleStaff.AddBarline(BarlineStyle.Regular);
 				bassStaff.AddBarline(BarlineStyle.Regular);
 			}
 
-			//staff.Elements.AddRange(StaffBuilder.FromPitches(pitches.ToArray())
-			//	.AddRhythm(durations.ToArray()));
-			//	//.AddLyrics(formula.Name));
-			//staff.AddBarline(BarlineStyle.Regular);
+
+			//result.Pages.First().Height = 800;
+#if DEBUG
+			//var scoreService = new ScoreService();
+			//scoreService.CurrentStaff = result.FirstStaff;
+			//scoreService.BeginNewStaff();
 #endif
 			return result;
 		}
