@@ -48,7 +48,7 @@
 			this._inputPanel.Dock = System.Windows.Forms.DockStyle.Top;
 			this._inputPanel.Location = new System.Drawing.Point(0, 0);
 			this._inputPanel.Name = "_inputPanel";
-			this._inputPanel.Size = new System.Drawing.Size(1045, 100);
+			this._inputPanel.Size = new System.Drawing.Size(800, 100);
 			this._inputPanel.TabIndex = 1;
 			// 
 			// label2
@@ -95,17 +95,17 @@
 			this._outputPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this._outputPanel.Location = new System.Drawing.Point(0, 100);
 			this._outputPanel.Name = "_outputPanel";
-			this._outputPanel.Size = new System.Drawing.Size(1045, 639);
+			this._outputPanel.Size = new System.Drawing.Size(800, 500);
 			this._outputPanel.TabIndex = 2;
 			// 
 			// _textBox
 			// 
 			this._textBox.Dock = System.Windows.Forms.DockStyle.Right;
-			this._textBox.Location = new System.Drawing.Point(725, 0);
+			this._textBox.Location = new System.Drawing.Point(480, 0);
 			this._textBox.Multiline = true;
 			this._textBox.Name = "_textBox";
 			this._textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this._textBox.Size = new System.Drawing.Size(320, 639);
+			this._textBox.Size = new System.Drawing.Size(320, 500);
 			this._textBox.TabIndex = 0;
 			// 
 			// ScalesControl
@@ -115,7 +115,7 @@
 			this.Controls.Add(this._outputPanel);
 			this.Controls.Add(this._inputPanel);
 			this.Name = "ScalesControl";
-			this.Size = new System.Drawing.Size(1045, 739);
+			this.Size = new System.Drawing.Size(800, 600);
 			this._inputPanel.ResumeLayout(false);
 			this._inputPanel.PerformLayout();
 			this._outputPanel.ResumeLayout(false);

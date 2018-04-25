@@ -67,12 +67,20 @@
     <Compile Include="Controls\ArpeggiosControl.Designer.cs">
       <DependentUpon>ArpeggiosControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ArpeggiosControl_Arpeggiation.cs">
+      <DependentUpon>ArpeggiosControl.cs</DependentUpon>
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\ChordsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ChordsControl.Designer.cs">
       <DependentUpon>ChordsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NoteViewerControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

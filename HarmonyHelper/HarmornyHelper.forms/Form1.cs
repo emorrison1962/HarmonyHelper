@@ -13,7 +13,8 @@ namespace HarmornyHelper.forms
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			_bnScales.Checked = true;
+			//_bnScales.Checked = true;
+			_bnArpeggios.Checked = true;
 		}
 
 		private void _bnIntervals_CheckedChanged(object sender, EventArgs e)
