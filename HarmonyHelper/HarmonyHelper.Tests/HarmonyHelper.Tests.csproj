@@ -57,7 +57,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArpeggiatorTests.cs" />
-    <Compile Include="Arpeggiator_UseCases.cs" />
+    <Compile Include="Arpeggiator_UseCases.cs">
+      <DependentUpon>ArpeggiatorTests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chords\ChordParserTests.cs" />
     <Compile Include="ChordTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />

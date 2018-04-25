@@ -9,6 +9,7 @@ using Eric.Morrison.Harmony.Tests;
 
 namespace Eric.Morrison.Harmony
 {
+	[TestClass()]
 	public partial class ArpeggiatorTests
 	{
 		[TestMethod()]
