@@ -97,9 +97,9 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static IntervalsEnum operator -(Note a, Note b)
+		public static Interval operator -(Note a, Note b)
 		{
-			var result = IntervalsEnum.None;
+			var result = Interval.None;
 			result = a.NoteName - b.NoteName;
 			return result;
 		}

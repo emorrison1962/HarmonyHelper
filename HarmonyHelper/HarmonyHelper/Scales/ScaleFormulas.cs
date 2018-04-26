@@ -16,13 +16,13 @@ namespace Eric.Morrison.Harmony
 
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Minor6th,
-				IntervalsEnum.Major7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Perfect4th,
+				Interval.Perfect5th,
+				Interval.Minor6th,
+				Interval.Major7th,
 			};
 
 		}
@@ -41,18 +41,18 @@ namespace Eric.Morrison.Harmony
 		protected override void PopulateIntervals()
 		{
 			throw new NotImplementedException();
-			//this.Intervals = new List<IntervalsEnum>() {
-			//    IntervalsEnum.Minor2nd,
-			//    IntervalsEnum.Major2nd,
-			//    IntervalsEnum.Minor3rd,
-			//    IntervalsEnum.Major3rd,
-			//    IntervalsEnum.Perfect4th,
-			//    IntervalsEnum.Augmented4th,
-			//    IntervalsEnum.Perfect5th,
-			//    IntervalsEnum.Augmented5th,
-			//    IntervalsEnum.Major6th,
-			//    IntervalsEnum.Minor7th,
-			//    IntervalsEnum.Major7th,
+			//this.Intervals = new List<Interval>() {
+			//    Interval.Minor2nd,
+			//    Interval.Major2nd,
+			//    Interval.Minor3rd,
+			//    Interval.Major3rd,
+			//    Interval.Perfect4th,
+			//    Interval.Augmented4th,
+			//    Interval.Perfect5th,
+			//    Interval.Augmented5th,
+			//    Interval.Major6th,
+			//    Interval.Minor7th,
+			//    Interval.Major7th,
 			//};
 		}
 	}
@@ -75,11 +75,11 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Major3rd,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Major6th,
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Major3rd,
+				Interval.Perfect5th,
+				Interval.Major6th,
 			};
 		}
 	}
@@ -96,11 +96,11 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Minor7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Minor3rd,
+				Interval.Perfect4th,
+				Interval.Perfect5th,
+				Interval.Minor7th,
 			};
 		}
 	}
@@ -117,12 +117,12 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Major3rd,
-				IntervalsEnum.Augmented4th,
-				IntervalsEnum.Augmented5th,
-				IntervalsEnum.Minor7th
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Major3rd,
+				Interval.Augmented4th,
+				Interval.Augmented5th,
+				Interval.Minor7th
 			};
 		}
 	}
@@ -139,14 +139,14 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Minor2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Major3rd,
-				IntervalsEnum.Augmented4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Major6th,
-				IntervalsEnum.Minor7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Minor2nd,
+				Interval.Minor3rd,
+				Interval.Major3rd,
+				Interval.Augmented4th,
+				Interval.Perfect5th,
+				Interval.Major6th,
+				Interval.Minor7th,
 			};
 		}
 	}
@@ -163,14 +163,14 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Diminished5th,
-				IntervalsEnum.Minor6th,
-				IntervalsEnum.Major6th,
-				IntervalsEnum.Major7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Perfect4th,
+				Interval.Diminished5th,
+				Interval.Minor6th,
+				Interval.Major6th,
+				Interval.Major7th,
 			};
 		}
 	}
@@ -187,18 +187,18 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Minor2nd,
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Major3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Augmented4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Augmented5th,
-				IntervalsEnum.Major6th,
-				IntervalsEnum.Minor7th,
-				IntervalsEnum.Major7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Minor2nd,
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Major3rd,
+				Interval.Perfect4th,
+				Interval.Augmented4th,
+				Interval.Perfect5th,
+				Interval.Augmented5th,
+				Interval.Major6th,
+				Interval.Minor7th,
+				Interval.Major7th,
 			};
 		}
 	}
@@ -215,15 +215,15 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Major3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Augmented4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Major6th,
-				IntervalsEnum.Minor7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Major3rd,
+				Interval.Perfect4th,
+				Interval.Augmented4th,
+				Interval.Perfect5th,
+				Interval.Major6th,
+				Interval.Minor7th,
 			};
 		}
 	}
@@ -240,12 +240,12 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Augmented4th,
-				IntervalsEnum.Perfect5th,
-				IntervalsEnum.Minor7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Minor3rd,
+				Interval.Perfect4th,
+				Interval.Augmented4th,
+				Interval.Perfect5th,
+				Interval.Minor7th,
 			};
 		}
 	}
@@ -262,13 +262,13 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<IntervalsEnum>() {
-				IntervalsEnum.Major2nd,
-				IntervalsEnum.Minor3rd,
-				IntervalsEnum.Perfect4th,
-				IntervalsEnum.Diminished5th,
-				IntervalsEnum.Major6th,
-				IntervalsEnum.Minor7th,
+			this.Intervals = new List<Interval>() {
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Perfect4th,
+				Interval.Diminished5th,
+				Interval.Major6th,
+				Interval.Minor7th,
 			};
 		}
 	}

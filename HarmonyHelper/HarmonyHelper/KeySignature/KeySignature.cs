@@ -196,20 +196,20 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static KeySignature operator +(KeySignature key, IntervalsEnum interval)
+		public static KeySignature operator +(KeySignature key, Interval interval)
 		{
 			var result = KeySignature.GetTransposed(key, interval);
 			return result;
 		}
 
-		public static KeySignature operator -(KeySignature key, IntervalsEnum interval)
+		public static KeySignature operator -(KeySignature key, Interval interval)
 		{
 			var inversion = interval.GetInversion();
 			var result = KeySignature.GetTransposed(key, inversion);
 			return result;
 		}
 
-		public static KeySignature GetTransposed(KeySignature key, IntervalsEnum interval)
+		public static KeySignature GetTransposed(KeySignature key, Interval interval)
 		{
 			KeySignature result = null;
 			var txposedNote = NoteName.TransposeUp(key.NoteName, interval);

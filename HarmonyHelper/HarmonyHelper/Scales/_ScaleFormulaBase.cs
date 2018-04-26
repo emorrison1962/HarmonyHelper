@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
 		public NoteName Root { get; protected set; }
 
-		public List<IntervalsEnum> Intervals { get; set; } = new List<IntervalsEnum>();
+		public List<Interval> Intervals { get; set; } = new List<Interval>();
 		virtual public string Name { get; protected set; }
 
 

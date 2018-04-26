@@ -76,10 +76,10 @@ namespace Eric.Morrison.Harmony
 				if (null != result && null != option)
 				{
 					var optionalInterval = option - ctx.LastNote;
-					optionalInterval = (IntervalsEnum)Math.Min((int)optionalInterval, (int)optionalInterval.GetInversion());
+					optionalInterval = (Interval)Math.Min((int)optionalInterval, (int)optionalInterval.GetInversion());
 
 					var currentInterval = result - ctx.LastNote;
-					currentInterval = (IntervalsEnum)Math.Min((int)currentInterval, (int)currentInterval.GetInversion());
+					currentInterval = (Interval)Math.Min((int)currentInterval, (int)currentInterval.GetInversion());
 
 					if (optionalInterval < currentInterval)
 					{

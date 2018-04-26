@@ -40,7 +40,7 @@ namespace Eric.Morrison.Harmony
 		{
 			var tonicOffset = this.GetTonicOffset();
 			var tonic = this.Key.NoteName;
-			if (tonicOffset > IntervalsEnum.None)
+			if (tonicOffset > Interval.None)
 				tonic = this.Key.NoteName + new IntervalContext(this.Key, tonicOffset);
 
 			this.Tonic = tonic;
@@ -56,31 +56,31 @@ namespace Eric.Morrison.Harmony
 			
 		}
 
-		IntervalsEnum GetTonicOffset()
+		Interval GetTonicOffset()
 		{
-			IntervalsEnum result = IntervalsEnum.None;
+			Interval result = Interval.None;
 			switch (Formula.Mode)
 			{
 				case ModeEnum.Ionian:
-					result = IntervalsEnum.None;
+					result = Interval.None;
 					break;
 				case ModeEnum.Dorian:
-					result = IntervalsEnum.Major2nd;
+					result = Interval.Major2nd;
 					break;
 				case ModeEnum.Phrygian:
-					result = IntervalsEnum.Major3rd;
+					result = Interval.Major3rd;
 					break;
 				case ModeEnum.Lydian:
-					result = IntervalsEnum.Perfect4th;
+					result = Interval.Perfect4th;
 					break;
 				case ModeEnum.Mixolydian:
-					result = IntervalsEnum.Perfect5th;
+					result = Interval.Perfect5th;
 					break;
 				case ModeEnum.Aeolian:
-					result = IntervalsEnum.Major6th;
+					result = Interval.Major6th;
 					break;
 				case ModeEnum.Locrian:
-					result = IntervalsEnum.Major7th;
+					result = Interval.Major7th;
 					break;
 			}
 			return result;

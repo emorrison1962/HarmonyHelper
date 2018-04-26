@@ -21,29 +21,30 @@ namespace Eric.Morrison.Harmony
 	public enum ChordTypesEnum
 	{
 		None = 0,
-		Major = IntervalsEnum.Major3rd | IntervalsEnum.Perfect5th,
-		Minor = IntervalsEnum.Minor3rd | IntervalsEnum.Perfect5th,
-		Augmented = IntervalsEnum.Major3rd | IntervalsEnum.Augmented5th,
-		Diminished = IntervalsEnum.Minor3rd | IntervalsEnum.Diminished5th,
+		Major = Constants.INTERVAL_VALUE_MAJOR_3RD | Constants.INTERVAL_VALUE_PERFECT_5TH,
+		Minor = Constants.INTERVAL_VALUE_MINOR_3RD | Constants.INTERVAL_VALUE_PERFECT_5TH,
+		Augmented = Constants.INTERVAL_VALUE_MAJOR_3RD | Constants.INTERVAL_VALUE_AUGMENTED_5TH,
+		Diminished = Constants.INTERVAL_VALUE_MINOR_3RD | Constants.INTERVAL_VALUE_DIMINISHED_5TH,
 
-		Major7th = Major | IntervalsEnum.Major7th,
-		Minor7th = Minor | IntervalsEnum.Minor7th,
-		Dominant7th = Major | IntervalsEnum.Minor7th,
-		HalfDiminished = Diminished | IntervalsEnum.Minor7th,
-		Diminished7 = Diminished | IntervalsEnum.Major6th,
+		Major7th = Major | Constants.INTERVAL_VALUE_MAJOR_7TH,
+		Minor7th = Minor | Constants.INTERVAL_VALUE_MINOR_7TH,
+		Dominant7th = Major | Constants.INTERVAL_VALUE_MINOR_7TH,
+		HalfDiminished = Diminished | Constants.INTERVAL_VALUE_MINOR_7TH,
+		Diminished7 = Diminished | Constants.INTERVAL_VALUE_MAJOR_6TH,
 		//Suspended,....
 	}
 
 	[Flags]
 	public enum ChordTonesBitmaskEnum
 	{
-		Third = IntervalsEnum.Minor3rd | IntervalsEnum.Major3rd,
-		Fifth = IntervalsEnum.Diminished5th | IntervalsEnum.Perfect5th | IntervalsEnum.Diminished5th,
-		Seventh = IntervalsEnum.Minor7th | IntervalsEnum.Major7th
+		Third = Constants.INTERVAL_VALUE_MINOR_3RD | Constants.INTERVAL_VALUE_MAJOR_3RD,
+		Fifth = Constants.INTERVAL_VALUE_DIMINISHED_5TH | Constants.INTERVAL_VALUE_PERFECT_5TH | Constants.INTERVAL_VALUE_DIMINISHED_5TH,
+		Seventh = Constants.INTERVAL_VALUE_MINOR_7TH | Constants.INTERVAL_VALUE_MAJOR_7TH
 	}
 
 
 
+	[Obsolete("", true)]
 	[Flags]
 	public enum IntervalsEnum
 	{

@@ -34,6 +34,22 @@
 		public const string THIRTEENTH = "13th";
 		public const string SHARP_13TH = Constants.SHARP + "13th";
 
+		public const int INTERVAL_VALUE_NONE = 0;
+		public const int INTERVAL_VALUE_MINOR_2ND = 1 << 1;
+		public const int INTERVAL_VALUE_MAJOR_2ND = 1 << 2;
+		public const int INTERVAL_VALUE_MINOR_3RD = 1 << 3;
+		public const int INTERVAL_VALUE_MAJOR_3RD = 1 << 4;
+		public const int INTERVAL_VALUE_DIMINISHED_4TH = INTERVAL_VALUE_MAJOR_3RD;
+		public const int INTERVAL_VALUE_PERFECT_4TH = 1 << 5;
+		public const int INTERVAL_VALUE_AUGMENTED_4TH = 1 << 6;
+		public const int INTERVAL_VALUE_DIMINISHED_5TH = INTERVAL_VALUE_AUGMENTED_4TH;
+		public const int INTERVAL_VALUE_PERFECT_5TH = 1 << 7;
+		public const int INTERVAL_VALUE_AUGMENTED_5TH = 1 << 8;
+		public const int INTERVAL_VALUE_MINOR_6TH = INTERVAL_VALUE_AUGMENTED_5TH;
+		public const int INTERVAL_VALUE_MAJOR_6TH = 1 << 9;
+		public const int INTERVAL_VALUE_MINOR_7TH = 1 << 10;
+		public const int INTERVAL_VALUE_MAJOR_7TH = 1 << 11;
+
 
 
 	}

@@ -94,7 +94,7 @@ namespace Eric.Morrison.Harmony
 			{
 				var interval = this.Root - note;
 
-				if (interval == IntervalsEnum.None)
+				if (interval == Interval.None)
 				{
 					result = ChordToneFunctionEnum.Root;
 				}
@@ -102,7 +102,7 @@ namespace Eric.Morrison.Harmony
 				{
 					result = ChordToneFunctionEnum.Major3rd;
 					interval = this.ChordType.GetThirdInterval();
-					if (IntervalsEnum.Minor3rd == interval)
+					if (Interval.Minor3rd == interval)
 						result = ChordToneFunctionEnum.Minor3rd;
 				}
 				else if (this.Fifth.Value == note.Value)
@@ -113,7 +113,7 @@ namespace Eric.Morrison.Harmony
 				{
 					result = ChordToneFunctionEnum.Major7th;
 					interval = this.ChordType.GetSeventhInterval();
-					if (IntervalsEnum.Minor7th == interval)
+					if (Interval.Minor7th == interval)
 						result = ChordToneFunctionEnum.Minor7th;
 				}
 
@@ -130,60 +130,54 @@ namespace Eric.Morrison.Harmony
 			if (!success)
 			{
 				var interval = this.Root - note;
-				switch (interval)
+
+				if (interval == Interval.Minor2nd)
+					result = ChordToneFunctionEnum.Flat9th;
+
+				else if (interval == Interval.Major2nd)
+					result = ChordToneFunctionEnum.Ninth;
+
+				else if (interval == Interval.Minor3rd)
+					result = ChordToneFunctionEnum.Sharp9th;
+
+				else if (interval == Interval.Major3rd) 
+					result = ChordToneFunctionEnum.Major3rd;
+
+				else if (interval == Interval.Diminished4th)
+					result = ChordToneFunctionEnum.Flat11th;
+
+				else if (interval == Interval.Perfect4th)
+					result = ChordToneFunctionEnum.Eleventh;
+
+				else if (interval == Interval.Diminished5th)
+					result = ChordToneFunctionEnum.Augmented11th;
+
+				else if (interval == Interval.Perfect5th)
+					result = ChordToneFunctionEnum.Perfect5th;
+
+				else if (interval == Interval.Augmented5th)
+					result = ChordToneFunctionEnum.Augmented5th;
+
+				else if (interval == Interval.Minor6th)
+					result = ChordToneFunctionEnum.Flat13th;
+
+				else if (interval == Interval.Major6th)
 				{
-
-					case IntervalsEnum.Minor2nd:
-						result = ChordToneFunctionEnum.Flat9th;
-						break;
-
-					case IntervalsEnum.Major2nd:
-						result = ChordToneFunctionEnum.Ninth;
-						break;
-
-					case IntervalsEnum.Minor3rd:
-						result = ChordToneFunctionEnum.Sharp9th;
-						break;
-
-					case IntervalsEnum.Major3rd: //IntervalsEnum.Diminished4th:
-						result = ChordToneFunctionEnum.Flat11th;
-						break;
-
-					case IntervalsEnum.Perfect4th:
-						result = ChordToneFunctionEnum.Eleventh;
-						break;
-
-					case IntervalsEnum.Diminished5th:
-						result = ChordToneFunctionEnum.Augmented11th;
-						break;
-
-					case IntervalsEnum.Perfect5th:
-						result = ChordToneFunctionEnum.Perfect5th;
-						break;
-
-					case IntervalsEnum.Augmented5th://IntervalsEnum.Minor6th
-						result = ChordToneFunctionEnum.Flat13th;
-						break;
-
-					case IntervalsEnum.Major6th:
-						result = ChordToneFunctionEnum.Thirteenth;
-						if (this.IsDiminished())
-						{
-							result = ChordToneFunctionEnum.Diminished7th;
-						}
-						break;
-
-					case IntervalsEnum.Minor7th:
-						result = ChordToneFunctionEnum.Minor7th;
-						break;
-
-					case IntervalsEnum.Major7th:
-						result = ChordToneFunctionEnum.Major7th;
-						break;
-
-					default:
-						throw new NotSupportedException();
+					result = ChordToneFunctionEnum.Thirteenth;
+					if (this.IsDiminished())
+					{
+						result = ChordToneFunctionEnum.Diminished7th;
+					}
 				}
+
+				else if (interval == Interval.Minor7th)
+					result = ChordToneFunctionEnum.Minor7th;
+
+				else if (interval == Interval.Major7th)
+					result = ChordToneFunctionEnum.Major7th;
+
+				else
+					throw new NotSupportedException();
 			}
 
 			return result;
@@ -197,9 +191,9 @@ namespace Eric.Morrison.Harmony
 			foreach (var pair in pairs)
 			{
 				var interval = pair[0] - pair[1];
-				if (interval != IntervalsEnum.Minor3rd
-					&& interval != IntervalsEnum.Diminished5th
-					&& interval != IntervalsEnum.Major6th)
+				if (interval != Interval.Minor3rd
+					&& interval != Interval.Diminished5th
+					&& interval != Interval.Major6th)
 				{
 					result = false;
 					break;
@@ -211,42 +205,42 @@ namespace Eric.Morrison.Harmony
 		bool HasThird()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetThirdInterval())
+			if (Interval.None == this.ChordType.GetThirdInterval())
 				result = true;
 			return result;
 		}
 		bool HasFifth()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetFifthInterval())
+			if (Interval.None == this.ChordType.GetFifthInterval())
 				result = true;
 			return result;
 		}
 		bool HasSeventh()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetSeventhInterval())
+			if (Interval.None == this.ChordType.GetSeventhInterval())
 				result = true;
 			return result;
 		}
 		bool HasNinth()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetNinthInterval())
+			if (Interval.None == this.ChordType.GetNinthInterval())
 				result = true;
 			return result;
 		}
 		bool HasEleventh()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetEleventhInterval())
+			if (Interval.None == this.ChordType.GetEleventhInterval())
 				result = true;
 			return result;
 		}
 		bool HasThirteenth()
 		{
 			var result = false;
-			if (IntervalsEnum.None == this.ChordType.GetThirteenthInterval())
+			if (Interval.None == this.ChordType.GetThirteenthInterval())
 				result = true;
 			return result;
 		}

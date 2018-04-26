@@ -299,7 +299,7 @@ namespace Eric.Morrison.Harmony
 		public static NoteName operator +(NoteName note, IntervalContext ctx)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > IntervalsEnum.None)
+			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeUp(note, ctx.Interval);
 				result = ctx.Key.GetNormalized(result, note);
@@ -310,7 +310,7 @@ namespace Eric.Morrison.Harmony
 		public static NoteName operator -(NoteName note, IntervalContext ctx)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > IntervalsEnum.None)
+			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeDown(note, ctx.Interval);
 				result = ctx.Key.GetNormalized(result, note);
@@ -318,9 +318,9 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static IntervalsEnum operator -(NoteName a, NoteName b)
+		public static Interval operator -(NoteName a, NoteName b)
 		{
-			var result = IntervalsEnum.None;
+			var result = Interval.None;
 			if (null != a && null != b)
 			{
 				var notes = NoteName.Catalog
@@ -336,7 +336,7 @@ namespace Eric.Morrison.Harmony
 				if (diff > 0)
 				{
 					var pow = 1 << diff;
-					result = (IntervalsEnum)pow;
+					result = (Interval)pow;
 				}
 				if (invert)
 				{
@@ -346,7 +346,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static NoteName TransposeUp(NoteName src, IntervalsEnum interval)
+		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
 			NoteName result = null;
 			const uint MASK_ABOVE_NOTENAME_B = 0x000001fff;
@@ -406,12 +406,12 @@ namespace Eric.Morrison.Harmony
 
 			//var srcName = src.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
 			//var expectedName = result.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
-			//Debug.WriteLine($"else if (note == NoteName.{srcName} && (IntervalsEnum)interval == IntervalsEnum.{interval}){{");
+			//Debug.WriteLine($"else if (note == NoteName.{srcName} && (Interval)interval == Interval.{interval}){{");
 			//Debug.WriteLine($"Assert.IsTrue(expected == NoteName.{expectedName});}}");
 			return result;
 		}
 
-		public static NoteName TransposeDown(NoteName src, IntervalsEnum interval)
+		public static NoteName TransposeDown(NoteName src, Interval interval)
 		{
 
 			var inversion = interval.GetInversion();
@@ -425,9 +425,9 @@ namespace Eric.Morrison.Harmony
 	public class IntervalContext
 	{
 		public KeySignature Key { get; private set; }
-		public IntervalsEnum Interval { get; private set; }
+		public Interval Interval { get; private set; }
 
-		public IntervalContext(KeySignature key, IntervalsEnum interval)
+		public IntervalContext(KeySignature key, Interval interval)
 		{
 			this.Key = key;
 			this.Interval = interval;
@@ -509,7 +509,7 @@ namespace Eric.Morrison.Harmony
 
 	public static class NoteNameCatalogExtensions{
 
-		public static NoteName Get(this List<NoteName> src,KeySignature key, NoteName nn, IntervalsEnum interval)
+		public static NoteName Get(this List<NoteName> src,KeySignature key, NoteName nn, Interval interval)
 		{
 			var result = NoteName.TransposeUp(nn, interval);
 			result = key.GetNormalized(result, nn);
