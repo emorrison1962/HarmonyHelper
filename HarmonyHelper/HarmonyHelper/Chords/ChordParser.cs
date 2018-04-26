@@ -112,7 +112,7 @@ namespace Eric.Morrison.Harmony
 				}
 			}
 
-			var chordType = ChordTypesEnum.None;
+			var chordType = ChordType.None;
 			if (success)
 			{
 				try
@@ -278,19 +278,19 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 		}
 
-		static bool TryParseChordType(string input, out ChordTypesEnum ct)
+		static bool TryParseChordType(string input, out ChordType ct)
 		{
-			ct = ChordTypesEnum.None;
+			ct = ChordType.None;
 			bool result = false;
 
 			#region switch (input)
 			switch (input)
 			{
 				case "maj":
-					ct = ChordTypesEnum.Major;
+					ct = ChordType.Major;
 					break;
 				case "maj7":
-					ct = ChordTypesEnum.Major7th;
+					ct = ChordType.Major7th;
 					break;
 				case "maj9":
 					break;
@@ -312,11 +312,11 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 				case "min":
 				case "-":
-					ct = ChordTypesEnum.Minor;
+					ct = ChordType.Minor;
 					break;
 				case "m7":
 				case "-7":
-					ct = ChordTypesEnum.Minor7th;
+					ct = ChordType.Minor7th;
 					break;
 				case "m9":
 					break;
@@ -336,12 +336,12 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 				case "-7b5":
 				case "m7b5":
-					ct = ChordTypesEnum.HalfDiminished;
+					ct = ChordType.HalfDiminished;
 					break;
 				case "m7#5":
 					break;
 				case "7":
-					ct = ChordTypesEnum.Dominant7th;
+					ct = ChordType.Dominant7th;
 					break;
 				case "9":
 					break;
@@ -375,13 +375,13 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 				case "aug":
 				case "+":
-					ct = ChordTypesEnum.Augmented;
+					ct = ChordType.Augmented;
 					break;
 				case "dim":
-					ct = ChordTypesEnum.Diminished;
+					ct = ChordType.Diminished;
 					break;
 				case "dim7":
-					ct = ChordTypesEnum.Diminished7;
+					ct = ChordType.Diminished7;
 					break;
 				case "sus4":
 					break;
@@ -397,7 +397,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 			#endregion
 
-			if (ct != ChordTypesEnum.None)
+			if (ct != ChordType.None)
 				result = true;
 			return result;
 		}

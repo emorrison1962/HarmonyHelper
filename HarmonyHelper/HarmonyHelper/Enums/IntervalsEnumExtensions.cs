@@ -7,60 +7,9 @@ using System.Threading.Tasks;
 namespace Eric.Morrison.Harmony
 {
 
+	[Obsolete("", true)]
 	public static class IntervalsEnumExtensions
 	{
-		class IntervalValueComparer : IEqualityComparer<Interval>
-		{
-			public bool Equals(Interval x, Interval y)
-			{
-				bool result = false;
-				if ((int)x == (int)y)
-					result = true;
-				return result;
-
-			}
-
-			public int GetHashCode(Interval obj)
-			{
-				return obj.GetHashCode();
-			}
-		}
-
-		public static int ToIndex(this Interval ie)
-		{
-			var result = 0;
-			var tmp = ie;
-			while (tmp >= Interval.Minor2nd)
-			{
-				++result;
-				int x = (int)tmp >> 1;
-				tmp = (Interval)x;
-			}
-			return result;
-		}
-
-		public static Interval GetInversion(this Interval interval)
-		{
-			Interval result = Interval.None;
-			if (Interval.None != interval)
-			{
-				var comparer = new IntervalValueComparer();
-				var list = Enum.GetValues(typeof(Interval)).Cast<Interval>()
-					.Where(x => x != Interval.None)
-					.Distinct(comparer)
-					.OrderBy(x => x)
-					.ToList();
-
-				//list.ForEach(x => Debug.WriteLine($"{x}: {(int)x}"));
-
-				var ndx = list.IndexOf(interval);
-				var inversionNdx = (list.Count - 1) - ndx;
-				result = list[inversionNdx];
-			}
-
-			return result;
-		}
-
 		public static string ToStringEx(this ChordToneFunctionEnum e)
 		{
 			var result = string.Empty;
@@ -122,64 +71,6 @@ namespace Eric.Morrison.Harmony
 
 			}
 
-			return result;
-		}
-
-
-		public static Interval GetInterval(ChordTypesEnum cte, int bitmask)
-		{
-			var result = Interval.None;
-
-			var icte = (int)cte;
-			var which = (icte & bitmask);
-			result = (Interval)which;
-
-			return result;
-		}
-		public static Interval GetThirdInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Major3rd | Interval.Minor3rd);
-			var result = GetInterval(cte, mask);
-			return result;
-		}
-		public static Interval GetFifthInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Diminished5th
-				| Interval.Perfect5th
-				| Interval.Augmented5th);
-			var result = GetInterval(cte, mask);
-			return result;
-		}
-		public static Interval GetSeventhInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Minor7th
-				| Interval.Major7th);
-			var result = GetInterval(cte, mask);
-			return result;
-		}
-
-		public static Interval GetNinthInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Major2nd
-				| Interval.Minor2nd
-				| Interval.Minor3rd);
-			var result = GetInterval(cte, mask);
-			return result;
-		}
-
-		public static Interval GetEleventhInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Perfect4th
-				| Interval.Augmented4th);
-			var result = GetInterval(cte, mask);
-			return result;
-		}
-
-		public static Interval GetThirteenthInterval(this ChordTypesEnum cte)
-		{
-			var mask = (int)(Interval.Minor6th
-				| Interval.Major6th);
-			var result = GetInterval(cte, mask);
 			return result;
 		}
 

@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony
 
 		static ChordFormulaCatalog()
 		{
-			var dominant7th = ChordTypesEnum.Dominant7th;
+			var dominant7th = ChordType.Dominant7th;
 
 			Formulas.Add(C7 = ChordFormulaFactory.Create(NoteName.C, dominant7th, KeySignature.FMajor));
 			Formulas.Add(F7 = ChordFormulaFactory.Create(NoteName.F, dominant7th, KeySignature.BbMajor));

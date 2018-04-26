@@ -36,7 +36,7 @@ namespace HarmonyHelper.web.Controllers
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordTypesEnum chordType = ChordTypesEnum.Augmented;
+			ChordType chordType = ChordType.Augmented;
 
 			for (int i = 0; i <= CYCLE_MAX; ++i)
 			{
@@ -44,20 +44,20 @@ namespace HarmonyHelper.web.Controllers
 				{
 					root = NoteName.D;
 					key = KeySignature.CMajor;
-					chordType = ChordTypesEnum.Minor7th;
+					chordType = ChordType.Minor7th;
 				}
 				else
 				{
-					if (chordType == ChordTypesEnum.Dominant7th)
+					if (chordType == ChordType.Dominant7th)
 					{
-						chordType = ChordTypesEnum.Minor7th;
-						key = key - IntervalsEnum.Major2nd;
+						chordType = ChordType.Minor7th;
+						key = key - Interval.Major2nd;
 					}
 					else
 					{
-						chordType = ChordTypesEnum.Dominant7th;
+						chordType = ChordType.Dominant7th;
 					}
-					root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
+					root = root + new IntervalContext(key, Interval.Perfect4th);
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);

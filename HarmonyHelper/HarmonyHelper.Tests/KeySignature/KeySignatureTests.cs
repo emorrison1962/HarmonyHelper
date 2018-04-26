@@ -10,25 +10,25 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void KeySignature_TransposeUp_Test()
 		{
-			//public static KeySignature GetTransposed(KeySignature key, IntervalsEnum interval)
+			//public static KeySignature GetTransposed(KeySignature key, Interval interval)
 
 
-			var intervals = Enum.GetValues(typeof(IntervalsEnum));
+			var intervals = Enum.GetValues(typeof(Interval));
 			foreach (var key in KeySignature.Catalog)
 			{
 				Debug.WriteLine($"Key = {key.NoteName.Name}");
 				Debug.Indent();
 				foreach (var interval in intervals)
 				{
-					var expected = KeySignature.GetTransposed(key, (IntervalsEnum)interval);
+					var expected = KeySignature.GetTransposed(key, (Interval)interval);
 					Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
 					new object();
 
 					//var expectedValue = key.Value;
-					//var ctx = new IntervalContext(KeySignature.CMajor, (IntervalsEnum)interval);
+					//var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
 					//var result = key + ctx;
 
-					//ValidateTransposeUp(key, (IntervalsEnum)interval, expected);
+					//ValidateTransposeUp(key, (Interval)interval, expected);
 				}
 				Debug.Unindent();
 
@@ -39,7 +39,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void KeySignature_TransposeDown_Test()
 		{
-			//public static KeySignature GetTransposed(KeySignature key, IntervalsEnum interval)
+			//public static KeySignature GetTransposed(KeySignature key, Interval interval)
 			NoteName root = null;
 			KeySignature key = null;
 			const int CYCLE_MAX = 11;
@@ -53,8 +53,8 @@ namespace Eric.Morrison.Harmony.Tests
 				}
 				else
 				{
-					key = key - IntervalsEnum.Perfect5th;
-					root = root - new IntervalContext(key, IntervalsEnum.Perfect5th);
+					key = key - Interval.Perfect5th;
+					root = root - new IntervalContext(key, Interval.Perfect5th);
 				}
 
 				Debug.WriteLine($"key={key.ToString()} : {root.Name}");
@@ -64,22 +64,22 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 
 			/*
-						var intervals = Enum.GetValues(typeof(IntervalsEnum));
+						var intervals = Enum.GetValues(typeof(Interval));
 						foreach (var key in KeySignature.Catalog)
 						{
 							Debug.WriteLine($"Key = {key.NoteName.Name}");
 							Debug.Indent();
 							foreach (var interval in intervals)
 							{
-								var expected = KeySignature.GetTransposed(key, (IntervalsEnum)interval);
+								var expected = KeySignature.GetTransposed(key, (Interval)interval);
 								Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
 								new object();
 
 								//var expectedValue = key.Value;
-								//var ctx = new IntervalContext(KeySignature.CMajor, (IntervalsEnum)interval);
+								//var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
 								//var result = key + ctx;
 
-								//ValidateTransposeUp(key, (IntervalsEnum)interval, expected);
+								//ValidateTransposeUp(key, (Interval)interval, expected);
 							}
 							Debug.Unindent();
 						}

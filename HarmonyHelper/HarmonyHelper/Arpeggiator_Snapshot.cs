@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony
 					var key = KeySignature.GMajor;
 					var chord = new Chord(
 						ChordFormulaFactory.Create(NoteName.A,
-							ChordTypesEnum.Minor7th,
+							ChordType.Minor7th,
 							key),
 						noteRange);
 

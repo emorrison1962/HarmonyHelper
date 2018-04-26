@@ -75,7 +75,7 @@ namespace Eric.Morrison.Harmony
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordTypesEnum chordType = ChordTypesEnum.None;
+			ChordType chordType = ChordType.None;
 			const int CYCLE_MAX = 11;
 			for (int i = 0 ; i <= CYCLE_MAX ; ++i)
 			{
@@ -83,13 +83,13 @@ namespace Eric.Morrison.Harmony
 				{
 					root = NoteName.G;
 					key = KeySignature.CMajor;
-					chordType = ChordTypesEnum.Dominant7th;
+					chordType = ChordType.Dominant7th;
 				}
 				else
 				{
-					chordType = ChordTypesEnum.Dominant7th;
-					key = key + IntervalsEnum.Perfect4th;
-					root = root + new IntervalContext(key, IntervalsEnum.Perfect4th);
+					chordType = ChordType.Dominant7th;
+					key = key + Interval.Perfect4th;
+					root = root + new IntervalContext(key, Interval.Perfect4th);
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -98,7 +98,7 @@ namespace Eric.Morrison.Harmony
 			}
 
 
-			var startingNote = new Note(chords[0].Root.NoteName + new IntervalContext(KeySignature.CMajor, IntervalsEnum.Major3rd), OctaveEnum.Octave2);
+			var startingNote = new Note(chords[0].Root.NoteName + new IntervalContext(KeySignature.CMajor, Interval.Major3rd), OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
 			var contexts = new List<ArpeggiationContext>();

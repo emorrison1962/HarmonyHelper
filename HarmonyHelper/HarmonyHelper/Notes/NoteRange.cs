@@ -50,7 +50,7 @@ namespace Eric.Morrison.Harmony
 			var note = this.LowerLimit.Copy();
 			notes.Add(note);
 
-			var chromatic = new Chromatic(KeySignature.CMajor);
+			var chromatic = new ChromaticScaleFormula(KeySignature.CMajor);
 			var octave = this.LowerLimit.Octave;
 			bool wrapped = false;
 

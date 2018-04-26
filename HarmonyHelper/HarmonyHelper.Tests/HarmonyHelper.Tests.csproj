@@ -75,6 +75,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Scales\ScaleTests.cs" />
+    <Compile Include="BUGS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">

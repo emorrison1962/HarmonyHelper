@@ -56,6 +56,7 @@
     <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
     <Compile Include="Chords\ChordParser.cs" />
     <Compile Include="Chords\ChordTone.cs" />
+    <Compile Include="Chords\ChordType.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Enums\DirectionEnumExtensions.cs" />
     <Compile Include="Enums\IntervalsEnumExtensions.cs" />
@@ -65,9 +66,6 @@
     <Compile Include="Interval\Interval.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
       <DependentUpon>KeySignature.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Scales\ModeFormula_bak.cs">
-      <DependentUpon>ModeFormula.cs</DependentUpon>
     </Compile>
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
     <Compile Include="_ClassBase.cs" />

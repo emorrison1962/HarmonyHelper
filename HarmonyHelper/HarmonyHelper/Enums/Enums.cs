@@ -17,6 +17,7 @@ namespace Eric.Morrison.Harmony
 	}
 
 
+	[Obsolete("", true)]
 	[Flags]
 	public enum ChordTypesEnum
 	{
@@ -25,7 +26,6 @@ namespace Eric.Morrison.Harmony
 		Minor = Constants.INTERVAL_VALUE_MINOR_3RD | Constants.INTERVAL_VALUE_PERFECT_5TH,
 		Augmented = Constants.INTERVAL_VALUE_MAJOR_3RD | Constants.INTERVAL_VALUE_AUGMENTED_5TH,
 		Diminished = Constants.INTERVAL_VALUE_MINOR_3RD | Constants.INTERVAL_VALUE_DIMINISHED_5TH,
-
 		Major7th = Major | Constants.INTERVAL_VALUE_MAJOR_7TH,
 		Minor7th = Minor | Constants.INTERVAL_VALUE_MINOR_7TH,
 		Dominant7th = Major | Constants.INTERVAL_VALUE_MINOR_7TH,
@@ -111,6 +111,19 @@ Major7th
 		Normal,
 		Detailed,
 		Diagnostic
+	}
+
+
+	public enum ChordFunctionEnum
+	{
+		None = 0,
+		Root,
+		Third,
+		Fifth,
+		Seventh,
+		Ninth,
+		Eleventh,
+		Thirteenth,
 	}
 
 	public enum ChordToneFunctionEnum

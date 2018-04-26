@@ -106,7 +106,7 @@ namespace HarmornyHelper.forms
 		}
 
 
-		Score BuildScore(Harmony.PentatonicMajorFormula formula)
+		Score BuildScore(Harmony.PentatonicMajorScaleFormula formula)
 		{
 			Score result = null;
 
@@ -144,15 +144,15 @@ namespace HarmornyHelper.forms
 		{
 			return null;
 		}
-		Score BuildScore(Harmony.WholeToneFormula formula)
+		Score BuildScore(Harmony.WholeToneScaleFormula formula)
 		{
 			return null;
 		}
-		Score BuildScore(Harmony.DiminishedHalfWholeFormula formula)
+		Score BuildScore(Harmony.DiminishedHalfWholeScaleFormula formula)
 		{
 			return null;
 		}
-		Score BuildScore(Harmony.DiminishedWholeHalfFormula formula)
+		Score BuildScore(Harmony.DiminishedWholeHalfScaleFormula formula)
 		{
 			return null;
 		}

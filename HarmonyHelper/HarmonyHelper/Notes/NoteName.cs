@@ -270,7 +270,7 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(NoteName other)
 		{
 			var result = false;
-			if (this.Value == other.Value)
+			if (/*this.Name == other.Name && */this.Value == other.Value)
 				result = true;
 			return result;
 		}
@@ -349,23 +349,22 @@ namespace Eric.Morrison.Harmony
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
 			NoteName result = null;
-			const uint MASK_ABOVE_NOTENAME_B = 0x000001fff;
 
-			uint val = (uint)src.Value;
-			var count = interval.ToIndex();
+			var notes = NoteName.Catalog
+				.Distinct(new NoteNameValueEqualityComparer())
+				.OrderBy(x => x.Value)
+				.ToList();
 
-			var upperByte = (val << count);     //shift the val.
-			upperByte &= MASK_ABOVE_NOTENAME_B; //mask bits above MASK_ABOVE_NOTENAME_B
-			var lowerByte = (val >> (NoteName.MAX_UPPER_SHIFT - count));
-			if (0 != upperByte)
-			{// If we have a value in the upper byte, disregard the lower byte.
-				lowerByte = 0;
-			}
+			var maxNdx = notes.Count - 1;
+			var currentNdx = notes.IndexOf(src);
+			var intervalNdx = interval.ToIndex();
 
-			var txposed = (upperByte | lowerByte);
+			var targetNdx = (currentNdx + intervalNdx) % maxNdx;
 
+			result = notes[targetNdx];
+			Debug.Assert(result != src);
 
-			var seq = NoteName.Catalog.Where(x => x.Value == txposed);
+			var seq = NoteName.Catalog.Where(x => x.Value == result.Value);
 			Debug.Assert(null != seq);
 
 			var success = false;
@@ -404,10 +403,6 @@ namespace Eric.Morrison.Harmony
 				throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Unable to transpose input.");
 			}
 
-			//var srcName = src.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
-			//var expectedName = result.Name.Replace(Constants.SHARP, "Sharp").Replace(Constants.FLAT, "b");
-			//Debug.WriteLine($"else if (note == NoteName.{srcName} && (Interval)interval == Interval.{interval}){{");
-			//Debug.WriteLine($"Assert.IsTrue(expected == NoteName.{expectedName});}}");
 			return result;
 		}
 
@@ -447,6 +442,22 @@ namespace Eric.Morrison.Harmony
 		public int GetHashCode(NoteName obj)
 		{
 			return obj.Value.GetHashCode();
+		}
+	}
+
+	public class NoteNameExplicitEqualityComparer : IEqualityComparer<NoteName>
+	{
+		public bool Equals(NoteName x, NoteName y)
+		{
+			var result = false;
+			if (x.Name == y.Name && x.Value == y.Value)
+				result = true;
+			return result;
+		}
+
+		public int GetHashCode(NoteName obj)
+		{
+			return obj.Name.GetHashCode() ^ obj.Value.GetHashCode();
 		}
 	}
 

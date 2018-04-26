@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony
 		//}
 
 
-		public static KeySignature Get(KeySignature key, IntervalsEnum interval)
+		public static KeySignature Get(KeySignature key, Interval interval)
 		{
 			var maxNdx = KeySignatures.Count - 1;
 			var currentNdx = KeySignatures.IndexOf(key);
@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static KeySignature Get(KeySignature key, IntervalsEnum intervalEnum, DirectionEnum direction)
+		public static KeySignature Get(KeySignature key, Interval intervalEnum, DirectionEnum direction)
 		{
 			var intervalNdx = intervalEnum.ToIndex();
 			if (direction == DirectionEnum.Descending)

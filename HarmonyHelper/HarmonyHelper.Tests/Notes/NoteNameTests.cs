@@ -11,1302 +11,1302 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_AdditionTest()
 		{
-			var intervals = Enum.GetValues(typeof(IntervalsEnum));
+			var intervals = Enum.GetValues(typeof(Interval));
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)
 				{
-					var expected = NoteName.TransposeUp(note, (IntervalsEnum)interval);
+					var expected = NoteName.TransposeUp(note, (Interval)interval);
 					var expectedValue = note.Value;
-					var ctx = new IntervalContext(KeySignature.CMajor, (IntervalsEnum)interval);
+					var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
 					var result = note + ctx;
 
-					ValidateTransposeUp(note, (IntervalsEnum)interval, expected);
+					ValidateTransposeUp(note, (Interval)interval, expected);
 				}
 			}
 			new object();
 		}
 
-		void ValidateTransposeUp(NoteName input, IntervalsEnum interval, NoteName expected)
+		void ValidateTransposeUp(NoteName input, Interval interval, NoteName expected)
 		{
 			#region VALIDATION
-			if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			if (input == NoteName.BSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
 
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.C && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
 
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
 
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Db && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
 
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.D && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
 
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
 
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
 
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.E && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
 
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
 
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
 
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.F && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
 
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
 
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
 
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.G && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
 
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
 
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
 
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.A && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
 
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
 
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
 
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.B && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
 
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
@@ -1318,1282 +1318,1282 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_SubtractionTest()
 		{
-			var intervals = Enum.GetValues(typeof(IntervalsEnum));
+			var intervals = Enum.GetValues(typeof(Interval));
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)
 				{
-					var expected = NoteName.TransposeDown(note, (IntervalsEnum)interval);
+					var expected = NoteName.TransposeDown(note, (Interval)interval);
 					var expectedValue = note.Value;
-					var ctx = new IntervalContext(KeySignature.CMajor, (IntervalsEnum)interval);
+					var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
 					var result = note + ctx;
 
-					ValidateTransposeDown(note, (IntervalsEnum)interval, expected);
+					ValidateTransposeDown(note, (Interval)interval, expected);
 				}
 			}
 			new object();
 		}
 
-		void ValidateTransposeDown(NoteName input, IntervalsEnum interval, NoteName expected)
+		void ValidateTransposeDown(NoteName input, Interval interval, NoteName expected)
 		{
 			#region VALIDATION
-			if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			if (input == NoteName.BSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.BSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.C && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.C && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.C && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.CSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Db && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Db && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.D && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.D && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.D && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.DSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Eb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.E && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.E && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.E && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Fb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.ESharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.F && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.F && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.F && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.FSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Gb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.G && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.G && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.G && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.GSharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Ab && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.A && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.A && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.A && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
-			else if (input == NoteName.ASharp && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Bb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.B && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.B && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.B && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.None)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.None)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor2nd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor2nd)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major2nd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major2nd)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor3rd)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor3rd)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished4th)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Perfect4th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Perfect4th)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Diminished5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Diminished5th)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Perfect5th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Perfect5th)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor6th)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major6th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major6th)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Minor7th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Minor7th)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
-			else if (input == NoteName.Cb && (IntervalsEnum)interval == IntervalsEnum.Major7th)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Major7th)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
@@ -2614,7 +2614,7 @@ namespace Eric.Morrison.Harmony.Tests
 					//Debug.WriteLine($"{nn1} - {nn2} = {interval}");
 					var interval2 = nn2 - nn1;
 					//Debug.WriteLine($"{nn2} - {nn1} = {interval}");
-					if (interval == IntervalsEnum.None)
+					if (interval == Interval.None)
 					{
 						Assert.IsTrue(nn1.Value == nn2.Value);
 					}

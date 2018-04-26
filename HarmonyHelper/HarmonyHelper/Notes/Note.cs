@@ -41,8 +41,8 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			var result = this.NoteName.ToString();
-			//var result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
+			//var result = this.NoteName.ToString();
+			var result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
 
 			//var result = string.Format("{0}, NoteName={1}, Octave={2}", 
 			//    base.ToString(), this.NoteName, this.Octave);

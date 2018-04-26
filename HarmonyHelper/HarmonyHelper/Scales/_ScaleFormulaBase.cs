@@ -74,6 +74,7 @@ namespace Eric.Morrison.Harmony
 			foreach (var interval in this.Intervals)
 			{
 				var nn = NoteNames.Get(this.Key, this.Key.NoteName, interval);
+				Debug.Assert(nn != this.Key.NoteName);
 				result.Add(nn);
 			}
 

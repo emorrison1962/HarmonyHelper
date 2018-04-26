@@ -27,22 +27,22 @@ namespace Eric.Morrison.Harmony
 				this.Add(new ModeFormula(key, ModeEnum.Aeolian));
 				this.Add(new ModeFormula(key, ModeEnum.Locrian));
 
-				this.Add(new PentatonicMajorFormula(key));
+				this.Add(new PentatonicMajorScaleFormula(key));
 				this.Add(new NonatonicBluesScaleFormula(key));
 
-				this.Add(new WholeToneFormula(key));
-				this.Add(new DiminishedHalfWholeFormula(key));
-				this.Add(new DiminishedWholeHalfFormula(key));
+				this.Add(new WholeToneScaleFormula(key));
+				this.Add(new DiminishedHalfWholeScaleFormula(key));
+				this.Add(new DiminishedWholeHalfScaleFormula(key));
 			}
 
 			keys = KeySignature.MinorKeys;
 			foreach (var key in keys)
 			{
-				this.Add(new HarmonicMinorFormula(key));
+				this.Add(new HarmonicMinorScaleFormula(key));
 #warning FIXME: *** IMPLEMENT MelodicMinor ***
 				//this.Add(new MelodicMinorFormula(key));
 
-				this.Add(new PentatonicMinorFormula(key));
+				this.Add(new PentatonicMinorScaleFormula(key));
 				this.Add(new HexatonicBluesScaleFormula(key));
 				this.Add(new HeptatonicBluesScaleFormula(key));
 			}
@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony
 							result.Add(scale);
 						}
 					}
-					else if (scale is PentatonicFormula)
+					else if (scale is PentatonicScaleFormula)
 					{
 						if (scale.NoteNames[0] == cf.Root)
 						{

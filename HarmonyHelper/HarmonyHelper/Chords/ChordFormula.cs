@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony
 		public NoteName Fifth { get; set; }
 		public NoteName Seventh { get; set; }
 		public KeySignature Key { get; set; }
-		public ChordTypesEnum ChordType { get; set; }
+		public ChordType ChordType { get; set; }
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
 		public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Construction
 
-		public ChordFormula(NoteName root, ChordTypesEnum chordType, KeySignature key, bool addDiatonicExtension = false)
+		public ChordFormula(NoteName root, ChordType chordType, KeySignature key, bool addDiatonicExtension = false)
 		{
 			if (null == root)
 				throw new NullReferenceException();
@@ -45,30 +45,30 @@ namespace Eric.Morrison.Harmony
 			this.ChordType = chordType;
 			this.Key = key;
 
-			var interval = chordType.GetThirdInterval();
+			var interval = chordType.GetInterval(ChordFunctionEnum.Third);
 			var third = NoteName.Catalog.Get(key, root, interval);
 			this.NoteNames.Add(this.Third = third);
 
 
-			interval = chordType.GetFifthInterval();
+			interval = chordType.GetInterval(ChordFunctionEnum.Fifth);
 			var fifth = NoteName.Catalog.Get(key, root, interval);
 			this.NoteNames.Add(this.Fifth = fifth);
 
-			interval = chordType.GetSeventhInterval();
+			interval = chordType.GetInterval(ChordFunctionEnum.Seventh);
 			var seventh = NoteName.Catalog.Get(key, root, interval);
 			this.NoteNames.Add(this.Seventh = seventh);
 
 			if (addDiatonicExtension)
 			{
-				interval = chordType.GetNinthInterval();
+				interval = chordType.GetInterval(ChordFunctionEnum.Ninth);
 				var nn = NoteName.Catalog.Get(key, root, interval);
 				this.NoteNames.Add(nn);
 
-				interval = chordType.GetEleventhInterval();
+				interval = chordType.GetInterval(ChordFunctionEnum.Eleventh);
 				nn = NoteName.Catalog.Get(key, root, interval);
 				this.NoteNames.Add(nn);
 
-				interval = chordType.GetThirteenthInterval();
+				interval = chordType.GetInterval(ChordFunctionEnum.Thirteenth);
 				nn = NoteName.Catalog.Get(key, root, interval);
 				this.NoteNames.Add(nn);
 			}
@@ -101,7 +101,7 @@ namespace Eric.Morrison.Harmony
 				else if (this.Third.Value == note.Value)
 				{
 					result = ChordToneFunctionEnum.Major3rd;
-					interval = this.ChordType.GetThirdInterval();
+					interval = this.ChordType.GetInterval(ChordFunctionEnum.Third);
 					if (Interval.Minor3rd == interval)
 						result = ChordToneFunctionEnum.Minor3rd;
 				}
@@ -112,7 +112,7 @@ namespace Eric.Morrison.Harmony
 				else if (this.Seventh.Value == note.Value)
 				{
 					result = ChordToneFunctionEnum.Major7th;
-					interval = this.ChordType.GetSeventhInterval();
+					interval = this.ChordType.GetInterval(ChordFunctionEnum.Seventh);
 					if (Interval.Minor7th == interval)
 						result = ChordToneFunctionEnum.Minor7th;
 				}
@@ -205,42 +205,42 @@ namespace Eric.Morrison.Harmony
 		bool HasThird()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetThirdInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Third))
 				result = true;
 			return result;
 		}
 		bool HasFifth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetFifthInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Fifth))
 				result = true;
 			return result;
 		}
 		bool HasSeventh()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetSeventhInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Seventh))
 				result = true;
 			return result;
 		}
 		bool HasNinth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetNinthInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Ninth))
 				result = true;
 			return result;
 		}
 		bool HasEleventh()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetEleventhInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Eleventh))
 				result = true;
 			return result;
 		}
 		bool HasThirteenth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetThirteenthInterval())
+			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Thirteenth))
 				result = true;
 			return result;
 		}

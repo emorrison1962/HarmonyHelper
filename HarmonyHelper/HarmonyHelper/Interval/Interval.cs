@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-	public class Interval
+	public class Interval: IEquatable<Interval>, IComparable<Interval>
 	{
 		#region Constants
 		#endregion
 
 		#region Static
+		static public List<Interval> Catalog { get; set; } = new List<Interval>();
 		static public Interval None = new Interval("None", 0);
 		static public Interval Minor2nd = new Interval("Minor2nd", Constants.INTERVAL_VALUE_MINOR_2ND);
 		static public Interval Major2nd = new Interval("Major2nd", Constants.INTERVAL_VALUE_MAJOR_2ND);
@@ -25,9 +26,9 @@ namespace Eric.Morrison.Harmony
 		static public Interval Augmented5th = new Interval("Augmented5th", Constants.INTERVAL_VALUE_AUGMENTED_5TH);
 		static public Interval Minor6th = new Interval("Minor6th", Constants.INTERVAL_VALUE_MINOR_6TH);
 		static public Interval Major6th = new Interval("Major6th", Constants.INTERVAL_VALUE_MAJOR_6TH);
+		static public Interval Diminished7th = new Interval("Diminished7th", Constants.INTERVAL_VALUE_MAJOR_6TH);
 		static public Interval Minor7th = new Interval("Minor7th", Constants.INTERVAL_VALUE_MINOR_7TH);
 		static public Interval Major7th = new Interval("Major7th", Constants.INTERVAL_VALUE_MAJOR_7TH);
-
 		#endregion
 
 		public string Name { get; private set; }
@@ -36,8 +37,11 @@ namespace Eric.Morrison.Harmony
 		{
 			this.Name = name;
 			this.Value = value;
+			Catalog.Add(this);
 		}
 
+		static Interval() {
+		}
 		public Interval Invert()
 		{
 			var result = Interval.None;
@@ -85,6 +89,165 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+
+		public bool Equals(Interval other)
+		{
+			var result = 0 == this.CompareTo(other);
+			return result;
+		}
+
+		public override bool Equals(object obj)
+		{
+			var result = false;
+			if (obj is Interval)
+				result = this.Equals(obj as Interval);
+			return result;
+		}
+
+
+		public int CompareTo(Interval other)
+		{
+			int result = 0;
+			if (other is null)
+				result= -1;
+
+			if (result == 0)
+			{
+				result = this.Value.CompareTo(other.Value);
+			}
+			if (result == 0)
+			{
+				result = this.Name.CompareTo(other.Name);
+			}
+			return result;
+		}
+
+		public static bool operator <(Interval a, Interval b)
+		{
+			var result = Compare(a, b) < 0;
+			return result;
+		}
+		public static bool operator >(Interval a, Interval b)
+		{
+			var result = Compare(a, b) > 0;
+			return result;
+		}
+		public static bool operator <=(Interval a, Interval b)
+		{
+			var result = Compare(a, b) <= 0;
+			return result;
+		}
+		public static bool operator >=(Interval a, Interval b)
+		{
+			var result = Compare(a, b) >= 0;
+			return result;
+		}
+		public static bool operator ==(Interval a, Interval b)
+		{
+			var result = Compare(a, b) == 0;
+			return result;
+		}
+		public static bool operator !=(Interval a, Interval b)
+		{
+			var result = Compare(a, b) != 0;
+			return result;
+		}
+		public static int operator |(Interval a, Interval b)
+		{
+			var result = a.Value | b.Value;
+			return result;
+		}
+		public static explicit operator int(Interval ct)
+		{
+			return ct.Value;
+		}
+		public static explicit operator Interval(int i)
+		{
+			return Interval.Catalog.First(x => x.Value == i);
+		}
+
+
+		public static int Compare(Interval a, Interval b)
+		{
+			if (a is null && b is null)
+				return 0;
+			else if (a is null)
+				return -1;
+			else if (b is null)
+				return 1;
+
+			var result = a.CompareTo(b);
+			return result;
+		}
+
+		public override string ToString()
+		{
+			return $"{base.ToString()}: Name={this.Name} Value=0x{this.Value.ToString(("x8"))}";
+		}
+
+		#region Used to be IntervalsEnumExtensions
+		class IntervalValueComparer : IEqualityComparer<Interval>
+		{
+			public bool Equals(Interval x, Interval y)
+			{
+				bool result = false;
+				if (x.Value == y.Value)
+					result = true;
+				return result;
+
+			}
+
+			public int GetHashCode(Interval obj)
+			{
+				return obj.GetHashCode();
+			}
+		}
+
+		public int ToIndex()
+		{
+			var intervals = Interval.Catalog
+				.Distinct(new IntervalValueComparer())
+				.OrderBy(x => x.Value)
+				.ToList();
+			var found = intervals.First(x => x.Value == this.Value);
+			var result = intervals.IndexOf(found);
+
+			return result;
+		}
+
+		public Interval GetInversion()
+		{
+			Interval result = Interval.None;
+			if (Interval.None != this)
+			{
+				var comparer = new IntervalValueComparer();
+				var list = Enum.GetValues(typeof(Interval)).Cast<Interval>()
+					.Where(x => x != Interval.None)
+					.Distinct(comparer)
+					.OrderBy(x => x)
+					.ToList();
+
+				//list.ForEach(x => Debug.WriteLine($"{x}: {(int)x}"));
+
+				var ndx = list.IndexOf(this);
+				var inversionNdx = (list.Count - 1) - ndx;
+				result = list[inversionNdx];
+			}
+
+			return result;
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = -244751520;
+			// hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Name);
+			hashCode = hashCode * -1521134295 + this.Value.GetHashCode();
+			return hashCode;
+		}
+
+
+
+		#endregion
 
 
 	}//class
