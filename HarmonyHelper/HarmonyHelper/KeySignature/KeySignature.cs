@@ -23,7 +23,7 @@ namespace Eric.Morrison.Harmony
 		{
 			this.NoteName = key;
 			this.Notes = new List<NoteName>(notes);
-			this.AccidentalCount = this.Notes.Where(x => x.Name.EndsWith(Constants.SHARP) 
+			this.AccidentalCount = this.Notes.Where(x => x.Name.EndsWith(Constants.SHARP)
 				|| x.Name.EndsWith(Constants.FLAT)).Count();
 
 			if (usesSharps.HasValue)
@@ -102,7 +102,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public NoteName GetNormalized(NoteName nn)
+		public NoteName GetNormalized(NoteName nn, NoteName accidentalHint = null)
 		{
 			var copy = nn.Copy();
 			if (!this.Contains(copy))
@@ -113,7 +113,18 @@ namespace Eric.Morrison.Harmony
 				}
 				else if (!nn.IsNatural)
 				{
-					copy = NoteName.GetEnharmonicEquivalent(nn);
+					if (null != accidentalHint && !accidentalHint.IsNatural)
+					{
+						if (nn.IsFlat != accidentalHint.IsFlat)
+						{
+							copy = NoteName.GetEnharmonicEquivalent(nn);
+						}
+					}
+					else
+					{
+#warning If the key is CMajor and the nn is A# and accidentalHint is D, we're in the dark.
+						//copy = NoteName.GetEnharmonicEquivalent(nn);
+					}
 				}
 			}
 			return copy;

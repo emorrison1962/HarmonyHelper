@@ -1,20 +1,19 @@
 ﻿using HarmornyHelper.forms.Controls;
-using Manufaktura.Controls.Extensions;
-using Manufaktura.Controls.Formatting;
 using Manufaktura.Controls.Model;
-using Manufaktura.Controls.Services;
+using Manufaktura.Controls.WinForms;
 using Manufaktura.Music.Model;
 using Manufaktura.Music.Model.MajorAndMinor;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Harmony = Eric.Morrison.Harmony;
 
 namespace HarmornyHelper.forms
 {
 	public partial class ArpeggiosControl : NoteViewerControlBase
 	{
+		readonly Pitch STAFF_PITCH_THRESHOLD = new Pitch(Step.F, 0, 4);
 		enum ClefEnum
 		{
 			None = 0,
@@ -26,7 +25,7 @@ namespace HarmornyHelper.forms
 		List<Harmony.Note> ArpeggiatedNotes { get; set; } = new List<Harmony.Note>();
 		Harmony.KeySignature SelectedKey { get; set; }
 		ClefEnum SelectedClef { get; set; }
-
+		List<NoteViewer> NoteViewers { get; set; } = new List<NoteViewer>();
 		#endregion
 
 		#region Construction
@@ -42,14 +41,10 @@ namespace HarmornyHelper.forms
 			this.Dock = System.Windows.Forms.DockStyle.Fill;
 			base.OnLoad(e);
 
-			this.NoteViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NoteViewer.CreateControl();
-			this._outputPanel.Controls.Add(this.NoteViewer);
-
 			this._comboKey.SelectedItem = this._comboKey.Keys[0];
 			this._comboKey_SelectionChangeCommitted(null, null);
 
-			this._tbChords.Text = "dm7 g7 cmaj7 a7";
+			this._tbChords.Text = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
 		}
 
 		#endregion
@@ -57,20 +52,68 @@ namespace HarmornyHelper.forms
 		protected void Populate(List<Harmony.Chord> chords)
 		{
 			this.Arpeggiate(chords);
-			var score = this.BuildScore(chords);
-			this.NoteViewer.DataSource = score;
-			this.NoteViewer.BackColor = System.Drawing.Color.Aquamarine;
-			this.NoteViewer.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.AllPages;
+			this.BuildNoteViewers();
 
-			this.NoteViewer.ClientSize = this._outputPanel.ClientSize;
-			this.NoteViewer.PerformLayout();
-			this.NoteViewer.Refresh();
+			// var score = this.BuildScore(chords);
+
+
 		}
 
-		readonly Pitch STAFF_PITCH_THRESHOLD = new Pitch(Step.F, 0, 4);
 
 
-		Score BuildScore(List<Harmony.Chord> chords)
+		void BuildNoteViewers()
+		{
+			const int BARS_PER_LINE = 8;
+
+			this.RemoveNoteViewers();
+			while (0 < this.ArpeggiationResults.Count)
+			{
+				var arpResults = this.ArpeggiationResults.Take(BARS_PER_LINE).ToList();
+				arpResults.ForEach(x => this.ArpeggiationResults.Remove(x));
+
+				var noteViewer = this.BuildNoteViewer(arpResults);
+				this.AddNoteViewer(noteViewer);
+			}
+		}
+
+		private void AddNoteViewer(NoteViewer nv)
+		{
+			this.NoteViewers.Add(nv);
+
+			nv.Dock = System.Windows.Forms.DockStyle.Top;
+			nv.CreateControl();
+			this._panelNoteViewers.Controls.Add(nv);
+
+			// nv.DataSource = score;
+			if (this.NoteViewers.Count % 2 == 0)
+				nv.BackColor = System.Drawing.Color.Aquamarine;
+			else
+				nv.BackColor = System.Drawing.Color.MistyRose;
+
+			var s = nv.PreferredSize;
+			nv.ClientSize = new Size(this._panelNoteViewers.ClientSize.Width, 150);
+
+			nv.PerformLayout();
+			nv.Refresh();
+		}
+
+		void RemoveNoteViewers()
+		{
+			foreach (var nv in this.NoteViewers)
+			{
+				this._panelNoteViewers.Controls.Remove(nv);
+			}
+		}
+
+		NoteViewer  BuildNoteViewer(List<ArpeggiationResult> arpResults)
+		{
+			var result = new NoteViewer();
+			var score = this.BuildScore(arpResults);
+			result.DataSource = score;
+			return result;
+		}
+
+		Score BuildScore(List<ArpeggiationResult> arpResults)
 		{
 
 			Score result = null;
@@ -99,9 +142,9 @@ namespace HarmornyHelper.forms
 			var staffFragment = new StaffFragment(staff);
 #endif
 
-#endregion
+			#endregion
 
-			foreach (var arpResult in this.ArpeggiationResults)
+			foreach (var arpResult in arpResults)
 			{
 				var pitches = arpResult.Notes.ToPitches();
 				//var durations = new List<int>();

@@ -1,9 +1,9 @@
-﻿using Eric.Morrison.Harmony.Properties;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
+using Eric.Morrison.Harmony.Properties;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony
 {
@@ -77,7 +77,7 @@ namespace Eric.Morrison.Harmony
 			KeySignature key = null;
 			ChordTypesEnum chordType = ChordTypesEnum.None;
 			const int CYCLE_MAX = 11;
-			for (int i = 0; i <= CYCLE_MAX; ++i)
+			for (int i = 0 ; i <= CYCLE_MAX ; ++i)
 			{
 				if (null == root)
 				{
@@ -113,6 +113,46 @@ namespace Eric.Morrison.Harmony
 
 			arpeggiator.Arpeggiate();
 
+			new object();
+		}
+
+		[TestMethod()]
+		public void Parser_Test()
+		{
+			var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			var success = false;
+
+			if (Harmony.ChordParser.TryParse(chordTxt, KeySignature.CMajor, out List<Harmony.Chord> chords, out string message))
+			{
+				chords.ForEach(x => Debug.WriteLine(x));
+				success = true;
+			}
+
+			if (success)
+			{
+				var noteRange = new NoteRange(
+					new Note(NoteName.B, OctaveEnum.Octave0),
+					new Note(NoteName.B, OctaveEnum.Octave3));
+
+				chords.ForEach(x => x.Set(noteRange));
+
+				new object();
+
+				var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+				var notesToPlay = 4;
+
+				var contexts = new List<ArpeggiationContext>();
+				chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+				var arpeggiator = new Arpeggiator(contexts,
+					DirectionEnum.Ascending,
+					//DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+					noteRange, 4, startingNote, true);
+
+				this.RegisterMusicXmlObservers(arpeggiator);
+
+				arpeggiator.Arpeggiate();
+			}
 			new object();
 		}
 

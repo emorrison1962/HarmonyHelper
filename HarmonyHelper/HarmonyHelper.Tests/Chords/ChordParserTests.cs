@@ -13,6 +13,19 @@ namespace Eric.Morrison.Harmony.Tests
 	public class ChordParserTests
 	{
 		[TestMethod()]
+		public void Bug_Parse_Bbm7_Test()
+		{
+
+			var s = "bbm7";
+			var success = ChordParser.TryParse(s, KeySignature.CMajor, out List<Chord> result, out string message);
+			Assert.IsTrue(success);
+			Assert.IsTrue("B♭m7" == result.First().Name);
+
+			new object();
+		}
+
+
+		[TestMethod()]
 		public void TryParse_Test()
 		{
 			#region chords

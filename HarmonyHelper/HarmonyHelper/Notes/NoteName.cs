@@ -302,7 +302,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > IntervalsEnum.None)
 			{
 				result = TransposeUp(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result);
+				result = ctx.Key.GetNormalized(result, note);
 			}
 			return result;
 		}
@@ -313,7 +313,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > IntervalsEnum.None)
 			{
 				result = TransposeDown(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result);
+				result = ctx.Key.GetNormalized(result, note);
 			}
 			return result;
 		}
@@ -512,7 +512,7 @@ namespace Eric.Morrison.Harmony
 		public static NoteName Get(this List<NoteName> src,KeySignature key, NoteName nn, IntervalsEnum interval)
 		{
 			var result = NoteName.TransposeUp(nn, interval);
-			result = key.GetNormalized(result);
+			result = key.GetNormalized(result, nn);
 			return result;
 		}
 

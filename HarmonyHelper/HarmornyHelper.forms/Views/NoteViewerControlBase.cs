@@ -16,8 +16,6 @@ namespace HarmornyHelper.forms.Controls
 {
 	public class NoteViewerControlBase : UserControl
 	{
-		protected NoteViewer NoteViewer { get; set; } = new NoteViewer();
-
 		public NoteViewerControlBase()
 		{
 			// InitializeComponent();
@@ -28,11 +26,6 @@ namespace HarmornyHelper.forms.Controls
 			this.Dock = System.Windows.Forms.DockStyle.Fill;
 			base.OnLoad(e);
 
-			//this.SuspendLayout();
-			//this.ResumeLayout();
-
-			this.NoteViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.NoteViewer.CreateControl();
 		}
 
 		#region Initialization
