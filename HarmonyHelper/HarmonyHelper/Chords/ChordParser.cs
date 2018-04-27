@@ -79,7 +79,7 @@ namespace Eric.Morrison.Harmony
 			chord = null;
 
 
-			Debug.WriteLine(input);
+			// Debug.WriteLine(input);
 			var success = false;
 			var match = Regex.Match(input, REGEX);
 			if (match.Success)
@@ -96,15 +96,10 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				success = false;
-				var note = match.Groups[NOTE].ToString();
-				var accidental = match.Groups[ACCIDENTAL].ToString();
-				var noteName = note + accidental;
 				try
 				{
-					if (TryParseNoteName(noteName, out root))
-					{
+					if (TryParseNoteName(match, out root))
 						success = true;
-					}
 				}
 				catch (Exception ex)
 				{
@@ -118,17 +113,10 @@ namespace Eric.Morrison.Harmony
 				try
 				{
 					success = false;
-					var chordTypeStr = match.Groups[CHORD_TYPE].ToString();
-					var bassNote = match.Groups[BASS].ToString();
-					if (TryParseChordType(chordTypeStr, out chordType))
-					{
+					if (TryParseChordType(match, out chordType, out string error))
 						success = true;
-					}
 					else
-					{
-						message = $"Unsupported chord type ({chordTypeStr})";
-						new object();
-					}
+						message = error;
 				}
 				catch (NotSupportedException ex)
 				{
@@ -143,9 +131,7 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				if (null == key)
-				{
 					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
-				}
 				var formula = new ChordFormula(root, chordType, key);
 				chord = new Chord(formula, NoteRange.Default);
 			}
@@ -182,8 +168,12 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 		}
 
-		static bool TryParseNoteName(string input, out NoteName noteName)
+		static bool TryParseNoteName(Match match, out NoteName noteName)
 		{
+			var note = match.Groups[NOTE].ToString();
+			var accidental = match.Groups[ACCIDENTAL].ToString();
+			var input = note + accidental;
+
 			noteName = null;
 			var result = false;
 
@@ -278,8 +268,13 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 		}
 
-		static bool TryParseChordType(string input, out ChordType ct)
+		static bool TryParseChordType(Match match, out ChordType ct, out string message)
 		{
+			message = null;
+			var input = match.Groups[CHORD_TYPE].ToString();
+			//var bassNote = match.Groups[BASS].ToString();
+
+
 			ct = ChordType.None;
 			bool result = false;
 
@@ -399,6 +394,10 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 			if (ct != ChordType.None)
 				result = true;
+			if (!result)
+			{
+				message = $"Unsupported chord type ({input})";
+			}
 			return result;
 		}
 

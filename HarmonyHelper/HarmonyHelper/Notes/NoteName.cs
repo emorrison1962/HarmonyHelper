@@ -269,7 +269,7 @@ namespace Eric.Morrison.Harmony
 			var result = a.Value.CompareTo(b.Value);
 			if (0 == result)
 			{
-				result = a.AsciiSortValue.CompareTo(b.AsciiSortValue);
+				//result = a.AsciiSortValue.CompareTo(b.AsciiSortValue);
 #if false
 				Less than zero: This instance is less than value.
 				Zero: This instance is equal to value.

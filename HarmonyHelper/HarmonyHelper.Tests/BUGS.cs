@@ -116,6 +116,27 @@ namespace Eric.Morrison.Harmony
 		}
 
 		[TestMethod]
+		public void NoteName_BSharp_Transpose()
+		{
+			var originalNoteName = NoteName.BSharp;
+			var interval = Interval.Major2nd;
+
+			var txposedUp = NoteName.TransposeUp(originalNoteName, interval);
+			var expectedInterval = originalNoteName - txposedUp;
+
+			Assert.IsTrue(expectedInterval.Value == Math.Min(interval.Value, interval.GetInversion().Value));
+			Assert.IsFalse(txposedUp == originalNoteName);
+
+			var txposedDown = NoteName.TransposeDown(txposedUp, interval);
+			expectedInterval = txposedDown - originalNoteName;
+
+			Assert.IsTrue(expectedInterval == Interval.None);
+			Assert.IsFalse(txposedDown == txposedUp);
+			Assert.IsTrue(txposedDown == originalNoteName);
+		}
+
+
+		[TestMethod]
 		public void Chords_Dont_have_Sharps_AND_Flats()
 		{
 			var noteRange = NoteRange.Default;

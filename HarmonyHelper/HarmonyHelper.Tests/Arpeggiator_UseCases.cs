@@ -340,6 +340,8 @@ namespace Eric.Morrison.Harmony
 
 			public void AddReference(Note note)
 			{
+				if (!this.NoteUsages.ContainsKey(note))
+					this.NoteUsages.Add(note, 0);
 				var currentCount = this.NoteUsages[note];
 				this.NoteUsages[note] = ++currentCount;
 			}

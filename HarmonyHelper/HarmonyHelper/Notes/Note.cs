@@ -157,7 +157,11 @@ namespace Eric.Morrison.Harmony
 	{
 		public int Compare(Note x, Note y)
 		{
-			return Note.Compare(x, y);
+			var result = Note.Compare(x, y);
+			if (0 == result)
+				result = x.NoteName.AsciiSortValue.CompareTo(y.NoteName.AsciiSortValue);
+
+			return result;
 		}
 	}
 }//ns
