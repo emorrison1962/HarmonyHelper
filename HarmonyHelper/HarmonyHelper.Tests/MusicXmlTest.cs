@@ -119,7 +119,8 @@ namespace Eric.Morrison.Harmony
 		[TestMethod()]
 		public void Parser_Test()
 		{
-			var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			//var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
 			if (Harmony.ChordParser.TryParse(chordTxt, KeySignature.CMajor, out List<Harmony.Chord> chords, out string message))
@@ -203,7 +204,7 @@ namespace Eric.Morrison.Harmony
 				functionStr = "    ";
 
 			var noteStr = string.Empty;
-			noteStr = $"{g_direction}{ctx.CurrentNote.ToString()}{(int)ctx.CurrentNote.Octave}";
+			noteStr = $" {g_direction}{ctx.CurrentNote.ToString()}";
 			//noteStr = $"{noteStr}{g_direction}{functionStr}";
 			//noteStr = $"{noteStr,9}";
 			//if (g_directionChanged)
@@ -286,6 +287,9 @@ namespace Eric.Morrison.Harmony
 
 			var octave = 2 + (int)ctx.CurrentNote.Octave;
 			var note = ctx.CurrentNote.NoteName.ToString();
+			if (ctx.CurrentNote.NoteName == NoteName.Cb)
+				++octave;
+
 
 			var alter = string.Empty;
 			if (note.EndsWith(FLAT))

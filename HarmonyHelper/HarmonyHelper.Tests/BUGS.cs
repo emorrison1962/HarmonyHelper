@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,6 +9,19 @@ namespace Eric.Morrison.Harmony
 	[TestClass]
 	public class BUGS
 	{
+		[TestMethod]
+		public void NoteComparer()
+		{
+			var ll = new Note(NoteName.C, OctaveEnum.Octave0);
+			var ul = new Note(NoteName.B, OctaveEnum.Octave3);
+			var noteRange = new NoteRange(ll, ul);
+			var result = noteRange.GetNotes(NoteName.Catalog);
+			result.Sort(new NoteComparer());
+			var s = string.Join(", ", result);
+			Debug.WriteLine(s);
+			new Object();
+		}
+
 		[TestMethod]
 		public void Interval_Distinct_ToIndex()
 		{

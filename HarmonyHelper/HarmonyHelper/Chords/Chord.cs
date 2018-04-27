@@ -88,8 +88,9 @@ namespace Eric.Morrison.Harmony
 
 			this.NoteNames = notes.Select(x => x.NoteName).ToList();
 
-			var result = noteRange.GetNotes(notes);
-			result.ForEach(x => this.Notes.Add(x));
+			var pendingNotes = noteRange.GetNotes(notes);
+			pendingNotes.ForEach(x => this.Notes.Add(x));
+			this.Notes.Sort(new NoteComparer());
 		}
 
 		#endregion

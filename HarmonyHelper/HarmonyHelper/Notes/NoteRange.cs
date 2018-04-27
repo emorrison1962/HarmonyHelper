@@ -119,9 +119,30 @@ namespace Eric.Morrison.Harmony
 			result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
 				.ToList().ForEach(x => result.Remove(x));
 
-			result.Sort(new NoteComparer());
+			this.AdjustExceptiopnalNotes(result);
+
 			return result;
 		}
+
+		void AdjustExceptiopnalNotes(List<Note> notes)
+		{
+#warning HACK ALERT: NoteName.Cb or NoteName.BSharp? For programmatic convenience, adjust OctaveEnum
+			#region HACK ALERT
+			if (notes.Any(x => x.NoteName == NoteName.Cb))
+			{
+				Action<Note> fixOctave = (x) => x.Octave = ++x.Octave;
+				var affected = notes.Where(x => x.NoteName == NoteName.Cb).ToList();
+				affected.ForEach(x => fixOctave(x));
+			}
+			if (notes.Any(x => x.NoteName == NoteName.BSharp))
+			{
+				Action<Note> fixOctave = (x) => x.Octave = --x.Octave;
+				var affected = notes.Where(x => x.NoteName == NoteName.BSharp).ToList();
+				affected.ForEach(x => fixOctave(x));
+			}
+			#endregion
+		}
+
 
 		public List<Note> GetNotes(List<NoteName> requestedNames)
 		{

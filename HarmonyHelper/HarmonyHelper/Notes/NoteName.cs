@@ -24,6 +24,9 @@ namespace Eric.Morrison.Harmony
 		const int VALUE_Bb = 1 << 11;
 		public const int MAX_UPPER_SHIFT = 12;
 		const int VALUE_B = 1 << MAX_UPPER_SHIFT;
+		const char ASCII_C = 'C';
+		const int OFFSET_TO_ASCII_G = 7;
+
 		static public int MinValue { get { return VALUE_C; } }
 		static public int MaxValue { get { return VALUE_B; } }
 
@@ -44,6 +47,8 @@ namespace Eric.Morrison.Harmony
 		public bool IsSharp { get; private set; }
 		public bool IsFlat { get; private set; }
 		public bool IsNatural { get; private set; }
+		public int AsciiSortValue { get; private set; }
+
 
 
 		NoteName(string name, int val)
@@ -57,6 +62,10 @@ namespace Eric.Morrison.Harmony
 				this.IsFlat = true;
 			else
 				this.IsNatural = true;
+
+			this.AsciiSortValue = (this.Name[0] - ASCII_C >= 0) ? 
+				this.Name[0] - ASCII_C : this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
+
 		}
 
 		NoteName(NoteName src) : this(src.Name, src.Value)
@@ -258,11 +267,15 @@ namespace Eric.Morrison.Harmony
 				return 1;
 
 			var result = a.Value.CompareTo(b.Value);
-#warning **** IS THIS GOING TO BREAK EVERYTHING? ****
-			//if (0 == result)
-			//{
-			//	result = a.Name.CompareTo(b.Name);
-			//}
+			if (0 == result)
+			{
+				result = a.AsciiSortValue.CompareTo(b.AsciiSortValue);
+#if false
+				Less than zero: This instance is less than value.
+				Zero: This instance is equal to value.
+				Greater than zero: This instance is greater than value.
+#endif
+			}
 
 			return result;
 		}
@@ -490,7 +503,7 @@ namespace Eric.Morrison.Harmony
 	{
 		public int Compare(NoteName x, NoteName y)
 		{
-			return x.Name.CompareTo(y.Name);
+			return x.AsciiSortValue.CompareTo(y.AsciiSortValue);
 		}
 	}
 

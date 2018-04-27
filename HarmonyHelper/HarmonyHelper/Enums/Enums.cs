@@ -8,12 +8,12 @@ namespace Eric.Morrison.Harmony
 	{
 		Unknown = int.MinValue,
 		Octave0 = 0,
-		Octave1,
-		Octave2,
-		Octave3,
-		Octave4,
-		Octave5,
-		Octave6,
+		Octave1 = 1,
+		Octave2 = 2,
+		Octave3 = 3,
+		Octave4 = 4,
+		Octave5 = 5,
+		Octave6 = 6,
 	}
 
 
