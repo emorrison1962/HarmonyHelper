@@ -78,14 +78,14 @@ namespace Eric.Morrison.Harmony
 		{
 			var offsetFromKeyRoot = GetDistanceFromKeyRoot(this.Mode);
 
-			var root = NoteNames.Get(this.Key, this.Key.NoteName, offsetFromKeyRoot);
+			var root = NoteNames.Get(this.Key.NoteName, offsetFromKeyRoot, this.Key);
 			this.Name = root.Name + " " + this.Mode.ToString("G");
 
 			var result = new List<NoteName>();
 			result.Add(root);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteNames.Get(this.Key, root, interval);
+				var nn = NoteNames.Get(root, interval, this.Key);
 				result.Add(nn);
 			}
 

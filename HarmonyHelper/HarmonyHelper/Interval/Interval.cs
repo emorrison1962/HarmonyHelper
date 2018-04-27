@@ -182,7 +182,7 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			return $"{base.ToString()}: Name={this.Name} Value=0x{this.Value.ToString(("x8"))}";
+			return $"{this.GetType().Name}: Name={this.Name} Value=0x{this.Value.ToString(("x8"))}";
 		}
 
 		#region Used to be IntervalsEnumExtensions
@@ -220,18 +220,38 @@ namespace Eric.Morrison.Harmony
 			Interval result = Interval.None;
 			if (Interval.None != this)
 			{
-				var comparer = new IntervalValueComparer();
-				var list = Enum.GetValues(typeof(Interval)).Cast<Interval>()
-					.Where(x => x != Interval.None)
-					.Distinct(comparer)
-					.OrderBy(x => x)
-					.ToList();
-
-				//list.ForEach(x => Debug.WriteLine($"{x}: {(int)x}"));
-
-				var ndx = list.IndexOf(this);
-				var inversionNdx = (list.Count - 1) - ndx;
-				result = list[inversionNdx];
+				if (this == Interval.Minor2nd)
+					result = Interval.Major7th;
+				else if (this == Interval.Major2nd)
+					result = Interval.Minor7th;
+				else if (this == Interval.Minor3rd)
+					result = Interval.Major6th;
+				else if (this == Interval.Major3rd)
+					result = Interval.Minor6th;
+				else if (this == Interval.Diminished4th)
+					result = Interval.Augmented5th;
+				else if (this == Interval.Perfect4th)
+					result = Interval.Perfect5th;
+				else if (this == Interval.Augmented4th)
+					result = Interval.Diminished5th;
+				else if (this == Interval.Diminished5th)
+					result = Interval.Augmented4th;
+				else if (this == Interval.Perfect5th)
+					result = Interval.Perfect4th;
+				else if (this == Interval.Augmented5th)
+					result = Interval.Diminished4th;
+				else if (this == Interval.Minor6th)
+					result = Interval.Major3rd;
+				else if (this == Interval.Major6th)
+					result = Interval.Minor3rd;
+				else if (this == Interval.Diminished7th)
+					result = Interval.Minor3rd;
+				else if (this == Interval.Minor7th)
+					result = Interval.Major2nd;
+				else if (this == Interval.Major7th)
+					result = Interval.Minor2nd;
+				else
+					throw new ArgumentOutOfRangeException();
 			}
 
 			return result;

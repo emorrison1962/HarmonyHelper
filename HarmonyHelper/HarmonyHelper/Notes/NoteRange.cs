@@ -72,12 +72,16 @@ namespace Eric.Morrison.Harmony
 			this.Notes = notes;
 		}
 
-		public Note First(NoteName nn, KeySignature key)
+		public Note First(NoteName nn, INoteNameNormalizer normalizer)
 		{
-			var tmp = this.Notes.Where(x => x.NoteName.Value == nn.Value).FirstOrDefault();
-			var result = tmp.Copy();
-			var normalized = key.GetNormalized(nn);
-			result.SetNoteName(normalized);
+			Note result = null;
+			if (null != nn)
+			{
+				var tmp = this.Notes.Where(x => x.NoteName.Value == nn.Value).FirstOrDefault();
+				result = tmp.Copy();
+				var normalized = normalizer.GetNormalized(nn);
+				result.SetNoteName(normalized);
+			}
 			return result;
 		}
 
@@ -131,8 +135,11 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-
-	}
+		public override string ToString()
+		{
+			return $"{this.GetType().Name}: {this.LowerLimit}-{this.UpperLimit}";
+		}
+	}//class
 
 	public class FiveStringBassRange : NoteRange
 	{
@@ -226,7 +233,7 @@ namespace Eric.Morrison.Harmony
 		/// 
 		/// </summary>
 
-	}
+	}//class
 
 
-}
+}//ns

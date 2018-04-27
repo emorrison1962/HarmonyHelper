@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class Scale : ScaleBase
-    {
-        public Scale(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : base(key, formula, noteRange)
-        {
-        }
+	public class Scale : ScaleBase
+	{
+		public Scale(KeySignature key, ScaleFormulaBase formula, NoteRange noteRange) : base(key, formula, noteRange)
+		{
+		}
 
-        void Init()
-        {
-            foreach (var interval in this.Formula.Intervals)
-            {
-                var scaleTone = NoteNames.Get(this.Key, this.Key.NoteName, interval);
-                this.NoteNames.Add(scaleTone);
-            }
-        }
+		void Init()
+		{
+			foreach (var interval in this.Formula.Intervals)
+			{
+				var scaleTone = NoteNames.Get(this.Key.NoteName, interval, this.Key);
+				this.NoteNames.Add(scaleTone);
+			}
+		}
 
-    }//class
+	}//class
 
 }//ns

@@ -302,7 +302,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeUp(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result, note);
+				result = ctx.Key.GetNormalized(result);
 			}
 			return result;
 		}
@@ -313,7 +313,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeDown(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result, note);
+				result = ctx.Key.GetNormalized(result);
 			}
 			return result;
 		}
@@ -331,16 +331,18 @@ namespace Eric.Morrison.Harmony
 				var ndxA = notes.FindIndex(x => x.Value == a.Value);
 				var ndxB = notes.FindIndex(x => x.Value == b.Value);
 
-				var invert = 0 < (ndxA - ndxB);
 				var diff = Math.Abs(ndxA - ndxB);
 				if (diff > 0)
 				{
 					var pow = 1 << diff;
-					result = (Interval)pow;
-				}
-				if (invert)
-				{
-					result = result.GetInversion();
+					var intervalA = (Interval)pow;
+					var intervalB = intervalA.GetInversion();
+					var which = Math.Min(intervalA.Value, intervalB.Value);
+					if (intervalA.Value == which)
+						result = intervalA;
+					else
+						result = intervalB;
+
 				}
 			}
 			return result;
@@ -349,27 +351,34 @@ namespace Eric.Morrison.Harmony
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
 			NoteName result = null;
+			var success = false;
+			if (interval != Interval.None)
+				success = true;
+			if (success)
+			{
+				var notes = NoteName.Catalog
+					.Distinct(new NoteNameValueEqualityComparer())
+					.OrderBy(x => x.Value)
+					.ToList();
 
-			var notes = NoteName.Catalog
-				.Distinct(new NoteNameValueEqualityComparer())
-				.OrderBy(x => x.Value)
-				.ToList();
+				var maxNdx = notes.Count;
+				//var maxNdx = notes.Count - 1;
+				var currentNdx = notes.IndexOf(src);
+				var intervalNdx = interval.ToIndex();
 
-			var maxNdx = notes.Count - 1;
-			var currentNdx = notes.IndexOf(src);
-			var intervalNdx = interval.ToIndex();
+				var targetNdx = (currentNdx + intervalNdx) % maxNdx;
 
-			var targetNdx = (currentNdx + intervalNdx) % maxNdx;
+				result = notes[targetNdx];
+				Debug.Assert(result != src);
 
-			result = notes[targetNdx];
-			Debug.Assert(result != src);
-
+				success = true;
+			}
+			Debug.Assert(null != result);
 			var seq = NoteName.Catalog.Where(x => x.Value == result.Value);
 			Debug.Assert(null != seq);
-
-			var success = false;
-			if (!success)
+			if (success)
 			{
+				success = false;
 				var optimalResult = seq.Where(x => x.IsFlat == src.IsFlat
 					&& x.IsNatural == src.IsNatural
 					&& x.IsSharp == src.IsSharp).FirstOrDefault();
@@ -518,12 +527,14 @@ namespace Eric.Morrison.Harmony
 		}
 	}
 
-	public static class NoteNameCatalogExtensions{
-
-		public static NoteName Get(this List<NoteName> src,KeySignature key, NoteName nn, Interval interval)
+	public static class NoteNameCatalogExtensions
+	{
+		[Obsolete("", false)]
+		static public NoteName Get(this List<NoteName> src, 
+			NoteName nn, Interval interval, INoteNameNormalizer normalizer)
 		{
 			var result = NoteName.TransposeUp(nn, interval);
-			result = key.GetNormalized(result, nn);
+			result = normalizer.GetNormalized(result);
 			return result;
 		}
 

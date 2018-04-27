@@ -46,20 +46,11 @@ namespace Eric.Morrison.Harmony
 
 			this.Key = formula.Key;
 
-			this.Root = noteRange.First(formula.Root, this.Key);
-			this.Third = noteRange.First(formula.Third, this.Key);
-			this.Fifth = noteRange.First(formula.Fifth, this.Key);
-			this.Seventh = noteRange.First(formula.Seventh, this.Key);
+			this.Root = noteRange.First(formula.Root, formula);
+			this.Third = noteRange.First(formula.Third, formula);
+			this.Fifth = noteRange.First(formula.Fifth, formula);
+			this.Seventh = noteRange.First(formula.Seventh, formula);
 			this.Formula = formula;
-
-			if (null == this.Root)
-				throw new NullReferenceException();
-			if (null == this.Third)
-				throw new NullReferenceException();
-			if (null == this.Fifth)
-				throw new NullReferenceException();
-			if (null == this.Seventh)
-				throw new NullReferenceException();
 
 			this.PopulateNotes(noteRange);
 		}
@@ -85,13 +76,16 @@ namespace Eric.Morrison.Harmony
 
 		void PopulateNotes(NoteRange noteRange)
 		{
-			var notes = new List<Note>()
-			{
-				this.Root,
-				this.Third,
-				this.Fifth,
-				this.Seventh,
-			};
+			var notes = new List<Note>();
+			if (null != this.Root)
+				notes.Add(this.Root);
+			if (null != this.Third)
+				notes.Add(this.Third);
+			if (null != this.Fifth)
+				notes.Add(this.Fifth);
+			if (null != this.Seventh)
+				notes.Add(this.Seventh);
+
 			this.NoteNames = notes.Select(x => x.NoteName).ToList();
 
 			var result = noteRange.GetNotes(notes);
@@ -171,7 +165,7 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			return $"{this.Name}: {this.Root.NoteName.ToString()},{this.Third.NoteName.ToString()},{this.Fifth.NoteName.ToString()},{this.Seventh.NoteName.ToString()}";
+			return $"{this.Name}: {this.Root?.NoteName.ToString()},{this.Third?.NoteName.ToString()},{this.Fifth?.NoteName.ToString()},{this.Seventh?.NoteName.ToString()}";
 		}
 
 		public override bool Equals(object obj)

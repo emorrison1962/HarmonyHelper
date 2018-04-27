@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Eric.Morrison.Harmony
 {
 	[Serializable]
-	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
+	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, INoteNameNormalizer
 	{
 		public NoteName NoteName { get; private set; }
 		public List<NoteName> Notes { get; private set; }
@@ -102,33 +102,6 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public NoteName GetNormalized(NoteName nn, NoteName accidentalHint = null)
-		{
-			var copy = nn.Copy();
-			if (!this.Contains(copy))
-			{
-				if (this.Affects(copy))
-				{
-					copy = NoteName.GetEnharmonicEquivalent(copy);
-				}
-				else if (!nn.IsNatural)
-				{
-					if (null != accidentalHint && !accidentalHint.IsNatural)
-					{
-						if (nn.IsFlat != accidentalHint.IsFlat)
-						{
-							copy = NoteName.GetEnharmonicEquivalent(nn);
-						}
-					}
-					else
-					{
-#warning If the key is CMajor and the nn is A# and accidentalHint is D, we're in the dark.
-						//copy = NoteName.GetEnharmonicEquivalent(nn);
-					}
-				}
-			}
-			return copy;
-		}
 
 		public override string ToString()
 		{
@@ -245,6 +218,21 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+
+
+		public NoteName GetNormalized(NoteName nn)
+		{
+			var copy = nn.Copy();
+			if (!this.Contains(copy))
+			{
+				if (this.Affects(copy))
+				{
+					copy = NoteName.GetEnharmonicEquivalent(copy);
+				}
+			}
+			return copy;
+		}
+
 
 	}//class
 }//ns

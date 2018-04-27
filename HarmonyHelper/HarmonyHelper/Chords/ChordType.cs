@@ -8,6 +8,7 @@ namespace Eric.Morrison.Harmony
 { 
 	public class ChordType
 	{
+		static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
 		static public ChordType None = new ChordType("None", Interval.None);
 		static public ChordType Major = new ChordType("Major", Interval.Major3rd, Interval.Perfect5th);
 		static public ChordType Minor = new ChordType("Minor", Interval.Minor3rd , Interval.Perfect5th);
@@ -20,7 +21,6 @@ namespace Eric.Morrison.Harmony
 		static public ChordType Diminished7 = new ChordType("Diminished7", Diminished.Intervals, Interval.Diminished7th);
 		//Suspended,....
 		//= new Interval("Minor6th",
-		static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
 
 		public string Name { get; private set; }
 		public int Value { get; private set; }
@@ -55,6 +55,8 @@ namespace Eric.Morrison.Harmony
 		#region Used to be IntervalsEnumExtensions
 		public Interval GetInterval(ChordFunctionEnum cfe)
 		{
+			if (0 == this.Intervals.Count)
+				throw new Exception("this.Intervals not initialized.");
 			var result = Interval.None;
 
 			Predicate<Interval> predicate = null;
@@ -93,12 +95,19 @@ namespace Eric.Morrison.Harmony
 
 			if (null != predicate)
 			{
-				result = this.Intervals.First(x => predicate(x));
+				var found = this.Intervals.FirstOrDefault(x => predicate(x));
+				if (null != found)
+					result = found;
 			}
 
 			return result;
 		}
 		#endregion
+
+		public override string ToString()
+		{
+			return $"{this.GetType().Name}: Name={this.Name}";
+		}
 
 	}//class
 }//ns

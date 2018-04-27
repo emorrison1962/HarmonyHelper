@@ -609,23 +609,6 @@ namespace Eric.Morrison.Harmony
 		const int BARS_PER_LINE = 2;
 		private void Ctx_ChordChanged(object sender, Arpeggiator ctx)
 		{
-
-			if (ctx.CurrentChord.Key.UsesFlats)
-			{
-				Assert.IsTrue(ctx.CurrentChord.Root.NoteName.IsNatural || ctx.CurrentChord.Root.NoteName.IsFlat);
-				Assert.IsTrue(ctx.CurrentChord.NoteNames.All(x => x.IsNatural || x.IsFlat));
-				Assert.IsTrue(ctx.CurrentChord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat));
-			}
-			else if (ctx.CurrentChord.Key.UsesSharps)
-			{
-				Assert.IsTrue(ctx.CurrentChord.Root.NoteName.IsNatural || ctx.CurrentChord.Root.NoteName.IsSharp);
-				Assert.IsTrue(ctx.CurrentChord.NoteNames.All(x => x.IsNatural || x.IsSharp));
-				Assert.IsTrue(ctx.CurrentChord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp));
-			}
-			else { }
-
-
-
 			if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
 			Debug.Write(string.Format(" | {0,4} ", "(" + ctx.CurrentChord.Name + ")"));
