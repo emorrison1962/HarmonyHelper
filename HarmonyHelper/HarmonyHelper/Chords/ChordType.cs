@@ -30,7 +30,8 @@ namespace Eric.Morrison.Harmony
 			this.Name = name;
 			this.Intervals.AddRange(intervals);
 			this.Intervals.ForEach(x => this.Value |= x.Value);
-			Catalog.Add(this);
+			if (!this.Intervals.Contains(Interval.None))
+				Catalog.Add(this);
 		}
 		private ChordType(string name, List<Interval> aIntervals, params Interval[] bIntervals)
 		{
@@ -38,7 +39,8 @@ namespace Eric.Morrison.Harmony
 			this.Intervals.AddRange(aIntervals);
 			this.Intervals.AddRange(bIntervals);
 			this.Intervals.ForEach(x => this.Value |= x.Value);
-			Catalog.Add(this);
+			if (!this.Intervals.Contains(Interval.None))
+				Catalog.Add(this);
 		}
 
 		public static int operator |(ChordType a, ChordType b)

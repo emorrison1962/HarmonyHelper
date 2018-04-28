@@ -9,19 +9,7 @@ namespace Eric.Morrison.Harmony
 		#region Properties
 		public NoteName NoteName { get; private set; }
 
-		OctaveEnum _Octave;
-		public OctaveEnum Octave
-		{
-			get {
-				var result = this._Octave;
-				if (this.NoteName == NoteName.BSharp)
-					result = (OctaveEnum)((int)this._Octave + 1);
-				else if (this.NoteName == NoteName.Cb)
-					result = (OctaveEnum)((int)this._Octave - 1);
-				return result;
-			}
-			set { this._Octave = value; }
-		}
+		public OctaveEnum Octave { get; set; }
 
 		#endregion
 

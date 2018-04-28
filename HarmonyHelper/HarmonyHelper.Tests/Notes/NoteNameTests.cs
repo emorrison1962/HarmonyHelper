@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -11,7 +12,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_AdditionTest()
 		{
-			var intervals = Enum.GetValues(typeof(Interval));
+			var intervals = Interval.Catalog.Where(x => x > Interval.None);
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)
@@ -1318,7 +1319,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_SubtractionTest()
 		{
-			var intervals = Enum.GetValues(typeof(Interval));
+			var intervals = Interval.Catalog.Where(x => x > Interval.None);
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)

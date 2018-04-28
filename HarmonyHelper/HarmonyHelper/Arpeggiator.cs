@@ -172,13 +172,15 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 							}
 #endif
 
-							var closestNoteCtx = new Chord.ClosestNoteContext(this);
+							var closestNoteCtx = new Chord.ClosestNoteContext(this.CurrentChord, 
+								this.CurrentNote, 
+								this.Direction);
 							if (closestNoteCtx.Direction != direction)
 							{
 								closestNoteCtx.Direction = direction;
 							}
 
-							this.CurrentChord.GetClosestNoteEx(closestNoteCtx);
+							this.CurrentChord.GetClosestNote(closestNoteCtx);
 							var nextNote = closestNoteCtx.ClosestNote;
 							if (direction != closestNoteCtx.Direction)
 							{

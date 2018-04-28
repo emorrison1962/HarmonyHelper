@@ -164,5 +164,193 @@ namespace Eric.Morrison.Harmony
 
 		}
 
+		[TestMethod]
+		public void Chord_Populate_Notes()
+		{
+			var queue = new Queue<Chord>();
+			foreach (var key in KeySignature.Catalog)
+			{
+				foreach (var chordType in ChordType.Catalog
+					.Where(x => x.Intervals.Count > 2)
+					.Except(new[] { ChordType.None }))
+				{
+					foreach (var nn in NoteName.Catalog)
+					{
+						var ascOctaves = Enum.GetValues(typeof(OctaveEnum))
+						.Cast<OctaveEnum>()
+						.Where(x => x > OctaveEnum.Unknown && x < OctaveEnum.Octave6)
+						.ToList();
+						foreach (var ascOctave in ascOctaves)
+						{
+							var descOctaves = Enum.GetValues(typeof(OctaveEnum))
+								.Cast<OctaveEnum>()
+								.Where(x => x > OctaveEnum.Unknown && x > ascOctave)
+								.ToList();
+							foreach (var descOctave in descOctaves)
+							{
+								try
+								{
+									var chordFormula = new ChordFormula(nn, chordType, key);
+									var ul = new Note(nn, ascOctave);
+									var ll = new Note(nn, descOctave);
+
+									var noteRange = new NoteRange(ul, ll);
+									var chord = new Chord(chordFormula, noteRange);
+									// Debug.WriteLine($"chord.Notes.Count:{chord.Notes.Count}, nn:{nn}, chordType:{chordType}");
+									Assert.IsTrue(4 <= chord.Notes.Count);
+									chord.Set(noteRange);
+									Assert.IsTrue(4 <= chord.Notes.Count);
+
+
+#if false
+									if (4 == queue.Count)
+									{
+										queue.Dequeue();
+										queue.Enqueue(chord);
+										this.Arpeggiate(queue.ToList(), noteRange);
+									}
+#endif
+
+								}
+								catch (ArgumentOutOfRangeException)
+								{ }
+
+							}
+						}
+					}
+				}
+			}
+		}
+
+		[TestMethod]
+		public void Chord_GetClosestNote()
+		{
+			var chordTxt = "eb7 abm7 db7";
+			var success = false;
+
+			if (Harmony.ChordParser.TryParse(chordTxt,
+				KeySignature.CMajor,
+				out List<Harmony.Chord> chords,
+				out string message))
+			{
+				foreach (var chord in chords)
+				{
+					//new Chord.ClosestNoteContext(
+					//GetClosestNote(ClosestNoteContext ctx)
+				}
+			}
+
+		}
+
+
+		[Ignore] //SUPER slow.
+		[TestMethod]
+		public void Arpeggiator_NoteRange_StartingNote_BUG()
+		{
+			//var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			var chordTxt = "eb7 abm7 db7";
+			var success = false;
+
+			if (Harmony.ChordParser.TryParse(chordTxt,
+				KeySignature.CMajor,
+				out List<Harmony.Chord> chords,
+				out string message))
+			{
+				//chords.ForEach(x => Debug.WriteLine(x));
+				success = true;
+			}
+
+			if (success)
+			{
+				var key = KeySignature.CMajor;
+				//foreach (var key in KeySignature.Catalog)
+				{
+					foreach (var nn in NoteName.Catalog)
+					{
+						var chordType = ChordType.Minor7th;
+						/*foreach (var chordType in ChordType.Catalog
+							.Where(x => x.Intervals.Count > 2)
+							.Except(new[] { ChordType.None }))*/
+						{
+
+							var ascOctaves = Enum.GetValues(typeof(OctaveEnum))
+								.Cast<OctaveEnum>()
+								.Where(x => x > OctaveEnum.Unknown && x < OctaveEnum.Octave6)
+								.ToList();
+							foreach (var ascOctave in ascOctaves)
+							{
+								var descOctaves = Enum.GetValues(typeof(OctaveEnum))
+									.Cast<OctaveEnum>()
+									.Where(x => x > OctaveEnum.Unknown && x > ascOctave)
+									.ToList();
+								foreach (var descOctave in descOctaves)
+								{
+									try
+									{
+										{//Arpeggiate
+											var noteRange = new NoteRange(
+												//new Note(NoteName.B, OctaveEnum.Octave1),
+												//new Note(NoteName.B, OctaveEnum.Octave4));
+												new Note(NoteName.B, ascOctave),
+												new Note(NoteName.B, descOctave));
+											chords.ForEach(x => x.Set(noteRange));
+											chords.ForEach(x => Assert.IsTrue(4 <= x.Notes.Count));
+
+											new object();
+
+											var startingNote = new Note(chords[0].Root.NoteName,
+											//OctaveEnum.Octave1);
+											OctaveEnum.Octave2);
+
+											var notesToPlay = 4;
+											var contexts = new List<ArpeggiationContext>();
+											chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+											const int BEATS_PER_BAR = 4;
+											var arpeggiator = new Arpeggiator(contexts,
+												DirectionEnum.Ascending,
+												//DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+												noteRange, BEATS_PER_BAR, startingNote, true);
+#warning FIXME:
+											arpeggiator.Arpeggiate();
+										}
+									}
+									catch { }
+
+								}
+							}
+							new object();
+						}
+					}
+				}
+			}
+			new object();
+
+		}
+
+		void Arpeggiate(List<Chord> chords, NoteRange noteRange)
+		{//Arpeggiate
+			chords.ForEach(x => x.Set(noteRange));
+
+			new object();
+
+			var startingNote = new Note(chords[0].Root.NoteName,
+			//OctaveEnum.Octave1);
+			OctaveEnum.Octave2);
+
+			var notesToPlay = 4;
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+			const int BEATS_PER_BAR = 4;
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				//DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+				noteRange, BEATS_PER_BAR, startingNote, true);
+
+			arpeggiator.Arpeggiate();
+		}
+
+
 	}//class
 }//ns

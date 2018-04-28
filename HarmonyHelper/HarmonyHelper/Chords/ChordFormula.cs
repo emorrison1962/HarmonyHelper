@@ -278,6 +278,9 @@ namespace Eric.Morrison.Harmony
 				else if (interval == Interval.Perfect4th)
 					result = ChordToneFunctionEnum.Eleventh;
 
+				else if (interval == Interval.Augmented4th)
+					result = ChordToneFunctionEnum.Augmented11th;
+
 				else if (interval == Interval.Diminished5th)
 					result = ChordToneFunctionEnum.Augmented11th;
 

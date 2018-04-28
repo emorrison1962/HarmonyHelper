@@ -363,10 +363,12 @@ namespace Eric.Morrison.Harmony
 
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
-			NoteName result = null;
+			NoteName result = src;
 			var success = false;
-			if (interval != Interval.None)
+			if (Interval.None < interval)
 				success = true;
+
+			IEnumerable<NoteName> noteNames = null;
 			if (success)
 			{
 				var notes = NoteName.Catalog
@@ -382,17 +384,20 @@ namespace Eric.Morrison.Harmony
 				var targetNdx = (currentNdx + intervalNdx) % maxNdx;
 
 				result = notes[targetNdx];
+				Debug.Assert(null != result);
 				Debug.Assert(result != src);
-
 				success = true;
+
+				noteNames = NoteName.Catalog.Where(x => x.Value == result?.Value);
+				if (null == noteNames)
+					success = false;
 			}
-			Debug.Assert(null != result);
-			var seq = NoteName.Catalog.Where(x => x.Value == result.Value);
-			Debug.Assert(null != seq);
+
+
 			if (success)
 			{
 				success = false;
-				var optimalResult = seq.Where(x => x.IsFlat == src.IsFlat
+				var optimalResult = noteNames.Where(x => x.IsFlat == src.IsFlat
 					&& x.IsNatural == src.IsNatural
 					&& x.IsSharp == src.IsSharp).FirstOrDefault();
 				if (null != optimalResult)
@@ -400,29 +405,31 @@ namespace Eric.Morrison.Harmony
 					result = optimalResult;
 					success = true;
 				}
-			}
-			if (!success)
-			{
-				var nextBestResult = seq.Where(x => x.IsNatural).FirstOrDefault();
-				if (null != nextBestResult)
+
+				if (!success)
 				{
-					result = nextBestResult;
-					success = true;
+					var nextBestResult = noteNames.Where(x => x.IsNatural).FirstOrDefault();
+					if (null != nextBestResult)
+					{
+						result = nextBestResult;
+						success = true;
+					}
 				}
-			}
-			if (!success)
-			{
+				if (!success)
+				{
 #warning FIXME: # if ascending....
-				var defaultResult = seq.Where(x => x.IsSharp).FirstOrDefault();
-				if (null != defaultResult)
-				{
-					result = defaultResult;
-					success = true;
+					var defaultResult = noteNames.Where(x => x.IsSharp).FirstOrDefault();
+					if (null != defaultResult)
+					{
+						result = defaultResult;
+						success = true;
+					}
 				}
-			}
-			if (!success)
-			{
-				throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Unable to transpose input.");
+				if (!success)
+				{
+					throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Unable to transpose input.");
+				}
+
 			}
 
 			return result;
@@ -546,8 +553,12 @@ namespace Eric.Morrison.Harmony
 		static public NoteName Get(this List<NoteName> src, 
 			NoteName nn, Interval interval, INoteNameNormalizer normalizer)
 		{
-			var result = NoteName.TransposeUp(nn, interval);
-			result = normalizer.GetNormalized(result);
+			var result = nn;
+			if (Interval.None < interval)
+			{
+				result = NoteName.TransposeUp(nn, interval);
+				result = normalizer.GetNormalized(result);
+			}
 			return result;
 		}
 

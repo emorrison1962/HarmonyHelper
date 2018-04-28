@@ -129,16 +129,20 @@ namespace Eric.Morrison.Harmony
 			public bool TemporaryDirectionReversal { get; set; }
 			public bool ExceededRangeLimit { get; set; }
 
+			[Obsolete("", false)]
 			public ClosestNoteContext(Arpeggiator arpeggiator)
 			{
 				this.LastNote = arpeggiator.CurrentNote;
 				this.Direction = arpeggiator.Direction;
 				this.Notes = arpeggiator.CurrentChord.Notes;
 			}
-			public ClosestNoteContext(Arpeggiator arpeggiator, DirectionEnum direction) : this(arpeggiator)
+			public ClosestNoteContext(Chord chord, Note lastNote, DirectionEnum direction)
 			{
+				this.Notes = chord.Notes;
+				this.LastNote = lastNote;
 				this.Direction = direction;
 			}
+
 
 			public override string ToString()
 			{
@@ -148,7 +152,7 @@ namespace Eric.Morrison.Harmony
 				return result;
 			}
 		}
-		public void GetClosestNoteEx(ClosestNoteContext ctx)
+		public void GetClosestNote(ClosestNoteContext ctx)
 		{
 			var result = ctx.FindClosest();
 			if (null == result)

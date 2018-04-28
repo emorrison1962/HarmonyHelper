@@ -28,10 +28,14 @@ namespace Eric.Morrison.Harmony
 			var upperLimit = this.LowerLimit.Copy();
 			var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
 
-			for (int i = 0; i < numberOfOctaves; ++i)
+			for (int i = 0 ; i < numberOfOctaves ; ++i)
 			{
 				var octave = upperLimit.Octave;
-				octave = octaves.First(x => x > octave);
+				octave = octaves.FirstOrDefault(x => x > octave);
+				if (OctaveEnum.Octave0 == octave)
+				{
+					throw new ArgumentOutOfRangeException("Invalid octave count.");
+				}
 				upperLimit.Octave = octave;
 			}
 
@@ -119,7 +123,7 @@ namespace Eric.Morrison.Harmony
 			result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
 				.ToList().ForEach(x => result.Remove(x));
 
-			this.AdjustExceptiopnalNotes(result);
+			//this.AdjustExceptiopnalNotes(result);
 
 			return result;
 		}

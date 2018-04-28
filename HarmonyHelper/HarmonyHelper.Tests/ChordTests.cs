@@ -72,7 +72,7 @@ namespace Eric.Morrison.Harmony.Tests
 			for (int i = 0; i < MAX_ITERATIONS; ++i)
 			{
 				var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
-				chord.GetClosestNoteEx(closestNoteCtx);
+				chord.GetClosestNote(closestNoteCtx);
 				var next = closestNoteCtx.ClosestNote;
 				Debug.WriteLine(string.Format("{0}", next.ToString()));
 				arpeggiator.CurrentNote = next;
@@ -212,7 +212,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void GetChordToneFunctionTest()
 		{
-			var chordTypes = Enum.GetValues(typeof(ChordType)).Cast<ChordType>();
+			var chordTypes = ChordType.Catalog;
 			foreach (var chordType in chordTypes)
 			{
 				var chord = ChordFormulaFactory.Create(NoteName.C, chordType, KeySignature.CMajor);

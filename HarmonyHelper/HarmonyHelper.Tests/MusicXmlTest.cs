@@ -132,14 +132,30 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				var noteRange = new NoteRange(
+					//new Note(NoteName.B, OctaveEnum.Octave1),
+					//new Note(NoteName.B, OctaveEnum.Octave4));
 					new Note(NoteName.B, OctaveEnum.Octave0),
 					new Note(NoteName.B, OctaveEnum.Octave3));
 
+
+#if false
+				var tmp = new List<Note>();
+				while (noteRange.Notes.Count > 0)
+				{
+					tmp = noteRange.Notes.Take(12).ToList();
+					noteRange.Notes.RemoveRange(0, tmp.Count);
+					var output = string.Join(", ", tmp);
+					Debug.WriteLine(output);
+					tmp.Clear();
+				}
+#endif
 				chords.ForEach(x => x.Set(noteRange));
 
 				new object();
 
-				var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+				var startingNote = new Note(chords[0].Root.NoteName,
+				//OctaveEnum.Octave1);
+				OctaveEnum.Octave2);
 				var notesToPlay = 4;
 
 				var contexts = new List<ArpeggiationContext>();
@@ -270,7 +286,7 @@ namespace Eric.Morrison.Harmony
 		}
 		private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
-			#region FORMAT
+#region FORMAT
 			const string FORMAT = @"
 	  <note>
 		<pitch>
@@ -283,9 +299,9 @@ namespace Eric.Morrison.Harmony
 		<type>quarter</type>
 		<staff>{3}</staff>
 	  </note>";
-			#endregion
+#endregion
 
-			var octave = 2 + (int)ctx.CurrentNote.Octave;
+			var octave = (int)ctx.CurrentNote.Octave;
 			var note = ctx.CurrentNote.NoteName.ToString();
 			if (ctx.CurrentNote.NoteName == NoteName.Cb)
 				++octave;
@@ -303,7 +319,7 @@ namespace Eric.Morrison.Harmony
 			note = note.Replace(FLAT, string.Empty);
 			note = note.Replace(SHARP, string.Empty);
 
-			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave2);
+			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave4);
 			int staff = 1;
 			if (splitPoint > ctx.CurrentNote)
 			{
@@ -373,7 +389,7 @@ namespace Eric.Morrison.Harmony
 
 			}
 
-			#region MEASURE_XML
+#region MEASURE_XML
 			const string MEASURE_XML = @"
 	<measure number=""{0}"">
 {3}
@@ -385,7 +401,7 @@ namespace Eric.Morrison.Harmony
 		<kind text = ""7"" >dominant</kind>
 	  </harmony>
 	</measure>";
-			#endregion
+#endregion
 			var xml = string.Format(MEASURE_XML, XmlCtx.MeasureNumber, chordRoot, rootAlter, print);
 
 			//Debug.WriteLine(xml);

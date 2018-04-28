@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -13,7 +14,7 @@ namespace Eric.Morrison.Harmony.Tests
 			//public static KeySignature GetTransposed(KeySignature key, Interval interval)
 
 
-			var intervals = Enum.GetValues(typeof(Interval));
+			var intervals = Interval.Catalog.Where(x => x > Interval.None);
 			foreach (var key in KeySignature.Catalog)
 			{
 				Debug.WriteLine($"Key = {key.NoteName.Name}");
