@@ -44,7 +44,10 @@ namespace HarmornyHelper.forms
 			this._comboKey.SelectedItem = this._comboKey.Keys[0];
 			this._comboKey_SelectionChangeCommitted(null, null);
 
-			this._tbChords.Text = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			//this._tbChords.Text = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+			this._tbChords.Text = "eb7 abm7 db7";
+			this._bnParse_Click(null, null);
+
 		}
 
 		#endregion
@@ -69,6 +72,10 @@ namespace HarmornyHelper.forms
 			while (0 < this.ArpeggiationResults.Count)
 			{
 				var arpResults = this.ArpeggiationResults.Take(BARS_PER_LINE).ToList();
+
+				arpResults.ForEach(x => _tbDiags.Text += x.ToString() + Environment.NewLine);
+				_tbDiags.Text += Environment.NewLine;
+
 				arpResults.ForEach(x => this.ArpeggiationResults.Remove(x));
 
 				var noteViewer = this.BuildNoteViewer(arpResults);
@@ -134,14 +141,6 @@ namespace HarmornyHelper.forms
 			result.AddStaff(Clef.Bass, TimeSignature.CommonTime, key.NoteName.ToStep(), flags);
 			var bassStaff = result.Staves.Last();
 
-#if DEBUG
-			var staff = new Staff();
-			staff.Add(Clef.Treble);
-			staff.Add(TimeSignature.CommonTime);
-			staff.Add(Key.FromTonic(key.NoteName.ToStep(), flags));
-			var staffFragment = new StaffFragment(staff);
-#endif
-
 			#endregion
 
 			foreach (var arpResult in arpResults)
@@ -154,14 +153,20 @@ namespace HarmornyHelper.forms
 				foreach (var pitch in pitches)
 				{
 					var note = new Note(pitch, RhythmicDuration.Quarter);
-					var rest = new Rest(RhythmicDuration.Quarter);
-					MusicalSymbol trebleSymbol = rest;
-					MusicalSymbol bassSymbol = rest;
+					var empty = new Rest(RhythmicDuration.Quarter);
+					empty.IsVisible = false;
 
+					MusicalSymbol trebleSymbol = empty;
+					MusicalSymbol bassSymbol = empty;
+
+					trebleSymbol = note;
+					trebleSymbol.IsVisible = false;
+					bassSymbol = note;
+					bassSymbol.IsVisible = false;
 					if (pitch >= STAFF_PITCH_THRESHOLD)
-						trebleSymbol = note;
+						trebleSymbol.IsVisible = true;
 					else
-						bassSymbol = note;
+						bassSymbol.IsVisible = true;
 
 					if (firstTime)
 					{

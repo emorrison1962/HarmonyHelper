@@ -59,17 +59,20 @@ namespace Eric.Morrison.Harmony
 			else if (this == Interval.Major3rd)
 				result = Interval.Minor6th;
 
+			else if (this == Interval.Diminished4th)
+				result = Interval.Augmented5th;
+
 			else if (this == Interval.Perfect4th)
 				result = Interval.Perfect5th;
 
 			else if (this == Interval.Augmented4th)
 				result = Interval.Diminished5th;
 
-			else if (this == Interval.Perfect5th)
-				result = Interval.Perfect4th;
-
 			else if (this == Interval.Diminished5th)
 				result = Interval.Augmented4th;
+
+			else if (this == Interval.Perfect5th)
+				result = Interval.Perfect4th;
 
 			else if (this == Interval.Minor6th)
 				result = Interval.Major3rd;

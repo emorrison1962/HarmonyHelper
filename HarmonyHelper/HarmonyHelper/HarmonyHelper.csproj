@@ -40,11 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArpeggiationContext.cs">
+    <Compile Include="Arpeggiator\ArpeggiationContext.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Arpeggiator.cs" />
-    <Compile Include="Arpeggiator_Snapshot.cs">
+    <Compile Include="Arpeggiator\Arpeggiator.cs" />
+    <Compile Include="Arpeggiator\Arpeggiator_Snapshot.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>
     </Compile>
     <Compile Include="Chords\Chord.cs" />
@@ -94,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sunny Resolutions MusicXML Test.mscz" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HarmonicAnalyzer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,8 @@ namespace Eric.Morrison.Harmony.Tests
 			var s = "bbm7";
 			var success = ChordParser.TryParse(s, KeySignature.CMajor, out List<Chord> result, out string message);
 			Assert.IsTrue(success);
-			Assert.IsTrue("B♭m7" == result.First().Name);
+			Assert.IsTrue(ChordType.Minor7th == result.First().Formula.ChordType);
+			Assert.IsTrue(NoteName.Bb == result.First().Root.NoteName);
 
 			new object();
 		}

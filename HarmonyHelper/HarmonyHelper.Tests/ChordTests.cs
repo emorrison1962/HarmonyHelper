@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -23,24 +21,6 @@ namespace Eric.Morrison.Harmony.Tests
 			var interval = ChordType.Major.GetInterval(ChordFunctionEnum.Third);
 			//Interval GetThird(this ChordType e)
 			//interval.ToStringEx();
-		}
-
-		[TestMethod()]
-		public void SubtractionOperatorTest()
-		{
-			var intervals = Interval.Catalog
-				.Where(x => x > Interval.None)
-				.ToList();
-
-			foreach (var interval in intervals)
-			{
-				var key = KeySignature.BbMajor;
-				var subtrahend = NoteName.C + new IntervalContext(key, interval);
-				var result = NoteName.C - subtrahend;
-				Assert.AreEqual(interval, result);
-			}
-
-			new object();
 		}
 
 		[TestMethod()]
@@ -69,7 +49,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			const int MAX_ITERATIONS = 100;
 			Debug.WriteLine(root);
-			for (int i = 0; i < MAX_ITERATIONS; ++i)
+			for (int i = 0 ; i < MAX_ITERATIONS ; ++i)
 			{
 				var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
 				chord.GetClosestNote(closestNoteCtx);
@@ -87,7 +67,7 @@ namespace Eric.Morrison.Harmony.Tests
 			const int MAX_ITERATIONS = 12;
 			var e = OctaveEnum.Octave0;
 			var sw = Stopwatch.StartNew();
-			for (int i = 0; i < MAX_ITERATIONS; ++i)
+			for (int i = 0 ; i < MAX_ITERATIONS ; ++i)
 			{
 				e = e.Next();
 				Debug.WriteLine(e);
@@ -157,7 +137,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void KeySignatureTransposeTest()
 		{
 			var key = KeySignature.CMajor;
-			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
+			for (int i = 0 ; i <= TestConstants.CYCLE_MAX ; ++i)
 			{
 				var a = key.NoteName.ToString();
 				var b = key.GetNormalized(key.NoteName).ToString();

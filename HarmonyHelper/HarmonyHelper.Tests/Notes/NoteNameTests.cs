@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony.Tests
@@ -2612,9 +2613,9 @@ namespace Eric.Morrison.Harmony.Tests
 				foreach (var nn2 in cat2)
 				{
 					var interval = nn1 - nn2;
-					//Debug.WriteLine($"{nn1} - {nn2} = {interval}");
+					Debug.WriteLine($"{nn1} - {nn2} = {interval}");
 					var interval2 = nn2 - nn1;
-					//Debug.WriteLine($"{nn2} - {nn1} = {interval}");
+					Debug.WriteLine($"{nn2} - {nn1} = {interval}");
 					if (interval == Interval.None)
 					{
 						Assert.IsTrue(nn1.Value == nn2.Value);
@@ -2622,12 +2623,33 @@ namespace Eric.Morrison.Harmony.Tests
 					else
 					{
 						Assert.IsTrue(nn1.Value != nn2.Value);
-						Assert.IsTrue(interval.GetInversion() == interval2);
+						Assert.IsTrue(interval.Value == interval2.Value);
 					}
 				}
 			}
 			new object();
 		}
+
+		[TestMethod()]
+		public void NoteName_Subtraction_Test02()
+		{
+			var intervals = Interval.Catalog
+				.Where(x => x > Interval.None)
+				.ToList();
+
+			foreach (var interval in intervals)
+			{
+				var key = KeySignature.BbMajor;
+				var subtrahend = NoteName.C + new IntervalContext(key, interval);
+				var result = NoteName.C - subtrahend;
+				var expected = (Interval)Math.Min((int)interval, (int)result.GetInversion());
+				Assert.AreEqual(interval.Value, expected.Value);
+			}
+
+			new object();
+		}
+
+
 
 
 		[TestMethod()]

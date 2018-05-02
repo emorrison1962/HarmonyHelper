@@ -10,15 +10,15 @@ namespace Eric.Morrison.Harmony
 	{
 		static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
 		static public ChordType None = new ChordType("None", Interval.None);
-		static public ChordType Major = new ChordType("Major", Interval.Major3rd, Interval.Perfect5th);
-		static public ChordType Minor = new ChordType("Minor", Interval.Minor3rd , Interval.Perfect5th);
-		static public ChordType Augmented = new ChordType("Augmented", Interval.Major3rd,   Interval.Augmented5th);
-		static public ChordType Diminished = new ChordType("Diminished", Interval.Minor3rd, Interval.Diminished5th);
-		static public ChordType Major7th = new ChordType("Major7th", Major.Intervals , Interval.Major7th);
-		static public ChordType Minor7th = new ChordType("Minor7th", Minor.Intervals, Interval.Minor7th);
-		static public ChordType Dominant7th = new ChordType("Dominant7th", Major.Intervals, Interval.Minor7th);
-		static public ChordType HalfDiminished = new ChordType("HalfDiminished", Diminished.Intervals, Interval.Minor7th);
-		static public ChordType Diminished7 = new ChordType("Diminished7", Diminished.Intervals, Interval.Diminished7th);
+		static public ChordType Major = new ChordType("", Interval.Major3rd, Interval.Perfect5th);
+		static public ChordType Minor = new ChordType("m", Interval.Minor3rd , Interval.Perfect5th);
+		static public ChordType Augmented = new ChordType("+", Interval.Major3rd,   Interval.Augmented5th);
+		static public ChordType Diminished = new ChordType("o", Interval.Minor3rd, Interval.Diminished5th);
+		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals , Interval.Major7th);
+		static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, Interval.Minor7th);
+		static public ChordType Dominant7th = new ChordType("7", Major.Intervals, Interval.Minor7th);
+		static public ChordType HalfDiminished = new ChordType("m7b5", Diminished.Intervals, Interval.Minor7th);
+		static public ChordType Diminished7 = new ChordType("o7", Diminished.Intervals, Interval.Diminished7th);
 		//Suspended,....
 		//= new Interval("Minor6th",
 
@@ -82,7 +82,7 @@ namespace Eric.Morrison.Harmony
 					break;
 
 				case ChordFunctionEnum.Ninth:
-					throw new NotImplementedException("#9 ???");
+					//throw new NotImplementedException("#9 ???");
 					predicate = (Interval x) => x == Interval.Major2nd || x == Interval.Minor2nd;
 					break;
 

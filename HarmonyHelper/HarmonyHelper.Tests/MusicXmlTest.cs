@@ -69,8 +69,8 @@ namespace Eric.Morrison.Harmony
 		public void TheCycle_12Frets_Test()
 		{
 			var noteRange = new NoteRange(
-				new Note(NoteName.B, OctaveEnum.Octave0),
-				new Note(NoteName.G, OctaveEnum.Octave3));
+				new Note(NoteName.B, OctaveEnum.Octave2),
+				new Note(NoteName.G, OctaveEnum.Octave5));
 
 			var chords = new List<Chord>();
 			NoteName root = null;
@@ -98,7 +98,7 @@ namespace Eric.Morrison.Harmony
 			}
 
 
-			var startingNote = new Note(chords[0].Root.NoteName + new IntervalContext(KeySignature.CMajor, Interval.Major3rd), OctaveEnum.Octave2);
+			var startingNote = chords[0].Root;
 			var notesToPlay = 4;
 
 			var contexts = new List<ArpeggiationContext>();
@@ -132,10 +132,8 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				var noteRange = new NoteRange(
-					//new Note(NoteName.B, OctaveEnum.Octave1),
-					//new Note(NoteName.B, OctaveEnum.Octave4));
-					new Note(NoteName.B, OctaveEnum.Octave0),
-					new Note(NoteName.B, OctaveEnum.Octave3));
+					new Note(NoteName.B, OctaveEnum.Octave1),
+					new Note(NoteName.B, OctaveEnum.Octave4));
 
 
 #if false
@@ -162,8 +160,8 @@ namespace Eric.Morrison.Harmony
 				chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
 
 				var arpeggiator = new Arpeggiator(contexts,
-					DirectionEnum.Ascending,
-					//DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+					//DirectionEnum.Ascending,
+					DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
 					noteRange, 4, startingNote, true);
 
 				this.RegisterMusicXmlObservers(arpeggiator);
@@ -303,8 +301,8 @@ namespace Eric.Morrison.Harmony
 
 			var octave = (int)ctx.CurrentNote.Octave;
 			var note = ctx.CurrentNote.NoteName.ToString();
-			if (ctx.CurrentNote.NoteName == NoteName.Cb)
-				++octave;
+			//if (ctx.CurrentNote.NoteName == NoteName.Cb)
+			//	++octave;
 
 
 			var alter = string.Empty;

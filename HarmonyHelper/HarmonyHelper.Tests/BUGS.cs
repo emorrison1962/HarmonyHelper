@@ -22,18 +22,6 @@ namespace Eric.Morrison.Harmony
 			new Object();
 		}
 
-		[TestMethod]
-		public void Interval_Distinct_ToIndex()
-		{
-			var indexes = new List<int>();
-			foreach (var interval in Interval.Catalog)
-			{
-				var ndx = interval.ToIndex();
-				indexes.Add(ndx);
-			}
-			Assert.IsTrue(indexes.Count == indexes.Distinct().Count());
-			new object();
-		}
 
 		[TestMethod]
 		public void Interval_GetInversion()
@@ -100,8 +88,9 @@ namespace Eric.Morrison.Harmony
 				foreach (var interval in intervals)
 				{
 					var txposedUp = NoteName.TransposeUp(noteName, interval);
-					var expectedInterval = noteName - txposedUp;
+					var expectedInterval = txposedUp - noteName;
 
+					var inversion = interval.GetInversion();
 					Assert.IsTrue(expectedInterval.Value == Math.Min(interval.Value, interval.GetInversion().Value));
 					Assert.IsFalse(txposedUp == noteName);
 

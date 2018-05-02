@@ -22,15 +22,16 @@ namespace HarmornyHelper.forms
 			}
 			public override string ToString()
 			{
-				return $"{base.ToString()}: Chord={Chord.Name} Notes={Notes.Count}";  
+				//return $"{GetType().Name}: Chord={Chord.Name} Notes={string.Join(", ", Notes)}";
+				return $"Chord={Chord.Name} Notes={string.Join(", ", Notes)}";  
 			}
 		}
 		private void Arpeggiate(List<Chord> chords)
 		{
 
 			var noteRange = new NoteRange(
-				new Note(NoteName.B, OctaveEnum.Octave0),
-				new Note(NoteName.B, OctaveEnum.Octave5));
+				new Note(NoteName.B, OctaveEnum.Octave1),
+				new Note(NoteName.B, OctaveEnum.Octave4));
 
 			chords.ForEach(x => x.Set(noteRange));
 
