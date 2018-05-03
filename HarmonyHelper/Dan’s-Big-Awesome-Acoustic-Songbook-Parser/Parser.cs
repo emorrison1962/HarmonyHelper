@@ -10,100 +10,64 @@ using System.Web;
 
 namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 {
+	public class Song
+	{
+		public string Title { get; private set; }
+		public List<string> Chords { get; private set; } = new List<string>();
+		public Song(string title, List<string> chords)
+		{
+			this.Title = title;
+			this.Chords = chords;
+		}
+	}
+
 	public class Parser
 	{
-		HtmlDocument HtmlDocument { get; set; } = new HtmlDocument();
-		virtual public bool TryParse(string html, out List<string> chords)
-		{
-			chords = new List<string>();
-			bool success = false;
+		const string CLASS_SONG_TITLE = "sg_title";
+		const string CLASS_CHORD = "ch";
+		const string CLASS_SONG = "sg_song";
 
+		HtmlDocument HtmlDocument { get; set; } = new HtmlDocument();
+		public bool TryParse(string html, out List<Song> songs)
+		{
+			songs = new List<Song>();
 			this.HtmlDocument.LoadHtml(html);
 
-			//this.HtmlDocument.Save(string.Format(@"c:\temp\{0}.html", new UriBuilder(url).Host));
-
-			//Debug.WriteLine(this.HtmlDocument.DocumentNode.InnerHtml);
-
-			success = this.GetTitle();
-
-
-			if (success)
-			{
-				success = false;
-				success = this.GetChords();
-			}
-
-			//if (success)
-			//{
-			//	success = false;
-			//	this.GetIngredients();
-			//	if (0 < this.IngredientGroups.Count)
-			//	{
-			//		success = true;
-			//	}
-			//}
-
-			//if (success)
-			//{
-			//	success = false;
-			//	this.GetProcedures();
-			//	if (0 < this.ProcedureGroups.Count)
-			//	{
-			//		success = true;
-			//	}
-			//}
-
-
-			//result = new Recipe()
-			//{
-			//	Name = this.Title,
-			//	IngredientGroups = this.IngredientGroups,
-			//	ProcedureGroups = this.ProcedureGroups,
-			//	Uri = url,
-			//	ImageUri = this.ImageUrl,
-			//	Source = new UriBuilder().Host
-			//};
-
-			return success;
-		}
-
-		string Title { get; set; }
-		List<string> Chords { get; set; } = new List<string>();
-
-
-		const string CLASS_SONG_TITLE = "sg_title";
-		virtual protected bool GetTitle()
-		{
 			bool result = false;
-			var titleNode = this.HtmlDocument.DocumentNode.Descendants().ByClass(CLASS_SONG_TITLE).First();
-			if (null != titleNode)
+
+			var songNodes = this.HtmlDocument.DocumentNode.GetNodes("div", CLASS_SONG);
+			foreach (var songNode in songNodes)
 			{
-				this.Title = WebUtility.HtmlDecode(titleNode.InnerText.FromHtml());
-				this.Title = this.Title.Trim();
-				result = true;
+				this.GetTitle(songNode, out string title);
+				var chordNodes = songNode.GetNodes("tr", CLASS_CHORD);
+				List<string> chords = new List<string>();
+				foreach (var chordNode in chordNodes)
+				{
+					chords.AddRange(this.GetChords(chordNode));
+				}
+
+				var song = new Song(title, chords);
+				songs.Add(song);
+
+				//Debug.WriteLine(song.Title);
+				//Debug.WriteLine(string.Join(", ", song.Chords.Distinct()));
+				//Debug.WriteLine(string.Empty);
+				//new object();
 			}
 			return result;
 		}
 
-		const string CLASS_CHORD = "ch";
-		bool GetChords()
+		bool GetTitle(HtmlNode parentNode, out string title)
 		{
+			title = null;
 			bool result = false;
-			var chordNodes = this.HtmlDocument.DocumentNode.GetNodes("tr", CLASS_CHORD);
-			foreach (var chordNode in chordNodes)
+			var titleNode = parentNode.ChildNodes.ByClass(CLASS_SONG_TITLE).First();
+			if (null != titleNode)
 			{
-				var chords = this.GetChords(chordNode);
-				this.Chords.AddRange(chords);
+				title = WebUtility.HtmlDecode(titleNode.InnerText.FromHtml());
+				title = title.Trim();
+				result = true;
 			}
-			Debug.WriteLine(string.Join(", ", this.Chords));
-			new object();
-
-			//if (null != chordNodes)
-			//{
-			//	this.Title = WebUtility.HtmlDecode(chordNodes.InnerText.FromHtml());
-			//	this.Title = this.Title.Trim();
-			//	result = true;
-			//}
 			return result;
 		}
 

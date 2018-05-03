@@ -62,6 +62,37 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;script language=&quot;javascript&quot; src=&quot;scrolling.js&quot;&gt;&lt;/script&gt;
+        ///
+        ///	&lt;script language=&quot;javascript&quot; src=&quot;jquery-1.12.0.min.js&quot;&gt;&lt;/script&gt;
+        ///	&lt;script type=&quot;text/javascript&quot;&gt;
+        ///
+        ///var songLinks = [];
+        ///
+        ///$(window).load(function(){
+        ///
+        ///    // Find all links to songs in the TOC
+        ///    $(&quot;a&quot;).each(function ()
+        ///    {
+        ///      if (this.href.includes(&quot;#s_&quot;))
+        ///      {
+        ///        songLinks.push(this.href);
+        ///      }
+        ///    });
+        ///
+        ///    $(window).keydown(handleKeyPress);
+        ///    $(window).scroll(positionScrolle [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DansSongbook {
+            get {
+                return ResourceManager.GetString("DansSongbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
         ///&lt;head&gt;
