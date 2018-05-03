@@ -109,9 +109,13 @@ Maj9
 			{
 				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
 				if (success)
-					Debug.WriteLine($"{chordStr}:{result[0]}");
+				{
+					//Debug.WriteLine($"{chordStr} : {result[0]}");
+				}
 				else
+				{
 					Debug.WriteLine(message);
+				}
 				//Assert.IsTrue(success);
 			}
 
