@@ -272,7 +272,7 @@ namespace Eric.Morrison.Harmony
 					throw new ArgumentNullException();
 				nn = noteName;
 			}
-			var result = new KeySignature(nn, src.Notes, src.UsesSharps, isMajor, !isMajor);
+			var result = new KeySignature(nn, src.NoteNames, src.UsesSharps, isMajor, !isMajor);
 
 
 			return result;

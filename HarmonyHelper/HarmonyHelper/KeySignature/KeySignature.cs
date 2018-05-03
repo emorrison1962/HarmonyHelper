@@ -10,20 +10,24 @@ namespace Eric.Morrison.Harmony
 	[Serializable]
 	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, INoteNameNormalizer
 	{
+
+		#region Properties
 		public NoteName NoteName { get; private set; }
-		public List<NoteName> Notes { get; private set; }
+		public List<NoteName> NoteNames { get; private set; }
 		public bool UsesSharps { get; private set; }
 		public bool UsesFlats { get; private set; }
 		public bool IsMajor { get; private set; }
 		public bool IsMinor { get; private set; }
 		public int AccidentalCount { get; private set; }
 
+		#endregion
 
+		#region Construction
 		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor)
 		{
 			this.NoteName = key;
-			this.Notes = new List<NoteName>(notes);
-			this.AccidentalCount = this.Notes.Where(x => x.Name.EndsWith(Constants.SHARP)
+			this.NoteNames = new List<NoteName>(notes);
+			this.AccidentalCount = this.NoteNames.Where(x => x.Name.EndsWith(Constants.SHARP)
 				|| x.Name.EndsWith(Constants.FLAT)).Count();
 
 			if (usesSharps.HasValue)
@@ -31,7 +35,7 @@ namespace Eric.Morrison.Harmony
 				this.UsesSharps = usesSharps.Value;
 				this.UsesFlats = !usesSharps.Value;
 			}
-			if (0 == this.Notes.Count)
+			if (0 == this.NoteNames.Count)
 				this.UsesFlats = false;
 
 			this.IsMajor = isMajor;
@@ -50,6 +54,10 @@ namespace Eric.Morrison.Harmony
 			}
 
 		}
+
+		#endregion
+
+		#region Comparers
 		class HasEnharmonicComparer : IEqualityComparer<NoteName>
 		{
 			public bool Equals(NoteName x, NoteName y)
@@ -67,7 +75,6 @@ namespace Eric.Morrison.Harmony
 				return obj.GetHashCode();
 			}
 		}
-
 		class IsInKeyComparer : IEqualityComparer<NoteName>
 		{
 			public bool Equals(NoteName x, NoteName y)
@@ -86,57 +93,15 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 
+		#endregion
 
-		public bool Affects(NoteName note)
-		{
-			var result = false;
-			if (this.Notes.Contains(note, new HasEnharmonicComparer()))
-				result = true;
-			return result;
-		}
-		public bool Contains(NoteName note)
-		{
-			var result = false;
-			if (this.Notes.Contains(note, new IsInKeyComparer()))
-				result = true;
-			return result;
-		}
-
-
-		public override string ToString()
-		{
-			return this.NoteName.ToString();
-		}
-
-		public bool Equals(KeySignature other)
-		{
-			var result = false;
-			if (other.NoteName == this.NoteName)
-				result = true;
-			return result;
-		}
-
-		public override int GetHashCode()
-		{
-			var result = this.NoteName.GetHashCode()
-				^ this.Notes.GetHashCode()
-				^ this.UsesSharps.GetHashCode()
-				^ this.UsesFlats.GetHashCode();
-			return result;
-		}
-		public override bool Equals(object obj)
-		{
-			var result = false;
-			if (obj is KeySignature)
-				result = this.Equals(obj as KeySignature);
-			return result;
-		}
-
+		#region Operators
 		public static bool operator ==(KeySignature a, KeySignature b)
 		{
 			var result = Compare(a, b) == 0;
 			return result;
 		}
+
 		public static bool operator !=(KeySignature a, KeySignature b)
 		{
 			var result = Compare(a, b) != 0;
@@ -148,6 +113,7 @@ namespace Eric.Morrison.Harmony
 			var result = Compare(this, other);
 			return result;
 		}
+
 		public static int Compare(KeySignature a, KeySignature b)
 		{
 			if (a is null && b is null)
@@ -160,7 +126,7 @@ namespace Eric.Morrison.Harmony
 			var result = a.NoteName.CompareTo(b.NoteName);
 			if (0 == result)
 			{
-				result = a.Notes.GetHashCode().CompareTo(b.Notes.GetHashCode());
+				result = a.NoteNames.GetHashCode().CompareTo(b.NoteNames.GetHashCode());
 			}
 			if (0 == result)
 				result = a.UsesSharps.CompareTo(b.UsesSharps);
@@ -181,6 +147,33 @@ namespace Eric.Morrison.Harmony
 			var result = KeySignature.GetTransposed(key, inversion);
 			return result;
 		}
+
+		public override int GetHashCode()
+		{
+			var result = this.NoteName.GetHashCode()
+				^ this.NoteNames.GetHashCode()
+				^ this.UsesSharps.GetHashCode()
+				^ this.UsesFlats.GetHashCode();
+			return result;
+		}
+
+		public override bool Equals(object obj)
+		{
+			var result = false;
+			if (obj is KeySignature)
+				result = this.Equals(obj as KeySignature);
+			return result;
+		}
+
+		public bool Equals(KeySignature other)
+		{
+			var result = false;
+			if (other.NoteName == this.NoteName)
+				result = true;
+			return result;
+		}
+
+		#endregion
 
 		public static KeySignature GetTransposed(KeySignature key, Interval interval)
 		{
@@ -218,8 +211,6 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
-
-
 		public NoteName GetNormalized(NoteName nn)
 		{
 			var copy = nn.Copy();
@@ -232,7 +223,32 @@ namespace Eric.Morrison.Harmony
 			}
 			return copy;
 		}
-
+		public bool Affects(NoteName note)
+		{
+			var result = false;
+			if (this.NoteNames.Contains(note, new HasEnharmonicComparer()))
+				result = true;
+			return result;
+		}
+		public bool Contains(NoteName note)
+		{
+			var result = false;
+			if (this.NoteNames.Contains(note, new IsInKeyComparer()))
+				result = true;
+			return result;
+		}
+		public override string ToString()
+		{
+			return this.NoteName.ToString();
+		}
+		public bool AreDiatonic(List<NoteName> noteNames)
+		{
+			bool result = false;
+			var count  = noteNames.Except(this.NoteNames).Count();
+			if (0 == count)
+				result = true;
+			return result;
+		}
 
 	}//class
 }//ns

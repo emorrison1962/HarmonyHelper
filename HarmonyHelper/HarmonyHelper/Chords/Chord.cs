@@ -29,6 +29,9 @@ namespace Eric.Morrison.Harmony
 				return result;
 			}
 		}
+		public bool IsMajor { get { return this.Formula.ChordType.IsMajor; } }
+		public bool IsMinor { get { return this.Formula.ChordType.IsMinor; } }
+		public bool IsDiminished { get { return this.Formula.ChordType.IsDiminished; } }
 
 		#endregion
 

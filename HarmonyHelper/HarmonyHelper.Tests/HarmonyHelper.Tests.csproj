@@ -63,6 +63,7 @@
     <Compile Include="Chords\ChordParserTests.cs" />
     <Compile Include="ChordTests.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
     <Compile Include="ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />

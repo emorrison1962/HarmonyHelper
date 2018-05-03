@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
-{ 
+{
 	public class ChordType
 	{
+		#region Statics
 		static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
 		static public ChordType None = new ChordType("None", Interval.None);
 		static public ChordType Major = new ChordType("", Interval.Major3rd, Interval.Perfect5th);
-		static public ChordType Minor = new ChordType("m", Interval.Minor3rd , Interval.Perfect5th);
-		static public ChordType Augmented = new ChordType("+", Interval.Major3rd,   Interval.Augmented5th);
+		static public ChordType Minor = new ChordType("m", Interval.Minor3rd, Interval.Perfect5th);
+		static public ChordType Augmented = new ChordType("+", Interval.Major3rd, Interval.Augmented5th);
 		static public ChordType Diminished = new ChordType("o", Interval.Minor3rd, Interval.Diminished5th);
-		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals , Interval.Major7th);
+		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals, Interval.Major7th);
 		static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, Interval.Minor7th);
 		static public ChordType Dominant7th = new ChordType("7", Major.Intervals, Interval.Minor7th);
 		static public ChordType HalfDiminished = new ChordType("m7b5", Diminished.Intervals, Interval.Minor7th);
@@ -22,9 +22,19 @@ namespace Eric.Morrison.Harmony
 		//Suspended,....
 		//= new Interval("Minor6th",
 
+		#endregion
+
+		#region Properties
 		public string Name { get; private set; }
 		public int Value { get; private set; }
 		public List<Interval> Intervals { get; set; } = new List<Interval>();
+
+		public bool IsMajor { get; set; }
+		public bool IsMinor { get; set; }
+		public bool IsDiminished { get; set; }
+		#endregion
+
+		#region Construction
 		private ChordType(string name, params Interval[] intervals)
 		{
 			this.Name = name;
@@ -32,7 +42,9 @@ namespace Eric.Morrison.Harmony
 			this.Intervals.ForEach(x => this.Value |= x.Value);
 			if (!this.Intervals.Contains(Interval.None))
 				Catalog.Add(this);
+			this.Init();
 		}
+
 		private ChordType(string name, List<Interval> aIntervals, params Interval[] bIntervals)
 		{
 			this.Name = name;
@@ -41,8 +53,29 @@ namespace Eric.Morrison.Harmony
 			this.Intervals.ForEach(x => this.Value |= x.Value);
 			if (!this.Intervals.Contains(Interval.None))
 				Catalog.Add(this);
+			this.Init();
 		}
 
+		void Init()
+		{
+			if (!this.Intervals.Contains(Interval.None))
+			{
+				if (this.Intervals.Contains(Interval.Major3rd))
+					this.IsMajor = true;
+				if (this.Intervals.Contains(Interval.Minor3rd))
+					this.IsMinor = true;
+				if (this.Intervals.Contains(Interval.Diminished5th))
+					this.IsDiminished = true;
+
+				Debug.Assert(this.IsMajor != this.IsMinor);
+				if (this.IsDiminished)
+					Debug.Assert(this.IsDiminished == this.IsMinor);
+			}
+		}
+
+		#endregion
+
+		#region Operators
 		public static int operator |(ChordType a, ChordType b)
 		{
 			var result = a.Value | b.Value;
@@ -54,6 +87,8 @@ namespace Eric.Morrison.Harmony
 			return ct.Value;
 		}
 
+		#endregion
+
 		#region Used to be IntervalsEnumExtensions
 		public Interval GetInterval(ChordFunctionEnum cfe)
 		{
@@ -62,7 +97,7 @@ namespace Eric.Morrison.Harmony
 			var result = Interval.None;
 
 			Predicate<Interval> predicate = null;
-			
+
 			switch (cfe)
 			{
 				case ChordFunctionEnum.Root:
