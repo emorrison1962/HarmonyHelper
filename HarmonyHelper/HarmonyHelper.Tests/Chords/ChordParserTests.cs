@@ -96,6 +96,31 @@ Maj9
 		}
 
 		[TestMethod()]
+		public void SlashChordsProblem_TryParse_Test()
+		{ 
+			var problemChildren = @"Aaug, Cmaj7, Dmaj7, Gadd9, Gdim7, Gmaj7";
+			var strings = problemChildren.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+			bool success = false;
+			foreach (var chordStr in strings)
+			{
+				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				if (success)
+				{
+					Debug.WriteLine($"{chordStr} : {result[0]}");
+				}
+				else
+				{
+					//Debug.WriteLine(message);
+				}
+				//Assert.IsTrue(success);
+			}
+
+			new object();
+
+		}
+
+		[TestMethod()]
 		public void GuitarPro_TryParse_Test()
 		{
 			#region chordsStr
@@ -110,11 +135,11 @@ Maj9
 				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
 				if (success)
 				{
-					Debug.WriteLine($"{chordStr} : {result[0]}");
+					Debug.WriteLine($"{chordStr} : \t{result[0]}");
 				}
 				else
 				{
-					//Debug.WriteLine(message);
+					Debug.WriteLine(message);
 				}
 				//Assert.IsTrue(success);
 			}

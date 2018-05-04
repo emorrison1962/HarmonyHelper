@@ -159,7 +159,7 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			return $"{this.Name}: {string.Join(",", this.NoteNames)}";
+			return $"{this.Formula}";
 		}
 
 		public override bool Equals(object obj)

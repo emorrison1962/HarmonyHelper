@@ -21,12 +21,10 @@ namespace Eric.Morrison.Harmony
 	{
 		#region Properties
 
-		public NoteName Root { get; set; }
-		//public NoteName Third { get; set; }
-		//public NoteName Fifth { get; set; }
-		//public NoteName Seventh { get; set; }
-		public KeySignature Key { get; set; }
-		public ChordType ChordType { get; set; }
+		public NoteName Root { get; private set; }
+		public NoteName Bass { get; private set; }
+		public KeySignature Key { get; private set; }
+		public ChordType ChordType { get; private set; }
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
 		public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
@@ -177,9 +175,6 @@ namespace Eric.Morrison.Harmony
 
 		}
 
-
-
-
 		#endregion
 
 		public bool Contains(NoteName note)
@@ -188,6 +183,12 @@ namespace Eric.Morrison.Harmony
 			result = this.NoteNames.Contains(note);
 			return result;
 		}
+
+		public void SetBassNote(NoteName bass)
+		{
+			this.Bass = bass;
+		}
+
 
 		//public ChordToneFunctionEnum GetChordToneFunction(NoteName note)
 		//{
@@ -292,7 +293,6 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-
 		bool IsDiminished()
 		{
 			var result = true;
@@ -382,7 +382,10 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			return $"{this.Name}: {string.Join(",", this.NoteNames)}";
+			var bass = string.Empty;
+			if (null != this.Bass)
+				bass = $"/{this.Bass}";
+			return $"{this.Name}{bass}: {string.Join(",", this.NoteNames)}";
 		}
 
 		public bool Equals(ChordFormula other)

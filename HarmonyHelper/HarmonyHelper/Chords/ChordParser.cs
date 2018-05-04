@@ -8,10 +8,15 @@ namespace Eric.Morrison.Harmony
 {
 	public static class ChordParser
 	{
-		const int NOTE = 1;
-		const int ACCIDENTAL = 2;
-		const int CHORD_TYPE = 3;
-		const int BASS = 4;
+		//const int NOTE = 1;
+		//const int ACCIDENTAL = 2;
+		//const int CHORD_TYPE = 3;
+		//const int BASS = 4;
+		const int NDX_ROOT = 1;
+		const int NDX_ROOT_ACCIDENTAL = 2;
+		const int NDX_CHORD_TYPE = 3;
+		const int NDX_BASS = 4;
+		const int NDX_BASS_ACCIDENTAL = 5;
 
 		static string REGEX;
 
@@ -20,17 +25,22 @@ namespace Eric.Morrison.Harmony
 
 			String notes = "^([cdefgab])";
 			String accidentals = "(#|##|b|bb)?";
-			String chords =
-			//@"(maj|maj7|maj9|maj11|maj13|maj9#11|maj13#11|6|add9|maj7b5|maj7#5|min|-7|-|m7|m9|m11|m13|
-			//m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#9|7b5b9|7b5#9|
-			//7#5b9|9#5|13#11|13b9|11b9|aug|\+|dim|dim7|sus4|sus2|sus2sus4|-5|)";
-			@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m||)";
-			String bass = "/([cdefgab])";
-			REGEX = notes + accidentals + chords;// + bass + accidentals;
+			String chordTypes =
+				@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
+			//@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m||)";
+			String bass = "?[\\/]?([cdefgab])?";
+						  
+			REGEX = notes + accidentals + chordTypes + bass + accidentals;
 		}
 
+
+#if false
+^[A-G](b|#)?((m(aj)?|M|aug|dim|sus)([2-7]|9|13)?)?(\/[A-G](b|#)?)?$
+
+#endif
 		static public bool TryParse(string input, out List<Chord> chords, out string messageResult)
 		{
+			//Debug.WriteLine(REGEX);
 			return TryParse(input, null, out chords, out messageResult);
 		}
 
@@ -72,69 +82,94 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		static bool TryParseImpl(string input, out Chord chord, out string message, KeySignature key = null)
+		static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
 		{
 			var result = false;
 			message = null;
-			chord = null;
+			chordFormula = null;
 
-
-			// Debug.WriteLine(input);
-			var success = false;
-			var match = Regex.Match(input, REGEX);
-			if (match.Success)
-			{
-				success = true;
-			}
-			else
-			{
-				message = $"Error parsing chord: \"{input}\"";
-				new object();
-			}
 
 			NoteName root = null;
-			if (success)
+			NoteName bass = null;
+			var chordType = ChordType.None;
+			bool success = false;
+			// Debug.WriteLine(input);
+			var match = Regex.Match(input, REGEX);
+			try
 			{
-				success = false;
-				try
+				if (match.Success)
 				{
-					if (TryParseNoteName(match, out root))
-						success = true;
+					if (match.Groups[NDX_ROOT].Success)
+					{
+						var note = match.Groups[NDX_ROOT].ToString();
+						var accidental = string.Empty;
+						if (match.Groups[NDX_ROOT_ACCIDENTAL].Success)
+							accidental = match.Groups[NDX_ROOT_ACCIDENTAL].ToString();
+
+						var rootStr = note + accidental;
+						root = ParseNoteName(rootStr);
+					}
+
+					if (match.Groups[NDX_CHORD_TYPE].Success)
+					{
+						var ctStr = match.Groups[NDX_CHORD_TYPE].ToString();
+						chordType = ParseChordType(ctStr, out string error);
+						if (ChordType.None == chordType)
+							message = error;
+					}
+
+					if (match.Groups[NDX_BASS].Success)
+					{
+						var note = match.Groups[NDX_BASS].ToString();
+						var accidental = string.Empty;
+						if (match.Groups[NDX_BASS_ACCIDENTAL].Success)
+							accidental = match.Groups[NDX_BASS_ACCIDENTAL].ToString();
+
+						var bassStr = note + accidental;
+						bass = ParseNoteName(bassStr);
+					}
+
+					success = true;
 				}
-				catch (Exception ex)
+				else
 				{
-					throw;
+					message = $"Error parsing chord: \"{input}\"";
+					new object();
 				}
 			}
-
-			var chordType = ChordType.None;
-			if (success)
+			catch (NotSupportedException ex)
 			{
-				try
-				{
-					success = false;
-					if (TryParseChordType(match, out chordType, out string error))
-						success = true;
-					else
-						message = error;
-				}
-				catch (NotSupportedException ex)
-				{
-					message = $"Unsupported chord type ({ex.Message})";
-				}
-				catch (Exception ex)
-				{
-					throw;
-				}
+				message = $"Unsupported chord type ({ex.Message})";
+			}
+			catch (Exception ex)
+			{
+				throw;
 			}
 
 			if (success)
 			{
 				if (null == key)
 					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
-				if (ChordType.Sus2 == chordType)
-					new object();
-				var formula = new ChordFormula(root, chordType, key);
+				chordFormula = new ChordFormula(root, chordType, key);
+				if (null != bass)
+					chordFormula.SetBassNote(bass);
+			}
+
+			if (success)
+				result = true;
+
+			return result;
+		}
+
+		static bool TryParseImpl(string input, out Chord chord, out string message, KeySignature key = null)
+		{
+			var result = false;
+			message = null;
+			chord = null;
+
+			var success = TryParseImpl(input, out ChordFormula formula, out message, key);
+			if (success)
+			{
 				chord = new Chord(formula, NoteRange.Default);
 			}
 
@@ -170,140 +205,129 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 		}
 
-		static bool TryParseNoteName(Match match, out NoteName noteName)
+		static NoteName ParseNoteName(string input)
 		{
-			var note = match.Groups[NOTE].ToString();
-			var accidental = match.Groups[ACCIDENTAL].ToString();
-			var input = note + accidental;
 
-			noteName = null;
-			var result = false;
+			NoteName result = null;
 
-			#region switch (input)
+#region switch (input)
 			switch (input)
 			{
 				case "b♯":
 				case "b#":
-					noteName = NoteName.BSharp;
+					result = NoteName.BSharp;
 					break;
 				case "c":
-					noteName = NoteName.C;
+					result = NoteName.C;
 					break;
 				case "c♯":
 				case "c#":
-					noteName = NoteName.CSharp;
+					result = NoteName.CSharp;
 					break;
 				case "db":
 				case "d♭":
-					noteName = NoteName.Db;
+					result = NoteName.Db;
 					break;
 				case "d":
-					noteName = NoteName.D;
+					result = NoteName.D;
 					break;
 				case "d#":
 				case "d♯":
-					noteName = NoteName.DSharp;
+					result = NoteName.DSharp;
 					break;
 				case "eb":
 				case "e♭":
-					noteName = NoteName.Eb;
+					result = NoteName.Eb;
 					break;
 				case "e":
-					noteName = NoteName.E;
+					result = NoteName.E;
 					break;
 				case "fb":
 				case "f♭":
-					noteName = NoteName.Fb;
+					result = NoteName.Fb;
 					break;
 				case "e#":
 				case "e♯":
-					noteName = NoteName.ESharp;
+					result = NoteName.ESharp;
 					break;
 				case "f":
-					noteName = NoteName.F;
+					result = NoteName.F;
 					break;
 				case "f#":
 				case "f♯":
-					noteName = NoteName.FSharp;
+					result = NoteName.FSharp;
 					break;
 				case "gb":
 				case "g♭":
-					noteName = NoteName.Gb;
+					result = NoteName.Gb;
 					break;
 				case "g":
-					noteName = NoteName.G;
+					result = NoteName.G;
 					break;
 				case "g#":
 				case "g♯":
-					noteName = NoteName.GSharp;
+					result = NoteName.GSharp;
 					break;
 				case "ab":
 				case "a♭":
-					noteName = NoteName.Ab;
+					result = NoteName.Ab;
 					break;
 				case "a":
-					noteName = NoteName.A;
+					result = NoteName.A;
 					break;
 				case "a#":
 				case "a♯":
-					noteName = NoteName.ASharp;
+					result = NoteName.ASharp;
 					break;
 				case "bb":
 				case "b♭":
-					noteName = NoteName.Bb;
+					result = NoteName.Bb;
 					break;
 				case "b":
-					noteName = NoteName.B;
+					result = NoteName.B;
 					break;
 				case "cb":
 				case "c♭":
-					noteName = NoteName.Cb;
+					result = NoteName.Cb;
 					break;
 				default:
 					throw new NotSupportedException(input);
 			}
-			#endregion
+#endregion
 
-			if (null != noteName)
-				result = true;
 			return result;
 
 		}
 
-		static bool TryParseChordType(Match match, out ChordType ct, out string message)
+		static ChordType ParseChordType(string input, out string message)
 		{
 			message = null;
-			var input = match.Groups[CHORD_TYPE].ToString();
-			//var bassNote = match.Groups[BASS].ToString();
+			var result = ChordType.None;
 
-
-			ct = ChordType.None;
-			bool result = false;
-
-			#region switch (input)
+#region switch (input)
 			switch (input)
 			{
-				#region Major chords
+#region Major chords
 				case "":
 				case "maj":
-					ct = ChordType.Major;
+					result = ChordType.Major;
 					break;
 				case "6":
-					ct = ChordType.Major6th;
+					result = ChordType.Major6th;
 					break;
 				case "maj7":
-					ct = ChordType.Major7th;
+					result = ChordType.Major7th;
 					break;
 				case "maj9":
-					ct = ChordType.Major9th;
+					result = ChordType.Major9th;
 					break;
 				case "maj11":
-					ct = ChordType.Major11th;
+					result = ChordType.Major11th;
 					break;
 				case "maj13":
-					ct = ChordType.Major13th;
+					result = ChordType.Major13th;
 					break;
-				#endregion
+#endregion
 
 
 				case "maj9#11":
@@ -311,47 +335,47 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				case "maj13#11":
 					break;
 				case "add9":
-					ct = ChordType.MajorAdd9;
+					result = ChordType.MajorAdd9;
 					break;
 				case "maj7b5":
-					ct = ChordType.Major7b5;
+					result = ChordType.Major7b5;
 					break;
 				case "maj7#5":
 					break;
 
 
-				#region Minor chords
+#region Minor chords
 				case "min":
 				case "m":
 				case "-":
-					ct = ChordType.Minor;
+					result = ChordType.Minor;
 					break;
 				case "m6":
-					ct = ChordType.Minor6th;
+					result = ChordType.Minor6th;
 					break;
 				case "m7":
 				case "-7":
-					ct = ChordType.Minor7th;
+					result = ChordType.Minor7th;
 					break;
 				case "m9":
-					ct = ChordType.Minor9th;
+					result = ChordType.Minor9th;
 					break;
 				case "m11":
-					ct = ChordType.Minor11th;
+					result = ChordType.Minor11th;
 					break;
 				case "m13":
-					ct = ChordType.Minor13th;
+					result = ChordType.Minor13th;
 					break;
-				#endregion
+#endregion
 
 
 				case "madd9":
-					ct = ChordType.MinorAdd9;
+					result = ChordType.MinorAdd9;
 					break;
 				case "m6add9":
 					break;
 				case "mmaj7":
-					ct = ChordType.MinorMaj7th;
+					result = ChordType.MinorMaj7th;
 					break;
 				case "mmaj9":
 					break;
@@ -359,27 +383,27 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 				case "-7b5":
 				case "m7b5":
-					ct = ChordType.HalfDiminished;
+					result = ChordType.HalfDiminished;
 					break;
 				case "m7#5":
 					break;
 
 
-				#region Diatonic Dominant chords
+#region Diatonic Dominant chords
 				case "7":
-					ct = ChordType.Dominant7th;
+					result = ChordType.Dominant7th;
 					break;
 				case "9":
-					ct = ChordType.Dominant9th;
+					result = ChordType.Dominant9th;
 					break;
 				case "11":
-					ct = ChordType.Dominant11th;
+					result = ChordType.Dominant11th;
 					break;
 				case "13":
-					ct = ChordType.Dominant13th;
+					result = ChordType.Dominant13th;
 					break;
 
-				#endregion
+#endregion
 
 
 				case "7b5":
@@ -387,10 +411,10 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				case "7#5":
 					break;
 				case "7b9":
-					ct = ChordType.Dominant7b9;
+					result = ChordType.Dominant7b9;
 					break;
 				case "7#9":
-					ct = ChordType.Dominant7Sharp9;
+					result = ChordType.Dominant7Sharp9;
 					break;
 				case "7b5b9":
 					break;
@@ -408,26 +432,26 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 				case "aug":
 				case "+":
-					ct = ChordType.Augmented;
+					result = ChordType.Augmented;
 					break;
 				case "dim":
-					ct = ChordType.Diminished;
+					result = ChordType.Diminished;
 					break;
 				case "dim7":
-					ct = ChordType.Diminished7;
+					result = ChordType.Diminished7;
 					break;
 
 				case "sus4":
-					ct = ChordType.Sus4;
+					result = ChordType.Sus4;
 					break;
 				case "sus2":
-					ct = ChordType.Sus2;
+					result = ChordType.Sus2;
 					break;
 				case "sus2sus4":
-					ct = ChordType.Sus2Sus4;
+					result = ChordType.Sus2Sus4;
 					break;
 				case "7sus4":
-					ct = ChordType.SevenSus4;
+					result = ChordType.SevenSus4;
 					break;
 
 
@@ -437,11 +461,9 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					throw new NotSupportedException(input);
 			}
 
-			#endregion
+#endregion
 
-			if (ct != ChordType.None)
-				result = true;
-			if (!result)
+			if (result == ChordType.None)
 			{
 				message = $"Unsupported chord type ({input})";
 				Debug.WriteLine($"{input}");

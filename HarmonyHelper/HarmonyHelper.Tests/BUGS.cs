@@ -215,7 +215,6 @@ namespace Eric.Morrison.Harmony
 		public void Chord_GetClosestNote()
 		{
 			var chordTxt = "eb7 abm7 db7";
-			var success = false;
 
 			if (Harmony.ChordParser.TryParse(chordTxt,
 				KeySignature.CMajor,

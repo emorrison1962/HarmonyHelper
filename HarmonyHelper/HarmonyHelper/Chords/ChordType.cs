@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony
 		static public ChordType Minor = new ChordType("m", Interval.Minor3rd, Interval.Perfect5th);
 		static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, Interval.Minor7th);
 		static public ChordType MinorMaj7th = new ChordType("m7", Minor.Intervals, Interval.Major7th);
-		static public ChordType Minor6th = new ChordType("m6", Minor.Intervals, Interval.Minor6th);
+		static public ChordType Minor6th = new ChordType("m6", Minor.Intervals, Interval.Major6th);
 		static public ChordType Minor9th = new ChordType("m9", Minor7th.Intervals, Interval.Major2nd);
 		static public ChordType Minor11th = new ChordType("m11", Minor9th.Intervals, Interval.Perfect4th);
 		static public ChordType Minor13th = new ChordType("m13", Minor11th.Intervals, Interval.Major6th);
