@@ -212,11 +212,6 @@ namespace Eric.Morrison.Harmony
 
 		private void Log_CurrentNoteChanged(object sender, Arpeggiator ctx)
 		{
-			var function = ctx.CurrentChord.Formula.GetChordToneFunction(ctx.CurrentNote.NoteName);
-			var functionStr = $"({function.ToStringEx()})";
-			if (functionStr != "(m7)" && functionStr != "(△3)")
-				functionStr = "    ";
-
 			var noteStr = string.Empty;
 			noteStr = $" {g_direction}{ctx.CurrentNote.ToString()}";
 			//noteStr = $"{noteStr}{g_direction}{functionStr}";

@@ -147,8 +147,16 @@ namespace Eric.Morrison.Harmony
 				case ChordFunctionEnum.None:
 					break;
 
+				case ChordFunctionEnum.Sus2:
+					predicate = (Interval x) => x == Interval.Major2nd;
+					break;
+
 				case ChordFunctionEnum.Third:
 					predicate = (Interval x) => x == Interval.Minor3rd || x == Interval.Major3rd;
+					break;
+
+				case ChordFunctionEnum.Sus4:
+					predicate = (Interval x) => x == Interval.Perfect4th;
 					break;
 
 				case ChordFunctionEnum.Fifth:

@@ -161,16 +161,6 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 									direction = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
 								}
 							}
-#if DEBUG
-							if ((ctx.NotesToPlay - 1) == i)
-							{
-								if (ChordToneFunctionEnum.Minor7th == this.CurrentChord.Formula
-									.GetChordToneFunction(this.CurrentNote.NoteName))
-								{
-									new object();
-								}
-							}
-#endif
 
 							var closestNoteCtx = new Chord.ClosestNoteContext(this.CurrentChord, 
 								this.CurrentNote, 

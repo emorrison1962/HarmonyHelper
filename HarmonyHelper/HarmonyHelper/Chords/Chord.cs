@@ -10,9 +10,9 @@ namespace Eric.Morrison.Harmony
 		#region Properties
 
 		public Note Root { get; protected set; }
-		Note Third { get; set; }
-		Note Fifth { get; set; }
-		Note Seventh { get; set; }
+		//Note Third { get; set; }
+		//Note Fifth { get; set; }
+		//Note Seventh { get; set; }
 		public ChordFormula Formula { get; private set; }
 		public List<Note> Notes { get; private set; } = new List<Note>();
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
@@ -50,48 +50,34 @@ namespace Eric.Morrison.Harmony
 			this.Key = formula.Key;
 
 			this.Root = noteRange.First(formula.Root, formula);
-			this.Third = noteRange.First(formula.Third, formula);
-			this.Fifth = noteRange.First(formula.Fifth, formula);
-			this.Seventh = noteRange.First(formula.Seventh, formula);
+			foreach (var noteName in formula.NoteNames)
+			{
+				noteRange.First(noteName, formula);
+			}
+
+			//this.Third = noteRange.First(formula.Third, formula);
+			//this.Fifth = noteRange.First(formula.Fifth, formula);
+			//this.Seventh = noteRange.First(formula.Seventh, formula);
 			this.Formula = formula;
+			this.NoteNames = formula.NoteNames;
 
 			this.PopulateNotes(noteRange);
 		}
 
-		public Chord(Note root, Note third, Note fifth, Note seventh, NoteRange noteRange)
+		public Chord(NoteRange noteRange, Note root, params Note[] notes)
 			: base(KeySignature.CMajor)
 		{
 			if (null == root)
 				throw new ArgumentNullException();
-			if (null == third)
-				throw new ArgumentNullException();
-			if (null == fifth)
-				throw new ArgumentNullException();
-			if (null == seventh)
-				throw new ArgumentNullException();
 			this.Root = root;
-			this.Third = third;
-			this.Fifth = fifth;
-			this.Seventh = seventh;
+			this.NoteNames = notes.Select(x => x.NoteName).ToList();
 
 			this.PopulateNotes(noteRange);
 		}
 
 		void PopulateNotes(NoteRange noteRange)
 		{
-			var notes = new List<Note>();
-			if (null != this.Root)
-				notes.Add(this.Root);
-			if (null != this.Third)
-				notes.Add(this.Third);
-			if (null != this.Fifth)
-				notes.Add(this.Fifth);
-			if (null != this.Seventh)
-				notes.Add(this.Seventh);
-
-			this.NoteNames = notes.Select(x => x.NoteName).ToList();
-
-			var pendingNotes = noteRange.GetNotes(notes);
+			var pendingNotes = noteRange.GetNotes(this.NoteNames);
 			pendingNotes.ForEach(x => this.Notes.Add(x));
 			this.Notes.Sort(new NoteComparer());
 		}
@@ -173,7 +159,7 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			return $"{this.Name}: {this.Root?.NoteName.ToString()},{this.Third?.NoteName.ToString()},{this.Fifth?.NoteName.ToString()},{this.Seventh?.NoteName.ToString()}";
+			return $"{this.Name}: {string.Join(",", this.NoteNames)}";
 		}
 
 		public override bool Equals(object obj)

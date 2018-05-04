@@ -24,9 +24,9 @@ namespace Eric.Morrison.Harmony
 			//@"(maj|maj7|maj9|maj11|maj13|maj9#11|maj13#11|6|add9|maj7b5|maj7#5|min|-7|-|m7|m9|m11|m13|
 			//m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#9|7b5b9|7b5#9|
 			//7#5b9|9#5|13#11|13b9|11b9|aug|\+|dim|dim7|sus4|sus2|sus2sus4|-5|)";
-			@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m)";
-			//String bass = "/([CDEFGAB])";
-			REGEX = notes + accidentals + chords;// + bass;
+			@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m||)";
+			String bass = "/([cdefgab])";
+			REGEX = notes + accidentals + chords;// + bass + accidentals;
 		}
 
 		static public bool TryParse(string input, out List<Chord> chords, out string messageResult)
@@ -132,6 +132,8 @@ namespace Eric.Morrison.Harmony
 			{
 				if (null == key)
 					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
+				if (ChordType.Sus2 == chordType)
+					new object();
 				var formula = new ChordFormula(root, chordType, key);
 				chord = new Chord(formula, NoteRange.Default);
 			}
@@ -282,6 +284,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			switch (input)
 			{
 				#region Major chords
+				case "":
 				case "maj":
 					ct = ChordType.Major;
 					break;

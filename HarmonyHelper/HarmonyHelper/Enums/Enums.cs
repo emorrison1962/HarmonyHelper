@@ -118,7 +118,9 @@ Major7th
 	{
 		None = 0,
 		Root,
+		Sus2,
 		Third,
+		Sus4,
 		Fifth,
 		Seventh,
 		Ninth,
