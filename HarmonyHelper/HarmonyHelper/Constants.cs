@@ -4,6 +4,9 @@
 	{
 		public const string SHARP = "♯";
 		public const string FLAT = "♭";
+		public const string DOUBLE_SHARP = "♯♯";
+		public const string DOUBLE_FLAT = "♭♭";
+
 		public const string MAJOR = "△";
 
 

@@ -28,6 +28,36 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void Bug_Need_DoubleSharp_Or_DoublFlat_Test()
 		{
+			var chordsStr = @"D#, A#, E7#9, B7#9, D#aug, Ebdim, Gbdim, Cdim7";
+			var strings = chordsStr.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+			List<Chord> parsedChords = new List<Chord>();
+			bool success = false;
+			foreach (var chordStr in strings)
+			{
+				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				if (success)
+				{
+					//Debug.WriteLine($"{chordStr,20} : {result[0]}");
+					parsedChords.Add(result[0]);
+				}
+				else
+				{
+					Debug.WriteLine(message);
+					Assert.Fail(message);
+				}
+				//Assert.IsTrue(success);
+			}
+
+			var ordered = parsedChords.OrderBy(x => x.Root.NoteName).OrderBy(x => x.Formula.ChordType.Name);
+			foreach (var chord in ordered.Distinct().Where(x => !x.ToString().Contains("/")))
+			{
+				Debug.WriteLine($"{chord}");
+			}
+
+			new object();
+
+
 		}
 
 
