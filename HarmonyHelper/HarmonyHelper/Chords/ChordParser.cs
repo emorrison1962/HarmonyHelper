@@ -281,79 +281,113 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			#region switch (input)
 			switch (input)
 			{
+				#region Major chords
 				case "maj":
 					ct = ChordType.Major;
+					break;
+				case "6":
+					ct = ChordType.Major6th;
 					break;
 				case "maj7":
 					ct = ChordType.Major7th;
 					break;
 				case "maj9":
+					ct = ChordType.Major9th;
 					break;
 				case "maj11":
+					ct = ChordType.Major11th;
 					break;
 				case "maj13":
+					ct = ChordType.Major13th;
 					break;
+				#endregion
+
+
 				case "maj9#11":
 					break;
 				case "maj13#11":
 					break;
-				case "6":
-					break;
 				case "add9":
+					ct = ChordType.MajorAdd9;
 					break;
 				case "maj7b5":
+					ct = ChordType.Major7b5;
 					break;
 				case "maj7#5":
 					break;
+
+
+				#region Minor chords
 				case "min":
 				case "m":
 				case "-":
 					ct = ChordType.Minor;
+					break;
+				case "m6":
+					ct = ChordType.Minor6th;
 					break;
 				case "m7":
 				case "-7":
 					ct = ChordType.Minor7th;
 					break;
 				case "m9":
+					ct = ChordType.Minor9th;
 					break;
 				case "m11":
+					ct = ChordType.Minor11th;
 					break;
 				case "m13":
+					ct = ChordType.Minor13th;
 					break;
-				case "m6":
-					break;
+				#endregion
+
+
 				case "madd9":
+					ct = ChordType.MinorAdd9;
 					break;
 				case "m6add9":
 					break;
 				case "mmaj7":
+					ct = ChordType.MinorMaj7th;
 					break;
 				case "mmaj9":
 					break;
+
+
 				case "-7b5":
 				case "m7b5":
 					ct = ChordType.HalfDiminished;
 					break;
 				case "m7#5":
 					break;
+
+
+				#region Diatonic Dominant chords
 				case "7":
 					ct = ChordType.Dominant7th;
 					break;
 				case "9":
+					ct = ChordType.Dominant9th;
 					break;
 				case "11":
+					ct = ChordType.Dominant11th;
 					break;
 				case "13":
+					ct = ChordType.Dominant13th;
 					break;
-				case "7sus4":
-					break;
+
+				#endregion
+
+
 				case "7b5":
 					break;
 				case "7#5":
 					break;
 				case "7b9":
+					ct = ChordType.Dominant7b9;
 					break;
 				case "7#9":
+					ct = ChordType.Dominant7Sharp9;
 					break;
 				case "7b5b9":
 					break;
@@ -379,12 +413,21 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				case "dim7":
 					ct = ChordType.Diminished7;
 					break;
+
 				case "sus4":
+					ct = ChordType.Sus4;
 					break;
 				case "sus2":
+					ct = ChordType.Sus2;
 					break;
 				case "sus2sus4":
+					ct = ChordType.Sus2Sus4;
 					break;
+				case "7sus4":
+					ct = ChordType.SevenSus4;
+					break;
+
+
 				case "-5":
 					break;
 				default:
@@ -398,6 +441,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			if (!result)
 			{
 				message = $"Unsupported chord type ({input})";
+				Debug.WriteLine($"{input}");
 			}
 			return result;
 		}
