@@ -315,7 +315,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeUp(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result);
+				result = ctx.Key.GetNormalized(result, ctx.Interval);
 			}
 			return result;
 		}
@@ -326,7 +326,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > Interval.None)
 			{
 				result = TransposeDown(note, ctx.Interval);
-				result = ctx.Key.GetNormalized(result);
+				result = ctx.Key.GetNormalized(result, ctx.Interval);
 			}
 			return result;
 		}
@@ -557,7 +557,7 @@ namespace Eric.Morrison.Harmony
 			if (Interval.None < interval)
 			{
 				result = NoteName.TransposeUp(nn, interval);
-				result = normalizer.GetNormalized(result);
+				result = normalizer.GetNormalized(result, interval);
 			}
 			return result;
 		}

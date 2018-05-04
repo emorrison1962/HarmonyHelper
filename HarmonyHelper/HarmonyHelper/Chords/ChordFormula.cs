@@ -76,103 +76,95 @@ namespace Eric.Morrison.Harmony
 
 			if (addDiatonicExtension)
 			{
-				var interval = chordType.GetInterval(ChordFunctionEnum.Ninth);
-				if (Interval.None != interval)
-				{
-					this.NoteNameNormalizationHint = ChordFunctionEnum.Ninth;
-					var nn = NoteName.Catalog.Get(root, interval, this);
-					this.NoteNames.Add(nn);
-				}
-				interval = chordType.GetInterval(ChordFunctionEnum.Eleventh);
-				if (Interval.None != interval)
-				{
-					this.NoteNameNormalizationHint = ChordFunctionEnum.Eleventh;
-					var nn = NoteName.Catalog.Get(root, interval, this);
-					this.NoteNames.Add(nn);
-				}
+				throw new NotImplementedException();
+				//var interval = chordType.GetInterval(ChordFunctionEnum.Ninth);
+				//if (Interval.None != interval)
+				//{
+				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Ninth;
+				//	var nn = NoteName.Catalog.Get(root, interval, this);
+				//	this.NoteNames.Add(nn);
+				//}
+				//interval = chordType.GetInterval(ChordFunctionEnum.Eleventh);
+				//if (Interval.None != interval)
+				//{
+				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Eleventh;
+				//	var nn = NoteName.Catalog.Get(root, interval, this);
+				//	this.NoteNames.Add(nn);
+				//}
 
-				interval = chordType.GetInterval(ChordFunctionEnum.Thirteenth);
-				if (Interval.None != interval)
-				{
-					this.NoteNameNormalizationHint = ChordFunctionEnum.Thirteenth;
-					var nn = NoteName.Catalog.Get(root, interval, this);
-					this.NoteNames.Add(nn);
-				}
+				//interval = chordType.GetInterval(ChordFunctionEnum.Thirteenth);
+				//if (Interval.None != interval)
+				//{
+				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Thirteenth;
+				//	var nn = NoteName.Catalog.Get(root, interval, this);
+				//	this.NoteNames.Add(nn);
+				//}
 			}
-			this.NoteNameNormalizationHint = ChordFunctionEnum.None;
 		}
 
-		ChordFunctionEnum NoteNameNormalizationHint { get; set; }
-		public NoteName GetNormalized(NoteName nn)
+		public NoteName GetNormalized(NoteName nn, Interval baseInterval)
 		{
 			var result = nn;
-			if (this.Root.IsNatural)
+			if (baseInterval is ChordToneInterval)
 			{
+				var interval = baseInterval as ChordToneInterval;
+				int rootAscii = this.Root.Name[0];
+				int wantedAscii = 0;
 
-				int root = this.Root.Name[0];
-				int wanted = 0;
-				switch (this.NoteNameNormalizationHint)
+				switch (interval.ChordToneFunction)
 				{
-					case ChordFunctionEnum.None:
-						wanted = nn.Name[0];
+					case ChordToneFunctionEnum.None:
+					case ChordToneFunctionEnum.Root:
+						wantedAscii = nn.Name[0];
 						break;
-					case ChordFunctionEnum.Third:
-						wanted = root + 2;
+					case ChordToneFunctionEnum.Sus2:
+					case ChordToneFunctionEnum.Flat9th:
+					case ChordToneFunctionEnum.Ninth:
+					case ChordToneFunctionEnum.Sharp9th:
+						wantedAscii = rootAscii + 1;
 						break;
-					case ChordFunctionEnum.Fifth:
-						wanted = root + 4;
+					case ChordToneFunctionEnum.Minor3rd:
+					case ChordToneFunctionEnum.Major3rd:
+						wantedAscii = rootAscii + 2;
 						break;
-					case ChordFunctionEnum.Seventh:
-						wanted = root + 6;
+					case ChordToneFunctionEnum.Sus4:
+					case ChordToneFunctionEnum.Flat11th:
+					case ChordToneFunctionEnum.Eleventh:
+					case ChordToneFunctionEnum.Augmented11th:
+						wantedAscii = rootAscii + 3;
 						break;
-					case ChordFunctionEnum.Ninth:
-						wanted = root + 1;
+					case ChordToneFunctionEnum.Diminished5th:
+					case ChordToneFunctionEnum.Perfect5th:
+					case ChordToneFunctionEnum.Augmented5th:
+						wantedAscii = rootAscii + 4;
 						break;
-					case ChordFunctionEnum.Eleventh:
-						wanted = root + 3;
+					case ChordToneFunctionEnum.Major6th:
+					case ChordToneFunctionEnum.Flat13th:
+					case ChordToneFunctionEnum.Thirteenth:
+						wantedAscii = rootAscii + 5;
 						break;
-					case ChordFunctionEnum.Thirteenth:
-						wanted = root + 5;
+					case ChordToneFunctionEnum.Diminished7th:
+					case ChordToneFunctionEnum.Minor7th:
+					case ChordToneFunctionEnum.Major7th:
+						wantedAscii = rootAscii + 6;
 						break;
 				}
-				if (wanted > 'G')
-					wanted -= 7;
 
-				char readable = (char)wanted;
-				if (nn.Name[0] != wanted)
+				if (wantedAscii > 'G')
+					wantedAscii -= 7;
+#if DEBUG
+				char readableDebugValue = (char)wantedAscii;
+#endif
+				if (nn.Name[0] != wantedAscii)
 					result = NoteName.GetEnharmonicEquivalent(nn);
 				if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
-					Debug.Assert(result.Name[0] == wanted);
-
+				{
+#warning **** This could fail until I support ## and bb. (I.E., E7#9 (E,G#,B,D,F##))
+					//Debug.Assert(result.Name[0] == wantedAscii);
+				}
 			}
-			else if (this.Root.IsFlat && nn.IsSharp)
-			{
-				result = NoteName.GetEnharmonicEquivalent(nn);
-			}
-			else if (this.Root.IsSharp && nn.IsFlat)
-			{
-				result = NoteName.GetEnharmonicEquivalent(nn);
-			}
-
-
 
 			return result;
-			//			else if (!nn.IsNatural)
-			//			{
-			//				if (null != accidentalHint && !accidentalHint.IsNatural)
-			//				{
-			//					if (nn.IsFlat != accidentalHint.IsFlat)
-			//					{
-			//						copy = NoteName.GetEnharmonicEquivalent(nn);
-			//					}
-			//				}
-			//				else
-			//				{
-			//#warning If the key is CMajor and the nn is A# and accidentalHint is D, we're in the dark.
-			//					//copy = NoteName.GetEnharmonicEquivalent(nn);
-			//				}
-			//			}
-
 		}
 
 		#endregion

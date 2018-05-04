@@ -69,6 +69,7 @@
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
     <Compile Include="Interfaces\INoteNameNormalizer.cs" />
+    <Compile Include="Interval\ChordToneInterval.cs" />
     <Compile Include="Interval\Interval.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
       <DependentUpon>KeySignature.cs</DependentUpon>

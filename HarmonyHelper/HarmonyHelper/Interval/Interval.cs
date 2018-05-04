@@ -31,13 +31,18 @@ namespace Eric.Morrison.Harmony
 		static public Interval Major7th = new Interval("Major7th", Constants.INTERVAL_VALUE_MAJOR_7TH);
 		#endregion
 
-		public string Name { get; private set; }
+		virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		private Interval(string name, int value)
 		{
 			this.Name = name;
 			this.Value = value;
 			Catalog.Add(this);
+		}
+		protected Interval(Interval src)
+		{
+			this.Name = src.Name;
+			this.Value = src.Value;
 		}
 
 		static Interval() {

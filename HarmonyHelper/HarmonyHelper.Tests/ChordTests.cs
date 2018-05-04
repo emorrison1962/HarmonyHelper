@@ -140,7 +140,7 @@ namespace Eric.Morrison.Harmony.Tests
 			for (int i = 0 ; i <= TestConstants.CYCLE_MAX ; ++i)
 			{
 				var a = key.NoteName.ToString();
-				var b = key.GetNormalized(key.NoteName).ToString();
+				var b = key.GetNormalized(key.NoteName, null).ToString();
 				Assert.AreEqual(a, b);
 				//key.Notes.ForEach(x => Debug.Write(x + ","));
 				//Debug.WriteLine("");

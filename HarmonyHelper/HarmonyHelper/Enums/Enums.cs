@@ -133,12 +133,18 @@ Major7th
 		None = 0,
 		Root,
 
+		Sus2,
+
 		Minor3rd,
 		Major3rd,
+
+		Sus4,
 
 		Diminished5th,
 		Perfect5th,
 		Augmented5th,
+
+		Major6th,
 
 		Diminished7th,
 		Minor7th,

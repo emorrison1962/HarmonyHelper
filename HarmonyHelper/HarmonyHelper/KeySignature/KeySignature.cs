@@ -211,7 +211,7 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
-		public NoteName GetNormalized(NoteName nn)
+		public NoteName GetNormalized(NoteName nn, Interval interval)
 		{
 			var copy = nn.Copy();
 			if (!this.Contains(copy))
