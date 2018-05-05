@@ -2623,7 +2623,7 @@ namespace Eric.Morrison.Harmony.Tests
 					else
 					{
 						Assert.IsTrue(nn1.Value != nn2.Value);
-						Assert.IsTrue(interval.Value == interval2.Value);
+						Assert.IsTrue(interval.Value == interval2.GetInversion().Value);
 					}
 				}
 			}
@@ -2642,7 +2642,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var key = KeySignature.BbMajor;
 				var subtrahend = NoteName.C + new IntervalContext(key, interval);
 				var result = NoteName.C - subtrahend;
-				var expected = (Interval)Math.Min((int)interval, (int)result.GetInversion());
+				var expected = interval;
 				Assert.AreEqual(interval.Value, expected.Value);
 			}
 

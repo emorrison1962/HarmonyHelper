@@ -14,19 +14,8 @@ namespace Eric.Morrison.Harmony
 			var result = new List<HarmonicAnalysisResult>();
 			foreach (var rule in HarmonicAnalysisRuleBase.Catalog)
 			{
-				if (rule.SupportsLists)
-				{
-					var har = rule.Analyze(chords);
-					result.Add(har);
-				}
-				else
-				{
-					var pairs = chords.GetPairs();
-					foreach (var pair in pairs)
-					{
-						rule.Analyze(pair[0], pair[1]);
-					}
-				}
+				var har = rule.Analyze(chords);
+				result.Add(har);
 			}
 
 			return result;

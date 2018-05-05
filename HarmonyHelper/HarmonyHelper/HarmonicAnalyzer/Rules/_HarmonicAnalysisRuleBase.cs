@@ -9,7 +9,6 @@ namespace Eric.Morrison.Harmony
 	{
 		static public List<HarmonicAnalysisRuleBase> Catalog { get; set; } = new List<HarmonicAnalysisRuleBase>();
 
-		abstract public bool SupportsLists { get; }
 
 		static HarmonicAnalysisRuleBase()
 		{
@@ -26,7 +25,6 @@ namespace Eric.Morrison.Harmony
 			Catalog.Add(this);
 		}
 
-		public abstract HarmonicAnalysisResult Analyze(Chord a, Chord b);
 		public abstract HarmonicAnalysisResult Analyze(List<Chord> chords);
 
 	}//class

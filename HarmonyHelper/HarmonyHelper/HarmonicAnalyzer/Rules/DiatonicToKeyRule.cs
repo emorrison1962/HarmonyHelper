@@ -6,12 +6,6 @@ namespace Eric.Morrison.Harmony
 {
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
-		public override bool SupportsLists { get { return true; } }
-		public override HarmonicAnalysisResult Analyze(Chord a, Chord b)
-		{
-			throw new System.NotSupportedException();
-		}
-
 		public override HarmonicAnalysisResult Analyze(List<Chord> chords)
 		{
 			HarmonicAnalysisResult result = null;

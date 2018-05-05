@@ -61,10 +61,11 @@
     <Compile Include="Enums\DirectionEnumExtensions.cs" />
     <Compile Include="Enums\IntervalsEnumExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
-    <Compile Include="HarmonicAnalyzer\DiatonicToKeyRule.cs" />
+    <Compile Include="HarmonicAnalyzer\Rules\DiatonicToKeyRule.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalysisResult.cs" />
-    <Compile Include="HarmonicAnalyzer\BorrowedChordHarmonicAnalysisRule.cs" />
-    <Compile Include="HarmonicAnalyzer\HarmonicAnalysisRuleBase.cs" />
+    <Compile Include="HarmonicAnalyzer\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
+    <Compile Include="HarmonicAnalyzer\Rules\SecondaryDominantRule.cs" />
+    <Compile Include="HarmonicAnalyzer\Rules\_HarmonicAnalysisRuleBase.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzer.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Scales\ScaleFormulas.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HarmonicAnalyzer\Rules\References.txt" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <Content Include="_TODO.txt" />
   </ItemGroup>

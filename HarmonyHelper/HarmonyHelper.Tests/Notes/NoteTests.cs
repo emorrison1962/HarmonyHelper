@@ -120,7 +120,9 @@ namespace Eric.Morrison.Harmony.Tests
 			var cSharp = new Note(NoteName.CSharp, OctaveEnum.Octave3);
 
 			var interval = b - cSharp;
-			Assert.IsTrue(Interval.Major2nd == interval);
+			Assert.IsTrue(Interval.Minor7th == interval);
+			var i2 = cSharp - b;
+			Assert.IsTrue(Interval.Major2nd == i2);
 		}
 
 	}

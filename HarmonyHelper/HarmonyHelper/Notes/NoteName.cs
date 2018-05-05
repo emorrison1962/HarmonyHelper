@@ -283,7 +283,12 @@ namespace Eric.Morrison.Harmony
 		public static Interval operator -(NoteName a, NoteName b)
 		{
 			var result = Interval.None;
-			if (null != a && null != b)
+			bool success = false;
+			if ((null != a && null != b) && 
+				(a.Value != b.Value))
+				success = true;
+
+			if (success)
 			{
 				var notes = NoteName.Catalog
 					.Distinct(new NoteNameValueEqualityComparer())
@@ -293,19 +298,20 @@ namespace Eric.Morrison.Harmony
 				var ndxA = notes.FindIndex(x => x.Value == a.Value);
 				var ndxB = notes.FindIndex(x => x.Value == b.Value);
 
-				var diff = Math.Abs(ndxA - ndxB);
-				if (diff > 0)
+				var invert = false;
+				var diff = ndxA - ndxB;
+				if (diff < 0)
 				{
-					var pow = 1 << diff;
-					var intervalA = (Interval)pow;
-					var intervalB = intervalA.GetInversion();
-					var which = Math.Min(intervalA.Value, intervalB.Value);
-					if (intervalA.Value == which)
-						result = intervalA;
-					else
-						result = intervalB;
-
+					invert = true;
+					diff = Math.Abs(diff);
 				}
+
+				var pow = 1 << diff;
+				var interval = (Interval)pow;
+				result = interval;
+
+				if (invert)
+					result = interval.GetInversion();
 			}
 			return result;
 		}

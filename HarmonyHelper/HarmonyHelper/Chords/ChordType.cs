@@ -79,6 +79,8 @@ namespace Eric.Morrison.Harmony
 		public bool IsMajor { get; set; }
 		public bool IsMinor { get; set; }
 		public bool IsDiminished { get; set; }
+		public bool IsDominant { get; set; }
+		
 		#endregion
 
 		#region Construction
@@ -111,8 +113,13 @@ namespace Eric.Morrison.Harmony
 					this.IsMajor = true;
 				if (this.Intervals.Contains(ChordToneInterval.Minor3rd))
 					this.IsMinor = true;
-				if (this.Intervals.Contains(ChordToneInterval.Diminished5th))
+				if (this.Intervals.Contains(ChordToneInterval.Minor3rd) 
+					&& this.Intervals.Contains(ChordToneInterval.Diminished5th))
 					this.IsDiminished = true;
+
+				if (this.Intervals.Contains(ChordToneInterval.Major3rd)
+					&& this.Intervals.Contains(ChordToneInterval.Minor7th))
+					this.IsDominant = true;
 
 			}
 		}

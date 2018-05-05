@@ -75,7 +75,7 @@ namespace Eric.Morrison.Harmony
 			{
 				var i1 = nn2 - nn1;
 				var i2 = nn1 - nn2;
-				Assert.AreEqual(i1, i2);
+				Assert.AreEqual(i1, i2.GetInversion());
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony
 					var expectedInterval = txposedUp - noteName;
 
 					var inversion = interval.GetInversion();
-					Assert.IsTrue(expectedInterval.Value == Math.Min(interval.Value, interval.GetInversion().Value));
+					Assert.IsTrue(expectedInterval.Value == interval.Value);
 					Assert.IsFalse(txposedUp == noteName);
 
 					var txposedDown = NoteName.TransposeDown(txposedUp, interval);
@@ -111,9 +111,9 @@ namespace Eric.Morrison.Harmony
 			var interval = Interval.Major2nd;
 
 			var txposedUp = NoteName.TransposeUp(originalNoteName, interval);
-			var expectedInterval = originalNoteName - txposedUp;
+			var expectedInterval = txposedUp - originalNoteName;
 
-			Assert.IsTrue(expectedInterval.Value == Math.Min(interval.Value, interval.GetInversion().Value));
+			Assert.IsTrue(expectedInterval.Value == interval.Value);
 			Assert.IsFalse(txposedUp == originalNoteName);
 
 			var txposedDown = NoteName.TransposeDown(txposedUp, interval);
