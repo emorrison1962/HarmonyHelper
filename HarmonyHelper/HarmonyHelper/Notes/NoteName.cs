@@ -41,23 +41,8 @@ namespace Eric.Morrison.Harmony
 
 		#region Statics
 
-		static NoteName()
-		{
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(C, BSharp));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(CSharp, Db));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(DSharp, Eb));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(E, Fb));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ESharp, F));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(FSharp, Gb));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(GSharp, Ab));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharp, Bb));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(B, Cb));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(D));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(G));
-			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(A));
-		}
-
-		static public List<NoteName> Catalog { get; set; } = new List<NoteName>();
+		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
+		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
 
 
 		static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}", VALUE_C);
@@ -120,38 +105,56 @@ namespace Eric.Morrison.Harmony
 
 		#endregion Statics
 
-
+		#region Properties
 		static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
 		public string Name { get; private set; }
 		public int Value { get; private set; }
-		public bool IsSharp { get; private set; }
-		public bool IsFlat { get; private set; }
+		public bool IsSharped { get; private set; }
+		public bool IsFlatted { get; private set; }
 		public bool IsNatural { get; private set; }
 		public int AsciiSortValue { get; private set; }
 
 
+		#endregion
 
-		NoteName(string name, int val)
+		#region Construction
+		static NoteName()
+		{
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(BSharp, C,  Dbb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(BSharpSharp, CSharp, Db));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(CSharpSharp, D, Ebb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(DSharp, Eb, Fbb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(DSharpSharp, E, Fb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ESharp, F, Gbb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ESharpSharp, FSharp, Gb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(FSharpSharp, G, Abb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(GSharp, Ab));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(GSharpSharp, A, Bbb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharp, Bb, Cbb));
+			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharpSharp, B, Cb));
+		}
+
+		NoteName(string name, int val, bool addToCatalog = true)
 		{
 			this.Name = name;
 			this.Value = val;
 
 			if (this.Name.EndsWith(Constants.SHARP))
-				this.IsSharp = true;
+				this.IsSharped = true;
 			else if (this.Name.EndsWith(Constants.FLAT))
-				this.IsFlat = true;
+				this.IsFlatted = true;
 			else
 				this.IsNatural = true;
 
-			this.AsciiSortValue = (this.Name[0] - ASCII_C >= 0) ? 
+			this.AsciiSortValue = (this.Name[0] - ASCII_C >= 0) ?
 				this.Name[0] - ASCII_C : this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
 
-			Catalog.Add(this);
+			if (addToCatalog)
+				_catalog.Add(this);
 		}
 
-		NoteName(NoteName src) : this(src.Name, src.Value)
+		NoteName(NoteName src) : this(src.Name, src.Value, false)
 		{
-			Catalog.Remove(this);
 		}
 
 		public NoteName Copy()
@@ -165,58 +168,9 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public class EnharmonicEquivalent
-		{
-			public NoteName Key { get; private set; }
-			public NoteName Other { get; private set; }
-			EnharmonicEquivalent(NoteName key, NoteName other)
-			{
-				if (key.Value != other.Value)
-					throw new ArgumentException();
+		#endregion
 
-				this.Key = key;
-				this.Other = other;
-
-			}
-			EnharmonicEquivalent(NoteName key)
-			{
-				this.Key = key;
-				this.Other = key;
-			}
-
-			static public EnharmonicEquivalent[] Create(NoteName x, NoteName y)
-			{
-				return new EnharmonicEquivalent[] {
-					new EnharmonicEquivalent(x,y),
-					new EnharmonicEquivalent(y,x) };
-			}
-			static public EnharmonicEquivalent[] Create(NoteName x)
-			{
-				return new EnharmonicEquivalent[] {
-					new EnharmonicEquivalent(x,x) };
-			}
-
-			public override string ToString()
-			{
-				return string.Format("{0}:{1}", this.Key.ToString(), this.Other.ToString());
-			}
-		}
-
-
-		static public NoteName GetEnharmonicEquivalent(NoteName nn)
-		{
-			var seq = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).ToList();
-			Debug.Assert(seq.Count == 1);
-			var pairing = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
-			var result = pairing.Other.Copy();
-			return result;
-		}
-
-		public override string ToString()
-		{
-			return this.Name;
-		}
-
+		#region Operators
 		public static bool operator <(NoteName a, NoteName b)
 		{
 			var result = Compare(a, b) < 0;
@@ -356,6 +310,8 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		#endregion
+
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
 			NoteName result = src;
@@ -392,9 +348,9 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				success = false;
-				var optimalResult = noteNames.Where(x => x.IsFlat == src.IsFlat
+				var optimalResult = noteNames.Where(x => x.IsFlatted == src.IsFlatted
 					&& x.IsNatural == src.IsNatural
-					&& x.IsSharp == src.IsSharp).FirstOrDefault();
+					&& x.IsSharped == src.IsSharped).FirstOrDefault();
 				if (null != optimalResult)
 				{
 					result = optimalResult;
@@ -413,11 +369,20 @@ namespace Eric.Morrison.Harmony
 				if (!success)
 				{
 #warning FIXME: # if ascending....
-					var defaultResult = noteNames.Where(x => x.IsSharp).FirstOrDefault();
+					var defaultResult = noteNames.Where(x => x.IsSharped).FirstOrDefault();
 					if (null != defaultResult)
 					{
 						result = defaultResult;
 						success = true;
+					}
+					else
+					{
+						defaultResult = noteNames.Where(x => x.IsFlatted).FirstOrDefault();
+						if (null != defaultResult)
+						{
+							result = defaultResult;
+							success = true;
+						}
 					}
 				}
 				if (!success)
@@ -438,114 +403,24 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		static public List<NoteName> GetEnharmonicEquivalents(NoteName nn)
+		{
+			var ee = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
+			var result = ee.Others;
+			return result;
+		}
+
+		public override string ToString()
+		{
+			return this.Name;
+		}
 
 	}//class
-
-	public class IntervalContext
-	{
-		public KeySignature Key { get; private set; }
-		public Interval Interval { get; private set; }
-
-		public IntervalContext(KeySignature key, Interval interval)
-		{
-			this.Key = key;
-			this.Interval = interval;
-		}
-	}
-
-	public class NoteNameValueEqualityComparer : IEqualityComparer<NoteName>
-	{
-		public bool Equals(NoteName x, NoteName y)
-		{
-			var result = false;
-			if (x.Value == y.Value)
-				result = true;
-			return result;
-		}
-
-		public int GetHashCode(NoteName obj)
-		{
-			return obj.Value.GetHashCode();
-		}
-	}
-
-	public class NoteNameExplicitEqualityComparer : IEqualityComparer<NoteName>
-	{
-		public bool Equals(NoteName x, NoteName y)
-		{
-			var result = false;
-			if (x.Name == y.Name && x.Value == y.Value)
-				result = true;
-			return result;
-		}
-
-		public int GetHashCode(NoteName obj)
-		{
-			return obj.Name.GetHashCode() ^ obj.Value.GetHashCode();
-		}
-	}
-
-	public class NoteNameAphaEqualityComparer : IEqualityComparer<NoteName>
-	{
-		public bool Equals(NoteName x, NoteName y)
-		{
-			var result = false;
-			if (x.Name == y.Name)
-				result = true;
-			return result;
-		}
-
-		public int GetHashCode(NoteName obj)
-		{
-			return obj.Name.GetHashCode();
-		}
-	}
-
-	public class NoteNameAlphaComparer : IComparer<NoteName>
-	{
-		public int Compare(NoteName x, NoteName y)
-		{
-			return x.AsciiSortValue.CompareTo(y.AsciiSortValue);
-		}
-	}
-
-	public class NoteNameListValueEqualityComparer : IEqualityComparer<List<NoteName>>
-	{
-		public bool Equals(List<NoteName> x, List<NoteName> y)
-		{
-			var result = true;
-			var valueComparer = new NoteNameValueEqualityComparer();
-			foreach (var nn in x)
-			{
-				if (!y.Contains(nn, valueComparer))
-				{
-					result = false;
-					break;
-				}
-			}
-			return result;
-		}
-
-		public int GetHashCode(List<NoteName> obj)
-		{
-			var result = 0;
-			foreach (var nn in obj)
-			{
-				result ^= nn.Value.GetHashCode();
-			}
-			return result;
-		}
-
-		public int GetHashCode(NoteName obj)
-		{
-			return obj.Value.GetHashCode();
-		}
-	}
 
 	public static class NoteNameCatalogExtensions
 	{
 		[Obsolete("", false)]
-		static public NoteName Get(this List<NoteName> src, 
+		static public NoteName Get(this IEnumerable<NoteName> src,
 			NoteName nn, Interval interval, INoteNameNormalizer normalizer)
 		{
 			var result = nn;

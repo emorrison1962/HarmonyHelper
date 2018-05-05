@@ -68,7 +68,7 @@ namespace Eric.Morrison.Harmony
 		[TestMethod]
 		public void NoteName_Subtration_Operator()
 		{
-			var nn1 = NoteName.Catalog[0];
+			var nn1 = NoteName.Catalog.First();
 			var nns = NoteName.Catalog.Where(x => x != nn1);
 
 			foreach (var nn2 in nns)
@@ -125,34 +125,8 @@ namespace Eric.Morrison.Harmony
 		}
 
 
-		[TestMethod]
-		public void Chords_Dont_have_Sharps_AND_Flats()
-		{
-			var noteRange = NoteRange.Default;
 
-			foreach (var noteName in NoteName.Catalog)
-			{
-				foreach (var chordType in ChordType.Catalog.Where(x => x != ChordType.None))
-				{
-					foreach (var key in KeySignature.Catalog)
-					{
-						var formula = new ChordFormula(noteName, chordType, key);
-						var chord = new Chord(formula, noteRange);
-
-						var flatCount = chord.Notes.Count(x => x.NoteName.IsFlat);
-						var sharpCount = chord.Notes.Count(x => x.NoteName.IsSharp);
-						var naturalCount = chord.Notes.Count(x => x.NoteName.IsNatural);
-
-						if (flatCount > 0)
-							Assert.IsTrue(sharpCount == 0);
-						else if (sharpCount > 0)
-							Assert.IsTrue(flatCount == 0);
-					}
-				}
-			}
-
-		}
-
+		[Ignore]
 		[TestMethod]
 		public void Chord_Populate_Notes()
 		{

@@ -71,8 +71,15 @@
     <Compile Include="Interfaces\INoteNameNormalizer.cs" />
     <Compile Include="Interval\ChordToneInterval.cs" />
     <Compile Include="Interval\Interval.cs" />
+    <Compile Include="Interval\IntervalContext.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
       <DependentUpon>KeySignature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notes\Comparers.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notes\EnharmonicEquivalent.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
     <Compile Include="_ClassBase.cs" />

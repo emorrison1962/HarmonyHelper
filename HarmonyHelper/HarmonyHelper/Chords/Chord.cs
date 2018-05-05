@@ -93,16 +93,16 @@ namespace Eric.Morrison.Harmony
 			var result = false;
 			if (this.Key.UsesFlats)
 			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlat)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsFlat))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat))
+				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlatted)
+					if (this.NoteNames.All(x => x.IsNatural || x.IsFlatted))
+						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlatted))
 							result = true;
 			}
 			else if (this.Key.UsesSharps)
 			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharp)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsSharp))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp))
+				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharped)
+					if (this.NoteNames.All(x => x.IsNatural || x.IsSharped))
+						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharped))
 							result = true;
 			}
 			Debug.Assert(result);

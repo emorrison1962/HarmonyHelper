@@ -213,28 +213,43 @@ namespace Eric.Morrison.Harmony
 		}
 		public NoteName GetNormalized(NoteName nn, Interval interval)
 		{
-			var copy = nn.Copy();
-			if (!this.Contains(copy))
+			var result = nn.Copy();
+			if (!this.Contains(result, out NoteName suggested))
 			{
-				if (this.Affects(copy))
+				if (null != suggested)
 				{
-					copy = NoteName.GetEnharmonicEquivalent(copy);
+					result = suggested;
+				}
+				else
+				{
+#warning  **** What's the fix? I don't know which Ascii name is optimal. ****
+					result = NoteName.GetEnharmonicEquivalents(result)[0];
 				}
 			}
-			return copy;
-		}
-		public bool Affects(NoteName note)
-		{
-			var result = false;
-			if (this.NoteNames.Contains(note, new HasEnharmonicComparer()))
-				result = true;
 			return result;
 		}
-		public bool Contains(NoteName note)
+		public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
 		{
+			inKeyEnharmonic = null;
 			var result = false;
-			if (this.NoteNames.Contains(note, new IsInKeyComparer()))
+
+			var explicitComparer = new IsInKeyComparer();
+			if (this.NoteNames.Contains(note, explicitComparer))
 				result = true;
+			else
+			{
+				if (this.NoteNames.Contains(note, new HasEnharmonicComparer()))
+				{
+					foreach (var ee in NoteName.GetEnharmonicEquivalents(note))
+					{
+						if (this.NoteNames.Contains(ee, explicitComparer))
+						{
+							inKeyEnharmonic = ee;
+							break;
+						}
+					}
+				}
+			}
 			return result;
 		}
 		public override string ToString()
@@ -244,7 +259,7 @@ namespace Eric.Morrison.Harmony
 		public bool AreDiatonic(List<NoteName> noteNames)
 		{
 			bool result = false;
-			var count  = noteNames.Except(this.NoteNames).Count();
+			var count = noteNames.Except(this.NoteNames).Count();
 			if (0 == count)
 				result = true;
 			return result;

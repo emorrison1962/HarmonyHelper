@@ -148,7 +148,7 @@ namespace Eric.Morrison.Harmony
 		}
 
 
-		public List<Note> GetNotes(List<NoteName> requestedNames)
+		public List<Note> GetNotes(IEnumerable<NoteName> requestedNames)
 		{
 			var wantedNotes = new List<Note>();
 			foreach (var nn in requestedNames)

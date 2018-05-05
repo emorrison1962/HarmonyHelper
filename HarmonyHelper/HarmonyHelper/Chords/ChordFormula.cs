@@ -156,11 +156,16 @@ namespace Eric.Morrison.Harmony
 				char readableDebugValue = (char)wantedAscii;
 #endif
 				if (nn.Name[0] != wantedAscii)
-					result = NoteName.GetEnharmonicEquivalent(nn);
+					foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
+						if (ee.Name[0] == wantedAscii)
+						{
+							result = ee;
+							break;
+						}
+
 				if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
 				{
-#warning **** This could fail until I support ## and bb. (I.E., E7#9 (E,G#,B,D,F##))
-					//Debug.Assert(result.Name[0] == wantedAscii);
+					Debug.Assert(result.Name[0] == wantedAscii);
 				}
 			}
 
