@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -2678,7 +2678,7 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var nn in NoteName.Catalog)
 			{
 				var ee = NoteName.GetEnharmonicEquivalents(nn);
-				Assert.AreEqual(nn, ee);
+				Assert.IsTrue(ee.All(x => x == nn));
 			}
 			new object();
 		}
@@ -2702,7 +2702,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var count = NoteName.Catalog.Count();
 			var lessThan = 0;
 			var greaterThan = 0;
-			for (int i = 0; i < count; ++i)
+			for (int i = 0 ; i < count ; ++i)
 			{
 				var nn1 = NoteName.Catalog.ElementAt(i);
 				foreach (var nn2 in NoteName.Catalog)
@@ -2710,8 +2710,8 @@ namespace Eric.Morrison.Harmony.Tests
 					int compare = nn1.CompareTo(nn2);
 					if (0 == compare)
 					{
-						var ee = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.AreEqual(ee, nn2);
+						var equivalents = NoteName.GetEnharmonicEquivalents(nn1);
+						Assert.IsTrue(equivalents.All(x => x == nn2));
 					}
 					if (compare < 0)
 						++lessThan;
@@ -2728,7 +2728,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var count = NoteName.Catalog.Count();
 			var lessThan = 0;
 			var greaterThan = 0;
-			for (int i = 0; i < count; ++i)
+			for (int i = 0 ; i < count ; ++i)
 			{
 				var nn1 = NoteName.Catalog.ElementAt(i);
 				foreach (var nn2 in NoteName.Catalog)
@@ -2737,7 +2737,7 @@ namespace Eric.Morrison.Harmony.Tests
 					if (0 == compare)
 					{
 						var ee = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.AreEqual(ee, nn2);
+						Assert.IsTrue(ee.All(x => x == nn1));
 					}
 					if (compare < 0)
 						++lessThan;

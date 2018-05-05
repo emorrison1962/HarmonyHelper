@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Construction
 
-		public ChordFormula(NoteName root, ChordType chordType, KeySignature key, bool addDiatonicExtension = false)
+		public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
 		{
 			if (null == root)
 				throw new NullReferenceException();
@@ -48,57 +48,6 @@ namespace Eric.Morrison.Harmony
 			{
 				var nn = NoteName.Catalog.Get(root, interval, this);
 				this.NoteNames.Add(nn);
-			}
-
-			//var interval = chordType.GetInterval(ChordFunctionEnum.Third);
-			//if (Interval.None != interval)
-			//{
-			//	this.NoteNameNormalizationHint = ChordFunctionEnum.Third;
-			//	var nn = NoteName.Catalog.Get(root, interval, this);
-			//	this.NoteNames.Add(nn);
-			//}
-
-			//interval = chordType.GetInterval(ChordFunctionEnum.Fifth);
-			//if (Interval.None != interval)
-			//{
-			//	this.NoteNameNormalizationHint = ChordFunctionEnum.Fifth;
-			//	var nn = NoteName.Catalog.Get(root, interval, this);
-			//	this.NoteNames.Add(nn);
-			//}
-
-			//interval = chordType.GetInterval(ChordFunctionEnum.Seventh);
-			//if (Interval.None != interval)
-			//{
-			//	this.NoteNameNormalizationHint = ChordFunctionEnum.Seventh;
-			//	var nn = NoteName.Catalog.Get(root, interval, this);
-			//	this.NoteNames.Add(nn);
-			//}
-
-			if (addDiatonicExtension)
-			{
-				throw new NotImplementedException();
-				//var interval = chordType.GetInterval(ChordFunctionEnum.Ninth);
-				//if (Interval.None != interval)
-				//{
-				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Ninth;
-				//	var nn = NoteName.Catalog.Get(root, interval, this);
-				//	this.NoteNames.Add(nn);
-				//}
-				//interval = chordType.GetInterval(ChordFunctionEnum.Eleventh);
-				//if (Interval.None != interval)
-				//{
-				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Eleventh;
-				//	var nn = NoteName.Catalog.Get(root, interval, this);
-				//	this.NoteNames.Add(nn);
-				//}
-
-				//interval = chordType.GetInterval(ChordFunctionEnum.Thirteenth);
-				//if (Interval.None != interval)
-				//{
-				//	this.NoteNameNormalizationHint = ChordFunctionEnum.Thirteenth;
-				//	var nn = NoteName.Catalog.Get(root, interval, this);
-				//	this.NoteNames.Add(nn);
-				//}
 			}
 		}
 
@@ -226,16 +175,15 @@ namespace Eric.Morrison.Harmony
 
 		public ChordToneFunctionEnum GetRelationship(NoteName note)
 		{
-			//var result = this.GetChordToneFunction(note);
 			var result = ChordToneFunctionEnum.None;
 			var success = false;
-			if (ChordToneFunctionEnum.None != result)
-				success = true;
-			if (!success)
-			{
+
 				var interval = this.Root - note;
 
-				if (interval == Interval.Minor2nd)
+				if (interval == Interval.None)
+					result = ChordToneFunctionEnum.Root;
+
+				else if (interval == Interval.Minor2nd)
 					result = ChordToneFunctionEnum.Flat9th;
 
 				else if (interval == Interval.Major2nd)
@@ -282,10 +230,8 @@ namespace Eric.Morrison.Harmony
 
 				else if (interval == Interval.Major7th)
 					result = ChordToneFunctionEnum.Major7th;
-
 				else
 					throw new NotSupportedException();
-			}
 
 			return result;
 		}

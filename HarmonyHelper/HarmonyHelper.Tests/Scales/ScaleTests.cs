@@ -342,16 +342,17 @@ namespace Eric.Morrison.Harmony.Tests
 			new object();
 		}
 
+		[Ignore]// Temporarily de-featured
 		[TestMethod()]
 		public void GetResolutionsFor_Blues_WithExtensions_Test()
 		{
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
 
-			chords.Add(ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.CMajor, true));
-			chords.Add(ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7th, KeySignature.CMajor, true));
-			chords.Add(ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7th, KeySignature.CMajor, true));
-			chords.Add(ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.CMajor, true));
+			chords.Add(ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7th, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7th, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.CMajor));
 
 			var chordPairs = chords.GetPairs().ToList();
 
