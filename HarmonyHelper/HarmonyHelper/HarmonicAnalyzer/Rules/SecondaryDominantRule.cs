@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,10 @@ namespace Eric.Morrison.Harmony
 			{
 				if (pair[0].Formula.ChordType.IsDominant)
 				{
-					if (pair[0].Root - pair[1].Root == Interval.Perfect4th)
+					var interval = pair[0].Root - pair[1].Root;
+					if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
 					{
+						Debug.WriteLine($"{pair[0]}, {pair[1]}");
 						success = true;
 					}
 				}

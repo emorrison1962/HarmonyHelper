@@ -53,6 +53,7 @@
 		public const int INTERVAL_VALUE_MINOR_7TH = 1 << 10;
 		public const int INTERVAL_VALUE_MAJOR_7TH = 1 << 11;
 
+		public const int COUNT_DIATONIC_SCALE_DEGREES = 7;
 
 
 	}

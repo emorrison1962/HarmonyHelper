@@ -28,6 +28,23 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class
+		{
+			T result = null;
+			var maxNdx = list.Count - 1;
+			if (currentNdx < maxNdx)
+			{
+				result = list[currentNdx];
+				++currentNdx;
+			}
+			else if (currentNdx == maxNdx)
+			{
+				result = list[maxNdx];
+				currentNdx = 0;
+			}
+
+			return result;
+		}
 
 		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
 		{

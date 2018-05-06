@@ -32,5 +32,25 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			Assert.Fail();
 		}
-	}
-}
+		[TestMethod()]
+		public void SecondaryDominantRule_Test()
+		{
+			var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
+			if (ChordParser.TryParse(str, out List<Chord> chords, out string message))
+			{
+				var analysisResults = HarmonicAnalyzer.Analyze(chords);
+				foreach (var analysisResult in analysisResults)
+				{
+					if (null != analysisResult && analysisResult.Success)
+						Debug.WriteLine(analysisResult.Message);
+				}
+				Assert.IsNotNull(analysisResults);
+			}
+			else
+			{
+				Assert.Fail(message);
+			}
+			Assert.Fail();
+		}
+	}//class
+}//ns
