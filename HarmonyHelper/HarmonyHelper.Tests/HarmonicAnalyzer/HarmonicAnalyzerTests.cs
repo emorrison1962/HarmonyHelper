@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var str = "Dm7 g7 cmaj7";
 			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			foreach (var analysisResult in analysisResults)
 			{
 				if (analysisResult.Success)
@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
 			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			foreach (var analysisResult in analysisResults)
 			{
 				if (null != analysisResult && analysisResult.Success)
@@ -49,7 +49,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			public string Title { get; private set; }
 			public string Key { get; private set; }
-			public List<string> Chords { get; private set; } = new List<string>();
+			public List<string> Chords { get; set; } = new List<string>();
 			public Song(string title, string key, List<string> chords)
 			{
 				this.Title = title;
@@ -70,12 +70,34 @@ namespace Eric.Morrison.Harmony.Tests
 			return result;
 		}
 
+		List<string> Cleanse(List<string> chords)
+		{
+			//var bad = chords.Where(x =>
+			//	!x.ToLower().StartsWith("a") &&
+			//	!x.ToLower().StartsWith("b") &&
+			//	!x.ToLower().StartsWith("c") &&
+			//	!x.ToLower().StartsWith("d") &&
+			//	!x.ToLower().StartsWith("e") &&
+			//	!x.ToLower().StartsWith("f") &&
+			//	!x.ToLower().StartsWith("g")).ToList();
+			//if (bad.Count < 0)
+			//	new object();
+
+			var result = chords.Where(x => 
+				x.ToLower() != "nc" && 
+				x.ToLower() != "(hard stop)").ToList();
+			return result;
+		}
+
 		[TestMethod()]
 		public void BorrowedChordHarmonicAnalysisRule_Test02()
 		{
 			var songs = this.LoadSongs();
 			foreach (var song in songs)
 			{
+				//song.Chords.ForEach(x => Debug.WriteLine(x));
+				song.Chords = this.Cleanse(song.Chords);
+
 				var str = string.Join(" ", song.Chords);
 				var keyStr = song.Key;
 				var title = song.Title;
@@ -84,13 +106,18 @@ namespace Eric.Morrison.Harmony.Tests
 				{
 					var key = KeySignature.MajorKeys.Where(x => x.NoteName.Name == keyStr).First();
 					var chords = this.GetChords(str, key);
-					var analysisResults = HarmonicAnalyzer.Analyze(chords);
+					var analysisResults = HarmonicAnalyzer.Analyze(chords, key);
+					Debug.WriteLine($"Analysis: {song.Title} in {song.Key}:");
+					Debug.WriteLine(str);
+					Debug.Indent();
 					foreach (var analysisResult in analysisResults)
 					{
 						if (null != analysisResult && analysisResult.Success)
 							Debug.WriteLine(analysisResult.Message);
 					}
 					Assert.IsNotNull(analysisResults);
+					Debug.Unindent();
+					Debug.WriteLine(string.Empty);
 				}
 
 			}
@@ -103,7 +130,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var str = "Dm7 g7 cmaj7 AbMaj7";
 			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			foreach (var analysisResult in analysisResults)
 			{
 				if (null != analysisResult && analysisResult.Success)
@@ -114,7 +141,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 		List<ChordFormula> GetChords(string chords, KeySignature key = null)
 		{
-			if (!ChordParser.TryParse(chords, out List<ChordFormula> result, out string message, key))
+			if (!ChordFormulaParser.TryParse(chords, out List<ChordFormula> result, out string message, key))
 				Assert.Fail("Couldn't parse chords.");
 			return result;
 		}

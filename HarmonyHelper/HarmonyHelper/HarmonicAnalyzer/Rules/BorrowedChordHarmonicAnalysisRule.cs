@@ -19,13 +19,12 @@ namespace Eric.Morrison.Harmony
 		}
 
 
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
-			var grid = this.CreateBorrowedChordGrid(KeySignature.CMajor);
+			var grid = this.CreateBorrowedChordGrid(key);
 
-			var key = KeySignature.CMajor;
 			var formulas = chords.Select(x => x).Distinct().ToList();
 			var nonDiatonic = key.GetNonDiatonic(formulas);
 			new object();

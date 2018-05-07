@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web;
+using Eric.Morrison;
 using HtmlAgilityPack;
 
 namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
@@ -13,6 +15,7 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 		public string Title { get; private set; }
 		public string Key { get; private set; }
 		public List<string> Chords { get; private set; } = new List<string>();
+		public List<string> ChorusChords { get; set; } = new List<string>();
 		public Song(string title, string key, List<string> chords)
 		{
 			this.Title = title;
@@ -40,6 +43,8 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 			{
 				this.GetTitle(songNode, out string title);
 				this.GetKey(songNode, out string key);
+				
+
 				var chordNodes = songNode.GetNodes("tr", CLASS_CHORD);
 				List<string> chords = new List<string>();
 				foreach (var chordNode in chordNodes)
@@ -47,7 +52,35 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 					chords.AddRange(this.GetChords(chordNode));
 				}
 
+
+
+				#region Chorus Chords
+
+				var chorusNodes = songNode.GetNodes("div", "sg_chorus_all");
+				List<List<string>> allChorusChords = new List<List<string>>();
+				foreach (var chorusNode in chorusNodes)
+				{
+					chordNodes = chorusNode.GetNodes("tr", CLASS_CHORD);
+					var chorusChords = new List<string>();
+					foreach (var chordNode in chordNodes)
+					{
+						chorusChords.AddRange(this.GetChords(chordNode));
+					}
+					allChorusChords.Add(chorusChords);
+				}
+
+				var pairs = allChorusChords.GetPairs();
+				foreach (var pair in pairs)
+				{
+					var diff1 = pair[0].Except(pair[1]).Count();
+					var diff2 = pair[1].Except(pair[0]).Count();
+					Debug.Assert(0 == diff1 && 0 == diff2);
+				}
+
+				#endregion
+
 				var song = new Song(title, key, chords);
+				// song.ChorusChords = chorusChords;
 				songs.Add(song);
 			}
 

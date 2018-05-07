@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmornyHelper.forms", "Har
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dan’s-Big-Awesome-Acoustic-Songbook-Parser", "Dan’s-Big-Awesome-Acoustic-Songbook-Parser\Dan’s-Big-Awesome-Acoustic-Songbook-Parser.csproj", "{D17BBF64-2C4C-4260-9675-261EB4999E67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordProParser", "ChordProParser\ChordProParser.csproj", "{145649E6-FEE6-433D-B9F1-47F1EA513F0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

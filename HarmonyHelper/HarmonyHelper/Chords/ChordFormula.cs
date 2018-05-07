@@ -28,6 +28,11 @@ namespace Eric.Morrison.Harmony
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
 		public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
+		public bool IsMajor { get { return this.ChordType.IsMajor; } }
+		public bool IsMinor { get { return this.ChordType.IsMinor; } }
+		public bool IsDiminished { get { return this.ChordType.IsDiminished; } }
+		public bool IsDominant { get { return this.ChordType.IsDominant; } }
+
 
 		#endregion
 
@@ -219,7 +224,7 @@ namespace Eric.Morrison.Harmony
 				else if (interval == Interval.Major6th)
 				{
 					result = ChordToneFunctionEnum.Thirteenth;
-					if (this.IsDiminished())
+					if (this.IsDiminished)
 					{
 						result = ChordToneFunctionEnum.Diminished7th;
 					}
@@ -233,24 +238,6 @@ namespace Eric.Morrison.Harmony
 				else
 					throw new NotSupportedException();
 
-			return result;
-		}
-
-		bool IsDiminished()
-		{
-			var result = true;
-			var pairs = this.NoteNames.AsEnumerable().GetPairs();
-			foreach (var pair in pairs)
-			{
-				var interval = pair[0] - pair[1];
-				if (interval != Interval.Minor3rd
-					&& interval != Interval.Diminished5th
-					&& interval != Interval.Major6th)
-				{
-					result = false;
-					break;
-				}
-			}
 			return result;
 		}
 
