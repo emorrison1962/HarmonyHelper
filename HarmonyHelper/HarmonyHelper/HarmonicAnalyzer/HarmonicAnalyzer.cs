@@ -9,19 +9,19 @@ namespace Eric.Morrison.Harmony
 
 		}
 
-		public List<HarmonicAnalysisResult> Analyze(List<Chord> chords, bool unused = false)
+		public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, bool unused = false)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			foreach (var rule in HarmonicAnalysisRuleBase.Catalog)
 			{
 				var har = rule.Analyze(chords);
-				result.Add(har);
+				result.AddRange(har);
 			}
 
 			return result;
 		}
 
-		static public List<HarmonicAnalysisResult> Analyze(List<Chord> chords)
+		static public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
 		{
 			var analyzer = new HarmonicAnalyzer();
 			var result = analyzer.Analyze(chords, false);

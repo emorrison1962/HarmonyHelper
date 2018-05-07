@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class
+		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class 
 		{
 			T result = null;
 			var maxNdx = list.Count - 1;

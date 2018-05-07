@@ -67,6 +67,7 @@
     <Compile Include="HarmonicAnalyzer\Rules\SecondaryDominantRule.cs" />
     <Compile Include="HarmonicAnalyzer\Rules\_HarmonicAnalysisRuleBase.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzer.cs" />
+    <Compile Include="Helpers\DataSetTracer.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
     <Compile Include="Interfaces\INoteNameNormalizer.cs" />

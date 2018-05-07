@@ -1,22 +1,22 @@
-﻿using HtmlAgilityPack;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Web;
+using HtmlAgilityPack;
 
 namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 {
 	public class Song
 	{
 		public string Title { get; private set; }
+		public string Key { get; private set; }
 		public List<string> Chords { get; private set; } = new List<string>();
-		public Song(string title, List<string> chords)
+		public Song(string title, string key, List<string> chords)
 		{
 			this.Title = title;
+			this.Key = key;
 			this.Chords = chords;
 		}
 	}
@@ -39,6 +39,7 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 			foreach (var songNode in songNodes)
 			{
 				this.GetTitle(songNode, out string title);
+				this.GetKey(songNode, out string key);
 				var chordNodes = songNode.GetNodes("tr", CLASS_CHORD);
 				List<string> chords = new List<string>();
 				foreach (var chordNode in chordNodes)
@@ -46,15 +47,34 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 					chords.AddRange(this.GetChords(chordNode));
 				}
 
-				var song = new Song(title, chords);
+				var song = new Song(title, key, chords);
 				songs.Add(song);
-
-				//Debug.WriteLine(song.Title);
-				//Debug.WriteLine(string.Join(", ", song.Chords.Distinct()));
-				//Debug.WriteLine(string.Empty);
-				//new object();
 			}
+
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(songs);
+			var path = Assembly.GetExecutingAssembly().Location;
+
+			path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(path))));
+			path = Path.Combine(path, "songs.json");
+			using (var fs = File.CreateText(path))
+			{
+				fs.Write(json);
+			}
+
+
+
 			return result;
+		}
+
+		private bool GetKey(HtmlNode songNode, out string key)
+		{
+			key = string.Empty;
+			key = songNode.GetAttributeValue("data-key", string.Empty);
+			var result = false;
+			if (string.Empty != key)
+				result = true;
+			return result;
+
 		}
 
 		bool GetTitle(HtmlNode parentNode, out string title)

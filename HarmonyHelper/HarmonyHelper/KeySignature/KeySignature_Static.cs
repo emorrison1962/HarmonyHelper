@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
@@ -72,7 +73,7 @@ namespace Eric.Morrison.Harmony
 		#endregion KeySignatures
 
 
-		#region static ctor
+		#region Construction
 		static KeySignature()
 		{
 			NoAccidentals = new KeySignature(NoteName.C, new[] {
@@ -261,7 +262,6 @@ namespace Eric.Morrison.Harmony
 			CbMajor = KeySignature.Clone(KeySignature.SevenFlats, true);
 			AbMinor = KeySignature.Clone(KeySignature.SevenFlats, false, NoteName.Ab);
 		}
-		#endregion
 
 		private static KeySignature Clone(KeySignature src, bool isMajor, NoteName noteName = null)
 		{
@@ -277,7 +277,28 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+		#endregion
 
+		public List<ChordFormula> GetNonDiatonic(List<ChordFormula> chords)
+		{
+			var result = new List<ChordFormula>();
+			foreach (var chord in chords)
+			{
+				if (!IsDiatonic(chord.NoteNames))
+					result.Add(chord);
+			}
+			return result;
+		}
+
+		bool IsDiatonic(List<NoteName> noteNames)
+		{
+			var result = false;
+
+			if (0 == noteNames.Except(this.NoteNames).Count())
+				result = true;
+
+			return result;
+		}
 
 	}//class
 }//ns

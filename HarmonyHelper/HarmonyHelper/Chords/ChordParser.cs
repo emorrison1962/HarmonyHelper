@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony
 				@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
 			//@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m||)";
 			String bass = "?[\\/]?([cdefgab])?";
-						  
+
 			REGEX = notes + accidentals + chordTypes + bass + accidentals;
 		}
 
@@ -74,6 +74,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+
 		static List<string> PreProcess(string input)
 		{
 			var result = new List<string>();
@@ -81,6 +82,30 @@ namespace Eric.Morrison.Harmony
 			result = input.Split(new string[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 			return result;
 		}
+
+		static bool TryParse(string input, out List<ChordFormula> formulas, out string message, KeySignature key = null)
+		{
+			var result = false;
+			message = string.Empty;
+			formulas = new List<ChordFormula>();
+
+			var strings = PreProcess(input);
+
+			foreach (var s in strings)
+			{
+				if (TryParseImpl(s, out ChordFormula formula, out message, key))
+				{
+					formulas.Add(formula);
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
+
 
 		static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
 		{
@@ -210,7 +235,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 			NoteName result = null;
 
-#region switch (input)
+			#region switch (input)
 			switch (input)
 			{
 				case "b♯":
@@ -293,7 +318,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				default:
 					throw new NotSupportedException(input);
 			}
-#endregion
+			#endregion
 
 			return result;
 
@@ -304,10 +329,10 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			message = null;
 			var result = ChordType.None;
 
-#region switch (input)
+			#region switch (input)
 			switch (input)
 			{
-#region Major chords
+				#region Major chords
 				case "":
 				case "maj":
 					result = ChordType.Major;
@@ -327,7 +352,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				case "maj13":
 					result = ChordType.Major13th;
 					break;
-#endregion
+				#endregion
 
 
 				case "maj9#11":
@@ -344,7 +369,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 
 
-#region Minor chords
+				#region Minor chords
 				case "min":
 				case "m":
 				case "-":
@@ -366,7 +391,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 				case "m13":
 					result = ChordType.Minor13th;
 					break;
-#endregion
+				#endregion
 
 
 				case "madd9":
@@ -389,7 +414,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					break;
 
 
-#region Diatonic Dominant chords
+				#region Diatonic Dominant chords
 				case "7":
 					result = ChordType.Dominant7th;
 					break;
@@ -403,7 +428,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					result = ChordType.Dominant13th;
 					break;
 
-#endregion
+				#endregion
 
 
 				case "7b5":
@@ -461,7 +486,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 					throw new NotSupportedException(input);
 			}
 
-#endregion
+			#endregion
 
 			if (result == ChordType.None)
 			{

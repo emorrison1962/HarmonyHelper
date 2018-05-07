@@ -334,10 +334,14 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(ChordFormula other)
 		{
 			var result = false;
-			if (0 == this.NoteNames.Except(other.NoteNames).Count()
-				&& 0 == other.NoteNames.Except(this.NoteNames).Count()
-				&& this.Key == other.Key)
-				result = true;
+			if (0 == this.NoteNames.Except(other.NoteNames).Count())
+			{
+				if (0 == other.NoteNames.Except(this.NoteNames).Count())
+				{
+					//if (this.Key == other.Key)
+						result = true;
+				}
+			}
 			return result;
 		}
 		public override bool Equals(object obj)

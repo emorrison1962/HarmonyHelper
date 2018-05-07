@@ -6,12 +6,12 @@ namespace Eric.Morrison.Harmony
 {
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
-		public override HarmonicAnalysisResult Analyze(List<Chord> chords)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
 		{
-			HarmonicAnalysisResult result = null;
+			var result = new List<HarmonicAnalysisResult>();
 			var keys = KeySignature.MajorKeys;
 			var commonKeys = new List<KeySignature>();
-			var noteNames = chords.SelectMany(x => x.NoteNames).Distinct().ToList();
+			var noteNames = chords.Distinct().SelectMany(x => x.NoteNames).Distinct().ToList();
 
 			var matchingKeys = keys.Where(x => x.AreDiatonic(noteNames)).ToList();
 
@@ -21,24 +21,24 @@ namespace Eric.Morrison.Harmony
 				foreach (var key in matchingKeys)
 				{
 					var chordNames = string.Join(", ", chords
-						.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root.NoteName))})"));
+						.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
 					sb.AppendLine($"{chordNames} are all diatonic to the key of {key}.");
 				}
 
 				var message = sb.ToString();
-				result = new HarmonicAnalysisResult(this, true, message);
+				result.Add(new HarmonicAnalysisResult(this, true, message));
 			}
 			else
 			{
 				var chordNames = string.Join(", ", chords.Select(x => x.Name));
 				var message = $"{chordNames} are not diatonic to a specific key.";
-				result = new HarmonicAnalysisResult(this, false, message);
+				result.Add(new HarmonicAnalysisResult(this, false, message));
 			}
 
 			return result;
 		}
 
-		string GetChordFunction(Chord chord, int index)
+		string GetChordFunction(ChordFormula chord, int index)
 		{
 			var result = string.Empty;
 			if (chord.IsMinor)

@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony
 			Catalog.Add(this);
 		}
 
-		public abstract HarmonicAnalysisResult Analyze(List<Chord> chords);
+		public abstract List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords);
 
 	}//class
 }//ns
