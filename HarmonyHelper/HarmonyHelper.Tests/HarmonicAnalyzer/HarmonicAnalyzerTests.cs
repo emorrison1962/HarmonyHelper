@@ -43,7 +43,21 @@ namespace Eric.Morrison.Harmony.Tests
 			Assert.IsNotNull(analysisResults);
 			Assert.Fail();
 		}
+		[TestMethod()]
+		public void ADayInTheLife_Test()
+		{
+			var str = " G Bm Em Em7 C C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C F Em Cmaj7 G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E E D E F#m7 E F#m7 E D E F#m7 E F#m7 C G D A C G D A G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E";
+			var chords = this.GetChords(str);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			foreach (var analysisResult in analysisResults)
+			{
+				if (null != analysisResult && analysisResult.Success)
+					Debug.WriteLine(analysisResult.Message);
+			}
+			Assert.IsNotNull(analysisResults);
+			Assert.Fail();
 
+		}
 
 		public class Song
 		{

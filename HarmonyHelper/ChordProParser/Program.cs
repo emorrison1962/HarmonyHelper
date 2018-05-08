@@ -1,6 +1,7 @@
 ﻿using Konves.ChordPro;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace ChordProParser
 			path = Path.Combine(path, "chordpro", "b", "beatles", "ADayInALife.chopro");
 			var contents = this.Open(path);
 			var result = this.Parse(contents);
+			Debug.WriteLine($"\"{result}\"");
+
 			new object();
 		}
 
