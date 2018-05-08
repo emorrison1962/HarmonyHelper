@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<!-- saved from url=(0071)http://tenbyten.com/software/songsgen/help/HtmlHelp/files_reference.htm -->
+<html><script type="text/javascript">window["_gaUserPrefs"] = { ioo : function() { return true; } }</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>ChordPro Song File Format Reference</title>
+<link rel="stylesheet" type="text/css" href="./ChordPro Song File Format Reference_files/sg.css">
+</head>
+<body cz-shortcut-listen="true" class=" hasGoogleVoiceExt">
+<h2>ChordPro Song File Format Reference</h2>
+<p>
+Directives are delimited by curly braces ('{' and '}').
+Songsheet Generator recognizes the following ChordPro directives 
+  (upper or lower case is not significant):
+</p>
+
+
+<dl>
+
+<dt>{title: <em>title string</em>} ({t:<em>string</em>})</dt>
+<dd>Specifies the title of the song.  The title is used to sort the songs
+    in the user interface.  It appears at the top of the song, centered,
+	and may be repeated if the song overflows onto a new column.  </dd>
+
+<dt>{subtitle: <em>subtitle string</em>} ({su:<em>string</em>})</dt>
+<dd>Specifies a subtitle for the song.  This string will be printed
+    just below the title string.</dd>
+
+<dt>{start_of_chorus} ({soc})</dt>
+<dd>Indicates the start of a chorus.  Songsheet Generator can apply a special marking to
+highlight the chorus, depending on the setting of the output destination.
+The marking is applied until the end_of_chorus directive appears.</dd>
+
+<dt>{end_of_chorus} ({eoc})</dt>
+<dd>Marks the end of a chorus.</dd>
+
+<dt>{comment: <em>string</em>} ({c:<em>string</em>})</dt>
+<dd>Prints the <em>string</em> following the colon as a comment.</dd>
+
+<dt>{start_of_tab} ({sot})</dt>
+<dd>Indicates the start of a guitar tab section.  
+The text will be formatted in a fixed-width font until the end_of_tab directive appears.  
+This can be useful for creating a tab drawing with ASCII text.
+Guitar tab sections will only be printed if chords are also printed.
+</dd>
+
+<dt>{end_of_tab} ({eot})</dt>
+<dd>Marks the end of the guitar tab section.</dd>
+
+<dt>{guitar_comment: <em>string</em>} ({gc:<em>string</em>})</dt>
+<dd>Prints the <em>string</em> following the colon as a comment.  This comment
+    will only be printed if chords are also printed; it should be
+    used for comments to performers, or for other notes that are
+    unneccessary for lyrics-only song sheets (or projection).</dd>
+
+<dt>{new_song} ({ns})</dt>
+<dd>Marks the beginning of a new song.  Although this directive will
+    work with the Songsheet Generator program, its use is not
+    recommended, since only the first song in any song file will
+    show up in the "Songs available" list.</dd>
+
+<dt>{new_page} ({np})</dt>
+<dd>This directive will
+cause a "cell break" in the Two and Four Discrete Cells per Page printing modes, 
+and a column break in the Two Flowing Columns printing mode. 
+It will cause a physical page break otherwise.
+It has no effect in the Text and HTML File output destinations.
+</dd>
+
+<dt>{new_physical_page} ({npp})</dt>
+<dd>
+This directive will always force a physical page break.
+It has no effect in the Text and HTML File output destinations.</dd>
+
+<dt>{column_break} ({colb})</dt>
+<dd>
+This directive will 
+force a column break in the Flowing Columns printing modes, 
+which amounts to a physical page break in the One Flowing Column printing mode. 
+It has no effect in the Discrete Cells printing modes, 
+and no effect in the Text and HTML File output destinations.</dd>
+
+<dt>{data_<i>abc</i>: <i>xyz</i>} ({d_<i>abc</i>:<i>xyz</i>})</dt>
+<dd>Data key and value; <i>abc</i> is the key, <i>xyz</i> is its value.
+<br><em>Note: this is a Songsheet Generator extension to the standard syntax.</em>
+</dd>
+
+<dt>{footer: <i>xyz</i>} ({f:<i>xyz</i>})</dt>
+<dd>Footer override for the current song.
+<br><em>Note: this is a Songsheet Generator extension to the standard syntax.</em>
+</dd>
+
+<dt>{key: <i>xyz</i>} ({k:<i>xyz</i>})</dt>
+<dd>Key the chart is written in; <i>xyz</i> is a valid key; transposition will apply.
+<br><em>Note: this is a Songsheet Generator extension to the standard syntax.</em>
+</dd>
+
+</dl>
+
+<h3>Chords</h3>
+<p>Chords are delimited by square brackets ('[' and ']').
+Sharp is indicated by a '#' (hash) and flat by a 'b' (lowercase 'B').
+Songsheet Generator recognizes chords of the following form:  </p>
+<dl>
+<dt>[A-G]{#|b}{m|dim|maj|sus}{digit}{/[A-G]{#|b}}</dt>
+<dd>i.e. [A] [C#m7] [Bb/D]</dd>
+</dl>
+
+<h3>Chord Grids</h3>
+<p>      A large number of common chord grids have been built into the Songsheet 
+      Generator executable.  Additional chord grids may be defined in song
+      files, via the standard ChordPro chord grid definition syntax:
+</p><dl>
+<dt>{define: &lt;chord&gt; base-fret &lt;base&gt; frets &lt;Low-E&gt; &lt;A&gt; &lt;D&gt;  &lt;G&gt; &lt;B&gt; &lt;E&gt;}
+</dt>
+<dd>      For example:<br>
+<code>     {define: E5 base-fret 7 frets 0 1 3 3 x x}</code>
+</dd>
+</dl>
+
+<p>      In addition, an extension to the standard format is recognized by
+      Songsheet Generator, which adds fingering support to the grid.
+      Fingerings are printed below the chord grids.
+      The syntax for the fingering definition follows:
+</p><dl>
+<dt>{define: &lt;chord&gt; base-fret &lt;base&gt; frets &lt;Low-E&gt; &lt;A&gt; &lt;D&gt;  &lt;G&gt; &lt;B&gt; &lt;E&gt; fingers &lt;Low-E&gt; &lt;A&gt; &lt;D&gt;  &lt;G&gt; &lt;B&gt; &lt;E&gt;}
+</dt>
+<dd>      For example:<br>
+<code>     {define: E5 base-fret 7 frets 0 1 3 3 x x fingers - 1 2 3 - -}</code>
+</dd>
+</dl>
+
+<p> It is also possible to define the key for which the chord definition applies.
+	This can be useful when a particular chord fingering is only relevant when playing a song in a particular key.
+	When defined in this way, chords will revert to the standard definition when the song
+	is transposed (or, to another chord defined for the transposed-to key
+	signature).  This is optional; when the "key" keyword is not
+	added to the chord definition, the chord definition will apply to all
+	keys.  The complete chord definition syntax recognized by Songsheet
+	Generator is:
+	</p><dl><dt>{define: &lt;chord&gt; base-fret &lt;base&gt; frets &lt;Low-E&gt; &lt;A&gt; &lt;D&gt; &lt;G&gt; &lt;B&gt; &lt;E&gt; fingers &lt;Low-E&gt; &lt;A&gt; &lt;D&gt; &lt;G&gt; &lt;B&gt; &lt;E&gt; key &lt;KEY&gt;}</dt>
+	  <dd>For example:
+	  <br<code>{define: E5 base-fret 7 frets 0 1 3 3 x x fingers - 1 2 3 - - key E}</br<code></dd>
+</dl>
+
+
+<p> <em>Note: The first base-fret is 1 (one), not 0 (zero).</em>
+<br> <em>Also note: Chords grids defined in songs will override any built-in definitions.</em>
+<br><em>Also also note: All of Songsheet Generator's built-in chord definitions still apply to all keys.</em>
+<br><em>Also also also note: global chords may be defined using the <a href="http://tenbyten.com/software/songsgen/help/HtmlHelp/chord_editor.htm">Custom Chord Editor.</a></em>
+
+</p><h3>Comments in the file</h3>
+<p>Lines in the file that have '#' as the
+  first character are considered comments and will never be printed.
+  </p>
+
+
+
+</body></html>

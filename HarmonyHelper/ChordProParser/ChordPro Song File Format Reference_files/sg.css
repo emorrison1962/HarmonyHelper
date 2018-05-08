@@ -1,0 +1,42 @@
+BODY { background : white; color : black;
+	font-family : optima, times new roman, times, serif;
+	padding : 1%; font-size : 12pt; } 
+
+P { margin-left : 1em; } 
+
+BLOCKQUOTE { margin-left : 2em; } 
+
+OL, UL { margin-left : 3em; } 
+
+DL { margin-left : 3em; } 
+
+DD, LI { padding-bottom : 0.5em; } 
+
+.help_toc { padding-bottom : 0em; margin-left:0em; } 
+
+CODE { font-family : "monotype.com", monospace; font-size : 0.8em; } 
+
+PRE { font-family : ocr a extended, "monotype.com", monospace; font-size : 10pt; } 
+
+H1 , H2 , H3 , H4 , H5 , H6, DT { 
+	font-family : gill sans light, optima, trebuchet ms, verdana, chicago, helvetica, sans-serif;
+	margin-left : 0em; } 
+
+A:link {
+	color : #668bb0;
+}
+
+A:visited {
+	color : #575d7e;
+}
+
+A:active {
+	color : #ffff7f;
+	background : #668bb0;
+}
+
+.sg_example { margin-left: 1em; margin-right: 1em; padding: 2em; border:thin
+	solid black;   }
+
+.sg_example_image { margin-left: 1em; margin-right: 1em; border:thin solid
+	black;   }
