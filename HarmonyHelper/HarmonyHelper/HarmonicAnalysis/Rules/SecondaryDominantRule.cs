@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public class SecondaryDominantRule : HarmonicAnalysisRuleBase
 	{

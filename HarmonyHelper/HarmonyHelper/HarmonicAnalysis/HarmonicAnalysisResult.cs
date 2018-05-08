@@ -1,4 +1,6 @@
-﻿namespace Eric.Morrison.Harmony
+﻿using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+
+namespace Eric.Morrison.Harmony.HarmonicAnalysis
 {
 	class HarmonicAnalysisResultEmpty : HarmonicAnalysisResult
 	{

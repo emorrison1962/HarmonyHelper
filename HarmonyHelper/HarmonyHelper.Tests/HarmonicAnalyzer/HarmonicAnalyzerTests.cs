@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Eric.Morrison.Harmony.HarmonicAnalysis;
+using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 
 namespace Eric.Morrison.Harmony.Tests
 {

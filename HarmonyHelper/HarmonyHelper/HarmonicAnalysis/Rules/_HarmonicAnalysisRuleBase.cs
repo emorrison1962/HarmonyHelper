@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public abstract class HarmonicAnalysisRuleBase
 	{

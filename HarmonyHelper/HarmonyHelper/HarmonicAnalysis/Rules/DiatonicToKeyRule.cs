@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{

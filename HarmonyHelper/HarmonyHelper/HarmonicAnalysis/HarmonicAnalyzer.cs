@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+using System.Collections.Generic;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.HarmonicAnalysis
 {
 	public class HarmonicAnalyzer
 	{
