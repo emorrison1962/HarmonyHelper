@@ -1,0 +1,3104 @@
+%!PS-Adobe-1.0
+%%THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline
+%%By Phillip J Facoline - University of Natal - email Pfacol@elaine.ee.und.ac.za
+%%       *********************************************************
+%%       *       PRINT THIS FILE TO A POSTSCRIPT PRINTER         *
+%%       *       OR USE GHOSTSCRIPT TO OUTPUT TO A NON-          *
+%%       *       POSTSCRIPT PRINTER.                             *
+%%       *                                                       *
+%%       * Ver 0.1b - 28 March 1994                              *
+%%       * Ver 0.2  - 08 April 1994 - This is formatted for A4   *
+%%       *********************************************************
+%%Pages: (atend)
+%%BoundingBox: 5 5 605 787
+%%EndComments
+/inch {72 mul } def
+%  iso.ps  reencodeing of ISO 8859-1 8-bit french characters
+%
+/reencodedict 5 dict def
+/ReEncode
+  { reencodedict begin
+      /newencoding exch def
+      /newfontname exch def
+      /basefontname exch def
+
+      /basefontdict basefontname findfont def
+
+      /newfont basefontdict maxlength dict def
+
+      basefontdict
+      {  exch dup dup /FID ne exch /Encoding ne and
+     { exch newfont 3 1 roll put }
+     { pop pop }
+     ifelse
+      } forall
+      newfont /FontName newfontname put
+      newfont /Encoding newencoding put
+      newfontname newfont definefont pop
+      end
+   } def
+
+/ISO 256 array def
+
+0 1 255 { ISO exch /.notdef put } for
+ISO
+
+  dup 8#040 /space put
+  dup 8#041 /exclam put
+  dup 8#042 /quotedbl put
+  dup 8#043 /numbersign put
+  dup 8#044 /dollar put
+  dup 8#045 /percent put
+  dup 8#046 /ampersand put
+  dup 8#047 /quotesingle put
+  dup 8#050 /parenleft put
+  dup 8#051 /parenright put
+  dup 8#052 /asterisk put
+  dup 8#053 /plus put
+  dup 8#054 /comma put
+  dup 8#055 /hyphen put
+  dup 8#056 /period put
+  dup 8#057 /slash put
+  dup 8#060 /zero put
+  dup 8#061 /one put
+  dup 8#062 /two put
+  dup 8#063 /three put
+  dup 8#064 /four put
+  dup 8#065 /five put
+  dup 8#066 /six put
+  dup 8#067 /seven put
+  dup 8#070 /eight put
+  dup 8#071 /nine put
+  dup 8#072 /colon put
+  dup 8#073 /semicolon put
+  dup 8#074 /less put
+  dup 8#075 /equal put
+  dup 8#076 /greater put
+  dup 8#077 /question put
+  dup 8#100 /at put
+  dup 8#101 /A put
+  dup 8#102 /B put
+  dup 8#103 /C put
+  dup 8#104 /D put
+  dup 8#105 /E put
+  dup 8#106 /F put
+  dup 8#107 /G put
+  dup 8#110 /H put
+  dup 8#111 /I put
+  dup 8#112 /J put
+  dup 8#113 /K put
+  dup 8#114 /L put
+  dup 8#115 /M put
+  dup 8#116 /N put
+  dup 8#117 /O put
+  dup 8#120 /P put
+  dup 8#121 /Q put
+  dup 8#122 /R put
+  dup 8#123 /S put
+  dup 8#124 /T put
+  dup 8#125 /U put
+  dup 8#126 /V put
+  dup 8#127 /W put
+  dup 8#130 /X put
+  dup 8#131 /Y put
+  dup 8#132 /Z put
+  dup 8#133 /bracketleft put
+  dup 8#134 /backslash put
+  dup 8#135 /bracketright put
+  dup 8#136 /asciicircum put
+  dup 8#137 /underscore put
+  dup 8#140 /grave put
+  dup 8#141 /a put
+  dup 8#142 /b put
+  dup 8#143 /c put
+  dup 8#144 /d put
+  dup 8#145 /e put
+  dup 8#146 /f put
+  dup 8#147 /g put
+  dup 8#150 /h put
+  dup 8#151 /i put
+  dup 8#152 /j put
+  dup 8#153 /k put
+  dup 8#154 /l put
+  dup 8#155 /m put
+  dup 8#156 /n put
+  dup 8#157 /o put
+  dup 8#160 /p put
+  dup 8#161 /q put
+  dup 8#162 /r put
+  dup 8#163 /s put
+  dup 8#164 /t put
+  dup 8#165 /u put
+  dup 8#166 /v put
+  dup 8#167 /w put
+  dup 8#170 /x put
+  dup 8#171 /y put
+  dup 8#172 /z put
+  dup 8#173 /braceleft put
+  dup 8#174 /bar put
+  dup 8#175 /braceright put
+  dup 8#176 /asciitilde put
+  dup 8#241 /exclamdown put
+  dup 8#242 /cent put
+  dup 8#243 /sterling put
+  dup 8#244 /currency put
+  dup 8#245 /yen put
+  dup 8#246 /bar put
+  dup 8#247 /section put
+  dup 8#250 /dieresis put
+  dup 8#251 /copyright put
+  dup 8#252 /ordfeminine put
+  dup 8#253 /guillemotleft put
+  dup 8#254 /.notdef put
+  dup 8#255 /endash put
+  dup 8#256 /registered put
+  dup 8#257 /tilde put
+  dup 8#260 /ring put
+  dup 8#261 /.notdef put
+  dup 8#262 /.notdef put
+  dup 8#263 /.notdef put
+  dup 8#264 /acute put
+  dup 8#265 /.notdef put
+  dup 8#266 /paragraph put
+  dup 8#267 /.notdef put
+  dup 8#270 /cedilla put
+  dup 8#271 /.notdef put
+  dup 8#272 /ordmasculine put
+  dup 8#273 /guillemotright put
+  dup 8#274 /.notdef put
+  dup 8#275 /circumflex put
+  dup 8#276 /dotlessi put
+  dup 8#277 /questiondown put
+  dup 8#300 /Agrave put
+  dup 8#301 /Aacute put
+  dup 8#302 /Acircumflex put
+  dup 8#303 /Atilde put
+  dup 8#304 /Adieresis put
+  dup 8#305 /Aring put
+  dup 8#306 /AE put
+  dup 8#307 /Ccedilla put
+  dup 8#310 /Egrave put
+  dup 8#311 /Eacute put
+  dup 8#312 /Ecircumflex put
+  dup 8#313 /Edieresis put
+  dup 8#314 /Igrave put
+  dup 8#315 /Iacute put
+  dup 8#316 /Icircumflex put
+  dup 8#317 /Idieresis put
+  dup 8#320 /.notdef put
+  dup 8#321 /Ntilde put
+  dup 8#322 /Ograve put
+  dup 8#323 /Oacute put
+  dup 8#324 /Ocircumflex put
+  dup 8#325 /Otilde put
+  dup 8#326 /Odieresis put
+  dup 8#327 /.notdef put
+  dup 8#330 /Oslash put
+  dup 8#331 /Ugrave put
+  dup 8#332 /Uacute put
+  dup 8#333 /Ucircumflex put
+  dup 8#334 /Udieresis put
+  dup 8#335 /.notdef put
+  dup 8#336 /.notdef put
+  dup 8#337 /germandbls put
+  dup 8#340 /agrave put
+  dup 8#341 /aacute put
+  dup 8#342 /acircumflex put
+  dup 8#343 /atilde put
+  dup 8#344 /adieresis put
+  dup 8#345 /aring put
+  dup 8#346 /ae put
+  dup 8#347 /ccedilla put
+  dup 8#350 /egrave put
+  dup 8#351 /eacute put
+  dup 8#352 /ecircumflex put
+  dup 8#353 /edieresis put
+  dup 8#354 /igrave put
+  dup 8#355 /iacute put
+  dup 8#356 /icircumflex put
+  dup 8#357 /idieresis put
+  dup 8#360 /.notdef put
+  dup 8#361 /ntilde put
+  dup 8#362 /ograve put
+  dup 8#363 /oacute put
+  dup 8#364 /ocircumflex put
+  dup 8#365 /otilde put
+  dup 8#366 /odieresis put
+  dup 8#367 /.notdef put
+  dup 8#370 /oslash put
+  dup 8#371 /ugrave put
+  dup 8#372 /uacute put
+  dup 8#373 /ucircumflex put
+  dup 8#374 /udieresis put
+  dup 8#375 /ydieresis put
+  dup 8#376 /.notdef put
+  pop
+
+
+/CHORD_FONT { /Helvetica-Oblique findfont 9 scalefont } def
+/Helvetica-Oblique /Helvetica-Oblique ISO ReEncode
+/TEXT_FONT { /Times-Roman findfont 12 scalefont } def
+/Times-Roman /Times-Roman ISO ReEncode
+/MONO_FONT { /Courier findfont 10 scalefont } def
+/Courier /Courier ISO ReEncode
+/FOOT_FONT { /Times-Roman findfont 6 scalefont } def
+% routines for the drawing of the chords
+/grid {
+     currentpoint currentpoint
+     6 { 0 cagesizeX rlineto incr cagesize neg incr add rmoveto } repeat
+     moveto
+     5 { cagesize 0 rlineto 0 cagesize sub incr rmoveto } repeat
+     1 setlinewidth stroke
+     moveto
+     currentpoint
+     0 cagesizeX rmoveto cagesize 0 rlineto
+     cagesize 30 div setlinewidth stroke
+     moveto
+} def
+
+/dot {
+     /fret exch def /str exch def
+     /x 5  fret abs sub incr mul half-incr sub def
+     /y 6 str sub incr mul def
+     currentpoint
+     y x rmoveto
+     0 setgray
+     fret -1 eq
+       {
+       0 incr rmoveto
+       check neg  check neg rmoveto
+       check check rlineto check check rlineto
+       check neg check neg rmoveto check neg check rmoveto
+       check check neg rlineto check check neg rlineto
+       cagesize 50 div setlinewidth stroke
+       }
+       {  fret 0 ne
+         { currentpoint dot-size 0 360 arc fill}
+         { currentpoint
+           check 0 360 newpath arc
+           cagesize 50 div setlinewidth
+         }
+         ifelse
+         stroke
+       }
+       ifelse
+     moveto
+} def
+
+/dots {
+     grid
+     /origin exch def
+     /fret-displ exch def
+       1 1 6
+       {
+         /str exch def
+         /fret exch def
+         fret -2 ne {str fret dot} if
+       } for
+
+     fret-displ 1 ne
+     {
+       currentpoint displ-font setfont
+       0 cagesize fret-displ 10 ge {1.75} {3} ifelse div sub
+       cagesizeX incr sub rmoveto
+       /char 6 string def fret-displ char cvs show moveto
+     } if
+
+     /chord-name exch def
+     currentpoint displ-font setfont
+     0 cagesizeX cagesizeX 15 div add dot-size 3 mul add rmoveto
+     chord-name stringwidth pop 2 div cagesize 2 div exch sub 0 rmoveto
+     chord-name show
+     0 cagesize 10 div rmoveto
+     origin 1 eq { (*) show} if
+     origin 2 eq { (**) show} if
+     chord-font setfont moveto
+
+} def
+
+/cagesize 30 def
+/incr cagesize 5 div def
+/cagesizeX incr 4 mul def
+/half-incr incr 2 div def
+/dot-size cagesize 15 div def
+/check cagesize 20 div def
+
+/chord-font /Times-Roman findfont cagesize 5 div scalefont def
+/displ-font /Times-Roman findfont cagesize 3 div scalefont def
+
+% end of the routines for the drawing of the chords
+
+%%EndProlog
+%%Page: "1" 1
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+/TEXT_FONT { /Times-Roman findfont 17 scalefont } def
+/Times-Roman /Times-Roman ISO ReEncode
+/MONO_FONT { /Courier findfont 15 scalefont } def
+/Courier /Courier ISO ReEncode
+TEXT_FONT setfont
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline)
+dup stringwidth pop 2 div
+612 2 div exch sub 737 moveto
+show
+/TEXT_FONT { /Times-Roman findfont 12 scalefont } def
+/Times-Roman /Times-Roman ISO ReEncode
+/MONO_FONT { /Courier findfont 10 scalefont } def
+/Courier /Courier ISO ReEncode
+TEXT_FONT setfont
+(email- pfacol@elaine.ee.und.ac.za) dup stringwidth pop 2 div
+612 2 div exch sub 723 moveto
+show
+TEXT_FONT setfont
+(The .'s and ,'s after the chord name means that the chord is) dup stringwidth pop 2 div
+612 2 div exch sub 703 moveto
+show
+TEXT_FONT setfont
+(a duplicate or alternate formation.) dup stringwidth pop 2 div
+612 2 div exch sub 691 moveto
+show
+480 715 moveto
+72 636 moveto
+(Ab) 1 3 3 2 1 1 4 0 dots
+132 636 moveto
+(Ab+) -1 -1 2 1 1 0 1 0 dots
+192 636 moveto
+(Ab/A.) -1 -1 1 2 1 4 1 0 dots
+252 636 moveto
+(Ab/F.) -1 1 3 1 2 1 8 0 dots
+312 636 moveto
+(Ab/F..) -1 -1 1 1 1 1 1 0 dots
+372 636 moveto
+(Ab/Gb.) -1 -1 1 1 1 2 1 0 dots
+432 636 moveto
+(Ab/Gb..) -1 -1 1 2 1 1 4 0 dots
+492 636 moveto
+(Ab11) 1 3 1 3 1 1 4 0 dots
+72 576 moveto
+(Ab4) -1 -1 1 1 2 4 1 0 dots
+132 576 moveto
+(Ab5.) 1 3 3 -1 -1 1 4 0 dots
+192 576 moveto
+(Ab6.) -1 1 3 1 2 1 8 0 dots
+252 576 moveto
+(Ab6..) -1 -1 1 1 1 1 1 0 dots
+312 576 moveto
+(Ab7) -1 -1 1 1 1 2 1 0 dots
+372 576 moveto
+(Ab7..) -1 -1 1 2 1 1 4 0 dots
+432 576 moveto
+(Abdim) -1 -1 0 1 0 1 1 0 dots
+492 576 moveto
+(Abdim/E.) 0 2 0 1 0 0 1 0 dots
+72 516 moveto
+(Abdim/E..) 0 2 2 1 3 0 1 0 dots
+132 516 moveto
+(Abdim/E...) -1 2 0 1 3 0 1 0 dots
+192 516 moveto
+(Abdim/Eb..) -1 -1 0 4 4 4 1 0 dots
+252 516 moveto
+(Abdim/F.) -1 2 0 1 0 1 1 0 dots
+312 516 moveto
+(Abdim/F..) -1 -1 0 1 0 1 1 0 dots
+372 516 moveto
+(Abdim/F...) -1 -1 3 4 3 4 1 0 dots
+432 516 moveto
+(Abdim7.) -1 2 0 1 0 1 1 0 dots
+492 516 moveto
+(Abdim7..) -1 -1 0 1 0 1 1 0 dots
+72 456 moveto
+(Abdim7...) -1 -1 3 4 3 4 1 0 dots
+132 456 moveto
+(Absus) -1 -1 1 1 2 4 1 0 dots
+192 456 moveto
+(Absus.) -1 -1 3 3 1 1 4 0 dots
+252 456 moveto
+(Absus2/F.) -1 1 3 1 4 1 1 0 dots
+312 456 moveto
+(Absus4) -1 -1 1 1 2 4 1 0 dots
+372 456 moveto
+(Abm) 1 3 3 1 1 1 4 0 dots
+432 456 moveto
+(Abm/D.) -1 -1 0 4 4 4 1 0 dots
+492 456 moveto
+(Abm/E.) 0 2 1 1 0 0 1 0 dots
+72 396 moveto
+(Abm/E..) 0 -1 3 1 1 0 4 0 dots
+132 396 moveto
+(Abm/E...) -1 -1 1 1 0 0 1 0 dots
+192 396 moveto
+(Abm/Gb...) -1 -1 4 4 4 4 1 0 dots
+252 396 moveto
+(Abm7) -1 -1 1 1 1 1 4 0 dots
+312 396 moveto
+(Abm7.) -1 -1 4 4 4 4 1 0 dots
+372 396 moveto
+(Abmaj) 1 3 3 2 1 1 4 0 dots
+432 396 moveto
+(Abmaj7) -1 -1 1 1 1 3 1 0 dots
+492 396 moveto
+(Abmin) 1 3 3 1 1 1 4 0 dots
+72 336 moveto
+(Ab#5.) -1 3 2 1 1 0 1 0 dots
+132 336 moveto
+(A) -1 0 2 2 2 0 1 0 dots
+192 336 moveto
+(A+) -1 0 3 2 2 1 1 0 dots
+252 336 moveto
+(A..) 0 3 -1 1 4 0 2 0 dots
+312 336 moveto
+(A...) 1 3 3 2 1 1 5 0 dots
+372 336 moveto
+(A.....) -1 1 4 -1 -1 2 4 0 dots
+432 336 moveto
+(A/Ab.) -1 0 2 1 2 0 1 0 dots
+492 336 moveto
+(A/B.) 0 0 2 4 2 0 1 0 dots
+72 276 moveto
+(A/B..) -1 0 3 2 0 0 5 0 dots
+132 276 moveto
+(A/D) -1 -1 0 0 2 2 1 0 dots
+192 276 moveto
+(A/D....) -1 -1 0 2 2 0 1 0 dots
+252 276 moveto
+(A/D.....) -1 -1 0 2 1 1 5 0 dots
+312 276 moveto
+(A/D......) -1 -1 0 1 2 1 9 0 dots
+372 276 moveto
+(A/F#) 2 0 2 2 2 0 1 0 dots
+432 276 moveto
+(A/G#) 4 0 2 2 2 0 1 0 dots
+492 276 moveto
+(A/G.) 3 -1 2 2 2 0 1 0 dots
+72 216 moveto
+(A/G..) -1 0 2 0 2 0 1 0 dots
+132 216 moveto
+(A/G...) -1 0 2 2 2 3 1 0 dots
+192 216 moveto
+(A/Gb.) 0 0 2 2 2 2 1 0 dots
+252 216 moveto
+(A/Gb...) 0 -1 4 2 2 0 1 0 dots
+312 216 moveto
+(A/Gb....) 2 -1 2 2 2 0 1 0 dots
+372 216 moveto
+(A/Gb.....) -1 0 4 2 2 0 1 0 dots
+432 216 moveto
+(A/Gb......) -1 -1 2 2 2 2 1 0 dots
+492 216 moveto
+(A11) -1 4 2 4 3 3 1 0 dots
+72 156 moveto
+(A13) -1 0 1 2 3 1 5 0 dots
+132 156 moveto
+(A4) 0 0 2 2 0 0 1 0 dots
+192 156 moveto
+(A5.) 1 3 3 -1 -1 1 5 0 dots
+252 156 moveto
+(A5..) -1 0 2 2 -1 0 1 0 dots
+312 156 moveto
+(A5...) 1 3 3 -1 -1 0 5 0 dots
+372 156 moveto
+(A6) -1 -1 2 2 2 2 1 0 dots
+432 156 moveto
+(A6..) 0 -1 4 2 2 0 1 0 dots
+492 156 moveto
+(A6...) 2 -1 2 2 2 0 1 0 dots
+72 96 moveto
+(A6....) -1 0 4 2 2 0 1 0 dots
+132 96 moveto
+(A6.....) -1 -1 2 2 2 2 1 0 dots
+192 96 moveto
+(A6/7.) 0 0 2 0 2 2 1 0 dots
+252 96 moveto
+(A6/7sus.) 3 3 2 0 1 0 3 0 dots
+312 96 moveto
+(A6/7sus..) -1 0 2 0 3 2 1 0 dots
+372 96 moveto
+(A7) -1 0 2 0 2 0 1 0 dots
+432 96 moveto
+(A7\(#5\).) 1 0 3 0 2 1 1 0 dots
+492 96 moveto
+(A7\(9+\)) -1 2 2 2 2 3 1 0 dots
+72 36 moveto
+(A7+) -1 -1 3 2 2 1 1 0 dots
+132 36 moveto
+(A7.) 3 -1 2 2 2 0 1 0 dots
+192 36 moveto
+(A7..) -1 0 2 0 2 0 1 0 dots
+252 36 moveto
+(A7...) -1 0 2 2 2 3 1 0 dots
+312 36 moveto
+(A7/add11.) -1 0 0 0 2 0 1 0 dots
+372 36 moveto
+(A7sus4) 0 0 2 0 3 0 1 0 dots
+432 36 moveto
+(A7sus4..) -1 0 2 0 3 3 1 0 dots
+492 36 moveto
+(A7sus4...) -1 0 2 2 3 3 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 1) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(A7sus4....) 3 -1 0 0 1 0 3 0 dots
+132 696 moveto
+(A9) -1 0 2 1 0 0 1 0 dots
+192 696 moveto
+(A9sus) -1 0 2 1 0 0 1 0 dots
+252 696 moveto
+(Aadd9.) 0 0 2 4 2 0 1 0 dots
+312 696 moveto
+(Aadd9..) -1 0 2 1 0 0 6 0 dots
+372 696 moveto
+(Aaug/D.) -1 -1 0 2 2 1 1 0 dots
+432 696 moveto
+(Aaug/G.) 1 0 3 0 2 1 1 0 dots
+492 696 moveto
+(Adim) -1 -1 1 2 1 2 1 0 dots
+72 636 moveto
+(Adim/Ab.) -1 -1 1 2 1 4 1 0 dots
+132 636 moveto
+(Adim/E.) 0 3 -1 2 4 0 1 0 dots
+192 636 moveto
+(Adim/F.) -1 -1 1 2 1 1 1 0 dots
+252 636 moveto
+(Adim/F..) -1 -1 1 3 2 1 3 0 dots
+312 636 moveto
+(Adim/G.) -1 -1 1 2 1 3 1 0 dots
+372 636 moveto
+(Adim/Gb.) -1 -1 1 2 1 2 1 0 dots
+432 636 moveto
+(Adim7.) -1 -1 1 2 1 2 1 0 dots
+492 636 moveto
+(Asus) -1 -1 2 2 3 0 1 0 dots
+72 576 moveto
+(Asus..) -1 0 2 2 3 0 1 0 dots
+132 576 moveto
+(Asus...) 1 1 3 3 -1 0 5 0 dots
+192 576 moveto
+(Asus....) -1 0 0 2 3 0 1 0 dots
+252 576 moveto
+(Asus2) 0 0 2 2 0 0 1 0 dots
+312 576 moveto
+(Asus2..) 0 0 2 4 0 0 1 0 dots
+372 576 moveto
+(Asus2...) 0 2 2 2 0 0 1 0 dots
+432 576 moveto
+(Asus2....) -1 0 2 2 0 0 1 0 dots
+492 576 moveto
+(Asus2.....) -1 -1 2 2 0 0 1 0 dots
+72 516 moveto
+(Asus2/Ab.) -1 0 2 1 0 0 1 0 dots
+132 516 moveto
+(Asus2/C.) 0 0 3 1 0 0 5 0 dots
+192 516 moveto
+(Asus2/C..) -1 3 2 2 0 0 1 0 dots
+252 516 moveto
+(Asus2/D.) 0 2 0 2 0 0 1 0 dots
+312 516 moveto
+(Asus2/D..) -1 2 0 2 3 0 1 0 dots
+372 516 moveto
+(Asus2/Db.) 0 0 2 4 2 0 1 0 dots
+432 516 moveto
+(Asus2/Db..) -1 0 2 1 0 0 6 0 dots
+492 516 moveto
+(Asus2/Eb.) -1 2 1 2 0 0 1 0 dots
+72 456 moveto
+(Asus2/F.) 0 0 3 2 0 0 1 0 dots
+132 456 moveto
+(Asus2/G.) -1 0 2 0 0 0 1 0 dots
+192 456 moveto
+(Asus2/G..) -1 0 2 1 2 0 4 0 dots
+252 456 moveto
+(Asus2/Gb.) -1 0 4 4 0 0 1 0 dots
+312 456 moveto
+(Asus2/Gb..) -1 1 3 1 4 1 2 0 dots
+372 456 moveto
+(Asus4) -1 -1 2 2 3 0 1 0 dots
+432 456 moveto
+(Asus4/Ab.) 4 -1 0 2 3 0 1 0 dots
+492 456 moveto
+(Asus4/B.) 0 2 0 2 0 0 1 0 dots
+72 396 moveto
+(Asus4/Bb.) 0 1 -1 2 3 0 1 0 dots
+132 396 moveto
+(Asus4/C.) -1 -1 0 2 1 0 1 0 dots
+192 396 moveto
+(Asus4/C..) -1 -1 0 1 1 1 5 0 dots
+252 396 moveto
+(Asus4/Db.) -1 0 0 2 2 0 1 0 dots
+312 396 moveto
+(Asus4/Db..) -1 -1 0 2 2 0 1 0 dots
+372 396 moveto
+(Asus4/F.) -1 -1 2 2 1 0 6 0 dots
+432 396 moveto
+(Asus4/G.) -1 0 2 0 3 0 1 0 dots
+492 396 moveto
+(Asus4/G..) -1 0 2 0 3 3 1 0 dots
+72 336 moveto
+(Asus4/G...) -1 0 2 2 3 3 1 0 dots
+132 336 moveto
+(Asus4/Gb.) 0 0 0 2 3 2 1 0 dots
+192 336 moveto
+(Asus4/Gb..) 0 0 4 2 3 0 1 0 dots
+252 336 moveto
+(Am) -1 0 2 2 1 0 1 0 dots
+312 336 moveto
+(Am\(7#\)) -1 0 2 2 1 4 1 0 dots
+372 336 moveto
+(Am\(add9\)) 0 2 2 2 1 0 1 0 dots
+432 336 moveto
+(Am..) -1 0 3 1 1 1 5 0 dots
+492 336 moveto
+(Am...) -1 3 2 2 1 0 1 0 dots
+72 276 moveto
+(Am/B.) 0 0 3 1 0 0 5 0 dots
+132 276 moveto
+(Am/B..) -1 3 2 2 0 0 1 0 dots
+192 276 moveto
+(Am/D.) -1 -1 0 2 1 0 1 0 dots
+252 276 moveto
+(Am/D..) -1 -1 0 1 1 1 5 0 dots
+312 276 moveto
+(Am/Eb.) 0 3 -1 2 4 0 1 0 dots
+372 276 moveto
+(Am/F.) 0 0 3 2 1 0 1 0 dots
+432 276 moveto
+(Am/F..) 1 3 3 2 1 0 1 0 dots
+492 276 moveto
+(Am/F...) 1 -1 2 2 1 0 1 0 dots
+72 216 moveto
+(Am/F....) -1 -1 2 2 1 1 1 0 dots
+132 216 moveto
+(Am/F.....) -1 -1 3 2 1 0 1 0 dots
+192 216 moveto
+(Am/G) 3 0 2 2 1 0 1 0 dots
+252 216 moveto
+(Am/G.) 0 0 2 0 1 3 1 0 dots
+312 216 moveto
+(Am/G..) -1 0 2 0 1 0 1 0 dots
+372 216 moveto
+(Am/G...) -1 0 2 2 1 3 1 0 dots
+432 216 moveto
+(Am/G....) -1 0 1 1 1 4 5 0 dots
+492 216 moveto
+(Am/Gb.) -1 0 2 2 1 2 1 0 dots
+72 156 moveto
+(Am/Gb..) -1 -1 2 2 1 2 1 0 dots
+132 156 moveto
+(Am6) -1 0 2 2 1 2 1 0 dots
+192 156 moveto
+(Am6.) -1 0 2 2 1 2 1 0 dots
+252 156 moveto
+(Am6..) -1 -1 2 2 1 2 1 0 dots
+312 156 moveto
+(Am7) -1 0 2 2 1 3 1 0 dots
+372 156 moveto
+(Am7\(b5\).) -1 -1 1 2 1 3 1 0 dots
+432 156 moveto
+(Am7.) 0 0 2 0 1 3 1 0 dots
+492 156 moveto
+(Am7..) -1 0 2 0 1 0 1 0 dots
+72 96 moveto
+(Am7....) -1 0 1 1 1 4 5 0 dots
+132 96 moveto
+(Am7/add11.) -1 1 3 1 4 0 5 0 dots
+192 96 moveto
+(Am7sus4) 0 0 0 0 3 0 1 0 dots
+252 96 moveto
+(Am9) -1 0 1 1 1 3 5 0 dots
+312 96 moveto
+(Amadd9) 0 2 2 2 1 0 1 0 dots
+372 96 moveto
+(Amaj) -1 0 2 2 2 0 1 0 dots
+432 96 moveto
+(Amaj7) -1 0 2 1 2 0 1 0 dots
+492 96 moveto
+(Amin) -1 0 2 2 1 0 1 0 dots
+72 36 moveto
+(Amin/maj9.) -1 0 2 1 1 3 5 0 dots
+132 36 moveto
+(Am#7) -1 -1 2 1 1 0 1 0 dots
+192 36 moveto
+(A#) -1 1 3 3 3 1 1 0 dots
+252 36 moveto
+(A#+) -1 -1 0 3 3 2 1 0 dots
+312 36 moveto
+(A#4) -1 -1 3 3 4 1 1 0 dots
+372 36 moveto
+(A#5.) -1 0 3 2 2 1 1 0 dots
+432 36 moveto
+(A#5..) -1 0 -1 2 2 1 1 0 dots
+492 36 moveto
+(A#7) -1 -1 1 1 1 2 3 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 2) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "1" 1
+%%Page: "2" 2
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(A#dim) -1 -1 2 3 2 3 1 0 dots
+132 696 moveto
+(A#sus) -1 -1 3 3 4 1 1 0 dots
+192 696 moveto
+(A#sus4) -1 -1 3 3 4 1 1 0 dots
+252 696 moveto
+(A#m) -1 1 3 3 2 1 1 0 dots
+312 696 moveto
+(A#m7) -1 1 3 1 2 1 1 0 dots
+372 696 moveto
+(A#maj) -1 1 3 3 3 1 1 0 dots
+432 696 moveto
+(A#maj7) -1 1 3 2 3 -1 1 0 dots
+492 696 moveto
+(A#min) -1 1 3 3 2 1 1 0 dots
+72 636 moveto
+(Bbb5.) -1 -1 0 3 -1 0 1 0 dots
+132 636 moveto
+(Bb) -1 1 3 3 3 1 1 0 dots
+192 636 moveto
+(Bb+) -1 -1 0 3 3 2 1 0 dots
+252 636 moveto
+(Bb.) 1 1 3 3 3 1 1 0 dots
+312 636 moveto
+(Bb...) -1 -1 0 3 3 1 1 0 dots
+372 636 moveto
+(Bb/A.) 1 1 3 2 3 1 1 0 dots
+432 636 moveto
+(Bb/Ab.) -1 1 3 1 3 1 1 0 dots
+492 636 moveto
+(Bb/Ab..) -1 -1 3 3 3 4 1 0 dots
+72 576 moveto
+(Bb/Db.) -1 -1 0 1 1 1 6 0 dots
+132 576 moveto
+(Bb/E.) -1 1 3 3 3 0 1 0 dots
+192 576 moveto
+(Bb/G.) 1 3 1 1 1 1 3 0 dots
+252 576 moveto
+(Bb/G..) -1 -1 3 3 3 3 1 0 dots
+312 576 moveto
+(Bb11) 1 3 1 3 4 1 6 0 dots
+372 576 moveto
+(Bb4) -1 -1 3 3 4 1 1 0 dots
+432 576 moveto
+(Bb5.) 1 3 3 -1 -1 1 6 0 dots
+492 576 moveto
+(Bb6) -1 -1 3 3 3 3 1 0 dots
+72 516 moveto
+(Bb6.) 1 3 1 1 1 1 3 0 dots
+132 516 moveto
+(Bb6/add9.) -1 3 3 3 3 3 1 0 dots
+192 516 moveto
+(Bb7) -1 -1 1 1 1 2 3 0 dots
+252 516 moveto
+(Bb7.) -1 1 3 1 3 1 1 0 dots
+312 516 moveto
+(Bb7..) -1 -1 3 3 3 4 1 0 dots
+372 516 moveto
+(Bb7sus4.) -1 1 3 1 4 1 1 0 dots
+432 516 moveto
+(Bb9) 1 3 1 2 1 3 6 0 dots
+492 516 moveto
+(Bbadd#11.) -1 1 3 3 3 0 1 0 dots
+72 456 moveto
+(Bbaug/E.) 2 -1 4 3 3 0 1 0 dots
+132 456 moveto
+(Bbdim) -1 -1 2 3 2 3 1 0 dots
+192 456 moveto
+(Bbdim/C.) -1 3 -1 3 2 0 1 0 dots
+252 456 moveto
+(Bbdim/D.) -1 -1 0 3 2 0 1 0 dots
+312 456 moveto
+(Bbdim/G.) -1 1 2 0 2 0 1 0 dots
+372 456 moveto
+(Bbdim/G..) -1 -1 2 3 2 3 1 0 dots
+432 456 moveto
+(Bbdim/Gb.) 2 4 2 3 2 2 1 0 dots
+492 456 moveto
+(Bbdim/Gb..) -1 -1 4 3 2 0 1 0 dots
+72 396 moveto
+(Bbdim7.) -1 1 2 0 2 0 1 0 dots
+132 396 moveto
+(Bbdim7..) -1 -1 2 3 2 3 1 0 dots
+192 396 moveto
+(Bbsus) -1 -1 3 3 4 1 1 0 dots
+252 396 moveto
+(Bbsus2.) -1 -1 3 3 1 1 1 0 dots
+312 396 moveto
+(Bbsus2/G.) -1 1 3 1 4 1 3 0 dots
+372 396 moveto
+(Bbsus4) -1 -1 3 3 4 1 1 0 dots
+432 396 moveto
+(Bbsus4/Ab.) -1 1 3 1 4 1 1 0 dots
+492 396 moveto
+(Bbm) -1 1 3 3 2 1 1 0 dots
+72 336 moveto
+(Bbm.) 1 1 3 3 2 1 1 0 dots
+132 336 moveto
+(Bbm/Ab.) -1 1 3 1 2 1 1 0 dots
+192 336 moveto
+(Bbm/D.) -1 -1 0 1 1 1 6 0 dots
+252 336 moveto
+(Bbm/Gb.) -1 -1 3 3 2 2 1 0 dots
+312 336 moveto
+(Bbm7) -1 1 3 1 2 1 1 0 dots
+372 336 moveto
+(Bbm9) -1 -1 -1 1 1 3 6 0 dots
+432 336 moveto
+(Bbmaj) -1 1 3 3 3 1 1 0 dots
+492 336 moveto
+(Bbmaj7) -1 1 3 2 3 -1 1 0 dots
+72 276 moveto
+(Bbmaj7.) 1 1 3 2 3 1 1 0 dots
+132 276 moveto
+(Bbmaj9.) -1 1 1 1 1 3 3 0 dots
+192 276 moveto
+(Bbmin) -1 1 3 3 2 1 1 0 dots
+252 276 moveto
+(Bb#5.) -1 -1 0 3 3 2 1 0 dots
+312 276 moveto
+(B) -1 2 4 4 4 2 1 0 dots
+372 276 moveto
+(B\(addE\)) -1 2 4 4 0 0 1 0 dots
+432 276 moveto
+(B+) -1 -1 1 0 0 4 1 0 dots
+492 276 moveto
+(B.) -1 2 4 4 4 2 1 0 dots
+72 216 moveto
+(B/A.) 2 -1 1 2 0 2 1 0 dots
+132 216 moveto
+(B/A..) -1 0 1 2 0 2 1 0 dots
+192 216 moveto
+(B/A...) -1 2 1 2 0 2 1 0 dots
+252 216 moveto
+(B/A....) -1 2 4 2 4 2 1 0 dots
+312 216 moveto
+(B/Ab.) -1 -1 4 4 4 4 1 0 dots
+372 216 moveto
+(B/E.) -1 2 2 4 4 2 1 0 dots
+432 216 moveto
+(B/E..) -1 -1 4 4 4 0 1 0 dots
+492 216 moveto
+(B/F#) 0 2 2 2 0 0 2 0 dots
+72 156 moveto
+(B11) 1 3 3 2 0 0 7 0 dots
+132 156 moveto
+(B11/13) -1 1 1 1 1 3 2 0 dots
+192 156 moveto
+(B13) -1 2 1 2 0 4 1 0 dots
+252 156 moveto
+(B4) -1 -1 3 3 4 1 2 0 dots
+312 156 moveto
+(B5.) -1 2 4 4 -1 2 1 0 dots
+372 156 moveto
+(B6.) -1 -1 4 4 4 4 1 0 dots
+432 156 moveto
+(B7) 0 2 1 2 0 2 1 0 dots
+492 156 moveto
+(B7#9) -1 2 1 2 3 -1 1 0 dots
+72 96 moveto
+(B7\(#9\)) -1 2 1 2 3 -1 1 0 dots
+132 96 moveto
+(B7+) -1 2 1 2 0 3 1 0 dots
+192 96 moveto
+(B7+5) -1 2 1 2 0 3 1 0 dots
+252 96 moveto
+(B7..) -1 0 1 2 0 2 1 0 dots
+312 96 moveto
+(B7....) -1 2 4 2 4 2 1 0 dots
+372 96 moveto
+(B7/add11.) 0 0 4 4 4 0 1 0 dots
+432 96 moveto
+(B7/add11..) 0 2 1 2 0 2 1 0 dots
+492 96 moveto
+(B7sus4.) -1 0 4 4 0 0 1 0 dots
+72 36 moveto
+(B7sus4..) -1 1 3 1 4 1 2 0 dots
+132 36 moveto
+(B9) 1 3 1 2 1 3 7 0 dots
+192 36 moveto
+(BaddE) -1 2 4 4 0 0 1 0 dots
+252 36 moveto
+(BaddE/F#) 2 -1 4 4 0 0 1 0 dots
+312 36 moveto
+(Baug/E.) 3 -1 1 0 0 0 1 0 dots
+372 36 moveto
+(Baug/E..) -1 -1 1 0 0 0 1 0 dots
+432 36 moveto
+(Bdim) -1 -1 0 1 0 1 1 0 dots
+492 36 moveto
+(Bdim/A.) 1 2 3 2 3 1 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 3) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(Bdim/A..) -1 2 0 2 0 1 1 0 dots
+132 696 moveto
+(Bdim/A...) -1 -1 0 2 0 1 1 0 dots
+192 696 moveto
+(Bdim/Ab.) -1 2 0 1 0 1 1 0 dots
+252 696 moveto
+(Bdim/Ab..) -1 -1 0 1 0 1 1 0 dots
+312 696 moveto
+(Bdim/Ab...) -1 -1 3 4 3 4 1 0 dots
+372 696 moveto
+(Bdim/G.) 1 -1 0 0 0 3 1 0 dots
+432 696 moveto
+(Bdim/G..) 3 2 0 0 0 1 1 0 dots
+492 696 moveto
+(Bdim/G...) -1 -1 0 0 0 1 1 0 dots
+72 636 moveto
+(Bdim7.) -1 2 0 1 0 1 1 0 dots
+132 636 moveto
+(Bdim7..) -1 -1 0 1 0 1 1 0 dots
+192 636 moveto
+(Bdim7...) -1 -1 3 4 3 4 1 0 dots
+252 636 moveto
+(Bsus) -1 -1 3 3 4 1 2 0 dots
+312 636 moveto
+(Bsus.) 1 3 3 -1 -1 0 7 0 dots
+372 636 moveto
+(Bsus..) -1 2 4 4 -1 0 1 0 dots
+432 636 moveto
+(Bsus2.) -1 4 4 4 -1 2 1 0 dots
+492 636 moveto
+(Bsus2..) -1 -1 4 4 2 2 1 0 dots
+72 576 moveto
+(Bsus2/E.) -1 4 4 4 -1 0 1 0 dots
+132 576 moveto
+(Bsus4) -1 -1 3 3 4 1 2 0 dots
+192 576 moveto
+(Bsus4/A.) -1 0 4 4 0 0 1 0 dots
+252 576 moveto
+(Bsus4/A..) -1 1 3 1 4 1 2 0 dots
+312 576 moveto
+(Bsus4/Ab.) 0 2 2 1 0 2 1 0 dots
+372 576 moveto
+(Bsus4/Ab..) 0 -1 4 1 0 0 1 0 dots
+432 576 moveto
+(Bsus4/Db.) -1 4 4 4 -1 0 1 0 dots
+492 576 moveto
+(Bsus4/Eb.) -1 2 2 4 4 2 1 0 dots
+72 516 moveto
+(Bsus4/Eb..) -1 -1 4 4 4 0 1 0 dots
+132 516 moveto
+(Bsus4/G.) 0 2 2 0 0 2 1 0 dots
+192 516 moveto
+(Bsus4/G..) 0 2 4 0 0 0 1 0 dots
+252 516 moveto
+(Bsus4/G...) 0 -1 4 0 0 0 1 0 dots
+312 516 moveto
+(Bm) -1 2 4 4 3 2 1 0 dots
+372 516 moveto
+(Bm\(maj7\)) -1 1 4 4 3 -1 1 0 dots
+432 516 moveto
+(Bm\(sus9\)) -1 -1 4 4 2 2 1 0 dots
+492 516 moveto
+(Bm.) 2 2 4 4 3 2 1 0 dots
+72 456 moveto
+(Bm...) -1 -1 0 4 3 2 1 0 dots
+132 456 moveto
+(Bm/A.) -1 0 4 4 3 2 1 0 dots
+192 456 moveto
+(Bm/A..) -1 2 0 2 0 2 1 0 dots
+252 456 moveto
+(Bm/A...) -1 2 0 2 3 2 1 0 dots
+312 456 moveto
+(Bm/A....) -1 2 4 2 3 2 1 0 dots
+372 456 moveto
+(Bm/A.....) -1 -1 0 2 0 2 1 0 dots
+432 456 moveto
+(Bm/G.) 2 2 0 0 0 3 1 0 dots
+492 456 moveto
+(Bm/G..) 2 2 0 0 3 3 1 0 dots
+72 396 moveto
+(Bm/G...) 3 2 0 0 0 2 1 0 dots
+132 396 moveto
+(Bm/G....) -1 -1 4 4 3 3 1 0 dots
+192 396 moveto
+(Bm6) -1 -1 4 4 3 4 1 0 dots
+252 396 moveto
+(Bm7) -1 1 3 1 2 1 2 0 dots
+312 396 moveto
+(Bm7\(b5\).) 1 2 3 2 3 1 1 0 dots
+372 396 moveto
+(Bm7\(b5\)..) -1 2 0 2 0 1 1 0 dots
+432 396 moveto
+(Bm7\(b5\)...) -1 -1 0 2 0 1 1 0 dots
+492 396 moveto
+(Bm7.) -1 0 4 4 3 2 1 0 dots
+72 336 moveto
+(Bm7..) -1 2 0 2 0 2 1 0 dots
+132 336 moveto
+(Bm7...) -1 2 0 2 3 2 1 0 dots
+192 336 moveto
+(Bm7....) -1 2 4 2 3 2 1 0 dots
+252 336 moveto
+(Bm7.....) -1 -1 0 2 0 2 1 0 dots
+312 336 moveto
+(Bm7/add11.) 0 0 2 4 3 2 1 0 dots
+372 336 moveto
+(Bm7b5) 1 2 4 2 3 1 1 0 dots
+432 336 moveto
+(Bmaj) -1 2 4 3 4 -1 1 0 dots
+492 336 moveto
+(Bmaj7) -1 2 4 3 4 -1 1 0 dots
+72 276 moveto
+(Bmaj7/#11.) -1 2 3 3 4 2 1 0 dots
+132 276 moveto
+(Bmin) -1 2 4 4 3 2 1 0 dots
+192 276 moveto
+(Bmsus9) -1 -1 4 4 2 2 1 0 dots
+252 276 moveto
+(Bmmaj7) -1 1 4 4 3 -1 1 0 dots
+312 276 moveto
+(B#5.) 3 2 1 0 0 3 1 0 dots
+372 276 moveto
+(B#5..) 3 -1 1 0 0 3 1 0 dots
+432 276 moveto
+(Cb5.) -1 -1 1 2 -1 0 4 0 dots
+492 276 moveto
+(C) -1 3 2 0 1 0 1 0 dots
+72 216 moveto
+(C\(add9\)) -1 3 2 0 3 0 1 0 dots
+132 216 moveto
+(C\(addD\)) -1 3 2 0 3 0 1 0 dots
+192 216 moveto
+(C+) -1 -1 2 1 1 0 1 0 dots
+252 216 moveto
+(C..) 0 1 3 3 3 1 3 0 dots
+312 216 moveto
+(C...) 3 3 2 0 1 0 1 0 dots
+372 216 moveto
+(C....) 3 -1 2 0 1 0 1 0 dots
+432 216 moveto
+(C.....) -1 3 2 0 1 0 1 0 dots
+492 216 moveto
+(C......) -1 1 3 3 3 0 3 0 dots
+72 156 moveto
+(C/A.) 0 0 2 0 1 3 1 0 dots
+132 156 moveto
+(C/A..) -1 0 2 0 1 0 1 0 dots
+192 156 moveto
+(C/A...) -1 0 2 2 1 3 1 0 dots
+252 156 moveto
+(C/A....) -1 0 1 1 1 4 5 0 dots
+312 156 moveto
+(C/B) -1 2 2 0 1 0 1 0 dots
+372 156 moveto
+(C/B.) 0 3 2 0 0 0 1 0 dots
+432 156 moveto
+(C/B...) -1 1 3 2 4 1 3 0 dots
+492 156 moveto
+(C/Bb.) -1 1 3 1 3 1 3 0 dots
+72 96 moveto
+(C/D,) -1 -1 0 3 3 1 3 0 dots
+132 96 moveto
+(C/D,,) -1 1 3 3 4 0 10 0 dots
+192 96 moveto
+(C/D,,,) -1 1 1 1 -1 0 5 0 dots
+252 96 moveto
+(C/D.) 3 -1 0 0 1 0 1 0 dots
+312 96 moveto
+(C/D..) -1 3 0 0 1 0 1 0 dots
+372 96 moveto
+(C/D...) -1 3 2 0 3 0 1 0 dots
+432 96 moveto
+(C/D....) -1 3 2 0 3 3 1 0 dots
+492 96 moveto
+(C/D.....) -1 -1 0 0 1 0 1 0 dots
+72 36 moveto
+(C/F.) -1 3 3 0 1 0 1 0 dots
+132 36 moveto
+(C/F..) -1 -1 3 0 1 0 1 0 dots
+192 36 moveto
+(C11) -1 1 3 1 4 1 3 0 dots
+252 36 moveto
+(C4) -1 -1 3 0 1 3 1 0 dots
+312 36 moveto
+(C5.) -1 1 3 3 -1 1 3 0 dots
+372 36 moveto
+(C6) -1 0 2 2 1 3 1 0 dots
+432 36 moveto
+(C6.) 0 0 2 0 1 3 1 0 dots
+492 36 moveto
+(C6..) -1 0 2 0 1 0 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 4) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "2" 2
+%%Page: "3" 3
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(C6....) -1 0 1 1 1 4 5 0 dots
+132 696 moveto
+(C6/add9.) -1 1 3 1 4 0 5 0 dots
+192 696 moveto
+(C7) 0 3 2 3 1 0 1 0 dots
+252 696 moveto
+(C7.) -1 1 3 1 3 1 3 0 dots
+312 696 moveto
+(C7sus4.) -1 1 3 1 4 1 3 0 dots
+372 696 moveto
+(C9) 1 3 1 2 1 3 8 0 dots
+432 696 moveto
+(C9\(11\)) -1 3 3 3 3 -1 1 0 dots
+492 696 moveto
+(C9\(b5\).) 0 3 -1 3 3 2 1 0 dots
+72 636 moveto
+(Cadd2/B) -1 2 0 0 1 0 1 0 dots
+132 636 moveto
+(Cadd9) -1 3 2 0 3 0 1 0 dots
+192 636 moveto
+(Cadd9,) -1 -1 0 3 3 1 3 0 dots
+252 636 moveto
+(Cadd9,,) -1 1 3 3 4 0 10 0 dots
+312 636 moveto
+(Cadd9,,,) -1 3 2 0 3 0 1 0 dots
+372 636 moveto
+(Cadd9,,,,) -1 1 1 1 -1 0 5 0 dots
+432 636 moveto
+(Cadd9.) 3 -1 0 0 1 0 1 0 dots
+492 636 moveto
+(Cadd9..) -1 3 0 0 1 0 1 0 dots
+72 576 moveto
+(Cadd9...) -1 3 2 0 3 0 1 0 dots
+132 576 moveto
+(Cadd9....) -1 3 2 0 3 3 1 0 dots
+192 576 moveto
+(Cadd9.....) -1 -1 0 0 1 0 1 0 dots
+252 576 moveto
+(CaddD) -1 3 2 0 3 0 1 0 dots
+312 576 moveto
+(Cdim) -1 -1 1 2 1 2 1 0 dots
+372 576 moveto
+(Cdim/A.) -1 -1 1 2 1 2 1 0 dots
+432 576 moveto
+(Cdim/Ab.) -1 -1 1 1 1 2 1 0 dots
+492 576 moveto
+(Cdim/Ab..) -1 -1 1 2 1 1 4 0 dots
+72 516 moveto
+(Cdim/D.) -1 4 3 4 3 1 2 0 dots
+132 516 moveto
+(Cdim7.) -1 -1 1 2 1 2 1 0 dots
+192 516 moveto
+(Csus) -1 -1 3 0 1 3 1 0 dots
+252 516 moveto
+(Csus.) -1 3 3 0 1 1 1 0 dots
+312 516 moveto
+(Csus..) -1 -1 3 0 1 1 1 0 dots
+372 516 moveto
+(Csus2) -1 3 0 0 1 -1 1 0 dots
+432 516 moveto
+(Csus2.) -1 3 3 3 -1 1 3 0 dots
+492 516 moveto
+(Csus2..) -1 3 0 0 3 3 1 0 dots
+72 456 moveto
+(Csus2...) -1 1 3 3 1 1 3 0 dots
+132 456 moveto
+(Csus2/A.) -1 -1 0 2 1 3 1 0 dots
+192 456 moveto
+(Csus2/B.) 3 3 0 0 0 3 1 0 dots
+252 456 moveto
+(Csus2/B..) -1 3 0 0 0 3 1 0 dots
+312 456 moveto
+(Csus2/E,) -1 -1 0 0 1 0 1 0 dots
+372 456 moveto
+(Csus2/E,,) -1 -1 0 3 3 1 3 0 dots
+432 456 moveto
+(Csus2/E,,,) -1 1 3 3 4 0 10 0 dots
+492 456 moveto
+(Csus2/E.) 3 -1 0 0 1 0 1 0 dots
+72 396 moveto
+(Csus2/E..) -1 3 0 0 1 0 1 0 dots
+132 396 moveto
+(Csus2/E...) -1 3 2 0 3 0 1 0 dots
+192 396 moveto
+(Csus2/F.) 3 3 0 0 1 1 1 0 dots
+252 396 moveto
+(Csus4) -1 -1 3 0 1 3 1 0 dots
+312 396 moveto
+(Csus4/A.) 3 -1 3 2 1 1 1 0 dots
+372 396 moveto
+(Csus4/A..) -1 -1 3 2 1 3 1 0 dots
+432 396 moveto
+(Csus4/B.) -1 3 3 0 0 3 1 0 dots
+492 396 moveto
+(Csus4/Bb.) -1 1 3 1 4 1 3 0 dots
+72 336 moveto
+(Csus4/D.) 3 3 0 0 1 1 1 0 dots
+132 336 moveto
+(Csus4/E.) -1 3 3 0 1 0 1 0 dots
+192 336 moveto
+(Csus4/E..) -1 -1 3 0 1 0 1 0 dots
+252 336 moveto
+(Csus9) -1 -1 4 1 2 4 7 0 dots
+312 336 moveto
+(Cm) -1 1 3 3 2 1 3 0 dots
+372 336 moveto
+(Cm..) -1 -1 3 3 2 1 3 0 dots
+432 336 moveto
+(Cm/A.) -1 -1 1 2 1 3 1 0 dots
+492 336 moveto
+(Cm/Bb.) -1 1 3 1 2 1 3 0 dots
+72 276 moveto
+(Cm11) -1 1 3 1 4 -1 3 0 dots
+132 276 moveto
+(Cm6.) -1 -1 1 2 1 3 1 0 dots
+192 276 moveto
+(Cm7) -1 1 3 1 2 1 3 0 dots
+252 276 moveto
+(Cmaj) 0 3 2 0 1 0 1 0 dots
+312 276 moveto
+(Cmaj7) -1 3 2 0 0 0 1 0 dots
+372 276 moveto
+(Cmaj7..) -1 2 2 0 1 0 1 0 dots
+432 276 moveto
+(Cmaj7...) -1 1 3 2 3 1 3 0 dots
+492 276 moveto
+(Cmaj9.) -1 3 0 0 0 0 1 0 dots
+72 216 moveto
+(Cmin) -1 1 3 3 2 1 3 0 dots
+132 216 moveto
+(C#) -1 -1 3 1 2 1 1 0 dots
+192 216 moveto
+(C#\(add9\)) -1 1 3 3 1 1 4 0 dots
+252 216 moveto
+(C#+) -1 -1 3 2 2 1 1 0 dots
+312 216 moveto
+(C#4) -1 -1 3 3 4 1 4 0 dots
+372 216 moveto
+(C#5.) -1 3 2 1 1 0 1 0 dots
+432 216 moveto
+(C#7) -1 -1 3 4 2 4 1 0 dots
+492 216 moveto
+(C#7\(b5\)) -1 2 1 2 1 2 1 0 dots
+72 156 moveto
+(C#add9) -1 1 3 3 1 1 4 0 dots
+132 156 moveto
+(C#dim) -1 -1 2 3 2 3 1 0 dots
+192 156 moveto
+(C#sus) -1 -1 3 3 4 1 4 0 dots
+252 156 moveto
+(C#sus4) -1 -1 3 3 4 1 4 0 dots
+312 156 moveto
+(C#m) -1 -1 2 1 2 0 1 0 dots
+372 156 moveto
+(C#m7) -1 -1 2 4 2 4 1 0 dots
+432 156 moveto
+(C#maj) -1 4 3 1 1 1 1 0 dots
+492 156 moveto
+(C#maj7) -1 4 3 1 1 1 1 0 dots
+72 96 moveto
+(C#min) -1 -1 2 1 2 0 1 0 dots
+132 96 moveto
+(Dbb5.) -1 -1 3 0 2 1 1 0 dots
+192 96 moveto
+(Db) -1 -1 3 1 2 1 1 0 dots
+252 96 moveto
+(Db+) -1 -1 3 2 2 1 1 0 dots
+312 96 moveto
+(Db.) 1 1 3 3 3 1 4 0 dots
+372 96 moveto
+(Db..) -1 4 3 1 2 1 1 0 dots
+432 96 moveto
+(Db...) -1 1 3 3 3 1 4 0 dots
+492 96 moveto
+(Db.....) -1 -1 3 3 3 1 4 0 dots
+72 36 moveto
+(Db/B.) -1 4 3 4 0 4 1 0 dots
+132 36 moveto
+(Db/Bb.) -1 1 3 1 2 1 1 0 dots
+192 36 moveto
+(Db/C.) -1 3 3 1 2 1 1 0 dots
+252 36 moveto
+(Db/C..) -1 1 3 2 3 1 4 0 dots
+312 36 moveto
+(Db5.) -1 1 3 3 -1 1 4 0 dots
+372 36 moveto
+(Db6.) -1 1 3 1 2 1 1 0 dots
+432 36 moveto
+(Db7) -1 -1 3 4 2 4 1 0 dots
+492 36 moveto
+(Db7.) -1 4 3 4 0 4 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 5) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(Dbaug/D.) -1 -1 0 2 2 1 1 0 dots
+132 696 moveto
+(Dbaug/G.) 1 0 3 0 2 1 1 0 dots
+192 696 moveto
+(Dbdim) -1 -1 2 3 2 3 1 0 dots
+252 696 moveto
+(Dbdim/A.) 3 -1 2 2 2 0 1 0 dots
+312 696 moveto
+(Dbdim/A..) -1 0 2 0 2 0 1 0 dots
+372 696 moveto
+(Dbdim/A...) -1 0 2 2 2 3 1 0 dots
+432 696 moveto
+(Dbdim/B.) 0 2 2 0 2 0 1 0 dots
+492 696 moveto
+(Dbdim/Bb.) -1 1 2 0 2 0 1 0 dots
+72 636 moveto
+(Dbdim/Bb..) -1 -1 2 3 2 3 1 0 dots
+132 636 moveto
+(Dbdim/D.) 3 -1 0 0 2 0 1 0 dots
+192 636 moveto
+(Dbdim/D..) -1 -1 0 0 2 0 1 0 dots
+252 636 moveto
+(Dbdim7.) -1 1 2 0 2 0 1 0 dots
+312 636 moveto
+(Dbdim7..) -1 -1 2 3 2 3 1 0 dots
+372 636 moveto
+(Dbsus) -1 -1 3 3 4 1 4 0 dots
+432 636 moveto
+(Dbsus2.) -1 -1 3 3 1 1 4 0 dots
+492 636 moveto
+(Dbsus4) -1 -1 3 3 4 1 4 0 dots
+72 576 moveto
+(Dbsus4/Bb.) -1 -1 4 3 2 4 1 0 dots
+132 576 moveto
+(Dbm) -1 -1 2 1 2 0 1 0 dots
+192 576 moveto
+(Dbm.) -1 1 3 3 2 1 4 0 dots
+252 576 moveto
+(Dbm...) -1 1 3 3 -1 0 4 0 dots
+312 576 moveto
+(Dbm/A.) -1 0 2 1 2 0 1 0 dots
+372 576 moveto
+(Dbm/B.) 0 2 2 1 2 0 1 0 dots
+432 576 moveto
+(Dbm/B..) -1 1 3 1 2 1 4 0 dots
+492 576 moveto
+(Dbm7) -1 -1 2 4 2 4 1 0 dots
+72 516 moveto
+(Dbm7\(b5\).) 0 2 2 0 2 0 1 0 dots
+132 516 moveto
+(Dbm7.) 0 2 2 1 2 0 1 0 dots
+192 516 moveto
+(Dbm7..) -1 1 3 1 2 1 4 0 dots
+252 516 moveto
+(Dbmaj) -1 -1 3 1 2 1 1 0 dots
+312 516 moveto
+(Dbmaj7) -1 4 3 1 1 1 1 0 dots
+372 516 moveto
+(Dbmaj7.) -1 3 3 1 2 1 1 0 dots
+432 516 moveto
+(Dbmaj7..) -1 1 3 2 3 1 4 0 dots
+492 516 moveto
+(Dbmin) -1 -1 2 1 2 0 1 0 dots
+72 456 moveto
+(Db#5.) -1 0 3 2 2 1 1 0 dots
+132 456 moveto
+(Db#5..) -1 0 -1 2 2 1 1 0 dots
+192 456 moveto
+(D) -1 -1 0 2 3 2 1 0 dots
+252 456 moveto
+(D\(add9\)) 0 0 0 2 3 2 1 0 dots
+312 456 moveto
+(D+) -1 -1 0 3 3 2 1 0 dots
+372 456 moveto
+(D.) -1 4 3 1 2 1 2 0 dots
+432 456 moveto
+(D..) 2 0 0 2 3 2 1 0 dots
+492 456 moveto
+(D....) -1 0 4 2 3 2 1 0 dots
+72 396 moveto
+(D......) -1 -1 0 3 3 1 5 0 dots
+132 396 moveto
+(D/A) -1 0 0 2 3 2 1 0 dots
+192 396 moveto
+(D/B) -1 2 0 2 3 2 1 0 dots
+252 396 moveto
+(D/B.) -1 0 3 3 2 1 2 0 dots
+312 396 moveto
+(D/B..) -1 2 0 2 0 2 1 0 dots
+372 396 moveto
+(D/B...) -1 2 0 2 3 2 1 0 dots
+432 396 moveto
+(D/B....) -1 2 4 2 3 2 1 0 dots
+492 396 moveto
+(D/B.....) -1 -1 0 2 0 2 1 0 dots
+72 336 moveto
+(D/C) -1 3 0 2 3 2 1 0 dots
+132 336 moveto
+(D/C#) -1 4 0 2 3 2 1 0 dots
+192 336 moveto
+(D/C.) -1 0 0 2 1 2 1 0 dots
+252 336 moveto
+(D/Db.) -1 -1 0 2 2 2 1 0 dots
+312 336 moveto
+(D/E) -1 1 1 1 1 -1 7 0 dots
+372 336 moveto
+(D/E.) 0 0 0 2 3 2 1 0 dots
+432 336 moveto
+(D/E..) 0 0 4 2 3 0 1 0 dots
+492 336 moveto
+(D/E...) 2 -1 0 2 3 0 1 0 dots
+72 276 moveto
+(D/E....) -1 0 2 2 3 2 1 0 dots
+132 276 moveto
+(D/E.....) -1 -1 2 2 3 2 1 0 dots
+192 276 moveto
+(D/E......) -1 4 3 1 2 0 2 0 dots
+252 276 moveto
+(D/E.......) -1 3 3 1 -1 0 7 0 dots
+312 276 moveto
+(D/G) 3 -1 0 2 3 2 1 0 dots
+372 276 moveto
+(D/G.) 3 -1 2 0 1 3 3 0 dots
+432 276 moveto
+(D/G..) 3 -1 0 2 3 2 1 0 dots
+492 276 moveto
+(D11) 3 0 0 2 1 0 1 0 dots
+72 216 moveto
+(D4) -1 -1 0 2 3 3 1 0 dots
+132 216 moveto
+(D5.) 1 1 3 3 -1 1 5 0 dots
+192 216 moveto
+(D5..) -1 0 0 1 2 4 2 0 dots
+252 216 moveto
+(D5/E) 0 1 1 1 -1 -1 7 0 dots
+312 216 moveto
+(D6) -1 0 0 2 0 2 1 0 dots
+372 216 moveto
+(D6.) -1 0 4 4 3 2 1 0 dots
+432 216 moveto
+(D6..) -1 2 0 2 0 2 1 0 dots
+492 216 moveto
+(D6...) -1 2 4 2 3 2 1 0 dots
+72 156 moveto
+(D6/add9.) 0 0 2 4 3 2 1 0 dots
+132 156 moveto
+(D6/add9..) 0 2 0 2 0 2 1 0 dots
+192 156 moveto
+(D7) -1 -1 0 2 1 2 1 0 dots
+252 156 moveto
+(D7#9) -1 2 1 2 3 3 4 0 dots
+312 156 moveto
+(D7\(#9\)) -1 2 1 2 3 3 4 0 dots
+372 156 moveto
+(D7..) -1 3 -1 2 3 2 1 0 dots
+432 156 moveto
+(D7...) -1 1 3 1 3 1 5 0 dots
+492 156 moveto
+(D7sus2) -1 0 0 2 1 0 1 0 dots
+72 96 moveto
+(D7sus4) -1 0 0 2 1 3 1 0 dots
+132 96 moveto
+(D7sus4.) -1 -1 0 2 1 3 1 0 dots
+192 96 moveto
+(D9) 1 3 1 2 1 3 10 0 dots
+252 96 moveto
+(D9\(#5\).) 0 3 -1 3 3 2 1 0 dots
+312 96 moveto
+(D9\(add6\)) 1 3 3 2 0 0 10 0 dots
+372 96 moveto
+(D9.) 0 0 0 2 1 2 1 0 dots
+432 96 moveto
+(D9..) 2 -1 0 2 1 0 1 0 dots
+492 96 moveto
+(D9...) -1 1 3 1 3 0 5 0 dots
+72 36 moveto
+(D9add6) 1 3 3 2 0 0 10 0 dots
+132 36 moveto
+(Dadd9) 0 0 0 2 3 2 1 0 dots
+192 36 moveto
+(Dadd9,) -1 -1 2 2 3 2 1 0 dots
+252 36 moveto
+(Dadd9,,) -1 4 3 1 2 0 2 0 dots
+312 36 moveto
+(Dadd9,,,) -1 3 1 1 -1 0 7 0 dots
+372 36 moveto
+(Dadd9.) 0 0 0 2 3 2 1 0 dots
+432 36 moveto
+(Dadd9..) 0 0 4 2 3 0 1 0 dots
+492 36 moveto
+(Dadd9...) 2 -1 0 2 3 0 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 6) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "3" 3
+%%Page: "4" 4
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(Dadd9....) -1 0 2 2 3 2 1 0 dots
+132 696 moveto
+(Daug/E.) 2 -1 4 3 3 0 1 0 dots
+192 696 moveto
+(Ddim) -1 -1 0 1 0 1 1 0 dots
+252 696 moveto
+(Ddim/B.) -1 2 0 1 0 1 1 0 dots
+312 696 moveto
+(Ddim/B..) -1 -1 0 1 0 1 1 0 dots
+372 696 moveto
+(Ddim/B...) -1 -1 3 4 3 4 1 0 dots
+432 696 moveto
+(Ddim/Bb.) -1 1 3 1 3 1 1 0 dots
+492 696 moveto
+(Ddim/Bb..) -1 -1 3 3 3 4 1 0 dots
+72 636 moveto
+(Ddim/C.) -1 -1 0 1 1 1 1 0 dots
+132 636 moveto
+(Ddim7.) -1 2 0 1 0 1 1 0 dots
+192 636 moveto
+(Ddim7..) -1 -1 0 1 0 1 1 0 dots
+252 636 moveto
+(Ddim7...) -1 -1 3 4 3 4 1 0 dots
+312 636 moveto
+(Dsus) -1 -1 0 2 3 3 1 0 dots
+372 636 moveto
+(Dsus.) 3 -1 0 0 1 3 3 0 dots
+432 636 moveto
+(Dsus..) 3 0 0 0 3 3 1 0 dots
+492 636 moveto
+(Dsus...) -1 0 0 0 3 3 1 0 dots
+72 576 moveto
+(Dsus2) 0 0 0 2 3 0 1 0 dots
+132 576 moveto
+(Dsus2,) -1 0 2 2 3 0 1 0 dots
+192 576 moveto
+(Dsus2.) 1 1 3 3 -1 0 5 0 dots
+252 576 moveto
+(Dsus2..) -1 0 0 2 3 0 1 0 dots
+312 576 moveto
+(Dsus2...) 0 0 2 2 3 0 1 0 dots
+372 576 moveto
+(Dsus2/Ab.) 4 -1 0 2 3 0 1 0 dots
+432 576 moveto
+(Dsus2/B.) 0 2 0 2 0 0 1 0 dots
+492 576 moveto
+(Dsus2/B..) -1 2 0 2 3 0 1 0 dots
+72 516 moveto
+(Dsus2/Bb.) 0 1 -1 2 3 0 1 0 dots
+132 516 moveto
+(Dsus2/C.) -1 -1 0 2 1 0 1 0 dots
+192 516 moveto
+(Dsus2/C..) -1 -1 0 1 1 1 5 0 dots
+252 516 moveto
+(Dsus2/Db,) -1 -1 0 1 2 1 9 0 dots
+312 516 moveto
+(Dsus2/Db.) -1 0 0 2 2 0 1 0 dots
+372 516 moveto
+(Dsus2/Db..) -1 -1 0 2 2 0 1 0 dots
+432 516 moveto
+(Dsus2/F.) -1 -1 2 2 1 0 6 0 dots
+492 516 moveto
+(Dsus2/G,) 3 -1 0 0 1 0 3 0 dots
+72 456 moveto
+(Dsus2/G,,) -1 0 0 0 -1 0 1 0 dots
+132 456 moveto
+(Dsus2/G.) -1 0 2 0 3 0 1 0 dots
+192 456 moveto
+(Dsus2/G..) -1 0 2 0 3 3 1 0 dots
+252 456 moveto
+(Dsus2/G...) -1 0 2 2 3 3 1 0 dots
+312 456 moveto
+(Dsus2/Gb,) -1 0 2 2 3 2 1 0 dots
+372 456 moveto
+(Dsus2/Gb,,) -1 -1 2 2 3 2 1 0 dots
+432 456 moveto
+(Dsus2/Gb.) 0 0 0 2 3 2 1 0 dots
+492 456 moveto
+(Dsus2/Gb..) 0 0 4 2 3 0 1 0 dots
+72 396 moveto
+(Dsus4) -1 -1 0 2 3 3 1 0 dots
+132 396 moveto
+(Dsus4/B.) 3 0 0 0 0 3 1 0 dots
+192 396 moveto
+(Dsus4/B..) 3 2 0 2 0 3 1 0 dots
+252 396 moveto
+(Dsus4/C.) -1 -1 0 2 1 3 1 0 dots
+312 396 moveto
+(Dsus4/E,) -1 0 0 0 -1 0 1 0 dots
+372 396 moveto
+(Dsus4/E.) -1 0 2 0 3 0 1 0 dots
+432 396 moveto
+(Dsus4/E..) -1 0 2 0 3 3 1 0 dots
+492 396 moveto
+(Dsus4/E...) -1 0 2 2 3 3 1 0 dots
+72 336 moveto
+(Dsus4/Gb.) 3 -1 2 0 1 3 3 0 dots
+132 336 moveto
+(Dsus4/Gb..) 3 -1 0 2 3 2 1 0 dots
+192 336 moveto
+(Dm) -1 -1 0 2 3 1 1 0 dots
+252 336 moveto
+(Dm\(#5\)) -1 -1 0 3 3 2 1 0 dots
+312 336 moveto
+(Dm\(#7\)) -1 -1 0 2 2 1 1 0 dots
+372 336 moveto
+(Dm..) 1 1 3 3 2 1 7 0 dots
+432 336 moveto
+(Dm/A) -1 0 0 2 3 1 1 0 dots
+492 336 moveto
+(Dm/B) -1 2 0 2 3 1 1 0 dots
+72 276 moveto
+(Dm/B.) 1 2 3 2 3 1 1 0 dots
+132 276 moveto
+(Dm/B..) -1 2 0 2 0 1 1 0 dots
+192 276 moveto
+(Dm/B...) -1 -1 0 2 0 1 1 0 dots
+252 276 moveto
+(Dm/Bb.) 1 1 3 2 3 1 1 0 dots
+312 276 moveto
+(Dm/C) -1 3 0 2 3 1 1 0 dots
+372 276 moveto
+(Dm/C#) -1 4 0 2 3 1 1 0 dots
+432 276 moveto
+(Dm/C.) -1 1 3 1 2 1 5 0 dots
+492 276 moveto
+(Dm/C..) -1 -1 0 2 1 1 1 0 dots
+72 216 moveto
+(Dm/C...) -1 -1 0 1 2 1 5 0 dots
+132 216 moveto
+(Dm/Db.) -1 -1 0 2 2 1 1 0 dots
+192 216 moveto
+(Dm/E.) -1 -1 2 2 1 0 6 0 dots
+252 216 moveto
+(Dm6\(5b\)) -1 -1 0 1 0 1 1 0 dots
+312 216 moveto
+(Dm6.) -1 2 0 2 0 1 1 0 dots
+372 216 moveto
+(Dm6..) -1 -1 0 2 0 1 1 0 dots
+432 216 moveto
+(Dm7) -1 -1 0 2 1 1 1 0 dots
+492 216 moveto
+(Dm7\(b5\).) -1 -1 0 1 1 1 1 0 dots
+72 156 moveto
+(Dm7.) -1 1 3 1 2 1 5 0 dots
+132 156 moveto
+(Dm7...) -1 -1 0 1 2 1 5 0 dots
+192 156 moveto
+(Dm7/add11.) 3 -1 0 2 1 1 1 0 dots
+252 156 moveto
+(Dm9) -1 -1 3 2 1 0 1 0 dots
+312 156 moveto
+(Dmaj) -1 -1 0 2 3 2 1 0 dots
+372 156 moveto
+(Dmaj7) -1 -1 0 2 2 2 1 0 dots
+432 156 moveto
+(Dmaj7.) -1 -1 0 1 1 1 14 0 dots
+492 156 moveto
+(Dmin) -1 -1 0 2 3 1 1 0 dots
+72 96 moveto
+(Dmin/maj7.) -1 -1 0 2 2 1 1 0 dots
+132 96 moveto
+(Dm#5) -1 -1 0 3 3 2 1 0 dots
+192 96 moveto
+(Dm#7) -1 -1 0 2 2 1 1 0 dots
+252 96 moveto
+(D#) -1 -1 3 1 2 1 3 0 dots
+312 96 moveto
+(D#+) -1 -1 1 0 0 4 1 0 dots
+372 96 moveto
+(D#4) -1 -1 1 3 4 4 1 0 dots
+432 96 moveto
+(D#5.) -1 -1 0 3 3 2 1 0 dots
+492 96 moveto
+(D#7) -1 -1 1 3 2 3 1 0 dots
+72 36 moveto
+(D#dim) -1 -1 1 2 1 2 1 0 dots
+132 36 moveto
+(D#sus) -1 -1 1 3 4 4 1 0 dots
+192 36 moveto
+(D#sus4) -1 -1 1 3 4 4 1 0 dots
+252 36 moveto
+(D#m) -1 -1 4 3 4 2 1 0 dots
+312 36 moveto
+(D#m7) -1 -1 1 3 2 2 1 0 dots
+372 36 moveto
+(D#maj) -1 -1 3 1 2 1 3 0 dots
+432 36 moveto
+(D#maj7) -1 -1 1 3 3 3 1 0 dots
+492 36 moveto
+(D#min) -1 -1 4 3 4 2 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 7) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(Dm/B) -1 2 0 2 3 1 1 0 dots
+132 696 moveto
+(Dm/C) -1 3 0 2 3 1 1 0 dots
+192 696 moveto
+(Dm/C#) -1 4 0 2 3 1 1 0 dots
+252 696 moveto
+(Dm6\(5b\)) -1 -1 0 1 0 1 1 0 dots
+312 696 moveto
+(Dm7) -1 -1 0 2 1 1 1 0 dots
+372 696 moveto
+(Dm9) -1 -1 3 2 1 0 1 0 dots
+432 696 moveto
+(Dmaj) -1 -1 0 2 3 2 1 0 dots
+492 696 moveto
+(Dmaj7) -1 -1 0 2 2 2 1 0 dots
+72 636 moveto
+(Dmin) -1 -1 0 2 3 1 1 0 dots
+132 636 moveto
+(Dm#5) -1 -1 0 3 3 2 1 0 dots
+192 636 moveto
+(Dm#7) -1 -1 0 2 2 1 1 0 dots
+252 636 moveto
+(D#) -1 -1 3 1 2 1 3 0 dots
+312 636 moveto
+(D#+) -1 -1 1 0 0 4 1 0 dots
+372 636 moveto
+(D#4) -1 -1 1 3 4 4 1 0 dots
+432 636 moveto
+(D#7) -1 -1 1 3 2 3 1 0 dots
+492 636 moveto
+(D#dim) -1 -1 1 2 1 2 1 0 dots
+72 576 moveto
+(D#sus) -1 -1 1 3 4 4 1 0 dots
+132 576 moveto
+(D#sus4) -1 -1 1 3 4 4 1 0 dots
+192 576 moveto
+(D#m) -1 -1 4 3 4 2 1 0 dots
+252 576 moveto
+(D#m7) -1 -1 1 3 2 2 1 0 dots
+312 576 moveto
+(D#maj) -1 -1 3 1 2 1 3 0 dots
+372 576 moveto
+(D#maj7) -1 -1 1 3 3 3 1 0 dots
+432 576 moveto
+(D#min) -1 -1 4 3 4 2 1 0 dots
+492 576 moveto
+(Eb) -1 -1 3 1 2 1 3 0 dots
+72 516 moveto
+(Eb\(add9\)) -1 1 1 3 4 1 1 0 dots
+132 516 moveto
+(Eb+) -1 -1 1 0 0 4 1 0 dots
+192 516 moveto
+(Eb.) -1 1 1 3 4 3 1 0 dots
+252 516 moveto
+(Eb..) -1 -1 1 3 4 3 1 0 dots
+312 516 moveto
+(Eb...) -1 -1 3 1 2 1 3 0 dots
+372 516 moveto
+(Eb/C.) -1 1 3 1 2 1 3 0 dots
+432 516 moveto
+(Eb/D.) -1 1 3 2 3 1 6 0 dots
+492 516 moveto
+(Eb/Db.) -1 1 1 3 2 3 1 0 dots
+72 456 moveto
+(Eb/Db..) -1 1 3 1 3 1 6 0 dots
+132 456 moveto
+(Eb/Db...) -1 -1 1 3 2 3 1 0 dots
+192 456 moveto
+(Eb/E.) -1 -1 3 1 2 0 3 0 dots
+252 456 moveto
+(Eb4) -1 -1 1 3 4 4 1 0 dots
+312 456 moveto
+(Eb5.) -1 1 3 3 -1 1 6 0 dots
+372 456 moveto
+(Eb6.) -1 1 3 1 2 1 3 0 dots
+432 456 moveto
+(Eb7) -1 -1 1 3 2 3 1 0 dots
+492 456 moveto
+(Eb7.) -1 1 1 3 2 3 1 0 dots
+72 396 moveto
+(Eb7..) -1 1 3 1 3 1 6 0 dots
+132 396 moveto
+(Eb7...) -1 -1 1 3 2 3 1 0 dots
+192 396 moveto
+(Ebadd9) -1 1 1 3 4 1 1 0 dots
+252 396 moveto
+(Ebaug/E.) 3 -1 1 0 0 0 1 0 dots
+312 396 moveto
+(Ebaug/E..) -1 -1 1 0 0 0 1 0 dots
+372 396 moveto
+(Ebdim) -1 -1 1 2 1 2 1 0 dots
+432 396 moveto
+(Ebdim/B.) 2 -1 1 2 0 2 1 0 dots
+492 396 moveto
+(Ebdim/B..) -1 0 1 2 0 2 1 0 dots
+72 336 moveto
+(Ebdim/B...) -1 2 1 2 0 2 1 0 dots
+132 336 moveto
+(Ebdim/C.) -1 -1 1 2 1 2 1 0 dots
+192 336 moveto
+(Ebdim7.) -1 -1 1 2 1 2 1 0 dots
+252 336 moveto
+(Ebsus) -1 -1 1 3 4 4 1 0 dots
+312 336 moveto
+(Ebsus2/Ab.) -1 1 3 1 4 1 1 0 dots
+372 336 moveto
+(Ebsus4) -1 -1 1 3 4 4 1 0 dots
+432 336 moveto
+(Ebsus4/F.) -1 1 3 1 4 1 1 0 dots
+492 336 moveto
+(Ebm) -1 -1 4 3 4 2 1 0 dots
+72 276 moveto
+(Ebm.) -1 -1 4 3 4 2 1 0 dots
+132 276 moveto
+(Ebm/Db.) -1 -1 1 3 2 2 1 0 dots
+192 276 moveto
+(Ebm7) -1 -1 1 3 2 2 1 0 dots
+252 276 moveto
+(Ebm7.) -1 -1 1 3 2 2 1 0 dots
+312 276 moveto
+(Ebmaj) -1 -1 1 3 3 3 1 0 dots
+372 276 moveto
+(Ebmaj7) -1 -1 1 3 3 3 1 0 dots
+432 276 moveto
+(Ebmaj7.) -1 1 3 2 3 1 6 0 dots
+492 276 moveto
+(Ebmin) -1 -1 4 3 4 2 1 0 dots
+72 216 moveto
+(Eb#5.) 3 2 1 0 0 3 1 0 dots
+132 216 moveto
+(Eb#5..) 3 -1 1 0 0 3 1 0 dots
+192 216 moveto
+(E) 0 2 2 1 0 0 1 0 dots
+252 216 moveto
+(E+) -1 -1 2 1 1 0 1 0 dots
+312 216 moveto
+(E.) 0 2 2 1 0 0 1 0 dots
+372 216 moveto
+(E..) -1 4 3 1 2 0 4 0 dots
+432 216 moveto
+(E/A.) -1 0 2 1 0 0 1 0 dots
+492 216 moveto
+(E/D.) 0 2 0 1 0 0 1 0 dots
+72 156 moveto
+(E/D..) 0 2 2 1 3 0 1 0 dots
+132 156 moveto
+(E/D...) -1 2 0 1 3 0 1 0 dots
+192 156 moveto
+(E/D....) -1 -1 0 1 0 0 1 0 dots
+252 156 moveto
+(E/Db.) 0 2 2 1 2 0 1 0 dots
+312 156 moveto
+(E/Db..) -1 1 3 1 2 1 4 0 dots
+372 156 moveto
+(E/Eb.) 0 2 1 1 0 0 1 0 dots
+432 156 moveto
+(E/Eb..) 0 -1 3 1 1 0 4 0 dots
+492 156 moveto
+(E/Eb...) -1 -1 1 1 0 0 1 0 dots
+72 96 moveto
+(E/Gb.) 0 2 2 1 0 2 1 0 dots
+132 96 moveto
+(E/Gb..) 0 -1 4 1 0 0 1 0 dots
+192 96 moveto
+(E/Gb...) 2 2 2 1 0 0 1 0 dots
+252 96 moveto
+(E11) 1 1 1 1 2 2 1 0 dots
+312 96 moveto
+(E11/b9.) 0 0 3 4 3 4 1 0 dots
+372 96 moveto
+(E5) 0 1 3 3 -1 -1 7 0 dots
+432 96 moveto
+(E5.) 0 2 -1 -1 -1 0 1 0 dots
+492 96 moveto
+(E5..) -1 1 3 3 -1 0 7 0 dots
+72 36 moveto
+(E6) -1 -1 3 3 3 3 9 0 dots
+132 36 moveto
+(E6.) 0 2 2 1 2 0 1 0 dots
+192 36 moveto
+(E6..) -1 1 3 1 2 1 4 0 dots
+252 36 moveto
+(E7) 0 2 2 1 3 0 1 0 dots
+312 36 moveto
+(E7#9) 0 2 2 1 3 3 1 0 dots
+372 36 moveto
+(E7\(#9\)) 0 2 2 1 3 3 1 0 dots
+432 36 moveto
+(E7\(11\)) 0 2 2 2 3 0 1 0 dots
+492 36 moveto
+(E7\(5b\)) -1 1 0 1 3 0 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 8) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "4" 4
+%%Page: "5" 5
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(E7\(b9\)) 0 2 0 1 3 2 1 0 dots
+132 696 moveto
+(E7.) 0 2 0 1 0 0 1 0 dots
+192 696 moveto
+(E7..) 0 2 2 1 3 0 1 0 dots
+252 696 moveto
+(E7...) -1 2 0 1 3 0 1 0 dots
+312 696 moveto
+(E7....) -1 -1 0 1 0 0 1 0 dots
+372 696 moveto
+(E7/add11.) -1 0 0 1 0 0 1 0 dots
+432 696 moveto
+(E7/b9\(b5\).) 0 1 3 1 3 1 1 0 dots
+492 696 moveto
+(E7b9) 0 2 0 1 3 2 1 0 dots
+72 636 moveto
+(E7sus4.) 0 2 0 2 0 0 1 0 dots
+132 636 moveto
+(E9) 1 3 1 2 1 3 1 0 dots
+192 636 moveto
+(E9.) 0 2 0 1 0 2 1 0 dots
+252 636 moveto
+(E9..) 2 2 0 1 0 0 1 0 dots
+312 636 moveto
+(Eadd9.) 0 2 2 1 0 2 1 0 dots
+372 636 moveto
+(Eadd9..) 0 -1 4 1 0 0 1 0 dots
+432 636 moveto
+(Eadd9...) 2 2 2 1 0 0 1 0 dots
+492 636 moveto
+(Edim) -1 -1 2 3 2 3 1 0 dots
+72 576 moveto
+(Edim/C.) -1 1 3 1 3 1 3 0 dots
+132 576 moveto
+(Edim/D.) 3 -1 0 3 3 0 1 0 dots
+192 576 moveto
+(Edim/Db.) -1 1 2 0 2 0 1 0 dots
+252 576 moveto
+(Edim/Db..) -1 -1 2 3 2 3 1 0 dots
+312 576 moveto
+(Edim/Eb.) -1 -1 3 1 2 0 3 0 dots
+372 576 moveto
+(Edim7.) -1 1 2 0 2 0 1 0 dots
+432 576 moveto
+(Edim7..) -1 -1 2 3 2 3 1 0 dots
+492 576 moveto
+(Esus) 0 2 2 2 0 0 1 0 dots
+72 516 moveto
+(Esus,) -1 0 2 2 0 0 1 0 dots
+132 516 moveto
+(Esus,,) -1 -1 2 2 0 0 1 0 dots
+192 516 moveto
+(Esus.) 0 0 2 2 0 0 1 0 dots
+252 516 moveto
+(Esus..) 0 0 2 4 0 0 1 0 dots
+312 516 moveto
+(Esus...) 0 2 2 2 0 0 1 0 dots
+372 516 moveto
+(Esus2.) 1 3 3 -1 -1 0 7 0 dots
+432 516 moveto
+(Esus2..) -1 2 4 4 -1 0 1 0 dots
+492 516 moveto
+(Esus2/A.) -1 0 4 4 0 0 1 0 dots
+72 456 moveto
+(Esus2/A..) -1 1 3 1 4 1 2 0 dots
+132 456 moveto
+(Esus2/Ab.) 0 2 2 1 0 2 1 0 dots
+192 456 moveto
+(Esus2/Ab..) 0 -1 4 1 0 0 1 0 dots
+252 456 moveto
+(Esus2/Db.) -1 4 4 4 -1 0 1 0 dots
+312 456 moveto
+(Esus2/Eb.) -1 2 2 4 4 2 1 0 dots
+372 456 moveto
+(Esus2/Eb..) -1 -1 4 4 4 0 1 0 dots
+432 456 moveto
+(Esus2/G.) 0 2 2 0 0 2 1 0 dots
+492 456 moveto
+(Esus2/G..) 0 2 4 0 0 0 1 0 dots
+72 396 moveto
+(Esus2/G...) 0 -1 4 0 0 0 1 0 dots
+132 396 moveto
+(Esus4) 0 2 2 2 0 0 1 0 dots
+192 396 moveto
+(Esus4/Ab.) -1 0 2 1 0 0 1 0 dots
+252 396 moveto
+(Esus4/C.) 0 0 3 1 0 0 5 0 dots
+312 396 moveto
+(Esus4/C..) -1 3 2 2 0 0 1 0 dots
+372 396 moveto
+(Esus4/D.) 0 2 0 2 0 0 1 0 dots
+432 396 moveto
+(Esus4/D..) -1 2 0 2 3 0 1 0 dots
+492 396 moveto
+(Esus4/Db.) 0 0 2 4 2 0 1 0 dots
+72 336 moveto
+(Esus4/Db..) -1 0 2 1 0 0 6 0 dots
+132 336 moveto
+(Esus4/Eb.) -1 2 1 2 0 0 1 0 dots
+192 336 moveto
+(Esus4/F.) 0 0 3 2 0 0 1 0 dots
+252 336 moveto
+(Esus4/G.) 3 -1 2 2 0 0 1 0 dots
+312 336 moveto
+(Esus4/G..) -1 0 2 0 0 0 1 0 dots
+372 336 moveto
+(Esus4/G...) -1 0 2 1 2 0 4 0 dots
+432 336 moveto
+(Esus4/Gb.) -1 0 4 4 0 0 1 0 dots
+492 336 moveto
+(Esus4/Gb..) -1 1 3 1 4 1 2 0 dots
+72 276 moveto
+(Em) 0 2 2 0 0 0 1 0 dots
+132 276 moveto
+(Em\(add9\)) 0 2 4 0 0 0 1 0 dots
+192 276 moveto
+(Em\(sus4\)) 0 0 2 0 0 0 1 0 dots
+252 276 moveto
+(Em.) 0 2 2 0 0 0 1 0 dots
+312 276 moveto
+(Em..) 3 -1 2 0 0 0 1 0 dots
+372 276 moveto
+(Em...) -1 1 4 -1 -1 0 2 0 dots
+432 276 moveto
+(Em/A.) 3 -1 2 2 0 0 1 0 dots
+492 276 moveto
+(Em/A..) -1 0 2 0 0 0 1 0 dots
+72 216 moveto
+(Em/A...) -1 0 2 1 2 0 4 0 dots
+132 216 moveto
+(Em/B) -1 2 2 0 0 0 1 0 dots
+192 216 moveto
+(Em/C.) 0 3 2 0 0 0 1 0 dots
+252 216 moveto
+(Em/C..) -1 2 2 0 1 0 1 0 dots
+312 216 moveto
+(Em/C...) -1 1 3 2 3 1 3 0 dots
+372 216 moveto
+(Em/D) -1 -1 0 0 0 0 1 0 dots
+432 216 moveto
+(Em/D,) -1 -1 0 1 1 1 12 0 dots
+492 216 moveto
+(Em/D,,) -1 -1 0 3 2 1 7 0 dots
+72 156 moveto
+(Em/D,,,) -1 -1 2 4 3 3 1 0 dots
+132 156 moveto
+(Em/D,.) 0 2 2 0 3 3 1 0 dots
+192 156 moveto
+(Em/D,.,) 0 -1 0 0 0 0 1 0 dots
+252 156 moveto
+(Em/D,..) -1 1 3 3 3 0 10 0 dots
+312 156 moveto
+(Em/D.) 0 2 0 0 0 0 1 0 dots
+372 156 moveto
+(Em/D..) 0 2 0 0 3 0 1 0 dots
+432 156 moveto
+(Em/D...) 0 2 2 0 3 0 1 0 dots
+492 156 moveto
+(Em/Db.) 0 2 2 0 2 0 1 0 dots
+72 96 moveto
+(Em/Eb.) 3 -1 1 0 0 0 1 0 dots
+132 96 moveto
+(Em/Eb..) -1 -1 1 0 0 0 1 0 dots
+192 96 moveto
+(Em/Gb,) 2 2 2 0 0 0 1 0 dots
+252 96 moveto
+(Em/Gb.) 0 2 2 0 0 2 1 0 dots
+312 96 moveto
+(Em/Gb..) 0 2 4 0 0 0 1 0 dots
+372 96 moveto
+(Em/Gb...) 0 -1 4 0 0 0 1 0 dots
+432 96 moveto
+(Em6) 0 2 2 0 2 0 1 0 dots
+492 96 moveto
+(Em6.) 0 2 2 0 2 0 1 0 dots
+72 36 moveto
+(Em7) 0 2 2 0 3 0 1 0 dots
+132 36 moveto
+(Em7\(b5\).) 3 -1 0 3 3 0 1 0 dots
+192 36 moveto
+(Em7,) -1 -1 0 1 1 1 12 0 dots
+252 36 moveto
+(Em7,,) -1 -1 0 3 2 1 7 0 dots
+312 36 moveto
+(Em7,,,) -1 -1 2 4 3 3 1 0 dots
+372 36 moveto
+(Em7,,,,) 0 -1 0 0 0 0 1 0 dots
+432 36 moveto
+(Em7,,,,,) -1 1 3 3 3 0 10 0 dots
+492 36 moveto
+(Em7.) 0 2 0 0 0 0 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                  Page 9) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(Em7..) 0 2 0 0 3 0 1 0 dots
+132 696 moveto
+(Em7...) 0 2 2 0 3 0 1 0 dots
+192 696 moveto
+(Em7....) 0 2 2 0 3 3 1 0 dots
+252 696 moveto
+(Em7.....) -1 -1 0 0 0 0 1 0 dots
+312 696 moveto
+(Em7/D) -1 -1 0 0 0 0 1 0 dots
+372 696 moveto
+(Em7/add11.) 0 0 0 0 0 0 1 0 dots
+432 696 moveto
+(Em9.) 0 2 0 0 0 2 1 0 dots
+492 696 moveto
+(Em9..) 0 2 0 0 3 2 1 0 dots
+72 636 moveto
+(Em9...) 2 2 0 0 0 0 1 0 dots
+132 636 moveto
+(Emadd9) 0 2 4 0 0 0 1 0 dots
+192 636 moveto
+(Emaj) 0 2 2 1 0 0 1 0 dots
+252 636 moveto
+(Emaj7) 0 2 1 1 0 -1 1 0 dots
+312 636 moveto
+(Emaj7.) 0 2 1 1 0 0 1 0 dots
+372 636 moveto
+(Emaj7..) 0 -1 3 1 1 0 4 0 dots
+432 636 moveto
+(Emaj7...) -1 -1 1 1 0 0 1 0 dots
+492 636 moveto
+(Emaj9.) 0 2 1 1 0 2 1 0 dots
+72 576 moveto
+(Emaj9..) 4 -1 4 4 4 0 1 0 dots
+132 576 moveto
+(Emin) 0 2 2 0 0 0 1 0 dots
+192 576 moveto
+(Emin/maj7.) 3 -1 1 0 0 0 1 0 dots
+252 576 moveto
+(Emin/maj9.) 0 3 1 0 0 0 4 0 dots
+312 576 moveto
+(Emsus4) 0 0 2 0 0 0 1 0 dots
+372 576 moveto
+(E#5.) -1 3 2 1 1 0 1 0 dots
+432 576 moveto
+(F) 1 3 3 2 1 1 1 0 dots
+492 576 moveto
+(F\(add9\)) 3 0 3 2 1 1 1 0 dots
+72 516 moveto
+(F+) -1 -1 3 2 2 1 1 0 dots
+132 516 moveto
+(F+7+11) 1 3 3 2 0 0 1 0 dots
+192 516 moveto
+(F.) 1 3 3 2 1 1 1 0 dots
+252 516 moveto
+(F..) -1 0 3 2 1 1 1 0 dots
+312 516 moveto
+(F...) -1 3 3 2 1 1 1 0 dots
+372 516 moveto
+(F....) -1 -1 3 2 1 1 1 0 dots
+432 516 moveto
+(F/A) -1 0 3 2 1 1 1 0 dots
+492 516 moveto
+(F/C) -1 -1 3 2 1 1 1 0 dots
+72 456 moveto
+(F/D) -1 -1 0 2 1 1 1 0 dots
+132 456 moveto
+(F/D.) -1 1 3 1 2 1 5 0 dots
+192 456 moveto
+(F/D..) -1 -1 0 2 1 1 1 0 dots
+252 456 moveto
+(F/D...) -1 -1 0 1 2 1 5 0 dots
+312 456 moveto
+(F/E.) 0 0 3 2 1 0 1 0 dots
+372 456 moveto
+(F/E..) 1 3 3 2 1 0 1 0 dots
+432 456 moveto
+(F/E...) 1 -1 2 2 1 0 1 0 dots
+492 456 moveto
+(F/E....) -1 -1 2 2 1 1 1 0 dots
+72 396 moveto
+(F/E.....) -1 -1 3 2 1 0 1 0 dots
+132 396 moveto
+(F/Eb.) -1 -1 1 2 1 1 1 0 dots
+192 396 moveto
+(F/Eb..) -1 -1 1 3 2 3 3 0 dots
+252 396 moveto
+(F/G) 3 3 3 2 1 1 1 0 dots
+312 396 moveto
+(F/G.) 3 -1 3 2 1 1 1 0 dots
+372 396 moveto
+(F/G..) -1 -1 3 2 1 3 1 0 dots
+432 396 moveto
+(F11) 1 3 1 3 1 1 1 0 dots
+492 396 moveto
+(F4) -1 -1 3 3 1 1 1 0 dots
+72 336 moveto
+(F5.) 1 3 3 -1 -1 1 1 0 dots
+132 336 moveto
+(F6) -1 3 3 2 3 -1 1 0 dots
+192 336 moveto
+(F6.) -1 1 3 1 2 1 5 0 dots
+252 336 moveto
+(F6..) -1 -1 0 2 1 1 1 0 dots
+312 336 moveto
+(F6...) -1 -1 0 1 2 1 5 0 dots
+372 336 moveto
+(F6/add9.) 3 -1 0 2 1 1 1 0 dots
+432 336 moveto
+(F7) 1 3 1 2 1 1 1 0 dots
+492 336 moveto
+(F7.) -1 -1 1 2 1 1 1 0 dots
+72 276 moveto
+(F7..) -1 -1 1 3 2 3 3 0 dots
+132 276 moveto
+(F7/A) -1 0 3 0 1 1 1 0 dots
+192 276 moveto
+(F9) 2 4 2 3 2 4 1 0 dots
+252 276 moveto
+(Fadd9) 3 0 3 2 1 1 1 0 dots
+312 276 moveto
+(Fadd9.) 3 -1 3 2 1 1 1 0 dots
+372 276 moveto
+(Fadd9..) -1 -1 3 2 1 3 1 0 dots
+432 276 moveto
+(FaddG) 1 -1 3 2 1 3 1 0 dots
+492 276 moveto
+(Faug/D.) -1 -1 0 2 2 1 1 0 dots
+72 216 moveto
+(Faug/G.) 1 0 3 0 2 1 1 0 dots
+132 216 moveto
+(Fdim) -1 -1 0 1 0 1 1 0 dots
+192 216 moveto
+(Fdim/D.) -1 2 0 1 0 1 1 0 dots
+252 216 moveto
+(Fdim/D..) -1 -1 0 1 0 1 1 0 dots
+312 216 moveto
+(Fdim/D...) -1 -1 3 4 3 4 1 0 dots
+372 216 moveto
+(Fdim/Db.) -1 4 3 4 0 4 1 0 dots
+432 216 moveto
+(Fdim7.) -1 2 0 1 0 1 1 0 dots
+492 216 moveto
+(Fdim7..) -1 -1 0 1 0 1 1 0 dots
+72 156 moveto
+(Fdim7...) -1 -1 3 4 3 4 1 0 dots
+132 156 moveto
+(Fsus) -1 -1 3 3 1 1 1 0 dots
+192 156 moveto
+(Fsus.) -1 -1 3 3 1 1 1 0 dots
+252 156 moveto
+(Fsus2.) -1 3 3 0 1 1 1 0 dots
+312 156 moveto
+(Fsus2..) -1 -1 3 0 1 1 1 0 dots
+372 156 moveto
+(Fsus2/A.) 3 -1 3 2 1 1 1 0 dots
+432 156 moveto
+(Fsus2/A..) -1 -1 3 2 1 3 1 0 dots
+492 156 moveto
+(Fsus2/B.) -1 3 3 0 0 3 1 0 dots
+72 96 moveto
+(Fsus2/Bb.) -1 1 3 1 4 1 3 0 dots
+132 96 moveto
+(Fsus2/D.) 3 3 0 0 1 1 1 0 dots
+192 96 moveto
+(Fsus2/E.) -1 3 3 0 1 0 1 0 dots
+252 96 moveto
+(Fsus2/E..) -1 -1 3 0 1 0 1 0 dots
+312 96 moveto
+(Fsus4) -1 -1 3 3 1 1 1 0 dots
+372 96 moveto
+(Fsus4/G.) -1 1 3 1 4 1 3 0 dots
+432 96 moveto
+(Fm) 1 3 3 1 1 1 1 0 dots
+492 96 moveto
+(Fm.) -1 3 3 1 1 1 1 0 dots
+72 36 moveto
+(Fm..) -1 -1 3 1 1 1 1 0 dots
+132 36 moveto
+(Fm/D.) -1 -1 0 1 1 1 1 0 dots
+192 36 moveto
+(Fm/Db.) -1 3 3 1 2 1 1 0 dots
+252 36 moveto
+(Fm/Db..) -1 1 3 2 3 1 4 0 dots
+312 36 moveto
+(Fm/Eb.) -1 1 3 1 2 1 8 0 dots
+372 36 moveto
+(Fm/Eb..) -1 -1 1 1 1 1 1 0 dots
+432 36 moveto
+(Fm6) -1 -1 0 1 1 1 1 0 dots
+492 36 moveto
+(Fm6.) -1 -1 0 1 1 1 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                 Page 10) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "5" 5
+%%Page: "3" 3
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(Fm7) 1 3 1 1 1 1 1 0 dots
+132 696 moveto
+(Fm7.) -1 1 3 1 2 1 8 0 dots
+192 696 moveto
+(Fm7..) -1 -1 1 1 1 1 1 0 dots
+252 696 moveto
+(Fmaj) 1 3 3 2 1 1 1 0 dots
+312 696 moveto
+(Fmaj7) -1 3 3 2 1 0 1 0 dots
+372 696 moveto
+(Fmaj7\(+5\)) -1 -1 3 2 2 0 1 0 dots
+432 696 moveto
+(Fmaj7,) -1 -1 2 2 1 1 1 0 dots
+492 696 moveto
+(Fmaj7,,) -1 -1 3 2 1 0 1 0 dots
+72 636 moveto
+(Fmaj7.) 0 0 3 2 1 0 1 0 dots
+132 636 moveto
+(Fmaj7..) 1 3 3 2 1 0 1 0 dots
+192 636 moveto
+(Fmaj7...) 1 -1 2 2 1 0 1 0 dots
+252 636 moveto
+(Fmaj7/#11.) 0 2 3 2 1 0 1 0 dots
+312 636 moveto
+(Fmaj7/A) -1 0 3 2 1 0 1 0 dots
+372 636 moveto
+(Fmaj7/C) -1 3 3 2 1 0 1 0 dots
+432 636 moveto
+(Fmaj9.) 0 0 3 0 1 3 1 0 dots
+492 636 moveto
+(Fmin) 1 3 3 1 1 1 1 0 dots
+72 576 moveto
+(Fmmaj7) -1 3 3 1 1 0 1 0 dots
+132 576 moveto
+(F#) 2 4 4 3 2 2 1 0 dots
+192 576 moveto
+(F#+) -1 -1 4 3 3 2 1 0 dots
+252 576 moveto
+(F#/E) 0 4 4 3 2 2 1 0 dots
+312 576 moveto
+(F#11) 2 4 2 4 2 2 1 0 dots
+372 576 moveto
+(F#4) -1 -1 4 4 2 2 1 0 dots
+432 576 moveto
+(F#5.) -1 0 3 2 2 1 1 0 dots
+492 576 moveto
+(F#5..) -1 0 -1 2 2 1 1 0 dots
+72 516 moveto
+(F#7) -1 -1 4 3 2 0 1 0 dots
+132 516 moveto
+(F#9) -1 1 2 1 2 2 1 0 dots
+192 516 moveto
+(F#dim) -1 -1 1 2 1 2 1 0 dots
+252 516 moveto
+(F#sus) -1 -1 4 4 2 2 1 0 dots
+312 516 moveto
+(F#sus4) -1 -1 4 4 2 2 1 0 dots
+372 516 moveto
+(F#m) 2 4 4 2 2 2 1 0 dots
+432 516 moveto
+(F#m/C#m) -1 -1 4 2 2 2 1 0 dots
+492 516 moveto
+(F#m6) -1 -1 1 2 2 2 1 0 dots
+72 456 moveto
+(F#m7) -1 -1 2 2 2 2 1 0 dots
+132 456 moveto
+(F#m7-5) 1 0 2 3 3 3 2 0 dots
+192 456 moveto
+(F#maj) 2 4 4 3 2 2 1 0 dots
+252 456 moveto
+(F#maj7) -1 -1 4 3 2 1 1 0 dots
+312 456 moveto
+(F#min) 2 4 4 2 2 2 1 0 dots
+372 456 moveto
+(Gb) 2 4 4 3 2 2 1 0 dots
+432 456 moveto
+(Gb+) -1 -1 4 3 3 2 1 0 dots
+492 456 moveto
+(Gb.) 2 4 4 3 2 2 1 0 dots
+72 396 moveto
+(Gb..) -1 4 4 3 2 2 1 0 dots
+132 396 moveto
+(Gb...) -1 -1 4 3 2 2 1 0 dots
+192 396 moveto
+(Gb/Ab.) -1 -1 4 3 2 4 1 0 dots
+252 396 moveto
+(Gb/E.) 2 4 2 3 2 2 1 0 dots
+312 396 moveto
+(Gb/E..) -1 -1 4 3 2 0 1 0 dots
+372 396 moveto
+(Gb/Eb.) -1 -1 1 3 2 2 1 0 dots
+432 396 moveto
+(Gb/F.) -1 -1 3 3 2 2 1 0 dots
+492 396 moveto
+(Gb6.) -1 -1 1 3 2 2 1 0 dots
+72 336 moveto
+(Gb7) -1 -1 4 3 2 0 1 0 dots
+132 336 moveto
+(Gb7\(#5\).) 2 -1 4 3 3 0 1 0 dots
+192 336 moveto
+(Gb7.) 2 4 2 3 2 2 1 0 dots
+252 336 moveto
+(Gb7..) -1 -1 4 3 2 0 1 0 dots
+312 336 moveto
+(Gb7/#9.) -1 0 4 3 2 0 1 0 dots
+372 336 moveto
+(Gb7sus4.) -1 4 4 4 -1 0 1 0 dots
+432 336 moveto
+(Gb9) -1 1 2 1 2 2 1 0 dots
+492 336 moveto
+(Gbadd9.) -1 -1 4 3 2 4 1 0 dots
+72 276 moveto
+(Gbaug/E.) 2 -1 4 3 3 0 1 0 dots
+132 276 moveto
+(Gbdim) -1 -1 1 2 1 2 1 0 dots
+192 276 moveto
+(Gbdim/D,) -1 1 3 1 3 1 5 0 dots
+252 276 moveto
+(Gbdim/D.) -1 0 0 2 1 2 1 0 dots
+312 276 moveto
+(Gbdim/D..) -1 3 -1 2 3 2 1 0 dots
+372 276 moveto
+(Gbdim/E.) -1 0 2 2 1 2 1 0 dots
+432 276 moveto
+(Gbdim/E..) -1 -1 2 2 1 2 1 0 dots
+492 276 moveto
+(Gbdim/Eb.) -1 -1 1 2 1 2 1 0 dots
+72 216 moveto
+(Gbdim7.) -1 -1 1 2 1 2 1 0 dots
+132 216 moveto
+(Gbsus) -1 -1 4 4 2 2 1 0 dots
+192 216 moveto
+(Gbsus.) -1 4 4 4 2 2 1 0 dots
+252 216 moveto
+(Gbsus2/Bb.) -1 -1 4 3 2 4 1 0 dots
+312 216 moveto
+(Gbsus4) -1 -1 4 4 2 2 1 0 dots
+372 216 moveto
+(Gbsus4/E.) -1 4 4 4 -1 0 1 0 dots
+432 216 moveto
+(Gbm) 2 4 4 2 2 2 1 0 dots
+492 216 moveto
+(Gbm.) 2 4 4 2 2 2 1 0 dots
+72 156 moveto
+(Gbm..) -1 4 4 2 2 2 1 0 dots
+132 156 moveto
+(Gbm...) -1 -1 4 2 2 2 1 0 dots
+192 156 moveto
+(Gbm/D.) -1 -1 0 1 1 1 14 0 dots
+252 156 moveto
+(Gbm/D..) -1 -1 0 2 2 2 1 0 dots
+312 156 moveto
+(Gbm/E,) -1 0 4 2 2 0 1 0 dots
+372 156 moveto
+(Gbm/E,,) -1 -1 2 2 2 2 1 0 dots
+432 156 moveto
+(Gbm/E.) 0 0 2 2 2 2 1 0 dots
+492 156 moveto
+(Gbm/E..) 0 -1 4 2 2 0 1 0 dots
+72 96 moveto
+(Gbm/E...) 2 -1 2 2 2 0 1 0 dots
+132 96 moveto
+(Gbm7) -1 -1 2 2 2 2 1 0 dots
+192 96 moveto
+(Gbm7\(b5\).) -1 0 2 2 1 2 1 0 dots
+252 96 moveto
+(Gbm7\(b5\)..) -1 -1 2 2 1 2 1 0 dots
+312 96 moveto
+(Gbm7,) -1 0 4 2 2 0 1 0 dots
+372 96 moveto
+(Gbm7.) 0 0 2 2 2 2 1 0 dots
+432 96 moveto
+(Gbm7.,) -1 -1 2 2 2 2 1 0 dots
+492 96 moveto
+(Gbm7..) 0 -1 4 2 2 0 1 0 dots
+72 36 moveto
+(Gbm7...) 2 -1 2 2 2 0 1 0 dots
+132 36 moveto
+(Gbm7/b9.) 0 0 2 0 2 2 1 0 dots
+192 36 moveto
+(Gbmaj) 2 4 4 3 2 2 1 0 dots
+252 36 moveto
+(Gbmaj7) -1 -1 4 3 2 1 1 0 dots
+312 36 moveto
+(Gbmaj7.) -1 -1 3 3 2 2 1 0 dots
+372 36 moveto
+(Gbmin) 2 4 4 2 2 2 1 0 dots
+432 36 moveto
+(Gb#5.) -1 -1 0 3 3 2 1 0 dots
+492 36 moveto
+(G) 3 2 0 0 0 3 1 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                 Page 11) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+72 696 moveto
+(G\(add9\)) 1 3 -1 2 1 3 3 0 dots
+132 696 moveto
+(G+) -1 -1 1 0 0 4 1 0 dots
+192 696 moveto
+(G,) -1 3 3 2 1 1 3 0 dots
+252 696 moveto
+(G,,) -1 -1 0 4 3 3 1 0 dots
+312 696 moveto
+(G,,,) -1 -1 0 1 2 1 7 0 dots
+372 696 moveto
+(G.) -1 1 3 3 3 1 10 0 dots
+432 696 moveto
+(G..) 3 2 0 0 0 3 1 0 dots
+492 696 moveto
+(G...) 3 2 0 0 3 3 1 0 dots
+72 636 moveto
+(G....) 1 3 3 2 1 1 3 0 dots
+132 636 moveto
+(G.....) 3 -1 0 0 0 3 1 0 dots
+192 636 moveto
+(G/A) -1 0 0 0 0 3 1 0 dots
+252 636 moveto
+(G/A.) 3 0 0 0 0 3 1 0 dots
+312 636 moveto
+(G/A..) 3 2 0 2 0 3 1 0 dots
+372 636 moveto
+(G/B) -1 2 0 0 0 3 1 0 dots
+432 636 moveto
+(G/C.) 3 3 0 0 0 3 1 0 dots
+492 636 moveto
+(G/C..) -1 3 0 0 0 3 1 0 dots
+72 576 moveto
+(G/D) -1 2 2 1 0 0 4 0 dots
+132 576 moveto
+(G/E,) -1 -1 0 3 2 1 7 0 dots
+192 576 moveto
+(G/E,,) -1 -1 2 4 3 3 1 0 dots
+252 576 moveto
+(G/E,,,) 0 -1 0 0 0 0 1 0 dots
+312 576 moveto
+(G/E,,,,) -1 1 3 3 3 0 10 0 dots
+372 576 moveto
+(G/E.) 0 2 0 0 0 0 1 0 dots
+432 576 moveto
+(G/E..) 0 2 0 0 3 0 1 0 dots
+492 576 moveto
+(G/E...) 0 2 2 0 3 0 1 0 dots
+72 516 moveto
+(G/E....) 0 2 2 0 3 3 1 0 dots
+132 516 moveto
+(G/E.....) -1 -1 0 1 1 1 12 0 dots
+192 516 moveto
+(G/F#) 2 2 0 0 0 3 1 0 dots
+252 516 moveto
+(G/F.) 1 -1 0 0 0 3 1 0 dots
+312 516 moveto
+(G/F..) 3 2 0 0 0 1 1 0 dots
+372 516 moveto
+(G/F...) -1 -1 0 0 0 1 1 0 dots
+432 516 moveto
+(G/Gb.) 2 2 0 0 0 3 1 0 dots
+492 516 moveto
+(G/Gb..) 2 2 0 0 3 3 1 0 dots
+72 456 moveto
+(G/Gb...) 3 2 0 0 0 2 1 0 dots
+132 456 moveto
+(G/Gb....) -1 -1 4 4 3 3 1 0 dots
+192 456 moveto
+(G11) 3 -1 0 2 1 1 1 0 dots
+252 456 moveto
+(G4) -1 -1 0 0 1 3 1 0 dots
+312 456 moveto
+(G5.) 1 3 3 -1 -1 1 3 0 dots
+372 456 moveto
+(G5..) 3 -1 0 0 3 3 1 0 dots
+432 456 moveto
+(G6) 3 -1 0 0 0 0 1 0 dots
+492 456 moveto
+(G6\(sus4\)) 0 2 0 0 1 0 1 0 dots
+72 396 moveto
+(G6,) -1 -1 0 1 1 1 12 0 dots
+132 396 moveto
+(G6,,) -1 -1 0 3 2 1 7 0 dots
+192 396 moveto
+(G6,,,) -1 -1 2 4 3 3 1 0 dots
+252 396 moveto
+(G6,,,,) 0 -1 0 0 0 0 1 0 dots
+312 396 moveto
+(G6,.,.) -1 1 3 3 3 0 10 0 dots
+372 396 moveto
+(G6.) 0 2 0 0 0 0 1 0 dots
+432 396 moveto
+(G6..) 0 2 0 0 3 0 1 0 dots
+492 396 moveto
+(G6...) 0 2 2 0 3 0 1 0 dots
+72 336 moveto
+(G6....) 0 2 2 0 3 3 1 0 dots
+132 336 moveto
+(G6/add9.) 0 0 0 0 0 0 1 0 dots
+192 336 moveto
+(G6/add9..) 0 0 0 0 0 3 1 0 dots
+252 336 moveto
+(G6/add9...) 3 -1 0 2 0 0 1 0 dots
+312 336 moveto
+(G6sus4) 0 2 0 0 1 0 1 0 dots
+372 336 moveto
+(G7) 3 2 0 0 0 1 1 0 dots
+432 336 moveto
+(G7#9) 1 3 -1 2 4 4 3 0 dots
+492 336 moveto
+(G7\(#9\)) 1 3 -1 2 4 4 3 0 dots
+72 276 moveto
+(G7\(b9\)) -1 -1 0 1 0 1 1 0 dots
+132 276 moveto
+(G7\(sus4\)) 3 3 0 0 1 1 1 0 dots
+192 276 moveto
+(G7+) -1 -1 4 3 3 2 1 0 dots
+252 276 moveto
+(G7.) 1 -1 0 0 0 3 1 0 dots
+312 276 moveto
+(G7..) 3 2 0 0 0 1 1 0 dots
+372 276 moveto
+(G7...) -1 -1 0 0 0 1 1 0 dots
+432 276 moveto
+(G7/add11.) -1 3 0 0 0 1 1 0 dots
+492 276 moveto
+(G7b9) -1 -1 0 1 0 1 1 0 dots
+72 216 moveto
+(G7sus4) 3 3 0 0 1 1 1 0 dots
+132 216 moveto
+(G7sus4.) 3 3 0 0 1 1 1 0 dots
+192 216 moveto
+(G9) 3 -1 0 2 0 1 1 0 dots
+252 216 moveto
+(G9\(11\)) 1 3 1 3 1 3 3 0 dots
+312 216 moveto
+(G9.) -1 0 0 0 0 1 1 0 dots
+372 216 moveto
+(G9..) -1 2 3 2 3 3 1 0 dots
+432 216 moveto
+(Gadd9) 1 3 -1 2 1 3 3 0 dots
+492 216 moveto
+(Gadd9.) 3 0 0 0 0 3 1 0 dots
+72 156 moveto
+(Gadd9..) 3 2 0 2 0 3 1 0 dots
+132 156 moveto
+(Gaug/E.) 3 -1 1 0 0 0 1 0 dots
+192 156 moveto
+(Gaug/E..) -1 -1 1 0 0 0 1 0 dots
+252 156 moveto
+(Gdim) -1 -1 2 3 2 3 1 0 dots
+312 156 moveto
+(Gdim/E.) -1 1 2 0 2 0 1 0 dots
+372 156 moveto
+(Gdim/E..) -1 -1 2 3 2 3 1 0 dots
+432 156 moveto
+(Gdim/Eb.) -1 1 1 3 2 3 1 0 dots
+492 156 moveto
+(Gdim/Eb..) -1 1 3 1 3 1 6 0 dots
+72 96 moveto
+(Gdim/Eb...) -1 -1 1 3 2 3 1 0 dots
+132 96 moveto
+(Gdim7.) -1 1 2 0 2 0 1 0 dots
+192 96 moveto
+(Gdim7..) -1 -1 2 3 2 3 1 0 dots
+252 96 moveto
+(Gsus) -1 -1 0 0 1 3 1 0 dots
+312 96 moveto
+(Gsus.) -1 3 0 0 3 3 1 0 dots
+372 96 moveto
+(Gsus..) -1 1 3 3 1 1 3 0 dots
+432 96 moveto
+(Gsus...) -1 3 3 3 1 1 3 0 dots
+492 96 moveto
+(Gsus2,) -1 0 0 0 3 3 1 0 dots
+72 36 moveto
+(Gsus2,,) -1 -1 0 2 3 3 1 0 dots
+132 36 moveto
+(Gsus2.) 3 -1 0 0 1 3 3 0 dots
+192 36 moveto
+(Gsus2..) 3 0 0 0 3 3 1 0 dots
+252 36 moveto
+(Gsus2/B.) 3 0 0 0 0 3 1 0 dots
+312 36 moveto
+(Gsus2/B..) 3 2 0 2 0 3 1 0 dots
+372 36 moveto
+(Gsus2/C.) -1 -1 0 2 1 3 1 0 dots
+432 36 moveto
+(Gsus2/E,) -1 0 2 2 3 3 1 0 dots
+492 36 moveto
+(Gsus2/E,,) 3 0 0 0 1 0 3 0 dots
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                 Page 12) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "5" 5
+%%Page: "3" 3
+%%BeginPageSetup
+/pgsave save def
+0.750000 0.750000 scale
+90.000000 rotate
+%%EndPageSetup
+20.000000 -785.000000 translate
+72 696 moveto
+(Gsus2/E.) -1 0 2 0 3 0 1 0 dots
+132 696 moveto
+(Gsus2/E..) -1 0 2 0 3 3 1 0 dots
+192 696 moveto
+(Gsus2/Gb.) 3 -1 2 0 1 3 3 0 dots
+252 696 moveto
+(Gsus2/Gb..) 3 -1 0 2 3 2 1 0 dots
+312 696 moveto
+(Gsus4) -1 -1 0 0 1 1 1 0 dots
+372 696 moveto
+(Gsus4/A.) -1 -1 0 2 1 3 1 0 dots
+432 696 moveto
+(Gsus4/B.) 3 3 0 0 0 3 1 0 dots
+492 696 moveto
+(Gsus4/B..) -1 3 0 0 0 3 1 0 dots
+72 636 moveto
+(Gsus4/E,) -1 3 2 0 3 3 1 0 dots
+132 636 moveto
+(Gsus4/E,,) -1 -1 0 0 1 0 1 0 dots
+192 636 moveto
+(Gsus4/E,.) -1 -1 0 3 3 1 3 0 dots
+252 636 moveto
+(Gsus4/E,..) -1 1 1 1 -1 0 5 0 dots
+312 636 moveto
+(Gsus4/E.) 3 -1 0 0 1 0 1 0 dots
+372 636 moveto
+(Gsus4/E.,) -1 1 3 3 4 0 10 0 dots
+432 636 moveto
+(Gsus4/E..) -1 3 0 0 1 0 1 0 dots
+492 636 moveto
+(Gsus4/F.) 3 3 0 0 1 1 1 0 dots
+72 576 moveto
+(Gm) 1 3 3 1 1 1 3 0 dots
+132 576 moveto
+(Gm.) 1 3 3 1 1 1 3 0 dots
+192 576 moveto
+(Gm..) -1 -1 0 3 3 3 1 0 dots
+252 576 moveto
+(Gm/Bb) 3 2 2 1 -1 -1 4 0 dots
+312 576 moveto
+(Gm/E.) 3 -1 0 3 3 0 1 0 dots
+372 576 moveto
+(Gm/Eb.) -1 1 3 2 3 1 6 0 dots
+432 576 moveto
+(Gm/F.) 1 3 1 1 1 1 3 0 dots
+492 576 moveto
+(Gm/F..) -1 -1 3 3 3 3 1 0 dots
+72 516 moveto
+(Gm13.) 0 0 3 3 3 3 1 0 dots
+132 516 moveto
+(Gm6) -1 -1 2 3 3 3 1 0 dots
+192 516 moveto
+(Gm6.) 3 -1 0 3 3 0 1 0 dots
+252 516 moveto
+(Gm7) 1 3 1 1 1 1 3 0 dots
+312 516 moveto
+(Gm7.) 1 3 1 1 1 1 3 0 dots
+372 516 moveto
+(Gm7..) -1 -1 3 3 3 3 1 0 dots
+432 516 moveto
+(Gm7/add11.) -1 3 3 3 3 3 1 0 dots
+492 516 moveto
+(Gm9.) 1 3 1 1 1 3 3 0 dots
+72 456 moveto
+(Gmaj) 3 2 0 0 0 3 1 0 dots
+132 456 moveto
+(Gmaj7) -1 -1 4 3 2 1 2 0 dots
+192 456 moveto
+(Gmaj7,) 3 2 0 0 0 2 1 0 dots
+252 456 moveto
+(Gmaj7,,) -1 -1 4 4 3 3 1 0 dots
+312 456 moveto
+(Gmaj7.) 2 2 0 0 0 3 1 0 dots
+372 456 moveto
+(Gmaj7..) 2 2 0 0 3 3 1 0 dots
+432 456 moveto
+(Gmaj7sus4) -1 -1 0 0 1 2 1 0 dots
+492 456 moveto
+(Gmaj9) 1 1 4 1 2 1 2 0 dots
+72 396 moveto
+(Gmin) 1 3 3 1 1 1 3 0 dots
+132 396 moveto
+(G#) 1 3 3 2 1 1 4 0 dots
+192 396 moveto
+(G#+) -1 -1 2 1 1 0 1 0 dots
+252 396 moveto
+(G#4) 1 3 3 1 1 1 4 0 dots
+312 396 moveto
+(G#5.) 3 2 1 0 0 3 1 0 dots
+372 396 moveto
+(G#5..) 3 -1 1 0 0 3 1 0 dots
+432 396 moveto
+(G#7) -1 -1 1 1 1 2 1 0 dots
+492 396 moveto
+(G#dim) -1 -1 0 1 0 1 1 0 dots
+72 336 moveto
+(G#sus) -1 -1 1 1 2 4 1 0 dots
+132 336 moveto
+(G#sus4) -1 -1 1 1 2 4 1 0 dots
+192 336 moveto
+(G#m) 1 3 3 1 1 1 4 0 dots
+252 336 moveto
+(G#m6) -1 -1 1 1 0 1 1 0 dots
+312 336 moveto
+(G#m7) -1 -1 1 1 1 1 4 0 dots
+372 336 moveto
+(G#m9\(maj7\)) -1 -1 1 3 0 3 1 0 dots
+432 336 moveto
+(G#m9maj7) -1 -1 1 3 0 3 1 0 dots
+492 336 moveto
+(G#maj) 1 3 3 2 1 1 4 0 dots
+72 276 moveto
+(G#maj7) -1 -1 1 1 1 3 1 0 dots
+132 276 moveto
+(G#min) 1 3 3 1 1 1 4 0 dots
+MONO_FONT setfont
+(Chords in the key of:-)
+100 250 moveto
+show
+(Ab or G#     Ab Bbm Cm  Db  Eb  Fm  Gdim)
+100 225 moveto
+show
+(A            A  Bm  Dbm D   E   Gbm Abdim)
+100 210 moveto
+show
+(Bb or A#     Bb Cm  Dm  Eb  F   Gm  Adim)
+100 195 moveto
+show
+(B            B  Dbm Ebm E   Gb  Abm Bbdim)
+100 180 moveto
+show
+(C            C  Dm  Em  F   G   Am  Bdim)
+100 165 moveto
+show
+(Db or C#     Db Ebm Fm  Gb  Ab  Bbm Cdim)
+100 150 moveto
+show
+(D            D  Em  Gbm G   A   Bm  Dbdim)
+100 135 moveto
+show
+(Eb or D#     Eb Fm  Gm  Ab  Bb  Cm  Ddim)
+100 120 moveto
+show
+(E            E  Gbm Abm A   B   Dbm Ebdim)
+100 105 moveto
+show
+(F            F  Gm  Am  Bb  C   Dm  Edim)
+100 90 moveto
+show
+(Gb or F#     Gb Abm Bbm B   Db  Ebm Fdim)
+100 75 moveto
+show
+(G            G  Am  Bm  C   D   Em  Gbdim)
+100 60 moveto
+show
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+FOOT_FONT setfont
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                 Page 13) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+500.000000 0.000000 translate
+100 630 moveto
+%%TEXT_FONT setfont
+MONO_FONT setfont
+(C/D is an C chord with a D bass note (xx0010).)
+100 360 moveto
+show
+(A/B is an A chord with a B bass note (x22220).)
+100 345 moveto
+show
+(G/D is an G chord with a D bass note (xx0003). And so on.)
+100 330 moveto
+show
+(If you are playing in a band with a bass player you don't need to play the chord)
+100 305 moveto
+show
+(with a bass note, just play it as a normal chord (eg. C/D = C and so on).)
+100 290 moveto
+show
+(_aug      =  _#5           (Augmented triad))
+100 700 moveto
+show
+(_(no 3rd) =  _5            (Root and 5th - Power chord))
+100 680 moveto
+show
+(_6/7sus4  =  _6/7sus       (Sus4 triad plus 6th, minor 7th))
+100 660 moveto
+show
+(_dom7     =  _7            (Major triad, minor 7th))
+100 640 moveto
+show
+(_7/add11  =  _7/11         (Minor triad, minor 7th, plus 11th))
+100 620 moveto
+show
+(_2        =  _add9         (Major triad, plus 9th))
+100 600 moveto
+show
+(_sus      =  _sus4         (No 3rd but a 4th from a major triad))
+100 580 moveto
+show
+(_#7       =  _maj7         (Major triad, major 7th))
+100 560 moveto
+show
+(_sus2     =  _add9(no 3rd) (No 3rd but a 2th from a major triad))
+100 540 moveto
+show
+(_6/9      =  _6/add9       (Major triad plus 6th and 9th))
+100 520 moveto
+show
+(_9(#7)    =  _maj9         (Major triad, major 9th plus 7th))
+100 500 moveto
+show
+(_o7       =  _m7(b5)       (Diminished triad, minor 7th : half-diminshed 7th))
+100 480 moveto
+show
+(_dom9     =  _9            (Major triad, minor 7th plus 9th))
+100 460 moveto
+show
+/TEXT_FONT { /Times-Roman findfont 17 scalefont } def
+/Times-Roman /Times-Roman ISO ReEncode
+/MONO_FONT { /Courier findfont 15 scalefont } def
+/Courier /Courier ISO ReEncode
+TEXT_FONT setfont
+(THE ULTIMATE GUITAR CHORD CHART II)
+dup stringwidth pop 2 div
+612 2 div exch sub 220 moveto
+show
+/TEXT_FONT { /Times-Roman findfont 12 scalefont } def
+/Times-Roman /Times-Roman ISO ReEncode
+/MONO_FONT { /Courier findfont 10 scalefont } def
+/Courier /Courier ISO ReEncode
+TEXT_FONT setfont
+(Special thanks to Martin.Leclerc@Sun.com and Mario.Dorion@Sun.com for the use of their) dup
+stringwidth pop 2 div
+612 2 div exch sub 190 moveto
+show
+TEXT_FONT setfont
+(Postscript code and thanks to all those people that responded to my initial postings) dup stringwidth
+pop 2 div
+612 2 div exch sub 175 moveto
+show
+TEXT_FONT setfont
+(for guitar chords. Please check chords and notify me of any errors via email at:-) dup stringwidth
+pop 2 div
+612 2 div exch sub 160 moveto
+show
+TEXT_FONT setfont
+(Pfacol@elaine.ee.und.ac.za) dup stringwidth pop 2 div
+612 2 div exch sub 145 moveto
+show
+TEXT_FONT setfont
+(Remember: Make as many copies as you want, pass it on to your friends.) dup stringwidth pop 2
+div
+612 2 div exch sub 120 moveto
+show
+1  setlinewidth
+0  setgray
+newpath
+72 36 10 sub moveto
+468 0 rlineto
+stroke
+FOOT_FONT setfont
+(THE ULTIMATE GUITAR CHORD CHART II - by Phillip J Facoline                                                                                                                                                                 Page 14) dup stringwidth pop 2 div
+612 2 div exch sub 36 3 div moveto
+show
+pgsave restore
+showpage
+%%EndPage: "4" 4
+%%Trailer
+%%Pages: 4 1
+%%EOF
+

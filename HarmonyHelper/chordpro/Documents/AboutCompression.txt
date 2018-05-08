@@ -1,0 +1,96 @@
+###################From: rcwoods@scrg.cs.tcd.ie (cal woods)##################
+Subject: INFO: How to deal with COMPRESSED FILES
+
+
+COMPRESSION
+***********
+Most of the On-Line Guitar Archive sites 'compress' their files.  
+Here's how to deal with files that have a .Z or .gz extension.
+For greater detail, see Ryan Harding's bi-weekly FAQ 'Guide to 
+the Tab Archives'
+
+First of all: When getting files that have a .Z or .gz extension,
+you must use binary mode. Many MAC/PC programs do this
+automatically; on UNIX, simply type 'bin' before 'get'ing.
+
+The two types of compression are: 	
+	Extension	Compressant/Uncompressant
+	---------	-------------------------
+	.Z		compress/uncompress
+	.gz		gzip/gunzip
+
+UNIX
+****
+If you are using manual FTP on UNIX, simply 'get' the
+name of the song WITHOUT the .Z or .gz extension,
+and the file will be uncompressed as it is dowloaded.
+i.e 	get filename.crd
+		NOT
+	get filename.crd.Z
+
+If you are on unix and forget to do this, 'uncompress'
+and 'gunzip' are standard unix utilities, so when you
+get back to your account just type
+        uncompress filename.crd.Z
+or
+        gunzip filename.crd.gz
+
+-----------
+
+MAC/PC
+******
+
+If you are on a MAC or PC, you need the MAC/PC versions
+of these utilities.
+
+Some of these can be found at the Archive in the directory
+	./resources/dos_compression
+		and
+	./resources/mac_compression
+and are NOT compressed (with .Z or .gz) at the sites.
+
+Some, however, are in standard Mac/PC formats, and
+you will need Stuffit Expander (or some other 'hqx'
+utility) on a MAC, or ZIP/UNZIP on a PC.
+(They must be taken down in BINARY mode.)
+
+----------
+
+Other Sites for DOS utilities:
+
+tar (.tar)
+----------
+nisc.jvnc.net/pub/MSDOS/tar for tar
+garbo.uwasa.fi:/pc/unix/tar4dos.zoo
+garbo.uwasa.fi:/pc/unix/tar315us.zip (MSDOS exe)
+ftp.kiae.su:/msdos/arcers/tar*.exe
+oak.oakland.edu:/pub/msdos/starter/tarread.exe
+oak.oakland.edu:/pub/msdos/archiver/tar315us.zip
+
+gzip (.gz)
+----------
+NOTE: g(un)zip also handles .Z files. (74437.2753@compuserve.com)
+
+nisc.jvnc.net/pub/MSDOS/gnu/gzip-1.2.4.msdos.exe
+garbo.uwasa.fi:/pc/unix/gzip124.zip   
+ftp.aol.com:/pub/compress
+
+compress (.Z)
+-------------
+
+oak.oakland.edu:/pub/msdos/compress/comp430[ds].zip
+garbo.uwasa.fi:/pc/unix/comp430d.zip
+garbo.uwasa.fi:/pc/source/comp430s.zip
+
+uudecode (*.uue)
+----------------
+world.std.com/sources/pc/archivers/uuxfer/uuxfer20.zip
+
+************************************************************
+
+For MAC
+
+gzip (*.gz)
+-----------
+ftp.aol.com:/pub/compress
+

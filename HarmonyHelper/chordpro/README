@@ -1,0 +1,126 @@
+------------------------------------------------------------------------
+The CHORDPRO Guitar Archive at nada.kth.se    Last updated: 20/Oct/95
+
+This guitar archive is an anonymous ftp server containing 3065
+guitartunes formatted for the CHORD utility. The CHORD utility
+is copyright by Martin Leclerc (Martin.Leclerc@Sun.COM) and 
+Mario Dorion (Mario.Dorion@Sun.COM). 
+
+This archive is mirroring nevada's collection of CHORDPRO songs
+as well as most all CHORDPRO songs posted to both newsgroups
+alt.guitar.tab and rec.music.makers.guitar.tablature.
+In addition I am converting songs which are in a fairly good
+chord format to the CHORDPRO format.
+
+If you want to make a contribution to the archive please read 
+the notice on submissions below.
+
+* The structure of this archive is as follows:
+
+	./INDEX			: A nicely formatted index of all songs and files 
+				  at this archive.
+
+	./FLAT.INDEX		: Another index especially useful for 'grep'
+				  and for use with the 'getit' util.
+
+	./Documents/		: Directory containing some useful information and 
+				  documents (FAQ v4.2, Sample .chordrc file, a list
+				  of all available guitar Software and a Postscript 
+				  ChordChart)
+
+	./Incoming/		: In this directory you can 'put' your submissions.
+			  	  See note below!
+
+	./Programs/		: The CHORD program (version 3.5, 3.6) + Other
+				  utility programs.
+
+	./README		: This README file.
+
+	./New.<month>		: A list of new/updated files during the month <month>.
+
+	./All_<month>.tar.gz	: All new/updated songs in a gzip'ed tar archive.
+
+	./New.This.Week		: List of files new/updated/modified the last 7 days.
+
+	./<letter>/<artist>	: The songs themselve... See on naming conventions
+				  below.
+
+** Naming conventions.
+  Artists are archived by their last name. Groupnames with prefix 'The.Group'
+  are archived alphabetically by groupname not under 't'.
+  Examples:
+  The songs of Bryan Adams and Tom Petty are archived as:
+	./a/Bryan.Adams/
+	./p/Tom.Petty/
+  For groups as The Cure or The Zombies:
+	./c/The.Cure/
+	./z/The.Zombies/
+
+** Suffix conventions.
+  That's an easy one... There is only one! All files, if they contain 
+  a song, have the suffix *.chopro as this is a CHORDPRO archive :)
+  
+** Submissions      
+  Contributions to the archive are as always very welcomed. If you want 
+  to submit a file either send it by mail to:
+
+	f91-jsc@nada.kth.se
+
+  Or ftp it to the ./Incoming directory at this archive (See for help
+  on ftp below or read the FAQ 'Guide to the guitar archives'). When sub-
+  mitting a file please make sure the file contains title and author/artist. 
+
+!! Due to copyright law no files that contain material taken from 
+!! songbooks or magazines will be archived at this archive.
+ 
+  As this is a CHORDPRO archive, files in CHORDPRO format are especially
+  welcome; but crd format songs are welcomed as well and I'll try to
+  convert them myself.
+  Collections of files in formats as shar, zip, gzip, tar are accepted.
+
+
+** FTP instructions
+  To get a file from the archive follow step 1-5 below:
+
+  1) Open a ftp-connection with:
+  prompt> ftp ftp.nada.kth.se
+  You should get a response similar to:
+	Connected to cyklop.nada.kth.se.
+	220 cyklop.nada.kth.se FTP server (SunOS 4.1) ready.
+	Name (ftp.nada.kth.se:<your login name>):
+  2) Use 'anonymous' as login name (eg):
+	Name (ftp.nada.kth.se:<your login name>): anonymous
+  You should get a response similar to:
+  	331 Guest login ok, send ident as password.
+	Password:
+  3) Give your email address as password. And this should result in:
+	230 Guest login ok, access restrictions apply.
+	ftp>
+  4) Go to the guitardirectory with the command:
+	ftp> cd home/f91-jsc/guitar
+  5) Now go to the desired directory and get a file (for ex.):
+	ftp> cd c/Leonard.Cohen
+	ftp> get EverybodyKnows.chopro
+
+  To submit a file to the archive follow step 1-4 as above, then:
+
+  1)-4) As above.
+  5) Go into the Incoming directory:
+	ftp> cd Incoming
+  6) Drop the file(s) there using 'put':
+	ftp> put song
+
+** Comments/Suggestions/Corrections
+  If you want to send me any comments/suggestions please send them to
+	f91-jsc@nada.kth.se
+
+  NEVER contact root as they have nothing what so ever to do with this
+  archive!!! I run this archive privatly from my account. 
+  
+  If you see any spelling mistakes, or files that have been wrongly
+  named or placed in the wrong directory, please notify me about the 
+  error at: f91-jsc@nada.kth.se
+
+----
+	Jan-Erik Schuch,
+	f91-jsc@nada.kth.se

@@ -1,0 +1,54 @@
+INDEX of ./Programs:
+--------------------
+Size:    Name:		Description:
+----     ----          	-----------
+66855  CHORD3.5.ZIP	It's purpose is to provide guitar players with a tool
+			to produce good looking, self-descriptive music sheet
+			from a text file. CHORD reads a text file containing 
+			the lyrics of a song, the chords to be played, their 
+			description and some other optional data to produce 
+			a fancy PostScript document.
+
+116913	CHORD3.6.tar.Z	The latest version of CHORD. See description above.
+			Contains a .crd -> .chopro conversion program!
+
+122044	DOSCHORD.EXE	This is a compiled binary DOS version of CHORD v3.5.
+
+70170	CHORD3.6.EXE	Another compiled DOS version of CHORD version 3.6.
+
+89088	CHORD.NT.EXE	CHORD version 3.6 compiled for Windows NT.
+
+27520 MikeChord.sit.bin MikeChord is a HyperCard stack for the Mac that formats 
+			ChordPro text for neatly-formatted output of guitar music
+			to non-PostScript or PostScript printers or to a file.
+			The output isn't elegant, but it works, and the program 
+			also does the reverse (text w/ chords above lyrics --> ChordPro),
+			and it will also play the song on the Mac's speaker.
+			It supports all major Chord directives except {new_song}, 
+			but doesn't have any of the fancy pagination and numbering 
+			features, nor does it do transposition (yet).
+			Requirements: Hypercard 2.0 or later, System 6.0.5 or later.
+
+29197  chord_magic.zip	Chord Magic is a program that lets you easily experiment with 
+			guitar chords.  Position your "fingers" anywhere on the 
+			"fingerboard", and Chord Magic will tell you what chord 
+			you're playing.  It recognizes chords by theory, not by shape,
+			so it isn't limited in scope like some other chord programs.
+
+82045 autotab-1.2a.tar.Z Autotab is a user-friendly song retrieval utility. It allows 
+			rapid interactive searching of the Nevada archive (choosing 
+			the mirror sites with the best response times automatically)
+			and will get the song for you automatically and file it away 
+			for you while you can be doing something else.
+
+ 9381  getit-2.tar.Z	A very useful ftp-utility to get files through anonymous
+			ftp.
+
+
+11369 C-ChordConvert.shar
+			A shar-archive containing C-code for a CRD -> ChordPro 
+			converter.
+
+All files (with suffix .Z .zip) are compressed; See ./Documents/AboutCompression.txt
+for help. If you still have any problems uncompressing them contact me at: 
+	f91-jsc@nada.kth.se

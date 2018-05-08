@@ -1,0 +1,556 @@
+#!/bin/sh
+# This is a shell archive (produced by shar 3.49)
+# To extract the files from this archive, save it to a file, remove
+# everything above the "!/bin/sh" line above, and type "sh file_name".
+#
+# made 02/15/1995 19:02 UTC by f91-jsc@filsun11.nada.kth.se
+# Source directory /auto/alv/home0/f91/f91-jsc/ChordUtils
+#
+# existing files will NOT be overwritten unless -c is specified
+#
+# This shar contains:
+# length  mode       name
+# ------ ---------- ------------------------------------------
+#     75 -rw-rw-r-- Makefile
+#    448 -rw-rw-r-- README
+#   3620 -rw-rw-r-- chordpp.c
+#   1756 -rw-rw-r-- chordpp.man
+#   1601 -rw-rw-r-- parse.c
+#    456 -rw-rw-r-- parse.h
+#
+# ============= Makefile ==============
+if test -f 'Makefile' -a X"$1" != X"-c"; then
+	echo 'x - skipping Makefile (File already exists)'
+else
+echo 'x - extracting Makefile (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'Makefile' &&
+CC	= gcc
+OBJS	= chordpp.o parse.o
+X
+chordpp:	$(OBJS)
+X		$(CC) -o $@ $(OBJS)
+X
+SHAR_EOF
+chmod 0664 Makefile ||
+echo 'restore of Makefile failed'
+Wc_c="`wc -c < 'Makefile'`"
+test 75 -eq "$Wc_c" ||
+	echo 'Makefile: original size 75, current size' "$Wc_c"
+fi
+# ============= README ==============
+if test -f 'README' -a X"$1" != X"-c"; then
+	echo 'x - skipping README (File already exists)'
+else
+echo 'x - extracting README (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'README' &&
+X
+X	This is a pre-processor for the chord program. It translate
+X	its directive to chord directive. Directives start with a #
+X	'Does it remember anything to you?'. I found using it a fast
+X	way to translate usual chord files to chordpro format.
+X
+X	Have fun. The manual is not as complete as you can think...
+X	I wrote it a more than one year ago but I had no news...
+X
+X	Bye Matteo.
+X
+X
+X	Try 
+X
+X	chordpp whats_the_frequency_kenneth.crd | chord > whats_the.ps
+SHAR_EOF
+chmod 0664 README ||
+echo 'restore of README failed'
+Wc_c="`wc -c < 'README'`"
+test 448 -eq "$Wc_c" ||
+	echo 'README: original size 448, current size' "$Wc_c"
+fi
+# ============= chordpp.c ==============
+if test -f 'chordpp.c' -a X"$1" != X"-c"; then
+	echo 'x - skipping chordpp.c (File already exists)'
+else
+echo 'x - extracting chordpp.c (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'chordpp.c' &&
+/*
+X * @(#) chordpp: Chord Pro Format Pre Processor.
+X * @(#) chordpp: By Matteo, Milano -- May 7th, 1993.
+X */
+X
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "parse.h"
+X
+X
+#define STACK_MAX	128
+#define	ODD		0
+#define	EVEN		1
+#ifndef EXIT_SUCCESS
+#define EXIT_SUCCESS 0
+#endif
+X
+void	ChordPP(void);
+void	PutCmd(const char *c, const char *s);
+int	PushFont(char *font, int size);
+int	PopFont(void);
+void	Print(register char *str);
+int	IsEmpty(register const char *str);
+X
+X
+typedef struct {
+X	char	*font;
+X	int	size;
+} Stack_t;
+X
+X
+static Stack_t	stack[STACK_MAX];
+static Stack_t	*sp = stack;
+X
+#define DEFAULT_FONT_SIZE	12
+X
+static int	chordStatus = 0;
+static int	chordLines  = ODD;	
+static int	fontSize    = DEFAULT_FONT_SIZE;
+X
+X
+int	main(int argc, char **argv)
+{
+X	if (argc > 2 && strcmp("-fs", argv[1]) == 0) {
+X		fontSize = atoi(argv[2]);
+X		if (fontSize <= 0)
+X			fontSize = DEFAULT_FONT_SIZE;
+X
+X		argv += 2;
+X		argc -= 2;
+X	}
+X
+X	stack[0].font = "Times-Roman";
+X	stack[0].size = fontSize;
+X	++sp;
+X
+X	if (argc == 1) {
+X		ChordPP();
+X		exit(EXIT_SUCCESS);
+X	}
+X
+X	while (*++argv != NULL) {
+X		if (freopen(*argv, "r", stdin) == NULL) {
+X			perror(*argv);
+X			continue;
+X		}
+X
+X		ChordPP();
+X	}
+X
+X	fclose(stdin);
+X	exit(EXIT_SUCCESS);
+X	return 0;	/* make compiler happy */
+}
+X
+X
+void	ChordPP(void)
+{
+X	char	buffer[BUFSIZ];
+X	char	*str;
+X
+X	while ((str = GetEStr(buffer)) != NULL) {
+X		BS(str);
+X		if (*str != '#') {
+X			Print(buffer);
+X			continue;
+X		}
+X
+X		++str;
+X		switch (Parse(str, &str)) {
+X			case C_AUTHOR:
+X				PutCmd("st", str);
+X				break;
+X
+X			case C_TITLE:
+X				PutCmd("title", str);
+X				break;
+X
+X			case C_DEFINE:
+X				PutCmd("define", str);
+X				break;
+X
+X			case C_COMMENT:
+X				chordStatus = 0;
+X				PushFont("Helvetica", fontSize);
+X				break;
+X
+X			case C_LYRICS:
+X				chordStatus = 0;
+X				PushFont("Times-Roman", fontSize);
+X				break;
+X
+X			case C_TAB:
+X				chordStatus = 0;
+X				PushFont("Courier", fontSize);
+X				break;
+X
+X			case C_CHORDS:
+X				chordStatus = 1;
+X				chordLines  = (atoi(str)) ? EVEN : ODD;
+X				PushFont("Times-Roman", fontSize);
+X				break;
+X
+X			case C_END:
+X				PopFont();
+X				break;
+X
+X			default:
+X				Print(buffer);
+X		}
+X	}
+}
+X
+X
+int	PushFont(char *font, int size)
+{
+X	if (sp >= &stack[STACK_MAX]) {
+X		fputs("Stack Overflow\n", stderr);
+X		return -1;
+X	}
+X
+X	++sp;
+X	sp->font = font;
+X	sp->size = size;
+X
+X	printf("{textfont: %s}\n", sp->font);
+X	printf("{textsize: %d}\n", sp->size);
+X
+X	return 0;
+}
+X
+X
+int	PopFont(void)
+{
+X	if (sp == stack) {
+X		fputs("Stack Underflow\n", stderr);
+X		return -1;
+X	}
+X
+X	--sp;
+X
+X	printf("{textfont: %s}\n", sp->font);
+X	printf("{textsize: %d}\n", sp->size);
+X
+X	return 0;
+}
+X
+X
+void	Print(register char *str)
+{
+X	char	*chords, *lyrics;
+X	char	buffer[BUFSIZ];
+X	size_t	len1, len2;
+X
+X	if (IsEmpty(str)) {
+X		putchar(EOLN);
+X		return;
+X	}
+X
+X	if (chordStatus == 0 || GetEStr(buffer) == NULL) {
+X		puts(str);
+X		return;
+X	}
+X
+X	if (chordLines == ODD) {
+X		chords = str;
+X		lyrics = buffer;
+X	} else {
+X		chords = buffer;
+X		lyrics = str;
+X	}
+X
+X	len1 = strlen(chords);
+X	len2 = strlen(lyrics);
+X
+X	if (len1 > len2)
+X		StrFill(lyrics, len1);
+X	else if (len1 < len2)
+X		StrFill(chords, len2);
+X
+X	while (*chords != EOS) {
+X		register int	i;
+X
+X		if (*chords == ' ') {
+X			putchar(*lyrics);
+X			++chords;
+X			++lyrics;
+X			continue;
+X		}
+X
+X		putchar('[');
+X		i = 0;
+X		do {
+X			putchar(*chords++);
+X			++i;
+X		} while (*chords != ' ' && *chords != EOS);
+X	 	putchar(']');
+X
+X		while (i-- > 0)
+X			putchar(*lyrics++);
+X	}
+X
+X	putchar(EOLN);
+}
+X
+X
+void	PutCmd(const char *c, const char *s)
+{
+X	char	buffer[BUFSIZ];
+X
+X	if (*s == EOS) {
+X		s = gets(buffer);
+X		if (s == NULL)
+X			return;
+X	}
+X
+X	printf("{%s:%s}\n", c, s);
+}
+X
+X
+int	IsEmpty(register const char *str)
+{
+X	BS(str);
+X
+X	return (*str == EOS);
+}
+SHAR_EOF
+chmod 0664 chordpp.c ||
+echo 'restore of chordpp.c failed'
+Wc_c="`wc -c < 'chordpp.c'`"
+test 3620 -eq "$Wc_c" ||
+	echo 'chordpp.c: original size 3620, current size' "$Wc_c"
+fi
+# ============= chordpp.man ==============
+if test -f 'chordpp.man' -a X"$1" != X"-c"; then
+	echo 'x - skipping chordpp.man (File already exists)'
+else
+echo 'x - extracting chordpp.man (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'chordpp.man' &&
+.TH chordpp l "11 December 1993" "Utilities"
+.SH NAME
+chordpp \- pre-processor for the chord program
+.SH SYNOPSIS
+.B chordpp
+[ -fs font_size ] [ files ]
+.SH DESCRIPTION
+.I chordpp
+produces a chordpro document from a text file containing lyrics, chords
+and pre-processor directives. If no file name is supplied, 
+.I chordpp
+reads from the standard input.
+X
+.SH OPTIONS
+.TP 8
+.B \-fs \fIfont size\fB
+Sets the size, in points, of the font used to produce the text_size directives.
+.TP 8
+X
+.SH KEYWORDS
+A line starting with a '#' as first non-blank character is interpreted
+as a directive for the pre-processor and parsed.
+X
+A directive is composed by a keyword and eventual arguments that shall
+follow the keyword in the directive text line.
+X
+Known directives are:
+.TP 8
+.B \fBtitle:\fR
+Generate a \fBtitle\fR directive for the
+.I chord
+program
+.TP 8
+.B \fBauthor:\fR
+Generate a \fBsubtitle\fR directive
+.TP 8
+.B \fBlyrics:\fR
+Set the parsing mode to lyrics mode that produce a directive for the
+font setting and simply leave the text alone
+.TP 8
+.B \fBchords [ ODD | EVEN ]:\fR
+Set the parsing mode to chords mode. Text shall be composed by couple of lines
+where the odd or the even line is used as chords line and the other as
+lyrics line. The chords line can be specified by an argument. The default
+value is odd (as usual). A single line is then produced with chords enclosed
+in brackets just after the character where they were placed above, or below.
+.TP 8
+.B \fBcomment:\fR
+Produce a font directive for text using Helvetica as font
+.TP 8
+.B \fBdefine:\fR
+Same as \fBdefine\fR for the
+.I chord
+program
+.TP 8
+.B \fBend:\fR
+Restore the previous font used
+.SH COPYRIGHT
+Copyright 1993 by Matteo Gelosa
+.SH AUTHORS
+Matteo Gelosa
+(matteo@ghost.sm.dsi.unimi.it)
+SHAR_EOF
+chmod 0664 chordpp.man ||
+echo 'restore of chordpp.man failed'
+Wc_c="`wc -c < 'chordpp.man'`"
+test 1756 -eq "$Wc_c" ||
+	echo 'chordpp.man: original size 1756, current size' "$Wc_c"
+fi
+# ============= parse.c ==============
+if test -f 'parse.c' -a X"$1" != X"-c"; then
+	echo 'x - skipping parse.c (File already exists)'
+else
+echo 'x - extracting parse.c (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'parse.c' &&
+/*
+X * @(#) chordpp: Chord Pro Format Pre Processor
+X * @(#) parse.c: Parse and Utilities Routines.
+X * @(#) By Matteo -- May 8th, 1993
+X */
+X
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "parse.h"
+X
+static struct keyEnt {
+X	char	*name;
+X	int	code;
+} keyTbl[] = {
+X	{ "author",	C_AUTHOR	},
+X	{ "chords",	C_CHORDS	},
+X	{ "comment",	C_COMMENT	},
+X	{ "define",	C_DEFINE	},
+X	{ "end",	C_END		},
+X	{ "lyrics",	C_LYRICS	},
+X	{ "tab",	C_TAB		},
+X	{ "title",	C_TITLE		},
+X	{ NULL,		C_UNKNOWN	},
+};
+X
+static int	GetKey(const char *key)
+{
+X	register struct keyEnt	*kp;
+X	int			cmp;
+X
+X	for (kp = keyTbl; kp->name != NULL; kp++) {
+X		cmp = strcmp(key, kp->name);
+X		if (cmp == 0)
+X			return kp->code;
+X
+X		if (cmp < 0)
+X			break;
+X	}
+X
+X	return -1;
+}
+X
+#define TAB_BLANKS	8
+X
+/*
+X * GetEStr(): Like gets() but expand tab to eight or less blanks.
+X */
+X
+char	*GetEStr(char *buffer)
+{
+X	register int	i, upto;
+X	int		ch;
+X
+X	i = 0;
+X	while ((ch = getchar()) != EOLN && ch != EOF) {
+X		if (ch == '\t') {
+X			upto = TAB_BLANKS - i % TAB_BLANKS;
+X			while (upto-- > 0)
+X				buffer[i++] = ' ';
+X		} else
+X			buffer[i++] = ch;
+X	}
+X
+X	buffer[i] = EOS;
+X
+X	return (ch == EOF && i == 0) ? NULL : buffer;
+}
+X
+int	Parse(char *str, char **next)
+{
+X	register char	*pk;
+X	char		key[32];
+X
+X	BS(str);
+X	for (pk = key; pk < &key[31]; pk++) {
+X		if (*str == ' ' || *str == EOS)
+X			break;
+X		*pk = *str++;
+X	}
+X	*pk = EOS;
+X	while (*str == ' ')
+X		++str;
+X	*next = str;
+X
+X	return GetKey(key);
+}
+X
+char	*StrFill(char *s, size_t n)
+{
+X	register char	*p;
+X	size_t		len;
+X
+X	len = strlen(s);
+X	n -= len;
+X	p = &s[len];
+X	while (n > 0) {
+X		*p++ = ' ';
+X		--n;
+X	}
+X	*p = EOS;
+X
+X	return s;
+}
+SHAR_EOF
+chmod 0664 parse.c ||
+echo 'restore of parse.c failed'
+Wc_c="`wc -c < 'parse.c'`"
+test 1601 -eq "$Wc_c" ||
+	echo 'parse.c: original size 1601, current size' "$Wc_c"
+fi
+# ============= parse.h ==============
+if test -f 'parse.h' -a X"$1" != X"-c"; then
+	echo 'x - skipping parse.h (File already exists)'
+else
+echo 'x - extracting parse.h (Text)'
+sed 's/^X//' << 'SHAR_EOF' > 'parse.h' &&
+#if !defined(PARSE_H_INCLUDED)
+#define PARSE_H_INCLUDED
+X
+#define BS(s)	while (*(s) == ' ') ++(s);
+X
+#define EOS	'\0'
+#define EOLN	'\n'
+X
+#define C_AUTHOR	0
+#define C_CHORDS	1
+#define C_COMMENT	2
+#define C_DEFINE	3
+#define C_END		4
+#define C_LYRICS	5
+#define C_TAB		6
+#define C_TITLE		7
+#define C_UNKNOWN	-1
+X
+extern char	*GetEStr(char *buffer);
+extern char	*StrFill(char *s, size_t n);
+extern int	Parse(char *str, char **next);
+X
+#endif	/* PARSE_H_INCLUDED */
+SHAR_EOF
+chmod 0664 parse.h ||
+echo 'restore of parse.h failed'
+Wc_c="`wc -c < 'parse.h'`"
+test 456 -eq "$Wc_c" ||
+	echo 'parse.h: original size 456, current size' "$Wc_c"
+fi
+exit 0

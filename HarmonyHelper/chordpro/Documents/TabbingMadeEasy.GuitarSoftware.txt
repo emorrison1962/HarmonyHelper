@@ -1,0 +1,486 @@
+#################From: KeanJ@agresearch.cri.nz#################
+Subject: INFO:** How to Tab & Guitar Software**
+
+
+INFO: Tabbing Made EASY!
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+File last updated: 24 May 1995.
+
+
+NEW IN THIS UPDATE:
+~~~~~~~~~~~~~~~~~~~
+ - ChordPlay utility available.
+
+
+Comments etc to John Kean (keanj@agresearch.cri.nz).
+
+
+Here's a few pointers on how to type up your .tab and .crd files
+as quickly and easily as possible...
+
+
+** See also Howard Wrights INFO file on reading/writing tablature **
+
+
+
+Step 0: DOES IT ALREADY EXIST?
+~~~~~~~
+Check OLGA, the music archive (see Appendix A at the end of this
+file) to see if someone has already transcribed and tabbed the song.
+If so, get it, check it, and mail your corrections if any to OLGA
+(see below).  Make sure you credit the original poster as well as
+yourself!
+
+If the song is not in the guitar archives then you'll be starting
+your transcription from scratch...
+
+
+Step 1: LYRICS
+~~~~~~~
+USE THE LYRICS ARCHIVES!
+
+The quickest and easiest way of entering the lyrics for a song is
+simply to ftp them from the lyrics archives (see list at end).
+Most files at these sites contain lyrics for a whole album, but you
+can easily remove the extra songs using a text editor.  This is
+certainly easier than typing out all the lyrics yourself, even if
+you do manage to figure out all the garbled words in the recording!
+
+If you find that your song is not at the lyrics archives, then you
+will have to type it yourself.  But before adding chords/tab etc, why
+not submit your typed words to the main lyrics archive?!  This could
+save someone else the same hassle that you have just gone through.
+
+
+Step 2: CHORDS
+~~~~~~~
+Once you have the lyrics, it is a breeze to simply enter the chord
+names above the appropriate lyric.  For example:
+
+     Em        D/F#   G
+     Four seasons in one day
+
+This can cause difficulties when people have different character
+widths and tab-settings on their screens, but since most people use
+standard ASCII, this is usually not a problem.  Just remember to
+type in your chords/tablature using a monospaced font (if you are
+not viewing this file with a monospaced font then the chords in the
+example above will not be over the correct lyric!).
+
+The other way of doing it is to embed the chords in square brackets
+in the lyrics. For example:
+    =20
+     [Em]Four seasons [D/F#]in one [G]day
+
+Files formatted in this way can be read by the CHORD family of
+utilities (see Appenix B) to produce output of the first type,
+which is considered easiest to read.
+
+Unusual chords should be defined at the start or end of the file so
+that others can easily see how to play them.  Try to name chords
+correctly to reduce confusion.
+
+USE PROGRAMS TO HELP YOU NAME UNUSUAL CHORDS!
+
+If you are unsure of how to name a bizarre chord that you have come
+across, there are several programs available to help you out (see
+Appendix B).
+
+
+Step 3: TABBING
+~~~~~~~
+There are several ways of entering ASCII tablature.  Which method you
+use will depend on many factors such as whether you have previously
+made a hand-written version to copy from, and how complex the tab is.
+
+Try to use a standard format for your tablature (most specialist
+tabbing programs will do this automatically).  Check out the
+WHAT.IS.TAB and suggested_tab_notation.txt files in the
+/resources/docs directory of OLGA (see Appendix A).
+
+A sheet of blank tablature is very useful when transcribing songs by
+ear.  This can be easily created using your friendly local graphics
+package, or simply rule up the blank tab yourself and photocopy it.
+
+IF YOU USE A TEXT EDITOR, WRITE SOME HELPFUL MACROS!
+
+One method of entering tablature is simply to use a text editor.
+This can in fact be quicker than other methods, if you have a hand-
+written tab to copy from, and if you take the time to write some
+useful macros for drawing new stanzas, bar-lines, repeat marks etc.
+The most useful tab editors allow "vertical pasting", whereby you
+may select a block of text (eg. a single bar) defined both
+horizontally and vertically, without having to include the
+surrounding text on each line.  One editor with vertical pasting
+is MicroSoft Word (version 5 and later) for Mac or Windows.  To
+select any rectangular block of text in MS Word, hold down the
+Option key (Mac) or ALT key (Windows) while selecting text with
+the mouse.
+
+Another useful feature of most text editors is "overwrite" mode.
+Simply create a few blank staves, switch from "insert" to "overwrite"
+mode, and type in the notation.
+
+One thing to watch out for when entering tab with a text editor is
+the length of lines.  A wide variety of different people with a wide
+variety of different computer systems will be using your tab, and
+some of these will make life difficult if your lines of tab are too
+long.  In general, you should try not to go any wider than about 70
+characters.  If you are using a word-processor choose Courier 8-point
+font and A4 portrait sized paper and you should be all right.
+
+CHOOSE THE TAB PROGRAM BEST FOR YOU!
+
+There are a wide range of programs available for entering tab (see
+Appendix B).  Most of these work on one of two systems: those that
+display a guitar fretboard, allowing you to select the place where
+you would fret each note; and those which display a blank tablature,
+allowing you to enter the number of the fret at which each note is
+played.  The former are best if you are entering a tab from memory;
+the latter are better if you are copying directly from your own
+hand-written notes.
+
+
+Step 4: SUBMITTING YOUR FILES
+~~~~~~~
+Once you have completed your masterpiece, you will obviously want
+to share it with the world.  The most obvious way to do this is to
+send it to the guitar tab news-groups.
+
+CROSS-POST TO BOTH GUITAR TAB NEWS GROUPS
+
+Cross-posting saves you time and effort, and minimises the load on
+the news-servers.  If your news-reader allows you to, cross-post to
+both tab groups by entering:
+"TO: alt.guitar.tab, rec.music.makers.guitar.tablature".
+
+Another method of cross-posting your article is to email your message
+"TO: alt-guitar-tab@cs.utexas.edu"
+"CC: rec-music-makers-guitar-tablature@cs.utexas.edu".
+
+You should also submit your file for inclusion in OLGA, the guitar
+archive, by emailing it to guitar@nevada.edu.  You should make sure
+you include the full correct name of the song and the artist, as
+well as your own email address.
+
+PLEASE RESPECT COPYRIGHT!
+COPYRIGHTED MATERIAL WILL NOT BE ACCEPTED FOR THE GUITAR ARCHIVES!
+
+The best bit of the whole process is the "Thank You" emails you will
+recieve from fellow guitarists all around the world.  That is what
+really makes your day!
+
+
+Appendix A: RELEVANT FTP SITES
+~~~~~~~~~~~
+
+LYRICS:
+ ftp.uwp.edu  /pub/music/lyrics  is mirrored at:
+   ftp.sunet.se  /pub/music
+   www.wit.com   /music
+   ftp.leo.org   /pub/rec/music/vocal/lyrics/uwp
+   ftp.luth.se   /pub/misc/lyrics
+
+
+MUSIC PROGRAMS:
+ OLGA archive sites - see below  /resources
+ ftp.uwp.edu
+ oak.oakland.edu  /pub/msdos/music
+
+
+CHORDS AND TABLATURE:
+ OLGA archive sites:
+   mirrors.aol.com       /pub/guitar
+   ftp.uu.net            /doc/music/guitar
+   unix.hensa.ac.uk      /mirrors/uunet/doc/music/guitar
+   ftp.uwp.edu           /pub/music/guitar
+   ftp.uni-stuttgart.de  /pub/misc/guitar
+   ftp.diku.dk           /pub/music/guitar
+   ftp.uni-paderborn.de  /doc/guitar
+   ftp.leo.org           /pub/rec/music/guitar/songs/olga
+   ftp.cosy.sbg.ac.at    /pub/mirror/guitar
+   ftp.ci.ua.pt          /pub/music/guitar/other
+
+ ftp.nada.kth.se  /home/f91-jsc/guitar
+   (ChordPro-only archive)
+ ftp.maths.tcd.ie  /pub/music
+   (alternative, industrial, gothic music; mirrored at ftp.leo.org)
+ gopher.ttu.edu  /Pub/mailing_list_archives/cowpie-songs
+   (country music site)
+ ftp.vast.unsw.edu.au  /pub/guitar-lessons
+   (guitar tutorials/lessons on a wide variety of subjects)
+ eosdev2.gsfc.nasa.gov  /pub/slowhand
+   (Eric Clapton site)
+ ftp.uwp.edu  /pub/music/lists/floyd/misc
+   (Pink Floyd site)
+ syrinx.umd.edu  /rush/tab or /rush/transcriptions
+   (Rush site)
+ ftp.phish.net  /pub/phish/text-files
+   (Phish site)
+ jater.acns.nwu.edu  /CH
+   (Crowded House site)
+ ftp.informatik.uni-oldenburg.de  /pub/genesis/guitar.tabs
+   (Genesis/Peter Gabriel site)
+ clouso.crim.ca  /pub/guitar
+   (a small private archive)
+ insane.apana.org.au  /user/pcc/PCMUSIC
+   (postscript files of original classical music by Paul Copeland)
+
+
+
+Appendix B: GUITAR SOFTWARE
+~~~~~~~~~~~
+
+### Tablature Editors ###
+
+BUCKET O' TAB  version 1.0
+ * Programmer: Scott Evans (gse@ocsystems.com)
+ * System: MicroSoft Windows
+ * Files: bucket.zip
+ * Source: OLGA sites /resources/dos_tab_utils/bucket
+ * Description: Tablature editor.  Prints graphical tabs, but can
+     import/export ASCII tab.  Sound support in registered version.
+
+WINTAB  version 1.0a
+ * Programmer: Randy Robb (rrobb@msu.edu)
+ * System: MicroSoft Windows
+ * Files: wintab1.zip
+ * Source: philemon.asc.msu.edu /pub
+ * Description: Tablature editor: direct text mode editing or
+     fretboard entry.
+
+TAB MASTER  version 1.0
+ * Programmer:  Ofir Zwebner (ofirz1@zoot.tau.ac.il)
+ * System: MS-DOS
+ * Files: tablat.zip
+ * Source: OLGA sites /resources/dos_tab_utils
+ * Description: Tablature editor using colour and function key
+     short-cuts.
+
+TABEDIT  version 1.6.3=A0
+ * Programmer: Danny Felsteiner (phr01ya@techunix.technion.ac.il)
+ * System: MS-DOS
+ * Files: tabed163.zip
+ * Source: OLGA sites /resources/dos_tab_utils
+ * Description: Tablature editor
+
+GUITAR TOOLS  version 2.0
+ * Programmer: Troy Johnson (troyj@chaos.idec.sdl.usu.edu)
+ * System: MS-DOS
+ * Files: guitar_tools_demo.zip
+ * Source: OLGA sites /resources/dos_tab_utils/guitar_tools,
+           oak.oakland.edu /pub/msdos/music
+ * Description: Tab editor with capabilities to convert piano notes
+      to guitar tab.  Will load existing guitar tab in ASCII format.
+
+QUICKTAB  version 1.1.1
+ * Programmer: Keith MacDonald (ikb_macd@ece.concordia.ca)
+ * System: Macintosh
+ * Files: QuickTab1-1-1.sea.hqx
+ * Source: ftp.ECE.Concordia.ca /pub/os/mac/app
+ * Description: Graphical tab editor, supporting chords, lyrics &
+     text.  Import/export ASCII tab.  Editable chord library.
+     Requires System 7.x.
+
+TAB-N-FRET  version ?
+ * Programmer: ?
+ * System: Unix and X
+ * Files: Tab-n-Fret.tar
+ * Source: OLGA sites /resources/misc
+ * Description: Tablature editor: direct text mode editing or
+     fretboard entry.
+
+CHORDMASTER  version 2.0
+ * Programmer: Robert Watson
+ * System: MS-DOS
+ * Files: ChordMaster.tar
+ * Source: OLGA sites /resources/dos_chord_utils
+ * Description: Identifies, displays, and resolves chords.  Tab
+     editor.  Plays guitar tab, demonstrates correct fingerings.
+     MIDI capabilities.
+
+COMP-G-TAB  version 1.4
+ * Programmer: Hillel Steinberg (zeus@cs.umd.edu)
+ * System: MS-DOS
+ * Files: cgtab14.zip
+ * Source: OLGA sites /resources/dos_misc
+ * Description: Converts MIDI files to playable guitar tablature.
+
+
+### Chord/Scale Utilities ###
+
+CHORD MAGIC  version 1.0
+ * Programmer: Andrew J Gryc
+ * System: MS-DOS
+ * Files: chord_magic.zip
+ * Source: OLGA sites /resources/dos_chord_utils
+ * Description: Names or finds chords in any key and any tuning.
+
+CHORD-FINDER  version 2.0
+ * Programmer: Dag Rabraut (dagr@edb.tih.no, dagr@colargol.edb.tih.no)
+ * System: MS-DOS
+ * Files: <various>
+ * Source: OLGA sites /resources/chart_utils/Chord-Finder
+ * Description: Demonstrates how to play over 800 chords.  Allows
+     chord searching, and addition to the chord library.
+
+GUITARE  version 4.2
+ * Programmer: Pascal Obry (pascal.obry@der.edf.fr)
+ * System: Distributed as binaries for MS-DOS, SunOS, and Solaris.
+     Source code for compiling on any system is available by email.
+ * Files: <various>
+ * Source: OLGA sites /resources/chart_utils/GUITARE
+ * Description: Displays chords and scales in any tuning.  Names
+     chords input as notes.  Transposes chords.  Displays fingerings.
+     Works for guitar, mandolin, or bass.
+
+KORDCALC  version 2.1
+ * Programmer: Rob Haack
+ * System: MS-DOS
+ * Files: CHORDS.ARJ
+ * Source: OLGA sites /resources/dos_chord_utils
+ * Description: Graphically shows chord fingerings in standard tuning.
+
+NOFRET  version 1.0
+ * Programmer: Joe Legg (tenom@aol.com)
+ * System: MS-DOS
+ * Files: nofretv1.zip
+ * Source: oak.oakland.edu /pub/msdos/music
+ * Description: Shows how to play common chords.  SoundBlaster
+     supported.
+
+CHORD COMP  version 1.0
+ * Programmer: Marty Balash
+ * System: MicroSoft Windows
+ * Files: chdcomp.zip
+ * Source: OLGA sites /resources/chord_util
+ * Description: Displays common chords in any key, helps compose
+     original chord progressions.  Soundcards and MIDI supported.
+
+VIRTUAX  version 1.0
+ * Programmer: Shannon Terry (shterry@freenet.columbus.oh.us)
+ * System: MicroSoft Windows
+ * Files: virtuax.zip
+ * Source: oak.oakland.edu /pub/win3/music
+ * Description: Play chords and scales with fingering. Features
+     MIDI and metronome.  Requires soundblaster, 486SX, 3MB RAM.
+
+SCALE MASTER  version 1.1
+ * Programmer: Ken Cardita
+ * System: MS-DOS
+ * Files: scales_arj.uue
+ * Source: OLGA sites /resources/misc
+ * Description: Teaches guitar scales.
+
+GUITAR SCALES & MODES  version 2.1
+ * Programmer: David Sampson
+ * System: MicroSoft Windows
+ * Files: guitar.zip
+ * Source: ?
+ * Description: Graphically shows how to play scales in standard
+     tuning.
+
+SCALES & MODES  version 1.0
+ * Programmer: Tim Giron (tgiron@primenet.com)
+ * System: Macintosh
+ * Files: scales.hqx, scales.readme
+ * Source: OLGA sites /resources/mac_misc
+ * Description: Graphically shows how to play over 50 scales in
+     standard tuning.
+
+CHORDMASTER  version 2.0
+ * Programmer: Robert Watson
+ * System: MS-DOS
+ * Files: ChordMaster.tar
+ * Source: OLGA sites /resources/dos_chord_utils
+ * Description: Identifies, displays, and resolves chords.  Tab
+     editor.  Plays guitar tab, demonstrates correct fingerings.
+     MIDI capabilities.
+
+GUITAR TRAINER  version ?
+ * Programmer: H R Braasch, c/o Scott Lehman (slehman@mit.edu)
+ * System: MicroSoft Windows
+ * Files: trainer.zip
+ * Source: OLGA sites /resources/dos_misc
+ * Description: Interactively teaches notes of the fretboard
+
+
+### Presentation/Printing/Playing Utilities ###
+
+CHORD  version 3.6 (Unix)  version 3.0 (MS-DOS)
+ * Programmers: Martin Leclerc (martin.leclerc@canada.sun.com)
+     and Mario Dorion (mario.dorion@canada.sun.com)
+ * System: Unix, MS-DOS, or distributed as source code for
+     compiling on any system.
+ * Files: <various>
+ * Source: OLGA sites /resources/misc/CHORD
+ * Description: Produces a tidy PostScript document with chords
+     above the appropriate lyrics.  Requires a specially-formatted
+     input file.
+
+NEWTAB  version ?
+ * Programmer: Constantijn Enders (c.w.g.m.enders@kub.nl)
+ * System: MS-DOS
+ * Files: newtab.zip
+ * Source: oak.oakland.edu /pub/msdos/music
+ * Description: Converts/reverts |-3-2-|-0--| in tab files to
+     =C73=8E2=8F0=8E=EF for prettier ASCII layout.
+
+PSTAB  version 2.0
+ * Programmer: Brian Ewins
+ * System: Any connected to a PostScript printer
+ * Files: pstab.
+ * Source: OLGA sites /resources/misc
+ * Description: Graphically prints ASCII tablature, lyrics etc to
+     a PostScript printer.  Supports ChordPro format.
+
+TAB PLAY  version ?
+ * Programmer: Tim Beach (fsjohn@tua.lerc.nasa.gov)
+ * System: Microsoft Windows
+ * Files: tabplay.exe
+ * Source: OLGA sites /resources/dos_misc
+ * Description: Converts guitar or banjo tablature to playable MIDI.
+     May print tablature.  Requires 2.6 MB hard disk space.
+
+COMP-G-TAB  version 1.4
+ * Programmer: Hillel Steinberg (zeus@cs.umd.edu)
+ * System: MS-DOS
+ * Files: cgtab14.zip
+ * Source: OLGA sites /resources/dos_misc
+ * Description: Converts MIDI files to playable guitar tablature.
+
+CHORDPLAY  version ?
+ * Programmer: Wolfgang Stephan (ik6@ix.urz.uni-heidelberg.de)
+ * System: MS-DOS
+ * Files: chordpl.zip
+ * Source: garbo.uwasa.fi/pc/sound
+ * Description: Plays your input (jazz) chord progressions, allowing
+     you to solo over top.  Requires Adlib-compatible soundcard.
+
+
+### Miscellaneous ####
+
+POWER CHORDS PRO  demo version 2.0.05
+ * Progammer: Eric Bell, Howling Dog Systems (71333.2166@compuserve.com)
+ * System: MS-DOS + MicroSoft Windows
+ * Files: PowPro.zip
+ * Source: ?
+ * Description: Sequencer for guitarists.  Chord computer,
+     configurable fretboard.  Supports sound cards, MIDI.
+     All graphic interface.
+
+QUICK TUNE  version ?
+  * Programmer: Bartlomiej Knapp (bknapp01@photon.poly.edu)
+  * System: MS-DOS + MicroSoft Windows
+  * Files: q_tune.zip
+  * Source: oak.oakland.edu /SimTel/win3/music
+  * Description: Software guitar tuner, allowing several different
+      tunings.  Requires sound card, 386 (486 or Pentium recommended).
+
+
+   \\\\   John Kean
+   OO |   ~~~~~~~~~
+   <  )   (keanj@agresearch.cri.nz)
+   \/ |
+   `-
