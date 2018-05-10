@@ -1,7 +1,7 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.Chords
 		static public ChordType HalfDiminished = new ChordType("m7b5", Diminished.Intervals, ChordToneInterval.Minor7th);
 		static public ChordType Diminished7 = new ChordType("dim7", Diminished.Intervals, ChordToneInterval.Diminished7th);
 
-		
+
 		#region Suspended chords
 		static public ChordType Sus2 = new ChordType("Sus2", ChordToneInterval.Sus2, ChordToneInterval.Perfect5th);
 		static public ChordType SevenSus2 = new ChordType("7Sus2", Sus2.Intervals, ChordToneInterval.Minor7th);
@@ -49,6 +49,7 @@ namespace Eric.Morrison.Harmony.Chords
 		static public ChordType MajorAdd9 = new ChordType("Add9", Major.Intervals, ChordToneInterval.Ninth);
 		static public ChordType MajorMu = new ChordType("MajMu", Major.Intervals, ChordToneInterval.Ninth);
 		static public ChordType Major7b5 = new ChordType("Maj7b5", ChordToneInterval.Major3rd, ChordToneInterval.Diminished5th, ChordToneInterval.Major7th);
+		static public ChordType Major7Aug5 = new ChordType("Maj7+5", ChordToneInterval.Major3rd, ChordToneInterval.Augmented5th, ChordToneInterval.Major7th);
 
 		#endregion
 
@@ -80,7 +81,7 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool IsMinor { get; set; }
 		public bool IsDiminished { get; set; }
 		public bool IsDominant { get; set; }
-		
+
 		#endregion
 
 		#region Construction
@@ -113,7 +114,7 @@ namespace Eric.Morrison.Harmony.Chords
 					this.IsMajor = true;
 				if (this.Intervals.Contains(ChordToneInterval.Minor3rd))
 					this.IsMinor = true;
-				if (this.Intervals.Contains(ChordToneInterval.Minor3rd) 
+				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
 					&& this.Intervals.Contains(ChordToneInterval.Diminished5th))
 					this.IsDiminished = true;
 

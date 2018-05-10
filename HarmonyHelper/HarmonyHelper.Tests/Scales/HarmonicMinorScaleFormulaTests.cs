@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var key in keys)
 			{
 				var scale = new HarmonicMinorScaleFormula(key);
-				//Debug.WriteLine(scale.ToString());
+				Debug.WriteLine($"{key.NoteName}m: {string.Join(",", key.Accidentals)}\t{scale.ToString()}");
 				new object();
 			}
 			//Debug.WriteLine(scale.ToString());
