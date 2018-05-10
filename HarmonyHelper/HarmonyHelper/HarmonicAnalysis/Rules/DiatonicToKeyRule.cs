@@ -11,10 +11,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var result = new List<HarmonicAnalysisResult>();
 			var keys = KeySignature.MajorKeys;
 			var commonKeys = new List<KeySignature>();
-			var noteNames = chords.Distinct().SelectMany(x => x.NoteNames).Distinct().ToList();
-
+			var distinctChords = chords.Distinct().ToList();
+			var distinctNoteNames = distinctChords.SelectMany(x => x.NoteNames).Distinct().ToList();
 			var message = string.Empty;
-			if (key.AreDiatonic(noteNames))
+			if (key.AreDiatonic(distinctNoteNames))
 			{
 				var chordNames = string.Join(", ", chords.Distinct()
 					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
@@ -24,8 +24,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			}
 			else
 			{
-				var chordNames = string.Join(", ", chords.Select(x => x.Name));
-				message = $"{chordNames} are not diatonic to a specific key.";
+				var nonDiatonic = key.GetNonDiatonic(distinctChords);
+				var chordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
+				message = $"{chordNames} are not diatonic to the specified key of {key}.";
 				result.Add(new HarmonicAnalysisResult(this, false, message));
 			}
 

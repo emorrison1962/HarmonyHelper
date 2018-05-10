@@ -55,6 +55,8 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				if (null != analysisResult && analysisResult.Success)
 					Debug.WriteLine(analysisResult.Message);
+				else
+					Debug.WriteLine(analysisResult.Message);
 			}
 			Assert.IsNotNull(analysisResults);
 			Assert.Fail();

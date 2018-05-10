@@ -106,12 +106,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			//foreach (var row in result)
-			//{
-			//	Debug.Write($"{row.Key,3}");
-			//	Debug.Write($"| {row.Mode.ToString()} ");
-			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas)}");
-			//}
+			foreach (var row in result)
+			{
+				Debug.Write($"{row.Key,3}");
+				Debug.Write($"| {row.Mode.ToString()} ");
+				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			}
 			#endregion
 
 			return result;
