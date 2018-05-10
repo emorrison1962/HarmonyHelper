@@ -15,6 +15,7 @@ namespace Eric.Morrison.Harmony
 		#region Properties
 		public NoteName NoteName { get; private set; }
 		public List<NoteName> NoteNames { get; private set; }
+		public List<NoteName> Accidentals { get { return this.NoteNames.Where(x => x.IsFlatted || x.IsSharped).ToList(); } }
 		public bool UsesSharps { get; private set; }
 		public bool UsesFlats { get; private set; }
 		public bool IsMajor { get; private set; }

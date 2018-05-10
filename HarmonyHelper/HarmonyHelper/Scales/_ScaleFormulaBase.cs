@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public abstract class ScaleFormulaBase : IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
+	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
 	{
 		public KeySignature Key { get; protected set; }
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
 		public NoteName Root { get; protected set; }
 
-		public List<Interval> Intervals { get; set; } = new List<Interval>();
+		public List<ScaleToneInterval> Intervals { get; set; } = new List<ScaleToneInterval>();
 		virtual public string Name { get; protected set; }
 
 
@@ -38,7 +38,7 @@ namespace Eric.Morrison.Harmony
 			this.PopulateIntervals();
 			this.PopulateNoteNames();
 
-			this.Root = this.NoteNames[0];
+			//this.Root = this.NoteNames[0];
 		}
 
 		public bool Contains(ChordFormula formula)
@@ -72,10 +72,12 @@ namespace Eric.Morrison.Harmony
 		virtual protected void PopulateNoteNames()
 		{
 			var result = new List<NoteName>();
+			this.Root = this.Key.NoteName;
+
 			result.Add(this.Key.NoteName);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteNames.Get(this.Key.NoteName, interval, this.Key);
+				var nn = NoteNames.Get(this.Key.NoteName, interval, this);
 				Debug.Assert(nn != this.Key.NoteName);
 				result.Add(nn);
 			}
@@ -134,7 +136,10 @@ namespace Eric.Morrison.Harmony
 
 		public NoteName GetNormalized(NoteName nn, Interval baseInterval)
 		{
-			var result = nn;
+			if (!(baseInterval is ScaleToneInterval))
+				throw new ArgumentException($"Invalid Argument ({baseInterval})");
+
+				var result = nn;
 			if (baseInterval is ScaleToneInterval)
 			{
 				var interval = baseInterval as ScaleToneInterval;
@@ -147,20 +152,17 @@ namespace Eric.Morrison.Harmony
 					case ScaleToneFunctionEnum.Root:
 						wantedAscii = nn.Name[0];
 						break;
-					case ScaleToneFunctionEnum.Sus2:
-					case ScaleToneFunctionEnum.Flat9th:
-					case ScaleToneFunctionEnum.Ninth:
-					case ScaleToneFunctionEnum.Sharp9th:
+					case ScaleToneFunctionEnum.Minor2nd:
+					case ScaleToneFunctionEnum.Major2nd:
 						wantedAscii = rootAscii + 1;
 						break;
 					case ScaleToneFunctionEnum.Minor3rd:
 					case ScaleToneFunctionEnum.Major3rd:
 						wantedAscii = rootAscii + 2;
 						break;
-					case ScaleToneFunctionEnum.Sus4:
-					case ScaleToneFunctionEnum.Flat11th:
-					case ScaleToneFunctionEnum.Eleventh:
-					case ScaleToneFunctionEnum.Augmented11th:
+					case ScaleToneFunctionEnum.Diminished4th:
+					case ScaleToneFunctionEnum.Perfect4th:
+					case ScaleToneFunctionEnum.Augmented4th:
 						wantedAscii = rootAscii + 3;
 						break;
 					case ScaleToneFunctionEnum.Diminished5th:
@@ -169,8 +171,7 @@ namespace Eric.Morrison.Harmony
 						wantedAscii = rootAscii + 4;
 						break;
 					case ScaleToneFunctionEnum.Major6th:
-					case ScaleToneFunctionEnum.Flat13th:
-					case ScaleToneFunctionEnum.Thirteenth:
+					case ScaleToneFunctionEnum.Minor6th:
 						wantedAscii = rootAscii + 5;
 						break;
 					case ScaleToneFunctionEnum.Diminished7th:

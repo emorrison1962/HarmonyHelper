@@ -17,13 +17,13 @@ namespace Eric.Morrison.Harmony
 
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Perfect4th,
-				Interval.Perfect5th,
-				Interval.Minor6th,
-				Interval.Major7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Minor6th,
+				ScaleToneInterval.Major7th,
 			};
 
 		}
@@ -41,18 +41,13 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Minor2nd,
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Major3rd,
-				Interval.Perfect4th,
-				Interval.Augmented4th,
-				Interval.Perfect5th,
-				Interval.Augmented5th,
-				Interval.Major6th,
-				Interval.Minor7th,
-				Interval.Major7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Major7th,
 			};
 		}
 	}
@@ -75,11 +70,11 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Major3rd,
-				Interval.Perfect5th,
-				Interval.Major6th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Major3rd,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Major6th,
 			};
 		}
 	}
@@ -96,11 +91,11 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Minor3rd,
-				Interval.Perfect4th,
-				Interval.Perfect5th,
-				Interval.Minor7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Minor7th,
 			};
 		}
 	}
@@ -117,12 +112,12 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Major3rd,
-				Interval.Augmented4th,
-				Interval.Augmented5th,
-				Interval.Minor7th
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Major3rd,
+				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Augmented5th,
+				ScaleToneInterval.Minor7th
 			};
 		}
 	}
@@ -139,14 +134,14 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Minor2nd,
-				Interval.Minor3rd,
-				Interval.Major3rd,
-				Interval.Augmented4th,
-				Interval.Perfect5th,
-				Interval.Major6th,
-				Interval.Minor7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Minor2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Major3rd,
+				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Minor7th,
 			};
 		}
 	}
@@ -163,14 +158,14 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Perfect4th,
-				Interval.Diminished5th,
-				Interval.Minor6th,
-				Interval.Major6th,
-				Interval.Major7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Diminished5th,
+				ScaleToneInterval.Minor6th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Major7th,
 			};
 		}
 	}
@@ -188,18 +183,18 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Minor2nd,
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Major3rd,
-				Interval.Perfect4th,
-				Interval.Augmented4th,
-				Interval.Perfect5th,
-				Interval.Augmented5th,
-				Interval.Major6th,
-				Interval.Minor7th,
-				Interval.Major7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Minor2nd,
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Major3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Augmented5th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Minor7th,
+				ScaleToneInterval.Major7th,
 			};
 		}
 	}
@@ -216,15 +211,15 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Major3rd,
-				Interval.Perfect4th,
-				Interval.Augmented4th,
-				Interval.Perfect5th,
-				Interval.Major6th,
-				Interval.Minor7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Major3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Minor7th,
 			};
 		}
 	}
@@ -241,12 +236,12 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Minor3rd,
-				Interval.Perfect4th,
-				Interval.Augmented4th,
-				Interval.Perfect5th,
-				Interval.Minor7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Perfect5th,
+				ScaleToneInterval.Minor7th,
 			};
 		}
 	}
@@ -263,13 +258,13 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<Interval>() {
-				Interval.Major2nd,
-				Interval.Minor3rd,
-				Interval.Perfect4th,
-				Interval.Diminished5th,
-				Interval.Major6th,
-				Interval.Minor7th,
+			this.Intervals = new List<ScaleToneInterval>() {
+				ScaleToneInterval.Major2nd,
+				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Perfect4th,
+				ScaleToneInterval.Diminished5th,
+				ScaleToneInterval.Major6th,
+				ScaleToneInterval.Minor7th,
 			};
 		}
 	}
