@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Chords
 {
 	public static class ChordFormulaCatalog
 	{

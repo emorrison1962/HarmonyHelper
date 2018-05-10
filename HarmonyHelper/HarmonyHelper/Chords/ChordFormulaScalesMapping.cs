@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Chords
 {
 	public class ChordFormulaScalesMapping
 	{

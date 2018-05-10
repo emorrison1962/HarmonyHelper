@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 

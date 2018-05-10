@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using static Eric.Morrison.Harmony.Chord;
+using static Eric.Morrison.Harmony.Chords.Chord;
+//using static Eric.Morrison.Harmony.Chord;
 
 namespace Eric.Morrison.Harmony
 {

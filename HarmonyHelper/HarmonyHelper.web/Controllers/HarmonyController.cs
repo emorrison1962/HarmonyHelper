@@ -1,4 +1,6 @@
 ﻿using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

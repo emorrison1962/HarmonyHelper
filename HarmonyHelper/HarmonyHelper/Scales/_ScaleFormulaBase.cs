@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -127,6 +129,72 @@ namespace Eric.Morrison.Harmony
 			var result = 0;
 			this.NoteNames.ForEach(x => result ^= x.GetHashCode());
 			//Debug.WriteLine($"{this.ToString()}: HashCode={result}");
+			return result;
+		}
+
+		public NoteName GetNormalized(NoteName nn, Interval baseInterval)
+		{
+			var result = nn;
+			if (baseInterval is ScaleToneInterval)
+			{
+				var interval = baseInterval as ScaleToneInterval;
+				int rootAscii = this.Root.Name[0];
+				int wantedAscii = 0;
+
+				switch (interval.ScaleToneFunction)
+				{
+					case ScaleToneFunctionEnum.None:
+					case ScaleToneFunctionEnum.Root:
+						wantedAscii = nn.Name[0];
+						break;
+					case ScaleToneFunctionEnum.Sus2:
+					case ScaleToneFunctionEnum.Flat9th:
+					case ScaleToneFunctionEnum.Ninth:
+					case ScaleToneFunctionEnum.Sharp9th:
+						wantedAscii = rootAscii + 1;
+						break;
+					case ScaleToneFunctionEnum.Minor3rd:
+					case ScaleToneFunctionEnum.Major3rd:
+						wantedAscii = rootAscii + 2;
+						break;
+					case ScaleToneFunctionEnum.Sus4:
+					case ScaleToneFunctionEnum.Flat11th:
+					case ScaleToneFunctionEnum.Eleventh:
+					case ScaleToneFunctionEnum.Augmented11th:
+						wantedAscii = rootAscii + 3;
+						break;
+					case ScaleToneFunctionEnum.Diminished5th:
+					case ScaleToneFunctionEnum.Perfect5th:
+					case ScaleToneFunctionEnum.Augmented5th:
+						wantedAscii = rootAscii + 4;
+						break;
+					case ScaleToneFunctionEnum.Major6th:
+					case ScaleToneFunctionEnum.Flat13th:
+					case ScaleToneFunctionEnum.Thirteenth:
+						wantedAscii = rootAscii + 5;
+						break;
+					case ScaleToneFunctionEnum.Diminished7th:
+					case ScaleToneFunctionEnum.Minor7th:
+					case ScaleToneFunctionEnum.Major7th:
+						wantedAscii = rootAscii + 6;
+						break;
+				}
+
+				if (wantedAscii > 'G')
+					wantedAscii -= 7;
+#if DEBUG
+				char readableDebugValue = (char)wantedAscii;
+#endif
+				if (nn.Name[0] != wantedAscii)
+					foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
+						if (ee.Name[0] == wantedAscii)
+						{
+							result = ee;
+							break;
+						}
+
+			}
+
 			return result;
 		}
 

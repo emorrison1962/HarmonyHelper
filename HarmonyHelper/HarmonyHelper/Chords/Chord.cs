@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Chords
 {
 	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>
 	{

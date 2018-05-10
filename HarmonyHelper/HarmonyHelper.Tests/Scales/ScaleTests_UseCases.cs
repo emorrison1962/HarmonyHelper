@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Eric.Morrison.Harmony.Chords;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 namespace Eric.Morrison.Harmony.Tests
 {
 	[TestClass()]
-	public class ScaleTests
+	public class ScaleTests_UseCases
 	{
 		[TestMethod()]
 		public void GetScalesForChordsTest()

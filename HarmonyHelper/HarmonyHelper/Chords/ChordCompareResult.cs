@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Chords
 {
 	public class ChordCompareResult
 	{

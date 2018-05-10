@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.Tests
 {

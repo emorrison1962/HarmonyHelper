@@ -78,7 +78,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Scales\ScaleTests.cs" />
+    <Compile Include="Scales\HarmonicMinorScaleFormulaTests.cs" />
+    <Compile Include="Scales\ScaleTests_UseCases.cs" />
     <Compile Include="BUGS.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Tests
 {

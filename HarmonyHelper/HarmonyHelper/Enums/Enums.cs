@@ -162,6 +162,39 @@ Major7th
 		Thirteenth,
 	}
 
+	public enum ScaleToneFunctionEnum
+	{
+		None = 0,
+		Root,
+
+		Sus2,
+
+		Minor3rd,
+		Major3rd,
+
+		Sus4,
+
+		Diminished5th,
+		Perfect5th,
+		Augmented5th,
+
+		Major6th,
+
+		Diminished7th,
+		Minor7th,
+		Major7th,
+
+		Flat9th,
+		Ninth,
+		Sharp9th,
+
+		Flat11th,
+		Eleventh,
+		Augmented11th,
+
+		Flat13th,
+		Thirteenth,
+	}
 
 
 }//ns

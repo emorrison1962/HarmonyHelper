@@ -1,4 +1,5 @@
-﻿using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis

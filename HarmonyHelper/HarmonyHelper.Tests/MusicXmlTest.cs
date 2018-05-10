@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
+using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -123,7 +125,7 @@ namespace Eric.Morrison.Harmony
 			var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
-			if (Harmony.ChordParser.TryParse(chordTxt, KeySignature.CMajor, out List<Harmony.Chord> chords, out string message))
+			if (ChordParser.TryParse(chordTxt, KeySignature.CMajor, out List<Chord> chords, out string message))
 			{
 				chords.ForEach(x => Debug.WriteLine(x));
 				success = true;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Chords;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -39,8 +40,7 @@ namespace Eric.Morrison.Harmony
 			foreach (var key in keys)
 			{
 				this.Add(new HarmonicMinorScaleFormula(key));
-#warning FIXME: *** IMPLEMENT MelodicMinor ***
-				//this.Add(new MelodicMinorFormula(key));
+				this.Add(new MelodicMinorScaleFormula(key));
 
 				this.Add(new PentatonicMinorScaleFormula(key));
 				this.Add(new HexatonicBluesScaleFormula(key));

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
@@ -40,20 +41,19 @@ namespace Eric.Morrison.Harmony
 		}
 		protected override void PopulateIntervals()
 		{
-			throw new NotImplementedException();
-			//this.Intervals = new List<Interval>() {
-			//    Interval.Minor2nd,
-			//    Interval.Major2nd,
-			//    Interval.Minor3rd,
-			//    Interval.Major3rd,
-			//    Interval.Perfect4th,
-			//    Interval.Augmented4th,
-			//    Interval.Perfect5th,
-			//    Interval.Augmented5th,
-			//    Interval.Major6th,
-			//    Interval.Minor7th,
-			//    Interval.Major7th,
-			//};
+			this.Intervals = new List<Interval>() {
+				Interval.Minor2nd,
+				Interval.Major2nd,
+				Interval.Minor3rd,
+				Interval.Major3rd,
+				Interval.Perfect4th,
+				Interval.Augmented4th,
+				Interval.Perfect5th,
+				Interval.Augmented5th,
+				Interval.Major6th,
+				Interval.Minor7th,
+				Interval.Major7th,
+			};
 		}
 	}
 

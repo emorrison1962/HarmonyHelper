@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.Tests
 {
