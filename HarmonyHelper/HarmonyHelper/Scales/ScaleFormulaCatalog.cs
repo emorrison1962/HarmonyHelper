@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Scales;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,13 +21,13 @@ namespace Eric.Morrison.Harmony
 			var keys = KeySignature.MajorKeys;
 			foreach (var key in keys)
 			{
-				this.Add(new ModeFormula(key, ModeEnum.Ionian));
-				this.Add(new ModeFormula(key, ModeEnum.Dorian));
-				this.Add(new ModeFormula(key, ModeEnum.Phrygian));
-				this.Add(new ModeFormula(key, ModeEnum.Lydian));
-				this.Add(new ModeFormula(key, ModeEnum.Mixolydian));
-				this.Add(new ModeFormula(key, ModeEnum.Aeolian));
-				this.Add(new ModeFormula(key, ModeEnum.Locrian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Ionian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Dorian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Phrygian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Lydian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Mixolydian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Aeolian));
+				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Locrian));
 
 				this.Add(new PentatonicMajorScaleFormula(key));
 				this.Add(new NonatonicBluesScaleFormula(key));
@@ -79,7 +80,7 @@ namespace Eric.Morrison.Harmony
 				var scales = group.ToList();
 				foreach (var scale in scales)
 				{
-					if (scale is ModeFormula)
+					if (scale is ModalScaleFormulaBase)
 					{
 						if (scale.NoteNames[0] == cf.Root)
 						{

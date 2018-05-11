@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.Scales;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
@@ -28,6 +30,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var grids = new List<Grid>();
 			grids.Add(this.CreateBorrowedChordGrid(key));
 			grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
+			grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
 
 
 			var formulas = chords.Select(x => x).Distinct().ToList();
@@ -101,7 +104,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			foreach (var key in keys)
 			{
 				var mode = modes[modeNdx++];
-				var scale = new ModeFormula(key, mode);
+				var scale = new ModalScaleFormulaBase(key, mode);
 				var gridRow = new GridRow(key, mode);
 
 				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();
@@ -119,12 +122,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			//foreach (var row in result)
-			//{
-			//	Debug.Write($"{row.Key,3}");
-			//	Debug.Write($"| {row.Mode.ToString()} ");
-			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			//}
+			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			foreach (var row in result.Rows)
+			{
+				Debug.Write($"{row.Key,3}");
+				Debug.Write($"| {row.Mode.ToString()} ");
+				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			}
+			Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -139,9 +144,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				// E.G, 2nd row Cm7 is the Dorian chord from Bb, 4th row CMaj7 is the Lydian chord from key of G.
 				inputKey,
 				inputKey - Interval.Major2nd,
-				inputKey - Interval.Major3rd,
+				inputKey - Interval.Minor3rd,
 				inputKey - Interval.Perfect4th,
-				inputKey - Interval.Perfect5th,
+				inputKey - Interval.Diminished5th,
 				inputKey - Interval.Minor6th,
 				inputKey - Interval.Minor7th,
 			};
@@ -181,12 +186,78 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
+			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
 			foreach (var row in result.Rows)
 			{
 				Debug.Write($"{row.Key,3}");
 				Debug.Write($"| {row.Mode.ToString()} ");
 				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
 			}
+			Debug.WriteLine("");
+			#endregion
+
+			return result;
+		}
+
+		Grid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
+		{
+			var result = new Grid();
+
+			var keys = new List<KeySignature> { 
+				// These keys represent the transposed key for each row.
+				// E.G, 2nd row Cm7 is the Dorian chord from Bb, 4th row CMaj7 is the Lydian chord from key of G.
+				inputKey,
+				inputKey - Interval.Major2nd,
+				inputKey - Interval.Minor3rd,
+				inputKey - Interval.Perfect4th,
+				inputKey - Interval.Diminished5th,
+				inputKey - Interval.Minor6th,
+				inputKey - Interval.Minor7th,
+			};
+			var chordTypes = new List<ChordType>() { //harmonized melodic minor scale
+				ChordType.MinorMaj7th,
+				ChordType.HalfDiminished,
+				ChordType.Major7Aug5,
+				ChordType.Minor7th,
+				ChordType.Dominant7th,
+				ChordType.Major7th,
+				ChordType.Diminished7
+			};
+			var modes = Enum.GetValues(typeof(ModeEnum)).Cast<ModeEnum>().ToList();
+
+			var chordTypeNdx = 0;
+			var modeNdx = 0;
+
+			//var scale = new ModeFormula(inputKey, ModeEnum.Ionian);
+			foreach (var key in keys)
+			{
+				var mode = modes[modeNdx++];
+				var scale = new MelodicMinorScaleFormula(key);
+				var gridRow = new GridRow(key, mode);
+
+				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();
+				foreach (var scaleDegree in scaleDegrees)
+				{
+					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
+					//Debug.WriteLine(scale);
+					var chordFormula = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
+					gridRow.Formulas.Add(chordFormula);
+				}
+
+				result.Rows.Add(gridRow);
+				chordTypes.NextOrFirst(ref chordTypeNdx); //create an offset
+			}
+
+
+			#region debug output
+			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			foreach (var row in result.Rows)
+			{
+				Debug.Write($"{row.Key,3}");
+				Debug.Write($"| {row.Mode.ToString()} ");
+				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			}
+			Debug.WriteLine("");
 			#endregion
 
 			return result;

@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.Scales;
 using System;
 using System.Collections.Generic;
 
@@ -25,12 +26,12 @@ namespace Eric.Morrison.Harmony
 		public NoteName Fifth { get; private set; }
 		public NoteName Sixth { get; private set; }
 		public NoteName Seventh { get; private set; }
-		new public ModeFormula Formula { get; private set; }
+		new public ModalScaleFormulaBase Formula { get; private set; }
 
 		public Mode(KeySignature key, ModeEnum modeEnum, NoteRange noteRange) : base(key, noteRange)
 		{
 			this.Key = key;
-			this.Formula = new ModeFormula(key, modeEnum);
+			this.Formula = new ModalScaleFormulaBase(key, modeEnum);
 			this.NoteRange = noteRange;
 			this.Create();
 

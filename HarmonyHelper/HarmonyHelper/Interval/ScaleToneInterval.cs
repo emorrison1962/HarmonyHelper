@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +10,7 @@ namespace Eric.Morrison.Harmony.Intervals
 {
 	public class ScaleToneInterval : Interval
 	{
+		static public List<ScaleToneInterval> Catalog { get; set; } = new List<ScaleToneInterval>();
 
 		static public new ScaleToneInterval None = new ScaleToneInterval("None", Interval.None, ScaleToneFunctionEnum.None);
 		static public ScaleToneInterval Root = new ScaleToneInterval("Root", Interval.None, ScaleToneFunctionEnum.Root);
@@ -61,9 +64,89 @@ Thirteenth
 
 		override public string Name { get; protected set; }
 		public ScaleToneFunctionEnum ScaleToneFunction { get; private set; }
+
+
 		public ScaleToneInterval(string name, Interval interval, ScaleToneFunctionEnum ScaleToneFunction) : base(interval)
 		{
 			this.ScaleToneFunction = ScaleToneFunction;
+			Catalog.Add(this);
+		}
+
+
+		public class ScaleToneIntervalValueEqualityComparer : IEqualityComparer<ScaleToneInterval>
+		{
+			public bool Equals(ScaleToneInterval x, ScaleToneInterval y)
+			{
+				var result = false;
+				if (x.Value == y.Value)
+					result = true;
+				return result;
+			}
+
+			public int GetHashCode(ScaleToneInterval obj)
+			{
+				return obj.Value.GetHashCode();
+			}
+		}
+
+		public static ScaleToneInterval operator -(ScaleToneInterval a, ScaleToneInterval b)
+		{
+			var result = ScaleToneInterval.None;
+			bool success = false;
+			if ((null != a && null != b) &&
+				(a.Value != b.Value))
+				success = true;
+
+			if (success)
+			{
+				var notes = ScaleToneInterval.Catalog
+					.Distinct(new ScaleToneIntervalValueEqualityComparer())
+					.OrderBy(x => x.Value)
+					.ToList();
+
+				var ndxA = notes.FindIndex(x => x.Value == a.Value);
+				var ndxB = notes.FindIndex(x => x.Value == b.Value);
+
+				var invert = false;
+				var diff = ndxA - ndxB;
+				if (diff < 0)
+				{
+					invert = true;
+					diff = Math.Abs(diff);
+				}
+
+				var pow = 1 << diff;
+				var interval = (ScaleToneInterval)pow;
+				var baseInterval = interval;
+
+				if (invert)
+					baseInterval = interval.GetInversion().ToScaleToneInterval();
+
+				result = ScaleToneInterval.Catalog.Where(x => x.Value == baseInterval.Value).First();
+			}
+			return result;
+		}
+
+
+		public static ScaleToneInterval ToScaleToneInterval(Interval interval)  
+		{
+			ScaleToneInterval result = null;
+
+			var matchCount = ScaleToneInterval.Catalog.Where(x => x.Value == interval.Value).Count();
+			Debug.Assert(1 == matchCount);
+			result = ScaleToneInterval.Catalog.Where(x => x.Value == interval.Value).First();
+
+			return result;
 		}
 	}//class
-}
+
+	public static class IntervalExtensions
+	{
+		public static ScaleToneInterval ToScaleToneInterval(this Interval interval)
+		{
+			var result = ScaleToneInterval.ToScaleToneInterval(interval);
+			Debug.Assert(null != result);
+			return result;
+		}
+	}
+}//ns

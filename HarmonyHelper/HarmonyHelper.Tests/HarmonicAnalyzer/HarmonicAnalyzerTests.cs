@@ -158,6 +158,14 @@ namespace Eric.Morrison.Harmony.Tests
 			Assert.IsNotNull(analysisResults);
 		}
 
+		[TestMethod()]
+		public void BorrowedChordHarmonicAnalysisRuleDebug()
+		{
+			var rule = new BorrowedChordHarmonicAnalysisRule();
+			var chords = this.GetChords("am7");
+			rule.Analyze(chords, KeySignature.CMajor);
+		}
+
 		List<ChordFormula> GetChords(string chords, KeySignature key = null)
 		{
 			if (!ChordFormulaParser.TryParse(chords, out List<ChordFormula> result, out string message, key))

@@ -79,6 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Scales\HarmonicMinorScaleFormulaTests.cs" />
+    <Compile Include="Scales\ModalScaleFormulaBaseTests.cs" />
     <Compile Include="Scales\ScaleTests_UseCases.cs" />
     <Compile Include="BUGS.cs" />
   </ItemGroup>

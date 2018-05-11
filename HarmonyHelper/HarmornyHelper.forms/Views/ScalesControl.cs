@@ -89,7 +89,7 @@ namespace HarmornyHelper.forms
 			this.TextBox.Clear();
 			foreach (var @enum in modeEnums)
 			{
-				var formula = new Harmony.ModeFormula(this.SelectedKey, @enum);
+				var formula = new Harmony.ModalScaleFormulaBase(this.SelectedKey, @enum);
 				var root = new Harmony.Note(formula.NoteNames[0], Harmony.OctaveEnum.Octave4);
 				var mode = new Harmony.Mode(this.SelectedKey, @enum, new Harmony.NoteRange(root, 1));
 				result.Add(mode);
@@ -157,7 +157,7 @@ namespace HarmornyHelper.forms
 			return null;
 		}
 
-		Score BuildScore(Harmony.ModeFormula formula)
+		Score BuildScore(Harmony.ModalScaleFormulaBase formula)
 		{
 			Score result = null;
 			var modes = this.GetModes();

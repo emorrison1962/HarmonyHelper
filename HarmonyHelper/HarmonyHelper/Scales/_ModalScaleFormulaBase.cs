@@ -1,55 +1,30 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Eric.Morrison.Harmony.Intervals;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Scales
 {
-	public class ModeFormula : ScaleFormulaBase
+	public class ModalScaleFormulaBase : HeptatonicScaleFormulaBase
 	{
 		public ModeEnum Mode { get; private set; }
-		public ScaleToneInterval Second { get; private set; }
-		public ScaleToneInterval Third { get; private set; }
-		public ScaleToneInterval Fourth { get; private set; }
-		public ScaleToneInterval Fifth { get; private set; }
-		public ScaleToneInterval Sixth { get; private set; }
-		public ScaleToneInterval Seventh { get; private set; }
 
-
-		public ModeFormula(KeySignature key, ModeEnum mode) : base(key)
+		public ModalScaleFormulaBase(KeySignature key, ModeEnum mode) : base(key)
 		{
 			this.Mode = mode;
 			this.Init();
 		}
-		[Obsolete("", true)]
-		ModeFormula(ModeEnum me, ScaleToneInterval second, ScaleToneInterval third,
-			ScaleToneInterval fourth, ScaleToneInterval fifth, ScaleToneInterval sixth, ScaleToneInterval seventh, KeySignature key = null)
-			: base(key)
-		{
-			this.Mode = me;
-			this.Name = this.Mode.ToString("G");
-			this.Second = second;
-			this.Third = third;
-			this.Fourth = fourth;
-			this.Fifth = fifth;
-			this.Sixth = sixth;
-			this.Seventh = seventh;
-		}
-
-
-		[Obsolete("", true)]
-		public ModeFormula(KeySignature key, ModeEnum me, ScaleToneInterval second, ScaleToneInterval third,
-			ScaleToneInterval fourth, ScaleToneInterval fifth, ScaleToneInterval sixth, ScaleToneInterval seventh)
-			: this(me, second, third, fourth, fifth, sixth, seventh, key)
-		{
-			var interval = this.GetDistanceFromKeyRoot(me);
-			var root = key.NoteName + new IntervalContext(key, interval);
-		}
 
 		ScaleToneInterval GetDistanceFromKeyRoot(ModeEnum mode)
 		{
-			var result = ScaleToneInterval.None;
+			var result = ScaleToneInterval.Root;
 			switch (mode)
 			{
+				case ModeEnum.Ionian:
+					result = ScaleToneInterval.Root;
+					break;
 				case ModeEnum.Dorian:
 					result = ScaleToneInterval.Major2nd;
 					break;
@@ -69,7 +44,7 @@ namespace Eric.Morrison.Harmony
 					result = ScaleToneInterval.Major7th;
 					break;
 				default:
-					result = ScaleToneInterval.None;
+					throw new ArgumentOutOfRangeException();
 					break;
 			}
 			return result;
@@ -93,20 +68,6 @@ namespace Eric.Morrison.Harmony
 			this.NoteNames = result;
 		}
 
-
-
-
-
-		//public override string ToString()
-		//{
-		//    const string FORMAT = @"{0}: {1}";
-		//    var result = string.Format(FORMAT,
-		//        this.Mode.ToString("G"),
-		//        this.Name,
-		//        string.Join(",", this.NoteNames));
-
-		//    return result;
-		//}
 
 		public override string ToString()
 		{
@@ -162,5 +123,6 @@ namespace Eric.Morrison.Harmony
 			base.InitImpl();
 		}
 
-	}
+	}//class
+
 }

@@ -87,6 +87,8 @@
     <Compile Include="Notes\EnharmonicEquivalent.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
+    <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="Notes\NoteRange.cs" />
     <Compile Include="Notes\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scales\ModeFormula.cs" />
+    <Compile Include="Scales\ModalMajorScaleFormula.cs" />
     <Compile Include="Scales\Scale.cs" />
     <Compile Include="Scales\ScaleFormulaCatalog.cs" />
     <Compile Include="Scales\_ScaleBase.cs" />

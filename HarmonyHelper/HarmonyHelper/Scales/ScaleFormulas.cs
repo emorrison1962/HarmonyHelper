@@ -1,6 +1,5 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
