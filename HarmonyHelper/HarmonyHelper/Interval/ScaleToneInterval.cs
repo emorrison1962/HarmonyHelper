@@ -17,6 +17,7 @@ namespace Eric.Morrison.Harmony.Intervals
 
 		static public ScaleToneInterval Minor2nd = new ScaleToneInterval("Minor2nd", Interval.Minor2nd, ScaleToneFunctionEnum.Major2nd);
 		static public ScaleToneInterval Major2nd = new ScaleToneInterval("Major2nd", Interval.Major2nd, ScaleToneFunctionEnum.Major2nd);
+		static public ScaleToneInterval Augmented2nd = new ScaleToneInterval("Augmented2nd", Interval.Augmented2nd, ScaleToneFunctionEnum.Augmented2nd);
 
 		static public new ScaleToneInterval Minor3rd = new ScaleToneInterval("Minor3rd", Interval.Minor3rd, ScaleToneFunctionEnum.Minor3rd);
 		static public new ScaleToneInterval Major3rd = new ScaleToneInterval("Major3rd", Interval.Major3rd, ScaleToneFunctionEnum.Major3rd);

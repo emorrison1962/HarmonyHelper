@@ -87,6 +87,7 @@
     <Compile Include="Notes\EnharmonicEquivalent.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
     <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
     <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />

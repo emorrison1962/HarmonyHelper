@@ -1,86 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Scales
 {
-	public class ModalScaleFormulaBase : HeptatonicScaleFormulaBase
+	public abstract class ModalScaleFormulaBase : HeptatonicScaleFormulaBase
 	{
+		#region Properties
 		public ModeEnum Mode { get; private set; }
 
+		#endregion
+
+		#region Construction
 		public ModalScaleFormulaBase(KeySignature key, ModeEnum mode) : base(key)
 		{
 			this.Mode = mode;
 			this.Init();
 		}
 
-		ScaleToneInterval GetDistanceFromKeyRoot(ModeEnum mode)
+		protected override void Init()
 		{
-			var result = ScaleToneInterval.Root;
-			switch (mode)
-			{
-				case ModeEnum.Ionian:
-					result = ScaleToneInterval.Root;
-					break;
-				case ModeEnum.Dorian:
-					result = ScaleToneInterval.Major2nd;
-					break;
-				case ModeEnum.Phrygian:
-					result = ScaleToneInterval.Major3rd;
-					break;
-				case ModeEnum.Lydian:
-					result = ScaleToneInterval.Perfect4th;
-					break;
-				case ModeEnum.Mixolydian:
-					result = ScaleToneInterval.Perfect5th;
-					break;
-				case ModeEnum.Aeolian:
-					result = ScaleToneInterval.Major6th;
-					break;
-				case ModeEnum.Locrian:
-					result = ScaleToneInterval.Major7th;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-					break;
-			}
-			return result;
-		}
-
-		override protected void PopulateNoteNames()
-		{
-			var offsetFromKeyRoot = GetDistanceFromKeyRoot(this.Mode);
-
-			var root = NoteNames.Get(this.Key.NoteName, offsetFromKeyRoot, this.Key);
-			this.Name = root.Name + " " + this.Mode.ToString("G");
-
-			var result = new List<NoteName>();
-			result.Add(root);
-			foreach (var interval in this.Intervals)
-			{
-				var nn = NoteNames.Get(root, interval, this.Key);
-				result.Add(nn);
-			}
-
-			this.NoteNames = result;
+			base.InitImpl();
 		}
 
 
-		public override string ToString()
-		{
-			var result = string.Empty;
-			const string FORMAT = @"{0} {1}: {2}";
-			result = string.Format(FORMAT,
-				this.NoteNames[0],
-				this.Mode.ToString("G"),
-				string.Join(",", this.NoteNames));
-			return result;
-		}
-
-
+		#endregion
 		protected override void PopulateIntervals()
 		{
 			var result = new List<ScaleToneInterval>();
@@ -118,9 +61,39 @@ namespace Eric.Morrison.Harmony.Scales
 			this.Intervals = result;
 		}
 
-		protected override void Init()
+		override protected void PopulateNoteNames()
 		{
-			base.InitImpl();
+			var offsetFromKeyRoot = GetDistanceFromKeyRoot(this.Mode);
+
+			var root = NoteNames.Get(this.Key.NoteName, offsetFromKeyRoot, this);
+			this.Name = root.Name + " " + this.Mode.ToString("G");
+			this.Root = root;
+
+			var result = new List<NoteName>();
+			result.Add(root);
+			foreach (var interval in this.Intervals)
+			{
+				var nn = NoteName.TransposeUp(this.Root, interval);
+				nn = this.GetNormalized(nn, interval);
+
+				//var nn = NoteNames.Get(root, interval, this);
+				result.Add(nn);
+			}
+
+			this.NoteNames = result;
+		}
+
+		abstract protected ScaleToneInterval GetDistanceFromKeyRoot(ModeEnum mode);
+
+		public override string ToString()
+		{
+			var result = string.Empty;
+			const string FORMAT = @"{0} {1}: {2}";
+			result = string.Format(FORMAT,
+				this.NoteNames[0],
+				this.Mode.ToString("G"),
+				string.Join(",", this.NoteNames));
+			return result;
 		}
 
 	}//class

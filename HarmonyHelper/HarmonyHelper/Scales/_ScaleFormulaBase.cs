@@ -1,9 +1,9 @@
-﻿using Eric.Morrison.Harmony.Chords;
-using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
@@ -23,6 +23,8 @@ namespace Eric.Morrison.Harmony
 		public ScaleFormulaBase(KeySignature key)
 		{
 			this.Key = key;
+			//this.Root = key.NoteName;
+			this.Root = NoteNames.Get(this.Key.NoteName, Interval.None, key);
 
 			var name = this.GetType().Name;
 			name = name.Replace("Formula", string.Empty);
@@ -139,11 +141,14 @@ namespace Eric.Morrison.Harmony
 			if (!(baseInterval is ScaleToneInterval))
 				throw new ArgumentException($"Invalid Argument ({baseInterval})");
 
-				var result = nn;
+			var result = nn;
 			if (baseInterval is ScaleToneInterval)
 			{
 				var interval = baseInterval as ScaleToneInterval;
 				int rootAscii = this.Root.Name[0];
+#if DEBUG
+				var readableRoot = (char)this.Root.Name[0];
+#endif
 				int wantedAscii = 0;
 
 				switch (interval.ScaleToneFunction)
@@ -154,6 +159,7 @@ namespace Eric.Morrison.Harmony
 						break;
 					case ScaleToneFunctionEnum.Minor2nd:
 					case ScaleToneFunctionEnum.Major2nd:
+					case ScaleToneFunctionEnum.Augmented2nd:
 						wantedAscii = rootAscii + 1;
 						break;
 					case ScaleToneFunctionEnum.Minor3rd:
@@ -184,16 +190,19 @@ namespace Eric.Morrison.Harmony
 				if (wantedAscii > 'G')
 					wantedAscii -= 7;
 #if DEBUG
-				char readableDebugValue = (char)wantedAscii;
+				char readableWanted = (char)wantedAscii;
 #endif
 				if (nn.Name[0] != wantedAscii)
+				{
 					foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
+					{
 						if (ee.Name[0] == wantedAscii)
 						{
 							result = ee;
 							break;
 						}
-
+					}
+				}
 			}
 
 			return result;

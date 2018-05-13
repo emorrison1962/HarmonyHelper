@@ -16,6 +16,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public Interval None = new Interval("None", 0);
 		static public Interval Minor2nd = new Interval("Minor2nd", Constants.INTERVAL_VALUE_MINOR_2ND);
 		static public Interval Major2nd = new Interval("Major2nd", Constants.INTERVAL_VALUE_MAJOR_2ND);
+		static public Interval Augmented2nd = new Interval("Augmented2nd", Constants.INTERVAL_VALUE_MINOR_3RD);
 		static public Interval Minor3rd = new Interval("Minor3rd", Constants.INTERVAL_VALUE_MINOR_3RD);
 		static public Interval Major3rd = new Interval("Major3rd", Constants.INTERVAL_VALUE_MAJOR_3RD);
 		static public Interval Diminished4th = new Interval("Diminished4th", Constants.INTERVAL_VALUE_DIMINISHED_4TH);

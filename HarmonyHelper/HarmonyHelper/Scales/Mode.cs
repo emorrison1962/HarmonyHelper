@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony
 		public Mode(KeySignature key, ModeEnum modeEnum, NoteRange noteRange) : base(key, noteRange)
 		{
 			this.Key = key;
-			this.Formula = new ModalScaleFormulaBase(key, modeEnum);
+			this.Formula = new MajorModalScaleFormula(key, modeEnum);
 			this.NoteRange = noteRange;
 			this.Create();
 

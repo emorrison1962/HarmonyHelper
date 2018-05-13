@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var result = new List<HarmonicAnalysisResult>();
 
 			var grids = new List<Grid>();
-			grids.Add(this.CreateBorrowedChordGrid(key));
+			grids.Add(this.CreateMajorBorrowedChordGrid(key));
 			grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
 			grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
 
@@ -70,7 +70,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				this.Mode = mode;
 			}
 		}
-		Grid CreateBorrowedChordGrid(KeySignature inputKey)
+		Grid CreateMajorBorrowedChordGrid(KeySignature inputKey)
 		{
 			//var result = new List<GridRow>();
 			var result = new Grid();
@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			foreach (var key in keys)
 			{
 				var mode = modes[modeNdx++];
-				var scale = new ModalScaleFormulaBase(key, mode);
+				var scale = new MajorModalScaleFormula(key, mode);
 				var gridRow = new GridRow(key, mode);
 
 				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();

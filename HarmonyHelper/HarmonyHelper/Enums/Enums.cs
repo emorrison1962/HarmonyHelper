@@ -169,6 +169,7 @@ Major7th
 
 		Minor2nd,
 		Major2nd,
+		Augmented2nd,
 
 		Minor3rd,
 		Major3rd,

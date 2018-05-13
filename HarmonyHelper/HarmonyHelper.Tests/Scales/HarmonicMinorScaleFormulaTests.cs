@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Eric.Morrison.Harmony;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using Eric.Morrison.Harmony.Scales;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -13,18 +10,37 @@ namespace Eric.Morrison.Harmony.Tests
 	public class ScaleFormulaTests
 	{
 		[TestMethod()]
-		public void HarmonicMinorScaleFormulaTest()
+		public void GenerateModalScaleFormulaIntervals()
 		{
 			var keys = KeySignature.MinorKeys;
 			foreach (var key in keys)
 			{
-				var scale = new HarmonicMinorScaleFormula(key);
-				Debug.WriteLine($"{key.NoteName}m: {string.Join(",", key.Accidentals)}\t{scale.ToString()}");
-				new object();
+				var modes = Enum.GetValues(typeof(ModeEnum)).Cast<ModeEnum>().ToList();
+
+				foreach (var mode in modes)
+				{
+					var scale = new MajorModalScaleFormula(key, mode);
+					Debug.WriteLine($"{key.NoteName}m: {string.Join(",", key.Accidentals)}\t{scale.ToString()}");
+					new object();
+
+					foreach (var nn in scale.NoteNames)
+					{
+						foreach (var nn2 in scale.NoteNames)
+						{
+							var interval = nn2 - nn;
+							Debug.WriteLine($"{nn2} - {nn} = {interval.Name}");
+						}
+						Debug.WriteLine("");
+					}
+					break;
+				}
 			}
 			//Debug.WriteLine(scale.ToString());
 			new object();
 		}
+
+
+
 
 		[TestMethod()]
 		public void MelodicMinorScaleFormulaTest()

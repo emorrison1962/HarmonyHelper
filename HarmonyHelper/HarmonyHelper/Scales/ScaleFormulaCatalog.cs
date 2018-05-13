@@ -21,13 +21,13 @@ namespace Eric.Morrison.Harmony
 			var keys = KeySignature.MajorKeys;
 			foreach (var key in keys)
 			{
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Ionian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Dorian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Phrygian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Lydian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Mixolydian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Aeolian));
-				this.Add(new ModalScaleFormulaBase(key, ModeEnum.Locrian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Ionian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Dorian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Phrygian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Lydian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Mixolydian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Aeolian));
+				this.Add(new MajorModalScaleFormula(key, ModeEnum.Locrian));
 
 				this.Add(new PentatonicMajorScaleFormula(key));
 				this.Add(new NonatonicBluesScaleFormula(key));
@@ -46,6 +46,15 @@ namespace Eric.Morrison.Harmony
 				this.Add(new PentatonicMinorScaleFormula(key));
 				this.Add(new HexatonicBluesScaleFormula(key));
 				this.Add(new HeptatonicBluesScaleFormula(key));
+
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Ionian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Dorian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Phrygian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Lydian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Mixolydian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Aeolian));
+				this.Add(new HarmonicMinorModalScaleFormula(key, ModeEnum.Locrian));
+
 			}
 		}
 
