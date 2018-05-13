@@ -34,6 +34,20 @@ namespace Eric.Morrison.Harmony.Tests
 				var formula = new HarmonicMinorModalScaleFormula(KeySignature.AMinor, mode);
 				Debug.WriteLine(formula.ToString());
 			}
+			Debug.WriteLine("");
+		}
+
+		[TestMethod()]
+		public void MelodicMinorModalScaleFormulaTest()
+		{
+			var modes = Enum.GetValues(typeof(ModeEnum)).Cast<ModeEnum>().ToList();
+			foreach (var mode in modes)
+			{
+				var formula = new MelodicMinorModalScaleFormula(KeySignature.AMinor, mode);
+				Debug.WriteLine(formula.ToString());
+			}
+			Debug.WriteLine("");
+
 		}
 
 		[TestMethod()]
