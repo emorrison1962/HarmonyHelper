@@ -1,17 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
-using Eric.Morrison.Harmony.Chords;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony.Tests
 {
 	[TestClass()]
 	public class HarmonicAnalyzerTests
 	{
+		List<ChordFormula> GetChords(string chords, KeySignature key = null)
+		{
+			if (!ChordFormulaParser.TryParse(chords, out List<ChordFormula> result, out string message, key))
+				Assert.Fail("Couldn't parse chords.");
+			return result;
+		}
+
+
+
 		[TestMethod()]
 		public void HarmonicAnalyzer_Test()
 		{
@@ -33,22 +43,7 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
-		[TestMethod()]
-		public void SecondaryDominantRule_Test()
-		{
-			var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
-			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
-			Assert.IsNotNull(analysisResults);
-			var expected = analysisResults.First(x => x.Rule is SecondaryDominantRule);
-			Assert.IsInstanceOfType(expected.Rule, typeof(SecondaryDominantRule));
 
-			foreach (var analysisResult in analysisResults)
-			{
-				if (null != analysisResult && analysisResult.Success)
-					Debug.WriteLine(analysisResult.Message);
-			}
-		}
 		[TestMethod()]
 		public void ADayInTheLife_Test()
 		{
@@ -169,7 +164,7 @@ namespace Eric.Morrison.Harmony.Tests
 			rule.Analyze(chords, KeySignature.CMajor);
 		}
 
-		
+
 		[TestMethod()]
 		public void TritoneSubstitutionRuleDebug()
 		{
@@ -185,18 +180,94 @@ namespace Eric.Morrison.Harmony.Tests
 		public void Dim7ForDom7SubstitutionRuleDebug()
 		{
 			var rule = new Dim7ForDom7SubstitutionRule();
-			var chords = this.GetChords("dm7 g#dim7 cmaj7");
-			var results = rule.Analyze(chords, KeySignature.CMajor);
-			foreach (var result in results)
-				Debug.WriteLine(result.Message);
-			new object();
+			{//positive test
+				var chords = this.GetChords("dm7 g#dim7 cmaj7");
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
+				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
+			}
+			{//positive test - enharmonic
+				var chords = this.GetChords("dm7 abdim7 cmaj7");
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
+				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
+			}
+			{//positive test - inversion
+				var chords = this.GetChords("dm7 cbdim7 cmaj7");
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
+				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
+			}
+			{//positive test - no resolution
+				var chords = this.GetChords("dm7 abdim7 cbmaj7");
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var expected = results.Where(x => x.Rule is Dim7ForDom7SubstitutionRule);
+				Assert.IsTrue(0 == expected.Count());
+			}
 		}
 
-		List<ChordFormula> GetChords(string chords, KeySignature key = null)
+		[TestMethod()]
+		public void SecondaryDominantRule_Test()
 		{
-			if (!ChordFormulaParser.TryParse(chords, out List<ChordFormula> result, out string message, key))
-				Assert.Fail("Couldn't parse chords.");
-			return result;
+			var rule = new SecondaryDominantRule();
+			{//positive test
+				var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				foreach (var result in results)
+					Debug.WriteLine(result.Message);
+				new object();
+			}
+
+			{//negative test - all diatonic
+				var str = "Dm7 g7 cmaj7 Dm7 g7 cmaj7 ";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				Assert.IsTrue(0 == results.Count);
+			}
+
+			{//negative test - does not resolve
+				var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				Assert.IsTrue(0 == results.Count);
+			}
+		}
+
+
+		[TestMethod()]
+		public void BackCyclingRule_Test()
+		{
+			throw new NotImplementedException();
+			var rule = new BackCyclingRule();
+			{//positive test
+				var str = "Dm7 g7 dm7 A7 Dm7 g7 cmaj7";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				foreach (var result in results)
+					Debug.WriteLine(result.Message);
+				new object();
+			}
+
+			{//negative test - all diatonic
+				var str = "Dm7 g7 cmaj7 Dm7 g7 cmaj7 ";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				Assert.IsTrue(0 == results.Count);
+			}
+
+			{//negative test - does not resolve
+				var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
+				var chords = this.GetChords(str);
+
+				var results = rule.Analyze(chords, KeySignature.CMajor);
+				Assert.IsTrue(0 == results.Count);
+			}
 		}
 
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
-	class BackCyclingRule
+	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

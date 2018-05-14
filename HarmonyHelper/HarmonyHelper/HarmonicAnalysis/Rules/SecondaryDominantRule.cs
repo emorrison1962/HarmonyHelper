@@ -11,17 +11,20 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			var nonDiatonic = key.GetNonDiatonic(chords);
-			var pairs = chords.GetPairs();
-			foreach (var pair in pairs)
+			if (nonDiatonic.Count > 0)
 			{
-				if (pair[0].ChordType.IsDominant)
+				var pairs = chords.GetPairs();
+				foreach (var pair in pairs)
 				{
-					var interval = pair[0].Root - pair[1].Root;
-					if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
+					if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
 					{
-						//Debug.WriteLine($"{pair[0]}, {pair[1]}");
-						result.Add(
-							new HarmonicAnalysisResult(this, true, $"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}."));
+						var interval = pair[0].Root - pair[1].Root;
+						if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
+						{
+							//Debug.WriteLine($"{pair[0]}, {pair[1]}");
+							result.Add(
+								new HarmonicAnalysisResult(this, true, $"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}."));
+						}
 					}
 				}
 			}
