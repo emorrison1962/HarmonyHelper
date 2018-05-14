@@ -102,8 +102,8 @@ namespace Eric.Morrison.Harmony.Tests
 			//if (bad.Count < 0)
 			//	new object();
 
-			var result = chords.Where(x => 
-				x.ToLower() != "nc" && 
+			var result = chords.Where(x =>
+				x.ToLower() != "nc" &&
 				x.ToLower() != "(hard stop)").ToList();
 			return result;
 		}
@@ -164,6 +164,29 @@ namespace Eric.Morrison.Harmony.Tests
 			var rule = new BorrowedChordHarmonicAnalysisRule();
 			var chords = this.GetChords("am7");
 			rule.Analyze(chords, KeySignature.CMajor);
+		}
+
+		
+		[TestMethod()]
+		public void TritoneSubstitutionRuleDebug()
+		{
+			var rule = new TritoneSubstitutionRule();
+			var chords = this.GetChords("dm7 c#7 cmaj7");
+			var results = rule.Analyze(chords, KeySignature.CMajor);
+			foreach (var result in results)
+				Debug.WriteLine(result.Message);
+			new object();
+		}
+
+		[TestMethod()]
+		public void Dim7ForDom7SubstitutionRuleDebug()
+		{
+			var rule = new Dim7ForDom7SubstitutionRule();
+			var chords = this.GetChords("dm7 g#dim7 cmaj7");
+			var results = rule.Analyze(chords, KeySignature.CMajor);
+			foreach (var result in results)
+				Debug.WriteLine(result.Message);
+			new object();
 		}
 
 		List<ChordFormula> GetChords(string chords, KeySignature key = null)

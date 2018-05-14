@@ -8,12 +8,12 @@ namespace Eric.Morrison.Harmony.Intervals
 {
 	public class IntervalContext
 	{
-		public KeySignature Key { get; private set; }
+		public INoteNameNormalizer NoteNameNormalizer { get; private set; }
 		public Interval Interval { get; private set; }
 
-		public IntervalContext(KeySignature key, Interval interval)
+		public IntervalContext(INoteNameNormalizer noteNameNormalizer, Interval interval)
 		{
-			this.Key = key;
+			this.NoteNameNormalizer = noteNameNormalizer;
 			this.Interval = interval;
 		}
 	}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Intervals
 {
-	public class Interval: IEquatable<Interval>, IComparable<Interval>
+	public class Interval : IEquatable<Interval>, IComparable<Interval>
 	{
 		#region Constants
 		#endregion

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Intervals
 {
@@ -129,7 +126,7 @@ Thirteenth
 		}
 
 
-		public static ScaleToneInterval ToScaleToneInterval(Interval interval)  
+		public static ScaleToneInterval ToScaleToneInterval(Interval interval)
 		{
 			ScaleToneInterval result = null;
 

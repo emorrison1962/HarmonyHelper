@@ -1,8 +1,8 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -102,60 +102,60 @@ namespace Eric.Morrison.Harmony.Chords
 			var result = ChordToneFunctionEnum.None;
 			var success = false;
 
-				var interval = this.Root - note;
+			var interval = this.Root - note;
 
-				if (interval == Interval.None)
-					result = ChordToneFunctionEnum.Root;
+			if (interval == Interval.None)
+				result = ChordToneFunctionEnum.Root;
 
-				else if (interval == Interval.Minor2nd)
-					result = ChordToneFunctionEnum.Flat9th;
+			else if (interval == Interval.Minor2nd)
+				result = ChordToneFunctionEnum.Flat9th;
 
-				else if (interval == Interval.Major2nd)
-					result = ChordToneFunctionEnum.Ninth;
+			else if (interval == Interval.Major2nd)
+				result = ChordToneFunctionEnum.Ninth;
 
-				else if (interval == Interval.Minor3rd)
-					result = ChordToneFunctionEnum.Sharp9th;
+			else if (interval == Interval.Minor3rd)
+				result = ChordToneFunctionEnum.Sharp9th;
 
-				else if (interval == Interval.Major3rd)
-					result = ChordToneFunctionEnum.Major3rd;
+			else if (interval == Interval.Major3rd)
+				result = ChordToneFunctionEnum.Major3rd;
 
-				else if (interval == Interval.Diminished4th)
-					result = ChordToneFunctionEnum.Flat11th;
+			else if (interval == Interval.Diminished4th)
+				result = ChordToneFunctionEnum.Flat11th;
 
-				else if (interval == Interval.Perfect4th)
-					result = ChordToneFunctionEnum.Eleventh;
+			else if (interval == Interval.Perfect4th)
+				result = ChordToneFunctionEnum.Eleventh;
 
-				else if (interval == Interval.Augmented4th)
-					result = ChordToneFunctionEnum.Augmented11th;
+			else if (interval == Interval.Augmented4th)
+				result = ChordToneFunctionEnum.Augmented11th;
 
-				else if (interval == Interval.Diminished5th)
-					result = ChordToneFunctionEnum.Augmented11th;
+			else if (interval == Interval.Diminished5th)
+				result = ChordToneFunctionEnum.Augmented11th;
 
-				else if (interval == Interval.Perfect5th)
-					result = ChordToneFunctionEnum.Perfect5th;
+			else if (interval == Interval.Perfect5th)
+				result = ChordToneFunctionEnum.Perfect5th;
 
-				else if (interval == Interval.Augmented5th)
-					result = ChordToneFunctionEnum.Augmented5th;
+			else if (interval == Interval.Augmented5th)
+				result = ChordToneFunctionEnum.Augmented5th;
 
-				else if (interval == Interval.Minor6th)
-					result = ChordToneFunctionEnum.Flat13th;
+			else if (interval == Interval.Minor6th)
+				result = ChordToneFunctionEnum.Flat13th;
 
-				else if (interval == Interval.Major6th)
+			else if (interval == Interval.Major6th)
+			{
+				result = ChordToneFunctionEnum.Thirteenth;
+				if (this.IsDiminished)
 				{
-					result = ChordToneFunctionEnum.Thirteenth;
-					if (this.IsDiminished)
-					{
-						result = ChordToneFunctionEnum.Diminished7th;
-					}
+					result = ChordToneFunctionEnum.Diminished7th;
 				}
+			}
 
-				else if (interval == Interval.Minor7th)
-					result = ChordToneFunctionEnum.Minor7th;
+			else if (interval == Interval.Minor7th)
+				result = ChordToneFunctionEnum.Minor7th;
 
-				else if (interval == Interval.Major7th)
-					result = ChordToneFunctionEnum.Major7th;
-				else
-					throw new NotSupportedException();
+			else if (interval == Interval.Major7th)
+				result = ChordToneFunctionEnum.Major7th;
+			else
+				throw new NotSupportedException();
 
 			return result;
 		}
@@ -209,7 +209,7 @@ namespace Eric.Morrison.Harmony.Chords
 			// var txedKey = chord.Key + ctx.Interval;
 			var txedRoot = chord.Root + ctx; // new IntervalContext(txedKey, ctx.Interval);
 
-			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, ctx.Key);// txedKey);
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);// txedKey);
 			return result;
 		}
 
@@ -218,7 +218,7 @@ namespace Eric.Morrison.Harmony.Chords
 			// var txedKey = chord.Key - ctx.Interval;
 			var txedRoot = chord.Root - ctx;// new IntervalContext(txedKey, ctx.Interval);
 
-			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, ctx.Key);// txedKey);
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);// txedKey);
 			return result;
 
 			//var txedKey = chord.Key - interval;
@@ -245,7 +245,7 @@ namespace Eric.Morrison.Harmony.Chords
 				if (0 == other.NoteNames.Except(this.NoteNames).Count())
 				{
 					//if (this.Key == other.Key)
-						result = true;
+					result = true;
 				}
 			}
 			return result;
@@ -357,69 +357,73 @@ namespace Eric.Morrison.Harmony.Chords
 		public NoteName GetNormalized(NoteName nn, Interval baseInterval)
 		{
 			var result = nn;
+
+			ChordToneInterval interval = null;
 			if (baseInterval is ChordToneInterval)
+				interval = baseInterval as ChordToneInterval;
+			else
+				interval = ChordToneInterval.ToChordToneInterval(baseInterval);
+
+			int rootAscii = this.Root.Name[0];
+			int wantedAscii = 0;
+
+			switch (interval.ChordToneFunction)
 			{
-				var interval = baseInterval as ChordToneInterval;
-				int rootAscii = this.Root.Name[0];
-				int wantedAscii = 0;
-
-				switch (interval.ChordToneFunction)
-				{
-					case ChordToneFunctionEnum.None:
-					case ChordToneFunctionEnum.Root:
-						wantedAscii = nn.Name[0];
-						break;
-					case ChordToneFunctionEnum.Sus2:
-					case ChordToneFunctionEnum.Flat9th:
-					case ChordToneFunctionEnum.Ninth:
-					case ChordToneFunctionEnum.Sharp9th:
-						wantedAscii = rootAscii + 1;
-						break;
-					case ChordToneFunctionEnum.Minor3rd:
-					case ChordToneFunctionEnum.Major3rd:
-						wantedAscii = rootAscii + 2;
-						break;
-					case ChordToneFunctionEnum.Sus4:
-					case ChordToneFunctionEnum.Flat11th:
-					case ChordToneFunctionEnum.Eleventh:
-					case ChordToneFunctionEnum.Augmented11th:
-						wantedAscii = rootAscii + 3;
-						break;
-					case ChordToneFunctionEnum.Diminished5th:
-					case ChordToneFunctionEnum.Perfect5th:
-					case ChordToneFunctionEnum.Augmented5th:
-						wantedAscii = rootAscii + 4;
-						break;
-					case ChordToneFunctionEnum.Major6th:
-					case ChordToneFunctionEnum.Flat13th:
-					case ChordToneFunctionEnum.Thirteenth:
-						wantedAscii = rootAscii + 5;
-						break;
-					case ChordToneFunctionEnum.Diminished7th:
-					case ChordToneFunctionEnum.Minor7th:
-					case ChordToneFunctionEnum.Major7th:
-						wantedAscii = rootAscii + 6;
-						break;
-				}
-
-				if (wantedAscii > 'G')
-					wantedAscii -= 7;
-#if DEBUG
-				char readableDebugValue = (char)wantedAscii;
-#endif
-				if (nn.Name[0] != wantedAscii)
-					foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
-						if (ee.Name[0] == wantedAscii)
-						{
-							result = ee;
-							break;
-						}
-
-				if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
-				{
-					Debug.Assert(result.Name[0] == wantedAscii);
-				}
+				case ChordToneFunctionEnum.None:
+				case ChordToneFunctionEnum.Root:
+					wantedAscii = nn.Name[0];
+					break;
+				case ChordToneFunctionEnum.Sus2:
+				case ChordToneFunctionEnum.Flat9th:
+				case ChordToneFunctionEnum.Ninth:
+				case ChordToneFunctionEnum.Sharp9th:
+					wantedAscii = rootAscii + 1;
+					break;
+				case ChordToneFunctionEnum.Minor3rd:
+				case ChordToneFunctionEnum.Major3rd:
+					wantedAscii = rootAscii + 2;
+					break;
+				case ChordToneFunctionEnum.Sus4:
+				case ChordToneFunctionEnum.Flat11th:
+				case ChordToneFunctionEnum.Eleventh:
+				case ChordToneFunctionEnum.Augmented11th:
+					wantedAscii = rootAscii + 3;
+					break;
+				case ChordToneFunctionEnum.Diminished5th:
+				case ChordToneFunctionEnum.Perfect5th:
+				case ChordToneFunctionEnum.Augmented5th:
+					wantedAscii = rootAscii + 4;
+					break;
+				case ChordToneFunctionEnum.Major6th:
+				case ChordToneFunctionEnum.Flat13th:
+				case ChordToneFunctionEnum.Thirteenth:
+					wantedAscii = rootAscii + 5;
+					break;
+				case ChordToneFunctionEnum.Diminished7th:
+				case ChordToneFunctionEnum.Minor7th:
+				case ChordToneFunctionEnum.Major7th:
+					wantedAscii = rootAscii + 6;
+					break;
 			}
+
+			if (wantedAscii > 'G')
+				wantedAscii -= 7;
+#if DEBUG
+			char readableDebugValue = (char)wantedAscii;
+#endif
+			if (nn.Name[0] != wantedAscii)
+				foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
+					if (ee.Name[0] == wantedAscii)
+					{
+						result = ee;
+						break;
+					}
+
+			if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
+			{
+				Debug.Assert(result.Name[0] == wantedAscii);
+			}
+
 
 			return result;
 		}
