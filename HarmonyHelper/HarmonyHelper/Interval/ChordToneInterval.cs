@@ -30,107 +30,41 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public ChordToneInterval Flat13th = new ChordToneInterval("Flat13th", Interval.Minor6th, ChordToneFunctionEnum.Flat13th);
 		static public ChordToneInterval Thirteenth = new ChordToneInterval("Thirteenth", Interval.Major6th, ChordToneFunctionEnum.Thirteenth);
 
-		#region names
+		#region COPY_AND_PASTE_NAMES
 #if false
-None
-Root
-Sus2
-Minor3rd
-Major3rd
-Sus4
-Diminished5th
-Perfect5th
-Augmented5th
-Diminished7th
-Minor7th
-Major7th
-Flat9th
-Ninth
-Sharp9th
-Flat11th
-Eleventh
-Augmented11th
-Flat13th
-Thirteenth
+ChordToneInterval.None
+ChordToneInterval.Root
+ChordToneInterval.Sus2
+ChordToneInterval.Minor3rd
+ChordToneInterval.Major3rd
+ChordToneInterval.Sus4
+ChordToneInterval.Diminished5th
+ChordToneInterval.Perfect5th
+ChordToneInterval.Augmented5th
+ChordToneInterval.Major6th
+ChordToneInterval.Diminished7th
+ChordToneInterval.Minor7th
+ChordToneInterval.Major7th
+ChordToneInterval.Flat9th
+ChordToneInterval.Ninth
+ChordToneInterval.Sharp9th
+ChordToneInterval.Flat11th
+ChordToneInterval.Eleventh
+ChordToneInterval.Augmented11th
+ChordToneInterval.Flat13th
+ChordToneInterval.Thirteenth
 #endif
 		#endregion
 
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
-		public ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
+		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
+			this.Name = name;
 			this.ChordToneFunction = chordToneFunction;
+			Catalog.Add(this);
 		}
 
-		public static ChordToneInterval ToChordToneInterval(Interval interval)
-		{
-			ChordToneInterval result = null;
-
-			var matchCount = ChordToneInterval.Catalog.Where(x => x.Value == interval.Value).Count();
-			Debug.Assert(1 == matchCount);
-			result = ChordToneInterval.Catalog.Where(x => x.Value == interval.Value).First();
-
-			switch (interval)
-			{
-				case Interval.Augmented2nd.Value:
-					result = Constants.NONE;
-					break;
-				case ChordToneFunctionEnum.Root:
-					result = Constants.ROOT;
-					break;
-				case ChordToneFunctionEnum.Flat9th:
-					result = Constants.FLAT_9TH;
-					break;
-				case ChordToneFunctionEnum.Ninth:
-					result = Constants.NINTH;
-					break;
-				case ChordToneFunctionEnum.Sharp9th:
-					result = Constants.SHARP_9TH;
-					break;
-				case ChordToneFunctionEnum.Minor3rd:
-					result = Constants.MINOR_3RD;
-					break;
-				case ChordToneFunctionEnum.Major3rd:
-					result = Constants.MAJOR_3RD;
-					break;
-				case ChordToneFunctionEnum.Flat11th:
-					result = Constants.FLAT_11TH;
-					break;
-				case ChordToneFunctionEnum.Eleventh:
-					result = Constants.ELEVENTH;
-					break;
-				case ChordToneFunctionEnum.Augmented11th:
-					result = Constants.SHARP_11TH;
-					break;
-				case ChordToneFunctionEnum.Diminished5th:
-					result = Constants.DIMINISHED_5TH;
-					break;
-				case ChordToneFunctionEnum.Perfect5th:
-					result = Constants.PERFECT_5TH;
-					break;
-				case ChordToneFunctionEnum.Augmented5th:
-					result = Constants.AUGMENTED_5TH;
-					break;
-				case ChordToneFunctionEnum.Flat13th:
-					result = Constants.FLAT_13TH;
-					break;
-				case ChordToneFunctionEnum.Thirteenth:
-					result = Constants.THIRTEENTH;
-					break;
-				case ChordToneFunctionEnum.Minor7th:
-					result = Constants.MINOR_7TH;
-					break;
-				case ChordToneFunctionEnum.Major7th:
-					result = Constants.MAJOR_7TH;
-					break;
-				default: throw new NotSupportedException();
-
-			}
-
-
-
-			return result;
-		}
 
 	}//class
 }//ns

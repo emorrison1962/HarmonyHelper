@@ -35,28 +35,26 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public new ScaleToneInterval Major7th = new ScaleToneInterval("Major7th", Interval.Major7th, ScaleToneFunctionEnum.Major7th);
 
 
-		#region names
+		#region COPY_AND_PASTE_NAMES
 #if false
-None
-Root
-Sus2
-Minor3rd
-Major3rd
-Sus4
-Diminished5th
-Perfect5th
-Augmented5th
-Diminished7th
-Minor7th
-Major7th
-Flat9th
-Ninth
-Sharp9th
-Flat11th
-Eleventh
-Augmented11th
-Flat13th
-Thirteenth
+ScaleToneInterval.None
+ScaleToneInterval.Root
+ScaleToneInterval.Minor2nd
+ScaleToneInterval.Major2nd
+ScaleToneInterval.Augmented2nd
+ScaleToneInterval.Minor3rd
+ScaleToneInterval.Major3rd
+ScaleToneInterval.Diminished4th
+ScaleToneInterval.Perfect4th
+ScaleToneInterval.Augmented4th
+ScaleToneInterval.Diminished5th
+ScaleToneInterval.Perfect5th
+ScaleToneInterval.Augmented5th
+ScaleToneInterval.Minor6th
+ScaleToneInterval.Major6th
+ScaleToneInterval.Diminished7th
+ScaleToneInterval.Minor7th
+ScaleToneInterval.Major7th
 #endif
 		#endregion
 
@@ -66,6 +64,7 @@ Thirteenth
 
 		public ScaleToneInterval(string name, Interval interval, ScaleToneFunctionEnum ScaleToneFunction) : base(interval)
 		{
+			this.Name = name;
 			this.ScaleToneFunction = ScaleToneFunction;
 			Catalog.Add(this);
 		}
@@ -138,13 +137,4 @@ Thirteenth
 		}
 	}//class
 
-	public static class IntervalExtensions
-	{
-		public static ScaleToneInterval ToScaleToneInterval(this Interval interval)
-		{
-			var result = ScaleToneInterval.ToScaleToneInterval(interval);
-			Debug.Assert(null != result);
-			return result;
-		}
-	}
 }//ns

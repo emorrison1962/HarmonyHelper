@@ -113,8 +113,11 @@ namespace Eric.Morrison.Harmony.Chords
 			else if (interval == Interval.Major2nd)
 				result = ChordToneFunctionEnum.Ninth;
 
-			else if (interval == Interval.Minor3rd)
+			else if (interval == Interval.Augmented2nd)
 				result = ChordToneFunctionEnum.Sharp9th;
+
+			else if (interval == Interval.Minor3rd)
+				result = ChordToneFunctionEnum.Minor3rd;
 
 			else if (interval == Interval.Major3rd)
 				result = ChordToneFunctionEnum.Major3rd;
@@ -148,6 +151,9 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordToneFunctionEnum.Diminished7th;
 				}
 			}
+
+			else if (interval == Interval.Diminished7th)
+				result = ChordToneFunctionEnum.Diminished7th;
 
 			else if (interval == Interval.Minor7th)
 				result = ChordToneFunctionEnum.Minor7th;
@@ -362,7 +368,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (baseInterval is ChordToneInterval)
 				interval = baseInterval as ChordToneInterval;
 			else
-				interval = ChordToneInterval.ToChordToneInterval(baseInterval);
+				interval = baseInterval.ToChordToneInterval();
 
 			int rootAscii = this.Root.Name[0];
 			int wantedAscii = 0;
@@ -409,7 +415,9 @@ namespace Eric.Morrison.Harmony.Chords
 			if (wantedAscii > 'G')
 				wantedAscii -= 7;
 #if DEBUG
-			char readableDebugValue = (char)wantedAscii;
+			char readableWanted = (char)wantedAscii;
+			char readableRoot = (char)rootAscii;
+
 #endif
 			if (nn.Name[0] != wantedAscii)
 				foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
@@ -419,10 +427,10 @@ namespace Eric.Morrison.Harmony.Chords
 						break;
 					}
 
-			if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
-			{
-				Debug.Assert(result.Name[0] == wantedAscii);
-			}
+			//if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
+			//{
+			//	Debug.Assert(result.Name[0] == wantedAscii);
+			//}
 
 
 			return result;

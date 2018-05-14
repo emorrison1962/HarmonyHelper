@@ -32,6 +32,28 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public Interval Major7th = new Interval("Major7th", Constants.INTERVAL_VALUE_MAJOR_7TH);
 		#endregion
 
+#region COPY_AND_PASTE_NAMES
+#if false
+Interval.None
+Interval.Minor2nd
+Interval.Major2nd
+Interval.Augmented2nd
+Interval.Minor3rd
+Interval.Major3rd
+Interval.Diminished4th
+Interval.Perfect4th
+Interval.Augmented4th
+Interval.Diminished5th
+Interval.Perfect5th
+Interval.Augmented5th
+Interval.Minor6th
+Interval.Major6th
+Interval.Diminished7th
+Interval.Minor7th
+Interval.Major7th
+#endif
+#endregion
+
 		virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		private Interval(string name, int value)
@@ -194,7 +216,7 @@ namespace Eric.Morrison.Harmony.Intervals
 			return $"{this.GetType().Name}: Name={this.Name} Value=0x{this.Value.ToString(("x8"))}";
 		}
 
-		#region Used to be IntervalsEnumExtensions
+#region Used to be IntervalsEnumExtensions
 		class IntervalValueComparer : IEqualityComparer<Interval>
 		{
 			public bool Equals(Interval x, Interval y)
@@ -233,6 +255,8 @@ namespace Eric.Morrison.Harmony.Intervals
 					result = Interval.Major7th;
 				else if (this == Interval.Major2nd)
 					result = Interval.Minor7th;
+				else if (this == Interval.Augmented2nd)
+					result = Interval.Diminished7th;
 				else if (this == Interval.Minor3rd)
 					result = Interval.Major6th;
 				else if (this == Interval.Major3rd)
@@ -254,7 +278,7 @@ namespace Eric.Morrison.Harmony.Intervals
 				else if (this == Interval.Major6th)
 					result = Interval.Minor3rd;
 				else if (this == Interval.Diminished7th)
-					result = Interval.Minor3rd;
+					result = Interval.Augmented2nd;
 				else if (this == Interval.Minor7th)
 					result = Interval.Major2nd;
 				else if (this == Interval.Major7th)
@@ -276,7 +300,7 @@ namespace Eric.Morrison.Harmony.Intervals
 
 
 
-		#endregion
+#endregion
 
 
 	}//class

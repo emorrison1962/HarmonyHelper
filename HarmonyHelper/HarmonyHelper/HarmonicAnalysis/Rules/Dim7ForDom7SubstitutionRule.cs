@@ -62,10 +62,11 @@ Ex. 57
 					//now, does dom7 resolve to next chord? (dom root == next.fifth?)
 					var fifth = secondChord.Root + new IntervalContext(secondChord, ChordToneInterval.Perfect5th);
 					var subbedFor = dominants.Where(x => x.Root == fifth).FirstOrDefault();
-					result.Add(
-						new HarmonicAnalysisResult(this, true, $"{firstChord.Name} could be considered a diminished 7th substitution for {subbedFor.Name}."));
-
-
+					if (null != subbedFor)
+					{
+						result.Add(
+							new HarmonicAnalysisResult(this, true, $"{firstChord.Name} could be considered a diminished 7th substitution for {subbedFor.Name}."));
+					}
 				}
 			}
 

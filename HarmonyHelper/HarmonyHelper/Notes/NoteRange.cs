@@ -83,7 +83,7 @@ namespace Eric.Morrison.Harmony
 			{
 				var tmp = this.Notes.Where(x => x.NoteName.Value == nn.Value).FirstOrDefault();
 				result = tmp.Copy();
-				var normalized = normalizer.GetNormalized(nn, null);
+				var normalized = nn;// normalizer.GetNormalized(nn, null);
 				result.SetNoteName(normalized);
 			}
 			return result;

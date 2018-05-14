@@ -23,6 +23,7 @@
 		public const string AUGMENTED_5TH = "+5";
 		public const string MINOR_6TH = "m6";
 		public const string MAJOR_6TH = Constants.MAJOR + "6";
+		public const string DIMINISHED_7TH = "dim7";
 		public const string MINOR_7TH = "m7";
 		public const string MAJOR_7TH = Constants.MAJOR + "7";
 

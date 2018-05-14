@@ -343,7 +343,7 @@ namespace Eric.Morrison.Harmony
 
 				result = notes[targetNdx];
 				Debug.Assert(null != result);
-				Debug.Assert(result != src);
+				//Debug.Assert(result != src);
 				success = true;
 
 				noteNames = NoteName.Catalog.Where(x => x.Value == result?.Value);

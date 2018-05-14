@@ -122,14 +122,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			foreach (var row in result.Rows)
-			{
-				Debug.Write($"{row.Key,3}");
-				Debug.Write($"| {row.Mode.ToString()} ");
-				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			}
-			Debug.WriteLine("");
+			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			//foreach (var row in result.Rows)
+			//{
+			//	Debug.Write($"{row.Key,3}");
+			//	Debug.Write($"| {row.Mode.ToString()} ");
+			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			//}
+			//Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -186,14 +186,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			foreach (var row in result.Rows)
-			{
-				Debug.Write($"{row.Key,3}");
-				Debug.Write($"| {row.Mode.ToString()} ");
-				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			}
-			Debug.WriteLine("");
+			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			//foreach (var row in result.Rows)
+			//{
+			//	Debug.Write($"{row.Key,3}");
+			//	Debug.Write($"| {row.Mode.ToString()} ");
+			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			//}
+			//Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -250,14 +250,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			foreach (var row in result.Rows)
-			{
-				Debug.Write($"{row.Key,3}");
-				Debug.Write($"| {row.Mode.ToString()} ");
-				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			}
-			Debug.WriteLine("");
+			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			//foreach (var row in result.Rows)
+			//{
+			//	Debug.Write($"{row.Key,3}");
+			//	Debug.Write($"| {row.Mode.ToString()} ");
+			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			//}
+			//Debug.WriteLine("");
 			#endregion
 
 			return result;

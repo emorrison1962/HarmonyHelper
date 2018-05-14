@@ -23,13 +23,14 @@ namespace Eric.Morrison.Harmony.Tests
 			var str = "Dm7 g7 cmaj7";
 			var chords = this.GetChords(str);
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			Assert.IsNotNull(analysisResults);
+			var expected = analysisResults.First(x => x.Rule is DiatonicToKeyRule);
+			Assert.IsInstanceOfType(expected.Rule, typeof(DiatonicToKeyRule));
 			foreach (var analysisResult in analysisResults)
 			{
 				if (analysisResult.Success)
 					Debug.WriteLine(analysisResult.Message);
 			}
-			Assert.IsNotNull(analysisResults);
-			Assert.Fail();
 		}
 
 		[TestMethod()]
@@ -38,13 +39,15 @@ namespace Eric.Morrison.Harmony.Tests
 			var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
 			var chords = this.GetChords(str);
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			Assert.IsNotNull(analysisResults);
+			var expected = analysisResults.First(x => x.Rule is SecondaryDominantRule);
+			Assert.IsInstanceOfType(expected.Rule, typeof(SecondaryDominantRule));
+
 			foreach (var analysisResult in analysisResults)
 			{
 				if (null != analysisResult && analysisResult.Success)
 					Debug.WriteLine(analysisResult.Message);
 			}
-			Assert.IsNotNull(analysisResults);
-			Assert.Fail();
 		}
 		[TestMethod()]
 		public void ADayInTheLife_Test()

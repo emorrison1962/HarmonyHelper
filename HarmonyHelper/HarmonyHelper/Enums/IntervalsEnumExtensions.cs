@@ -61,6 +61,9 @@ namespace Eric.Morrison.Harmony
 				case ChordToneFunctionEnum.Thirteenth:
 					result = Constants.THIRTEENTH;
 					break;
+				case ChordToneFunctionEnum.Diminished7th:
+					result = Constants.DIMINISHED_7TH;
+					break;
 				case ChordToneFunctionEnum.Minor7th:
 					result = Constants.MINOR_7TH;
 					break;

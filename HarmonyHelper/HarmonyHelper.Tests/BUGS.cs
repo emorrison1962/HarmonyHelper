@@ -58,7 +58,7 @@ namespace Eric.Morrison.Harmony
 				else if (interval == Interval.Major6th)
 					Assert.IsTrue(inversion == Interval.Minor3rd);
 				else if (interval == Interval.Diminished7th)
-					Assert.IsTrue(inversion == Interval.Minor3rd);
+					Assert.IsTrue(inversion == Interval.Augmented2nd);
 				else if (interval == Interval.Minor7th)
 					Assert.IsTrue(inversion == Interval.Major2nd);
 				else if (interval == Interval.Major7th)
