@@ -241,10 +241,9 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void BackCyclingRule_Test()
 		{
-			throw new NotImplementedException();
 			var rule = new BackCyclingRule();
 			{//positive test
-				var str = "Dm7 g7 dm7 A7 Dm7 g7 cmaj7";
+				var str = "f#m7 b7 em7 A7 Dm7 g7 c#maj7";
 				var chords = this.GetChords(str);
 
 				var results = rule.Analyze(chords, KeySignature.CMajor);
