@@ -162,7 +162,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				}
 
 				var result = false;
-				if (subSequence.Count < 4)
+				if (subSequence.Count < 2)
 				{
 					result = false;
 					subSequence.Clear(); // if we don't have more tha 4 elements, we don't have backcycling.

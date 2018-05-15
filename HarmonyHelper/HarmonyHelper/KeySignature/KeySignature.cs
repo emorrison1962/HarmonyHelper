@@ -22,6 +22,8 @@ namespace Eric.Morrison.Harmony
 		public bool IsMinor { get; private set; }
 		public int AccidentalCount { get; private set; }
 
+		public string Name { get; private set; }
+
 		#endregion
 
 		#region Construction
@@ -55,6 +57,8 @@ namespace Eric.Morrison.Harmony
 				MinorKeys.Add(this);
 			}
 
+			var majMin = this.IsMajor ? "Major" : "Minor";
+			this.Name = $"{this.NoteName} {majMin}";
 		}
 
 		#endregion
@@ -256,7 +260,7 @@ namespace Eric.Morrison.Harmony
 		}
 		public override string ToString()
 		{
-			return this.NoteName.ToString();
+			return this.Name;
 		}
 		public bool AreDiatonic(List<NoteName> noteNames)
 		{

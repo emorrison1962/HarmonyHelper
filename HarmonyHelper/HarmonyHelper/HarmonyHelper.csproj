@@ -66,6 +66,7 @@
     <Compile Include="HarmonicAnalysis\HarmonicAnalysisResult.cs" />
     <Compile Include="HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
     <Compile Include="HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRule.cs" />
+    <Compile Include="HarmonicAnalysis\Rules\ii_V_i_Rule.cs" />
     <Compile Include="HarmonicAnalysis\Rules\SecondaryDominantRule.cs" />
     <Compile Include="HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
     <Compile Include="HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />

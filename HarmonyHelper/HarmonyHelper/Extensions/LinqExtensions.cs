@@ -32,6 +32,32 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 
+		public static IEnumerable<T[]> GetTriplets<T>(this IEnumerable<T> sequence)
+		{
+			if (sequence == null)
+				throw new ArgumentNullException();
+
+			int partitionSize = 3;
+			var buffer = new T[partitionSize];
+			var count = sequence.Count();
+			for (int i = 0; i < count - 2; ++i)
+			{
+				var item1 = sequence.ElementAt(i);
+				var item2 = sequence.ElementAt(i + 1);
+				var item3 = sequence.ElementAt(i + 2);
+				var ndx = 0;
+				buffer[ndx++] = item1;
+				buffer[ndx++] = item2;
+				buffer[ndx++] = item3;
+
+				if (ndx == partitionSize)
+				{
+					yield return buffer;
+					buffer = new T[partitionSize];
+				}
+			}
+		}
+
 
 	}//class
 }//ns

@@ -241,6 +241,8 @@ namespace Eric.Morrison.Harmony.Tests
 
 		const string BIRD_BLUES = "cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7"; //Blues For Alice by Charlie Parker
 
+		const string SUNNY = "Am7 Gm7 C7 fmaj7 bm7b5 e7 am7 c7 fmaj7 bb7"; //written by Bobby Hebb
+
 
 
 		[TestMethod()]
@@ -281,6 +283,24 @@ namespace Eric.Morrison.Harmony.Tests
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			Debug.WriteLine("=================================================");
 			Debug.WriteLine($"How Insensitive by A.C. Jomin: {string.Join(", ", chords.Select(x => x.Name))}");
+			Debug.WriteLine("=================================================");
+			foreach (var analysisResult in analysisResults)
+			{
+				if (null != analysisResult && analysisResult.Success)
+					Debug.WriteLine(analysisResult.Message);
+				else
+					Debug.WriteLine(analysisResult.Message);
+			}
+			Assert.IsNotNull(analysisResults);
+		}
+
+		[TestMethod()]
+		public void Sunny_Test()
+		{
+			var chords = this.GetChords(SUNNY);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.AMinor);
+			Debug.WriteLine("=================================================");
+			Debug.WriteLine($"Sunny by Bobby Hebb: {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");
 			foreach (var analysisResult in analysisResults)
 			{
