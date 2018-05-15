@@ -17,13 +17,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var rules = assembly.DefinedTypes.Where(x => x.BaseType == typeof(HarmonicAnalysisRuleBase));
 			foreach (var rule in rules)
 			{
-				Activator.CreateInstance(rule);
+				var created = Activator.CreateInstance(rule);
+				Catalog.Add(created as HarmonicAnalysisRuleBase);
 			}
 		}
 
 		public HarmonicAnalysisRuleBase()
 		{
-			Catalog.Add(this);
 		}
 
 		public abstract List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key);

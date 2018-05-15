@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Chords;
@@ -15,31 +14,39 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 			var theCycle = this.CreateCycle();
 			var roots = chords.Select(x => x.Root);
-			var sequenceStart = theCycle.IndexOfSequence(roots, new NoteNameValueEqualityComparer());
-			new object();
-
-			//var dominants = chords.Where(x => x.IsDominant).ToList();
-			//var indeces = dominants.Select(x => dominants.IndexOf(x));
+			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
+			//Debug.WriteLine($"Roots: {string.Join(", ", roots)}");
+			//Debug.WriteLine($"Cycle: {string.Join(", ", theCycle)}");
 
 
-			//var nonDiatonic = key.GetNonDiatonic(chords);
-			//if (nonDiatonic.Count > 0)
-			//{
-			//	var pairs = chords.GetPairs();
-			//	foreach (var pair in pairs)
-			//	{
-			//		if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
-			//		{
-			//			var interval = pair[0].Root - pair[1].Root;
-			//			if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
-			//			{
-			//				//Debug.WriteLine($"{pair[0]}, {pair[1]}");
-			//				result.Add(
-			//					new HarmonicAnalysisResult(this, true, $"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}."));
-			//			}
-			//		}
-			//	}
-			//}
+			int startNdx = 0;
+			int lastNdx = 0;
+			var success = false;
+			while (lastNdx < chords.Count)
+			{
+				success = theCycle.TryGetSubequence(roots,
+					new NoteNameValueEqualityComparer(),
+					out List<NoteName> subSequence, ref lastNdx);
+				//Debug.WriteLine(lastNdx);
+				//Debug.WriteLine($"subSequence: {string.Join(", ", subSequence)}");
+
+				new object();
+
+
+				if (success)
+				{
+					var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
+					Debug.Assert(seq.Count() == subSequence.Count);
+					var har = new HarmonicAnalysisResult(this, true, 
+						$"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.");
+					result.Add(har);
+					//Debug.WriteLine(har.Message);
+					//new object();
+				}
+				startNdx = lastNdx;
+
+			}
+
 
 			return result;
 		}
@@ -48,17 +55,17 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			var result = new List<NoteName>();
 
-			var key = KeySignature.CMajor;
+			var key = KeySignature.FSharpMajor;
 			var perfect4th = Interval.Perfect4th;
 
 			const int CYCLE_MAX = 24;
-			for (int i = 0 ; i < CYCLE_MAX ; ++i)
+			for (int i = 0; i < CYCLE_MAX; ++i)
 			{
 				result.Add(key.NoteName);
 				key = key + perfect4th;
 			}
 
-			result.ForEach(x => Debug.WriteLine(x));
+			//result.ForEach(x => Debug.WriteLine(x));
 			return result;
 		}
 
@@ -66,63 +73,70 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 	public static class ExtensionMethods
 	{
-		public static int IndexOfSequence<T>(this IEnumerable<T> source, IEnumerable<T> sequence)
+		public static bool TryGetSubequence<T>(this IEnumerable<T> sequenceBeingSearched, IEnumerable<T> sequenceToFind, IEqualityComparer<T> comparer, out List<T> subSequence, ref int lastNdx)
 		{
-			return source.IndexOfSequence(sequence, EqualityComparer<T>.Default);
-		}
+			subSequence = new List<T>();
 
-		public static int IndexOfSequence<T>(this IEnumerable<T> source, IEnumerable<T> sequence, IEqualityComparer<T> comparer)
-		{
-			var result = new List<T>();
+			bool matchFound = false;
+			var wantedList = sequenceToFind.ToList().GetRange(lastNdx, sequenceToFind.Count() - lastNdx).ToList();
+			//Debug.WriteLine($"wantedList: {string.Join(", ", wantedList)}");
+			int ndx = 0;
 
-			var seq = sequence.ToArray();
-
-			int p = 0; // current position in source sequence
-			int i = 0; // current position in searched sequence
-			var prospects = new List<int>(); // list of prospective matches
-			foreach (var item in source)
+			using (IEnumerator<T> sequenceBeingSearchedEnum = sequenceBeingSearched.GetEnumerator())
 			{
-				// Remove bad prospective matches
-				prospects.RemoveAll(k => !comparer.Equals(item, seq[p - k]));
+				while (sequenceBeingSearchedEnum.MoveNext())
+				{
+					if (comparer == null ?
+						wantedList[ndx].Equals(sequenceBeingSearchedEnum.Current) :
+						comparer.Equals(wantedList[ndx], sequenceBeingSearchedEnum.Current))
+					{
+						// Match, so move the target enum forward
+						if (!subSequence.Contains(sequenceBeingSearchedEnum.Current, comparer))
+						{
+							subSequence.Add(sequenceBeingSearchedEnum.Current);
+							lastNdx++;
+						}
+						matchFound = true;
+						if (ndx == wantedList.Count - 1)
+						{
+							// We went through the entire target, so we have a match
+							break;
+						}
 
-				// Is it the start of a prospective match ?
-				if (comparer.Equals(item, seq[0]))
-				{
-					prospects.Add(p);
-					result.Add(item);
+						ndx++;
+					}
+					else if (matchFound)
+					{
+						matchFound = false;
+						ndx = 0;
+
+						if (comparer == null ?
+							wantedList[ndx].Equals(sequenceBeingSearchedEnum.Current) :
+							comparer.Equals(wantedList[ndx], sequenceBeingSearchedEnum.Current))
+						{
+							if (!subSequence.Contains(sequenceBeingSearchedEnum.Current, comparer))
+							{
+								subSequence.Add(sequenceBeingSearchedEnum.Current);
+							}
+							matchFound = true;
+							lastNdx++;
+							ndx++;
+						}
+					}
 				}
 
-				// Does current character continues partial match ?
-				if (comparer.Equals(item, seq[i]))
+				var result = false;
+				if (subSequence.Count < 4)
 				{
-					prospects.Add(p);
-					i++;
-					// Do we have a complete match ?
-					if (i == seq.Length)
-					{
-						// Bingo !
-						return p - seq.Length + 1;
-					}
+					result = false;
+					subSequence.Clear(); // if we don't have more tha 4 elements, we don't have backcycling.
 				}
-				else // Mismatch
-				{
-					// Do we have prospective matches to fall back to ?
-					if (prospects.Count > 0)
-					{
-						// Yes, use the first one
-						int k = prospects[0];
-						i = p - k + 1;
-					}
-					else
-					{
-						// No, start from beginning of searched sequence
-						i = 0;
-					}
-				}
-				p++;
+				else
+					result = true;
+				return result;
 			}
-			// No match
-			return -1;
 		}
 	}
+
+
 }//ns

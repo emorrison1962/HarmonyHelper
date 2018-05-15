@@ -237,13 +237,16 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
+		const string HOW_INSENSITIVE = "Dm9 c#dim7 c-6 g7/b bbmaj7 ebmaj7 e-7b5 a7b9 dm7 db13 cm7 bdim7 bbmaj7 em7b5 a7 dm7 db7 cm9 f7 bm7 e7b9 bbmaj7 a7 dm7"; //written by A.C. Jobim
+
+		const string BIRD_BLUES = "cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7"; //Blues For Alice by Charlie Parker
 
 		[TestMethod()]
 		public void BackCyclingRule_Test()
 		{
 			var rule = new BackCyclingRule();
 			{//positive test
-				var str = "f#m7 b7 em7 A7 Dm7 g7 c#maj7";
+				var str = BIRD_BLUES;
 				var chords = this.GetChords(str);
 
 				var results = rule.Analyze(chords, KeySignature.CMajor);
@@ -252,20 +255,20 @@ namespace Eric.Morrison.Harmony.Tests
 				new object();
 			}
 
-			{//negative test - all diatonic
-				var str = "Dm7 g7 cmaj7 Dm7 g7 cmaj7 ";
-				var chords = this.GetChords(str);
+			//{//back cycling with tritone subs
+			//	var str = HOW_INSENSITIVE;
+			//	var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
-				Assert.IsTrue(0 == results.Count);
-			}
+			//	var results = rule.Analyze(chords, KeySignature.CMajor);
+			//	Assert.IsTrue(0 == results.Count);
+			//}
 
-			{//negative test - does not resolve
-				var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
-				var chords = this.GetChords(str);
+			{//other tests
+				//var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
+				//var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
-				Assert.IsTrue(0 == results.Count);
+				//var results = rule.Analyze(chords, KeySignature.CMajor);
+				//Assert.IsTrue(0 == results.Count);
 			}
 		}
 
