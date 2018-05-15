@@ -10,7 +10,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
-			var nonDiatonic = key.GetNonDiatonic(chords);
+			//var nonDiatonic = key.GetNonDiatonic(chords);
 			var pairs = chords.GetPairs().Where(x => (x[0].Root - x[1].Root) == Interval.Minor2nd);
 			foreach (var pair in pairs)
 			{
@@ -26,6 +26,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 			return result;
 		}
+
 	}//class
 }//ns
 

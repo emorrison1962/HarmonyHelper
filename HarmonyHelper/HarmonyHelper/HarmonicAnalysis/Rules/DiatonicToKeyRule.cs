@@ -26,8 +26,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			else
 			{
 				var nonDiatonic = key.GetNonDiatonic(distinctChords);
-				var chordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
-				message = $"{chordNames} are not diatonic to the specified key of {key}.";
+				var diatonic = distinctChords.Except(nonDiatonic);
+
+				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
+				var diatonicChordNames = string.Join(", ", diatonic.Select(x => x.Name));
+
+				message = $"{diatonicChordNames} are diatonic to the specified key of {key}. {nonDiatonicChordNames} are non-diatonic.";
 				result.Add(new HarmonicAnalysisResult(this, false, message));
 			}
 

@@ -8,15 +8,38 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
-			var theCycle = this.CreateCycle();
-			var roots = chords.Select(x => x.Root);
+			var chords = new List<ChordFormula>(input);
 			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
-			//Debug.WriteLine($"Roots: {string.Join(", ", roots)}");
+
+			var pairs = chords.GetPairs().Where(x => (x[0].Root - x[1].Root) == Interval.Minor2nd);
+			foreach (var pair in pairs)
+			{
+				if (pair[0].ChordType.IsDominant)
+				{
+					var subbedFor = this.GetTritoneSubstitution(pair[0]);
+					var seq = chords.FindAll(x => x == pair[0]);
+					foreach (var item in seq)
+					{
+						var ndx = chords.IndexOf(item);
+						chords[ndx] = subbedFor;
+					}
+
+					//Debug.WriteLine($"{pair[0].Name} is a tritone sub for {subbedFor.Name}");
+					new object();
+				}
+			}
+
+
+
+
+			var theCycle = this.CreateCycle();
 			//Debug.WriteLine($"Cycle: {string.Join(", ", theCycle)}");
+			var roots = chords.Select(x => x.Root);
+			//Debug.WriteLine($"Roots: {string.Join(", ", roots)}");
 
 
 			int startNdx = 0;
@@ -35,9 +58,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 				if (success)
 				{
-					var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
+					//var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
+					var seq = input.GetRange(startNdx, lastNdx - startNdx).ToList();
 					Debug.Assert(seq.Count() == subSequence.Count);
-					var har = new HarmonicAnalysisResult(this, true, 
+					var har = new HarmonicAnalysisResult(this, true,
 						$"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.");
 					result.Add(har);
 					//Debug.WriteLine(har.Message);
@@ -68,6 +92,18 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			//result.ForEach(x => Debug.WriteLine(x));
 			return result;
 		}
+
+		ChordFormula GetTritoneSubstitution(ChordFormula orig)
+		{
+			ChordFormula result = null;
+			if (orig.IsDominant)
+			{
+				result = orig + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
+			}
+			return result;
+		}
+
+
 
 	}//class
 
@@ -136,7 +172,5 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				return result;
 			}
 		}
-	}
-
-
+	}//class
 }//ns

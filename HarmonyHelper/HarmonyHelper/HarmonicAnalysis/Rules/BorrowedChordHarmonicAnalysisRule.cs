@@ -44,7 +44,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					var rows = grid.Rows.Where(x => x.Formulas.Contains(formula)).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
-						var message = $"{formula} could be considered a borrowed chord from the parallel {key.NoteName} {row.Mode} mode in {row.Key}.";
+						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.Mode} mode in {row.Key}.";
 						var har = new HarmonicAnalysisResult(this, true, message);
 						result.Add(har);
 					}
