@@ -242,7 +242,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 		const string SUNNY = "Am7 Gm7 C7 fmaj7 bm7b5 e7 am7 c7 fmaj7 bb7"; //written by Bobby Hebb
 
-
+		const string CREEP = "G#m G#m9 G#m7 Bmaj7 C Bmaj7 Cm6 Ebm7 Ebm Gmaj7 F#m G G# C G Bm Gmaj7 B F#dim Am9 C7b9 Cm D7 B B7b9 B E7b9 G Cmaj7 Cm7 Gm6 Bm G B Dm6 C Fm G#maj7 Cdim G#m G7 A7 Am9 C7b9 G Gmaj7 Bm Gmaj7 Bbdim Cmaj7 C7 G#dim C#m7 Gm G";
 
 		[TestMethod()]
 		public void BackCyclingRule_Test()
@@ -311,6 +311,25 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			Assert.IsNotNull(analysisResults);
 		}
+
+		[TestMethod()]
+		public void Creep_Test()
+		{
+			var chords = this.GetChords(CREEP);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.GMajor);
+			Debug.WriteLine("=================================================");
+			Debug.WriteLine($"Creep by Radiohead: {string.Join(", ", chords.Select(x => x.Name))}");
+			Debug.WriteLine("=================================================");
+			foreach (var analysisResult in analysisResults)
+			{
+				if (null != analysisResult && analysisResult.Success)
+					Debug.WriteLine(analysisResult.Message);
+				else
+					Debug.WriteLine(analysisResult.Message);
+			}
+			Assert.IsNotNull(analysisResults);
+		}
+
 
 	}//class
 }//ns

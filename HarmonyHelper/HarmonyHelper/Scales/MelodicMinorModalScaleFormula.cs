@@ -6,9 +6,11 @@ namespace Eric.Morrison.Harmony.Scales
 {
 	public class MelodicMinorModalScaleFormula : ModalScaleFormulaBase
 	{
+		override public string ModeName { get { return this.GetModeName(); } }
 
 		public MelodicMinorModalScaleFormula(KeySignature key, ModeEnum mode) : base(key, mode)
 		{
+			this.Name = this.GetModeName();
 		}
 
 		protected override void Init()
@@ -122,11 +124,10 @@ namespace Eric.Morrison.Harmony.Scales
 			return result;
 		}
 
-
 		public override string ToString()
 		{
 			var result = string.Empty;
-			result = $"{this.NoteNames[0]} {this.GetName()} {string.Join(",", this.NoteNames)}";
+			result = $"{this.NoteNames[0]} {this.GetModeName()} {string.Join(",", this.NoteNames)}";
 			return result;
 		}
 
@@ -139,7 +140,7 @@ namespace Eric.Morrison.Harmony.Scales
 		const string AEOLIAN_NAME = "Locrian #2";
 		const string LOCRIAN_NAME = "Altered Scale";
 
-		string GetName()
+		string GetModeName()
 		{
 			string result = null;
 			switch (this.Mode)
