@@ -7,6 +7,7 @@ namespace Eric.Morrison.Harmony.Scales
 	{
 		#region Properties
 		public ModeEnum Mode { get; private set; }
+		virtual public string ModeName { get { return this.Mode.ToString(); } }
 
 		#endregion
 

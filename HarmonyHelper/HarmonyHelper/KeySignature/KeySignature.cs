@@ -1,8 +1,8 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Eric.Morrison.Harmony.Intervals;
 
 // reference: https://dictionary.onmusic.org/appendix/topics/key-signatures
 
@@ -197,13 +197,13 @@ namespace Eric.Morrison.Harmony
 			}
 			else
 			{
-				throw new Exception($"{MethodBase.GetCurrentMethod().Name}");
+				throw new ArgumentOutOfRangeException($"{MethodBase.GetCurrentMethod().Name}");
 			}
 
-			var seq = KeySignature.MajorKeys.Where(x => x.NoteName.Value == txposedNote.Value);
+			var seq = catalog.Where(x => x.NoteName.Value == txposedNote.Value);
 			if (null == seq)
 			{
-				throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Major key with NoteName{{{txposedNote.Name}}} does not exist");
+				throw new ArgumentOutOfRangeException($"{MethodBase.GetCurrentMethod().Name}: Major key with NoteName{{{txposedNote.Name}}} does not exist");
 			}
 			if (1 == seq.Count())
 			{
@@ -271,5 +271,21 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		public KeySignature GetRelativeMajor()
+		{
+			if (this.IsMajor)
+				throw new ArgumentOutOfRangeException();
+			var txed = NoteName.TransposeUp(this.NoteName, Interval.Minor3rd);
+			var result = KeySignature.MajorKeys.First(x => x.NoteName == txed);
+			return result;
+		}
+		public KeySignature GetRelativeMinor()
+		{
+			if (this.IsMinor)
+				throw new ArgumentOutOfRangeException();
+			var txed = NoteName.TransposeDown(this.NoteName, Interval.Minor3rd);
+			var result = KeySignature.MinorKeys.First(x => x.NoteName == txed);
+			return result;
+		}
 	}//class
 }//ns

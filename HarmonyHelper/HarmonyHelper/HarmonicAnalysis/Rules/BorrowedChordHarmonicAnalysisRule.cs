@@ -17,11 +17,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			i = 0, ii, iii, iv, v, vi, vii
 		}
 
-
 		public BorrowedChordHarmonicAnalysisRule()
 		{
 		}
-
 
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
@@ -44,7 +42,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					var rows = grid.Rows.Where(x => x.Formulas.Contains(formula)).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
-						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.Mode} mode in {row.Key}.";
+						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
 						var har = new HarmonicAnalysisResult(this, true, message);
 						result.Add(har);
 					}
@@ -62,12 +60,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		class GridRow
 		{
 			public KeySignature Key { get; private set; }
-			public ModeEnum Mode { get; private set; }
+			public string ModeName { get; private set; }
 			public List<ChordFormula> Formulas { get; private set; } = new List<ChordFormula>();
-			public GridRow(KeySignature key, ModeEnum mode)
+			public GridRow(KeySignature key, string modeName)
 			{
 				this.Key = key;
-				this.Mode = mode;
+				this.ModeName = modeName;
 			}
 		}
 		Grid CreateMajorBorrowedChordGrid(KeySignature inputKey)
@@ -105,7 +103,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			{
 				var mode = modes[modeNdx++];
 				var scale = new MajorModalScaleFormula(key, mode);
-				var gridRow = new GridRow(key, mode);
+				var gridRow = new GridRow(key, scale.ModeName);
 
 				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();
 				foreach (var scaleDegree in scaleDegrees)
@@ -129,7 +127,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			//	Debug.Write($"| {row.Mode.ToString()} ");
 			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
 			//}
-			//Debug.WriteLine("");
+			Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -138,6 +136,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		Grid CreateMelodicMinorBorrowedChordGrid(KeySignature inputKey)
 		{
 			var result = new Grid();
+
+			if (inputKey.IsMajor)
+				inputKey = inputKey.GetRelativeMinor();
 
 			var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -150,6 +151,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				inputKey - Interval.Minor6th,
 				inputKey - Interval.Minor7th,
 			};
+
 			var chordTypes = new List<ChordType>() { //harmonized melodic minor scale
 				ChordType.MinorMaj7th,
 				ChordType.Minor7th,
@@ -168,8 +170,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			foreach (var key in keys)
 			{
 				var mode = modes[modeNdx++];
-				var scale = new MelodicMinorScaleFormula(key);
-				var gridRow = new GridRow(key, mode);
+				var scale = new MelodicMinorModalScaleFormula(key, mode);
+				var gridRow = new GridRow(key, scale.ModeName);
 
 				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();
 				foreach (var scaleDegree in scaleDegrees)
@@ -186,14 +188,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			//foreach (var row in result.Rows)
-			//{
-			//	Debug.Write($"{row.Key,3}");
-			//	Debug.Write($"| {row.Mode.ToString()} ");
-			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			//}
-			//Debug.WriteLine("");
+			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			foreach (var row in result.Rows)
+			{
+				Debug.Write($"{row.Key,3}");
+				Debug.Write($"| {row.ModeName.ToString()} ");
+				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			}
+			Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -202,6 +204,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		Grid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
 		{
 			var result = new Grid();
+
+			throw new NotImplementedException("Is this correct? Do I get the Relative Minor key? It's throwing the transpositions off. Ionian Root's acidentals are being affected.");
+			if (inputKey.IsMajor)
+				inputKey = inputKey.GetRelativeMinor();
 
 			var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -232,8 +238,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			foreach (var key in keys)
 			{
 				var mode = modes[modeNdx++];
-				var scale = new MelodicMinorScaleFormula(key);
-				var gridRow = new GridRow(key, mode);
+				var scale = new HarmonicMinorModalScaleFormula(key, mode);
+				var gridRow = new GridRow(key, scale.ModeName);
 
 				var scaleDegrees = Enum.GetValues(typeof(ScaleDegree)).Cast<ScaleDegree>().ToList();
 				foreach (var scaleDegree in scaleDegrees)
@@ -250,14 +256,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			//foreach (var row in result.Rows)
-			//{
-			//	Debug.Write($"{row.Key,3}");
-			//	Debug.Write($"| {row.Mode.ToString()} ");
-			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			//}
-			//Debug.WriteLine("");
+			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			foreach (var row in result.Rows)
+			{
+				Debug.Write($"{row.Key,3}");
+				Debug.Write($"| {row.ModeName.ToString()} ");
+				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			}
+			Debug.WriteLine("");
 			#endregion
 
 			return result;
