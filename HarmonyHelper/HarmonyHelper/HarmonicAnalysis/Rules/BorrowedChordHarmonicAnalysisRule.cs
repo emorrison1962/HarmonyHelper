@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			var formulas = chords.Select(x => x).Distinct().ToList();
-			var nonDiatonic = key.GetNonDiatonic(formulas);
+			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.IsDominantOfKey(key));
 			new object();
 
 			foreach (var formula in nonDiatonic)

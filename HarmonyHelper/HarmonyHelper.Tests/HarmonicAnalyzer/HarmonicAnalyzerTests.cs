@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -268,8 +267,8 @@ namespace Eric.Morrison.Harmony.Tests
 			//}
 
 			{//other tests
-				//var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
-				//var chords = this.GetChords(str);
+			 //var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
+			 //var chords = this.GetChords(str);
 
 				//var results = rule.Analyze(chords, KeySignature.CMajor);
 				//Assert.IsTrue(0 == results.Count);
@@ -280,9 +279,10 @@ namespace Eric.Morrison.Harmony.Tests
 		public void HowInsensitive_Test()
 		{
 			var chords = this.GetChords(HOW_INSENSITIVE);
+			Assert.Fail("c#dim is a dominant sub. Should be reported by BacCycling rule.");
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			Debug.WriteLine("=================================================");
-			Debug.WriteLine($"How Insensitive by A.C. Jomin: {string.Join(", ", chords.Select(x => x.Name))}");
+			Debug.WriteLine($"How Insensitive by A.C. Jobim (in {KeySignature.CMajor.Name}): {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");
 			foreach (var analysisResult in analysisResults)
 			{
@@ -300,7 +300,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = this.GetChords(SUNNY);
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.AMinor);
 			Debug.WriteLine("=================================================");
-			Debug.WriteLine($"Sunny by Bobby Hebb: {string.Join(", ", chords.Select(x => x.Name))}");
+			Debug.WriteLine($"Sunny by Bobby Hebb (in {KeySignature.CMajor.Name}): {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");
 			foreach (var analysisResult in analysisResults)
 			{
