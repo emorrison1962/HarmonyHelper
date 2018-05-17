@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Intervals;
 
@@ -60,48 +59,9 @@ namespace Eric.Morrison.Harmony.Chords
 		}
 
 
-		//public ChordToneFunctionEnum GetChordToneFunction(NoteName note)
-		//{
-		//	var result = ChordToneFunctionEnum.None;
-		//	var success = false;
-		//	if (this.Contains(note))
-		//		success = true;
-		//	if (success)
-		//	{
-		//		var interval = this.Root - note;
-
-		//		if (interval == Interval.None)
-		//		{
-		//			result = ChordToneFunctionEnum.Root;
-		//		}
-		//		else if (this.Third.Value == note.Value)
-		//		{
-		//			result = ChordToneFunctionEnum.Major3rd;
-		//			interval = this.ChordType.GetInterval(ChordFunctionEnum.Third);
-		//			if (Interval.Minor3rd == interval)
-		//				result = ChordToneFunctionEnum.Minor3rd;
-		//		}
-		//		else if (this.Fifth.Value == note.Value)
-		//		{
-		//			result = ChordToneFunctionEnum.Perfect5th;
-		//		}
-		//		else if (this.Seventh.Value == note.Value)
-		//		{
-		//			result = ChordToneFunctionEnum.Major7th;
-		//			interval = this.ChordType.GetInterval(ChordFunctionEnum.Seventh);
-		//			if (Interval.Minor7th == interval)
-		//				result = ChordToneFunctionEnum.Minor7th;
-		//		}
-
-		//	}
-		//	return result;
-		//}
-
 		public ChordToneFunctionEnum GetRelationship(NoteName note)
 		{
 			var result = ChordToneFunctionEnum.None;
-			var success = false;
-
 			var interval = this.Root - note;
 
 			if (interval == Interval.None)
@@ -435,8 +395,6 @@ namespace Eric.Morrison.Harmony.Chords
 
 			return result;
 		}
-
-
 
 	}//class
 }//ns

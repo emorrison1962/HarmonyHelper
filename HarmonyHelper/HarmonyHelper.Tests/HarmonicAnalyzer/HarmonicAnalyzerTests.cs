@@ -120,20 +120,23 @@ namespace Eric.Morrison.Harmony.Tests
 
 				if (keyStr.Length == 1)
 				{
-					var key = KeySignature.MajorKeys.Where(x => x.NoteName.Name == keyStr).First();
-					var chords = this.GetChords(str, key);
-					var analysisResults = HarmonicAnalyzer.Analyze(chords, key);
-					Debug.WriteLine($"Analysis: {song.Title} in {song.Key}:");
-					Debug.WriteLine(str);
-					Debug.Indent();
-					foreach (var analysisResult in analysisResults)
+					if (song.Title == "Zooey Deschanel - Hey Girl")
 					{
-						if (null != analysisResult && analysisResult.Success)
-							Debug.WriteLine(analysisResult.Message);
+						var key = KeySignature.MajorKeys.Where(x => x.NoteName.Name == keyStr).First();
+						var chords = this.GetChords(str, key);
+						var analysisResults = HarmonicAnalyzer.Analyze(chords, key);
+						Debug.WriteLine($"Analysis: {song.Title} in {song.Key}:");
+						Debug.WriteLine(str);
+						Debug.Indent();
+						foreach (var analysisResult in analysisResults)
+						{
+							if (null != analysisResult && analysisResult.Success)
+								Debug.WriteLine(analysisResult.Message);
+						}
+						Assert.IsNotNull(analysisResults);
+						Debug.Unindent();
+						Debug.WriteLine(string.Empty);
 					}
-					Assert.IsNotNull(analysisResults);
-					Debug.Unindent();
-					Debug.WriteLine(string.Empty);
 				}
 
 			}

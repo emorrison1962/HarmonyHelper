@@ -1,7 +1,6 @@
-﻿using Eric.Morrison.Harmony.Chords;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
@@ -31,8 +30,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
 				var diatonicChordNames = string.Join(", ", diatonic.Select(x => x.Name));
 
-				message = $"{diatonicChordNames} are diatonic to the specified key of {key}. {nonDiatonicChordNames} are non-diatonic.";
-				result.Add(new HarmonicAnalysisResult(this, false, message));
+				var diatonicMsg = string.Join(", ",
+					diatonic.Distinct()
+					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
+
+
+				message = $"{diatonicMsg} are diatonic to the specified key of {key}. {nonDiatonicChordNames} are non-diatonic.";
+				result.Add(new HarmonicAnalysisResult(this, true, message));
 			}
 
 			return result;

@@ -57,6 +57,9 @@
     </Compile>
     <Compile Include="Chords\ChordFormulaFactory.cs" />
     <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
+    <Compile Include="Chords\ChordFormula_Comparers.cs">
+      <DependentUpon>ChordFormula.cs</DependentUpon>
+    </Compile>
     <Compile Include="Chords\ChordParser.cs" />
     <Compile Include="Chords\ChordTone.cs" />
     <Compile Include="Chords\ChordType.cs" />

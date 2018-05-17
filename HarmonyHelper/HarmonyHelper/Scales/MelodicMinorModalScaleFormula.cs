@@ -170,6 +170,7 @@ namespace Eric.Morrison.Harmony.Scales
 					throw new ArgumentOutOfRangeException();
 					break;
 			}
+			result = $"Melodic Minor {result}";
 			return result;
 		}
 

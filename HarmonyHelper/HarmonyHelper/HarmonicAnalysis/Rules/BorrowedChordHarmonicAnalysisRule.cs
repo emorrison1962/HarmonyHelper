@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
@@ -39,7 +38,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			{
 				foreach (var grid in grids)
 				{
-					var rows = grid.Rows.Where(x => x.Formulas.Contains(formula)).ToList(); // get row from grid.
+					var rows = grid.Rows.Where(x => x.Formulas.Contains(formula, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
 						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
@@ -137,9 +136,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			var result = new Grid();
 
-			if (inputKey.IsMajor)
-				inputKey = inputKey.GetRelativeMinor();
-
 			var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
 				// E.G, 2nd row Cm7 is the Dorian chord from Bb, 4th row CMaj7 is the Lydian chord from key of G.
@@ -188,14 +184,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			foreach (var row in result.Rows)
-			{
-				Debug.Write($"{row.Key,3}");
-				Debug.Write($"| {row.ModeName.ToString()} ");
-				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			}
-			Debug.WriteLine("");
+			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			//foreach (var row in result.Rows)
+			//{
+			//	Debug.Write($"{row.Key,3}");
+			//	Debug.Write($"| {row.ModeName.ToString()} ");
+			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			//}
+			//Debug.WriteLine("");
 			#endregion
 
 			return result;
@@ -204,10 +200,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		Grid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
 		{
 			var result = new Grid();
-
-			throw new NotImplementedException("Is this correct? Do I get the Relative Minor key? It's throwing the transpositions off. Ionian Root's acidentals are being affected.");
-			if (inputKey.IsMajor)
-				inputKey = inputKey.GetRelativeMinor();
 
 			var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -256,14 +248,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			#region debug output
-			Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
-			foreach (var row in result.Rows)
-			{
-				Debug.Write($"{row.Key,3}");
-				Debug.Write($"| {row.ModeName.ToString()} ");
-				Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
-			}
-			Debug.WriteLine("");
+			//Debug.WriteLine($"===={MethodInfo.GetCurrentMethod().Name}====");
+			//foreach (var row in result.Rows)
+			//{
+			//	Debug.Write($"{row.Key,3}");
+			//	Debug.Write($"| {row.ModeName.ToString()} ");
+			//	Debug.WriteLine($"| {string.Join(", ", row.Formulas.Select(x => x.Name))}");
+			//}
+			//Debug.WriteLine("");
 			#endregion
 
 			return result;
