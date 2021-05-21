@@ -331,6 +331,117 @@ namespace Eric.Morrison.Harmony
 			new object();
 		}
 
+		[TestMethod()]
+		public void TheCycle_12Frets_Test_Guitar()
+		{
+			var noteRange = new NoteRange(
+				new Note(NoteName.E, OctaveEnum.Octave1),
+				new Note(NoteName.E, OctaveEnum.Octave4));
+
+			var chords = new List<Chord>();
+			NoteName root = null;
+			KeySignature key = null;
+			ChordType chordType = ChordType.None;
+
+			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
+			{
+				if (null == root)
+				{
+					root = NoteName.C;
+					key = KeySignature.GbMajor;
+					chordType = ChordType.Dominant7th;
+				}
+				else
+				{
+					chordType = ChordType.Dominant7th;
+					key = key + Interval.Perfect4th;
+					root = root + new IntervalContext(key, Interval.Perfect4th);
+				}
+
+				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var chord = new Chord(formula, noteRange);
+				chords.Add(chord);
+			}
+
+
+			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
+			var notesToPlay = 4;
+
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, 4, startingNote, true);
+
+			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Ctx_ChordChanged;
+			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+			arpeggiator.Starting += Ctx_Starting;
+			arpeggiator.Ending += Ctx_Ending;
+
+			arpeggiator.Arpeggiate();
+
+			var noteUsage = this.noteRangeUsageStatistics.NoteUsages.ToList();
+			//noteUsage.ForEach(kvp => Debug.WriteLine($"{kvp.Key.ToString()} was used {kvp.Value} times."));
+
+			new object();
+		}
+
+		[TestMethod()]
+		public void Blues_12Frets_Test_Guitar()
+		{
+			var noteRange = new NoteRange(
+				new Note(NoteName.E, OctaveEnum.Octave1),
+				new Note(NoteName.E, OctaveEnum.Octave4));
+
+			var chords = new List<Chord>();
+			KeySignature key = KeySignature.AMajor;
+			ChordType chordType = ChordType.Dominant7th;
+
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.E, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.E, chordType, key), noteRange));
+
+
+			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave1);
+			var notesToPlay = 4;
+
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+
+			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, 4, startingNote, true);
+
+			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Ctx_ChordChanged;
+			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+			arpeggiator.Starting += Ctx_Starting;
+			arpeggiator.Ending += Ctx_Ending;
+
+			arpeggiator.Arpeggiate();
+
+			var noteUsage = this.noteRangeUsageStatistics.NoteUsages.ToList();
+			//noteUsage.ForEach(kvp => Debug.WriteLine($"{kvp.Key.ToString()} was used {kvp.Value} times."));
+
+			new object();
+		}
+
+
 		NoteRangeUsageStatistics noteRangeUsageStatistics { get; set; }
 		class NoteRangeUsageStatistics
 		{
@@ -588,14 +699,14 @@ namespace Eric.Morrison.Harmony
 			}
 			_lastDirection = ctx.Direction;
 
-			var noteStr = ctx.CurrentNote.NoteName.ToString();
+			var noteStr = ctx.CurrentNote.ToString();
 			if (!directionChanged)
 			{
 				noteStr = string.Format(" {0,-2}", noteStr);
 			}
 			else
 			{
-				noteStr = string.Format("{0,-1}", noteStr);
+				noteStr = string.Format("{0,-2}", noteStr);
 			}
 			Debug.Write(noteStr);
 		}
@@ -615,7 +726,7 @@ namespace Eric.Morrison.Harmony
 		{
 			if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
-			Debug.Write(string.Format(" | {0,4} ", "(" + ctx.CurrentChord.Name + ")"));
+			Debug.Write(string.Format(" | {0,5} ", "(" + ctx.CurrentChord.Name + ")"));
 			++chordCount;
 		}
 

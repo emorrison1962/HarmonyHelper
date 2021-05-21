@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dan’s-Big-Awesome-Acoustic-Songbook-Parser", "Dan’s-Big-Awesome-Acoustic-Songbook-Parser\Dan’s-Big-Awesome-Acoustic-Songbook-Parser.csproj", "{D17BBF64-2C4C-4260-9675-261EB4999E67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordProParser", "ChordProParser\ChordProParser.csproj", "{145649E6-FEE6-433D-B9F1-47F1EA513F0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeckDiagrams", "NeckDiagrams\NeckDiagrams.csproj", "{5D86781E-86BF-44ED-B1BF-72C208937B54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

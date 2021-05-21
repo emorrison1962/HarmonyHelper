@@ -44,7 +44,22 @@ namespace Eric.Morrison.Harmony
 		public override string ToString()
 		{
 			//var result = this.NoteName.ToString();
-			var result = string.Format("{0}{1}", this.NoteName.ToString(), (int)this.Octave);
+			string octaveNum = string.Empty;
+			switch ((int)this.Octave)
+			{
+				case 0: { octaveNum = "⁰"; break; }
+				case 1: { octaveNum = "¹"; break; }
+				case 2: { octaveNum = "²"; break; }
+				case 3: { octaveNum = "³"; break; }
+				case 4: { octaveNum = "⁴"; break; }
+				default: 
+					{
+						throw new NotImplementedException();
+					}
+			}
+
+			//⁰²³⁴¹
+			var result = $"{this.NoteName.ToString()}{octaveNum}";
 
 			//var result = string.Format("{0}, NoteName={1}, Octave={2}", 
 			//    base.ToString(), this.NoteName, this.Octave);
@@ -97,6 +112,13 @@ namespace Eric.Morrison.Harmony
 		{
 			var result = Compare(a, b) != 0;
 			return result;
+		}
+
+		public static Note operator +(Note n, Interval interval)
+		{
+			n.NoteName = NoteName.TransposeUp(n.NoteName, interval);
+			n.Octave += (int)interval;
+			return n;
 		}
 
 		public static Interval operator -(Note a, Note b)

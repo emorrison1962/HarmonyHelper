@@ -105,6 +105,23 @@ Major7th
 		TwelfthPosition = 12,
 	}
 
+	public enum GuitarPositionEnum
+	{
+		OpenPosition = 0,
+		FirstPosition = 1,
+		SecondPosition = 2,
+		ThirdPosition = 3,
+		FourthPosition = 4,
+		FifthPosition = 5,
+		SixthPosition = 6,
+		SeventhPosition = 7,
+		EigthPosition = 8,
+		NinthPosition = 9,
+		TenthPosition = 10,
+		EleventhPosition = 11,
+		TwelfthPosition = 12,
+	}
+
 	public enum ToStringEnum
 	{
 		Minimal,

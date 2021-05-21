@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -240,6 +241,136 @@ namespace Eric.Morrison.Harmony
 
 		/// <summary>
 		/// C1 = B string, 1st fret
+		/// C2 = B string, 13th fret
+		/// C2 = E string, 8th fret
+		/// C2 = A string, 3rd fret
+		/// C3 = A string, 15th fret
+		/// C3 = G string, 5th fret
+		/// C3 = D string, 10th fret
+		/// C4 (Middle C)= G string, 17th fret on of bass guitar.
+		/// 
+		/// 1st pos, B0, B2
+		/// 5th E1, E3
+		/// 9th G1, G3
+		/// 12th B1, B3
+		/// 
+		/// </summary>
+
+	}//class
+
+	public class GuitarNoteRange : NoteRange
+	{
+		public GuitarNoteRange(GuitarPositionEnum position)
+		{
+			this.SetNoteRange(position);
+			base.Init();
+		}
+
+		void SetNoteRange(GuitarPositionEnum position)
+		{
+			var openUpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
+			var openLowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
+			//var x = Enum.GetValues(typeof(GuitarPositionEnum))
+			//	.Cast<int>()
+			//	.ToList()
+			//	.Where(x => x == (int)position)
+			//	.First();
+
+			openUpperLimit += (Interval)(int)position;
+			openLowerLimit += (Interval)(int)position;
+			this.UpperLimit = openUpperLimit;
+			this.LowerLimit = openLowerLimit;
+
+#if false
+			switch (position)
+			{
+				case GuitarPositionEnum.OpenPosition:
+					{
+						this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave3);
+						this.LowerLimit = new Note(NoteName.Ab, OctaveEnum.Octave1);
+					}
+					break;
+				case GuitarPositionEnum.FirstPosition:
+					{
+						this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave3);
+						this.LowerLimit = new Note(NoteName.Ab, OctaveEnum.Octave1);
+					}
+					break;
+				case GuitarPositionEnum.SecondPosition:
+					{
+						this.UpperLimit = new Note(NoteName.F, OctaveEnum.Octave3);
+						this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
+					}
+					break;
+				case GuitarPositionEnum.ThirdPosition:
+					{
+						this.UpperLimit = new Note(NoteName.F, OctaveEnum.Octave3);
+						this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
+					}
+					break;
+				case GuitarPositionEnum.FourthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.F, OctaveEnum.Octave3);
+						this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
+					}
+					break;
+				case GuitarPositionEnum.FifthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.Db, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.SixthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.A, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.Db, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.SeventhPosition:
+					{
+						this.UpperLimit = new Note(NoteName.Bb, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.D, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.EigthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.Eb, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.NinthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.Db, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.Db, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.TenthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.D, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.D, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.EleventhPosition:
+					{
+						this.UpperLimit = new Note(NoteName.Eb, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.Eb, OctaveEnum.Octave2);
+					}
+					break;
+				case GuitarPositionEnum.TwelfthPosition:
+					{
+						this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave4);
+						this.LowerLimit = new Note(NoteName.E, OctaveEnum.Octave2);
+					}
+					break;
+				default:
+					{ throw new ArgumentOutOfRangeException(); }
+
+			} 
+#endif
+		}
+
+		/// <summary>
+		/// C1 = B string, 1st fret
 
 		/// C2 = B string, 13th fret
 		/// C2 = E string, 8th fret
@@ -259,6 +390,5 @@ namespace Eric.Morrison.Harmony
 		/// </summary>
 
 	}//class
-
 
 }//ns
