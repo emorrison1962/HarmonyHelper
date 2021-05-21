@@ -1,17 +1,16 @@
-﻿using Eric.Morrison.Harmony;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using Eric.Morrison.Harmony;
 
 namespace NeckDiagrams
 {
-	public partial class StringControl : UserControl
+	public partial class StringControl : UserControl, IModelObserver
 	{
 		NoteRange NoteRange { get; set; }
-		List<NoteName> ActiveNotes { get; set; }
+		List<NoteName> ActiveNotes { get; set; } = new List<NoteName>();
 		public int StringNumber { get; set; }
 
 		public StringControl()
@@ -30,6 +29,8 @@ namespace NeckDiagrams
 
 		private void StringControl_Load(object sender, EventArgs e)
 		{
+			var mp = this.FindForm() as IModelProvider;
+			mp.ModelChanged += this.ModelChanged_Handler;
 			if (!DesignMode)
 			{
 				this.Controls.Clear();
@@ -45,12 +46,16 @@ namespace NeckDiagrams
 
 				this.Controls.AddRange(ctls.ToArray());
 
-				var active = this.Controls.Cast<StringPositionControl>()
-					.Where(x => this.ActiveNotes.Contains(x.Note.NoteName));
-				foreach (var ctl in active)
-				{
-					ctl.IsActive = true;
-				}
+				this.UpdatePositions();
+			}
+		}
+
+		private void UpdatePositions()
+		{
+			var ctls = this.Controls.Cast<StringPositionControl>();
+			foreach (var ctl in ctls)
+			{
+				ctl.IsActive = this.ActiveNotes.Contains(ctl.Note.NoteName);
 			}
 		}
 
@@ -63,7 +68,14 @@ namespace NeckDiagrams
 			}
 		}
 
-
-
+		public void ModelChanged_Handler(object sender, HarmonyModel model)
+		{
+			if (null != model.NoteNames)
+			{
+				this.ActiveNotes = model.NoteNames;
+				this.UpdatePositions();
+				this.Refresh();
+			}
+		}
 	}//class
 }//ns

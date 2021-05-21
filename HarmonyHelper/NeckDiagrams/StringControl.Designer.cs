@@ -31,19 +31,20 @@ namespace NeckDiagrams
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.position00 = new NeckDiagrams.StringPositionControl();
-			this.position01 = new NeckDiagrams.StringPositionControl();
-			this.position02 = new NeckDiagrams.StringPositionControl();
-			this.position03 = new NeckDiagrams.StringPositionControl();
-			this.position04 = new NeckDiagrams.StringPositionControl();
-			this.position05 = new NeckDiagrams.StringPositionControl();
-			this.position06 = new NeckDiagrams.StringPositionControl();
-			this.position07 = new NeckDiagrams.StringPositionControl();
-			this.position08 = new NeckDiagrams.StringPositionControl();
-			this.position09 = new NeckDiagrams.StringPositionControl();
-			this.position10 = new NeckDiagrams.StringPositionControl();
-			this.position11 = new NeckDiagrams.StringPositionControl();
+			//this.position00 = new NeckDiagrams.StringPositionControl();
+			//this.position01 = new NeckDiagrams.StringPositionControl();
+			//this.position02 = new NeckDiagrams.StringPositionControl();
+			//this.position03 = new NeckDiagrams.StringPositionControl();
+			//this.position04 = new NeckDiagrams.StringPositionControl();
+			//this.position05 = new NeckDiagrams.StringPositionControl();
+			//this.position06 = new NeckDiagrams.StringPositionControl();
+			//this.position07 = new NeckDiagrams.StringPositionControl();
+			//this.position08 = new NeckDiagrams.StringPositionControl();
+			//this.position09 = new NeckDiagrams.StringPositionControl();
+			//this.position10 = new NeckDiagrams.StringPositionControl();
+			//this.position11 = new NeckDiagrams.StringPositionControl();
 			this.SuspendLayout();
+#if false
 			// 
 			// position00
 			// 
@@ -176,12 +177,15 @@ namespace NeckDiagrams
 			this.position11.Position = 0;
 			this.position11.Size = new System.Drawing.Size(40, 20);
 			this.position11.TabIndex = 11;
+#endif
+
 			// 
 			// StringControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+#if false
 			this.Controls.Add(this.position00);
 			this.Controls.Add(this.position01);
 			this.Controls.Add(this.position02);
@@ -194,6 +198,7 @@ namespace NeckDiagrams
 			this.Controls.Add(this.position09);
 			this.Controls.Add(this.position10);
 			this.Controls.Add(this.position11);
+#endif           
 			this.MaximumSize = new System.Drawing.Size(1600, 200);
 			this.MinimumSize = new System.Drawing.Size(20, 20);
 			this.Name = "StringControl";
@@ -202,21 +207,19 @@ namespace NeckDiagrams
 
 		}
 
-		#endregion
+#endregion
 
-		//List<StringPositionControl> positionControls = new List<StringPositionControl>();
-
-		private StringPositionControl position00;
-		private StringPositionControl position01;
-		private StringPositionControl position02;
-		private StringPositionControl position03;
-		private StringPositionControl position04;
-		private StringPositionControl position05;
-		private StringPositionControl position06;
-		private StringPositionControl position07;
-		private StringPositionControl position08;
-		private StringPositionControl position09;
-		private StringPositionControl position10;
-		private StringPositionControl position11;
+		//private StringPositionControl position00;
+		//private StringPositionControl position01;
+		//private StringPositionControl position02;
+		//private StringPositionControl position03;
+		//private StringPositionControl position04;
+		//private StringPositionControl position05;
+		//private StringPositionControl position06;
+		//private StringPositionControl position07;
+		//private StringPositionControl position08;
+		//private StringPositionControl position09;
+		//private StringPositionControl position10;
+		//private StringPositionControl position11;
 	}
 }

@@ -53,6 +53,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HarmonyModel.cs" />
+    <Compile Include="IModelProvider.cs" />
     <Compile Include="NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

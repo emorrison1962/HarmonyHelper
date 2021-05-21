@@ -24,7 +24,8 @@ namespace Eric.Morrison.Harmony
 		{
 			this.Key = key;
 			//this.Root = key.NoteName;
-			this.Root = NoteNames.Get(this.Key.NoteName, Interval.None, key);
+			this.Root = this.Key.NoteName;
+			//this.Root = NoteNames.Get(this.Key.NoteName, Interval.None, key);
 
 			var name = this.GetType().Name;
 			name = name.Replace("Formula", string.Empty);
@@ -79,7 +80,9 @@ namespace Eric.Morrison.Harmony
 			result.Add(this.Key.NoteName);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteNames.Get(this.Key.NoteName, interval, this);
+				var nn = NoteName.TransposeUp(this.Root, interval);
+				nn = this.GetNormalized(nn, interval);
+				//var nn = NoteNames.Get(this.Key.NoteName, interval, this);
 				Debug.Assert(nn != this.Key.NoteName);
 				result.Add(nn);
 			}

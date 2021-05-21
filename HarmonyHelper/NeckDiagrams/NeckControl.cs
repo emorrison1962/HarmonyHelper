@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
-	public partial class NeckControl : UserControl
+	public partial class NeckControl : UserControl, IModelObserver
 	{
 		List<NoteRange> NoteRanges { get; set; } = new List<NoteRange>();
-		Scale Scale { get; set; }
+		Scale MusicalScale { get; set; }
 
 
 		public NeckControl()
@@ -20,13 +20,14 @@ namespace NeckDiagrams
 			this.Layout += this.NeckControl_Layout;
 		}
 
+
 		private void NeckControl_Load(object sender, EventArgs e)
 		{
 			if (!DesignMode)
 			{
-				var key = KeySignature.AMinor;
-				var formula = new PentatonicMinorScaleFormula(key);
-				var noteNames = formula.NoteNames;
+				var mp = this.FindForm() as IModelProvider;
+				mp.ModelChanged += this.ModelChanged_Handler;
+
 
 				this.Controls.Clear();
 				var ctls = new List<StringControl>();
@@ -61,7 +62,7 @@ namespace NeckDiagrams
 				for (int i = 0; i < this.NoteRanges.Count; ++i)
 				{
 					var noteRange = this.NoteRanges[i];
-					var ctl = new StringControl(i, noteRange, formula.NoteNames);
+					var ctl = new StringControl(i, noteRange, new List<NoteName>());
 					ctl.Dock = DockStyle.Top;
 					ctls.Insert(0, ctl);
 				}
@@ -96,6 +97,11 @@ namespace NeckDiagrams
 				ctl.Height = cy;
 				ctl.Width = this.Width;
 			}
+		}
+
+		public void ModelChanged_Handler(object sender, HarmonyModel model)
+		{
+			new object();
 		}
 	}//class
 }//ns

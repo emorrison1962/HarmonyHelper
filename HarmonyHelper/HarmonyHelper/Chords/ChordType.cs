@@ -203,6 +203,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public override string ToString()
 		{
+			return this.Name;
 			return $"{this.GetType().Name}: Name={this.Name}";
 		}
 
