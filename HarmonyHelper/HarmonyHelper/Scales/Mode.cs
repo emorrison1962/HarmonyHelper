@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony
 		{
 			var tonicOffset = this.GetTonicOffset();
 			var tonic = this.Key.NoteName;
-			if (tonicOffset > Interval.None)
+			if (tonicOffset > Interval.Unison)
 				tonic = this.Key.NoteName + new IntervalContext(this.Key, tonicOffset);
 
 			this.Tonic = tonic;
@@ -60,11 +60,11 @@ namespace Eric.Morrison.Harmony
 
 		Interval GetTonicOffset()
 		{
-			Interval result = Interval.None;
+			Interval result = Interval.Unison;
 			switch (Formula.Mode)
 			{
 				case ModeEnum.Ionian:
-					result = Interval.None;
+					result = Interval.Unison;
 					break;
 				case ModeEnum.Dorian:
 					result = Interval.Major2nd;

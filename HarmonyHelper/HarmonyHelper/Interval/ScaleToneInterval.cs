@@ -9,13 +9,16 @@ namespace Eric.Morrison.Harmony.Intervals
 	{
 		static public List<ScaleToneInterval> Catalog { get; set; } = new List<ScaleToneInterval>();
 
-		static public new ScaleToneInterval None = new ScaleToneInterval("None", Interval.None, ScaleToneFunctionEnum.None);
-		static public ScaleToneInterval Root = new ScaleToneInterval("Root", Interval.None, ScaleToneFunctionEnum.Root);
+		static public new ScaleToneInterval None = new ScaleToneInterval("None", Interval.Unison, ScaleToneFunctionEnum.None);
+		static public ScaleToneInterval Root = new ScaleToneInterval("Root", Interval.Unison, ScaleToneFunctionEnum.Root);
+
+		static public ScaleToneInterval AugmentedUnison = new ScaleToneInterval("AugmentedUnison", Interval.AugmentedUnison, ScaleToneFunctionEnum.AugmentedUnison);
 
 		static public ScaleToneInterval Minor2nd = new ScaleToneInterval("Minor2nd", Interval.Minor2nd, ScaleToneFunctionEnum.Major2nd);
 		static public ScaleToneInterval Major2nd = new ScaleToneInterval("Major2nd", Interval.Major2nd, ScaleToneFunctionEnum.Major2nd);
 		static public ScaleToneInterval Augmented2nd = new ScaleToneInterval("Augmented2nd", Interval.Augmented2nd, ScaleToneFunctionEnum.Augmented2nd);
 
+		static public ScaleToneInterval Diminished3rd = new ScaleToneInterval("Diminished3rd", Interval.Diminished3rd, ScaleToneFunctionEnum.Diminished3rd);
 		static public new ScaleToneInterval Minor3rd = new ScaleToneInterval("Minor3rd", Interval.Minor3rd, ScaleToneFunctionEnum.Minor3rd);
 		static public new ScaleToneInterval Major3rd = new ScaleToneInterval("Major3rd", Interval.Major3rd, ScaleToneFunctionEnum.Major3rd);
 
@@ -27,6 +30,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public new ScaleToneInterval Perfect5th = new ScaleToneInterval("Perfect5th", Interval.Perfect5th, ScaleToneFunctionEnum.Perfect5th);
 		static public new ScaleToneInterval Augmented5th = new ScaleToneInterval("Augmented5th", Interval.Augmented5th, ScaleToneFunctionEnum.Augmented5th);
 
+		static public ScaleToneInterval Augmented6th = new ScaleToneInterval("Augmented6th", Interval.Augmented6th, ScaleToneFunctionEnum.Augmented6th);
 		static public ScaleToneInterval Minor6th = new ScaleToneInterval("Minor6th", Interval.Minor6th, ScaleToneFunctionEnum.Minor6th);
 		static public new ScaleToneInterval Major6th = new ScaleToneInterval("Major6th", Interval.Major6th, ScaleToneFunctionEnum.Major6th);
 
@@ -34,6 +38,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public new ScaleToneInterval Minor7th = new ScaleToneInterval("Minor7th", Interval.Minor7th, ScaleToneFunctionEnum.Minor7th);
 		static public new ScaleToneInterval Major7th = new ScaleToneInterval("Major7th", Interval.Major7th, ScaleToneFunctionEnum.Major7th);
 
+		static public ScaleToneInterval DiminishedOctave = new ScaleToneInterval("DiminishedOctave", Interval.DiminishedOctave, ScaleToneFunctionEnum.DiminishedOctave);
 
 		#region COPY_AND_PASTE_NAMES
 #if false

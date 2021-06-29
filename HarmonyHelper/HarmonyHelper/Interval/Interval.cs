@@ -13,10 +13,13 @@ namespace Eric.Morrison.Harmony.Intervals
 
 		#region Static
 		static public List<Interval> Catalog { get; set; } = new List<Interval>();
-		static public Interval None = new Interval("None", 0);
+		static public Interval Unison = new Interval("Unison", 0);
+		static public Interval AugmentedUnison = new Interval("Augmented Unison", Constants.INTERVAL_VALUE_MINOR_2ND);
+
 		static public Interval Minor2nd = new Interval("Minor2nd", Constants.INTERVAL_VALUE_MINOR_2ND);
 		static public Interval Major2nd = new Interval("Major2nd", Constants.INTERVAL_VALUE_MAJOR_2ND);
 		static public Interval Augmented2nd = new Interval("Augmented2nd", Constants.INTERVAL_VALUE_MINOR_3RD);
+		static public Interval Diminished3rd = new Interval("Diminished3rd", Constants.INTERVAL_VALUE_MAJOR_2ND);
 		static public Interval Minor3rd = new Interval("Minor3rd", Constants.INTERVAL_VALUE_MINOR_3RD);
 		static public Interval Major3rd = new Interval("Major3rd", Constants.INTERVAL_VALUE_MAJOR_3RD);
 		static public Interval Diminished4th = new Interval("Diminished4th", Constants.INTERVAL_VALUE_DIMINISHED_4TH);
@@ -28,13 +31,16 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public Interval Minor6th = new Interval("Minor6th", Constants.INTERVAL_VALUE_MINOR_6TH);
 		static public Interval Major6th = new Interval("Major6th", Constants.INTERVAL_VALUE_MAJOR_6TH);
 		static public Interval Diminished7th = new Interval("Diminished7th", Constants.INTERVAL_VALUE_MAJOR_6TH);
+		static public Interval Augmented6th = new Interval("Augmented6th", Constants.INTERVAL_VALUE_MINOR_7TH);
 		static public Interval Minor7th = new Interval("Minor7th", Constants.INTERVAL_VALUE_MINOR_7TH);
 		static public Interval Major7th = new Interval("Major7th", Constants.INTERVAL_VALUE_MAJOR_7TH);
+
+		static public Interval DiminishedOctave = new Interval("Diminished Octave", Constants.INTERVAL_VALUE_MAJOR_7TH);
 		#endregion
 
-#region COPY_AND_PASTE_NAMES
+		#region COPY_AND_PASTE_NAMES
 #if false
-Interval.None
+Interval.Unison
 Interval.Minor2nd
 Interval.Major2nd
 Interval.Augmented2nd
@@ -49,10 +55,11 @@ Interval.Augmented5th
 Interval.Minor6th
 Interval.Major6th
 Interval.Diminished7th
+Interval.Augmented6th
 Interval.Minor7th
 Interval.Major7th
 #endif
-#endregion
+		#endregion
 
 		virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
@@ -72,14 +79,25 @@ Interval.Major7th
 		}
 		public Interval Invert()
 		{
-			var result = Interval.None;
+			var result = Interval.Unison;
 
+			if (this == Interval.Unison)
+				result = Interval.Unison;
 
-			if (this == Interval.Minor2nd)
+			else if (this == Interval.AugmentedUnison)
+				result = Interval.DiminishedOctave;
+
+			else if (this == Interval.Minor2nd)
 				result = Interval.Major7th;
 
 			else if (this == Interval.Major2nd)
 				result = Interval.Minor7th;
+
+			else if (this == Interval.Augmented2nd)
+				result = Interval.Diminished7th;
+
+			else if (this == Interval.Diminished3rd)
+				result = Interval.Augmented6th;
 
 			else if (this == Interval.Minor3rd)
 				result = Interval.Major6th;
@@ -108,11 +126,17 @@ Interval.Major7th
 			else if (this == Interval.Major6th)
 				result = Interval.Minor3rd;
 
+			else if (this == Interval.Augmented6th)
+				result = Interval.Diminished3rd;
+
 			else if (this == Interval.Minor7th)
 				result = Interval.Major2nd;
 
 			else if (this == Interval.Major7th)
 				result = Interval.Minor2nd;
+
+			else if (this == Interval.DiminishedOctave)
+				result = Interval.AugmentedUnison;
 
 			else
 				throw new ArgumentOutOfRangeException();
@@ -124,6 +148,14 @@ Interval.Major7th
 		public bool Equals(Interval other)
 		{
 			var result = 0 == this.CompareTo(other);
+			return result;
+		}
+
+		public Interval Abs()
+		{
+			var result = this;
+			if (this.Invert() < this)
+				result = this.Invert();
 			return result;
 		}
 
@@ -248,13 +280,15 @@ Interval.Major7th
 
 		public Interval GetInversion()
 		{
-			Interval result = Interval.None;
-			if (Interval.None != this)
+			Interval result = Interval.Unison;
+			if (Interval.Unison != this)
 			{
 				if (this == Interval.Minor2nd)
 					result = Interval.Major7th;
 				else if (this == Interval.Major2nd)
 					result = Interval.Minor7th;
+				else if (this == Interval.Diminished3rd)
+					result = Interval.Augmented6th;
 				else if (this == Interval.Augmented2nd)
 					result = Interval.Diminished7th;
 				else if (this == Interval.Minor3rd)
@@ -277,6 +311,8 @@ Interval.Major7th
 					result = Interval.Major3rd;
 				else if (this == Interval.Major6th)
 					result = Interval.Minor3rd;
+				else if (this == Interval.Augmented6th)
+					result = Interval.Diminished3rd;
 				else if (this == Interval.Diminished7th)
 					result = Interval.Augmented2nd;
 				else if (this == Interval.Minor7th)

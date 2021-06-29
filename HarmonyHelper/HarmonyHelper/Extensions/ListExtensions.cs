@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using static Eric.Morrison.Harmony.Chords.Chord;
 //using static Eric.Morrison.Harmony.Chord;
@@ -29,7 +27,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class 
+		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class
 		{
 			T result = null;
 			var maxNdx = list.Count - 1;
@@ -81,7 +79,7 @@ namespace Eric.Morrison.Harmony
 
 			if (DirectionEnum.AllowTemporayReversal == (DirectionEnum.AllowTemporayReversal & ctx.Direction))
 			{
-				Note option = null; 
+				Note option = null;
 				if (DirectionEnum.Ascending == (DirectionEnum.Ascending & ctx.Direction))
 				{
 					option = FindClosest(ctx.Notes, ctx.LastNote, DirectionEnum.Descending);
@@ -110,6 +108,18 @@ namespace Eric.Morrison.Harmony
 			}
 
 			// Debug.Assert(null != result);
+			return result;
+		}
+
+		public static T NextOrFirst<T>(this List<T> list, int currentNdx) where T : class
+		{
+			var maxNdx = list.Count - 1;
+			if (currentNdx > maxNdx)
+			{
+				currentNdx -= list.Count;
+			}
+
+			T result = list[currentNdx];
 			return result;
 		}
 

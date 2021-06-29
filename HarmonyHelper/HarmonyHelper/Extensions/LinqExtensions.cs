@@ -8,7 +8,34 @@ namespace Eric.Morrison.Harmony
 {
 	public static class LinqExtensions
 	{
-		public static IEnumerable<T[]> GetPairs<T>(this IEnumerable<T> sequence)
+		public class Pair<T> where T : class
+		{
+			public T First { get; private set; }
+			public T Second { get; private set; }
+			public Pair(T[] pair)
+			{
+				this.First = pair[0];
+				this.Second = pair[1];
+			}
+
+
+			public T this[int ndx]
+			{
+				get
+				{
+					T result = null;
+					if (ndx == 0)
+						result = this.First;
+					else if (ndx == 1)
+						result = this.Second;
+					else
+						throw new IndexOutOfRangeException();
+					return result;
+				}
+			}
+		}
+
+		public static IEnumerable<Pair<T>> GetPairs<T>(this IEnumerable<T> sequence) where T: class
 		{
 			if (sequence == null)
 				throw new ArgumentNullException();
@@ -26,13 +53,13 @@ namespace Eric.Morrison.Harmony
 
 				if (ndx == partitionSize)
 				{
-					yield return buffer;
+					yield return new Pair<T>(buffer);
 					buffer = new T[partitionSize];
 				}
 			}
 		}
 
-		public static IEnumerable<T[]> GetTriplets<T>(this IEnumerable<T> sequence)
+		public static IEnumerable<T[]> GetTriplets<T>(this IEnumerable<T> sequence) where T : class
 		{
 			if (sequence == null)
 				throw new ArgumentNullException();

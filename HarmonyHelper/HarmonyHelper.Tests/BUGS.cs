@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony
 		[TestMethod]
 		public void Interval_GetInversion()
 		{
-			var intervals = Interval.Catalog.Where(x => x != Interval.None);
+			var intervals = Interval.Catalog.Where(x => x != Interval.Unison);
 			foreach (var interval in intervals)
 			{
 				var inversion = interval.GetInversion();
@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony
 		{
 			foreach (var noteName in NoteName.Catalog)
 			{
-				var intervals = Interval.Catalog.Where(x => x != Interval.None);
+				var intervals = Interval.Catalog.Where(x => x != Interval.Unison);
 				foreach (var interval in intervals)
 				{
 					var txposedUp = NoteName.TransposeUp(noteName, interval);
@@ -99,7 +99,7 @@ namespace Eric.Morrison.Harmony
 					var txposedDown = NoteName.TransposeDown(txposedUp, interval);
 					expectedInterval = txposedDown - noteName;
 
-					Assert.IsTrue(expectedInterval == Interval.None);
+					Assert.IsTrue(expectedInterval == Interval.Unison);
 					Assert.IsFalse(txposedDown == txposedUp);
 					Assert.IsTrue(txposedDown == noteName);
 				}
@@ -121,7 +121,7 @@ namespace Eric.Morrison.Harmony
 			var txposedDown = NoteName.TransposeDown(txposedUp, interval);
 			expectedInterval = txposedDown - originalNoteName;
 
-			Assert.IsTrue(expectedInterval == Interval.None);
+			Assert.IsTrue(expectedInterval == Interval.Unison);
 			Assert.IsFalse(txposedDown == txposedUp);
 			Assert.IsTrue(txposedDown == originalNoteName);
 		}

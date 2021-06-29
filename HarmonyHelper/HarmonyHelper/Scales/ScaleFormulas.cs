@@ -183,16 +183,16 @@ namespace Eric.Morrison.Harmony
 		protected override void PopulateIntervals()
 		{
 			this.Intervals = new List<ScaleToneInterval>() {
-				ScaleToneInterval.Minor2nd,
+				ScaleToneInterval.AugmentedUnison,
 				ScaleToneInterval.Major2nd,
-				ScaleToneInterval.Minor3rd,
+				ScaleToneInterval.Augmented2nd,
 				ScaleToneInterval.Major3rd,
 				ScaleToneInterval.Perfect4th,
 				ScaleToneInterval.Augmented4th,
 				ScaleToneInterval.Perfect5th,
 				ScaleToneInterval.Augmented5th,
 				ScaleToneInterval.Major6th,
-				ScaleToneInterval.Minor7th,
+				ScaleToneInterval.Augmented6th,
 				ScaleToneInterval.Major7th,
 			};
 		}

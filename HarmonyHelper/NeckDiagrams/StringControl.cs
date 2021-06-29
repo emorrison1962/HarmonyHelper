@@ -9,6 +9,7 @@ namespace NeckDiagrams
 {
 	public partial class StringControl : UserControl, IModelObserver
 	{
+		const int FRET_COUNT = 13;
 		NoteRange NoteRange { get; set; }
 		List<NoteName> ActiveNotes { get; set; } = new List<NoteName>();
 		public int StringNumber { get; set; }
@@ -30,15 +31,17 @@ namespace NeckDiagrams
 		private void StringControl_Load(object sender, EventArgs e)
 		{
 			var mp = this.FindForm() as IModelProvider;
-			mp.ModelChanged += this.ModelChanged_Handler;
+			mp.Model.ModelChanged += this.ModelChanged_Handler;
+			//mp.Model.KeySignature.Normalize(ref this.NoteRange.Notes);
+
 			if (!DesignMode)
 			{
 				this.Controls.Clear();
 				var ctls = new List<Control>();
 
-				for (int i = 0; i < this.NoteRange.Notes.Count; ++i)
+				for (int i = 0; i < FRET_COUNT; ++i)
 				{
-					var note = this.NoteRange.Notes[i];
+					var note = this.NoteRange.Notes.NextOrFirst(i);
 					var ctl = new StringPositionControl(i, note);
 					ctl.Dock = DockStyle.Left;
 					ctls.Insert(0, ctl);
@@ -61,7 +64,7 @@ namespace NeckDiagrams
 
 		private void StringControl_Layout(object sender, LayoutEventArgs e)
 		{
-			var cx = this.Width / 12;
+			var cx = this.Width / FRET_COUNT;
 			foreach (var ctl in this.Controls.Cast<Control>())
 			{
 				ctl.Width = cx;

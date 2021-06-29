@@ -13,7 +13,7 @@ namespace NeckDiagrams
 		public event EventHandler<HarmonyModel> ModelChanged;
 		ScaleFormulaCatalog ScaleFormulaCatalog { get; set; }
 
-		HarmonyModel Model { get; set; } = new HarmonyModel();
+		public HarmonyModel Model { get; private set; } = new HarmonyModel();
 
 		public Form1()
 		{
@@ -87,14 +87,20 @@ namespace NeckDiagrams
 			this.OnModelChanged();
 		}
 
-		private void _radioScale_CheckedChanged(object sender, EventArgs e)
+		private void _cbScale_CheckedChanged(object sender, EventArgs e)
 		{
-			_cbScaleType.Enabled = _radioScale.Checked;
+			if (_cbScale.Checked)
+				Model.ModelType |= ModelTypeEnum.Scale;
+			else
+				Model.ModelType ^= ModelTypeEnum.Scale;
 		}
 
-		private void _radioArpeggio_CheckedChanged(object sender, EventArgs e)
+		private void _cbArpeggio_CheckedChanged(object sender, EventArgs e)
 		{
-			_cbChordType.Enabled = _radioArpeggio.Checked;
+			if (_cbArpeggio.Checked)
+				Model.ModelType |= ModelTypeEnum.Arpeggio;
+			else
+				Model.ModelType ^= ModelTypeEnum.Arpeggio;
 		}
 
 

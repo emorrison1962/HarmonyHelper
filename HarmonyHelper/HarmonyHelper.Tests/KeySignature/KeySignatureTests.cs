@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.Tests
 			//public static KeySignature GetTransposed(KeySignature key, Interval interval)
 
 
-			var intervals = Interval.Catalog.Where(x => x > Interval.None);
+			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
 			foreach (var key in KeySignature.Catalog)
 			{
 				Debug.WriteLine($"Key = {key.NoteName.Name}");

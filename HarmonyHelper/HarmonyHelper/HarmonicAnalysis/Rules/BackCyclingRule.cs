@@ -15,13 +15,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var chords = new List<ChordFormula>(input);
 			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
 
-			var pairs = chords.GetPairs().Where(x => (x[0].Root - x[1].Root) == Interval.Minor2nd);
+			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd);
 			foreach (var pair in pairs)
 			{
-				if (pair[0].ChordType.IsDominant)
+				if (pair.First.ChordType.IsDominant)
 				{
-					var subbedFor = this.GetTritoneSubstitution(pair[0]);
-					var seq = chords.FindAll(x => x == pair[0]);
+					var subbedFor = this.GetTritoneSubstitution(pair.First);
+					var seq = chords.FindAll(x => x == pair.First);
 					foreach (var item in seq)
 					{
 						var ndx = chords.IndexOf(item);

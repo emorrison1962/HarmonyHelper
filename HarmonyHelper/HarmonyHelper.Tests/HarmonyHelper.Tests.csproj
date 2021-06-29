@@ -79,6 +79,8 @@
     <Compile Include="Scales\ModalScaleFormulaBaseTests.cs" />
     <Compile Include="Scales\ScaleTests_UseCases.cs" />
     <Compile Include="BUGS.cs" />
+    <Compile Include="Scales\ScaleFormulaTests.cs" />
+    <Compile Include="VoiceLeading\VoiceLeadingAnalyzerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">

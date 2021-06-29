@@ -31,16 +31,16 @@ namespace NeckDiagrams
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this._cbArpeggio = new System.Windows.Forms.CheckBox();
+			this._cbScale = new System.Windows.Forms.CheckBox();
+			this._cbChordType = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this._cbScaleType = new System.Windows.Forms.ComboBox();
 			this._cbKey = new System.Windows.Forms.ComboBox();
 			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
-			this.label3 = new System.Windows.Forms.Label();
-			this._cbChordType = new System.Windows.Forms.ComboBox();
-			this._radioScale = new System.Windows.Forms.RadioButton();
-			this._radioArpeggio = new System.Windows.Forms.RadioButton();
 			this.panel3.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
 			this.SuspendLayout();
@@ -57,8 +57,8 @@ namespace NeckDiagrams
 			// panel3
 			// 
 			this.panel3.BackColor = System.Drawing.SystemColors.Control;
-			this.panel3.Controls.Add(this._radioArpeggio);
-			this.panel3.Controls.Add(this._radioScale);
+			this.panel3.Controls.Add(this._cbArpeggio);
+			this.panel3.Controls.Add(this._cbScale);
 			this.panel3.Controls.Add(this._cbChordType);
 			this.panel3.Controls.Add(this.label3);
 			this.panel3.Controls.Add(this.label2);
@@ -70,6 +70,49 @@ namespace NeckDiagrams
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(800, 100);
 			this.panel3.TabIndex = 2;
+			// 
+			// _cbArpeggio
+			// 
+			this._cbArpeggio.AutoSize = true;
+			this._cbArpeggio.Location = new System.Drawing.Point(330, 15);
+			this._cbArpeggio.Name = "_cbArpeggio";
+			this._cbArpeggio.Size = new System.Drawing.Size(67, 17);
+			this._cbArpeggio.TabIndex = 7;
+			this._cbArpeggio.TabStop = true;
+			this._cbArpeggio.Text = "Arpeggio";
+			this._cbArpeggio.UseVisualStyleBackColor = true;
+			this._cbArpeggio.CheckedChanged += new System.EventHandler(this._cbArpeggio_CheckedChanged);
+			// 
+			// _cbScale
+			// 
+			this._cbScale.AutoSize = true;
+			this._cbScale.Location = new System.Drawing.Point(249, 15);
+			this._cbScale.Name = "_cbScale";
+			this._cbScale.Size = new System.Drawing.Size(52, 17);
+			this._cbScale.TabIndex = 6;
+			this._cbScale.TabStop = true;
+			this._cbScale.Text = "Scale";
+			this._cbScale.UseVisualStyleBackColor = true;
+			this._cbScale.CheckedChanged += new System.EventHandler(this._cbScale_CheckedChanged);
+			// 
+			// _cbChordType
+			// 
+			this._cbChordType.FormattingEnabled = true;
+			this._cbChordType.Location = new System.Drawing.Point(307, 39);
+			this._cbChordType.Name = "_cbChordType";
+			this._cbChordType.Size = new System.Drawing.Size(121, 21);
+			this._cbChordType.TabIndex = 5;
+			this._cbChordType.SelectedValueChanged += new System.EventHandler(this._cbChordType_SelectedValueChanged);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(236, 42);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(65, 13);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Chord Type:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label2
 			// 
@@ -128,49 +171,6 @@ namespace NeckDiagrams
 			this._neckCtl.Size = new System.Drawing.Size(760, 250);
 			this._neckCtl.TabIndex = 0;
 			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(236, 42);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(65, 13);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "Chord Type:";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
-			// _cbChordType
-			// 
-			this._cbChordType.FormattingEnabled = true;
-			this._cbChordType.Location = new System.Drawing.Point(307, 39);
-			this._cbChordType.Name = "_cbChordType";
-			this._cbChordType.Size = new System.Drawing.Size(121, 21);
-			this._cbChordType.TabIndex = 5;
-			this._cbChordType.SelectedValueChanged += new System.EventHandler(this._cbChordType_SelectedValueChanged);
-			// 
-			// _radioScale
-			// 
-			this._radioScale.AutoSize = true;
-			this._radioScale.Location = new System.Drawing.Point(239, 15);
-			this._radioScale.Name = "_radioScale";
-			this._radioScale.Size = new System.Drawing.Size(52, 17);
-			this._radioScale.TabIndex = 6;
-			this._radioScale.TabStop = true;
-			this._radioScale.Text = "Scale";
-			this._radioScale.UseVisualStyleBackColor = true;
-			this._radioScale.CheckedChanged += new System.EventHandler(this._radioScale_CheckedChanged);
-			// 
-			// _radioArpeggio
-			// 
-			this._radioArpeggio.AutoSize = true;
-			this._radioArpeggio.Location = new System.Drawing.Point(330, 15);
-			this._radioArpeggio.Name = "_radioArpeggio";
-			this._radioArpeggio.Size = new System.Drawing.Size(67, 17);
-			this._radioArpeggio.TabIndex = 7;
-			this._radioArpeggio.TabStop = true;
-			this._radioArpeggio.Text = "Arpeggio";
-			this._radioArpeggio.UseVisualStyleBackColor = true;
-			this._radioArpeggio.CheckedChanged += new System.EventHandler(this._radioArpeggio_CheckedChanged);
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,8 +200,8 @@ namespace NeckDiagrams
 		private System.Windows.Forms.ComboBox _cbKey;
 		private System.Windows.Forms.ComboBox _cbChordType;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.RadioButton _radioArpeggio;
-		private System.Windows.Forms.RadioButton _radioScale;
+		private System.Windows.Forms.CheckBox _cbArpeggio;
+		private System.Windows.Forms.CheckBox _cbScale;
 	}
 }
 

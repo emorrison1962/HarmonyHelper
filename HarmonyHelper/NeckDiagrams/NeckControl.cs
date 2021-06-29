@@ -26,7 +26,7 @@ namespace NeckDiagrams
 			if (!DesignMode)
 			{
 				var mp = this.FindForm() as IModelProvider;
-				mp.ModelChanged += this.ModelChanged_Handler;
+				mp.Model.ModelChanged += this.ModelChanged_Handler;
 
 
 				this.Controls.Clear();
@@ -34,27 +34,27 @@ namespace NeckDiagrams
 
 				var string1 = new NoteRange(
 					new Note(NoteName.E, OctaveEnum.Octave3),
-					new Note(NoteName.Eb, OctaveEnum.Octave4));
+					new Note(NoteName.E, OctaveEnum.Octave4));
 
 				var string2 = new NoteRange(
 					new Note(NoteName.B, OctaveEnum.Octave3),
-					new Note(NoteName.Bb, OctaveEnum.Octave4));
+					new Note(NoteName.B, OctaveEnum.Octave4));
 
 				var string3 = new NoteRange(
 					new Note(NoteName.G, OctaveEnum.Octave2),
-					new Note(NoteName.Gb, OctaveEnum.Octave3));
+					new Note(NoteName.G, OctaveEnum.Octave3));
 
 				var string4 = new NoteRange(
 					new Note(NoteName.D, OctaveEnum.Octave2),
-					new Note(NoteName.Db, OctaveEnum.Octave3));
+					new Note(NoteName.D, OctaveEnum.Octave3));
 
 				var string5 = new NoteRange(
 					new Note(NoteName.A, OctaveEnum.Octave1),
-					new Note(NoteName.Ab, OctaveEnum.Octave2));
+					new Note(NoteName.A, OctaveEnum.Octave2));
 
 				var string6 = new NoteRange(
 					new Note(NoteName.E, OctaveEnum.Octave1),
-					new Note(NoteName.Eb, OctaveEnum.Octave2));
+					new Note(NoteName.E, OctaveEnum.Octave2));
 
 				this.NoteRanges = new List<NoteRange>()
 				{ string1, string2, string3, string4, string5, string6 };

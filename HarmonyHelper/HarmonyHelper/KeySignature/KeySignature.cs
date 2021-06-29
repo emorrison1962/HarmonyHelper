@@ -217,6 +217,7 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+
 		public NoteName GetNormalized(NoteName nn, Interval interval)
 		{
 			var result = nn.Copy();
@@ -234,6 +235,7 @@ namespace Eric.Morrison.Harmony
 			}
 			return result;
 		}
+		
 		public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
 		{
 			inKeyEnharmonic = null;
@@ -286,6 +288,16 @@ namespace Eric.Morrison.Harmony
 			var txed = NoteName.TransposeDown(this.NoteName, Interval.Minor3rd);
 			var result = KeySignature.MinorKeys.First(x => x.NoteName == txed);
 			return result;
+		}
+
+		public void Normalize(ref List<NoteName> noteNames)
+		{
+			var result = new List<NoteName>();
+			foreach (var nn in noteNames)
+			{
+				result.Add(this.GetNormalized(nn, Interval.Unison));
+			}
+			noteNames = result;
 		}
 	}//class
 }//ns

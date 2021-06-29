@@ -9,6 +9,7 @@ namespace Eric.Morrison.Harmony
 {
 	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
 	{
+		static public NullScaleFormula Empty = NullScaleFormula.Create();
 		public KeySignature Key { get; protected set; }
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
 		public NoteName Root { get; protected set; }
@@ -158,7 +159,9 @@ namespace Eric.Morrison.Harmony
 				{
 					case ScaleToneFunctionEnum.None:
 					case ScaleToneFunctionEnum.Root:
-						wantedAscii = nn.Name[0];
+					case ScaleToneFunctionEnum.AugmentedUnison:
+					case ScaleToneFunctionEnum.DiminishedOctave:
+						wantedAscii = rootAscii;
 						break;
 					case ScaleToneFunctionEnum.Minor2nd:
 					case ScaleToneFunctionEnum.Major2nd:
@@ -210,8 +213,44 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+		public void Normalize(ref List<NoteName> noteNames)
+		{
+			var result = new List<NoteName>();
+			foreach (var nn in noteNames)
+			{
+				result.Add(this.GetNormalized(nn, Interval.Unison));
+			}
+			noteNames = result;
+		}
+
 
 	}//class
+	public class NullScaleFormula : ScaleFormulaBase
+	{
+		public NullScaleFormula(KeySignature key) : base(KeySignature.CMajor)
+		{
+		}
+
+		static public NullScaleFormula Create()
+		{
+			return new NullScaleFormula(null);
+		}
+
+		new public KeySignature Key { get; protected set; }
+		new public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
+		new public NoteName Root { get; protected set; }
+
+		new public List<ScaleToneInterval> Intervals { get; set; } = new List<ScaleToneInterval>();
+		override public string Name { get; protected set; }
+
+		protected override void Init()
+		{
+		}
+
+		protected override void PopulateIntervals()
+		{
+		}
+	}
 
 	public class ScaleFormulaBaseEqualityComparer : IEqualityComparer<ScaleFormulaBase>
 	{

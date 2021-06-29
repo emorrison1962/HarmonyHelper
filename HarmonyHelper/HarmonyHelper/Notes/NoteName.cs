@@ -262,7 +262,7 @@ namespace Eric.Morrison.Harmony
 		public static NoteName operator +(NoteName note, IntervalContext ctx)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > Interval.None)
+			if (null != note && ctx.Interval > Interval.Unison)
 			{
 				result = TransposeUp(note, ctx.Interval);
 				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
@@ -273,7 +273,7 @@ namespace Eric.Morrison.Harmony
 		public static NoteName operator -(NoteName note, IntervalContext ctx)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > Interval.None)
+			if (null != note && ctx.Interval > Interval.Unison)
 			{
 				result = TransposeDown(note, ctx.Interval);
 				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
@@ -283,7 +283,7 @@ namespace Eric.Morrison.Harmony
 
 		public static Interval operator -(NoteName a, NoteName b)
 		{
-			var result = Interval.None;
+			var result = Interval.Unison;
 			bool success = false;
 			if ((null != a && null != b) && 
 				(a.Value != b.Value))
@@ -323,7 +323,7 @@ namespace Eric.Morrison.Harmony
 		{
 			NoteName result = src;
 			var success = false;
-			if (Interval.None < interval)
+			if (Interval.Unison < interval)
 				success = true;
 
 			IEnumerable<NoteName> noteNames = null;
@@ -431,7 +431,7 @@ namespace Eric.Morrison.Harmony
 			NoteName nn, Interval interval, INoteNameNormalizer normalizer)
 		{
 			var result = nn;
-			if (Interval.None < interval)
+			if (Interval.Unison < interval)
 			{
 				result = NoteName.TransposeUp(nn, interval);
 				result = normalizer.GetNormalized(result, interval);

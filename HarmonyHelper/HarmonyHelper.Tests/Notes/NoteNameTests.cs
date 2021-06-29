@@ -14,7 +14,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_AdditionTest()
 		{
-			var intervals = Interval.Catalog.Where(x => x > Interval.None);
+			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)
@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony.Tests
 		void ValidateTransposeUp(NoteName input, Interval interval, NoteName expected)
 		{
 			#region VALIDATION
-			if (input == NoteName.BSharp && (Interval)interval == Interval.None)
+			if (input == NoteName.BSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
@@ -94,7 +94,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.B);
 			}
 
-			else if (input == NoteName.C && (Interval)interval == Interval.None)
+			else if (input == NoteName.C && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
@@ -155,7 +155,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.B);
 			}
 
-			else if (input == NoteName.CSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
@@ -216,7 +216,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
 
-			else if (input == NoteName.Db && (Interval)interval == Interval.None)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
@@ -277,7 +277,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.C);
 			}
 
-			else if (input == NoteName.D && (Interval)interval == Interval.None)
+			else if (input == NoteName.D && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
@@ -338,7 +338,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
 
-			else if (input == NoteName.DSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
@@ -399,7 +399,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.D);
 			}
 
-			else if (input == NoteName.Eb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
@@ -460,7 +460,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.D);
 			}
 
-			else if (input == NoteName.E && (Interval)interval == Interval.None)
+			else if (input == NoteName.E && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
@@ -521,7 +521,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
 
-			else if (input == NoteName.Fb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
@@ -582,7 +582,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
 
-			else if (input == NoteName.ESharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
@@ -643,7 +643,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.E);
 			}
 
-			else if (input == NoteName.F && (Interval)interval == Interval.None)
+			else if (input == NoteName.F && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
@@ -704,7 +704,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.E);
 			}
 
-			else if (input == NoteName.FSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
@@ -765,7 +765,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
 
-			else if (input == NoteName.Gb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
@@ -826,7 +826,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.F);
 			}
 
-			else if (input == NoteName.G && (Interval)interval == Interval.None)
+			else if (input == NoteName.G && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
@@ -887,7 +887,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
 
-			else if (input == NoteName.GSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
@@ -948,7 +948,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.G);
 			}
 
-			else if (input == NoteName.Ab && (Interval)interval == Interval.None)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
@@ -1009,7 +1009,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.G);
 			}
 
-			else if (input == NoteName.A && (Interval)interval == Interval.None)
+			else if (input == NoteName.A && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
@@ -1070,7 +1070,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
 
-			else if (input == NoteName.ASharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
@@ -1131,7 +1131,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.A);
 			}
 
-			else if (input == NoteName.Bb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
@@ -1192,7 +1192,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.A);
 			}
 
-			else if (input == NoteName.B && (Interval)interval == Interval.None)
+			else if (input == NoteName.B && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
@@ -1253,7 +1253,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
 
-			else if (input == NoteName.Cb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
@@ -1321,7 +1321,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_IntervalContext_SubtractionTest()
 		{
-			var intervals = Interval.Catalog.Where(x => x > Interval.None);
+			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
 			foreach (var note in NoteName.Catalog)
 			{
 				foreach (var interval in intervals)
@@ -1340,7 +1340,7 @@ namespace Eric.Morrison.Harmony.Tests
 		void ValidateTransposeDown(NoteName input, Interval interval, NoteName expected)
 		{
 			#region VALIDATION
-			if (input == NoteName.BSharp && (Interval)interval == Interval.None)
+			if (input == NoteName.BSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.BSharp);
 			}
@@ -1400,7 +1400,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.C && (Interval)interval == Interval.None)
+			else if (input == NoteName.C && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
@@ -1460,7 +1460,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
-			else if (input == NoteName.CSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.CSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.CSharp);
 			}
@@ -1520,7 +1520,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.Db && (Interval)interval == Interval.None)
+			else if (input == NoteName.Db && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Db);
 			}
@@ -1580,7 +1580,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
-			else if (input == NoteName.D && (Interval)interval == Interval.None)
+			else if (input == NoteName.D && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.D);
 			}
@@ -1640,7 +1640,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
-			else if (input == NoteName.DSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.DSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.DSharp);
 			}
@@ -1700,7 +1700,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
-			else if (input == NoteName.Eb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Eb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Eb);
 			}
@@ -1760,7 +1760,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
-			else if (input == NoteName.E && (Interval)interval == Interval.None)
+			else if (input == NoteName.E && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}
@@ -1820,7 +1820,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.Fb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Fb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Fb);
 			}
@@ -1880,7 +1880,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
-			else if (input == NoteName.ESharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.ESharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.ESharp);
 			}
@@ -1940,7 +1940,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.F && (Interval)interval == Interval.None)
+			else if (input == NoteName.F && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.F);
 			}
@@ -2000,7 +2000,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
-			else if (input == NoteName.FSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.FSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.FSharp);
 			}
@@ -2060,7 +2060,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.Gb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Gb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Gb);
 			}
@@ -2120,7 +2120,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
-			else if (input == NoteName.G && (Interval)interval == Interval.None)
+			else if (input == NoteName.G && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.G);
 			}
@@ -2180,7 +2180,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
-			else if (input == NoteName.GSharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.GSharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.GSharp);
 			}
@@ -2240,7 +2240,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.Ab && (Interval)interval == Interval.None)
+			else if (input == NoteName.Ab && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Ab);
 			}
@@ -2300,7 +2300,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
-			else if (input == NoteName.A && (Interval)interval == Interval.None)
+			else if (input == NoteName.A && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.A);
 			}
@@ -2360,7 +2360,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
-			else if (input == NoteName.ASharp && (Interval)interval == Interval.None)
+			else if (input == NoteName.ASharp && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.ASharp);
 			}
@@ -2420,7 +2420,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
-			else if (input == NoteName.Bb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Bb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Bb);
 			}
@@ -2480,7 +2480,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
-			else if (input == NoteName.B && (Interval)interval == Interval.None)
+			else if (input == NoteName.B && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.B);
 			}
@@ -2540,7 +2540,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.C);
 			}
-			else if (input == NoteName.Cb && (Interval)interval == Interval.None)
+			else if (input == NoteName.Cb && (Interval)interval == Interval.Unison)
 			{
 				Assert.IsTrue(expected == NoteName.Cb);
 			}
@@ -2617,7 +2617,7 @@ namespace Eric.Morrison.Harmony.Tests
 					Debug.WriteLine($"{nn1} - {nn2} = {interval}");
 					var interval2 = nn2 - nn1;
 					Debug.WriteLine($"{nn2} - {nn1} = {interval}");
-					if (interval == Interval.None)
+					if (interval == Interval.Unison)
 					{
 						Assert.IsTrue(nn1.Value == nn2.Value);
 					}
@@ -2635,7 +2635,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void NoteName_Subtraction_Test02()
 		{
 			var intervals = Interval.Catalog
-				.Where(x => x > Interval.None)
+				.Where(x => x > Interval.Unison)
 				.ToList();
 
 			foreach (var interval in intervals)

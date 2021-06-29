@@ -7,6 +7,8 @@ namespace Eric.Morrison.Harmony.Chords
 {
 	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer
 	{
+		static public NullChordFormula Empty = NullChordFormula.Create();
+		
 		#region Properties
 
 		public NoteName Root { get; private set; }
@@ -26,6 +28,9 @@ namespace Eric.Morrison.Harmony.Chords
 
 		#region Construction
 
+		protected ChordFormula()
+		{ 
+		}
 		public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
 		{
 			if (null == root)
@@ -64,7 +69,7 @@ namespace Eric.Morrison.Harmony.Chords
 			var result = ChordToneFunctionEnum.None;
 			var interval = this.Root - note;
 
-			if (interval == Interval.None)
+			if (interval == Interval.Unison)
 				result = ChordToneFunctionEnum.Root;
 
 			else if (interval == Interval.Minor2nd)
@@ -129,42 +134,42 @@ namespace Eric.Morrison.Harmony.Chords
 		bool HasThird()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Third))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Third))
 				result = true;
 			return result;
 		}
 		bool HasFifth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Fifth))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Fifth))
 				result = true;
 			return result;
 		}
 		bool HasSeventh()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Seventh))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Seventh))
 				result = true;
 			return result;
 		}
 		bool HasNinth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Ninth))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Ninth))
 				result = true;
 			return result;
 		}
 		bool HasEleventh()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Eleventh))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Eleventh))
 				result = true;
 			return result;
 		}
 		bool HasThirteenth()
 		{
 			var result = false;
-			if (Interval.None == this.ChordType.GetInterval(ChordFunctionEnum.Thirteenth))
+			if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Thirteenth))
 				result = true;
 			return result;
 		}
@@ -396,5 +401,32 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+		public void Normalize(ref List<NoteName> noteNames)
+		{
+			var result = new List<NoteName>();
+			foreach (var nn in noteNames)
+			{
+				result.Add(this.GetNormalized(nn, Interval.Unison));
+			}
+			noteNames = result;
+		}
+
+
 	}//class
+
+	public class NullChordFormula : ChordFormula
+	{
+		private NullChordFormula(NoteName root, ChordType chordType, KeySignature key) : base(root, chordType, key)
+		{
+		}
+
+		private NullChordFormula() : base()
+		{ 
+		}
+
+		static public NullChordFormula Create() 
+		{
+			return new NullChordFormula();
+		}
+	}
 }//ns

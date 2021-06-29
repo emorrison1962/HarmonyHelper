@@ -123,7 +123,7 @@ namespace Eric.Morrison.Harmony
 
 		public static Interval operator -(Note a, Note b)
 		{
-			var result = Interval.None;
+			var result = Interval.Unison;
 			result = a.NoteName - b.NoteName;
 			return result;
 		}

@@ -8,8 +8,8 @@ namespace Eric.Morrison.Harmony.Intervals
 	{
 		static public List<ChordToneInterval> Catalog { get; set; } = new List<ChordToneInterval>();
 
-		static public new ChordToneInterval None = new ChordToneInterval("None", Interval.None, ChordToneFunctionEnum.None);
-		static public ChordToneInterval Root = new ChordToneInterval("Root", Interval.None, ChordToneFunctionEnum.Root);
+		static public new ChordToneInterval None = new ChordToneInterval("None", Interval.Unison, ChordToneFunctionEnum.None);
+		static public ChordToneInterval Root = new ChordToneInterval("Root", Interval.Unison, ChordToneFunctionEnum.Root);
 		static public ChordToneInterval Sus2 = new ChordToneInterval("Sus2", Interval.Major2nd, ChordToneFunctionEnum.Sus2);
 		static public new ChordToneInterval Minor3rd = new ChordToneInterval("Minor3rd", Interval.Minor3rd, ChordToneFunctionEnum.Minor3rd);
 		static public new ChordToneInterval Major3rd = new ChordToneInterval("Major3rd", Interval.Major3rd, ChordToneFunctionEnum.Major3rd);

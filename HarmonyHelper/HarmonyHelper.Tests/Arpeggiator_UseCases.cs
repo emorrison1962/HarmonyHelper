@@ -674,6 +674,38 @@ namespace Eric.Morrison.Harmony
 			new object();
 		}
 
+		[TestMethod()]
+		public void ArpeggioExerciseTest()
+		{
+			var noteRange = new NoteRange(new Note(NoteName.A, OctaveEnum.Octave2), new Note(NoteName.A, OctaveEnum.Octave3));
+			
+			var startingNote = new Note(NoteName.A, OctaveEnum.Octave2);
+			var beatsPerBar = 6;
+
+			var chords = new List<Chord>();
+			chords.Add(new Chord(ChordFormulaCatalog.A7, noteRange));
+			chords.Add(new Chord(ChordFormulaCatalog.D7, noteRange));
+
+			var contexts = new List<ArpeggiationContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, beatsPerBar)));
+
+			var arpeggiator = new Arpeggiator(contexts,
+				DirectionEnum.Ascending,
+				noteRange, beatsPerBar, startingNote, true);
+
+			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Ctx_ChordChanged;
+			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
+			arpeggiator.Starting += Ctx_Starting;
+			arpeggiator.Ending += Ctx_Ending;
+
+			arpeggiator.Arpeggiate();
+
+			new object();
+		}
+
+
 		private void Ctx_Ending(object sender, Arpeggiator e)
 		{
 			Debug.WriteLine("||");

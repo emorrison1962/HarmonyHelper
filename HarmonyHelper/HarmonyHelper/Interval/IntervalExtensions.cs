@@ -10,7 +10,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		{
 			ScaleToneInterval result = null;
 
-			if (interval == Interval.None)
+			if (interval == Interval.Unison)
 				result = ScaleToneInterval.None;
 			else if (interval == Interval.Minor2nd)
 				result = ScaleToneInterval.Minor2nd;
@@ -18,6 +18,8 @@ namespace Eric.Morrison.Harmony.Intervals
 				result = ScaleToneInterval.Major2nd;
 			else if (interval == Interval.Augmented2nd)
 				result = ScaleToneInterval.Augmented2nd;
+			else if (interval == Interval.Diminished3rd)
+				result = ScaleToneInterval.Diminished3rd;
 			else if (interval == Interval.Minor3rd)
 				result = ScaleToneInterval.Minor3rd;
 			else if (interval == Interval.Major3rd)
@@ -38,6 +40,8 @@ namespace Eric.Morrison.Harmony.Intervals
 				result = ScaleToneInterval.Minor6th;
 			else if (interval == Interval.Major6th)
 				result = ScaleToneInterval.Major6th;
+			else if (interval == Interval.Augmented6th)
+				result = ScaleToneInterval.Augmented6th;
 			else if (interval == Interval.Diminished7th)
 				result = ScaleToneInterval.Diminished7th;
 			else if (interval == Interval.Minor7th)
@@ -56,7 +60,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		{
 			ChordToneInterval result = null;
 
-			if (interval == Interval.None)
+			if (interval == Interval.Unison)
 				result = ChordToneInterval.None;
 
 			else if (interval == Interval.Minor2nd)

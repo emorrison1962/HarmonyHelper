@@ -10,5 +10,6 @@ namespace Eric.Morrison.Harmony
 	public interface INoteNameNormalizer
 	{
 		NoteName GetNormalized(NoteName nn, Interval interval);
+		void Normalize(ref List<NoteName> noteNames);
 	}
 }

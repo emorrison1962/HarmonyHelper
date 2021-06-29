@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Eric.Morrison.Harmony;
@@ -17,6 +18,8 @@ namespace NeckDiagrams
 		public int Position { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsRoot { get; private set; }
+		IModelProvider ModelProvider { get; set; }
+		HarmonyModel Model { get { return ModelProvider?.Model; } }
 
 		public StringPositionControl()
 		{
@@ -26,8 +29,8 @@ namespace NeckDiagrams
 
 		private void StringPositionControl_Load(object sender, System.EventArgs e)
 		{
-			var mp = this.FindForm() as IModelProvider;
-			mp.ModelChanged += this.ModelChanged_Handler;
+			this.ModelProvider = this.FindForm() as IModelProvider;
+			this.ModelProvider.Model.ModelChanged += this.ModelChanged_Handler;
 		}
 
 		public StringPositionControl(int position, Note note)
@@ -38,12 +41,21 @@ namespace NeckDiagrams
 			this.Note = note;
 		}
 
+		[Flags]
+		enum NoteTypeEnum
+		{ 
+			None = 0,
+			ChordTone = 1,
+			ScaleTone = 1 << 1
+		}
+
+
 		private void StringPositionControl_Paint(object sender, PaintEventArgs e)
 		{
 			if (!DesignMode)
 			{
-				Pen pen = Pens.Black; 
-				Brush brush = Brushes.Black; 
+				Pen pen = Pens.Black;
+				Brush brush = Brushes.Black;
 
 				if ((this.Parent as StringControl)?.StringNumber == 0)
 				{
@@ -111,12 +123,27 @@ namespace NeckDiagrams
 			}
 		}
 
+		private static void DrawYinYang(Graphics gr, int xctr, int yctr, int rmax, int rint, int ysmall, int rsmall)
+		{
+			Brush white = Brushes.White;
+			Brush black = Brushes.Black;
+			Pen BlackPen = new Pen(Color.Black, 2 * (rmax - rint));
+
+			gr.FillPie(black, xctr - rmax, yctr - rmax, 2 * rmax, 2 * rmax, -90, 180);
+			gr.FillEllipse(black, xctr - rint / 2, yctr - rint, rint, rint);
+			gr.FillEllipse(black, xctr - rint / 2, yctr, rint, rint);
+			gr.FillEllipse(black, xctr - rsmall, yctr + ysmall - rsmall, 2 * rsmall, 2 * rsmall);
+			gr.FillEllipse(black, xctr - rsmall, yctr - ysmall - rsmall, 2 * rsmall, 2 * rsmall);
+			double rcircle = (rmax + rint) / 2.0;
+			gr.DrawEllipse(BlackPen, (float)(xctr - rcircle), (float)(yctr - rcircle), (float)(2 * rcircle), (float)(2 * rcircle));
+		}
+
 		private void DrawActiveDot(PaintEventArgs e)
 		{
 			if (this.IsActive)
 			{
-				Pen pen;
-				Brush brush;
+				var pen = Pens.Magenta;
+				var brush = Brushes.Magenta;
 				if (this.IsRoot)
 				{
 					pen = Pens.Red;
@@ -124,10 +151,32 @@ namespace NeckDiagrams
 				}
 				else
 				{
-					pen = Pens.Black;
-					brush = Brushes.Black;
-				}
+					var noteType = NoteTypeEnum.None;
+					if (this.Model.ScaleFormula.NoteNames.Contains(this.Note.NoteName))
+					{
+						noteType |= NoteTypeEnum.ScaleTone;
+					}
+					if (this.Model.ChordFormula.NoteNames.Contains(this.Note.NoteName))
+					{
+						noteType |= NoteTypeEnum.ChordTone;
+					}
 
+					if (noteType == (NoteTypeEnum.ChordTone | NoteTypeEnum.ScaleTone))
+					{
+						pen = Pens.Purple;
+						brush = Brushes.Purple;
+					}
+					else if (noteType == NoteTypeEnum.ScaleTone)
+					{
+						pen = Pens.Blue;
+						brush = Brushes.Blue;
+					}
+					else if (noteType == NoteTypeEnum.ChordTone)
+					{
+						pen = Pens.Green;
+						brush = Brushes.Green;
+					}
+				}
 
 				var xCenter = this.Width / 2;
 				var yCenter = this.Height / 2;

@@ -183,9 +183,11 @@ Major7th
 	{
 		None = 0,
 		Root,
-
+		AugmentedUnison,
+		
 		Minor2nd,
 		Major2nd,
+		Diminished3rd,
 		Augmented2nd,
 
 		Minor3rd,
@@ -203,8 +205,10 @@ Major7th
 		Major6th,
 
 		Diminished7th,
+		Augmented6th,
 		Minor7th,
 		Major7th,
+		DiminishedOctave	
 	}
 
 
