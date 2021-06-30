@@ -111,6 +111,7 @@ namespace NeckDiagrams
 		List<NoteName> NormalizeNoteNames()
 		{
 
+
 			var result = this.
 				ScaleFormula?.NoteNames;
 			if (null != this.ChordFormula?.NoteNames)
