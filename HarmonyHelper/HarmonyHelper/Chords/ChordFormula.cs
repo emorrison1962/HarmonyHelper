@@ -5,7 +5,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer
+	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer
 	{
 		static public NullChordFormula Empty = NullChordFormula.Create();
 		

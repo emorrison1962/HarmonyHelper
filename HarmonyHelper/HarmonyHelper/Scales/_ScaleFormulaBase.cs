@@ -7,7 +7,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
-	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>
+	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>, INoteNameContainer
 	{
 		static public NullScaleFormula Empty = NullScaleFormula.Create();
 		public KeySignature Key { get; protected set; }

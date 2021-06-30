@@ -76,9 +76,8 @@ namespace NeckDiagrams
 			this._cbArpeggio.AutoSize = true;
 			this._cbArpeggio.Location = new System.Drawing.Point(330, 15);
 			this._cbArpeggio.Name = "_cbArpeggio";
-			this._cbArpeggio.Size = new System.Drawing.Size(67, 17);
+			this._cbArpeggio.Size = new System.Drawing.Size(68, 17);
 			this._cbArpeggio.TabIndex = 7;
-			this._cbArpeggio.TabStop = true;
 			this._cbArpeggio.Text = "Arpeggio";
 			this._cbArpeggio.UseVisualStyleBackColor = true;
 			this._cbArpeggio.CheckedChanged += new System.EventHandler(this._cbArpeggio_CheckedChanged);
@@ -88,9 +87,8 @@ namespace NeckDiagrams
 			this._cbScale.AutoSize = true;
 			this._cbScale.Location = new System.Drawing.Point(249, 15);
 			this._cbScale.Name = "_cbScale";
-			this._cbScale.Size = new System.Drawing.Size(52, 17);
+			this._cbScale.Size = new System.Drawing.Size(53, 17);
 			this._cbScale.TabIndex = 6;
-			this._cbScale.TabStop = true;
 			this._cbScale.Text = "Scale";
 			this._cbScale.UseVisualStyleBackColor = true;
 			this._cbScale.CheckedChanged += new System.EventHandler(this._cbScale_CheckedChanged);
@@ -180,8 +178,9 @@ namespace NeckDiagrams
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
 			this.Name = "Form1";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Form1";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
 			this._pnlNeck.ResumeLayout(false);

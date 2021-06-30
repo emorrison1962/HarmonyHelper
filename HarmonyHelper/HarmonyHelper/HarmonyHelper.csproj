@@ -96,6 +96,7 @@
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
     <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
+    <Compile Include="Scales\INoteNameContainer.cs" />
     <Compile Include="Scales\MelodicMinorModalScaleFormula.cs" />
     <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
     <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />

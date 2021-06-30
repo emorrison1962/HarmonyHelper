@@ -83,34 +83,38 @@ namespace NeckDiagrams
 
 		private void _cbScaleType_SelectedValueChanged(object sender, EventArgs e)
 		{
-			this.Model.ScaleFormula = _cbScaleType.SelectedItem as ScaleFormulaBase;
-			this.OnModelChanged();
+			throw new NotImplementedException();
+			//this.Model.ScaleFormula = _cbScaleType.SelectedItem as ScaleFormulaBase;
+			//this.OnModelChanged();
 		}
 
 		private void _cbScale_CheckedChanged(object sender, EventArgs e)
 		{
-			if (_cbScale.Checked)
-				Model.ModelType |= ModelTypeEnum.Scale;
-			else
-				Model.ModelType ^= ModelTypeEnum.Scale;
+			throw new NotImplementedException();
+			//if (_cbScale.Checked)
+			//	Model.ModelType |= ModelItemTypeEnum.Scale;
+			//else
+			//	Model.ModelType ^= ModelItemTypeEnum.Scale;
 		}
 
 		private void _cbArpeggio_CheckedChanged(object sender, EventArgs e)
 		{
-			if (_cbArpeggio.Checked)
-				Model.ModelType |= ModelTypeEnum.Arpeggio;
-			else
-				Model.ModelType ^= ModelTypeEnum.Arpeggio;
+			throw new NotImplementedException();
+			//if (_cbArpeggio.Checked)
+			//	Model.ModelType |= ModelItemTypeEnum.Arpeggio;
+			//else
+			//	Model.ModelType ^= ModelItemTypeEnum.Arpeggio;
 		}
 
 
 		private void _cbChordType_SelectedValueChanged(object sender, EventArgs e)
 		{
-			var chordType = _cbChordType.SelectedItem as ChordType;
-			var formula = ChordFormulaFactory.Create(
-				Model.KeySignature.NoteName, chordType, Model.KeySignature);
-			this.Model.ChordFormula = formula;
-			this.OnModelChanged();
+			throw new NotImplementedException();
+			//var chordType = _cbChordType.SelectedItem as ChordType;
+			//var formula = ChordFormulaFactory.Create(
+			//	Model.KeySignature.NoteName, chordType, Model.KeySignature);
+			//this.Model.ChordFormula = formula;
+			//this.OnModelChanged();
 		}
 	}//class
 }//ns
