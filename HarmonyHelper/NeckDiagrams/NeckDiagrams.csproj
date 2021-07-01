@@ -47,39 +47,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlExtensions.cs" />
+    <Compile Include="Domain\IHarmonyModel1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HarmonyModel.cs" />
-    <Compile Include="IModelProvider.cs" />
-    <Compile Include="NeckControl.cs">
+    <Compile Include="Domain\HarmonyModel.cs" />
+    <Compile Include="Domain\HarmonyModelItem.cs" />
+    <Compile Include="Contracts\IModelProvider.cs" />
+    <Compile Include="Controls\NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NeckControl.Designer.cs">
+    <Compile Include="Controls\NeckControl.Designer.cs">
       <DependentUpon>NeckControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModelItemControl.Designer.cs">
+      <DependentUpon>ModelItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewHarmonyItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewHarmonyItemDialog.Designer.cs">
+      <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringControl.cs">
+    <Compile Include="Controls\StringControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StringControl.Designer.cs">
+    <Compile Include="Controls\StringControl.Designer.cs">
       <DependentUpon>StringControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StringPositionControl.cs">
+    <Compile Include="Controls\StringPositionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StringPositionControl.Designer.cs">
+    <Compile Include="Controls\StringPositionControl.Designer.cs">
       <DependentUpon>StringPositionControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NeckControl.resx">
+    <EmbeddedResource Include="Controls\NeckControl.resx">
       <DependentUpon>NeckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelItemControl.resx">
+      <DependentUpon>ModelItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewHarmonyItemDialog.resx">
+      <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,10 +110,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StringControl.resx">
+    <EmbeddedResource Include="Controls\StringControl.resx">
       <DependentUpon>StringControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StringPositionControl.resx">
+    <EmbeddedResource Include="Controls\StringPositionControl.resx">
       <DependentUpon>StringPositionControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

@@ -5,9 +5,9 @@ using System.Linq;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Scales
 {
-	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>, INoteNameContainer
+	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>, INoteNameContainer, IHasRootNoteName
 	{
 		static public NullScaleFormula Empty = NullScaleFormula.Create();
 		public KeySignature Key { get; protected set; }

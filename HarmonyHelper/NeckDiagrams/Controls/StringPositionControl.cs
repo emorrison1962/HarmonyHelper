@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Eric.Morrison.Harmony;
 #if false
@@ -152,11 +153,15 @@ namespace NeckDiagrams
 				else
 				{
 					var noteType = NoteTypeEnum.None;
-					if (this.Model.ScaleFormula.NoteNames.Contains(this.Note.NoteName))
+					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale 
+						&& mi.NoteNames
+							.Contains(this.Note.NoteName)))
 					{
 						noteType |= NoteTypeEnum.ScaleTone;
 					}
-					if (this.Model.ChordFormula.NoteNames.Contains(this.Note.NoteName))
+					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
+						&& mi.NoteNames
+							.Contains(this.Note.NoteName)))
 					{
 						noteType |= NoteTypeEnum.ChordTone;
 					}
@@ -196,7 +201,7 @@ namespace NeckDiagrams
 		{
 			if (null != this.Note)
 			{
-				this.IsRoot = this.Note.NoteName == model.ScaleFormula?.Root;
+				this.IsRoot = model.Items.Any(x => x.Root == this.Note.NoteName);
 				if (this.IsRoot)
 				{
 					new object();

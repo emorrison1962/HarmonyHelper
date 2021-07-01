@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Eric.Morrison.Harmony.Intervals;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Scales
 {
 	public class HarmonicMinorScaleFormula : ScaleFormulaBase
 	{

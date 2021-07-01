@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Eric.Morrison.Harmony.Scales;
 
 namespace Eric.Morrison.Harmony.Chords
 {

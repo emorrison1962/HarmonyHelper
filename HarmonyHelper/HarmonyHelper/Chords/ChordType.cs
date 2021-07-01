@@ -40,7 +40,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 
 		#region Diatonic Major chords
-		static public ChordType Major = new ChordType("", ChordToneInterval.Major3rd, ChordToneInterval.Perfect5th);
+		static public ChordType Major = new ChordType("Major Triad", ChordToneInterval.Major3rd, ChordToneInterval.Perfect5th);
 		static public ChordType Major6th = new ChordType("6", Major.Intervals, ChordToneInterval.Major6th);
 		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals, ChordToneInterval.Major7th);
 		static public ChordType Major9th = new ChordType("Maj9", Major7th.Intervals, ChordToneInterval.Ninth);
@@ -87,6 +87,8 @@ namespace Eric.Morrison.Harmony.Chords
 		#region Construction
 		private ChordType(string name, params ChordToneInterval[] intervals)
 		{
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException();
 			this.Name = name;
 			this.Intervals.AddRange(intervals);
 			this.Intervals.ForEach(x => this.Value |= x.Value);
@@ -97,6 +99,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 		private ChordType(string name, List<ChordToneInterval> aIntervals, params ChordToneInterval[] bIntervals)
 		{
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException();
 			this.Name = name;
 			this.Intervals.AddRange(aIntervals);
 			this.Intervals.AddRange(bIntervals);

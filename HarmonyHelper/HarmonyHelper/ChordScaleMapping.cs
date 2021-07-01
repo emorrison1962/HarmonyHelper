@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Scales;
 using System;
 using System.Collections.Generic;
 using System.Linq;

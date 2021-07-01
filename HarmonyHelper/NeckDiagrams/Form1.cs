@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using Eric.Morrison.Harmony;
-using Eric.Morrison.Harmony.Chords;
 
 namespace NeckDiagrams
 {
@@ -13,11 +11,14 @@ namespace NeckDiagrams
 		public event EventHandler<HarmonyModel> ModelChanged;
 		ScaleFormulaCatalog ScaleFormulaCatalog { get; set; }
 
-		public HarmonyModel Model { get; private set; } = new HarmonyModel();
+		public HarmonyModel Model { get; private set; }
 
 		public Form1()
 		{
 			InitializeComponent();
+			var defaultKey = KeySignature.CMajor;
+			this.Model = new HarmonyModel(defaultKey);
+
 			this.Load += this.Form1_Load;
 		}
 
@@ -27,29 +28,15 @@ namespace NeckDiagrams
 			{
 				_cbKey.Items.Add(key);
 			}
+
+			var defaultKey = KeySignature.CMajor;
 			_cbKey.SelectedItem = this._cbKey.Items.Cast<KeySignature>()
-				.First(x => x == KeySignature.AMinor);
+				.First(x => x == defaultKey);
+			this.Model = new HarmonyModel(defaultKey);
+			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
 
-			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(KeySignature.AMinor);
-			this.Populate_cbScaleType();
-
-
-			this.Populate_cbChordType();
-
-			_cbScaleType.DropDownWidth = _cbScaleType.Items.Cast<ScaleFormulaBase>()
-				.Max(x => TextRenderer.MeasureText(x.ToString(), _cbScaleType.Font).Width);
 		}
 
-		private void Populate_cbChordType()
-		{
-			this._cbChordType.Items.Clear();
-
-			foreach (var formula in ChordType.Catalog.OrderBy(x => x.Name))
-			{
-				this._cbChordType.Items.Add(formula);
-			}
-			
-		}
 
 		void OnModelChanged()
 		{
@@ -65,28 +52,9 @@ namespace NeckDiagrams
 		{
 			this.Model.KeySignature = _cbKey.SelectedItem as KeySignature;
 			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(this.Model.KeySignature);
-			this.Populate_cbScaleType();
 			this.OnModelChanged();
 		}
 
-		void Populate_cbScaleType()
-		{
-			_cbScaleType.Items.Clear();
-
-			foreach (var st in ScaleFormulaCatalog.Formulas
-				.Where(x => x.Root == Model.KeySignature.NoteName)
-				.OrderBy(x => x.Name))
-			{
-				_cbScaleType.Items.Add(st);
-			}
-		}
-
-		private void _cbScaleType_SelectedValueChanged(object sender, EventArgs e)
-		{
-			throw new NotImplementedException();
-			//this.Model.ScaleFormula = _cbScaleType.SelectedItem as ScaleFormulaBase;
-			//this.OnModelChanged();
-		}
 
 		private void _cbScale_CheckedChanged(object sender, EventArgs e)
 		{
@@ -115,6 +83,16 @@ namespace NeckDiagrams
 			//	Model.KeySignature.NoteName, chordType, Model.KeySignature);
 			//this.Model.ChordFormula = formula;
 			//this.OnModelChanged();
+		}
+
+		private void _bnAddItem_Click(object sender, EventArgs e)
+		{
+			var dlg = new NewHarmonyItemDialog();
+			var dr = dlg.ShowDialog();
+			if (dr == DialogResult.OK)
+			{
+				Model.Add(dlg.Item);
+			}
 		}
 	}//class
 }//ns

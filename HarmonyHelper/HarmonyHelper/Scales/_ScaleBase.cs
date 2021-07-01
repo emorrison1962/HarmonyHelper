@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Scales
 {
 	public abstract class ScaleBase : HarmonyEntityBase
 	{

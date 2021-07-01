@@ -11,8 +11,4 @@ namespace NeckDiagrams
 	{
 		void ModelChanged_Handler(object sender, HarmonyModel model);
 	}
-	internal interface IHarmonyModel
-	{
-		event EventHandler<HarmonyModel> ModelChanged;
-	}
 }
