@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
+using HarmonyHelper.IoC;
 
 namespace NeckDiagrams
 {
@@ -61,6 +62,7 @@ namespace NeckDiagrams
 			set
 			{
 				this._KeySignature = value;
+				Container.Instance.Register(typeof(INoteNameNormalizer), this._KeySignature);
 				this.NormalizeNoteNames();
 				this.OnModelChanged();
 			}

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NeckDiagrams
@@ -16,7 +13,13 @@ namespace NeckDiagrams
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			Bootstrap();
 			Application.Run(new Form1());
+		}
+
+		private static void Bootstrap()
+		{
+
 		}
 	}
 }

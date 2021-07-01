@@ -129,7 +129,12 @@
   <ItemGroup>
     <None Include="Sunny Resolutions MusicXML Test.mscz" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj">
+      <Project>{AC360604-5FA7-4537-8CB2-083B2046DB13}</Project>
+      <Name>HarmonyHelper.IoC</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

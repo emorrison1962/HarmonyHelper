@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordProParser", "ChordProP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeckDiagrams", "NeckDiagrams\NeckDiagrams.csproj", "{5D86781E-86BF-44ED-B1BF-72C208937B54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
