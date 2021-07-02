@@ -24,14 +24,17 @@ namespace NeckDiagrams
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			foreach (var key in KeySignature.Catalog.OrderBy(x => x.NoteName))
+			if (!DesignMode)
 			{
-				_cbKey.Items.Add(key);
+				foreach (var key in KeySignature.Catalog.OrderBy(x => x.NoteName))
+				{
+					_cbKey.Items.Add(key);
+				}
+
+				var defaultKey = KeySignature.CMajor;
+				_cbKey.SelectedItem = defaultKey;
+				this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
 			}
-
-			var defaultKey = KeySignature.CMajor;
-			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
-
 		}
 
 

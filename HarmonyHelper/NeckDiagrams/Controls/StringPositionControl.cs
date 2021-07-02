@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using Eric.Morrison.Harmony;
@@ -181,19 +183,78 @@ namespace NeckDiagrams
 					}
 				}
 
+				brush = this.CreateBrush();
+
 				var xCenter = this.Width / 2;
 				var yCenter = this.Height / 2;
 
-				var cx = 20;
-				var x = xCenter - cx / 2;
-				var y = yCenter - cx / 2;
+				var x = xCenter - CX_ELLIPSE / 2;
+				var y = yCenter - CX_ELLIPSE / 2;
 
 				var cy = this.Height / 3;
 
 				e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-				e.Graphics.FillEllipse(brush, x, y, cx, cx);
+				e.Graphics.FillEllipse(brush, x, y, CX_ELLIPSE, CX_ELLIPSE);
 			}
 		}
+
+		const int CX_ELLIPSE = 20;
+
+		Brush CreateBrush()
+		{
+			var items = this.Model.Items
+				.Where(mi => mi.NoteNames.Contains(this.Note.NoteName))
+				.ToList();
+			if (items.Count == 1)
+			{
+				return new SolidBrush(items[0].NoteColor);
+			}
+
+			var colors = items.Select(mi => mi.NoteColor).ToList();
+			if (colors.Count > 1)
+			{
+				new object();
+			}
+			var floats = new List<float>();
+			for (int i = 0; i < colors.Count; ++i) 
+			{
+				var f = 1 / (float)i;
+				if (float.IsInfinity(f))
+				{
+					f = 0;
+				}
+				floats.Add(f);
+			}
+			new object();
+
+			var rc = new Rectangle(0, 0, CX_ELLIPSE, CX_ELLIPSE);
+			LinearGradientBrush result = new LinearGradientBrush(rc, Color.Black, Color.Black, 0, false);
+			ColorBlend cb = new ColorBlend();
+			cb.Positions = floats.ToArray();
+			cb.Colors = colors.ToArray();
+			//cb.Positions = new[] 
+			//{ 0, 
+			//	1 / 6f, 
+			//	2 / 6f, 
+			//	3 / 6f, 
+			//	4 / 6f, 
+			//	5 / 6f, 
+			//	1 };
+			//cb.Colors = new[] 
+			//{ Color.Red, 
+			//	Color.Orange, 
+			//	Color.Yellow, 
+			//	Color.Green, 
+			//	Color.Blue, 
+			//	Color.Indigo, 
+			//	Color.Violet };
+			result.InterpolationColors = cb;
+			// rotate
+			result.RotateTransform(45);
+			return result;
+
+		}
+
 
 		public void ModelChanged_Handler(object sender, HarmonyModel model)
 		{

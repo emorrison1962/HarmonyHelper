@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
-	public partial class ModelItemsControl : UserControl
+	public partial class ModelCollectionControl : UserControl
 	{
 		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
 
-		public ModelItemsControl()
+		public ModelCollectionControl()
 		{
 			InitializeComponent();
 			this.Load += this.ModelItemsControl_Load;
@@ -22,7 +22,10 @@ namespace NeckDiagrams
 
 		private void ModelItemsControl_Load(object sender, EventArgs e)
 		{
-			this.Model.ModelChanged += this.ModelChanged_Handler;
+			if (!DesignMode)
+			{
+				this.Model.ModelChanged += this.ModelChanged_Handler;
+			}
 		}
 
 		public void ModelChanged_Handler(object sender, HarmonyModel model)

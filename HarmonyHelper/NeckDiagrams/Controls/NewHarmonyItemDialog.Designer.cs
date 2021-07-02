@@ -41,7 +41,7 @@ namespace NeckDiagrams
 			this.bnPanel.Controls.Add(this._bnCancel);
 			this.bnPanel.Controls.Add(this._bnOk);
 			this.bnPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.bnPanel.Location = new System.Drawing.Point(0, 108);
+			this.bnPanel.Location = new System.Drawing.Point(0, 188);
 			this.bnPanel.Name = "bnPanel";
 			this.bnPanel.Size = new System.Drawing.Size(256, 32);
 			this.bnPanel.TabIndex = 2;
@@ -72,16 +72,17 @@ namespace NeckDiagrams
 			// 
 			// modelItemControl
 			// 
-			this.modelItemControl.Location = new System.Drawing.Point(3, 3);
+			this.modelItemControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.modelItemControl.Location = new System.Drawing.Point(0, 0);
 			this.modelItemControl.Name = "modelItemControl";
-			this.modelItemControl.Size = new System.Drawing.Size(212, 110);
+			this.modelItemControl.Size = new System.Drawing.Size(256, 188);
 			this.modelItemControl.TabIndex = 3;
 			// 
 			// NewHarmonyItemDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(256, 140);
+			this.ClientSize = new System.Drawing.Size(256, 220);
 			this.ControlBox = false;
 			this.Controls.Add(this.modelItemControl);
 			this.Controls.Add(this.bnPanel);

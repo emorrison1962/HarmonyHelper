@@ -1,7 +1,7 @@
 ﻿
 namespace NeckDiagrams
 {
-	partial class ModelItemsControl
+	partial class ModelCollectionControl
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -34,7 +34,7 @@ namespace NeckDiagrams
 			// 
 			// itemsPanel
 			// 
-			this.itemsPanel.BackColor = System.Drawing.Color.LightSalmon;
+			this.itemsPanel.BackColor = System.Drawing.SystemColors.Control;
 			this.itemsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.itemsPanel.Location = new System.Drawing.Point(0, 0);
 			this.itemsPanel.Name = "itemsPanel";

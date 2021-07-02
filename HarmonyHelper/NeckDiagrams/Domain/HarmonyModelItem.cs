@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Scales;
@@ -13,6 +10,7 @@ namespace NeckDiagrams
 	{
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
 		ModelItemTypeEnum _ModelType;
+		public System.Drawing.Color NoteColor { get; set; }
 		public ModelItemTypeEnum ModelType
 		{
 			get { return _ModelType; }
@@ -25,15 +23,15 @@ namespace NeckDiagrams
 		public ScaleFormulaBase ScaleFormula { get; set; }
 		public ChordFormula ChordFormula { get; set; }
 
-		protected INoteNameContainer NoteNameContainer 
+		protected INoteNameContainer NoteNameContainer
 		{
-			get 
+			get
 			{
-				var result = 
-					(this.ScaleFormula as INoteNameContainer) 
+				var result =
+					(this.ScaleFormula as INoteNameContainer)
 						?? (this.ChordFormula as INoteNameContainer);
 				return result;
-			} 
+			}
 		}
 
 		public List<NoteName> NoteNames { get { return NoteNameContainer.NoteNames; } }
@@ -69,13 +67,12 @@ namespace NeckDiagrams
 		{
 			get
 			{
-				return true;
-				//var result = false;
-				//if (null != this.KeySignature)
-				//	if (null != ScaleFormula || null != ChordFormula)
-				//		if (null != this.NoteNames && this.NoteNames.Count > 0)
-				//			result = true;
-				//return result;
+				var result = false;
+
+				if (this.NoteNames?.Count > 0)
+					if (System.Drawing.Color.Empty != this.NoteColor)
+						result = true;
+				return result;
 			}
 		}
 

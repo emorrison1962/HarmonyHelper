@@ -10,6 +10,13 @@ namespace Eric.Morrison.Harmony.Chords
 	{
 		static public ChordFormula Create(NoteName root, ChordType chordType, KeySignature key)
 		{
+			if (null == root)
+				throw new ArgumentNullException();
+			if (null == chordType)
+				throw new ArgumentNullException();
+			if (null == key)
+				throw new ArgumentNullException();
+
 			var result = new ChordFormula(root, chordType, key);
 			return result;
 		}

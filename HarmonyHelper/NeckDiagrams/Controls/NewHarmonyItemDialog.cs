@@ -17,7 +17,7 @@ namespace NeckDiagrams
 		{
 			InitializeComponent();
 			this.Load += this.NewHarmonyItemDialog_Load;
-			this.modelItemControl.ModelItemCreated += this.ModelItemControl_ModelItemCreated;
+			this.modelItemControl.ModelItemChanged += this.ModelItemControl_ModelItemChanged;
 
 		}
 
@@ -27,9 +27,12 @@ namespace NeckDiagrams
 			
 		}
 
-		private void ModelItemControl_ModelItemCreated(object sender, HarmonyModelItem e)
+		private void ModelItemControl_ModelItemChanged(object sender, HarmonyModelItem e)
 		{
-			this._bnOk.Enabled = true;
+			if (e.IsValid)
+			{
+				this._bnOk.Enabled = true;
+			}
 		}
 
 		private void _bnCancel_Click(object sender, EventArgs e)

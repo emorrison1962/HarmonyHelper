@@ -31,13 +31,13 @@ namespace NeckDiagrams
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.modelItemsControl = new NeckDiagrams.ModelCollectionControl();
 			this.keyPanel = new System.Windows.Forms.Panel();
 			this._bnAddItem = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this._cbKey = new System.Windows.Forms.ComboBox();
 			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
-			this.modelItemsControl = new NeckDiagrams.ModelItemsControl();
 			this.panel3.SuspendLayout();
 			this.keyPanel.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
@@ -63,9 +63,17 @@ namespace NeckDiagrams
 			this.panel3.Size = new System.Drawing.Size(800, 100);
 			this.panel3.TabIndex = 2;
 			// 
+			// modelItemsControl
+			// 
+			this.modelItemsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.modelItemsControl.Location = new System.Drawing.Point(200, 0);
+			this.modelItemsControl.Name = "modelItemsControl";
+			this.modelItemsControl.Size = new System.Drawing.Size(600, 100);
+			this.modelItemsControl.TabIndex = 2;
+			// 
 			// keyPanel
 			// 
-			this.keyPanel.BackColor = System.Drawing.Color.LightGreen;
+			this.keyPanel.BackColor = System.Drawing.SystemColors.Control;
 			this.keyPanel.Controls.Add(this._bnAddItem);
 			this.keyPanel.Controls.Add(this.label1);
 			this.keyPanel.Controls.Add(this._cbKey);
@@ -77,7 +85,7 @@ namespace NeckDiagrams
 			// 
 			// _bnAddItem
 			// 
-			this._bnAddItem.Location = new System.Drawing.Point(22, 52);
+			this._bnAddItem.Location = new System.Drawing.Point(106, 52);
 			this._bnAddItem.Name = "_bnAddItem";
 			this._bnAddItem.Size = new System.Drawing.Size(75, 23);
 			this._bnAddItem.TabIndex = 6;
@@ -98,6 +106,7 @@ namespace NeckDiagrams
 			// _cbKey
 			// 
 			this._cbKey.FormattingEnabled = true;
+			this._cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this._cbKey.Location = new System.Drawing.Point(60, 25);
 			this._cbKey.Name = "_cbKey";
 			this._cbKey.Size = new System.Drawing.Size(121, 21);
@@ -121,14 +130,6 @@ namespace NeckDiagrams
 			this._neckCtl.Name = "_neckCtl";
 			this._neckCtl.Size = new System.Drawing.Size(760, 250);
 			this._neckCtl.TabIndex = 0;
-			// 
-			// modelItemsControl1
-			// 
-			this.modelItemsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.modelItemsControl.Location = new System.Drawing.Point(200, 0);
-			this.modelItemsControl.Name = "modelItemsControl1";
-			this.modelItemsControl.Size = new System.Drawing.Size(600, 100);
-			this.modelItemsControl.TabIndex = 2;
 			// 
 			// Form1
 			// 
@@ -159,7 +160,7 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Button _bnAddItem;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox _cbKey;
-		private ModelItemsControl modelItemsControl;
+		private ModelCollectionControl modelItemsControl;
 	}
 }
 
