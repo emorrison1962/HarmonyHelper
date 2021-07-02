@@ -56,18 +56,23 @@
     </Compile>
     <Compile Include="Domain\HarmonyModel.cs" />
     <Compile Include="Domain\HarmonyModelItem.cs" />
-    <Compile Include="Contracts\IModelProvider.cs" />
     <Compile Include="Controls\NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\NeckControl.Designer.cs">
       <DependentUpon>NeckControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelItemControl.cs">
+    <Compile Include="Controls\ModelItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModelItemControl.Designer.cs">
+    <Compile Include="Controls\ModelItemControl.Designer.cs">
       <DependentUpon>ModelItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModelItemsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ModelItemsControl.Designer.cs">
+      <DependentUpon>ModelItemsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="NewHarmonyItemDialog.cs">
       <SubType>Form</SubType>
@@ -95,8 +100,11 @@
     <EmbeddedResource Include="Controls\NeckControl.resx">
       <DependentUpon>NeckControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModelItemControl.resx">
+    <EmbeddedResource Include="Controls\ModelItemControl.resx">
       <DependentUpon>ModelItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ModelItemsControl.resx">
+      <DependentUpon>ModelItemsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewHarmonyItemDialog.resx">
       <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
@@ -143,6 +151,9 @@
       <Project>{f86ba6d3-823e-4f2b-a602-1817f6a3dc54}</Project>
       <Name>HarmonyHelper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

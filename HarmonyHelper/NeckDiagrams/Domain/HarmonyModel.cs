@@ -30,7 +30,7 @@ namespace NeckDiagrams
 			{
 				this._KeySignature = value;
 				Container.Register<INoteNameNormalizer>(this._KeySignature);
-				this.NormalizeNoteNames();
+				//this.NormalizeNoteNames();
 				this.OnModelChanged();
 			}
 		}
@@ -71,11 +71,11 @@ namespace NeckDiagrams
 
 		List<NoteName> NormalizeNoteNames()
 		{
+			//throw new NotImplementedException();
 			var nns = new HashSet<NoteName>();
 			foreach (var item in this.Items)
 			{
 				item.NoteNames.ForEach(x => nns.Add(x));
-				throw new NotImplementedException();
 			}
 
 			var result = nns.ToList();
@@ -94,7 +94,8 @@ namespace NeckDiagrams
 
 		internal void Add(HarmonyModelItem item)
 		{
-			throw new NotImplementedException();
+			this.Items.Add(item);
+			this.OnModelChanged();
 		}
 	}//class
 }//ns

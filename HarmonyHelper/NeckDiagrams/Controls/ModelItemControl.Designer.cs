@@ -40,6 +40,7 @@ namespace NeckDiagrams
 			this._panelRadioButtons = new System.Windows.Forms.Panel();
 			this._rbArpeggio = new System.Windows.Forms.RadioButton();
 			this._rbScale = new System.Windows.Forms.RadioButton();
+			this._cbRoot = new System.Windows.Forms.ComboBox();
 			this.groupBox.SuspendLayout();
 			this.scalePanel.SuspendLayout();
 			this.arpPanel.SuspendLayout();
@@ -110,6 +111,7 @@ namespace NeckDiagrams
 			// 
 			// arpPanel
 			// 
+			this.arpPanel.Controls.Add(this._cbRoot);
 			this.arpPanel.Controls.Add(this._cbChordType);
 			this.arpPanel.Controls.Add(this.label3);
 			this.arpPanel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -175,6 +177,17 @@ namespace NeckDiagrams
 			this._rbScale.UseVisualStyleBackColor = true;
 			this._rbScale.CheckedChanged += new System.EventHandler(this._rbScale_CheckedChanged);
 			// 
+			// _cbRoot
+			// 
+			this._cbRoot.Dock = System.Windows.Forms.DockStyle.Left;
+			this._cbRoot.DropDownWidth = 300;
+			this._cbRoot.FormattingEnabled = true;
+			this._cbRoot.Location = new System.Drawing.Point(65, 0);
+			this._cbRoot.MaxDropDownItems = 100;
+			this._cbRoot.Name = "_cbRoot";
+			this._cbRoot.Size = new System.Drawing.Size(44, 21);
+			this._cbRoot.TabIndex = 15;
+			// 
 			// ModelItemControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,5 +222,6 @@ namespace NeckDiagrams
 
 		private System.Windows.Forms.CheckBox _cbVisible;
 		private System.Windows.Forms.Panel _panelRadioButtons;
+		private System.Windows.Forms.ComboBox _cbRoot;
 	}
 }

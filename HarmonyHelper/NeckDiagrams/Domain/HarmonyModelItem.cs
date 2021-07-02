@@ -22,27 +22,40 @@ namespace NeckDiagrams
 				this.OnModelItemChanged();
 			}
 		}
+		public ScaleFormulaBase ScaleFormula { get; set; }
+		public ChordFormula ChordFormula { get; set; }
 
-		protected INoteNameContainer NoteNameContainer { get; private set; }
+		protected INoteNameContainer NoteNameContainer 
+		{
+			get 
+			{
+				var result = 
+					(this.ScaleFormula as INoteNameContainer) 
+						?? (this.ChordFormula as INoteNameContainer);
+				return result;
+			} 
+		}
 
 		public List<NoteName> NoteNames { get { return NoteNameContainer.NoteNames; } }
 
 		public NoteName Root { get; private set; }
+
 
 		public HarmonyModelItem(INoteNameContainer nnc)
 		{
 			if (null == nnc)
 				throw new ArgumentNullException("INoteNameContainer");
 
-			this.NoteNameContainer = nnc;
 			this.Root = (nnc as IHasRootNoteName).Root;
 			if (nnc is ScaleFormulaBase)
 			{
 				this.ModelType = ModelItemTypeEnum.Scale;
+				this.ScaleFormula = nnc as ScaleFormulaBase;
 			}
 			else if (nnc is ChordFormula)
 			{
 				this.ModelType = ModelItemTypeEnum.Arpeggio;
+				this.ChordFormula = nnc as ChordFormula;
 			}
 		}
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
-	public partial class NeckControl : UserControl, IModelObserver
+	public partial class NeckControl : UserControl
 	{
 		List<NoteRange> NoteRanges { get; set; } = new List<NoteRange>();
 		Scale MusicalScale { get; set; }
@@ -21,14 +21,13 @@ namespace NeckDiagrams
 			this.Layout += this.NeckControl_Layout;
 		}
 
+		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
 
 		private void NeckControl_Load(object sender, EventArgs e)
 		{
 			if (!DesignMode)
 			{
-				var mp = this.FindForm() as IModelProvider;
-				mp.Model.ModelChanged += this.ModelChanged_Handler;
-
+				this.Model.ModelChanged += this.ModelChanged_Handler;
 
 				this.Controls.Clear();
 				var ctls = new List<StringControl>();

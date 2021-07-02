@@ -6,9 +6,9 @@ using Eric.Morrison.Harmony;
 
 namespace NeckDiagrams
 {
-	public partial class Form1 : Form, IModelProvider
+	public partial class Form1 : Form
 	{
-		public event EventHandler<HarmonyModel> ModelChanged;
+		//public event EventHandler<HarmonyModel> ModelChanged;
 		ScaleFormulaCatalog ScaleFormulaCatalog { get; set; }
 
 		public HarmonyModel Model { get; private set; }
@@ -30,29 +30,25 @@ namespace NeckDiagrams
 			}
 
 			var defaultKey = KeySignature.CMajor;
-			_cbKey.SelectedItem = this._cbKey.Items.Cast<KeySignature>()
-				.First(x => x == defaultKey);
-			this.Model = new HarmonyModel(defaultKey);
 			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
 
 		}
 
 
-		void OnModelChanged()
-		{
-			if (this.Model.IsValid)
-			{
-				if (null != this.ModelChanged)
-				{
-					this.ModelChanged(this, this.Model);
-				}
-			}
-		}
+		//void OnModelChanged()
+		//{
+		//	if (this.Model.IsValid)
+		//	{
+		//		if (null != this.ModelChanged)
+		//		{
+		//			this.ModelChanged(this, this.Model);
+		//		}
+		//	}
+		//}
 		private void _cbKey_SelectedValueChanged(object sender, EventArgs e)
 		{
 			this.Model.KeySignature = _cbKey.SelectedItem as KeySignature;
 			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(this.Model.KeySignature);
-			this.OnModelChanged();
 		}
 
 

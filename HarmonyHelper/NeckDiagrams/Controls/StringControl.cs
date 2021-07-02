@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using Eric.Morrison.Harmony;
 
 namespace NeckDiagrams
 {
-	public partial class StringControl : UserControl, IModelObserver
+	public partial class StringControl : UserControl
 	{
 		const int FRET_COUNT = 13;
 		NoteRange NoteRange { get; set; }
 		List<NoteName> ActiveNotes { get; set; } = new List<NoteName>();
 		public int StringNumber { get; set; }
+		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
 
 		public StringControl()
 		{
@@ -28,11 +29,10 @@ namespace NeckDiagrams
 			this.ActiveNotes = activeNotes;
 		}
 
+
 		private void StringControl_Load(object sender, EventArgs e)
 		{
-			var mp = this.FindForm() as IModelProvider;
-			mp.Model.ModelChanged += this.ModelChanged_Handler;
-			//mp.Model.KeySignature.Normalize(ref this.NoteRange.Notes);
+			this.Model.ModelChanged += this.ModelChanged_Handler;
 
 			if (!DesignMode)
 			{

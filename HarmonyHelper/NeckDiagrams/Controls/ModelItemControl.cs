@@ -37,24 +37,60 @@ namespace NeckDiagrams
 		public ModelItemControl()
 		{
 			InitializeComponent();
-			this.Load += this.Form1_Load;
-		}
-
-		private void Form1_Load(object sender, EventArgs e)
-		{
 			groupBox.Text = SELECT_ITEM_TYPE;
 			scalePanel.Visible = false;
 			arpPanel.Visible = false;
+			this.Load += this.Form1_Load;
+		}
+
+		public ModelItemControl(HarmonyModelItem Item) : this()
+		{
+			this.Item = Item;
+			if (ModelItemTypeEnum.Arpeggio == this.Item.ModelType)
+			{
+				_rbArpeggio.Checked = true;
+			}
+			else 
+			{
+				_rbScale.Checked = true;
+			}
+
+		}
+		private void Form1_Load(object sender, EventArgs e)
+		{
 			if (!DesignMode)
 			{
 				this.ScaleFormulaCatalog = new ScaleFormulaCatalog(this.Model.KeySignature);
-				this.Populate_cbScaleType();
-				this.Populate_cbChordType();
+				this.Populate();
+				if (null != this.Item)
+				{
+					if (ModelItemTypeEnum.Arpeggio == this.Item.ModelType)
+					{
+						_cbChordType.SelectedItem = Item.ChordFormula.ChordType;
+
+						foreach (var cbi in _cbChordType.Items)
+						{
+							cbi.GetType();
+							//Debug.WriteLine(cbi.)
+						}
+					}
+					else
+					{
+						_cbScaleType.SelectedItem = Item.ScaleFormula;
+					}
+				}
 			}
 		}
 
 		#endregion
-		
+
+		void Populate()
+		{
+			this.Populate_cbScaleType();
+			this.Populate_cbChordType();
+			this.Populate_cbRoot();
+		}
+
 		void Populate_cbScaleType()
 		{
 			_cbScaleType.Items.Clear();
@@ -81,6 +117,21 @@ namespace NeckDiagrams
 			}
 
 		}
+		void Populate_cbRoot()
+		{
+			this._cbRoot.Items.Clear();
+			var set = KeySignature.Catalog
+				.Select(x => x.NoteName)
+				.ToList()
+				.OrderBy(x => x)
+				.ToHashSet(new NoteNameAphaEqualityComparer());
+			
+			foreach (var nn in set)
+			{
+				this._cbRoot.Items.Add(nn);
+			}
+
+		}
 
 		private void _rbScale_CheckedChanged(object sender, EventArgs e)
 		{
@@ -102,8 +153,9 @@ namespace NeckDiagrams
 		private void _cbChordType_SelectedValueChanged(object sender, EventArgs e)
 		{
 			var chordType = _cbChordType.SelectedItem as ChordType;
+			var root = this._cbRoot.SelectedItem as NoteName;
 			var formula = ChordFormulaFactory.Create(
-				Model.KeySignature.NoteName, chordType, Model.KeySignature);
+				root, chordType, Model.KeySignature);
 
 			this.Item = new HarmonyModelItem(formula);
 			this.OnModelItemCreated();

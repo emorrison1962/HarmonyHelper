@@ -13,14 +13,13 @@ scale
 
 namespace NeckDiagrams
 {
-	public partial class StringPositionControl : UserControl, IModelObserver
+	public partial class StringPositionControl : UserControl
 	{
 		public Note Note { get; set; }
 		public int Position { get; set; }
 		public bool IsActive { get; set; }
 		public bool IsRoot { get; private set; }
-		IModelProvider ModelProvider { get; set; }
-		HarmonyModel Model { get { return ModelProvider?.Model; } }
+		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
 
 		public StringPositionControl()
 		{
@@ -30,8 +29,7 @@ namespace NeckDiagrams
 
 		private void StringPositionControl_Load(object sender, System.EventArgs e)
 		{
-			this.ModelProvider = this.FindForm() as IModelProvider;
-			this.ModelProvider.Model.ModelChanged += this.ModelChanged_Handler;
+			this.Model.ModelChanged += this.ModelChanged_Handler;
 		}
 
 		public StringPositionControl(int position, Note note)

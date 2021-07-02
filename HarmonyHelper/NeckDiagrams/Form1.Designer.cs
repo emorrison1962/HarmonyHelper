@@ -31,16 +31,16 @@ namespace NeckDiagrams
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
-			this._pnlNeck = new System.Windows.Forms.Panel();
-			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.keyPanel = new System.Windows.Forms.Panel();
 			this._bnAddItem = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this._cbKey = new System.Windows.Forms.ComboBox();
+			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
+			this.modelItemsControl = new NeckDiagrams.ModelItemsControl();
 			this.panel3.SuspendLayout();
+			this.keyPanel.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel2
@@ -55,45 +55,25 @@ namespace NeckDiagrams
 			// panel3
 			// 
 			this.panel3.BackColor = System.Drawing.SystemColors.Control;
-			this.panel3.Controls.Add(this.panel1);
-			this.panel3.Controls.Add(this.flowLayoutPanel1);
+			this.panel3.Controls.Add(this.modelItemsControl);
+			this.panel3.Controls.Add(this.keyPanel);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel3.Location = new System.Drawing.Point(0, 0);
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(800, 100);
 			this.panel3.TabIndex = 2;
 			// 
-			// _pnlNeck
+			// keyPanel
 			// 
-			this._pnlNeck.BackColor = System.Drawing.SystemColors.Control;
-			this._pnlNeck.Controls.Add(this._neckCtl);
-			this._pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
-			this._pnlNeck.Location = new System.Drawing.Point(0, 100);
-			this._pnlNeck.Name = "_pnlNeck";
-			this._pnlNeck.Padding = new System.Windows.Forms.Padding(20);
-			this._pnlNeck.Size = new System.Drawing.Size(800, 290);
-			this._pnlNeck.TabIndex = 3;
-			// 
-			// flowLayoutPanel1
-			// 
-			this.flowLayoutPanel1.BackColor = System.Drawing.Color.LightSalmon;
-			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 100);
-			this.flowLayoutPanel1.TabIndex = 1;
-			// 
-			// panel1
-			// 
-			this.panel1.BackColor = System.Drawing.Color.LightGreen;
-			this.panel1.Controls.Add(this._bnAddItem);
-			this.panel1.Controls.Add(this.label1);
-			this.panel1.Controls.Add(this._cbKey);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(200, 100);
-			this.panel1.TabIndex = 1;
+			this.keyPanel.BackColor = System.Drawing.Color.LightGreen;
+			this.keyPanel.Controls.Add(this._bnAddItem);
+			this.keyPanel.Controls.Add(this.label1);
+			this.keyPanel.Controls.Add(this._cbKey);
+			this.keyPanel.Dock = System.Windows.Forms.DockStyle.Left;
+			this.keyPanel.Location = new System.Drawing.Point(0, 0);
+			this.keyPanel.Name = "keyPanel";
+			this.keyPanel.Size = new System.Drawing.Size(200, 100);
+			this.keyPanel.TabIndex = 1;
 			// 
 			// _bnAddItem
 			// 
@@ -123,6 +103,17 @@ namespace NeckDiagrams
 			this._cbKey.Size = new System.Drawing.Size(121, 21);
 			this._cbKey.TabIndex = 4;
 			// 
+			// _pnlNeck
+			// 
+			this._pnlNeck.BackColor = System.Drawing.SystemColors.Control;
+			this._pnlNeck.Controls.Add(this._neckCtl);
+			this._pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
+			this._pnlNeck.Location = new System.Drawing.Point(0, 100);
+			this._pnlNeck.Name = "_pnlNeck";
+			this._pnlNeck.Padding = new System.Windows.Forms.Padding(20);
+			this._pnlNeck.Size = new System.Drawing.Size(800, 290);
+			this._pnlNeck.TabIndex = 3;
+			// 
 			// _neckCtl
 			// 
 			this._neckCtl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -130,6 +121,14 @@ namespace NeckDiagrams
 			this._neckCtl.Name = "_neckCtl";
 			this._neckCtl.Size = new System.Drawing.Size(760, 250);
 			this._neckCtl.TabIndex = 0;
+			// 
+			// modelItemsControl1
+			// 
+			this.modelItemsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.modelItemsControl.Location = new System.Drawing.Point(200, 0);
+			this.modelItemsControl.Name = "modelItemsControl1";
+			this.modelItemsControl.Size = new System.Drawing.Size(600, 100);
+			this.modelItemsControl.TabIndex = 2;
 			// 
 			// Form1
 			// 
@@ -144,9 +143,9 @@ namespace NeckDiagrams
 			this.Text = "Form1";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.panel3.ResumeLayout(false);
+			this.keyPanel.ResumeLayout(false);
+			this.keyPanel.PerformLayout();
 			this._pnlNeck.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -156,11 +155,11 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Panel _pnlNeck;
 		private NeckControl _neckCtl;
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel keyPanel;
 		private System.Windows.Forms.Button _bnAddItem;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox _cbKey;
-		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private ModelItemsControl modelItemsControl;
 	}
 }
 
