@@ -9,8 +9,18 @@ namespace NeckDiagrams
 	public class HarmonyModelItem
 	{
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
+
+		#region Fields
+		System.Drawing.Color _Color;
 		ModelItemTypeEnum _ModelType;
-		public System.Drawing.Color NoteColor { get; set; }
+		ScaleFormulaBase _ScaleFormula;
+		ChordFormula _ChordFormula;
+		NoteName _Root;
+
+		#endregion
+
+		#region Properties
+		public System.Drawing.Color Color { get { return _Color; } set { _Color = value; this.OnModelItemChanged(); } }
 		public ModelItemTypeEnum ModelType
 		{
 			get { return _ModelType; }
@@ -20,9 +30,11 @@ namespace NeckDiagrams
 				this.OnModelItemChanged();
 			}
 		}
-		public ScaleFormulaBase ScaleFormula { get; set; }
-		public ChordFormula ChordFormula { get; set; }
+		public ScaleFormulaBase ScaleFormula { get { return _ScaleFormula; } set { _ScaleFormula = value; this.OnModelItemChanged(); } }
+		public ChordFormula ChordFormula { get { return _ChordFormula; } set { _ChordFormula = value; this.OnModelItemChanged(); } }
+		public NoteName Root { get { return _Root; } set { _Root = value; this.OnModelItemChanged(); } }
 
+		#endregion
 		protected INoteNameContainer NoteNameContainer
 		{
 			get
@@ -33,10 +45,8 @@ namespace NeckDiagrams
 				return result;
 			}
 		}
-
 		public List<NoteName> NoteNames { get { return NoteNameContainer.NoteNames; } }
 
-		public NoteName Root { get; private set; }
 
 
 		public HarmonyModelItem(INoteNameContainer nnc)
@@ -70,7 +80,7 @@ namespace NeckDiagrams
 				var result = false;
 
 				if (this.NoteNames?.Count > 0)
-					if (System.Drawing.Color.Empty != this.NoteColor)
+					if (System.Drawing.Color.Empty != this.Color)
 						result = true;
 				return result;
 			}

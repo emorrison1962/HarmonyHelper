@@ -207,10 +207,10 @@ namespace NeckDiagrams
 				.ToList();
 			if (items.Count == 1)
 			{
-				return new SolidBrush(items[0].NoteColor);
+				return new SolidBrush(items[0].Color);
 			}
 
-			var colors = items.Select(mi => mi.NoteColor).ToList();
+			var colors = items.Select(mi => mi.Color).ToList();
 			if (colors.Count > 1)
 			{
 				new object();

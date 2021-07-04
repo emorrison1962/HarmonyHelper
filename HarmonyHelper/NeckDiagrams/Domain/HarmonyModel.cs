@@ -89,7 +89,7 @@ namespace NeckDiagrams
 		void OnModelChanged()
 		{
 			if (null != this.ModelChanged)
-				ModelChanged(this, this);
+				this.ModelChanged(this, this);
 		}
 
 		internal void Add(HarmonyModelItem item)

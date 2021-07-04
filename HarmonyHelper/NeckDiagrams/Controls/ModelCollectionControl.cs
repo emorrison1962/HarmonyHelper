@@ -30,6 +30,7 @@ namespace NeckDiagrams
 
 		public void ModelChanged_Handler(object sender, HarmonyModel model)
 		{
+			this.itemsPanel.Controls.Clear();
 			foreach (var item in model.Items)
 			{
 				var control = new ModelItemControl(item);
