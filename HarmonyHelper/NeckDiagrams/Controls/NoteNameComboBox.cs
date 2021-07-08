@@ -8,7 +8,11 @@ namespace NeckDiagrams
 	public partial class NoteNameComboBox : UserControl
 	{
 		public event EventHandler<NoteName> SelectionChanged;
-		public NoteName SelectedNoteName { get { return this._cbNoteName.SelectedItem as NoteName; }  }
+		public NoteName SelectedNoteName 
+		{ 
+			get { return this._cbNoteName.SelectedItem as NoteName; }
+			set { this._cbNoteName.SelectedItem = value; }  
+		}
 		public NoteNameComboBox()
 		{
 			InitializeComponent();

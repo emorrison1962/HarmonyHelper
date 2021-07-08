@@ -20,9 +20,20 @@ namespace NeckDiagrams
 			get { return this._cbChordType .SelectedItem as ChordFormula; }
 			set
 			{
-				this._cbChordType.SelectedItem = value;
+				var items = this._cbChordType.Items.Cast<ChordType>();
+				var item = items.ToList()
+					.Where(x => x.Name == value.ChordType.Name)
+					.First();
+				this._cbChordType.SelectedItem = item;
 			}
 		}
+
+		public NoteName NoteName
+		{
+			get { return _chordNoteNameCombo.SelectedNoteName; }
+			set { _chordNoteNameCombo.SelectedNoteName = value; }
+		}
+
 
 		#region Costruction
 		public ChordSelectorControl()
@@ -51,21 +62,27 @@ namespace NeckDiagrams
 		private void _chordNoteNameCombo_SelectionChanged(object sender, NoteName nn)
 		{
 			this._cbChordType.Enabled = true;
+			this.OnSelectedChordChanged();
 		}
 
 		private void _cbChordType_SelectedValueChanged(object sender, EventArgs e)
 		{
 			var chordType = _cbChordType.SelectedItem as ChordType;
-			this.OnSelectedChordChanged(chordType);
+			this.OnSelectedChordChanged();
 		}
-		void OnSelectedChordChanged(ChordType chordType)
+		void OnSelectedChordChanged()
 		{
 			if (null != this.SelectedChordChanged)
 			{
-				var root = _chordNoteNameCombo.SelectedNoteName;
-				var model = HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>();
-				var result = new ChordFormula(root, chordType, model.KeySignature);
-				this.SelectedChordChanged(this, result);
+				if (null != _chordNoteNameCombo.SelectedNoteName
+					&& null != _cbChordType.SelectedItem)
+				{
+					var root = _chordNoteNameCombo.SelectedNoteName;
+					var chordType = _cbChordType.SelectedItem as ChordType;
+					var model = HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>();
+					var result = new ChordFormula(root, chordType, model.KeySignature);
+					this.SelectedChordChanged(this, result);
+				}
 			}
 		}
 

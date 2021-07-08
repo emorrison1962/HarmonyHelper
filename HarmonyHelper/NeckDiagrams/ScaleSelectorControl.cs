@@ -16,11 +16,19 @@ namespace NeckDiagrams
 			get { return this._cbScaleType.SelectedItem as ScaleFormulaBase; }
 			set 
 			{
-				this._cbScaleType.SelectedItem = value;
+				var items = this._cbScaleType.Items.Cast<ScaleFormulaBase>();
+				var item = items.ToList()
+					.Where(x => x.Name == value.Name)
+					.First();
+				this._cbScaleType.SelectedItem = item;
 			}
-
 		}
 
+		public NoteName NoteName 
+		{ 
+			get { return _scaleNoteNameCombo.SelectedNoteName; }
+			set { _scaleNoteNameCombo.SelectedNoteName = value; } 
+		}
 
 		#region Construction
 		public ScaleSelectorControl()
@@ -46,11 +54,11 @@ namespace NeckDiagrams
 			var key = KeySignature.Catalog.Where(x => x.NoteName == nn).First();
 
 			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(key);
-			foreach (var st in ScaleFormulaCatalog.Formulas
+			foreach (var scaleFormula in ScaleFormulaCatalog.Formulas
 				.Where(x => x.Root == nn)
 				.OrderBy(x => x.Name))
 			{
-				_cbScaleType.Items.Add(st);
+				_cbScaleType.Items.Add(scaleFormula);
 			}
 		}
 
@@ -68,6 +76,7 @@ namespace NeckDiagrams
 
 		void OnSelectedScaleChanged(ScaleFormulaBase scale)
 		{
+			
 			if (null != this.SelectedScaleChanged)
 				this.SelectedScaleChanged(this, scale);
 		}

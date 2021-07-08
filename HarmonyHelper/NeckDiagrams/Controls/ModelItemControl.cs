@@ -1,6 +1,8 @@
 ﻿using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NeckDiagrams
@@ -33,6 +35,7 @@ namespace NeckDiagrams
 			scaleSelectorControl.Visible = false;
 			chordSelectorControl.Visible = false;
 			this.Load += this.Form1_Load;
+			this.Item = new HarmonyModelItem();
 		}
 
 		public ModelItemControl(HarmonyModelItem Item) : this()
@@ -52,22 +55,24 @@ namespace NeckDiagrams
 		{
 			if (!DesignMode)
 			{
+				this.Model.ModelChanged += this.Model_ModelChanged;
 				this.Populate();
 
 				this.chordSelectorControl.SelectedChordChanged += this.ChordSelectorControl_SelectedChordChanged;
 
 				this.scaleSelectorControl.SelectedScaleChanged += this.ScaleSelectorControl_SelectedScaleChanged;
 
-				if (null != this.Item)
+			}
+		}
+
+		private void Model_ModelChanged(object sender, HarmonyModel model)
+		{
+			if (null != this.Item)
+			{
+				if (model.Items.Any(x => x == this.Item))
 				{
-					if (ModelItemTypeEnum.Arpeggio == this.Item.ModelType)
-					{
-						chordSelectorControl.SelectedItem = Item.ChordFormula;
-					}
-					else
-					{
-						scaleSelectorControl.SelectedItem = Item.ScaleFormula;
-					}
+					
+					this.Refresh();
 				}
 			}
 		}
@@ -76,8 +81,28 @@ namespace NeckDiagrams
 
 		void Populate()
 		{
-			this.chordSelectorControl.Enabled = false;
-			this.scaleSelectorControl.Enabled = false;
+			if (null != this.Item)
+			{
+
+				if (this.Item.IsValid)
+				{
+					this._colorSwatch.BackColor = this.Item.Color;
+
+
+					if (this.Item.ModelType == ModelItemTypeEnum.Arpeggio)
+					{
+						chordSelectorControl.Visible = true;
+						chordSelectorControl.NoteName = this.Item.ChordFormula.Root;
+						chordSelectorControl.SelectedItem = Item.ChordFormula;
+					}
+					else
+					{
+						scaleSelectorControl.Visible = true;
+						scaleSelectorControl.NoteName = this.Item.ScaleFormula.Root;
+						scaleSelectorControl.SelectedItem = Item.ScaleFormula;
+					}
+				}
+			}
 		}
 
 		private void _rbScale_CheckedChanged(object sender, EventArgs e)
@@ -117,14 +142,14 @@ namespace NeckDiagrams
 		{
 			if (null != chordFormula.Root)
 			{
-				this.Item = new HarmonyModelItem(chordFormula);
+				this.Item.ChordFormula = chordFormula;
 				this.OnModelItemChanged();
 			}
 		}
 
 		private void ScaleSelectorControl_SelectedScaleChanged(object sender, Eric.Morrison.Harmony.Scales.ScaleFormulaBase scaleFormula)
 		{
-			this.Item = new HarmonyModelItem(scaleFormula as INoteNameContainer);
+			this.Item.ScaleFormula = scaleFormula;
 			this.OnModelItemChanged();
 		}
 	}//class

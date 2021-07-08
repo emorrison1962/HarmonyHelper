@@ -95,6 +95,12 @@ namespace NeckDiagrams
 		internal void Add(HarmonyModelItem item)
 		{
 			this.Items.Add(item);
+			item.ModelItemChanged += this.Item_ModelItemChanged;
+			this.OnModelChanged();
+		}
+
+		private void Item_ModelItemChanged(object sender, HarmonyModelItem e)
+		{
 			this.OnModelChanged();
 		}
 	}//class

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using Eric.Morrison.Harmony;
 #if false
 
 key
@@ -44,7 +44,7 @@ namespace NeckDiagrams
 
 		[Flags]
 		enum NoteTypeEnum
-		{ 
+		{
 			None = 0,
 			ChordTone = 1,
 			ScaleTone = 1 << 1
@@ -153,7 +153,7 @@ namespace NeckDiagrams
 				else
 				{
 					var noteType = NoteTypeEnum.None;
-					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale 
+					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale
 						&& mi.NoteNames
 							.Contains(this.Note.NoteName)))
 					{
@@ -216,7 +216,7 @@ namespace NeckDiagrams
 				new object();
 			}
 			var floats = new List<float>();
-			for (int i = 0; i < colors.Count; ++i) 
+			for (int i = 0; i < colors.Count; ++i)
 			{
 				var f = 1 / (float)i;
 				if (float.IsInfinity(f))
@@ -260,10 +260,13 @@ namespace NeckDiagrams
 		{
 			if (null != this.Note)
 			{
-				this.IsRoot = model.Items.Any(x => x.Root == this.Note.NoteName);
-				if (this.IsRoot)
+				if (model.Items.Any(x => x.Root == this.Note.NoteName))
 				{
-					new object();
+					this.IsRoot = true;
+				}
+				else if (model.Items.Any(x => x.NoteNames.Contains(this.Note.NoteName)))
+				{
+					this.Refresh();
 				}
 			}
 		}

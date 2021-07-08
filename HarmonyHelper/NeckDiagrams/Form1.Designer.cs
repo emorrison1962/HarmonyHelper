@@ -38,7 +38,6 @@ namespace NeckDiagrams
 			this._cbKey = new System.Windows.Forms.ComboBox();
 			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
-			this.modelItemControl1 = new NeckDiagrams.ModelItemControl();
 			this.topPanel.SuspendLayout();
 			this.keyPanel.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
@@ -56,7 +55,6 @@ namespace NeckDiagrams
 			// topPanel
 			// 
 			this.topPanel.BackColor = System.Drawing.SystemColors.Control;
-			this.topPanel.Controls.Add(this.modelItemControl1);
 			this.topPanel.Controls.Add(this.modelItemsControl);
 			this.topPanel.Controls.Add(this.keyPanel);
 			this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -134,14 +132,6 @@ namespace NeckDiagrams
 			this._neckCtl.Size = new System.Drawing.Size(760, 250);
 			this._neckCtl.TabIndex = 0;
 			// 
-			// modelItemControl1
-			// 
-			this.modelItemControl1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.modelItemControl1.Location = new System.Drawing.Point(200, 0);
-			this.modelItemControl1.Name = "modelItemControl1";
-			this.modelItemControl1.Size = new System.Drawing.Size(241, 100);
-			this.modelItemControl1.TabIndex = 3;
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,7 +162,6 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox _cbKey;
 		private ModelCollectionControl modelItemsControl;
-		private ModelItemControl modelItemControl1;
 	}
 }
 

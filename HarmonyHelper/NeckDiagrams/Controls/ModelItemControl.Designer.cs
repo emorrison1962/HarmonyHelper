@@ -30,26 +30,25 @@ namespace NeckDiagrams
 		private void InitializeComponent()
 		{
 			this.groupBox = new System.Windows.Forms.GroupBox();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this._bnColor = new System.Windows.Forms.Button();
-			this._colorSwatch = new System.Windows.Forms.Panel();
 			this.colorPanel = new System.Windows.Forms.Panel();
 			this._cbVisible = new System.Windows.Forms.CheckBox();
+			this.scaleSelectorControl = new NeckDiagrams.ScaleSelectorControl();
+			this.chordSelectorControl = new NeckDiagrams.ChordSelectorControl();
 			this._panelRadioButtons = new System.Windows.Forms.Panel();
 			this._rbArpeggio = new System.Windows.Forms.RadioButton();
 			this._rbScale = new System.Windows.Forms.RadioButton();
 			this.colorDialog = new System.Windows.Forms.ColorDialog();
-			this.chordSelectorControl = new NeckDiagrams.ChordSelectorControl();
-			this.scaleSelectorControl = new NeckDiagrams.ScaleSelectorControl();
+			this._colorSwatch = new System.Windows.Forms.Panel();
+			this._bnColor = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupBox.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.colorPanel.SuspendLayout();
 			this._panelRadioButtons.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox
 			// 
-			this.groupBox.Controls.Add(this.panel1);
 			this.groupBox.Controls.Add(this.colorPanel);
 			this.groupBox.Controls.Add(this.scaleSelectorControl);
 			this.groupBox.Controls.Add(this.chordSelectorControl);
@@ -59,46 +58,14 @@ namespace NeckDiagrams
 			this.groupBox.Margin = new System.Windows.Forms.Padding(10);
 			this.groupBox.Name = "groupBox";
 			this.groupBox.Padding = new System.Windows.Forms.Padding(7, 3, 3, 3);
-			this.groupBox.Size = new System.Drawing.Size(241, 130);
+			this.groupBox.Size = new System.Drawing.Size(241, 110);
 			this.groupBox.TabIndex = 18;
 			this.groupBox.TabStop = false;
 			this.groupBox.Text = "groupBox1";
 			// 
-			// panel1
-			// 
-			this.panel1.AutoSize = true;
-			this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.panel1.Controls.Add(this._bnColor);
-			this.panel1.Controls.Add(this._colorSwatch);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panel1.Location = new System.Drawing.Point(142, 102);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(96, 25);
-			this.panel1.TabIndex = 33;
-			// 
-			// _bnColor
-			// 
-			this._bnColor.Dock = System.Windows.Forms.DockStyle.Right;
-			this._bnColor.Location = new System.Drawing.Point(0, 0);
-			this._bnColor.MinimumSize = new System.Drawing.Size(75, 21);
-			this._bnColor.Name = "_bnColor";
-			this._bnColor.Size = new System.Drawing.Size(75, 25);
-			this._bnColor.TabIndex = 32;
-			this._bnColor.Text = "Color";
-			this._bnColor.UseVisualStyleBackColor = true;
-			this._bnColor.Click += new System.EventHandler(this._bnColor_Click);
-			// 
-			// _colorSwatch
-			// 
-			this._colorSwatch.Dock = System.Windows.Forms.DockStyle.Right;
-			this._colorSwatch.Location = new System.Drawing.Point(75, 0);
-			this._colorSwatch.MinimumSize = new System.Drawing.Size(21, 21);
-			this._colorSwatch.Name = "_colorSwatch";
-			this._colorSwatch.Size = new System.Drawing.Size(21, 25);
-			this._colorSwatch.TabIndex = 31;
-			// 
 			// colorPanel
 			// 
+			this.colorPanel.Controls.Add(this.panel1);
 			this.colorPanel.Controls.Add(this._cbVisible);
 			this.colorPanel.Dock = System.Windows.Forms.DockStyle.Top;
 			this.colorPanel.Location = new System.Drawing.Point(7, 81);
@@ -111,13 +78,29 @@ namespace NeckDiagrams
 			this._cbVisible.AutoSize = true;
 			this._cbVisible.Checked = true;
 			this._cbVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-			this._cbVisible.Dock = System.Windows.Forms.DockStyle.Top;
+			this._cbVisible.Dock = System.Windows.Forms.DockStyle.Left;
 			this._cbVisible.Location = new System.Drawing.Point(0, 0);
 			this._cbVisible.Name = "_cbVisible";
-			this._cbVisible.Size = new System.Drawing.Size(231, 17);
+			this._cbVisible.Size = new System.Drawing.Size(56, 21);
 			this._cbVisible.TabIndex = 25;
 			this._cbVisible.Text = "Visible";
 			this._cbVisible.UseVisualStyleBackColor = true;
+			// 
+			// scaleSelectorControl
+			// 
+			this.scaleSelectorControl.Dock = System.Windows.Forms.DockStyle.Top;
+			this.scaleSelectorControl.Location = new System.Drawing.Point(7, 60);
+			this.scaleSelectorControl.Name = "scaleSelectorControl";
+			this.scaleSelectorControl.Size = new System.Drawing.Size(231, 21);
+			this.scaleSelectorControl.TabIndex = 26;
+			// 
+			// chordSelectorControl
+			// 
+			this.chordSelectorControl.Dock = System.Windows.Forms.DockStyle.Top;
+			this.chordSelectorControl.Location = new System.Drawing.Point(7, 39);
+			this.chordSelectorControl.Name = "chordSelectorControl";
+			this.chordSelectorControl.Size = new System.Drawing.Size(231, 21);
+			this.chordSelectorControl.TabIndex = 34;
 			// 
 			// _panelRadioButtons
 			// 
@@ -157,21 +140,38 @@ namespace NeckDiagrams
 			// 
 			this.colorDialog.AnyColor = true;
 			// 
-			// chordSelectorControl
+			// _colorSwatch
 			// 
-			this.chordSelectorControl.Dock = System.Windows.Forms.DockStyle.Top;
-			this.chordSelectorControl.Location = new System.Drawing.Point(7, 39);
-			this.chordSelectorControl.Name = "chordSelectorControl";
-			this.chordSelectorControl.Size = new System.Drawing.Size(231, 21);
-			this.chordSelectorControl.TabIndex = 34;
+			this._colorSwatch.Dock = System.Windows.Forms.DockStyle.Right;
+			this._colorSwatch.Location = new System.Drawing.Point(75, 0);
+			this._colorSwatch.MinimumSize = new System.Drawing.Size(21, 21);
+			this._colorSwatch.Name = "_colorSwatch";
+			this._colorSwatch.Size = new System.Drawing.Size(21, 21);
+			this._colorSwatch.TabIndex = 31;
 			// 
-			// scaleSelectorControl
+			// _bnColor
 			// 
-			this.scaleSelectorControl.Dock = System.Windows.Forms.DockStyle.Top;
-			this.scaleSelectorControl.Location = new System.Drawing.Point(7, 60);
-			this.scaleSelectorControl.Name = "scaleSelectorControl";
-			this.scaleSelectorControl.Size = new System.Drawing.Size(231, 21);
-			this.scaleSelectorControl.TabIndex = 26;
+			this._bnColor.Dock = System.Windows.Forms.DockStyle.Right;
+			this._bnColor.Location = new System.Drawing.Point(0, 0);
+			this._bnColor.MinimumSize = new System.Drawing.Size(75, 21);
+			this._bnColor.Name = "_bnColor";
+			this._bnColor.Size = new System.Drawing.Size(75, 21);
+			this._bnColor.TabIndex = 32;
+			this._bnColor.Text = "Color";
+			this._bnColor.UseVisualStyleBackColor = true;
+			this._bnColor.Click += new System.EventHandler(this._bnColor_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.AutoSize = true;
+			this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.panel1.Controls.Add(this._bnColor);
+			this.panel1.Controls.Add(this._colorSwatch);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+			this.panel1.Location = new System.Drawing.Point(135, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(96, 21);
+			this.panel1.TabIndex = 33;
 			// 
 			// ModelItemControl
 			// 
@@ -179,14 +179,13 @@ namespace NeckDiagrams
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.groupBox);
 			this.Name = "ModelItemControl";
-			this.Size = new System.Drawing.Size(241, 130);
+			this.Size = new System.Drawing.Size(241, 110);
 			this.groupBox.ResumeLayout(false);
-			this.groupBox.PerformLayout();
-			this.panel1.ResumeLayout(false);
 			this.colorPanel.ResumeLayout(false);
 			this.colorPanel.PerformLayout();
 			this._panelRadioButtons.ResumeLayout(false);
 			this._panelRadioButtons.PerformLayout();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -197,12 +196,12 @@ namespace NeckDiagrams
 		private System.Windows.Forms.RadioButton _rbScale;
 		private System.Windows.Forms.Panel _panelRadioButtons;
 		private System.Windows.Forms.ColorDialog colorDialog;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button _bnColor;
-		private System.Windows.Forms.Panel _colorSwatch;
 		private System.Windows.Forms.Panel colorPanel;
 		private System.Windows.Forms.CheckBox _cbVisible;
 		private ScaleSelectorControl scaleSelectorControl;
 		private ChordSelectorControl chordSelectorControl;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Button _bnColor;
+		private System.Windows.Forms.Panel _colorSwatch;
 	}
 }

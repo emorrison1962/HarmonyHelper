@@ -12,10 +12,10 @@ namespace NeckDiagrams
 
 		#region Fields
 		System.Drawing.Color _Color;
-		ModelItemTypeEnum _ModelType;
 		ScaleFormulaBase _ScaleFormula;
 		ChordFormula _ChordFormula;
 		NoteName _Root;
+		bool _IsVisible;
 
 		#endregion
 
@@ -23,17 +23,16 @@ namespace NeckDiagrams
 		public System.Drawing.Color Color { get { return _Color; } set { _Color = value; this.OnModelItemChanged(); } }
 		public ModelItemTypeEnum ModelType
 		{
-			get { return _ModelType; }
-			set
-			{
-				_ModelType = value;
-				this.OnModelItemChanged();
+			get 
+			{ 
+				return null != this.ScaleFormula ? 
+					ModelItemTypeEnum.Scale : ModelItemTypeEnum.Arpeggio; 
 			}
 		}
 		public ScaleFormulaBase ScaleFormula { get { return _ScaleFormula; } set { _ScaleFormula = value; this.OnModelItemChanged(); } }
 		public ChordFormula ChordFormula { get { return _ChordFormula; } set { _ChordFormula = value; this.OnModelItemChanged(); } }
 		public NoteName Root { get { return _Root; } set { _Root = value; this.OnModelItemChanged(); } }
-
+		public bool IsVisible { get { return _IsVisible; } set { _IsVisible = value; this.OnModelItemChanged(); } }
 		#endregion
 		protected INoteNameContainer NoteNameContainer
 		{
@@ -45,9 +44,13 @@ namespace NeckDiagrams
 				return result;
 			}
 		}
-		public List<NoteName> NoteNames { get { return NoteNameContainer.NoteNames; } }
+		public List<NoteName> NoteNames { get { return NoteNameContainer?.NoteNames; } }
 
 
+		public HarmonyModelItem()
+		{
+
+		}
 
 		public HarmonyModelItem(INoteNameContainer nnc)
 		{
@@ -57,12 +60,10 @@ namespace NeckDiagrams
 			this.Root = (nnc as IHasRootNoteName).Root;
 			if (nnc is ScaleFormulaBase)
 			{
-				this.ModelType = ModelItemTypeEnum.Scale;
 				this.ScaleFormula = nnc as ScaleFormulaBase;
 			}
 			else if (nnc is ChordFormula)
 			{
-				this.ModelType = ModelItemTypeEnum.Arpeggio;
 				this.ChordFormula = nnc as ChordFormula;
 			}
 		}
