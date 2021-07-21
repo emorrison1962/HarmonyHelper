@@ -34,6 +34,7 @@ namespace NeckDiagrams
 			// 
 			// itemsPanel
 			// 
+			this.itemsPanel.AutoSize = true;
 			this.itemsPanel.BackColor = System.Drawing.SystemColors.Control;
 			this.itemsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.itemsPanel.Location = new System.Drawing.Point(0, 0);
@@ -41,14 +42,15 @@ namespace NeckDiagrams
 			this.itemsPanel.Size = new System.Drawing.Size(390, 93);
 			this.itemsPanel.TabIndex = 2;
 			// 
-			// ModelItemsControl
+			// ModelCollectionControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.itemsPanel);
-			this.Name = "ModelItemsControl";
+			this.Name = "ModelCollectionControl";
 			this.Size = new System.Drawing.Size(390, 93);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 

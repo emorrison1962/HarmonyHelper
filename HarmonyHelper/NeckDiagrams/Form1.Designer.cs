@@ -30,7 +30,7 @@ namespace NeckDiagrams
 		private void InitializeComponent()
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
-			this.panel3 = new System.Windows.Forms.Panel();
+			this.topPanel = new System.Windows.Forms.Panel();
 			this.modelItemsControl = new NeckDiagrams.ModelCollectionControl();
 			this.keyPanel = new System.Windows.Forms.Panel();
 			this._bnAddItem = new System.Windows.Forms.Button();
@@ -38,7 +38,7 @@ namespace NeckDiagrams
 			this._cbKey = new System.Windows.Forms.ComboBox();
 			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
-			this.panel3.SuspendLayout();
+			this.topPanel.SuspendLayout();
 			this.keyPanel.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
 			this.SuspendLayout();
@@ -52,16 +52,17 @@ namespace NeckDiagrams
 			this.panel2.Size = new System.Drawing.Size(800, 60);
 			this.panel2.TabIndex = 1;
 			// 
-			// panel3
+			// topPanel
 			// 
-			this.panel3.BackColor = System.Drawing.SystemColors.Control;
-			this.panel3.Controls.Add(this.modelItemsControl);
-			this.panel3.Controls.Add(this.keyPanel);
-			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel3.Location = new System.Drawing.Point(0, 0);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(800, 100);
-			this.panel3.TabIndex = 2;
+			this.topPanel.BackColor = System.Drawing.SystemColors.Control;
+			this.topPanel.Controls.Add(this.modelItemsControl);
+			this.topPanel.Controls.Add(this.keyPanel);
+			this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+			this.topPanel.Location = new System.Drawing.Point(0, 0);
+			this.topPanel.MinimumSize = new System.Drawing.Size(800, 100);
+			this.topPanel.Name = "topPanel";
+			this.topPanel.Size = new System.Drawing.Size(800, 100);
+			this.topPanel.TabIndex = 2;
 			// 
 			// modelItemsControl
 			// 
@@ -105,8 +106,8 @@ namespace NeckDiagrams
 			// 
 			// _cbKey
 			// 
-			this._cbKey.FormattingEnabled = true;
 			this._cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this._cbKey.FormattingEnabled = true;
 			this._cbKey.Location = new System.Drawing.Point(60, 25);
 			this._cbKey.Name = "_cbKey";
 			this._cbKey.Size = new System.Drawing.Size(121, 21);
@@ -137,13 +138,13 @@ namespace NeckDiagrams
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this._pnlNeck);
-			this.Controls.Add(this.panel3);
+			this.Controls.Add(this.topPanel);
 			this.Controls.Add(this.panel2);
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Form1";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.panel3.ResumeLayout(false);
+			this.topPanel.ResumeLayout(false);
 			this.keyPanel.ResumeLayout(false);
 			this.keyPanel.PerformLayout();
 			this._pnlNeck.ResumeLayout(false);
@@ -153,7 +154,7 @@ namespace NeckDiagrams
 
 		#endregion
 		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.Panel topPanel;
 		private System.Windows.Forms.Panel _pnlNeck;
 		private NeckControl _neckCtl;
 		private System.Windows.Forms.Panel keyPanel;

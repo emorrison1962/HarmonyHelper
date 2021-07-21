@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChordSelectorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChordSelectorControl.Designer.cs">
+      <DependentUpon>ChordSelectorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="Domain\IHarmonyModel1.cs" />
     <Compile Include="Form1.cs">
@@ -100,6 +106,15 @@
     <Compile Include="Controls\StringPositionControl.Designer.cs">
       <DependentUpon>StringPositionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScaleSelectorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScaleSelectorControl.Designer.cs">
+      <DependentUpon>ScaleSelectorControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ChordSelectorControl.resx">
+      <DependentUpon>ChordSelectorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NoteNameComboBox.resx">
       <DependentUpon>NoteNameComboBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\StringPositionControl.resx">
       <DependentUpon>StringPositionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScaleSelectorControl.resx">
+      <DependentUpon>ScaleSelectorControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
