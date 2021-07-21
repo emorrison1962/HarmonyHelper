@@ -19,6 +19,7 @@ namespace NeckDiagrams
 	{
 		public Note Note { get; set; }
 		public int Position { get; set; }
+		const int NUT = 0;
 		public bool IsActive { get; set; }
 		public bool IsRoot { get; private set; }
 		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
@@ -57,51 +58,54 @@ namespace NeckDiagrams
 			{
 				Pen pen = Pens.Black;
 				Brush brush = Brushes.Black;
+				var cxFret = this.Height / 2;
 
 				if ((this.Parent as StringControl)?.StringNumber == 0)
 				{
-					if (this.Position == 0)
+					if (this.Position == NUT)
 					{
-						var rc = new Rectangle(new Point(0, this.Height / 2), new Size(5, this.Height));
+						var rc = new Rectangle(
+							new Point(cxFret, this.Height / 2), 
+							new Size(5, this.Height));
 						e.Graphics.FillRectangle(brush, rc);
 					}
 					else
 					{
 						e.Graphics.DrawLine(pen,
-							new Point(0, this.Height / 2),
-							new Point(0, this.Height));
+							new Point(cxFret, this.Height / 2),
+							new Point(cxFret, this.Height));
 					}
 				}
 				else if ((this.Parent as StringControl)?.StringNumber == 5)
 				{
-					if (this.Position == 0)
+					if (this.Position == NUT)
 					{
 						var rc = new Rectangle(
-							new Point(0, 0),
+							new Point(cxFret, 0),
 							new Size(5, this.Height / 2));
 						e.Graphics.FillRectangle(brush, rc);
 					}
 					else
 					{
 						e.Graphics.DrawLine(Pens.Black,
-						new Point(0, 0),
-						new Point(0, this.Height / 2));
+						new Point(cxFret, 0),
+						new Point(cxFret, this.Height / 2));
 					}
 				}
 				else
 				{
-					if (this.Position == 0)
+					if (this.Position == NUT)
 					{
 						var rc = new Rectangle(
-							new Point(0, 0),
+							new Point(cxFret, 0),
 							new Size(5, this.Height));
 						e.Graphics.FillRectangle(brush, rc);
 					}
 					else
-					{
+					{//Draw frets
 						e.Graphics.DrawLine(Pens.Black,
-						new Point(0, 0),
-						new Point(0, this.Height));
+						new Point(cxFret, 0),
+						new Point(cxFret, this.Height));
 					}
 				}
 
@@ -213,6 +217,10 @@ namespace NeckDiagrams
 			var colors = items.Select(mi => mi.NoteColor).ToList();
 			if (colors.Count > 1)
 			{
+				if (colors[0].GetBrightness() > .5)
+				{ 
+					//we'll need to outline this dot.
+				}
 				new object();
 			}
 			var floats = new List<float>();
