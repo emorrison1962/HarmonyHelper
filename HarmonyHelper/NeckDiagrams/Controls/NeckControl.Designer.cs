@@ -29,7 +29,15 @@ namespace NeckDiagrams
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.printDocument = new System.Drawing.Printing.PrintDocument();
 			this.SuspendLayout();
+			// 
+			// printDocument
+			// 
+			this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
+			this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+			this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
+			this.printDocument.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument_QueryPageSettings);
 			// 
 			// NeckControl
 			// 
@@ -43,5 +51,7 @@ namespace NeckDiagrams
 		}
 
 		#endregion
+
+		private System.Drawing.Printing.PrintDocument printDocument;
 	}
 }

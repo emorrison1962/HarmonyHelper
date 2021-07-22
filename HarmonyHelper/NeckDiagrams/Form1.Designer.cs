@@ -31,21 +31,28 @@ namespace NeckDiagrams
 		{
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.topPanel = new System.Windows.Forms.Panel();
-			this.modelItemsControl = new NeckDiagrams.ModelCollectionControl();
 			this.keyPanel = new System.Windows.Forms.Panel();
 			this._bnAddItem = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this._cbKey = new System.Windows.Forms.ComboBox();
 			this._pnlNeck = new System.Windows.Forms.Panel();
 			this._neckCtl = new NeckDiagrams.NeckControl();
+			this.modelItemsControl = new NeckDiagrams.ModelCollectionControl();
+			this.printDialog1 = new System.Windows.Forms.PrintDialog();
+			this.menuStrip = new System.Windows.Forms.MenuStrip();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+			this.panel2.SuspendLayout();
 			this.topPanel.SuspendLayout();
 			this.keyPanel.SuspendLayout();
 			this._pnlNeck.SuspendLayout();
+			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel2
 			// 
 			this.panel2.BackColor = System.Drawing.SystemColors.Control;
+			this.panel2.Controls.Add(this.menuStrip);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel2.Location = new System.Drawing.Point(0, 390);
 			this.panel2.Name = "panel2";
@@ -63,14 +70,6 @@ namespace NeckDiagrams
 			this.topPanel.Name = "topPanel";
 			this.topPanel.Size = new System.Drawing.Size(800, 100);
 			this.topPanel.TabIndex = 2;
-			// 
-			// modelItemsControl
-			// 
-			this.modelItemsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.modelItemsControl.Location = new System.Drawing.Point(200, 0);
-			this.modelItemsControl.Name = "modelItemsControl";
-			this.modelItemsControl.Size = new System.Drawing.Size(600, 100);
-			this.modelItemsControl.TabIndex = 2;
 			// 
 			// keyPanel
 			// 
@@ -126,28 +125,75 @@ namespace NeckDiagrams
 			// 
 			// _neckCtl
 			// 
+			this._neckCtl.BackColor = System.Drawing.SystemColors.Control;
 			this._neckCtl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this._neckCtl.Location = new System.Drawing.Point(20, 20);
 			this._neckCtl.Name = "_neckCtl";
 			this._neckCtl.Size = new System.Drawing.Size(760, 250);
 			this._neckCtl.TabIndex = 0;
 			// 
+			// modelItemsControl
+			// 
+			this.modelItemsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.modelItemsControl.Location = new System.Drawing.Point(200, 0);
+			this.modelItemsControl.Name = "modelItemsControl";
+			this.modelItemsControl.Size = new System.Drawing.Size(600, 100);
+			this.modelItemsControl.TabIndex = 2;
+			// 
+			// printDialog1
+			// 
+			this.printDialog1.UseEXDialog = true;
+			// 
+			// menuStrip
+			// 
+			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+			this.menuStrip.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip.Name = "menuStrip";
+			this.menuStrip.Size = new System.Drawing.Size(800, 24);
+			this.menuStrip.TabIndex = 0;
+			this.menuStrip.Text = "File";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+			this.toolStripMenuItem1.Text = "Print";
+			// 
+			// printDocument1
+			// 
+			this.printDocument1.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument1_BeginPrint);
+			this.printDocument1.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument1_EndPrint);
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			this.printDocument1.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument1_QueryPageSettings);
+			// 
 			// Form1
 			// 
+			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this._pnlNeck);
 			this.Controls.Add(this.topPanel);
 			this.Controls.Add(this.panel2);
+			this.KeyPreview = true;
+			this.MainMenuStrip = this.menuStrip;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Form1";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+			this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Form1_PreviewKeyDown);
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
 			this.topPanel.ResumeLayout(false);
 			this.keyPanel.ResumeLayout(false);
 			this.keyPanel.PerformLayout();
 			this._pnlNeck.ResumeLayout(false);
+			this.menuStrip.ResumeLayout(false);
+			this.menuStrip.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -162,6 +208,10 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox _cbKey;
 		private ModelCollectionControl modelItemsControl;
+		private System.Windows.Forms.MenuStrip menuStrip;
+		private System.Windows.Forms.PrintDialog printDialog1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }
 

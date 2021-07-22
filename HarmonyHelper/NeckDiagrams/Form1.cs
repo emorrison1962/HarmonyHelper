@@ -93,5 +93,62 @@ namespace NeckDiagrams
 				Model.Add(dlg.Item);
 			}
 		}
+
+		private void Form1_SizeChanged(object sender, EventArgs e)
+		{
+			_pnlNeck.Padding = new Padding(20, _pnlNeck.Height / 4,
+				20, _pnlNeck.Height / 4);
+		}
+
+		private void Form1_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.F5)
+			{
+				this.Refresh();
+			}
+
+			if (e.KeyCode == Keys.P && e.Modifiers == Keys.Control)
+			{
+				this.printDialog1.Document = _neckCtl.PrintDocument;
+				var dr = this.printDialog1.ShowDialog();
+				if (dr == DialogResult.OK)
+				{
+					this.printDialog1.Document.Print();
+				}
+			}
+
+		}
+
+		private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+		{
+			if (e.KeyCode == Keys.F5)
+			{
+				this.Refresh();
+			}
+		}
+
+		private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+		{
+			var pa = e.PrintAction;
+			new object();
+		}
+
+		private void printDocument1_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+		{
+			new object();
+
+		}
+
+		private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+		{
+			new object();
+
+		}
+
+		private void printDocument1_QueryPageSettings(object sender, System.Drawing.Printing.QueryPageSettingsEventArgs e)
+		{
+			new object();
+
+		}
 	}//class
 }//ns

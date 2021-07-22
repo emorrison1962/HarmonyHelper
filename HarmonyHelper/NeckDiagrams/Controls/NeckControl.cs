@@ -3,6 +3,7 @@ using Eric.Morrison.Harmony.Scales;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace NeckDiagrams
 	{
 		List<NoteRange> NoteRanges { get; set; } = new List<NoteRange>();
 		Scale MusicalScale { get; set; }
+		public PrintDocument PrintDocument { get { return this.printDocument; } }
 
 
 		public NeckControl()
@@ -100,6 +102,27 @@ namespace NeckDiagrams
 		}
 
 		public void ModelChanged_Handler(object sender, HarmonyModel model)
+		{
+			new object();
+		}
+
+		private void printDocument_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+		{
+			new object();
+		}
+
+		private void printDocument_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+		{
+			new object();
+		}
+
+		private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+		{
+			this.OnPaint(new PaintEventArgs(e.Graphics, e.MarginBounds));
+			new object();
+		}
+
+		private void printDocument_QueryPageSettings(object sender, System.Drawing.Printing.QueryPageSettingsEventArgs e)
 		{
 			new object();
 		}

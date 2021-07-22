@@ -56,75 +56,147 @@ namespace NeckDiagrams
 		{
 			if (!DesignMode)
 			{
-				Pen pen = Pens.Black;
-				Brush brush = Brushes.Black;
-				var cxFret = this.Height / 2;
+				this.DrawText(e);
+				this.DrawFrets(e);
+				this.DrawString(e);
+				this.DrawActiveDot(e);
+				//Debug_DrawBoundary(e);
+			}
+		}
 
-				if ((this.Parent as StringControl)?.StringNumber == 0)
+		private void DrawString(PaintEventArgs e)
+		{
+			var cyString = this.Height / 2;
+			var p1 = new Point(0, cyString);
+			var p2 = new Point(this.Width, cyString);
+			e.Graphics.DrawLine(Pens.Black, p1, p2);
+		}
+
+		private void DrawFrets(PaintEventArgs e)
+		{
+			Pen pen = Pens.Black;
+			Brush brush = Brushes.Black;
+			var cxFret = this.Width / 2;
+
+			Rectangle rcNut = Rectangle.Empty;
+			List<Point> fretPoints = null;
+
+			if ((this.Parent as StringControl)?.StringNumber == 0)
+			{
+				if (this.Position == NUT)
 				{
-					if (this.Position == NUT)
-					{
-						var rc = new Rectangle(
-							new Point(cxFret, this.Height / 2), 
-							new Size(5, this.Height));
-						e.Graphics.FillRectangle(brush, rc);
-					}
-					else
-					{
-						e.Graphics.DrawLine(pen,
-							new Point(cxFret, this.Height / 2),
-							new Point(cxFret, this.Height));
-					}
-				}
-				else if ((this.Parent as StringControl)?.StringNumber == 5)
-				{
-					if (this.Position == NUT)
-					{
-						var rc = new Rectangle(
-							new Point(cxFret, 0),
-							new Size(5, this.Height / 2));
-						e.Graphics.FillRectangle(brush, rc);
-					}
-					else
-					{
-						e.Graphics.DrawLine(Pens.Black,
-						new Point(cxFret, 0),
-						new Point(cxFret, this.Height / 2));
-					}
+					rcNut = new Rectangle(
+						new Point(cxFret, this.Height / 2),
+						new Size(5, this.Height));
 				}
 				else
 				{
-					if (this.Position == NUT)
-					{
-						var rc = new Rectangle(
-							new Point(cxFret, 0),
-							new Size(5, this.Height));
-						e.Graphics.FillRectangle(brush, rc);
-					}
-					else
-					{//Draw frets
-						e.Graphics.DrawLine(Pens.Black,
-						new Point(cxFret, 0),
-						new Point(cxFret, this.Height));
-					}
+					fretPoints = new List<Point>() {
+						new Point(cxFret, this.Height / 2),
+						new Point(cxFret, this.Height)};
 				}
-
-				this.DrawText(e);
-				this.DrawActiveDot(e);
 			}
+			else if ((this.Parent as StringControl)?.StringNumber == 5)
+			{
+				if (this.Position == NUT)
+				{
+					rcNut = new Rectangle(
+						new Point(cxFret, 0),
+						new Size(5, this.Height / 2));
+				}
+				else
+				{
+					fretPoints = new List<Point>() {
+						new Point(cxFret, 0),
+						new Point(cxFret, this.Height / 2) };
+				}
+			}
+			else
+			{
+				if (this.Position == NUT)
+				{//Draw nut
+					rcNut = new Rectangle(
+						new Point(cxFret, 0),
+						new Size(5, this.Height));
+				}
+				else
+				{//Draw frets
+					fretPoints = new List<Point>() {
+					new Point(cxFret, 0),
+					new Point(cxFret, this.Height) };
+				}
+			}
+
+
+			if (this.Position == NUT)
+			{
+				e.Graphics.FillRectangle(brush, rcNut);
+			}
+			else
+			{
+				e.Graphics.DrawLine(pen,
+					fretPoints.First(),
+					fretPoints.Last());
+			}
+
+
+		}
+
+		void Debug_DrawBoundary(PaintEventArgs e)
+		{
+			var rcBoundary = new Rectangle(
+				new Point(0, 0),
+				new Size(5, this.Height));
+			e.Graphics.FillRectangle(Brushes.Blue, rcBoundary);
+			rcBoundary = new Rectangle(
+				new Point(this.Width - 5, 0),
+				new Size(5, this.Height));
+			e.Graphics.FillRectangle(Brushes.Red, rcBoundary);
+
+
+			e.Graphics.DrawLine(Pens.Magenta,
+				new Point(this.Width / 2, 0),
+				new Point(this.Width / 2, this.Height));
+			////left
+			//e.Graphics.DrawLine(Pens.Magenta,
+			//	new Point(2, 2),
+			//	new Point(2, this.Height));
+			////right
+			//e.Graphics.DrawLine(Pens.Magenta,
+			//	new Point(this.Width, 2),
+			//	new Point(this.Width, this.Height));
+			//// top
+			//e.Graphics.DrawLine(Pens.Magenta,
+			//	new Point(2, 2),
+			//	new Point(2, this.Width));
+			//// bottom
+			//e.Graphics.DrawLine(Pens.Magenta,
+			//	new Point(this.Height, 2),
+			//	new Point(this.Height, this.Width));
+
 		}
 
 		private void DrawText(PaintEventArgs e)
 		{
+			var cxFret = this.Width / 2;
+			var cyString = this.Height / 2;
+
+			var cxText = cxFret - 25;
+			var cyText = cyString - 25;
+
+			var xCenter = CX_ELLIPSE;
+			var yCenter = this.Height / 2;
+
+			var x = (xCenter - CX_ELLIPSE / 2) - 10;
+			var y = (yCenter - CY_ELLIPSE / 2) - 10;
+
+
 			using (var font = new Font(FontFamily.GenericMonospace, 11))
 			{
-				var p1 = new Point(0, this.Height / 2);
-				var p2 = new Point(this.Width, this.Height / 2);
 				e.Graphics.DrawString($"{this.Note.ToString()}",
 					font,
 					Brushes.Black,
-					new Point(0, 0));
-				e.Graphics.DrawLine(Pens.Black, p1, p2);
+					new Point(x, y));
 			}
 		}
 
@@ -189,13 +261,11 @@ namespace NeckDiagrams
 
 				brush = this.CreateBrush();
 
-				var xCenter = this.Width / 2;
+				var xCenter = CX_ELLIPSE;
 				var yCenter = this.Height / 2;
 
 				var x = xCenter - CX_ELLIPSE / 2;
-				var y = yCenter - CX_ELLIPSE / 2;
-
-				var cy = this.Height / 3;
+				var y = yCenter - CY_ELLIPSE / 2;
 
 				e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 				e.Graphics.FillEllipse(brush, x, y, CX_ELLIPSE, CX_ELLIPSE);
@@ -203,6 +273,7 @@ namespace NeckDiagrams
 		}
 
 		const int CX_ELLIPSE = 20;
+		const int CY_ELLIPSE = 20;
 
 		Brush CreateBrush()
 		{
@@ -218,7 +289,7 @@ namespace NeckDiagrams
 			if (colors.Count > 1)
 			{
 				if (colors[0].GetBrightness() > .5)
-				{ 
+				{
 					//we'll need to outline this dot.
 				}
 				new object();

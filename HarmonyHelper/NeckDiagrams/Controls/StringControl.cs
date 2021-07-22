@@ -68,6 +68,7 @@ namespace NeckDiagrams
 			foreach (var ctl in this.Controls.Cast<Control>())
 			{
 				ctl.Width = cx;
+				ctl.Height = this.Height;
 			}
 		}
 
