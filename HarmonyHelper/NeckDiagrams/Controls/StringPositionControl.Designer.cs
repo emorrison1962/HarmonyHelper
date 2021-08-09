@@ -29,6 +29,8 @@ namespace NeckDiagrams
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			this._toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// StringPositionControl
@@ -43,5 +45,7 @@ namespace NeckDiagrams
 		}
 
 		#endregion
+
+		private System.Windows.Forms.ToolTip _toolTip;
 	}
 }

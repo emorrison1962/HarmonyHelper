@@ -17,12 +17,22 @@ namespace NeckDiagrams
 {
 	public partial class StringPositionControl : UserControl
 	{
+		[Flags]
+		enum NoteTypeEnum
+		{
+			None = 0,
+			ChordTone = 1,
+			ScaleTone = 1 << 1
+		}
+
 		public Note Note { get; set; }
 		public int Position { get; set; }
 		const int NUT = 0;
 		public bool IsActive { get; set; }
 		public bool IsRoot { get; private set; }
 		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
+
+		private NoteTypeEnum NoteType { get; set; }
 
 		public StringPositionControl()
 		{
@@ -33,6 +43,7 @@ namespace NeckDiagrams
 		private void StringPositionControl_Load(object sender, System.EventArgs e)
 		{
 			this.Model.ModelChanged += this.ModelChanged_Handler;
+			this.Init();
 		}
 
 		public StringPositionControl(int position, Note note)
@@ -43,14 +54,39 @@ namespace NeckDiagrams
 			this.Note = note;
 		}
 
-		[Flags]
-		enum NoteTypeEnum
+		void Init()
 		{
-			None = 0,
-			ChordTone = 1,
-			ScaleTone = 1 << 1
+			this.GetNoteType();
+			this._toolTip.Popup += this._toolTip_Popup;
+			this._toolTip.InitialDelay = 1000;
+			this._toolTip.ToolTipTitle = "FIXME";
+			this._toolTip.ShowAlways = true;
+			this._toolTip.SetToolTip(this, "FIXME_02");
 		}
 
+		private void _toolTip_Popup(object sender, PopupEventArgs e)
+		{
+			var noteType = NoteTypeEnum.None;
+			if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale
+				&& mi.NoteNames
+					.Contains(this.Note.NoteName)))
+			{
+				noteType |= NoteTypeEnum.ScaleTone;
+
+				var scales = this.Model.Items.Where(x => x.ModelType == ModelItemTypeEnum.Scale);
+				foreach (var scale in scales)
+				{
+					scale.ScaleFormula.GetFunction(this.Note.NoteName);
+				}
+			}
+			if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
+				&& mi.NoteNames
+					.Contains(this.Note.NoteName)))
+			{
+				noteType |= NoteTypeEnum.ChordTone;
+			}
+
+		}
 
 		private void StringPositionControl_Paint(object sender, PaintEventArgs e)
 		{
@@ -228,31 +264,17 @@ namespace NeckDiagrams
 				}
 				else
 				{
-					var noteType = NoteTypeEnum.None;
-					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale
-						&& mi.NoteNames
-							.Contains(this.Note.NoteName)))
-					{
-						noteType |= NoteTypeEnum.ScaleTone;
-					}
-					if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
-						&& mi.NoteNames
-							.Contains(this.Note.NoteName)))
-					{
-						noteType |= NoteTypeEnum.ChordTone;
-					}
-
-					if (noteType == (NoteTypeEnum.ChordTone | NoteTypeEnum.ScaleTone))
+					if (this.NoteType == (NoteTypeEnum.ChordTone | NoteTypeEnum.ScaleTone))
 					{
 						pen = Pens.Purple;
 						brush = Brushes.Purple;
 					}
-					else if (noteType == NoteTypeEnum.ScaleTone)
+					else if (this.NoteType == NoteTypeEnum.ScaleTone)
 					{
 						pen = Pens.Blue;
 						brush = Brushes.Blue;
 					}
-					else if (noteType == NoteTypeEnum.ChordTone)
+					else if (this.NoteType == NoteTypeEnum.ChordTone)
 					{
 						pen = Pens.Green;
 						brush = Brushes.Green;
@@ -348,6 +370,25 @@ namespace NeckDiagrams
 					this.Refresh();
 				}
 			}
+		}
+
+		void GetNoteType()
+		{
+			var noteType = NoteTypeEnum.None;
+			if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale
+				&& mi.NoteNames
+					.Contains(this.Note.NoteName)))
+			{
+				noteType |= NoteTypeEnum.ScaleTone;
+			}
+			if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
+				&& mi.NoteNames
+					.Contains(this.Note.NoteName)))
+			{
+				noteType |= NoteTypeEnum.ChordTone;
+			}
+
+			this.NoteType = noteType;
 		}
 	}//class
 }//ns
