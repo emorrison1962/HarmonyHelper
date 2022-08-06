@@ -73,11 +73,11 @@ namespace NeckDiagrams
 			{
 				noteType |= NoteTypeEnum.ScaleTone;
 
-				var scales = this.Model.Items.Where(x => x.ModelType == ModelItemTypeEnum.Scale);
-				foreach (var scale in scales)
-				{
-					scale.ScaleFormula.GetFunction(this.Note.NoteName);
-				}
+				//var scales = this.Model.Items.Where(x => x.ModelType == ModelItemTypeEnum.Scale);
+				//foreach (var scale in scales)
+				//{
+				//	scale.ScaleFormula.GetFunction(this.Note.NoteName);
+				//}
 			}
 			if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
 				&& mi.NoteNames
@@ -390,5 +390,16 @@ namespace NeckDiagrams
 
 			this.NoteType = noteType;
 		}
-	}//class
+
+		private void StringPositionControl_Layout(object sender, LayoutEventArgs e)
+		{
+		}
+
+        public override bool PreProcessMessage(ref Message msg)
+        {
+			Debug.WriteLine(msg.Msg);
+            return base.PreProcessMessage(ref msg);
+        }
+
+    }//class
 }//ns

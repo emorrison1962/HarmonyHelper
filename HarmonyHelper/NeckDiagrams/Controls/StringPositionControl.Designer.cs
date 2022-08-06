@@ -29,18 +29,20 @@ namespace NeckDiagrams
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this._toolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.SuspendLayout();
-			// 
-			// StringPositionControl
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "StringPositionControl";
-			this.Size = new System.Drawing.Size(40, 40);
-			this.Paint += new System.Windows.Forms.PaintEventHandler(this.StringPositionControl_Paint);
-			this.ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this._toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.SuspendLayout();
+            // 
+            // StringPositionControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "StringPositionControl";
+            this.Size = new System.Drawing.Size(53, 49);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.StringPositionControl_Paint);
+            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.StringPositionControl_Layout);
+            this.ResumeLayout(false);
 
 		}
 
