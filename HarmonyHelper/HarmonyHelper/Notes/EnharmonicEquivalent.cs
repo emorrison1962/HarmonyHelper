@@ -7,8 +7,6 @@ namespace Eric.Morrison.Harmony
 	public class EnharmonicEquivalent
 	{
 		public NoteName Key { get; private set; }
-		[Obsolete("", true)]
-		public NoteName Other { get; private set; }
 		public List<NoteName> Others { get; private set; }
 		EnharmonicEquivalent(NoteName key, IEnumerable<NoteName> others)
 		{

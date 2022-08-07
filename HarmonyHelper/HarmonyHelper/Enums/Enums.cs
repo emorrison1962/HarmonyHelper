@@ -16,7 +16,6 @@ namespace Eric.Morrison.Harmony
 		Octave6 = 6,
 	}
 
-
 	[Obsolete("", true)]
 	[Flags]
 	public enum ChordTypesEnum
@@ -34,6 +33,7 @@ namespace Eric.Morrison.Harmony
 		//Suspended,....
 	}
 
+
 	[Flags]
 	public enum ChordTonesBitmaskEnum
 	{
@@ -41,47 +41,6 @@ namespace Eric.Morrison.Harmony
 		Fifth = Constants.INTERVAL_VALUE_DIMINISHED_5TH | Constants.INTERVAL_VALUE_PERFECT_5TH | Constants.INTERVAL_VALUE_DIMINISHED_5TH,
 		Seventh = Constants.INTERVAL_VALUE_MINOR_7TH | Constants.INTERVAL_VALUE_MAJOR_7TH
 	}
-
-
-
-	[Obsolete("", true)]
-	[Flags]
-	public enum IntervalsEnum
-	{
-		None = 0,
-		Minor2nd = 1 << 1,
-		Major2nd = 1 << 2,
-		Minor3rd = 1 << 3,
-		Major3rd = 1 << 4,
-		Diminished4th = Major3rd,
-		Perfect4th = 1 << 5,
-		Augmented4th = 1 << 6,
-		Diminished5th = Augmented4th,
-		Perfect5th = 1 << 7,
-		Augmented5th = 1 << 8,
-		Minor6th = Augmented5th,
-		Major6th = 1 << 9,
-		Minor7th = 1 << 10,
-		Major7th = 1 << 11,
-		// Octave = 1 << 12,
-	}
-#if false
-None
-Minor2nd
-Major2nd
-Minor3rd
-Major3rd
-Diminished4th
-Perfect4th
-Augmented4th
-Diminished5th
-Perfect5th
-Augmented5th
-Minor6th
-Major6th
-Minor7th
-Major7th
-#endif
 
 	[Flags]
 	public enum DirectionEnum

@@ -109,7 +109,6 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="HarmonyEntityBase.cs" />
     <Compile Include="KeySignature\KeySignature.cs" />
-    <Compile Include="KeySignature\KeySignaturesCollection.cs" />
     <Compile Include="Scales\Mode.cs" />
     <Compile Include="Notes\NoteName.cs" />
     <Compile Include="Notes\NoteRange.cs" />

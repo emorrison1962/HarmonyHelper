@@ -50,29 +50,6 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public Interval PerfectOctave = new Interval("Perfect Octave", Constants.INTERVAL_VALUE_MAJOR_7TH, 12, IntervalRoleTypeEnum.Octave);
 		#endregion
 
-		#region COPY_AND_PASTE_NAMES
-#if false
-Interval.Unison
-Interval.Minor2nd
-Interval.Major2nd
-Interval.Augmented2nd
-Interval.Minor3rd
-Interval.Major3rd
-Interval.Diminished4th
-Interval.Perfect4th
-Interval.Augmented4th
-Interval.Diminished5th
-Interval.Perfect5th
-Interval.Augmented5th
-Interval.Minor6th
-Interval.Major6th
-Interval.Diminished7th
-Interval.Augmented6th
-Interval.Minor7th
-Interval.Major7th
-#endif
-		#endregion
-
 		virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		public int SemiTones { get; private set; }
