@@ -17,6 +17,11 @@ namespace Eric.Morrison.Harmony
 			this.Chord = chord;
 			this.NotesToPlay = notesToPlay;
 		}
+		public ArpeggiationContext(ChordFormula formula, int notesToPlay)
+		{
+			this.Chord = new Chord(formula);
+			this.NotesToPlay = notesToPlay;
+		}
 		public override string ToString()
 		{
 			return $"{this.GetType().Name}: Chord={this.Chord.ToString()}, NotesToPlay={this.NotesToPlay}";
@@ -43,7 +48,15 @@ namespace Eric.Morrison.Harmony
 
 		public static bool operator ==(ArpeggiationContext a, ArpeggiationContext b)
 		{
-			var result = a.CompareTo(b) == 0;
+			bool result = true;
+			if (a is null && b is null)
+				return true;
+			
+			if (a is null || b is null)
+				result = false;
+
+			if (result)
+				result = a.CompareTo(b) == 0;
 			return result;
 		}
 		public static bool operator !=(ArpeggiationContext a, ArpeggiationContext b)

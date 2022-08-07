@@ -147,8 +147,14 @@ namespace Eric.Morrison.Harmony
 			else
 				this.IsNatural = true;
 
-			this.AsciiSortValue = (this.Name[0] - ASCII_C >= 0) ?
-				this.Name[0] - ASCII_C : this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
+			if (this.Name[0] - ASCII_C >= 0)
+			{
+				this.AsciiSortValue = this.Name[0] - ASCII_C;
+			}
+			else
+			{
+				this.AsciiSortValue = this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
+			}
 
 			if (addToCatalog)
 				_catalog.Add(this);
@@ -202,6 +208,74 @@ namespace Eric.Morrison.Harmony
 			var result = Compare(a, b) != 0;
 			return result;
 		}
+		public static implicit operator int(NoteName nn)
+        {
+			return nn.Value;
+		}
+		public static explicit operator NoteName(int i)
+		{
+			return new NoteName("dynamic", i, false);
+		}
+		public static NoteName operator +(NoteName note, IntervalContext ctx)
+		{
+			var result = note;
+			if (null != note && ctx.Interval > Interval.Unison)
+			{
+				result = TransposeUp(note, ctx.Interval);
+				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
+			}
+			return result;
+		}
+
+		public static NoteName operator -(NoteName note, IntervalContext ctx)
+		{
+			var result = note;
+			if (null != note && ctx.Interval > Interval.Unison)
+			{
+				result = TransposeDown(note, ctx.Interval);
+			}
+			return result;
+		}
+
+		public static Interval operator -(NoteName a, NoteName b)
+		{
+			var result = Interval.Unison;
+			bool success = false;
+			if ((null != a && null != b) &&
+				(a.Value != b.Value))
+				success = true;
+
+			if (success)
+			{
+				var notes = NoteName.Catalog
+					.Distinct(new NoteNameValueEqualityComparer())
+					.OrderBy(x => x.Value)
+					.ToList();
+
+				var ndxA = notes.FindIndex(x => x.Value == a.Value);
+				var ndxB = notes.FindIndex(x => x.Value == b.Value);
+
+				var invert = false;
+				var diff = ndxA - ndxB;
+				if (diff < 0)
+				{
+					invert = true;
+					diff = Math.Abs(diff);
+				}
+
+				var val = 1 << diff;
+				result = ResolveInterval(val, a, b);
+
+				if (invert)
+					result = result.GetInversion();
+			}
+			return result;
+		}
+
+		#endregion
+
+		#region IComparable
+
 		public int CompareTo(NoteName other)
 		{
 			var result = Compare(this, other);
@@ -259,69 +333,32 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static NoteName operator +(NoteName note, IntervalContext ctx)
-		{
-			var result = note;
-			if (null != note && ctx.Interval > Interval.Unison)
-			{
-				result = TransposeUp(note, ctx.Interval);
-				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
-			}
-			return result;
-		}
-
-		public static NoteName operator -(NoteName note, IntervalContext ctx)
-		{
-			var result = note;
-			if (null != note && ctx.Interval > Interval.Unison)
-			{
-				result = TransposeDown(note, ctx.Interval);
-				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
-			}
-			return result;
-		}
-
-		public static Interval operator -(NoteName a, NoteName b)
-		{
-			var result = Interval.Unison;
-			bool success = false;
-			if ((null != a && null != b) && 
-				(a.Value != b.Value))
-				success = true;
-
-			if (success)
-			{
-				var notes = NoteName.Catalog
-					.Distinct(new NoteNameValueEqualityComparer())
-					.OrderBy(x => x.Value)
-					.ToList();
-
-				var ndxA = notes.FindIndex(x => x.Value == a.Value);
-				var ndxB = notes.FindIndex(x => x.Value == b.Value);
-
-				var invert = false;
-				var diff = ndxA - ndxB;
-				if (diff < 0)
-				{
-					invert = true;
-					diff = Math.Abs(diff);
-				}
-
-				var pow = 1 << diff;
-				var interval = (Interval)pow;
-				result = interval;
-
-				if (invert)
-					result = interval.GetInversion();
-			}
-			return result;
-		}
-
 		#endregion
+
+		static Interval ResolveInterval(int val, NoteName a, NoteName b)
+		{
+			var Letters = new List<char>() { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
+			var ndxA = Letters.IndexOf(a.Name[0]);
+			var ndxB = Letters.IndexOf(b.Name[0]);
+
+			var steps = Math.Abs(ndxA - ndxB) + 1;
+
+			var intervals = Interval.Catalog.Where(x => x.Value == val).ToList();
+			var result = intervals.FirstOrDefault(x => x.Name.Contains(steps.ToString()));
+
+			if (result == null)
+			{
+				result = (Interval)val;
+			}
+
+			Debug.Assert(result != null);
+
+			return result;
+		}
 
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
-			NoteName result = src;
+			NoteName result = null;
 			var success = false;
 			if (Interval.Unison < interval)
 				success = true;
@@ -329,76 +366,70 @@ namespace Eric.Morrison.Harmony
 			IEnumerable<NoteName> noteNames = null;
 			if (success)
 			{
-				var notes = NoteName.Catalog
-					.Distinct(new NoteNameValueEqualityComparer())
-					.OrderBy(x => x.Value)
-					.ToList();
+				var val = TransposeValue(src, interval);
+				result = ResolveNoteNames(src, interval, val);
+				new object();
 
-				var maxNdx = notes.Count;
-				//var maxNdx = notes.Count - 1;
-				var currentNdx = notes.IndexOf(src);
-				var intervalNdx = interval.ToIndex();
+#warning this shit's broken.
+#if false
 
-				var targetNdx = (currentNdx + intervalNdx) % maxNdx;
+                //Debug.Assert(false, "this shit's broken.");
+                var maxNdx = notenames.Count;
+                //var maxNdx = notes.Count - 1;
+                var srcNdx = notenames.IndexOf(src);
+                var intervalNdx = interval.ToIndex();
 
-				result = notes[targetNdx];
-				Debug.Assert(null != result);
-				//Debug.Assert(result != src);
-				success = true;
-
-				noteNames = NoteName.Catalog.Where(x => x.Value == result?.Value);
-				if (null == noteNames)
-					success = false;
-			}
+                var targetNdx = (srcNdx + intervalNdx) % maxNdx;
+                //Debug.Assert(false, "this shit's broken.");
 
 
-			if (success)
+                result = notenames[targetNdx];
+                Debug.Assert(null != result);
+                //Debug.Assert(result != src);
+                success = true;
+
+                noteNames = NoteName.Catalog.Where(x => x.Value == result?.Value);
+                if (null == noteNames)
+                    success = false; 
+#endif
+            }
+			Debug.Assert(null != result);
+			return result;
+		}
+
+        private static int TransposeValue(NoteName src, Interval interval)
+        {
+			var result = src.Value << interval.SemiTones;
+			if (result > VALUE_B)
 			{
-				success = false;
-				var optimalResult = noteNames.Where(x => x.IsFlatted == src.IsFlatted
-					&& x.IsNatural == src.IsNatural
-					&& x.IsSharped == src.IsSharped).FirstOrDefault();
-				if (null != optimalResult)
-				{
-					result = optimalResult;
-					success = true;
-				}
+				result = result >> 12;
+			}
+			Debug.Assert(result <= VALUE_B);
 
-				if (!success)
-				{
-					var nextBestResult = noteNames.Where(x => x.IsNatural).FirstOrDefault();
-					if (null != nextBestResult)
-					{
-						result = nextBestResult;
-						success = true;
-					}
-				}
-				if (!success)
-				{
-#warning FIXME: # if ascending....
-					var defaultResult = noteNames.Where(x => x.IsSharped).FirstOrDefault();
-					if (null != defaultResult)
-					{
-						result = defaultResult;
-						success = true;
-					}
-					else
-					{
-						defaultResult = noteNames.Where(x => x.IsFlatted).FirstOrDefault();
-						if (null != defaultResult)
-						{
-							result = defaultResult;
-							success = true;
-						}
-					}
-				}
-				if (!success)
-				{
-					throw new Exception($"{MethodBase.GetCurrentMethod().Name}: Unable to transpose input.");
-				}
+			return result;
+		}
 
+		public static NoteName ResolveNoteNames(NoteName src, Interval interval, int noteVal)
+        {
+			const char ASCII_G = 'G';
+
+			var notenames = NoteName.Catalog
+				.OrderBy(x => x.Value)
+				.ToList();
+			var resultCandidates = notenames.Where(x => x.Value == noteVal).ToList();
+			Debug.Assert(resultCandidates.Count > 0);
+
+			var srcAscii = (int)src.Name[0];
+			var readableSrcAscii = (char)srcAscii;
+			var lettersAway = (int)interval.IntervalType;
+			srcAscii += lettersAway;
+			if (srcAscii > ASCII_G)
+			{
+				srcAscii -= OFFSET_TO_ASCII_G;
 			}
 
+			var criteria = new String((char)srcAscii, 1);
+			var result = resultCandidates.First(x => x.Name.StartsWith(criteria));
 			return result;
 		}
 
@@ -434,8 +465,9 @@ namespace Eric.Morrison.Harmony
 			if (Interval.Unison < interval)
 			{
 				result = NoteName.TransposeUp(nn, interval);
-				result = normalizer.GetNormalized(result, interval);
+				Debug.Assert(result != null);
 			}
+			Debug.Assert(result != null);
 			return result;
 		}
 

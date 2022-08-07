@@ -5,6 +5,20 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
+	public static class SuperScript
+	{ 
+		public const string ZERO = "⁰";
+		public const string ONE = "¹";
+		public const string TWO = "²";
+		public const string THREE = "³";
+		public const string FOUR = "⁴";
+		public const string FIVE = "⁵";
+		public const string SIX = "⁶";
+		public const string SEVEN = "⁷";
+		public const string EIGHT = "⁸";
+		public const string NINE = "⁹";
+	}
+
 	public class Note : ClassBase, IEquatable<Note>, IComparable<Note>
 	{
 		#region Properties
@@ -47,11 +61,16 @@ namespace Eric.Morrison.Harmony
 			string octaveNum = string.Empty;
 			switch ((int)this.Octave)
 			{
-				case 0: { octaveNum = "⁰"; break; }
-				case 1: { octaveNum = "¹"; break; }
-				case 2: { octaveNum = "²"; break; }
-				case 3: { octaveNum = "³"; break; }
-				case 4: { octaveNum = "⁴"; break; }
+				case 0: { octaveNum = SuperScript.ZERO; break; }
+				case 1: { octaveNum = SuperScript.ONE; break; }
+				case 2: { octaveNum = SuperScript.TWO; break; }
+				case 3: { octaveNum = SuperScript.THREE; break; }
+				case 4: { octaveNum = SuperScript.FOUR; break; }
+				case 5: { octaveNum = SuperScript.FIVE; break; }
+				case 6: { octaveNum = SuperScript.SIX; break; }
+				case 7: { octaveNum = SuperScript.SEVEN; break; }
+				case 8: { octaveNum = SuperScript.EIGHT; break; }
+				case 9: { octaveNum = SuperScript.NINE; break; }
 				default: 
 					{
 						throw new NotImplementedException();

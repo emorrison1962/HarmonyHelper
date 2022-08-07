@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Intervals;
 
@@ -45,6 +46,7 @@ namespace Eric.Morrison.Harmony.Chords
 			foreach (var interval in this.ChordType.Intervals)
 			{
 				var nn = NoteName.Catalog.Get(root, interval, this);
+				Debug.Assert(nn != null);
 				this.NoteNames.Add(nn);
 			}
 		}
@@ -125,8 +127,6 @@ namespace Eric.Morrison.Harmony.Chords
 
 			else if (interval == Interval.Major7th)
 				result = ChordToneFunctionEnum.Major7th;
-			else
-				throw new NotSupportedException();
 
 			return result;
 		}
@@ -198,6 +198,24 @@ namespace Eric.Morrison.Harmony.Chords
 
 			//var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, txedKey);
 			//return result;
+		}
+
+		public static ChordFormula operator +(ChordFormula chord, Interval interval)
+		{
+			var txedKey = chord.Key + interval;
+			var txedRoot = chord.Root + new IntervalContext(txedKey, interval);
+
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);// txedKey);
+			return result;
+		}
+
+		public static ChordFormula operator -(ChordFormula chord, Interval interval)
+		{
+			var txedKey = chord.Key - interval;
+			var txedRoot = chord.Root - new IntervalContext(txedKey, interval);
+
+			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);// txedKey);
+			return result;
 		}
 
 		public override string ToString()
@@ -382,21 +400,13 @@ namespace Eric.Morrison.Harmony.Chords
 #if DEBUG
 			char readableWanted = (char)wantedAscii;
 			char readableRoot = (char)rootAscii;
-
 #endif
 			if (nn.Name[0] != wantedAscii)
-				foreach (var ee in NoteName.GetEnharmonicEquivalents(nn))
-					if (ee.Name[0] == wantedAscii)
-					{
-						result = ee;
-						break;
-					}
-
-			//if (ChordType.Diminished7 != this.ChordType && ChordType.Augmented != this.ChordType)
-			//{
-			//	Debug.Assert(result.Name[0] == wantedAscii);
-			//}
-
+			{
+				result = NoteName.GetEnharmonicEquivalents(nn)
+					.Where(x => x.Name[0] == wantedAscii)
+					.FirstOrDefault();
+			}
 
 			return result;
 		}

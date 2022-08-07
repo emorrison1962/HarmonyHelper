@@ -53,9 +53,9 @@
 		public const int INTERVAL_VALUE_MAJOR_6TH = 1 << 9;
 		public const int INTERVAL_VALUE_MINOR_7TH = 1 << 10;
 		public const int INTERVAL_VALUE_MAJOR_7TH = 1 << 11;
+		public const int INTERVAL_VALUE_PERFECT_OCTAVE = 1 << 12;
 
 		public const int COUNT_DIATONIC_SCALE_DEGREES = 7;
-
 
 	}
 }

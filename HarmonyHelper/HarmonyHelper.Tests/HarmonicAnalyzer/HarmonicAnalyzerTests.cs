@@ -239,7 +239,6 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
-		const string HOW_INSENSITIVE = "Dm9 c#dim7 c-6 g7/b bbmaj7 ebmaj7 e-7b5 a7b9 dm7 db13 cm7 bdim7 bbmaj7 em7b5 a7 dm7 db7 cm9 f7 bm7 e7b9 bbmaj7 a7 dm7"; //written by A.C. Jobim
 
 		const string BIRD_BLUES = "cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7"; //Blues For Alice by Charlie Parker
 
@@ -281,8 +280,9 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void HowInsensitive_Test()
 		{
+			const string HOW_INSENSITIVE = "Dm9 c#dim7 c-6 g7/b bbmaj7 ebmaj7 e-7b5 a7b9 dm7 db13 cm7 bdim7 bbmaj7 em7b5 a7 dm7 db7 cm9 f7 bm7 e7b9 bbmaj7 a7 dm7"; //written by A.C. Jobim
+
 			var chords = this.GetChords(HOW_INSENSITIVE);
-			Assert.Fail("c#dim is a dominant sub. Should be reported by BacCycling rule.");
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
 			Debug.WriteLine("=================================================");
 			Debug.WriteLine($"How Insensitive by A.C. Jobim (in {KeySignature.CMajor.Name}): {string.Join(", ", chords.Select(x => x.Name))}");
@@ -294,6 +294,7 @@ namespace Eric.Morrison.Harmony.Tests
 				else
 					Debug.WriteLine(analysisResult.Message);
 			}
+			Assert.Fail("c#dim is a dominant sub. Should be reported by BackCycling rule.");
 			Assert.IsNotNull(analysisResults);
 		}
 

@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArpeggiatorTests.cs" />
+    <Compile Include="Arpeggiator_EventHandlers.cs" />
     <Compile Include="Arpeggiator_UseCases.cs">
       <DependentUpon>ArpeggiatorTests.cs</DependentUpon>
     </Compile>

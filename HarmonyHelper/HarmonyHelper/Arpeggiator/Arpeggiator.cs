@@ -8,13 +8,75 @@ namespace Eric.Morrison.Harmony
 {
 	public partial class Arpeggiator
 	{
+		public class DirectionChangingEventArgs : EventArgs
+		{
+			public DirectionEnum Current { get; set; }
+			public DirectionEnum Next { get; set; }
+			public Arpeggiator Arpeggiator { get; set; }
+            public DirectionChangingEventArgs(Arpeggiator arp, DirectionEnum current, DirectionEnum next )
+            {
+				this.Arpeggiator = arp;
+				this.Current = current;
+				this.Next = next;
+            }
+		}
+		public class ChordChangingEventArgs : EventArgs
+		{
+			public Chord Current { get; set; }
+			public Chord Next { get; set; }
+			public Arpeggiator Arpeggiator { get; set; }
+			public ChordChangingEventArgs(Arpeggiator arp, Chord current, Chord next)
+			{
+				this.Arpeggiator = arp;
+				this.Current = current;
+				this.Next = next;
+			}
+		}
+		public class NoteChangingEventArgs : EventArgs
+		{
+			public Note Current { get; set; }
+			public Note Next { get; set; }
+			public Arpeggiator Arpeggiator { get; set; }
+			public NoteChangingEventArgs(Arpeggiator arp, Note current, Note next)
+			{
+				this.Arpeggiator = arp;
+				this.Current = current;
+				this.Next = next;
+			}
+		}
+
+		public class ArpeggiationContextChangingEventArgs : EventArgs
+		{
+			public ArpeggiationContext Current { get; set; }
+			public ArpeggiationContext Next { get; set; }
+			public Arpeggiator Arpeggiator { get; set; }
+			public ArpeggiationContextChangingEventArgs(Arpeggiator arp, ArpeggiationContext current, ArpeggiationContext next)
+			{
+				this.Arpeggiator = arp;
+				this.Current = current;
+				this.Next = next;
+			}
+		}
+
+
 		#region Events
-		public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
-		public event EventHandler<Arpeggiator> ChordChanged;
-		public event EventHandler<Arpeggiator> DirectionChanged;
-		public event EventHandler<Arpeggiator> CurrentNoteChanged;
 		public event EventHandler<Arpeggiator> Starting;
+		public event EventHandler<Arpeggiator> Started;
+
+		public event EventHandler<ChordChangingEventArgs> ChordChanging;
+		public event EventHandler<Arpeggiator> ChordChanged;
+
+		public event EventHandler<DirectionChangingEventArgs> DirectionChanging;
+		public event EventHandler<Arpeggiator> DirectionChanged;
+
+		public event EventHandler<NoteChangingEventArgs> CurrentNoteChanging;
+		public event EventHandler<Arpeggiator> CurrentNoteChanged;
+
+		public event EventHandler<ArpeggiationContextChangingEventArgs> ArpeggiationContextChanging;
+		public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
+
 		public event EventHandler<Arpeggiator> Ending;
+		public event EventHandler<Arpeggiator> Ended;
 
 		#endregion
 
@@ -27,13 +89,22 @@ namespace Eric.Morrison.Harmony
 		#endregion
 
 		#region Properties
+		public bool IsStarted { get; set; }
+		public bool IsCompleted { get { return !this.IsStarted; } set { this.IsStarted = !value; } }	
+
 		public int BeatsPerBar { get; set; }
 		public List<Note> NoteHistory { get; private set; } = new List<Note>();
 		public Note CurrentNote
 		{
-			get { return _currentNote; }
+			get 
+			{
+				if (null == _currentNote)
+					_currentNote = this.CurrentChord.Root;
+				return _currentNote; 
+			}
 			set
 			{
+				OnCurrentNoteChanging(this._currentNote, value);
 				this._currentNote = value;
 				this.NoteHistory.Add(value);
 				OnCurrentNoteChanged();
@@ -45,6 +116,7 @@ namespace Eric.Morrison.Harmony
 			get { return _direction; }
 			set
 			{
+				this.OnDirectionChanging(this._direction, value);
 				_direction = value;
 				this.OnDirectionChanged();
 #if DEBUG
@@ -58,6 +130,7 @@ namespace Eric.Morrison.Harmony
 			get { return _chord; }
 			set
 			{
+				this.OnChordChanging(_chord, value);
 				_chord = value;
 				this.OnChordChanged();
 			}
@@ -68,7 +141,9 @@ namespace Eric.Morrison.Harmony
 			get { return _currentContext; }
 			set
 			{
+				this.OnArpeggiationContextChanging(this._currentContext, value);
 				this._currentContext = value;
+				this.OnArpeggiationContextChanged();
 				this.CurrentChord = value.Chord;
 			}
 		}
@@ -100,11 +175,29 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 			this.UntilPatternRepeats = untilPatternRepeats;
 		}
 
+		public Arpeggiator(DirectionEnum direction,
+NoteRange noteRange, int beatsPerBar, Note startingNote = null)
+		{
+			this.Direction = direction;
+			this.CurrentNote = startingNote;
+			this.NoteRange = noteRange;
+			this.BeatsPerBar = beatsPerBar;
+		}
+
 		#endregion
+
+		public Arpeggiator Add(ArpeggiationContext ctx)
+		{
+			if (null == this.CurrentContext)
+				this.CurrentContext = ctx;
+			this.ArpeggiationContexts.Add(ctx);	
+			return this;
+		}
 
 		public void Arpeggiate()
 		{
 			this.OnStarting();
+			this.OnStarted();
 
 			var snapshots = new List<StateSnapshot>();
 			var snapshot = new StateSnapshot(this);
@@ -227,6 +320,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 			while (repeat);
 
 			this.OnEnding();
+			this.OnEnded();
 		}
 
 		void OnArpeggiationContextChanged()
@@ -245,16 +339,41 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 		{
 			CurrentNoteChanged?.Invoke(this, this);
 		}
-
 		void OnStarting()
 		{
+			this.IsStarted = true;
 			Starting?.Invoke(this, this);
 		}
 		void OnEnding()
 		{
+			this.IsCompleted = true;
 			Ending?.Invoke(this, this);
 		}
 
+		void OnArpeggiationContextChanging(ArpeggiationContext current, ArpeggiationContext next)
+		{
+			ArpeggiationContextChanging?.Invoke(this, new ArpeggiationContextChangingEventArgs(this, current, next));
+		}
+		void OnChordChanging(Chord current, Chord next)
+		{
+			ChordChanging?.Invoke(this, new ChordChangingEventArgs(this, current, next));
+		}
+		void OnDirectionChanging(DirectionEnum current, DirectionEnum next)
+		{
+			DirectionChanging?.Invoke(this, new DirectionChangingEventArgs(this, current, next));
+		}
+		void OnCurrentNoteChanging(Note current, Note next)
+		{
+			CurrentNoteChanging?.Invoke(this, new NoteChangingEventArgs(this, current, next));
+		}
+		void OnStarted()
+		{
+			Started?.Invoke(this, this);
+		}
+		void OnEnded()
+		{
+			Ended?.Invoke(this, this);
+		}
 
 	}//class
 

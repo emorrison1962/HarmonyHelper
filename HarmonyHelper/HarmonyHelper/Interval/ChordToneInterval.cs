@@ -65,6 +65,31 @@ ChordToneInterval.Thirteenth
 			Catalog.Add(this);
 		}
 
+		class ChordToneIntervalComparer : IEqualityComparer<ChordToneInterval>
+		{
+			public bool Equals(ChordToneInterval x, ChordToneInterval y)
+			{
+				bool result = false;
+				result = x.Equals(y);
+				return result;
+			}
+			public int GetHashCode(ChordToneInterval obj)
+			{
+				return obj.GetHashCode();
+			}
+		}
+
+		override public int ToIndex()
+		{
+			var intervals = ChordToneInterval.Catalog
+				.Distinct(new ChordToneIntervalComparer())
+				.OrderBy(x => x.Value)
+				.ToList();
+			var found = intervals.First(x => x == this);
+			var result = intervals.IndexOf(found);
+
+			return result;
+		}
 
 	}//class
 }//ns

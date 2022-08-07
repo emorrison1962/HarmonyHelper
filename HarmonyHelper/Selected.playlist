@@ -1,1 +1,30 @@
-<Playlist Version="1.0"><Add Test="ContiuousAreggiationExercise.Tests.ChordTests.ArpeggiationTest" /><Add Test="ContiuousAreggiationExercise.Tests.ChordTests.TheCylceTest" /><Add Test="ContiuousAreggiationExercise.Tests.ChordTests.TheCycleTest" /><Add Test="Eric.Morrison.Harmony.Tests.ScaleTests.GetResolutionsFor_BluesTest" /><Add Test="Eric.Morrison.Harmony.Tests.ScaleTests.BluesTest" /><Add Test="Eric.Morrison.Harmony.MusicXmlTest.Parser_Test" /></Playlist>
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="HarmonyHelper.Tests" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="Eric.Morrison.Harmony.Tests" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="HarmonicAnalyzerTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Tests.HarmonicAnalyzerTests.HowInsensitive_Test" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="HowInsensitive_Test" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>

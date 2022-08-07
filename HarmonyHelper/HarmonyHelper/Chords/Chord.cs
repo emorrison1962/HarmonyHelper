@@ -38,6 +38,27 @@ namespace Eric.Morrison.Harmony.Chords
 		#region Construction
 
 
+		public Chord(ChordFormula formula) : base(formula.Key)
+		{
+			if (null == formula)
+				throw new ArgumentNullException();
+			if (null == formula.Key)
+				throw new ArgumentNullException();
+
+			this.Key = formula.Key;
+			this.Formula = formula;
+			this.NoteNames = formula.NoteNames;
+		}
+
+		public Chord SetNoteRange(NoteRange noteRange)
+		{
+			if (null == noteRange)
+				throw new ArgumentNullException();
+			this.Root = noteRange.First(this.Formula.Root, this.Formula);
+			this.PopulateNotes(noteRange);
+			return this;
+		}
+
 		public Chord(ChordFormula formula, NoteRange noteRange) : base(formula.Key)
 		{
 			if (null == formula)
@@ -48,20 +69,10 @@ namespace Eric.Morrison.Harmony.Chords
 				throw new ArgumentNullException();
 
 			this.Key = formula.Key;
-
-			this.Root = noteRange.First(formula.Root, formula);
-			foreach (var noteName in formula.NoteNames)
-			{
-				noteRange.First(noteName, formula);
-			}
-
-			//this.Third = noteRange.First(formula.Third, formula);
-			//this.Fifth = noteRange.First(formula.Fifth, formula);
-			//this.Seventh = noteRange.First(formula.Seventh, formula);
 			this.Formula = formula;
 			this.NoteNames = formula.NoteNames;
 
-			this.PopulateNotes(noteRange);
+			this.SetNoteRange(noteRange);
 		}
 
 		public Chord(NoteRange noteRange, Note root, params Note[] notes)

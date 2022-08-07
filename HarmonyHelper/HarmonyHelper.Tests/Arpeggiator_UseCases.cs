@@ -5,80 +5,73 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eric.Morrison.Harmony.Tests;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Tests
 {
-	[TestClass()]
 	public partial class ArpeggiatorTests
 	{
 		[TestMethod()]
 		public void TheCycleTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
+			var contexts = new List<ArpeggiationContext>();
+
+			var notesPerMeasure = 4;
 			var chordFormula = ChordFormulaCatalog.C7;
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
-			var chord = new Chord(chordFormula, noteRange);
-			var key = chord.Key;
-			var notesToPlay = 4;
 
-			var chords = new List<Chord>() { chord };
-
-			for (int i = 0; i <= 10; ++i)
+			var key = chordFormula.Key;
+			for (int i = 0; i <= 11; ++i)
 			{
-				if (chord.Key.NoteName == NoteName.Bb)
-					new Object();
-				if (chord.Key.NoteName == NoteName.ASharp)
-					new Object();
+				var chord = new Chord(chordFormula, noteRange);
+				contexts.Add(new ArpeggiationContext(chord, notesPerMeasure));
 
-				var perfect4th = Interval.Perfect4th;
-				var txedKey = chord.Key + perfect4th;
-				chordFormula = chordFormula + new IntervalContext(txedKey, Interval.Perfect4th);
-				// chordFormula = chordFormula + perfect4th;
-
-
-				if (KeySignature.BMajor == chordFormula.Key)
-					new object();
-
-				chord = new Chord(chordFormula, noteRange);
-
-				//if (KeySignature.EbMajor == chordFormula.Key)
-				//    new object();
-				//if (chordFormula.Key.UsesFlats)
-				//{
-				//    Assert.IsTrue(chord.Root.NoteName.IsNatural || chord.Root.NoteName.IsFlat);
-				//    Assert.IsTrue(chord.NoteNames.All(x => x.IsNatural || x.IsFlat));
-				//    Assert.IsTrue(chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlat));
-				//}
-				//else if (chordFormula.Key.UsesSharps)
-				//{
-				//    Assert.IsTrue(chord.Root.NoteName.IsNatural || chord.Root.NoteName.IsSharp);
-				//    Assert.IsTrue(chord.NoteNames.All(x => x.IsNatural || x.IsSharp));
-				//    Assert.IsTrue(chord.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharp));
-				//}
-				//else { }
-
-				//Assert.IsTrue(chord.IsValid());
-
-				chords.Add(chord);
+				
+				key += Interval.Perfect4th;
+				chordFormula = chordFormula + new IntervalContext(key, Interval.Perfect4th);
 			}
-
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
+			arpeggiator.Arpeggiate();
+
+			new object();
+		}
+
+		[TestMethod()]
+		public void TheCycleTest_Fluent()
+		{
+			var chordFormula = ChordFormulaCatalog.C7;
+
+			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
+			var notesPerMeasure = 4;
+			var arpeggiator = new Arpeggiator(DirectionEnum.Ascending,
+				noteRange, notesPerMeasure)
+					.Add(new ArpeggiationContext(new Chord(chordFormula, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure));
+
+			this.RegisterEventHandlers(arpeggiator);
 			arpeggiator.Arpeggiate();
 
 			new object();
@@ -120,12 +113,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, null);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -188,12 +181,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 
 			arpeggiator.Arpeggiate();
@@ -259,12 +252,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 
 			arpeggiator.Arpeggiate();
@@ -316,12 +309,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -375,12 +368,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -426,12 +419,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -497,12 +490,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -587,12 +580,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 8, null, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -623,12 +616,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -662,12 +655,12 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
@@ -693,81 +686,17 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, beatsPerBar, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Observe_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Ctx_ChordChanged;
-			arpeggiator.DirectionChanged += Ctx_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Ctx_CurrentNoteChanged;
-			arpeggiator.Starting += Ctx_Starting;
-			arpeggiator.Ending += Ctx_Ending;
+			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
+			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
+			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
+			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.Starting += Arpeggiator_Starting;
+			arpeggiator.Ending += Arpeggiator_Ending;
 
 			arpeggiator.Arpeggiate();
 
 			new object();
 		}
-
-
-		private void Ctx_Ending(object sender, Arpeggiator e)
-		{
-			Debug.WriteLine("||");
-		}
-
-		private void Ctx_Starting(object sender, Arpeggiator e)
-		{
-			Debug.Write("|");
-		}
-
-		DirectionEnum? _lastDirection;
-		private void Ctx_CurrentNoteChanged(object sender, Arpeggiator ctx)
-		{
-			if (null != this.noteRangeUsageStatistics)
-				this.noteRangeUsageStatistics.AddReference(ctx.CurrentNote);
-			var directionChanged = true;
-			if (_lastDirection.HasValue)
-			{
-				if (_lastDirection.Value == ctx.Direction)
-				{
-					directionChanged = false;
-				}
-			}
-			_lastDirection = ctx.Direction;
-
-			var noteStr = ctx.CurrentNote.ToString();
-			if (!directionChanged)
-			{
-				noteStr = string.Format(" {0,-2}", noteStr);
-			}
-			else
-			{
-				noteStr = string.Format("{0,-2}", noteStr);
-			}
-			Debug.Write(noteStr);
-		}
-
-		private void Ctx_DirectionChanged(object sender, Arpeggiator ctx)
-		{
-			const string ASC = "˄";
-			const string DESC = "˅";
-
-			var direction = ctx.Direction == DirectionEnum.Ascending ? ASC : DESC;
-			Debug.Write(direction);
-		}
-
-		int chordCount = 0;
-		const int BARS_PER_LINE = 2;
-		private void Ctx_ChordChanged(object sender, Arpeggiator ctx)
-		{
-			if (chordCount > 0 && chordCount % BARS_PER_LINE == 0)
-				Debug.WriteLine(" |");
-			Debug.Write(string.Format(" | {0,5} ", "(" + ctx.CurrentChord.Name + ")"));
-			++chordCount;
-		}
-
-		private void Observe_ArpeggiationContextChanged(object sender, Arpeggiator ctx)
-		{
-		}
-
-
-
 
 	}
 }
