@@ -32,7 +32,7 @@
             this.chordsEditPanel = new System.Windows.Forms.Panel();
             this._tbChords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.chordsDisplayPanel = new System.Windows.Forms.Panel();
+            this.chordsDisplayPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.bnOk = new System.Windows.Forms.Button();
             this.bnParse = new System.Windows.Forms.Button();
@@ -69,6 +69,7 @@
             this._tbChords.Name = "_tbChords";
             this._tbChords.Size = new System.Drawing.Size(744, 200);
             this._tbChords.TabIndex = 0;
+            this._tbChords.Text = "Dm7 g7 cmaj7";
             // 
             // label2
             // 
@@ -93,7 +94,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 16);
             this.label3.TabIndex = 1;
@@ -116,6 +117,7 @@
             this.bnParse.TabIndex = 8;
             this.bnParse.Text = "Parse";
             this.bnParse.UseVisualStyleBackColor = true;
+            this.bnParse.Click += new System.EventHandler(this.bnParse_Click);
             // 
             // ChordParserDialog
             // 
@@ -142,7 +144,7 @@
         private System.Windows.Forms.Panel chordsEditPanel;
         private System.Windows.Forms.TextBox _tbChords;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel chordsDisplayPanel;
+        private System.Windows.Forms.FlowLayoutPanel chordsDisplayPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bnOk;
         private System.Windows.Forms.Button bnParse;

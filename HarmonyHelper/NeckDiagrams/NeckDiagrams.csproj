@@ -53,6 +53,12 @@
     <Compile Include="ChordParserDialog.Designer.cs">
       <DependentUpon>ChordParserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChordNameControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChordNameControl.Designer.cs">
+      <DependentUpon>ChordNameControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChordSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </Compile>
     <EmbeddedResource Include="ChordParserDialog.resx">
       <DependentUpon>ChordParserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChordNameControl.resx">
+      <DependentUpon>ChordNameControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChordSelectorControl.resx">
       <DependentUpon>ChordSelectorControl.cs</DependentUpon>

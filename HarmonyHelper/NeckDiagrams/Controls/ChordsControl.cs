@@ -19,7 +19,8 @@ namespace NeckDiagrams.Controls
 
         private void _tbChords_Click(object sender, EventArgs e)
         {
-
+            var dlg = new ChordParserDialog();  
+            dlg.ShowDialog();
         }
     }
 }
