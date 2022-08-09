@@ -46,6 +46,7 @@ namespace NeckDiagrams
             this.neckTabPage = new System.Windows.Forms.TabPage();
             this.arpeggiatorTabPage = new System.Windows.Forms.TabPage();
             this.analyzerTabPage = new System.Windows.Forms.TabPage();
+            this._chordsControl = new NeckDiagrams.Controls.ChordsControl();
             this.bottomMenuPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -53,6 +54,7 @@ namespace NeckDiagrams
             this.neckPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.neckTabPage.SuspendLayout();
+            this.analyzerTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottomMenuPanel
@@ -220,6 +222,7 @@ namespace NeckDiagrams
             // 
             // analyzerTabPage
             // 
+            this.analyzerTabPage.Controls.Add(this._chordsControl);
             this.analyzerTabPage.Location = new System.Drawing.Point(4, 25);
             this.analyzerTabPage.Name = "analyzerTabPage";
             this.analyzerTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -227,6 +230,14 @@ namespace NeckDiagrams
             this.analyzerTabPage.TabIndex = 2;
             this.analyzerTabPage.Text = "Analyzer";
             this.analyzerTabPage.UseVisualStyleBackColor = true;
+            // 
+            // _chordsControl
+            // 
+            this._chordsControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this._chordsControl.Location = new System.Drawing.Point(3, 3);
+            this._chordsControl.Name = "_chordsControl";
+            this._chordsControl.Size = new System.Drawing.Size(1053, 22);
+            this._chordsControl.TabIndex = 0;
             // 
             // Form1
             // 
@@ -256,6 +267,7 @@ namespace NeckDiagrams
             this.neckPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.neckTabPage.ResumeLayout(false);
+            this.analyzerTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -265,10 +277,6 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Panel topPanel;
 		private System.Windows.Forms.Panel neckPanel;
 		private NeckControl _neckCtl;
-		private System.Windows.Forms.Panel keyPanel;
-		private System.Windows.Forms.Button _bnAddItem;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox _cbKey;
 		private ModelsControl modelsControl;
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.PrintDialog printDialog;
@@ -278,6 +286,11 @@ namespace NeckDiagrams
 		private System.Windows.Forms.TabPage neckTabPage;
 		private System.Windows.Forms.TabPage arpeggiatorTabPage;
         private System.Windows.Forms.TabPage analyzerTabPage;
+        private System.Windows.Forms.Panel keyPanel;
+        private System.Windows.Forms.Button _bnAddItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox _cbKey;
+        private Controls.ChordsControl _chordsControl;
     }
 }
 
