@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
-	public partial class ModelCollectionControl : UserControl
+	public partial class ModelsControl : UserControl
 	{
 		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
 
-		public ModelCollectionControl()
+		public ModelsControl()
 		{
 			InitializeComponent();
 			this.Load += this.ModelItemsControl_Load;

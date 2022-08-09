@@ -96,8 +96,8 @@ namespace NeckDiagrams
 
 		private void Form1_SizeChanged(object sender, EventArgs e)
 		{
-			_pnlNeck.Padding = new Padding(20, _pnlNeck.Height / 4,
-				20, _pnlNeck.Height / 4);
+			neckPanel.Padding = new Padding(20, neckPanel.Height / 4,
+				20, neckPanel.Height / 4);
 		}
 
 		private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -109,11 +109,11 @@ namespace NeckDiagrams
 
 			if (e.KeyCode == Keys.P && e.Modifiers == Keys.Control)
 			{
-				this.printDialog1.Document = _neckCtl.PrintDocument;
-				var dr = this.printDialog1.ShowDialog();
+				this.printDialog.Document = _neckCtl.PrintDocument;
+				var dr = this.printDialog.ShowDialog();
 				if (dr == DialogResult.OK)
 				{
-					this.printDialog1.Document.Print();
+					this.printDialog.Document.Print();
 				}
 			}
 
