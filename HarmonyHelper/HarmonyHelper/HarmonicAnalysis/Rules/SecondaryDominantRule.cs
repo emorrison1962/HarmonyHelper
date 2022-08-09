@@ -25,7 +25,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 							{
 								//Debug.WriteLine($"{pair[0]}, {pair[1]}");
 								result.Add(
-									new HarmonicAnalysisResult(this, true, $"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}."));
+									new HarmonicAnalysisResult(this, true, 
+										$"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}.",
+										new List<ChordFormula> { pair[0], pair[1] }));
 							}
 						}
 					}

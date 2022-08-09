@@ -25,13 +25,15 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 						{//ii V i minor.
 							result.Add(
 								new HarmonicAnalysisResult(this, true,
-								$"{string.Join(", ", triplet.Select(x => x.Name))} is a ii, V, i in {key.Name}."));
+								$"{string.Join(", ", triplet.Select(x => x.Name))} is a ii, V, i in {key.Name}.", 
+								triplet.ToList()));
 						}
 						else
 						{
 							result.Add(
 								new HarmonicAnalysisResult(this, true,
-								$"{string.Join(", ", triplet.Select(x => x.Name))} is a ii, V, I in {key.Name}."));
+								$"{string.Join(", ", triplet.Select(x => x.Name))} is a ii, V, I in {key.Name}.",
+								triplet.ToList()));
 						}
 					}
 				}

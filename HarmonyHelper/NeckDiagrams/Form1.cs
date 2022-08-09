@@ -150,5 +150,6 @@ namespace NeckDiagrams
 			new object();
 
 		}
+
 	}//class
 }//ns

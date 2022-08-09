@@ -46,7 +46,7 @@ namespace NeckDiagrams
             this.neckTabPage = new System.Windows.Forms.TabPage();
             this.arpeggiatorTabPage = new System.Windows.Forms.TabPage();
             this.analyzerTabPage = new System.Windows.Forms.TabPage();
-            this._chordsControl = new NeckDiagrams.Controls.ChordsControl();
+            this.harmonicAnalysisControl1 = new NeckDiagrams.Controls.HarmonicAnalysisControl();
             this.bottomMenuPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -62,10 +62,10 @@ namespace NeckDiagrams
             this.bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
             this.bottomMenuPanel.Controls.Add(this.menuStrip);
             this.bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomMenuPanel.Location = new System.Drawing.Point(0, 480);
-            this.bottomMenuPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.bottomMenuPanel.Location = new System.Drawing.Point(0, 600);
+            this.bottomMenuPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bottomMenuPanel.Name = "bottomMenuPanel";
-            this.bottomMenuPanel.Size = new System.Drawing.Size(1067, 74);
+            this.bottomMenuPanel.Size = new System.Drawing.Size(1200, 92);
             this.bottomMenuPanel.TabIndex = 1;
             // 
             // menuStrip
@@ -75,7 +75,8 @@ namespace NeckDiagrams
             this.toolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1067, 28);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(1200, 33);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "File";
             // 
@@ -83,7 +84,7 @@ namespace NeckDiagrams
             // 
             this.toolStripMenuItem.Name = "toolStripMenuItem";
             this.toolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.toolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.toolStripMenuItem.Size = new System.Drawing.Size(64, 29);
             this.toolStripMenuItem.Text = "Print";
             // 
             // topPanel
@@ -92,20 +93,20 @@ namespace NeckDiagrams
             this.topPanel.Controls.Add(this.modelsControl);
             this.topPanel.Controls.Add(this.keyPanel);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPanel.Location = new System.Drawing.Point(27, 25);
-            this.topPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.topPanel.MinimumSize = new System.Drawing.Size(1067, 123);
+            this.topPanel.Location = new System.Drawing.Point(30, 31);
+            this.topPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.topPanel.MinimumSize = new System.Drawing.Size(1200, 154);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(1067, 123);
+            this.topPanel.Size = new System.Drawing.Size(1200, 154);
             this.topPanel.TabIndex = 2;
             // 
             // modelsControl
             // 
             this.modelsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelsControl.Location = new System.Drawing.Point(267, 0);
-            this.modelsControl.Margin = new System.Windows.Forms.Padding(5);
+            this.modelsControl.Location = new System.Drawing.Point(300, 0);
+            this.modelsControl.Margin = new System.Windows.Forms.Padding(6);
             this.modelsControl.Name = "modelsControl";
-            this.modelsControl.Size = new System.Drawing.Size(800, 123);
+            this.modelsControl.Size = new System.Drawing.Size(900, 154);
             this.modelsControl.TabIndex = 2;
             // 
             // keyPanel
@@ -116,17 +117,17 @@ namespace NeckDiagrams
             this.keyPanel.Controls.Add(this._cbKey);
             this.keyPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.keyPanel.Location = new System.Drawing.Point(0, 0);
-            this.keyPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.keyPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.keyPanel.Name = "keyPanel";
-            this.keyPanel.Size = new System.Drawing.Size(267, 123);
+            this.keyPanel.Size = new System.Drawing.Size(300, 154);
             this.keyPanel.TabIndex = 1;
             // 
             // _bnAddItem
             // 
-            this._bnAddItem.Location = new System.Drawing.Point(141, 64);
-            this._bnAddItem.Margin = new System.Windows.Forms.Padding(4);
+            this._bnAddItem.Location = new System.Drawing.Point(159, 80);
+            this._bnAddItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._bnAddItem.Name = "_bnAddItem";
-            this._bnAddItem.Size = new System.Drawing.Size(100, 28);
+            this._bnAddItem.Size = new System.Drawing.Size(112, 35);
             this._bnAddItem.TabIndex = 6;
             this._bnAddItem.Text = "+";
             this._bnAddItem.UseVisualStyleBackColor = true;
@@ -135,10 +136,10 @@ namespace NeckDiagrams
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 34);
+            this.label1.Location = new System.Drawing.Point(28, 42);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 16);
+            this.label1.Size = new System.Drawing.Size(39, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "Key:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -147,10 +148,10 @@ namespace NeckDiagrams
             // 
             this._cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbKey.FormattingEnabled = true;
-            this._cbKey.Location = new System.Drawing.Point(80, 31);
-            this._cbKey.Margin = new System.Windows.Forms.Padding(4);
+            this._cbKey.Location = new System.Drawing.Point(90, 39);
+            this._cbKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._cbKey.Name = "_cbKey";
-            this._cbKey.Size = new System.Drawing.Size(160, 24);
+            this._cbKey.Size = new System.Drawing.Size(180, 28);
             this._cbKey.TabIndex = 4;
             // 
             // neckPanel
@@ -159,21 +160,21 @@ namespace NeckDiagrams
             this.neckPanel.Controls.Add(this.topPanel);
             this.neckPanel.Controls.Add(this._neckCtl);
             this.neckPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.neckPanel.Location = new System.Drawing.Point(3, 3);
-            this.neckPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.neckPanel.Location = new System.Drawing.Point(3, 4);
+            this.neckPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.neckPanel.Name = "neckPanel";
-            this.neckPanel.Padding = new System.Windows.Forms.Padding(27, 25, 27, 25);
-            this.neckPanel.Size = new System.Drawing.Size(1053, 445);
+            this.neckPanel.Padding = new System.Windows.Forms.Padding(30, 31, 30, 31);
+            this.neckPanel.Size = new System.Drawing.Size(1186, 559);
             this.neckPanel.TabIndex = 3;
             // 
             // _neckCtl
             // 
             this._neckCtl.BackColor = System.Drawing.SystemColors.Control;
             this._neckCtl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._neckCtl.Location = new System.Drawing.Point(27, 25);
-            this._neckCtl.Margin = new System.Windows.Forms.Padding(5);
+            this._neckCtl.Location = new System.Drawing.Point(30, 31);
+            this._neckCtl.Margin = new System.Windows.Forms.Padding(6);
             this._neckCtl.Name = "_neckCtl";
-            this._neckCtl.Size = new System.Drawing.Size(999, 395);
+            this._neckCtl.Size = new System.Drawing.Size(1126, 497);
             this._neckCtl.TabIndex = 0;
             // 
             // printDialog
@@ -194,62 +195,66 @@ namespace NeckDiagrams
             this.tabControl.Controls.Add(this.analyzerTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1067, 480);
+            this.tabControl.Size = new System.Drawing.Size(1200, 600);
             this.tabControl.TabIndex = 1;
             // 
             // neckTabPage
             // 
             this.neckTabPage.Controls.Add(this.neckPanel);
-            this.neckTabPage.Location = new System.Drawing.Point(4, 25);
+            this.neckTabPage.Location = new System.Drawing.Point(4, 29);
+            this.neckTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.neckTabPage.Name = "neckTabPage";
-            this.neckTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.neckTabPage.Size = new System.Drawing.Size(1059, 451);
+            this.neckTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.neckTabPage.Size = new System.Drawing.Size(1192, 567);
             this.neckTabPage.TabIndex = 0;
             this.neckTabPage.Text = "Neck";
             this.neckTabPage.UseVisualStyleBackColor = true;
             // 
             // arpeggiatorTabPage
             // 
-            this.arpeggiatorTabPage.Location = new System.Drawing.Point(4, 25);
+            this.arpeggiatorTabPage.Location = new System.Drawing.Point(4, 29);
+            this.arpeggiatorTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.arpeggiatorTabPage.Name = "arpeggiatorTabPage";
-            this.arpeggiatorTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.arpeggiatorTabPage.Size = new System.Drawing.Size(1059, 451);
+            this.arpeggiatorTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.arpeggiatorTabPage.Size = new System.Drawing.Size(1192, 567);
             this.arpeggiatorTabPage.TabIndex = 1;
             this.arpeggiatorTabPage.Text = "Arpeggiator";
             this.arpeggiatorTabPage.UseVisualStyleBackColor = true;
             // 
             // analyzerTabPage
             // 
-            this.analyzerTabPage.Controls.Add(this._chordsControl);
-            this.analyzerTabPage.Location = new System.Drawing.Point(4, 25);
+            this.analyzerTabPage.Controls.Add(this.harmonicAnalysisControl1);
+            this.analyzerTabPage.Location = new System.Drawing.Point(4, 29);
+            this.analyzerTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.analyzerTabPage.Name = "analyzerTabPage";
-            this.analyzerTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.analyzerTabPage.Size = new System.Drawing.Size(1059, 451);
+            this.analyzerTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.analyzerTabPage.Size = new System.Drawing.Size(1192, 567);
             this.analyzerTabPage.TabIndex = 2;
             this.analyzerTabPage.Text = "Analyzer";
             this.analyzerTabPage.UseVisualStyleBackColor = true;
             // 
-            // _chordsControl
+            // harmonicAnalysisControl1
             // 
-            this._chordsControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this._chordsControl.Location = new System.Drawing.Point(3, 3);
-            this._chordsControl.Name = "_chordsControl";
-            this._chordsControl.Size = new System.Drawing.Size(1053, 22);
-            this._chordsControl.TabIndex = 0;
+            this.harmonicAnalysisControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.harmonicAnalysisControl1.Location = new System.Drawing.Point(3, 4);
+            this.harmonicAnalysisControl1.Name = "harmonicAnalysisControl1";
+            this.harmonicAnalysisControl1.Size = new System.Drawing.Size(1186, 559);
+            this.harmonicAnalysisControl1.TabIndex = 1;
             // 
             // Form1
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.bottomMenuPanel);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -290,7 +295,7 @@ namespace NeckDiagrams
         private System.Windows.Forms.Button _bnAddItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox _cbKey;
-        private Controls.ChordsControl _chordsControl;
+        private Controls.HarmonicAnalysisControl harmonicAnalysisControl1;
     }
 }
 

@@ -17,6 +17,7 @@ namespace NeckDiagrams
 {
     public partial class ChordParserDialog : Form
     {
+        public List<Chord> Chords { get; set; }
         public ChordParserDialog()
         {
             InitializeComponent();
@@ -26,7 +27,8 @@ namespace NeckDiagrams
         {
             if (ChordParser.TryParse(this._tbChords.Text, out var chords, out var messageResult))
             {
-                this.Populate(chords);
+                this.Chords = chords;   
+                this.Populate();
             }
             else
             {
@@ -34,9 +36,9 @@ namespace NeckDiagrams
             }
         }
 
-        private void Populate(List<Chord> chords)
+        private void Populate()
         {
-            foreach (var chord in chords)
+            foreach (var chord in this.Chords)
             {
                 var ctl = new ChordNameControl(chord.Formula);
                 this.chordsDisplayPanel.Controls.Add(

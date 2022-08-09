@@ -65,7 +65,9 @@ Ex. 57
 					if (null != subbedFor)
 					{
 						result.Add(
-							new HarmonicAnalysisResult(this, true, $"{firstChord.Name} could be considered a diminished 7th substitution for {subbedFor.Name}."));
+							new HarmonicAnalysisResult(this, true, 
+							$"{firstChord.Name} could be considered a diminished 7th substitution for {subbedFor.Name}.",
+							new List<ChordFormula> { firstChord, subbedFor }));
 					}
 				}
 			}

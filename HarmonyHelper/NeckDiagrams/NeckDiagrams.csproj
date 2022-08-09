@@ -72,6 +72,12 @@
     <Compile Include="Controls\ChordsControl.Designer.cs">
       <DependentUpon>ChordsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HarmonicAnalysisControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HarmonicAnalysisControl.Designer.cs">
+      <DependentUpon>HarmonicAnalysisControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domain\IHarmonyModel1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChordsControl.resx">
       <DependentUpon>ChordsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HarmonicAnalysisControl.resx">
+      <DependentUpon>HarmonicAnalysisControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NoteNameComboBox.resx">
       <DependentUpon>NoteNameComboBox.cs</DependentUpon>
