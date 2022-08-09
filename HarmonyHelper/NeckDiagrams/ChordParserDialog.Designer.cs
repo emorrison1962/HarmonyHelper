@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChordParserDialog));
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.chordsDisplayPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.chordsEditPanel = new System.Windows.Forms.Panel();
             this._tbChords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.chordsDisplayPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
             this.bnOk = new System.Windows.Forms.Button();
             this.bnParse = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
-            this.chordsEditPanel.SuspendLayout();
             this.chordsDisplayPanel.SuspendLayout();
+            this.chordsEditPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -50,6 +51,36 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(800, 450);
             this.mainPanel.TabIndex = 6;
+            // 
+            // chordsDisplayPanel
+            // 
+            this.chordsDisplayPanel.ColumnCount = 8;
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.chordsDisplayPanel.Controls.Add(this.label3);
+            this.chordsDisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chordsDisplayPanel.Location = new System.Drawing.Point(0, 200);
+            this.chordsDisplayPanel.Name = "chordsDisplayPanel";
+            this.chordsDisplayPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.chordsDisplayPanel.Size = new System.Drawing.Size(800, 250);
+            this.chordsDisplayPanel.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(14, 250);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Parsed:";
             // 
             // chordsEditPanel
             // 
@@ -69,10 +100,7 @@
             this._tbChords.Name = "_tbChords";
             this._tbChords.Size = new System.Drawing.Size(744, 200);
             this._tbChords.TabIndex = 0;
-            this._tbChords.Text = "G#m G#m9 G#m7 Bmaj7 C Bmaj7 Cm6 Ebm7 Ebm Gmaj7 F#m G G# C G Bm Gmaj7 B F#dim Am9 C7b9 Cm D7 B B7b9 B E7b9 G Cmaj7 Cm7 Gm6 Bm G B Dm6 C Fm G#maj7 Cdim G#m G7 A7 Am9 C7b9 G Gmaj7 Bm Gmaj7 Bbdim Cmaj7 C7 G#dim C#m7 Gm G";
-
-
-
+            this._tbChords.Text = resources.GetString("_tbChords.Text");
             // 
             // label2
             // 
@@ -83,26 +111,6 @@
             this.label2.Size = new System.Drawing.Size(56, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Chords: ";
-            // 
-            // chordsDisplayPanel
-            // 
-            this.chordsDisplayPanel.Controls.Add(this.label3);
-            this.chordsDisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chordsDisplayPanel.Location = new System.Drawing.Point(0, 200);
-            this.chordsDisplayPanel.Name = "chordsDisplayPanel";
-            this.chordsDisplayPanel.Size = new System.Drawing.Size(800, 250);
-            this.chordsDisplayPanel.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Parsed:";
             // 
             // bnOk
             // 
@@ -134,10 +142,10 @@
             this.Name = "ChordParserDialog";
             this.Text = "ChordParserDialog";
             this.mainPanel.ResumeLayout(false);
-            this.chordsEditPanel.ResumeLayout(false);
-            this.chordsEditPanel.PerformLayout();
             this.chordsDisplayPanel.ResumeLayout(false);
             this.chordsDisplayPanel.PerformLayout();
+            this.chordsEditPanel.ResumeLayout(false);
+            this.chordsEditPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,7 +156,7 @@
         private System.Windows.Forms.Panel chordsEditPanel;
         private System.Windows.Forms.TextBox _tbChords;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.FlowLayoutPanel chordsDisplayPanel;
+        private System.Windows.Forms.TableLayoutPanel chordsDisplayPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bnOk;
         private System.Windows.Forms.Button bnParse;
