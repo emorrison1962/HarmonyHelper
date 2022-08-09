@@ -69,7 +69,10 @@
             this._tbChords.Name = "_tbChords";
             this._tbChords.Size = new System.Drawing.Size(744, 200);
             this._tbChords.TabIndex = 0;
-            this._tbChords.Text = "Dm7 g7 cmaj7";
+            this._tbChords.Text = "G#m G#m9 G#m7 Bmaj7 C Bmaj7 Cm6 Ebm7 Ebm Gmaj7 F#m G G# C G Bm Gmaj7 B F#dim Am9 C7b9 Cm D7 B B7b9 B E7b9 G Cmaj7 Cm7 Gm6 Bm G B Dm6 C Fm G#maj7 Cdim G#m G7 A7 Am9 C7b9 G Gmaj7 Bm Gmaj7 Bbdim Cmaj7 C7 G#dim C#m7 Gm G";
+
+
+
             // 
             // label2
             // 
