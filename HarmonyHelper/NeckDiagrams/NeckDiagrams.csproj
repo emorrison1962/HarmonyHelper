@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>NeckDiagrams</RootNamespace>
     <AssemblyName>NeckDiagrams</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,13 +47,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChordSelectorControl.cs">
+    <Compile Include="ChordParserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChordParserDialog.Designer.cs">
+      <DependentUpon>ChordParserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChordNameControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ChordSelectorControl.Designer.cs">
+    <Compile Include="Controls\ChordNameControl.Designer.cs">
+      <DependentUpon>ChordNameControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChordSelectorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChordSelectorControl.Designer.cs">
       <DependentUpon>ChordSelectorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlExtensions.cs" />
+    <Compile Include="Controls\ChordsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChordsControl.Designer.cs">
+      <DependentUpon>ChordsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domain\IHarmonyModel1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -74,11 +93,11 @@
     <Compile Include="Controls\ModelItemControl.Designer.cs">
       <DependentUpon>ModelItemControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ModelCollectionControl.cs">
+    <Compile Include="Controls\ModelsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ModelCollectionControl.Designer.cs">
-      <DependentUpon>ModelCollectionControl.cs</DependentUpon>
+    <Compile Include="Controls\ModelsControl.Designer.cs">
+      <DependentUpon>ModelsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\NewHarmonyItemDialog.cs">
       <SubType>Form</SubType>
@@ -112,8 +131,17 @@
     <Compile Include="ScaleSelectorControl.Designer.cs">
       <DependentUpon>ScaleSelectorControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ChordSelectorControl.resx">
+    <EmbeddedResource Include="ChordParserDialog.resx">
+      <DependentUpon>ChordParserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChordNameControl.resx">
+      <DependentUpon>ChordNameControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChordSelectorControl.resx">
       <DependentUpon>ChordSelectorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChordsControl.resx">
+      <DependentUpon>ChordsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NoteNameComboBox.resx">
       <DependentUpon>NoteNameComboBox.cs</DependentUpon>
@@ -127,8 +155,8 @@
     <EmbeddedResource Include="Controls\ModelItemControl.resx">
       <DependentUpon>ModelItemControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ModelCollectionControl.resx">
-      <DependentUpon>ModelCollectionControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ModelsControl.resx">
+      <DependentUpon>ModelsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NewHarmonyItemDialog.resx">
       <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
@@ -141,6 +169,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Controls\StringControl.resx">
       <DependentUpon>StringControl.cs</DependentUpon>

@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					foreach (var row in rows)
 					{
 						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
-						var har = new HarmonicAnalysisResult(this, true, message);
+						var har = new HarmonicAnalysisResult(this, true, message, formula);
 						result.Add(har);
 					}
 					new object();
