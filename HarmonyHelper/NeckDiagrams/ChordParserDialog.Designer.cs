@@ -43,8 +43,8 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.chordsEditPanel);
             this.mainPanel.Controls.Add(this.chordsDisplayPanel);
+            this.mainPanel.Controls.Add(this.chordsEditPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
@@ -85,20 +85,21 @@
             // 
             this.chordsDisplayPanel.Controls.Add(this.label3);
             this.chordsDisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chordsDisplayPanel.Location = new System.Drawing.Point(0, 0);
+            this.chordsDisplayPanel.Location = new System.Drawing.Point(0, 200);
             this.chordsDisplayPanel.Name = "chordsDisplayPanel";
-            this.chordsDisplayPanel.Size = new System.Drawing.Size(800, 450);
+            this.chordsDisplayPanel.Size = new System.Drawing.Size(800, 250);
             this.chordsDisplayPanel.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 16);
+            this.label3.Size = new System.Drawing.Size(54, 16);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Chords: ";
+            this.label3.Text = "Parsed:";
             // 
             // bnOk
             // 

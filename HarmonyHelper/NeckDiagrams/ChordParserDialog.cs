@@ -38,8 +38,10 @@ namespace NeckDiagrams
         {
             foreach (var chord in chords)
             {
+                var ctl = new ChordNameControl(chord.Formula);
                 this.chordsDisplayPanel.Controls.Add(
-                    new ChordNameControl(chord.Formula));
+                    ctl);
+                ctl.Show();
             }
         }
     }

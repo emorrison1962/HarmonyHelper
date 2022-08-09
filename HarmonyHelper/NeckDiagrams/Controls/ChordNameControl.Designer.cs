@@ -34,6 +34,7 @@
             // lblChordName
             // 
             this.lblChordName.AutoSize = true;
+            this.lblChordName.BackColor = System.Drawing.SystemColors.Control;
             this.lblChordName.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblChordName.Location = new System.Drawing.Point(0, 0);
             this.lblChordName.Name = "lblChordName";
