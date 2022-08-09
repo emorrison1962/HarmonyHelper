@@ -13,30 +13,29 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var commonKeys = new List<KeySignature>();
 			var distinctChords = chords.Distinct().ToList();
 			var distinctNoteNames = distinctChords.SelectMany(x => x.NoteNames).Distinct().ToList();
-			var message = string.Empty;
 			if (key.AreDiatonic(distinctNoteNames))
 			{
 				var chordNames = string.Join(", ", chords.Distinct()
 					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
-				message = $"{chordNames} are all diatonic to the key of {key}.";
+				var diatonicMessage = $"{chordNames} are all diatonic to the key of {key}.";
 
-				result.Add(new HarmonicAnalysisResult(this, true, message));
+				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, chords.Distinct().ToList()));
 			}
 			else
 			{
 				var nonDiatonic = key.GetNonDiatonic(distinctChords);
 				var diatonic = distinctChords.Except(nonDiatonic);
 
-				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
 				var diatonicChordNames = string.Join(", ", diatonic.Select(x => x.Name));
+                var diatonicChords = string.Join(", ",
+                    diatonic.Distinct()
+                    .Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
+                var diatonicMessage = $"{diatonicChords} are diatonic to the specified key of {key}.";
+				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, diatonic.Distinct().ToList()));
 
-				var diatonicMsg = string.Join(", ",
-					diatonic.Distinct()
-					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
-
-
-				message = $"{diatonicMsg} are diatonic to the specified key of {key}. {nonDiatonicChordNames} are non-diatonic.";
-				result.Add(new HarmonicAnalysisResult(this, true, message));
+				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
+				var nonDiatonicMessage = $"{nonDiatonicChordNames}  are not diatonic to the specified key of {key}.";
+				result.Add(new HarmonicAnalysisResult(this, true, nonDiatonicMessage, nonDiatonic.Distinct().ToList()));
 			}
 
 			return result;

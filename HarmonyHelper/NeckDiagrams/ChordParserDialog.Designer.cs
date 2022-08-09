@@ -67,7 +67,7 @@
             this.chordsDisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chordsDisplayPanel.Location = new System.Drawing.Point(0, 200);
             this.chordsDisplayPanel.Name = "chordsDisplayPanel";
-            this.chordsDisplayPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.chordsDisplayPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
             this.chordsDisplayPanel.Size = new System.Drawing.Size(800, 250);
             this.chordsDisplayPanel.TabIndex = 3;
             // 
@@ -78,7 +78,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(14, 250);
+            this.label3.Size = new System.Drawing.Size(54, 250);
             this.label3.TabIndex = 1;
             this.label3.Text = "Parsed:";
             // 

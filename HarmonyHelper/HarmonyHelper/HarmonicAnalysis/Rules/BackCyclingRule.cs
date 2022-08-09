@@ -95,8 +95,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					//var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
 					var seq = input.GetRange(startNdx, lastNdx - startNdx).ToList();
 					Debug.Assert(seq.Count() == subSequence.Count);
-					var har = new HarmonicAnalysisResult(this, true,
-						$"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.");
+					
+					var har = new HarmonicAnalysisResult(this, 
+						true,
+						$"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.", 
+						seq.ToList());
+					
 					result.Add(har);
 					//Debug.WriteLine(har.Message);
 					//new object();
