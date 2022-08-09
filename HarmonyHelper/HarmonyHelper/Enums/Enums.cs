@@ -170,5 +170,16 @@ namespace Eric.Morrison.Harmony
 		DiminishedOctave	
 	}
 
+	public enum IntervalRoleTypeEnum
+	{
+		Unison = 0,
+		Second = 1,
+		Third = 2,
+		Fourth = 3,
+		Fifth = 4,
+		Sixth = 5,
+		Seventh = 6,
+		Octave = 7,
+	};
 
 }//ns

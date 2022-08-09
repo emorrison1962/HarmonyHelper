@@ -10,12 +10,12 @@
               <Property Name="Namespace" Value="Eric.Morrison.Harmony.Tests" />
               <Rule Match="Any">
                 <Rule Match="All">
-                  <Property Name="Class" Value="HarmonicAnalyzerTests" />
+                  <Property Name="Class" Value="NoteNameTests" />
                   <Rule Match="Any">
                     <Rule Match="All">
-                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Tests.HarmonicAnalyzerTests.HowInsensitive_Test" />
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Tests.NoteNameTests.NoteName_IntervalContext_AdditionTest" />
                       <Rule Match="Any">
-                        <Property Name="DisplayName" Value="HowInsensitive_Test" />
+                        <Property Name="DisplayName" Value="NoteName_IntervalContext_AdditionTest" />
                       </Rule>
                     </Rule>
                   </Rule>

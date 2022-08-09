@@ -20,11 +20,14 @@ namespace Eric.Morrison.Harmony.Tests
 				foreach (var interval in intervals)
 				{
 					var expected = NoteName.TransposeUp(note, (Interval)interval);
-					var expectedValue = note.Value;
-					var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
-					var result = note + ctx;
+					if (expected != NoteName.Empty)
+					{
+						var expectedValue = note.Value;
+						var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
+						var result = note + ctx;
 
-					ValidateTransposeUp(note, (Interval)interval, expected);
+						ValidateTransposeUp(note, (Interval)interval, expected);
+					}
 				}
 			}
 			new object();
@@ -32,6 +35,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 		void ValidateTransposeUp(NoteName input, Interval interval, NoteName expected)
 		{
+			throw new NotImplementedException("This validation code is full of bugs.");
 			#region VALIDATION
 			if (input == NoteName.BSharp && (Interval)interval == Interval.Unison)
 			{
@@ -1326,9 +1330,17 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				foreach (var interval in intervals)
 				{
+					if (note == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
+					{
+						new object();
+					}
 					var expected = NoteName.TransposeDown(note, (Interval)interval);
 					var expectedValue = note.Value;
 					var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
+					if (note == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
+					{
+						new object();
+					}
 					var result = note + ctx;
 
 					ValidateTransposeDown(note, (Interval)interval, expected);
@@ -1346,31 +1358,27 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor2nd)
 			{
-				Assert.IsTrue(expected == NoteName.B);
+				Assert.IsTrue(expected == NoteName.CSharp);
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major2nd)
 			{
-				Assert.IsTrue(expected == NoteName.ASharp);
+				Assert.IsTrue(expected == NoteName.CSharpSharp);
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor3rd)
 			{
-				Assert.IsTrue(expected == NoteName.A);
+				Assert.IsTrue(expected == NoteName.DSharp);
+			}
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Major3rd)
+			{
+				Assert.IsTrue(expected == NoteName.DSharpSharp); 
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 			{
-				Assert.IsTrue(expected == NoteName.GSharp);
-			}
-			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
-			{
-				Assert.IsTrue(expected == NoteName.GSharp);
+				Assert.IsTrue(expected == NoteName.ESharp);
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect4th)
 			{
-				Assert.IsTrue(expected == NoteName.G);
-			}
-			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
-			{
-				Assert.IsTrue(expected == NoteName.FSharp);
+				Assert.IsTrue(expected == NoteName.ESharpSharp);
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Diminished5th)
 			{
@@ -1378,9 +1386,9 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 			else if (input == NoteName.BSharp && (Interval)interval == Interval.Perfect5th)
 			{
-				Assert.IsTrue(expected == NoteName.ESharp);
+				Assert.IsTrue(expected == NoteName.FSharpSharp);
 			}
-			else if (input == NoteName.BSharp && (Interval)interval == Interval.Minor6th)
+			else if (input == NoteName.BSharp && (Interval)interval == Interval.Augmented5th)
 			{
 				Assert.IsTrue(expected == NoteName.E);
 			}

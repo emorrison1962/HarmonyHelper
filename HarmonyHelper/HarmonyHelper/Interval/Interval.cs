@@ -9,17 +9,6 @@ namespace Eric.Morrison.Harmony.Intervals
 	public class Interval : IEquatable<Interval>, IComparable<Interval>
 	{
 		#region Constants
-		public enum IntervalRoleTypeEnum
-		{ 
-			Unison = 0,
-			Second = 1,
-			Third = 2,
-			Fourth = 3,
-			Fifth = 4,
-			Sixth = 5,
-			Seventh = 6,
-			Octave = 7,
-		};
 		#endregion
 
 		#region Static
@@ -53,13 +42,13 @@ namespace Eric.Morrison.Harmony.Intervals
 		virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		public int SemiTones { get; private set; }
-		public IntervalRoleTypeEnum IntervalType { get; protected set; }
+		public IntervalRoleTypeEnum IntervalRoleType { get; protected set; }
 		private Interval(string name, int value, int semitones, IntervalRoleTypeEnum it)
 		{
 			this.Name = name;
 			this.Value = value;
 			this.SemiTones = semitones;	
-			this.IntervalType = it;	
+			this.IntervalRoleType = it;	
 			Catalog.Add(this);
 		}
 		protected Interval(Interval src)
@@ -67,7 +56,7 @@ namespace Eric.Morrison.Harmony.Intervals
 			this.Name = src.Name;
 			this.Value = src.Value;
 			this.SemiTones= src.SemiTones;
-			this.IntervalType = src.IntervalType;
+			this.IntervalRoleType = src.IntervalRoleType;
 		}
 
 		static Interval() {
@@ -289,7 +278,9 @@ namespace Eric.Morrison.Harmony.Intervals
 			Interval result = Interval.Unison;
 			if (Interval.Unison != this)
 			{
-				if (this == Interval.AugmentedUnison)
+				if (this == Interval.Unison)
+					result = Interval.PerfectOctave;
+				else if (this == Interval.AugmentedUnison)
 					result = Interval.DiminishedOctave;
 				else if (this == Interval.Minor2nd)
 					result = Interval.Major7th;
@@ -331,6 +322,8 @@ namespace Eric.Morrison.Harmony.Intervals
 					result = Interval.Minor2nd;
 				else if (this == Interval.DiminishedOctave)
 					result = Interval.AugmentedUnison;
+				else if (this == Interval.PerfectOctave)
+					result = Interval.Unison;
 				else
 					throw new ArgumentOutOfRangeException();
 			}

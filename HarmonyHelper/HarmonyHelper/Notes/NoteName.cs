@@ -42,6 +42,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Statics
 
+		static public readonly NoteNameEmpty Empty = new NoteNameEmpty();
 		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
 		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
 
@@ -135,7 +136,7 @@ namespace Eric.Morrison.Harmony
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharpSharp, B, Cb));
 		}
 
-		NoteName(string name, int val, bool addToCatalog = true)
+		protected NoteName(string name, int val, bool addToCatalog = true)
 		{
 			this.Name = name;
 			this.Value = val;
@@ -222,7 +223,7 @@ namespace Eric.Morrison.Harmony
 			if (null != note && ctx.Interval > Interval.Unison)
 			{
 				result = TransposeUp(note, ctx.Interval);
-				result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
+				//result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
 			}
 			return result;
 		}
@@ -360,39 +361,22 @@ namespace Eric.Morrison.Harmony
 		{
 			NoteName result = null;
 			var success = false;
-			if (Interval.Unison < interval)
+			if (Interval.Unison == interval || Interval.PerfectOctave == interval)
+			{
+				result = src;
+			}
+			else
+			{
 				success = true;
+			}
 
 			IEnumerable<NoteName> noteNames = null;
 			if (success)
 			{
 				var val = TransposeValue(src, interval);
-				result = ResolveNoteNames(src, interval, val);
-				new object();
-
-#warning this shit's broken.
-#if false
-
-                //Debug.Assert(false, "this shit's broken.");
-                var maxNdx = notenames.Count;
-                //var maxNdx = notes.Count - 1;
-                var srcNdx = notenames.IndexOf(src);
-                var intervalNdx = interval.ToIndex();
-
-                var targetNdx = (srcNdx + intervalNdx) % maxNdx;
-                //Debug.Assert(false, "this shit's broken.");
-
-
-                result = notenames[targetNdx];
-                Debug.Assert(null != result);
-                //Debug.Assert(result != src);
-                success = true;
-
-                noteNames = NoteName.Catalog.Where(x => x.Value == result?.Value);
-                if (null == noteNames)
-                    success = false; 
-#endif
-            }
+				result = ResolveNoteNames(src, interval.IntervalRoleType, val);
+				Debug.Assert(null != result);
+			}
 			Debug.Assert(null != result);
 			return result;
 		}
@@ -409,7 +393,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static NoteName ResolveNoteNames(NoteName src, Interval interval, int noteVal)
+		public static NoteName ResolveNoteNames(NoteName src, IntervalRoleTypeEnum intervalRole, int noteVal)
         {
 			const char ASCII_G = 'G';
 
@@ -421,7 +405,7 @@ namespace Eric.Morrison.Harmony
 
 			var srcAscii = (int)src.Name[0];
 			var readableSrcAscii = (char)srcAscii;
-			var lettersAway = (int)interval.IntervalType;
+			var lettersAway = (int)intervalRole;
 			srcAscii += lettersAway;
 			if (srcAscii > ASCII_G)
 			{
@@ -429,7 +413,11 @@ namespace Eric.Morrison.Harmony
 			}
 
 			var criteria = new String((char)srcAscii, 1);
-			var result = resultCandidates.First(x => x.Name.StartsWith(criteria));
+			var result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(criteria));
+			if (null == result) //This can happen when transposing B# up an augmented fifth, expecting F###
+			{
+				result = NoteName.Empty;
+			}
 			return result;
 		}
 
@@ -454,6 +442,11 @@ namespace Eric.Morrison.Harmony
 		}
 
 	}//class
+
+	public class NoteNameEmpty : NoteName
+	{
+		public NoteNameEmpty() : base ("Empty", 0, false) { }
+	}
 
 	public static class NoteNameCatalogExtensions
 	{

@@ -6,7 +6,7 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.Tests
 {
 	[TestClass]
 	public class BUGS
