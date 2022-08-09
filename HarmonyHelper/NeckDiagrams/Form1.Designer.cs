@@ -46,7 +46,6 @@ namespace NeckDiagrams
             this.neckTabPage = new System.Windows.Forms.TabPage();
             this.arpeggiatorTabPage = new System.Windows.Forms.TabPage();
             this.analyzerTabPage = new System.Windows.Forms.TabPage();
-            
             this.bottomMenuPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -191,7 +190,6 @@ namespace NeckDiagrams
             this.tabControl.Controls.Add(this.neckTabPage);
             this.tabControl.Controls.Add(this.arpeggiatorTabPage);
             this.tabControl.Controls.Add(this.analyzerTabPage);
-            
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -219,9 +217,6 @@ namespace NeckDiagrams
             this.arpeggiatorTabPage.TabIndex = 1;
             this.arpeggiatorTabPage.Text = "Arpeggiator";
             this.arpeggiatorTabPage.UseVisualStyleBackColor = true;
-
-
-
             // 
             // analyzerTabPage
             // 
@@ -232,7 +227,6 @@ namespace NeckDiagrams
             this.analyzerTabPage.TabIndex = 2;
             this.analyzerTabPage.Text = "Analyzer";
             this.analyzerTabPage.UseVisualStyleBackColor = true;
-
             // 
             // Form1
             // 
