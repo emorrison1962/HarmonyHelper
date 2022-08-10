@@ -35,7 +35,7 @@
             // 
             this.lblChordName.AutoSize = true;
             this.lblChordName.BackColor = System.Drawing.SystemColors.Control;
-            this.lblChordName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblChordName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblChordName.Location = new System.Drawing.Point(0, 0);
             this.lblChordName.Name = "lblChordName";
             this.lblChordName.Size = new System.Drawing.Size(80, 16);
@@ -47,6 +47,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.lblChordName);
             this.Name = "ChordNameControl";
             this.Size = new System.Drawing.Size(80, 16);

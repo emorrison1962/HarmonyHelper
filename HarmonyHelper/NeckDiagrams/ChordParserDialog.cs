@@ -21,6 +21,7 @@ namespace NeckDiagrams
         public ChordParserDialog()
         {
             InitializeComponent();
+            this.bnOk.Enabled = false;  
         }
 
         private void bnParse_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace NeckDiagrams
             {
                 this.Chords = chords;   
                 this.Populate();
+                this.bnOk.Enabled = true;
             }
             else
             {
