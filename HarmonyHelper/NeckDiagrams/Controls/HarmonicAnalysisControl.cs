@@ -37,7 +37,6 @@ namespace NeckDiagrams.Controls
                 var ctl = new ChordNameControl(chord.Formula);
                 this.chordsTablePanel.Controls.Add(
                     ctl);
-                //ctl.Show();
             }
         }
     }
