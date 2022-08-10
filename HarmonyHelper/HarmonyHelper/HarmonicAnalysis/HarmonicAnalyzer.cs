@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 
 		}
 
-		public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key, bool unused = false)
+		public List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key, bool unused = false)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			foreach (var rule in HarmonicAnalysisRuleBase.Catalog)
@@ -23,7 +23,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 			return result;
 		}
 
-		static public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+		static public List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{
 			var analyzer = new HarmonicAnalyzer();
 			var result = analyzer.Analyze(chords, key, false);

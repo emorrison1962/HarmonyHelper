@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	{
 		public override string Name { get { return this.GetType().Name; } }
 
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			//var nonDiatonic = key.GetNonDiatonic(chords);

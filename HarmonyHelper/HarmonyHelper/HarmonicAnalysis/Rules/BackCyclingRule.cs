@@ -45,18 +45,18 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	/// </summary>
 	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
-        public override string Name { get { return this.GetType().Name; } } 
-        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
+		public override string Name { get { return this.GetType().Name; } } 
+		public override List<HarmonicAnalysisResult> Analyze(List<Chord> input, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
-			var chords = new List<ChordFormula>(input);
+			var chords = new List<Chord>(input);
 			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
 
 			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd);
 			foreach (var pair in pairs)
 			{
-				if (pair.First.ChordType.IsDominant)
+				if (pair.First.Formula.ChordType.IsDominant)
 				{
 					var subbedFor = this.GetTritoneSubstitution(pair.First);
 					var seq = chords.FindAll(x => x == pair.First);
@@ -132,12 +132,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			return result;
 		}
 
-		ChordFormula GetTritoneSubstitution(ChordFormula orig)
+		Chord GetTritoneSubstitution(Chord orig)
 		{
-			ChordFormula result = null;
-			if (orig.IsDominant)
+			Chord result = null;
+			if (orig.Formula.IsDominant)
 			{
-				result = orig + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
+				var resultFormula = orig.Formula + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
+				result = new Chord(resultFormula);
 			}
 			return result;
 		}

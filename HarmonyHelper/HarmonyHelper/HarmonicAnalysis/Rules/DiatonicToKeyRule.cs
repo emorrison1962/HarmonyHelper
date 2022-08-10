@@ -7,7 +7,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
 		public override string Name { get { return this.GetType().Name; } }
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			var keys = KeySignature.MajorKeys;
