@@ -24,6 +24,8 @@ Ex. 57
 
 										  Extensions of Dim7 Chords 
 #endif
+		public override string Name { get { return this.GetType().Name; } }
+
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();

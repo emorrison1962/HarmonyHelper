@@ -1,4 +1,7 @@
-﻿using Eric.Morrison.Harmony.Chords;
+﻿using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.HarmonicAnalysis;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +22,7 @@ namespace NeckDiagrams.Controls
         }
 
         public List<Chord> Chords { get; private set; } = new List<Chord>();
+        public List<HarmonicAnalysisResult> Results { get; private set; }
 
         private void bnChords_Click(object sender, EventArgs e)
         {
@@ -27,6 +31,7 @@ namespace NeckDiagrams.Controls
             { 
                 this.Chords = dlg.Chords;
                 this.Populate();
+                this.Analyze();
             }
         }
 
@@ -39,5 +44,31 @@ namespace NeckDiagrams.Controls
                     ctl);
             }
         }
-    }
-}
+
+        void PopulateListView()
+        {
+            foreach (var result in this.Results)
+            {
+                var lvi = new ListViewItem(result.Rule.Name);
+                lvi.Tag = result;
+                this.lvAnalysis.Items.Add(lvi);
+            }
+        }
+        
+        void Analyze()
+        {
+            var analyzer = new HarmonicAnalyzer();
+            this.Results = analyzer.Analyze(this.Chords.Select(x => x.Formula).ToList(), KeySignature.CMajor);
+            this.PopulateListView();
+        }
+
+        private void lvAnalysis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.lvAnalysis.SelectedItems.Count > 0)
+            {
+                var item = this.lvAnalysis.SelectedItems[0];
+                this.tbDetails.Text = (item.Tag as HarmonicAnalysisResult).Message;
+            }
+        }
+    }//class
+}//ns

@@ -7,6 +7,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public class TritoneSubstitutionRule : HarmonicAnalysisRuleBase
 	{
+		public override string Name { get { return this.GetType().Name; } }
+
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();

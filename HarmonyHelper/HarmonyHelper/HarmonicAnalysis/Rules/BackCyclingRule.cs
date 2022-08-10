@@ -45,7 +45,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	/// </summary>
 	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
+        public override string Name { get { return this.GetType().Name; } } 
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 

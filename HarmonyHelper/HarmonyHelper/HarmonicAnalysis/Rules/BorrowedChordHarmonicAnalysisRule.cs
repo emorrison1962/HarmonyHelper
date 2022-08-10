@@ -15,6 +15,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			i = 0, ii, iii, iv, v, vi, vii
 		}
+		public override string Name { get { return this.GetType().Name; } }
 
 		public BorrowedChordHarmonicAnalysisRule()
 		{
