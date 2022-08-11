@@ -7,7 +7,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 {
 	class HarmonicAnalysisResultEmpty : HarmonicAnalysisResult
 	{
-		public HarmonicAnalysisResultEmpty() : base (null, false, "", (ChordFormula)null)
+		public HarmonicAnalysisResultEmpty() : base (null, false, "", (Chord)null)
 		{
 		}
 	}
@@ -18,19 +18,19 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 		public bool Success { get; private set; }
 		public HarmonicAnalysisRuleBase Rule { get; private set; }
 		public string Message { get; private set; }
-		public List<ChordFormula> ChordFormulas { get; private set; }
+		public List<Chord> Chords { get; private set; }
 
-		public HarmonicAnalysisResult(HarmonicAnalysisRuleBase rule, bool success, string message, ChordFormula formula)
-			: this(rule, success, message, new List<ChordFormula>() { formula })
+		public HarmonicAnalysisResult(HarmonicAnalysisRuleBase rule, bool success, string message, Chord chord)
+			: this(rule, success, message, new List<Chord>() { chord })
 		{
 		}
 
-		public HarmonicAnalysisResult(HarmonicAnalysisRuleBase rule, bool success, string message, List<ChordFormula> formulas)
+		public HarmonicAnalysisResult(HarmonicAnalysisRuleBase rule, bool success, string message, List<Chord> chords)
 		{
 			this.Rule = rule;
 			this.Success = success;
 			this.Message = message;
-			this.ChordFormulas = formulas;	
+			this.Chords = chords;	
 		}
 
 		public override string ToString()

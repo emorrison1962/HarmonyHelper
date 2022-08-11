@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 			foreach (var triplet in triplets)
 			{//Minor: bm7b5, e7, am7 Major: bm7 e7 amaj7
-				if (key.NoteName == triplet[2].Root)
+				if (key.NoteName == triplet[2].Root.NoteName)
 				{
 					if (triplet.IsTwoFiveOne(key))
 					{

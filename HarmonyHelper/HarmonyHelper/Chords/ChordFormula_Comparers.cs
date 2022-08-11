@@ -3,6 +3,22 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony.Chords
 {
+	public class ChordFunctionalEqualityComparer : IEqualityComparer<Chord>
+	{
+		public bool Equals(Chord x, Chord y)
+		{
+			var comparer = new ChordFormulaFunctionalEqualityComparer();
+			var result = comparer.Equals(x.Formula, y.Formula);	
+			return result;
+		}
+
+		public int GetHashCode(Chord obj)
+		{
+			var comparer = new ChordFormulaFunctionalEqualityComparer();
+			var result = comparer.GetHashCode(obj.Formula);	
+			return (int)result;
+		}
+	}
 	public class ChordFormulaFunctionalEqualityComparer : IEqualityComparer<ChordFormula>
 	{
 		public bool Equals(ChordFormula x, ChordFormula y)

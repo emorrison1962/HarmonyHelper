@@ -40,7 +40,6 @@ namespace Eric.Morrison.Harmony.Chords
 #endif
 		static public bool TryParse(string input, out List<Chord> chords, out string messageResult)
 		{
-			//Debug.WriteLine(REGEX);
 			return TryParse(input, null, out chords, out messageResult);
 		}
 
@@ -83,6 +82,7 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+		[Obsolete("", true)]
 		static bool TryParseFormulas(string input, out List<ChordFormula> formulas, out string message, KeySignature key = null)
 		{
 			var result = false;
@@ -107,6 +107,7 @@ namespace Eric.Morrison.Harmony.Chords
 		}
 
 
+		[Obsolete("", true)]
 		static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
 		{
 			var result = false;
@@ -192,7 +193,7 @@ namespace Eric.Morrison.Harmony.Chords
 			message = null;
 			chord = null;
 
-			var success = TryParseImpl(input, out ChordFormula formula, out message, key);
+			var success = ChordFormulaParser.TryParseImpl(input, out ChordFormula formula, out message, key);
 			if (success)
 			{
 				chord = new Chord(formula, NoteRange.Default);
@@ -495,9 +496,6 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			}
 			return result;
 		}
-
-
-
 	}
 
 	public static class ChordFormulaParser
@@ -603,7 +601,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			return result;
 		}
 
-		static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
+		public static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
 		{
 			var result = false;
 			message = null;

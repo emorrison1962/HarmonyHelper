@@ -285,7 +285,18 @@ namespace Eric.Morrison.Harmony
 			var result = new List<ChordFormula>();
 			foreach (var chord in chords)
 			{
-				if (!IsDiatonic(chord.NoteNames))
+				if (!this.IsDiatonic(chord.NoteNames))
+					result.Add(chord);
+			}
+			return result;
+		}
+
+		public List<Chord> GetNonDiatonic(List<Chord> chords)
+		{
+			var result = new List<Chord>();
+			foreach (var chord in chords)
+			{
+				if (!this.IsDiatonic(chord.Formula.NoteNames))
 					result.Add(chord);
 			}
 			return result;

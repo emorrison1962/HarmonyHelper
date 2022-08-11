@@ -31,19 +31,21 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
 
 
-			var formulas = chords.Select(x => x).Distinct().ToList();
-			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.IsDominantOfKey(key));
+			var distinctChords = chords.Select(x => x).Distinct().ToList();
+			var nonDiatonicChords = key.GetNonDiatonic(distinctChords).Where(x => !x.IsDominantOfKey(key));
 			new object();
 
-			foreach (var formula in nonDiatonic)
+			foreach (var chord in nonDiatonicChords)
 			{
 				foreach (var grid in grids)
 				{
-					var rows = grid.Rows.Where(x => x.Formulas.Contains(formula, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
+					var rows = grid.Rows.Where(x => 
+						x.Formulas.Contains(chord.Formula, new ChordFormulaFunctionalEqualityComparer()))
+						.ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
-						var message = $"{formula.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
-						var har = new HarmonicAnalysisResult(this, true, message, formula);
+						var message = $"{chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
+						var har = new HarmonicAnalysisResult(this, true, message, chord);
 						result.Add(har);
 					}
 					new object();

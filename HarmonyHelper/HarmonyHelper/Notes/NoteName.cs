@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Statics
 
-		static public readonly NoteNameEmpty Empty = new NoteNameEmpty();
+		static public readonly NullNoteName Empty = new NullNoteName();
 		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
 		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
 
@@ -359,9 +359,9 @@ namespace Eric.Morrison.Harmony
 
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
-			NoteName result = null;
+			NoteName result = NoteName.Empty;
 			var success = false;
-			if (Interval.Unison == interval || Interval.PerfectOctave == interval)
+			if (src == NoteName.Empty || Interval.Unison == interval || Interval.PerfectOctave == interval)
 			{
 				result = src;
 			}
@@ -443,9 +443,9 @@ namespace Eric.Morrison.Harmony
 
 	}//class
 
-	public class NoteNameEmpty : NoteName
+	public class NullNoteName : NoteName
 	{
-		public NoteNameEmpty() : base ("Empty", 0, false) { }
+		public NullNoteName() : base ("Empty", 0, false) { }
 	}
 
 	public static class NoteNameCatalogExtensions

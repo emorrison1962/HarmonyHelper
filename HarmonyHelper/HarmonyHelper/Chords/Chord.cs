@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>
+	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>, IChordFormula, INoteNameNormalizer
 	{
+		static public readonly NullChord Empty = new NullChord();
+
 		#region Properties
 
 		public Note Root { get; protected set; }
@@ -33,10 +36,21 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool IsMinor { get { return this.Formula.ChordType.IsMinor; } }
 		public bool IsDiminished { get { return this.Formula.ChordType.IsDiminished; } }
 
+        public NoteName Bass => this.Formula.Bass;
+
+		public ChordType ChordType => this.Formula.ChordType;
+
+		public bool IsDominant => this.Formula.IsDominant;
+
+		NoteName IChordFormula.Root => this.Formula.Root;
+
 		#endregion
 
 		#region Construction
-
+		protected Chord() 
+			: base(KeySignature.Empty)
+		{
+		}
 
 		public Chord(ChordFormula formula) : base(formula.Key)
 		{
@@ -50,18 +64,9 @@ namespace Eric.Morrison.Harmony.Chords
 			this.NoteNames = formula.NoteNames;
 		}
 
-		public Chord SetNoteRange(NoteRange noteRange)
-		{
-			if (null == noteRange)
-				throw new ArgumentNullException();
-			this.Root = noteRange.First(this.Formula.Root, this.Formula);
-			this.PopulateNotes(noteRange);
-			return this;
-		}
-
 		public Chord(ChordFormula formula, NoteRange noteRange) : base(formula.Key)
 		{
-			if (null == formula)
+			if (null == formula || ChordFormula.Empty == formula)
 				throw new ArgumentNullException();
 			if (null == formula.Key)
 				throw new ArgumentNullException();
@@ -91,6 +96,15 @@ namespace Eric.Morrison.Harmony.Chords
 			var pendingNotes = noteRange.GetNotes(this.NoteNames);
 			pendingNotes.ForEach(x => this.Notes.Add(x));
 			this.Notes.Sort(new NoteComparer());
+		}
+
+		public Chord SetNoteRange(NoteRange noteRange)
+		{
+			if (null == noteRange)
+				throw new ArgumentNullException();
+			this.Root = noteRange.First(this.Formula.Root, this.Formula);
+			this.PopulateNotes(noteRange);
+			return this;
 		}
 
 		#endregion
@@ -143,7 +157,6 @@ namespace Eric.Morrison.Harmony.Chords
 				this.Direction = direction;
 			}
 
-
 			public override string ToString()
 			{
 				var result = $"Direction={this.Direction}, LastNote={this.LastNote}, ClosestNote={this.ClosestNote}"; 
@@ -152,6 +165,7 @@ namespace Eric.Morrison.Harmony.Chords
 				return result;
 			}
 		}
+
 		public void GetClosestNote(ClosestNoteContext ctx)
 		{
 			var result = ctx.FindClosest();
@@ -165,7 +179,6 @@ namespace Eric.Morrison.Harmony.Chords
 			Debug.Assert(ctx.LastNote.NoteName.Value != result.NoteName.Value);
 			ctx.ClosestNote = result;
 		}
-
 
 
 		public override string ToString()
@@ -222,5 +235,73 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-	}//class
+        public int CompareTo(ChordFormula other)
+        {
+			return this.Formula.CompareTo(other);
+		}
+
+        public ChordCompareResult CompareTo(ChordFormula other, bool logicalCompare)
+        {
+			return this.Formula.CompareTo(other, logicalCompare);
+        }
+
+        public bool Contains(NoteName note)
+        {
+			return this.Formula.Contains(note);
+		}
+
+        public bool Equals(ChordFormula other)
+        {
+            return this.Formula.Equals(other);
+        }
+
+        public NoteName GetNormalized(NoteName nn, Interval baseInterval)
+        {
+            return this.Formula.GetNormalized(nn, baseInterval);	
+        }
+
+        public ChordToneFunctionEnum GetRelationship(NoteName note)
+        {
+			return this.Formula.GetRelationship(note);
+		}
+
+        public void Normalize(ref List<NoteName> noteNames)
+        {
+			this.Formula.Normalize(ref noteNames);
+		}
+
+        public void SetBassNote(NoteName bass)
+        {
+			this.Formula.SetBassNote(bass);
+		}
+    }//class
+
+	public class NullChord : Chord 
+	{
+		#region Properties
+
+		new public Note Root => throw new InvalidOperationException();
+		new public ChordFormula Formula => throw new InvalidOperationException();
+		new public List<Note> Notes => throw new InvalidOperationException();
+		new public List<NoteName> NoteNames => throw new InvalidOperationException();
+		new public string Name => "Empty";
+
+		public NullChord()
+        {
+        }
+
+		new public bool IsMajor => throw new InvalidOperationException();
+		new public bool IsMinor => throw new InvalidOperationException();
+		new public bool IsDiminished => throw new InvalidOperationException();
+
+		new public NoteName Bass => throw new InvalidOperationException();
+
+		new public ChordType ChordType => throw new InvalidOperationException();
+
+		new public bool IsDominant => throw new InvalidOperationException();
+
+
+		#endregion
+
+	}
 }//ns

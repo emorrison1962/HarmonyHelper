@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			if (key.AreDiatonic(distinctNoteNames))
 			{
 				var chordNames = string.Join(", ", chords.Distinct()
-					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
+					.Select(x => $"{x.Name} ({GetChordFunction(x.Formula, key.NoteNames.IndexOf(x.Formula.Root))})"));
 				var diatonicMessage = $"{chordNames} are all diatonic to the key of {key}.";
 
 				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, chords.Distinct().ToList()));
@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var diatonicChordNames = string.Join(", ", diatonic.Select(x => x.Name));
                 var diatonicChords = string.Join(", ",
                     diatonic.Distinct()
-                    .Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
+                    .Select(x => $"{x.Name} ({GetChordFunction(x.Formula, key.NoteNames.IndexOf(x.Root.NoteName))})"));
                 var diatonicMessage = $"{diatonicChords} are diatonic to the specified key of {key}.";
 				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, diatonic.Distinct().ToList()));
 
