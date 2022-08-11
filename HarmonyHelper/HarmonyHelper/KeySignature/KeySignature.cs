@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony
     [Serializable]
 	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, INoteNameNormalizer
 	{
-		static public readonly NullKeySignature Empty = new NullKeySignature();
+		static public readonly NullKeySignature Empty = NullKeySignature.Instance;
 
 		#region Properties
 		public NoteName NoteName { get; private set; }
@@ -315,7 +315,16 @@ namespace Eric.Morrison.Harmony
 		new public bool IsMinor => throw new InvalidOperationException();
 		new public int AccidentalCount => throw new InvalidOperationException();
 
-		new public string Name => "Empty";
+		new public string Name => Constants.EMPTY;
+
+		static public NullKeySignature Instance = new NullKeySignature();
+		static NullKeySignature()
+		{
+			Instance = new NullKeySignature();
+		}
+		private NullKeySignature() { }
+
+
 
 		#endregion
 	}

@@ -8,7 +8,7 @@ namespace Eric.Morrison.Harmony.Chords
 {
 	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>, IChordFormula, INoteNameNormalizer
 	{
-		static public readonly NullChord Empty = new NullChord();
+		static public readonly NullChord Empty = NullChord.Instance;
 
 		#region Properties
 
@@ -278,17 +278,21 @@ namespace Eric.Morrison.Harmony.Chords
 
 	public class NullChord : Chord 
 	{
+		static public NullChord Instance;
+        static NullChord()
+        {
+			Instance = new NullChord();
+        }
+		private NullChord()  { }
+
 		#region Properties
 
 		new public Note Root => throw new InvalidOperationException();
 		new public ChordFormula Formula => throw new InvalidOperationException();
 		new public List<Note> Notes => throw new InvalidOperationException();
 		new public List<NoteName> NoteNames => throw new InvalidOperationException();
-		new public string Name => "Empty";
+		new public string Name => Constants.EMPTY;
 
-		public NullChord()
-        {
-        }
 
 		new public bool IsMajor => throw new InvalidOperationException();
 		new public bool IsMinor => throw new InvalidOperationException();

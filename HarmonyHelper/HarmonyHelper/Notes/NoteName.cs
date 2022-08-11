@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Statics
 
-		static public readonly NullNoteName Empty = new NullNoteName();
+		static public readonly NullNoteName Empty = NullNoteName.Instance;
 		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
 		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
 
@@ -136,6 +136,7 @@ namespace Eric.Morrison.Harmony
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharpSharp, B, Cb));
 		}
 
+        protected NoteName() { }
 		protected NoteName(string name, int val, bool addToCatalog = true)
 		{
 			this.Name = name;
@@ -445,7 +446,13 @@ namespace Eric.Morrison.Harmony
 
 	public class NullNoteName : NoteName
 	{
-		public NullNoteName() : base ("Empty", 0, false) { }
+		static public NullNoteName Instance = new NullNoteName();
+		static NullNoteName()
+		{
+			Instance = new NullNoteName();
+		}
+		private NullNoteName() : base() { }
+		new public string Name => Constants.EMPTY;
 	}
 
 	public static class NoteNameCatalogExtensions

@@ -21,17 +21,18 @@ namespace Eric.Morrison.Harmony
 
 	public class Note : ClassBase, IEquatable<Note>, IComparable<Note>
 	{
-		static public readonly NullNote Empty = new NullNote();
+		static public readonly NullNote Empty = NullNote.Instance;
 
 		#region Properties
 		public NoteName NoteName { get; private set; }
 
 		public OctaveEnum Octave { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
+        protected Note() { }
 		public Note(Note src)
 		{
 			if (null == src)
@@ -195,12 +196,16 @@ namespace Eric.Morrison.Harmony
 
     public class NullNote : Note
     {
-        public NullNote() 
-			: base(NoteName.Empty, OctaveEnum.Unknown)
-        { }
-    }
+		static public NullNote Instance = new NullNote();
+		static NullNote()
+		{
+			Instance = new NullNote();
+		}
+		private NullNote() { }
+		new public string Name => Constants.EMPTY;
+	}
 
-    public class NoteComparer : IComparer<Note>
+	public class NoteComparer : IComparer<Note>
 	{
 		public int Compare(Note x, Note y)
 		{

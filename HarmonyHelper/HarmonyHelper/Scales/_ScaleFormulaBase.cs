@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony.Scales
 {
 	public abstract class ScaleFormulaBase : INoteNameNormalizer, IComparable<ScaleFormulaBase>, IEquatable<ScaleFormulaBase>, INoteNameContainer, IHasRootNoteName
 	{
-		static public NullScaleFormula Empty = NullScaleFormula.Create();
+		static public NullScaleFormula Empty = NullScaleFormula.Instance;
 		public KeySignature Key { get; protected set; }
 		public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
 		public NoteName Root { get; protected set; }
@@ -21,23 +21,27 @@ namespace Eric.Morrison.Harmony.Scales
 
 		abstract protected void PopulateIntervals();
 		abstract protected void Init();
-		public ScaleFormulaBase(KeySignature key)
-		{
-			this.Key = key;
-			//this.Root = key.NoteName;
-			this.Root = this.Key.NoteName;
-			//this.Root = NoteNames.Get(this.Key.NoteName, Interval.None, key);
 
-			var name = this.GetType().Name;
-			name = name.Replace("Formula", string.Empty);
-			name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+        #region Construction
+        protected ScaleFormulaBase() {  }
+        public ScaleFormulaBase(KeySignature key)
+        {
+            this.Key = key;
+            //this.Root = key.NoteName;
+            this.Root = this.Key.NoteName;
+            //this.Root = NoteNames.Get(this.Key.NoteName, Interval.None, key);
 
-			this.Name = string.Format("{0} {1}",
-				this.Key.NoteName,
-				name);
-		}
+            var name = this.GetType().Name;
+            name = name.Replace("Formula", string.Empty);
+            name = string.Concat(name.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
 
-		protected void InitImpl()
+            this.Name = string.Format("{0} {1}",
+                this.Key.NoteName,
+                name);
+        }
+
+        #endregion
+        protected void InitImpl()
 		{
 			this.PopulateIntervals();
 			this.PopulateNoteNames();
@@ -227,21 +231,19 @@ namespace Eric.Morrison.Harmony.Scales
 	}//class
 	public class NullScaleFormula : ScaleFormulaBase
 	{
-		public NullScaleFormula(KeySignature key) : base(KeySignature.CMajor)
+		static public NullScaleFormula Instance = new NullScaleFormula();
+		static NullScaleFormula()
 		{
+			Instance = new NullScaleFormula();
 		}
-
-		static public NullScaleFormula Create()
-		{
-			return new NullScaleFormula(null);
-		}
+		private NullScaleFormula() { }
+		new public string Name => Constants.EMPTY;
 
 		new public KeySignature Key { get; protected set; }
 		new public List<NoteName> NoteNames { get; protected set; } = new List<NoteName>();
 		new public NoteName Root { get; protected set; }
 
 		new public List<ScaleToneInterval> Intervals { get; set; } = new List<ScaleToneInterval>();
-		override public string Name { get; protected set; }
 
 		protected override void Init()
 		{

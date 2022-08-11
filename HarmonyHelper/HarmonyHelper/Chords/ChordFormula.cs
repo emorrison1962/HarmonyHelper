@@ -430,5 +430,11 @@ namespace Eric.Morrison.Harmony.Chords
     public class NullChordFormula : ChordFormula
 	{
         static public NullChordFormula Instance = new NullChordFormula();
-	}
+        static NullChordFormula()
+        {
+            Instance = new NullChordFormula();  
+        }
+        private NullChordFormula() { }
+        new public string Name => Constants.EMPTY;
+    }
 }//ns
