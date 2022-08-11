@@ -8,6 +8,14 @@ namespace Eric.Morrison.Harmony
 {
 	public partial class Arpeggiator
 	{
+		public class ArpeggiatorEventArgs : EventArgs
+		{
+			public Arpeggiator Arpeggiator { get; set; }
+			public ArpeggiatorEventArgs(Arpeggiator arp)
+			{
+				this.Arpeggiator = arp;
+			}
+		}
 		public class DirectionChangingEventArgs : EventArgs
 		{
 			public DirectionEnum Current { get; set; }
@@ -44,7 +52,6 @@ namespace Eric.Morrison.Harmony
 				this.Next = next;
 			}
 		}
-
 		public class ArpeggiationContextChangingEventArgs : EventArgs
 		{
 			public ArpeggiationContext Current { get; set; }
@@ -58,25 +65,24 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 
-
 		#region Events
-		public event EventHandler<Arpeggiator> Starting;
-		public event EventHandler<Arpeggiator> Started;
+		public event EventHandler<ArpeggiatorEventArgs> Starting;
+		public event EventHandler<ArpeggiatorEventArgs> Started;
 
 		public event EventHandler<ChordChangingEventArgs> ChordChanging;
-		public event EventHandler<Arpeggiator> ChordChanged;
+		public event EventHandler<ArpeggiatorEventArgs> ChordChanged;
 
 		public event EventHandler<DirectionChangingEventArgs> DirectionChanging;
-		public event EventHandler<Arpeggiator> DirectionChanged;
+		public event EventHandler<ArpeggiatorEventArgs> DirectionChanged;
 
 		public event EventHandler<NoteChangingEventArgs> CurrentNoteChanging;
-		public event EventHandler<Arpeggiator> CurrentNoteChanged;
+		public event EventHandler<ArpeggiatorEventArgs> CurrentNoteChanged;
 
 		public event EventHandler<ArpeggiationContextChangingEventArgs> ArpeggiationContextChanging;
-		public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
+		public event EventHandler<ArpeggiatorEventArgs> ArpeggiationContextChanged;
 
-		public event EventHandler<Arpeggiator> Ending;
-		public event EventHandler<Arpeggiator> Ended;
+		public event EventHandler<ArpeggiatorEventArgs> Ending;
+		public event EventHandler<ArpeggiatorEventArgs> Ended;
 
 		#endregion
 

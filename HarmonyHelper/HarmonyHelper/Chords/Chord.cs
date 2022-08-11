@@ -276,7 +276,7 @@ namespace Eric.Morrison.Harmony.Chords
 		}
     }//class
 
-	public class NullChord : Chord 
+	public class NullChord : Chord, INeedOperators<NullChord>
 	{
 		static public NullChord Instance;
         static NullChord()
@@ -292,20 +292,23 @@ namespace Eric.Morrison.Harmony.Chords
 		new public List<Note> Notes => throw new InvalidOperationException();
 		new public List<NoteName> NoteNames => throw new InvalidOperationException();
 		new public string Name => Constants.EMPTY;
-
-
 		new public bool IsMajor => throw new InvalidOperationException();
 		new public bool IsMinor => throw new InvalidOperationException();
 		new public bool IsDiminished => throw new InvalidOperationException();
-
 		new public NoteName Bass => throw new InvalidOperationException();
-
 		new public ChordType ChordType => throw new InvalidOperationException();
-
 		new public bool IsDominant => throw new InvalidOperationException();
+        public int CompareTo(NullChord other)
+        {
+            return ((IComparable<NullChord>)Instance).CompareTo(other);
+        }
 
+        public bool Equals(NullChord other)
+        {
+            return ((IEquatable<NullChord>)Instance).Equals(other);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }//ns

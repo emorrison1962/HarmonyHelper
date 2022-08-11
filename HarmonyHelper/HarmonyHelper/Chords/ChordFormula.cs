@@ -427,7 +427,7 @@ namespace Eric.Morrison.Harmony.Chords
 
     }//class
 
-    public class NullChordFormula : ChordFormula
+    public class NullChordFormula : ChordFormula, INeedOperators<NullChordFormula>
 	{
         static public NullChordFormula Instance = new NullChordFormula();
         static NullChordFormula()
@@ -436,5 +436,15 @@ namespace Eric.Morrison.Harmony.Chords
         }
         private NullChordFormula() { }
         new public string Name => Constants.EMPTY;
+
+        public int CompareTo(NullChordFormula other)
+        {
+            return ((IComparable<NullChordFormula>)Instance).CompareTo(other);
+        }
+
+        public bool Equals(NullChordFormula other)
+        {
+            return ((IEquatable<NullChordFormula>)Instance).Equals(other);
+        }
     }
 }//ns

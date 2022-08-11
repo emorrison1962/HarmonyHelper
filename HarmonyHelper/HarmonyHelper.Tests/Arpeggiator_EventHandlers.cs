@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.Tests
             arpeggiator.Ending += Arpeggiator_Ending;
         }
 
-        private void Arpeggiator_Starting(object sender, Arpeggiator e)
+        private void Arpeggiator_Starting(object sender, ArpeggiatorEventArgs args)
 		{
 			Debug.Write("||");
 		}
@@ -37,7 +37,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			//Debug.Write("|");
 		}
-		private void Arpeggiator_ArpeggiationContextChanged(object sender, Arpeggiator ctx)
+		private void Arpeggiator_ArpeggiationContextChanged(object sender, ArpeggiatorEventArgs args)
 		{
 			//if (_chordCount > 0 && _chordCount % BARS_PER_LINE == 0)
 			//	Debug.WriteLine(" |");
@@ -54,8 +54,9 @@ namespace Eric.Morrison.Harmony.Tests
 				Debug.Write(" | ");
             //++_chordCount;
 		}
-		private void Arpeggiator_ChordChanged(object sender, Arpeggiator ctx)
+		private void Arpeggiator_ChordChanged(object sender, ArpeggiatorEventArgs args)
 		{
+			var ctx = args.Arpeggiator;
 			Debug.Write(string.Format("{0,5} ", "(" + ctx.CurrentChord.Name + ")"));
 			++_chordCount;
 		}
@@ -65,8 +66,9 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			//Debug.Write(noteStr);
 		}
-		private void Arpeggiator_CurrentNoteChanged(object sender, Arpeggiator ctx)
+		private void Arpeggiator_CurrentNoteChanged(object sender, ArpeggiatorEventArgs args)
 		{
+			var ctx = args.Arpeggiator;
 			if (null != this.noteRangeUsageStatistics)
 				this.noteRangeUsageStatistics.AddReference(ctx.CurrentNote);
 			var directionChanged = true;
@@ -99,7 +101,7 @@ namespace Eric.Morrison.Harmony.Tests
 			//var direction = args.Next == DirectionEnum.Ascending ? ASC : DESC;
 			//Debug.Write(direction);
 		}
-		private void Arpeggiator_DirectionChanged(object sender, Arpeggiator ctx)
+		private void Arpeggiator_DirectionChanged(object sender, ArpeggiatorEventArgs args)
 		{
 			const string ASC = "˄";
 			const string DESC = "˅";
@@ -108,7 +110,7 @@ namespace Eric.Morrison.Harmony.Tests
 			Debug.Write(direction);
 		}
 
-		private void Arpeggiator_Ending(object sender, Arpeggiator e)
+		private void Arpeggiator_Ending(object sender, ArpeggiatorEventArgs args)
 		{
 			Debug.WriteLine("||");
 		}
