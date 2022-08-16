@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
+
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -334,5 +336,57 @@ namespace Eric.Morrison.Harmony.Tests
 			var result = list.Advance(ndx, 5);
 		}
 
-    }//class
+	}//class
+
+	public class DoublyLinkedListNode<T>
+	{
+		// Fields
+		internal LinkedList<T> list;
+		internal DoublyLinkedListNode<T> next;
+		internal DoublyLinkedListNode<T> prev;
+		internal T item;
+
+		// Methods
+		public DoublyLinkedListNode(T value)
+		{
+			this.item = value;
+		}
+
+		internal DoublyLinkedListNode(LinkedList<T> list, T value)
+		{
+			this.list = list;
+			this.item = value;
+		}
+
+		internal void Invalidate()
+		{
+			this.list = null;
+			this.next = null;
+			this.prev = null;
+		}
+
+		// Properties
+		public LinkedList<T> List =>
+			this.list;
+
+		public DoublyLinkedListNode<T> Next =>
+			((this.next == null) || ReferenceEquals(this.next, this.list.head)) ? null : this.next;
+
+		public DoublyLinkedListNode<T> Previous =>
+			((this.prev == null) || ReferenceEquals(this, this.list.head)) ? null : this.prev;
+
+		public T Value
+		{
+			get =>
+				this.item;
+			set =>
+				this.item = value;
+		}
+	}
+
+
+
+
+
+
 }//ns
