@@ -42,7 +42,7 @@ namespace NeckDiagrams
         {
             foreach (var chord in this.Chords)
             {
-                var ctl = new ChordNameControl(chord.Formula);
+                var ctl = new ChordNameControl(chord);
                 this.chordsTablePanel.Controls.Add(
                     ctl);
             }

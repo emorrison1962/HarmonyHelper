@@ -117,7 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_tbChords.Text" xml:space="preserve">
-    <value>G#m G#m9 G#m7 Bmaj7 C Bmaj7 Cm6 Ebm7 Ebm Gmaj7 F#m G G# C G Bm Gmaj7 B F#dim Am9 C7b9 Cm D7 B B7b9 B E7b9 G Cmaj7 Cm7 Gm6 Bm G B Dm6 C Fm G#maj7 Cdim G#m G7 A7 Am9 C7b9 G Gmaj7 Bm Gmaj7 Bbdim Cmaj7 C7 G#dim C#m7 Gm G</value>
-  </data>
 </root>
