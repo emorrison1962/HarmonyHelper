@@ -1526,6 +1526,8 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.BSharpSharp);
 			}
+#warning FIXME:
+#if false
 			else if (input == NoteName.CSharp && (Interval)interval == Interval.Diminished3rd)
 			{
 				Assert.IsTrue(expected == NoteName.junk);
@@ -2078,8 +2080,7 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				Assert.IsTrue(expected == NoteName.junk);
 			}
-
-
+#endif
 			else
 			{
 				throw new NotImplementedException();
