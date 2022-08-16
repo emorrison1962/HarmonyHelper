@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Eric.Morrison.Harmony
 {
 	[Serializable]
-	public class NoteName : ClassBase, IComparable<NoteName>
+	public class NoteName : BaseWithOperators<NoteName>, IComparable<NoteName>
 	{
 		#region Constants
 		public const int MIN_LOWER_SHIFT = 1;
@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Statics
 
-		static public readonly NullNoteName Empty = NullNoteName.Instance;
+		//static public readonly NullNoteName Empty = NullNoteName.Instance;
 		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
 		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
 
@@ -360,9 +360,9 @@ namespace Eric.Morrison.Harmony
 
 		public static NoteName TransposeUp(NoteName src, Interval interval)
 		{
-			NoteName result = NoteName.Empty;
+			NoteName result = null;
 			var success = false;
-			if (src == NoteName.Empty || Interval.Unison == interval || Interval.PerfectOctave == interval)
+			if (Interval.Unison == interval || Interval.PerfectOctave == interval)
 			{
 				result = src;
 			}
@@ -375,7 +375,7 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				var val = TransposeValue(src, interval);
-				result = ResolveNoteNames(src, interval.IntervalRoleType, val);
+				result = ResolveNoteNames(src, interval, val);
 				Debug.Assert(null != result);
 			}
 			Debug.Assert(null != result);
@@ -394,9 +394,10 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static NoteName ResolveNoteNames(NoteName src, IntervalRoleTypeEnum intervalRole, int noteVal)
+		public static NoteName ResolveNoteNames(NoteName src, Interval interval, int noteVal)
         {
 			const char ASCII_G = 'G';
+			var intervalRole = interval.IntervalRoleType;
 
 			var notenames = NoteName.Catalog
 				.OrderBy(x => x.Value)
@@ -417,7 +418,7 @@ namespace Eric.Morrison.Harmony
 			var result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(criteria));
 			if (null == result) //This can happen when transposing B# up an augmented fifth, expecting F###
 			{
-				result = NoteName.Empty;
+				throw new ArgumentOutOfRangeException(nameof(result), $"HarmonyHelper does not support triple flatted or triple sharped NoteNames.");
 			}
 			return result;
 		}
@@ -444,6 +445,7 @@ namespace Eric.Morrison.Harmony
 
 	}//class
 
+	[Obsolete("", true)]
 	public class NullNoteName : NoteName
 	{
 		static public NullNoteName Instance = new NullNoteName();

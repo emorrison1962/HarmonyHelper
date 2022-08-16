@@ -15,14 +15,22 @@ namespace Eric.Morrison.Harmony
         {
             this.Key = key;
         }
-    }//class
+		public HarmonyEntityBase()
+		{
+			this.Key = null;
+		}
+	}//class
 
-    public abstract class BaseWithOperators<T> : HarmonyEntityBase, IComparable<T>, IEquatable<T> where T: HarmonyEntityBase
+	public abstract class BaseWithOperators<T> : HarmonyEntityBase, IComparable<T>, IEquatable<T> where T: HarmonyEntityBase
 	{
         T entity;
         public BaseWithOperators(KeySignature key)
             : base(key)
         {
+        }
+        public BaseWithOperators()
+        {
+
         }
 
 		#region IComparable
