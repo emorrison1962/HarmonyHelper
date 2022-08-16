@@ -36,9 +36,10 @@
             this.lblChordName.AutoSize = true;
             this.lblChordName.BackColor = System.Drawing.SystemColors.Control;
             this.lblChordName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblChordName.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChordName.Location = new System.Drawing.Point(0, 0);
             this.lblChordName.Name = "lblChordName";
-            this.lblChordName.Size = new System.Drawing.Size(80, 16);
+            this.lblChordName.Size = new System.Drawing.Size(99, 20);
             this.lblChordName.TabIndex = 0;
             this.lblChordName.Text = "ChordName";
             this.lblChordName.UseMnemonic = false;
@@ -50,7 +51,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.lblChordName);
             this.Name = "ChordNameControl";
-            this.Size = new System.Drawing.Size(80, 16);
+            this.Size = new System.Drawing.Size(99, 20);
             this.ResumeLayout(false);
             this.PerformLayout();
 
