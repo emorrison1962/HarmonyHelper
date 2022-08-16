@@ -316,5 +316,23 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 
-	}//class
+		[TestMethod]
+		public void LinkedLinkTest()
+		{
+			var list = new List<string>()
+			{
+				"A",
+				"B",
+				"C",
+				"D",
+				"E",
+				"F",
+				"G",
+			};
+
+			var ndx = list.IndexOf("C");
+			var result = list.Advance(ndx, 5);
+		}
+
+    }//class
 }//ns
