@@ -662,7 +662,6 @@ namespace Eric.Morrison.Harmony.Tests
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
-			
 			arpeggiator.Arpeggiate();
 
 			new object();

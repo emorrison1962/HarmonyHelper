@@ -139,6 +139,7 @@
     </Compile>
     <EmbeddedResource Include="ChordParserDialog.resx">
       <DependentUpon>ChordParserDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ChordNameControl.resx">
       <DependentUpon>ChordNameControl.cs</DependentUpon>

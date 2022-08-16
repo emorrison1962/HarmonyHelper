@@ -7,6 +7,28 @@ namespace Eric.Morrison.Harmony
 {
 	static public partial class ListExtensions
 	{
+		public static T Advance<T>(this List<T> list, int startingNdx, int count) where T : class
+		{
+			T result = null;
+			var maxNdx = list.Count - 1;
+			var currentNdx = startingNdx;
+			for (int i = 0; i < count; ++i) 
+			{ 
+				if (currentNdx < maxNdx)
+				{
+					++currentNdx;
+					result = list[currentNdx];
+				}
+				else if (currentNdx == maxNdx)
+				{
+					currentNdx = 0;
+					result = list[currentNdx];
+				}
+			}
+
+			return result;
+		}
+
 		public static T NextOrFirst<T>(this List<T> list, T current, ref bool wrapped) where T : class
 		{
 			T result = null;
@@ -122,6 +144,7 @@ namespace Eric.Morrison.Harmony
 			T result = list[currentNdx];
 			return result;
 		}
+
 
 
 	}//class

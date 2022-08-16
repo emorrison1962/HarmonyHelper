@@ -57,7 +57,5 @@
 
 		public const int COUNT_DIATONIC_SCALE_DEGREES = 7;
 
-		public const string EMPTY = "Empty";
-
 	}
 }

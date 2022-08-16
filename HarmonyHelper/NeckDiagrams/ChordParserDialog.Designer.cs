@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChordParserDialog));
             this.mainPanel = new System.Windows.Forms.Panel();
             this.chordsTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -100,7 +99,7 @@
             this._tbChords.Name = "_tbChords";
             this._tbChords.Size = new System.Drawing.Size(744, 200);
             this._tbChords.TabIndex = 0;
-            this._tbChords.Text = resources.GetString("_tbChords.Text");
+            this._tbChords.Text = "cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7";
             // 
             // label2
             // 

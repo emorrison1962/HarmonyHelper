@@ -8,10 +8,9 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
-    [Serializable]
+	[Serializable]
 	public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, INoteNameNormalizer
 	{
-		static public readonly NullKeySignature Empty = NullKeySignature.Instance;
 
 		#region Properties
 		public NoteName NoteName { get; private set; }
@@ -28,7 +27,6 @@ namespace Eric.Morrison.Harmony
 		#endregion
 
 		#region Construction
-		protected KeySignature() { }
 		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor)
 		{
 			this.NoteName = key;
@@ -302,31 +300,4 @@ namespace Eric.Morrison.Harmony
 			noteNames = result;
 		}
 	}//class
-
-    public class NullKeySignature : KeySignature
-    {
-		#region Properties
-		new public NoteName NoteName => throw new InvalidOperationException();
-		new public List<NoteName> NoteNames => throw new InvalidOperationException();
-		new public List<NoteName> Accidentals => throw new InvalidOperationException();
-		new public bool UsesSharps => throw new InvalidOperationException();
-		new public bool UsesFlats => throw new InvalidOperationException();
-		new public bool IsMajor => throw new InvalidOperationException();
-		new public bool IsMinor => throw new InvalidOperationException();
-		new public int AccidentalCount => throw new InvalidOperationException();
-
-		new public string Name => Constants.EMPTY;
-
-		static public NullKeySignature Instance = new NullKeySignature();
-		static NullKeySignature()
-		{
-			Instance = new NullKeySignature();
-		}
-		private NullKeySignature() { }
-
-
-
-		#endregion
-	}
-
 }//ns

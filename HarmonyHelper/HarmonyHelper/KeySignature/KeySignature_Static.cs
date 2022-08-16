@@ -280,23 +280,12 @@ namespace Eric.Morrison.Harmony
 		}
 		#endregion
 
-		public List<ChordFormula> GetNonDiatonic(List<ChordFormula> chords)
-		{
-			var result = new List<ChordFormula>();
-			foreach (var chord in chords)
-			{
-				if (!this.IsDiatonic(chord.NoteNames))
-					result.Add(chord);
-			}
-			return result;
-		}
-
 		public List<Chord> GetNonDiatonic(List<Chord> chords)
 		{
 			var result = new List<Chord>();
 			foreach (var chord in chords)
 			{
-				if (!this.IsDiatonic(chord.Formula.NoteNames))
+				if (!IsDiatonic(chord.NoteNames))
 					result.Add(chord);
 			}
 			return result;

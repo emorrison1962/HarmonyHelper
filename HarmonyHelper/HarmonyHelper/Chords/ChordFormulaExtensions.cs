@@ -63,17 +63,5 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-		static public bool IsDominantOfKey(this Chord src, KeySignature key)
-		{
-			return src.Formula.IsDominantOfKey(key);	
-		}
-
-		static public bool IsTwoFiveOne(this IEnumerable<Chord> triplet, KeySignature key)
-		{
-			return triplet.Select(x => x.Formula)
-				.ToList()
-				.IsTwoFiveOne(key);	
-		}
-
 	}
 }

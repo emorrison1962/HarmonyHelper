@@ -14,17 +14,55 @@ namespace NeckDiagrams.Controls
 {
     public partial class ChordNameControl : UserControl
     {
-        public ChordFormula ChordFormula { get; set; }
-        public ChordNameControl(ChordFormula cf)
+        public Chord Chord { get; set; }
+        public ChordNameControl(Chord cf)
         {
             InitializeComponent();
-            this.ChordFormula = cf; 
+            this.Chord = cf;
+        }
+
+        public ChordNameControl(Chord cf, HarmonicAnalysisControl parent)
+        {
+            InitializeComponent();
+            this.SubscribeToEvents(parent);
+            this.Chord = cf; 
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.lblChordName.Text = ChordFormula.Name; 
+            this.lblChordName.Text = Chord.Name; 
         }
-    }
-}
+
+        void SubscribeToEvents(HarmonicAnalysisControl parent)
+        {
+            parent.AnalysisResultChanged += Parent_AnalysisResultChanged;
+        }
+
+        private void Parent_AnalysisResultChanged(object sender, HarmonicAnalysisControl.AnalysisResultEventArgs e)
+        {
+            if (e.Result.Chords.Contains(this.Chord, new ChordInstanceEqualityComparer()))
+            {
+                this.lblChordName.BackColor = Color.CornflowerBlue;
+            }
+            else
+            {
+                this.lblChordName.BackColor = SystemColors.Control;
+            }
+            this.Refresh();
+        }
+
+        private class ChordInstanceEqualityComparer : IEqualityComparer<Chord>
+        {
+            bool IEqualityComparer<Chord>.Equals(Chord x, Chord y)
+            {
+                return Object.ReferenceEquals(x, y);
+            }
+
+            int IEqualityComparer<Chord>.GetHashCode(Chord obj)
+            {
+                return Guid.NewGuid().GetHashCode();
+            }
+        }
+    }//class
+}//ns

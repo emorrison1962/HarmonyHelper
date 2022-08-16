@@ -18,12 +18,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			{
 				if (pair[0].ChordType.IsDominant)
 				{
-					var tonic = pair[1].Root.NoteName;
+					var tonic = pair[1].Root;
 					var subbedRoot = tonic + new IntervalContext(pair[1].Key, ChordToneInterval.Perfect5th);
-					var subbedFor = new Chord(new ChordFormula(subbedRoot, ChordType.Dominant7th, pair[1].Key));
+					var subbedFor = new ChordFormula(subbedRoot, ChordType.Dominant7th, pair[1].Key);
 					result.Add(new HarmonicAnalysisResult(this, true,
 						$"{pair[0].Name} could be considered a tritone substitution for {subbedFor.Name}.",
-																new List<Chord> { pair[0], subbedFor }));
+																new List<ChordFormula> { pair[0], subbedFor }));
 				}
 			}
 

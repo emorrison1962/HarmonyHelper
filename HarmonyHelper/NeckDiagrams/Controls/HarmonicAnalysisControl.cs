@@ -39,7 +39,7 @@ namespace NeckDiagrams.Controls
         {
             foreach (var chord in this.Chords)
             {
-                var ctl = new ChordNameControl(chord.Formula);
+                var ctl = new ChordNameControl(chord, this);
                 this.chordsTablePanel.Controls.Add(
                     ctl);
             }
@@ -68,7 +68,27 @@ namespace NeckDiagrams.Controls
             {
                 var item = this.lvAnalysis.SelectedItems[0];
                 this.tbDetails.Text = (item.Tag as HarmonicAnalysisResult).Message;
+                this.OnSelectedIndexChanged(item.Tag as HarmonicAnalysisResult);
             }
         }
+
+        private void OnSelectedIndexChanged(HarmonicAnalysisResult harmonicAnalysisResult)
+        {
+            if (null != this.AnalysisResultChanged)
+            {
+                this.AnalysisResultChanged(this, 
+                    new AnalysisResultEventArgs(harmonicAnalysisResult));
+            }
+        }
+
+        public class AnalysisResultEventArgs : EventArgs
+        {
+            public HarmonicAnalysisResult Result { get; protected set; }
+            public AnalysisResultEventArgs(HarmonicAnalysisResult Result)
+            {
+                this.Result = Result;
+            }
+        }
+        public event EventHandler<AnalysisResultEventArgs> AnalysisResultChanged;
     }//class
 }//ns

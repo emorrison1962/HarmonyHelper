@@ -14,8 +14,6 @@ namespace Eric.Morrison.Harmony
 
 		public ArpeggiationContext(Chord chord, int notesToPlay)
 		{
-			if (chord is null || chord == Chord.Empty)
-				throw new ArgumentNullException(nameof(chord));
 			this.Chord = chord;
 			this.NotesToPlay = notesToPlay;
 		}
