@@ -45,18 +45,18 @@ Ex. 57
 
 					//get the dim inversions
 					var dimInversions = new List<NoteName>() {
-									firstChord.Root,
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Minor3rd),
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Diminished5th),
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Diminished7th),
+									firstChord.Root.NoteName,
+									firstChord.Root.NoteName + new IntervalContext(firstChord, ChordToneInterval.Minor3rd),
+									firstChord.Root.NoteName + new IntervalContext(firstChord, ChordToneInterval.Diminished5th),
+									firstChord.Root.NoteName + new IntervalContext(firstChord, ChordToneInterval.Diminished7th),
 								};
 
-					var dominants = new List<ChordFormula>();
+					var dominants = new List<Chord>();
 					//subtract 1/2 step to create a dom7.
 					foreach (var dim in dimInversions)
 					{
 						var txposedDim = dim - new IntervalContext(firstChord, ChordToneInterval.Minor2nd);
-						var chord = new ChordFormula(txposedDim, ChordType.Dominant7th, firstChord.Key);
+						var chord = new Chord(new ChordFormula(txposedDim, ChordType.Dominant7th, firstChord.Key));
 						dominants.Add(chord);
 					}
 
@@ -69,7 +69,7 @@ Ex. 57
 						result.Add(
 							new HarmonicAnalysisResult(this, true, 
 							$"{firstChord.Name} could be considered a diminished 7th substitution for {subbedFor.Name}.",
-							new List<ChordFormula> { firstChord, subbedFor }));
+							new List<Chord> { firstChord, subbedFor }));
 					}
 				}
 			}

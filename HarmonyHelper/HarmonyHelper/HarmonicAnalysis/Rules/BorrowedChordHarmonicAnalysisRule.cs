@@ -39,7 +39,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			{
 				foreach (var grid in grids)
 				{
-					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
+					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFunctionalEqualityComparer())).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
 						var message = $"{chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
@@ -175,8 +175,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				{
 					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
 					//Debug.WriteLine(scale);
-					var chordFormula = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
-					gridRow.Chords.Add(chordFormula);
+					var chord = new Chord(new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key));
+					gridRow.Chords.Add(chord);
 				}
 
 				result.Rows.Add(gridRow);
@@ -239,8 +239,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				{
 					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
 					//Debug.WriteLine(scale);
-					var chordFormula = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
-					gridRow.Chords.Add(chordFormula);
+					var chord = new Chord(new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key));
+					gridRow.Chords.Add(chord);
 				}
 
 				result.Rows.Add(gridRow);

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>
+	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>, INoteNameNormalizer
 	{
 		#region Properties
 
@@ -222,5 +223,14 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-	}//class
+        public NoteName GetNormalized(NoteName nn, Interval interval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Normalize(ref List<NoteName> noteNames)
+        {
+            throw new NotImplementedException();
+        }
+    }//class
 }//ns

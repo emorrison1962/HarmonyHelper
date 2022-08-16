@@ -147,6 +147,26 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		public static Note operator -(Note note, IntervalContext ctx)
+		{
+			var result = note;
+			if (null != note && ctx.Interval > Interval.Unison)
+			{
+				note.NoteName = NoteName.TransposeDown(note.NoteName, ctx.Interval);
+			}
+			return result;
+		}
+
+		public static Note operator +(Note note, IntervalContext ctx)
+		{
+			var result = note;
+			if (null != note && ctx.Interval > Interval.Unison)
+			{
+				note.NoteName = NoteName.TransposeUp(note.NoteName, ctx.Interval);
+			}
+			return result;
+		}
+
 		public int CompareTo(Note other)
 		{
 			var result = this.CompareTo(other);

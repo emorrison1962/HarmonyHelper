@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
+	[Obsolete("*** FIXME: Deprecate this. ***")]
 	public interface INoteNameNormalizer
 	{
 		NoteName GetNormalized(NoteName nn, Interval interval);

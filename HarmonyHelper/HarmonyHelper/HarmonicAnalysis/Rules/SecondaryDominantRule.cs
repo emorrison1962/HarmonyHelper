@@ -18,9 +18,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var pairs = chords.GetPairs();
 				foreach (var pair in pairs)
 				{
-					if (!pair[0].IsDominantOfKey(key))
+					if (!pair[0].Formula.IsDominantOfKey(key))
 					{
-						if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
+						if (nonDiatonic.Contains(pair[0]) && pair[0].Formula.ChordType.IsDominant)
 						{
 							var interval = pair[0].Root - pair[1].Root;
 							if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 								result.Add(
 									new HarmonicAnalysisResult(this, true, 
 										$"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}.",
-										new List<ChordFormula> { pair[0], pair[1] }));
+										new List<Chord> { pair[0], pair[1] }));
 							}
 						}
 					}

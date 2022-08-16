@@ -12,9 +12,10 @@ namespace Eric.Morrison.Harmony.Tests
 	[TestClass()]
 	public class HarmonicAnalyzerTests
 	{
-		List<ChordFormula> GetChords(string chords, KeySignature key = null)
+		List<Chord> GetChords(string chords, KeySignature key = null)
 		{
-			if (!ChordFormulaParser.TryParse(chords, out List<ChordFormula> result, out string message, key))
+			//List<Chord> result;
+			if (!ChordParser.TryParse(chords, out var result, out string message))
 				Assert.Fail("Couldn't parse chords.");
 			return result;
 		}
