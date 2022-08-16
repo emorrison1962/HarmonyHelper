@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31112.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32428.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests", "HarmonyHelper.Tests\HarmonyHelper.Tests.csproj", "{A179EA40-2903-4DC9-8C6A-744694961245}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.web", "HarmonyHelper.web\HarmonyHelper.web.csproj", "{2299CCFD-418C-4A44-8BC1-1DBDAA4F346B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.TypeScriptGenerator", "HarmonyHelper.TypeScriptGenerator\HarmonyHelper.TypeScriptGenerator.csproj", "{3C1E28FD-EA28-45F8-A6E6-C19437CC80AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.wpf", "HarmonyHelper.wpf\HarmonyHelper.wpf.csproj", "{7F154835-ADF7-4E03-9BAB-99CF8C64BD5B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmornyHelper.forms", "HarmornyHelper.forms\HarmornyHelper.forms.csproj", "{2616E5C8-95A8-46E0-A4A8-DDB87EFE5F3C}"
 EndProject
@@ -23,16 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeckDiagrams", "NeckDiagram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A179EA40-2903-4DC9-8C6A-744694961245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A179EA40-2903-4DC9-8C6A-744694961245}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A179EA40-2903-4DC9-8C6A-744694961245}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,10 +39,6 @@ Global
 		{3C1E28FD-EA28-45F8-A6E6-C19437CC80AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1E28FD-EA28-45F8-A6E6-C19437CC80AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1E28FD-EA28-45F8-A6E6-C19437CC80AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F154835-ADF7-4E03-9BAB-99CF8C64BD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F154835-ADF7-4E03-9BAB-99CF8C64BD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F154835-ADF7-4E03-9BAB-99CF8C64BD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F154835-ADF7-4E03-9BAB-99CF8C64BD5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2616E5C8-95A8-46E0-A4A8-DDB87EFE5F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2616E5C8-95A8-46E0-A4A8-DDB87EFE5F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2616E5C8-95A8-46E0-A4A8-DDB87EFE5F3C}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -68,6 +58,10 @@ Global
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

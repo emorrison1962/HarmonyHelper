@@ -4,6 +4,7 @@ using Eric.Morrison.Harmony.Intervals;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using static Eric.Morrison.Harmony.Arpeggiator;
 
 namespace HarmonyHelper.web.Controllers
 {
@@ -89,10 +90,10 @@ namespace HarmonyHelper.web.Controllers
 
 			var notes = new List<Note>();
 			var Arpeggiator_CurrentNoteChanged =
-				new EventHandler<Arpeggiator>(
-					new Action<object, Arpeggiator>((sender, ctx) =>
+				new EventHandler<ArpeggiatorEventArgs>(
+					new Action<object, ArpeggiatorEventArgs>((sender, args) =>
 					  {
-						  notes.Add(ctx.CurrentNote);
+						  notes.Add(args.Arpeggiator.CurrentNote);
 					  }));
 
 			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;

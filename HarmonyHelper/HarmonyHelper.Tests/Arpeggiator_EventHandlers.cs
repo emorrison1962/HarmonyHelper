@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eric.Morrison.Harmony;
 using static Eric.Morrison.Harmony.Arpeggiator;
 
 namespace Eric.Morrison.Harmony.Tests
@@ -106,7 +107,7 @@ namespace Eric.Morrison.Harmony.Tests
 			const string ASC = "˄";
 			const string DESC = "˅";
 
-			var direction = ctx.Direction == DirectionEnum.Ascending ? ASC : DESC;
+			var direction = args.Arpeggiator.Direction == DirectionEnum.Ascending ? ASC : DESC;
 			Debug.Write(direction);
 		}
 

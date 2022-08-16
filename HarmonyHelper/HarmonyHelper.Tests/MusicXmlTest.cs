@@ -6,6 +6,7 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static Eric.Morrison.Harmony.Arpeggiator;
 
 namespace Eric.Morrison.Harmony
 {
@@ -196,12 +197,12 @@ namespace Eric.Morrison.Harmony
 		}
 
 
-		private void Ctx_NoOpObserver(object sender, Arpeggiator ctx)
+		private void Ctx_NoOpObserver(object sender, ArpeggiatorEventArgs ctx)
 		{ }
 
 
 
-		private void Log_Ending(object sender, Arpeggiator e)
+		private void Log_Ending(object sender, ArpeggiatorEventArgs args)
 		{
 			Debug.WriteLine("");
 			//Debug.WriteLine("||");
@@ -212,10 +213,10 @@ namespace Eric.Morrison.Harmony
 			Debug.Write("|");
 		}
 
-		private void Log_CurrentNoteChanged(object sender, Arpeggiator ctx)
+		private void Log_CurrentNoteChanged(object sender, ArpeggiatorEventArgs args)
 		{
 			var noteStr = string.Empty;
-			noteStr = $" {g_direction}{ctx.CurrentNote.ToString()}";
+			noteStr = $" {g_direction}{args.Arpeggiator.CurrentNote.ToString()}";
 			//noteStr = $"{noteStr}{g_direction}{functionStr}";
 			//noteStr = $"{noteStr,9}";
 			//if (g_directionChanged)
@@ -238,24 +239,24 @@ namespace Eric.Morrison.Harmony
 			g_directionChanged = false;
 		}
 		bool g_directionChanged = false;
-		private void Log_DirectionChanged(object sender, Arpeggiator ctx)
+		private void Log_DirectionChanged(object sender, ArpeggiatorEventArgs args)
 		{
 			const string ASC = "˄";
 			const string DESC = "˅";
 
-			var direction = ctx.Direction.HasFlag(DirectionEnum.Ascending) ? ASC : DESC;
+			var direction = args.Arpeggiator.Direction.HasFlag(DirectionEnum.Ascending) ? ASC : DESC;
 			Debug.Write(direction);
 			g_directionChanged = true;
 			g_direction = direction;
 		}
 		string g_direction = string.Empty;
 
-		private void Log_ChordChanged(object sender, Arpeggiator ctx)
+		private void Log_ChordChanged(object sender, ArpeggiatorEventArgs args)
 		{
 
 			if (LogCtx.chordCount > 0 && LogCtx.chordCount % LogCtx.BARS_PER_LINE == 0)
 				Debug.WriteLine(" |");
-			Debug.Write(string.Format(" | ({0}) ", ctx.CurrentChord.Name));
+			Debug.Write(string.Format(" | ({0}) ", args.Arpeggiator.CurrentChord.Name));
 			++LogCtx.chordCount;
 		}
 
@@ -263,23 +264,23 @@ namespace Eric.Morrison.Harmony
 
 
 
-		private void XML_Starting(object sender, Arpeggiator e)
+		private void XML_Starting(object sender, ArpeggiatorEventArgs args)
 		{
 			string fileContent = Resources.MusicXML_TEMPLATE_02;
 			XmlCtx.Document = XDocument.Parse(fileContent);
 			new object();
 		}
-		private void XML_ChordChanged(object sender, Arpeggiator ctx)
+		private void XML_ChordChanged(object sender, ArpeggiatorEventArgs args)
 		{
 			++XmlCtx.MeasureNumber;
-			this.CreateMeasure(ctx.CurrentChord.Root.NoteName.ToString());
+			this.CreateMeasure(args.Arpeggiator.CurrentChord.Root.NoteName.ToString());
 		}
-		private void XML_Ending(object sender, Arpeggiator e)
+		private void XML_Ending(object sender, ArpeggiatorEventArgs args)
 		{
 			XmlCtx.Document.Save(@"c:\temp\_xml.xml");
 			new object();
 		}
-		private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
+		private void XML_CurrentNoteChanged(object sender, ArpeggiatorEventArgs args)
 		{
 #region FORMAT
 			const string FORMAT = @"
@@ -296,8 +297,8 @@ namespace Eric.Morrison.Harmony
 	  </note>";
 #endregion
 
-			var octave = (int)ctx.CurrentNote.Octave;
-			var note = ctx.CurrentNote.NoteName.ToString();
+			var octave = (int)args.Arpeggiator.CurrentNote.Octave;
+			var note = args.Arpeggiator.CurrentNote.NoteName.ToString();
 			//if (ctx.CurrentNote.NoteName == NoteName.Cb)
 			//	++octave;
 
@@ -316,7 +317,7 @@ namespace Eric.Morrison.Harmony
 
 			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave4);
 			int staff = 1;
-			if (splitPoint > ctx.CurrentNote)
+			if (splitPoint > args.Arpeggiator.CurrentNote)
 			{
 				staff = 2;
 			}

@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		static HarmonicAnalysisRuleBase()
 		{
 			var assembly = Assembly.GetExecutingAssembly();
-			var rules = assembly.DefinedTypes.Where(x => x.BaseType == typeof(HarmonicAnalysisRuleBase));
+			var rules = assembly.GetTypes().Where(x => x.BaseType == typeof(HarmonicAnalysisRuleBase));
 			foreach (var rule in rules)
 			{
 				var created = Activator.CreateInstance(rule);

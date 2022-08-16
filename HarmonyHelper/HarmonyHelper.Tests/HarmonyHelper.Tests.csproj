@@ -65,6 +65,7 @@
     <Compile Include="ChordTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
+    <Compile Include="Interval\IntervalBaseTests.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
     <Compile Include="ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
@@ -84,12 +85,6 @@
     <Compile Include="VoiceLeading\VoiceLeadingAnalyzerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">
-      <Project>{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}</Project>
-      <Name>HarmonyHelper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="MusicXML_TEMPLATE.xml" />
     <Content Include="MusicXML_TEMPLATE_02.xml" />
   </ItemGroup>
@@ -103,6 +98,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">
+      <Project>{f86ba6d3-823e-4f2b-a602-1817f6a3dc54}</Project>
+      <Name>HarmonyHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

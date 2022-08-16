@@ -427,7 +427,7 @@ namespace Eric.Morrison.Harmony.Chords
 
     }//class
 
-    public class NullChordFormula : ChordFormula, INeedOperators<NullChordFormula>
+    public class NullChordFormula : ChordFormula
 	{
         static public NullChordFormula Instance = new NullChordFormula();
         static NullChordFormula()
