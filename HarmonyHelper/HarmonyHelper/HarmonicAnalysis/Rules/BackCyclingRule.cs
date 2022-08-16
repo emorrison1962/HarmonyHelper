@@ -82,7 +82,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var success = false;
 			while (lastNdx < chords.Count)
 			{
-				success = theCycle.TryGetSubequence(roots,
+				success = theCycle.TryGetSubequence(roots.Select(x => x.NoteName),
 					new NoteNameValueEqualityComparer(),
 					out List<NoteName> subSequence, ref lastNdx);
 				//Debug.WriteLine(lastNdx);
