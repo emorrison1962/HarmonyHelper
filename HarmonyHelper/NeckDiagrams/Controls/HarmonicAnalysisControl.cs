@@ -50,6 +50,7 @@ namespace NeckDiagrams.Controls
             {
                 var lvi = new ListViewItem(result.Rule.Name);
                 lvi.Tag = result;
+                lvi.ToolTipText = result.Rule.Description;
                 this.lvAnalysis.Items.Add(lvi);
             }
         }

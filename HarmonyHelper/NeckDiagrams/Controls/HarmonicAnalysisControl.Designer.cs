@@ -119,6 +119,7 @@
             this.lvAnalysis.UseCompatibleStateImageBehavior = false;
             this.lvAnalysis.View = System.Windows.Forms.View.Details;
             this.lvAnalysis.SelectedIndexChanged += new System.EventHandler(this.lvAnalysis_SelectedIndexChanged);
+            this.lvAnalysis.ShowItemToolTips = true;
             // 
             // columnHeader1
             // 

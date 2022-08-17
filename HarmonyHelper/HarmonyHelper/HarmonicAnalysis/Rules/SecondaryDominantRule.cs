@@ -8,8 +8,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	public class SecondaryDominantRule : HarmonicAnalysisRuleBase
 	{
 		public override string Name { get { return this.GetType().Name; } }
+		public override string Description => @"A secondary dominant is a chord having a dominant relationship to a chord in a key other than the tonic.";
 
-		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
+
+        public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			var nonDiatonic = key.GetNonDiatonic(chords);
