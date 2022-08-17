@@ -21,6 +21,7 @@ namespace Eric.Morrison.Harmony
 		}
 	}//class
 
+	[Obsolete("", true)]
 	public abstract class BaseWithOperators<T> : HarmonyEntityBase, IComparable<T>, IEquatable<T> where T: HarmonyEntityBase
 	{
         T entity;
