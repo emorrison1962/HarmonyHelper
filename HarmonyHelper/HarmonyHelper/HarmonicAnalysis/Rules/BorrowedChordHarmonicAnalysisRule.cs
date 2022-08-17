@@ -35,6 +35,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.Formula.IsDominantOfKey(key));
 			new object();
 
+			var dict = new Dictionary<Chord, List<string>>();
+
 			foreach (var chord in nonDiatonic)
 			{
 				foreach (var grid in grids)
@@ -42,11 +44,28 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFunctionalEqualityComparer())).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
-						var message = $"{chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
-						var har = new HarmonicAnalysisResult(this, true, message, chord);
-						result.Add(har);
+						var message = $"• {chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
+						if (dict.Keys.Contains(chord))
+						{
+							dict[chord].Add(message); 
+						}
+						else
+						{
+							dict.Add(chord, new List<string> { message });
+						}
 					}
 					new object();
+				}
+			}
+
+			foreach (var chord in chords)
+			{
+				if (dict.ContainsKey(chord))
+				{
+					var item = dict.Where(x => x.Key == chord).First();
+					var message = string.Join(Environment.NewLine, item.Value);
+					var har = new HarmonicAnalysisResult(this, true, message, item.Key);
+					result.Add(har);
 				}
 			}
 
