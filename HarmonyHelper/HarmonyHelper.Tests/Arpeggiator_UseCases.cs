@@ -640,9 +640,11 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>() { chord };
 			for (int i = 0; i <= 10; ++i)
 			{
-				var major3rd = Interval.Major3rd;
-				var txposedKey = chordFormula.Key + major3rd;
-				chordFormula = chordFormula + new IntervalContext(txposedKey, major3rd);
+				chordFormula -= Interval.Major3rd;
+				Debug.WriteLine(chordFormula.Name);
+				//var major3rd = Interval.Major3rd;
+				//var txposedKey = chordFormula.Key - major3rd;
+				//chordFormula = chordFormula - new IntervalContext(txposedKey, major3rd);
 				chord = new Chord(chordFormula, noteRange);
 				chords.Add(chord);
 			}
