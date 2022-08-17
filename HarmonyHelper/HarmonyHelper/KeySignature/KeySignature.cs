@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
 // reference: https://dictionary.onmusic.org/appendix/topics/key-signatures
@@ -272,6 +274,52 @@ namespace Eric.Morrison.Harmony
 				result = true;
 			return result;
 		}
+
+		public bool AreDiatonic(List<NoteName> noteNames, out int nonDiatonicCount)
+		{
+			bool result = false;
+			nonDiatonicCount = noteNames.Except(this.NoteNames, 
+				new NoteNameExplicitEqualityComparer()).Count();
+			if (0 == nonDiatonicCount)
+				result = true;
+			return result;
+		}
+
+		static public bool TryDetermineKey(List<Chord> chords,
+			out KeySignature matchedKey,
+			out KeySignature probableKey)
+		{
+			matchedKey = null;
+			probableKey = null;
+			var result = false;
+			var nns = chords.SelectMany(x => x.NoteNames)
+				.ToList();
+			var keys = new List<Tuple<int, KeySignature>>();
+			foreach (var key in KeySignature.Catalog)
+			{
+				if (key.AreDiatonic(nns, out var notDiatonicCount))
+				{
+					matchedKey = key;
+					result = true;
+					break;
+				}
+				else
+				{
+					keys.Add(new Tuple<int, KeySignature>(notDiatonicCount, key));
+				}
+			}
+			if (!result)
+			{
+				var probableTuple = keys.OrderBy(x => x.Item1)
+					.ThenBy(x => x.Item2.AccidentalCount)
+					.First();
+				probableKey = probableTuple.Item2;
+				result = true;
+			}
+
+			return result;
+		}
+
 
 		public KeySignature GetRelativeMajor()
 		{

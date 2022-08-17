@@ -1,4 +1,5 @@
-﻿using Eric.Morrison.Harmony.Intervals;
+﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
@@ -87,6 +88,49 @@ namespace Eric.Morrison.Harmony.Tests
 						}
 						*/
 			new object();
+		}
+
+		[TestMethod()]
+		public void TryDetermineKey_Test()
+		{
+			{
+				var sChords = $"cmaj7 dm em7 fMaj7 g7 a- bm7b5";
+				if (!ChordParser.TryParse(sChords, out var chords, out var msg))
+				{
+					Assert.Fail(msg);
+				}
+				else
+				{
+					if (KeySignature.TryDetermineKey(chords, out var key, out var probableKey))
+					{
+						Assert.AreEqual(KeySignature.CMajor, key);
+						Assert.IsNull(probableKey);
+					}
+					else
+					{
+						Assert.Fail();
+					}
+				}
+			}
+			{
+				var sChords = $"cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7";
+				if (!ChordParser.TryParse(sChords, out var chords, out var msg))
+				{
+					Assert.Fail(msg);
+				}
+				else
+				{
+					if (KeySignature.TryDetermineKey(chords, out var key, out var probableKey))
+					{
+						Assert.IsNull(key);
+						Assert.IsNotNull(probableKey);
+					}
+					else
+					{
+						Assert.Fail();
+					}
+				}
+			}
 		}
 
 	}//class

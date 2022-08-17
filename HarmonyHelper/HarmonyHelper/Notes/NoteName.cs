@@ -136,7 +136,7 @@ namespace Eric.Morrison.Harmony
 			EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharpSharp, B, Cb));
 		}
 
-        protected NoteName() { }
+		protected NoteName() { }
 		protected NoteName(string name, int val, bool addToCatalog = true)
 		{
 			this.Name = name;
@@ -211,7 +211,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 		public static implicit operator int(NoteName nn)
-        {
+		{
 			return nn.Value;
 		}
 		public static explicit operator NoteName(int i)
@@ -382,8 +382,8 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-        private static int TransposeValue(NoteName src, Interval interval)
-        {
+		private static int TransposeValue(NoteName src, Interval interval)
+		{
 			var result = src.Value << interval.SemiTones;
 			if (result > VALUE_B)
 			{
@@ -395,7 +395,7 @@ namespace Eric.Morrison.Harmony
 		}
 
 		public static NoteName ResolveNoteNames(NoteName src, Interval interval, int noteVal)
-        {
+		{
 			const char ASCII_G = 'G';
 			var intervalRole = interval.IntervalRoleType;
 

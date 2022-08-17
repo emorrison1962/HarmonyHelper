@@ -56,21 +56,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ArpeggiatorTests.cs" />
-    <Compile Include="Arpeggiator_EventHandlers.cs" />
-    <Compile Include="Arpeggiator_UseCases.cs">
+    <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
+    <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
+    <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
       <DependentUpon>ArpeggiatorTests.cs</DependentUpon>
     </Compile>
     <Compile Include="Chords\ChordParserTests.cs" />
-    <Compile Include="ChordTests.cs" />
+    <Compile Include="Chords\ChordTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
-    <Compile Include="ModeTests.cs" />
+    <Compile Include="Scales\ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
     <Compile Include="Notes\NoteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MusicXmlTest.cs" />
+    <Compile Include="Arpeggiator\MusicXmlTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
