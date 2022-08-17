@@ -103,6 +103,7 @@
     <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
     <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
+    <Compile Include="VoiceLeading\VoiceLeadingAnalysisResult.cs" />
     <Compile Include="VoiceLeading\VoiceLeadingAnalyzer.cs" />
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />

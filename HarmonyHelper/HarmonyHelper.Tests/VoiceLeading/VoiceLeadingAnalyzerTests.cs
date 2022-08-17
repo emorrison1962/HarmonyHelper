@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -26,7 +27,12 @@ namespace Eric.Morrison.Harmony.Tests
 			var I = ChordFormulaCatalog.A7;
 			var IV = ChordFormulaCatalog.D7;
 
-			//analyzer.Analyze(I, IV);
+			var results = analyzer.Analyze(I, IV);
+			foreach (var result in results.Results)
+			{
+				Debug.WriteLine($"From {result.From} To {result.To} = {result.Interval}");
+			}
+			new object();
 		}
 
 

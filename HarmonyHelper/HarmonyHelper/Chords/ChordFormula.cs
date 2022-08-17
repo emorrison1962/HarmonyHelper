@@ -51,6 +51,26 @@ namespace Eric.Morrison.Harmony.Chords
 			}
 		}
 
+		protected ChordFormula(ChordFormula src)
+		{
+			this.Root = src.Root;
+			this.Bass = src.Bass;
+			this.Key = src.Key;
+			this.ChordType = src.ChordType;
+			this.NoteNames = src.NoteNames;
+		}
+
+		public ChordFormula Copy()
+		{
+			var result = new ChordFormula(this);
+			return result;
+		}
+		public static ChordFormula Copy(ChordFormula src)
+		{
+			var result = new ChordFormula(src);
+			return result;
+		}
+
 		#endregion
 
 		public bool Contains(NoteName note)
