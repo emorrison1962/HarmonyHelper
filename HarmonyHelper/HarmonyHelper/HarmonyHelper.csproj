@@ -68,16 +68,16 @@
     <Compile Include="Enums\DirectionEnumExtensions.cs" />
     <Compile Include="Enums\IntervalsEnumExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\BackCyclingRule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\DiatonicToKeyRule.cs" />
-    <Compile Include="HarmonicAnalysis\HarmonicAnalysisResult.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\ii_V_i_Rule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\SecondaryDominantRule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
-    <Compile Include="HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />
-    <Compile Include="HarmonicAnalysis\HarmonicAnalyzer.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackCyclingRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\DiatonicToKeyRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalysisResult.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_i_Rule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalyzer.cs" />
     <Compile Include="Helpers\DataSetTracer.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
@@ -103,8 +103,8 @@
     <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
     <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
-    <Compile Include="VoiceLeading\VoiceLeadingAnalysisResult.cs" />
-    <Compile Include="VoiceLeading\VoiceLeadingAnalyzer.cs" />
+    <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalysisResult.cs" />
+    <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalyzer.cs" />
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />
@@ -124,7 +124,7 @@
     <Compile Include="Scales\ScaleFormulas.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HarmonicAnalysis\Rules\References.txt" />
+    <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <Content Include="_TODO.txt" />
   </ItemGroup>
