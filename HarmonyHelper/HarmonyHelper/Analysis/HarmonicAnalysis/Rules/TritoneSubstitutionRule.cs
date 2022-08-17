@@ -8,6 +8,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	public class TritoneSubstitutionRule : HarmonicAnalysisRuleBase
 	{
 		public override string Name { get { return this.GetType().Name; } }
+		public override string Description => @"A tritone substitution is the substitution of one dominant seventh chord (possibly altered or extended) with another that is three whole steps (a tritone) from the original chord. In other words, tritone substitution involves replacing V7 with ♭II7";
 
 		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{

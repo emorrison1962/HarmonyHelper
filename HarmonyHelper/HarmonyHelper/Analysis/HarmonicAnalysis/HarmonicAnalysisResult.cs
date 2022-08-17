@@ -11,6 +11,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 		{
 		}
 	}
+
 	public class HarmonicAnalysisResult
 	{
 		static public readonly HarmonicAnalysisResult Empty = new HarmonicAnalysisResultEmpty();

@@ -15,17 +15,16 @@ namespace NeckDiagrams.Controls
     public partial class ChordNameControl : UserControl
     {
         public Chord Chord { get; set; }
-        public ChordNameControl(Chord cf)
+        public ChordNameControl(Chord chord)
         {
             InitializeComponent();
-            this.Chord = cf;
+            this.Chord = chord;
         }
 
-        public ChordNameControl(Chord cf, HarmonicAnalysisControl parent)
+        public ChordNameControl(Chord chord, HarmonicAnalysisControl parent)
+            : this(chord)
         {
-            InitializeComponent();
             this.SubscribeToEvents(parent);
-            this.Chord = cf; 
         }
 
         protected override void OnLoad(EventArgs e)

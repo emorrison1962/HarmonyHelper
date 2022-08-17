@@ -11,6 +11,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		static public List<HarmonicAnalysisRuleBase> Catalog { get; set; } = new List<HarmonicAnalysisRuleBase>();
 
 		abstract public string Name { get; }
+		abstract public string Description { get; }
 
 		static HarmonicAnalysisRuleBase()
 		{

@@ -30,14 +30,12 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.chordsTablePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
             this.chordsEditPanel = new System.Windows.Forms.Panel();
             this._tbChords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.bnOk = new System.Windows.Forms.Button();
             this.bnParse = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
-            this.chordsTablePanel.SuspendLayout();
             this.chordsEditPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,24 +60,11 @@
             this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.Controls.Add(this.label3);
             this.chordsTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chordsTablePanel.Location = new System.Drawing.Point(0, 200);
             this.chordsTablePanel.Name = "chordsTablePanel";
-            this.chordsTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
             this.chordsTablePanel.Size = new System.Drawing.Size(800, 250);
             this.chordsTablePanel.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 250);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Parsed:";
             // 
             // chordsEditPanel
             // 
@@ -143,8 +128,6 @@
             this.Name = "ChordParserDialog";
             this.Text = "ChordParserDialog";
             this.mainPanel.ResumeLayout(false);
-            this.chordsTablePanel.ResumeLayout(false);
-            this.chordsTablePanel.PerformLayout();
             this.chordsEditPanel.ResumeLayout(false);
             this.chordsEditPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -158,7 +141,6 @@
         private System.Windows.Forms.TextBox _tbChords;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel chordsTablePanel;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bnOk;
         private System.Windows.Forms.Button bnParse;
     }

@@ -7,13 +7,17 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
 		public override string Name { get { return this.GetType().Name; } }
+		public override string Description { get { return @"Chords built from only the seven notes in each key are called diatonic chords."; } }
 		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			var keys = KeySignature.MajorKeys;
 			var commonKeys = new List<KeySignature>();
 			var distinctChords = chords.Distinct().ToList();
-			var distinctNoteNames = distinctChords.SelectMany(x => x.NoteNames).Distinct().ToList();
+			var distinctNoteNames = distinctChords.SelectMany(x => x.NoteNames)
+				.Distinct()
+				.ToList();
+			
 			if (key.AreDiatonic(distinctNoteNames))
 			{
 				var chordNames = string.Join(", ", chords.Distinct()
@@ -28,10 +32,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var diatonic = distinctChords.Except(nonDiatonic);
 
 				var diatonicChordNames = string.Join(", ", diatonic.Select(x => x.Name));
-                var diatonicChords = string.Join(", ",
-                    diatonic.Distinct()
-                    .Select(x => $"{x.Name} ({GetChordFunction(x.Formula, key.NoteNames.IndexOf(x.Root.NoteName))})"));
-                var diatonicMessage = $"{diatonicChords} are diatonic to the specified key of {key}.";
+				var diatonicChords = string.Join(", ",
+					diatonic.Distinct()
+					.Select(x => $"{x.Name} ({GetChordFunction(x.Formula, key.NoteNames.IndexOf(x.Root.NoteName))})"));
+				var diatonicMessage = $"{diatonicChords} are diatonic to the specified key of {key}.";
 				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, diatonic.Distinct().ToList()));
 
 				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
