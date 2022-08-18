@@ -85,6 +85,32 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 
+		public static IEnumerable<T[]> GetItems<T>(this IEnumerable<T> sequence, int count) where T : class
+		{
+			if (sequence == null)
+				throw new ArgumentNullException();
+
+			int partitionSize = count;
+			var buffer = new T[partitionSize];
+			var localCount = sequence.Count();
+			for (int i = 0; i < localCount - partitionSize; ++i)
+			{
+				sequence.SelectMany((x=> )
+				var item1 = sequence.ElementAt(i);
+				var item2 = sequence.ElementAt(i + 1);
+				var item3 = sequence.ElementAt(i + 2);
+				var ndx = 0;
+				buffer[ndx++] = item1;
+				buffer[ndx++] = item2;
+				buffer[ndx++] = item3;
+
+				if (ndx == partitionSize)
+				{
+					yield return buffer;
+					buffer = new T[partitionSize];
+				}
+			}
+		}
 
 	}//class
 }//ns

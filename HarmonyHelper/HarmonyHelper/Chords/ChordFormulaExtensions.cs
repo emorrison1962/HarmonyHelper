@@ -63,5 +63,42 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+		static public bool IsTwoFive(this IEnumerable<ChordFormula> pair, KeySignature key)
+		{
+			var result = false;
+			const int EXPECTED_TRIPLET_ELEMENT_COUNT = 2;
+			if (EXPECTED_TRIPLET_ELEMENT_COUNT != pair.Count())
+				throw new ArgumentOutOfRangeException();
+
+			if (key.NoteName == pair.ElementAt(2).Root)
+			{
+				var chord0 = pair.ElementAt(0);
+				var chord1 = pair.ElementAt(1);
+				if (key.IsMinor)
+				{
+#if DEBUG
+					var interval = chord0.Root - key.NoteName;
+#endif
+					if ((chord0.IsDiminished && Interval.Major2nd == chord0.Root - key.NoteName)
+						&& (chord1.IsDominant && Interval.Perfect5th == chord1.Root - key.NoteName))
+					{
+						result = true;
+					}
+				}
+				else
+				{
+#if DEBUG
+					var interval = chord0.Root - key.NoteName;
+#endif
+					if ((chord0.IsMinor && Interval.Major2nd == chord0.Root - key.NoteName)
+						&& (chord1.IsDominant && Interval.Perfect5th == chord1.Root - key.NoteName))
+					{
+						result = true;
+					}
+				}
+			}
+
+			return result;
+		}
 	}
 }

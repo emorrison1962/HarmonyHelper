@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Arpeggiator\ArpeggiationContext.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>
     </Compile>
@@ -73,7 +74,7 @@
     <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalysisResult.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRule.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_i_Rule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_I_Rule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />
