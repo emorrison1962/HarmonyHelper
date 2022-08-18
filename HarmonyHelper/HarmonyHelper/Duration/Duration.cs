@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Duration
 {
+    /// <summary>
+    /// http://www.treblis.com/Notation/Tuplet.html
+    /// </summary>
     public class Duration
     {
         public enum DurationEnum
