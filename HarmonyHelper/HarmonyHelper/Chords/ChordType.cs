@@ -80,6 +80,7 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool IsMajor { get; set; }
 		public bool IsMinor { get; set; }
 		public bool IsDiminished { get; set; }
+		public bool IsHalfDiminished { get; set; }
 		public bool IsDominant { get; set; }
 
 		#endregion
@@ -115,19 +116,34 @@ namespace Eric.Morrison.Harmony.Chords
 			if (!this.Intervals.Contains(ChordToneInterval.None))
 			{
 				if (this.Intervals.Contains(ChordToneInterval.Major3rd))
+				{
 					this.IsMajor = true;
-				if (this.Intervals.Contains(ChordToneInterval.Minor3rd))
+				}
+				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
+					&& this.Intervals.Contains(ChordToneInterval.Perfect5th))
+				{
 					this.IsMinor = true;
+				}
+
 				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
 					&& (this.Intervals.Contains(ChordToneInterval.Diminished5th)
-						&& !this.Intervals.Contains(ChordToneInterval.Minor7th))
-					)
+						&& this.Intervals.Contains(ChordToneInterval.Minor7th)))
+				{
+					this.IsHalfDiminished = true;
+				}
+
+				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
+					&& (this.Intervals.Contains(ChordToneInterval.Diminished5th)
+						&& this.Intervals.Contains(ChordToneInterval.Diminished7th)))
+				{
 					this.IsDiminished = true;
+				}
 
 				if (this.Intervals.Contains(ChordToneInterval.Major3rd)
 					&& this.Intervals.Contains(ChordToneInterval.Minor7th))
+				{
 					this.IsDominant = true;
-
+				}
 			}
 		}
 

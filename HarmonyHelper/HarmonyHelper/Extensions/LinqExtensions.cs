@@ -93,22 +93,14 @@ namespace Eric.Morrison.Harmony
 			int partitionSize = count;
 			var buffer = new T[partitionSize];
 			var localCount = sequence.Count();
+
+			var result = new List<List<T>>();
 			for (int i = 0; i < localCount - partitionSize; ++i)
 			{
-				sequence.SelectMany((x=> )
-				var item1 = sequence.ElementAt(i);
-				var item2 = sequence.ElementAt(i + 1);
-				var item3 = sequence.ElementAt(i + 2);
-				var ndx = 0;
-				buffer[ndx++] = item1;
-				buffer[ndx++] = item2;
-				buffer[ndx++] = item3;
+				var list = sequence.Skip(i).Take(count).ToArray();
+				//result.Add(list);
 
-				if (ndx == partitionSize)
-				{
-					yield return buffer;
-					buffer = new T[partitionSize];
-				}
+				yield return list;
 			}
 		}
 

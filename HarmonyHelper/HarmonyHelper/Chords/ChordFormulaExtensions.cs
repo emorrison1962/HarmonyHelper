@@ -70,7 +70,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (EXPECTED_TRIPLET_ELEMENT_COUNT != pair.Count())
 				throw new ArgumentOutOfRangeException();
 
-			if (key.NoteName == pair.ElementAt(2).Root)
+			if (key.NoteName == pair.ElementAt(0).Root - new IntervalContext(key, Interval.Major2nd))
 			{
 				var chord0 = pair.ElementAt(0);
 				var chord1 = pair.ElementAt(1);

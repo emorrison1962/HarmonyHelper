@@ -14,14 +14,14 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
 		public override string Name { get { return this.GetType().Name; } }
 		public override string Description => @"The ii–V–I progression (""two–five–one progression"") (occasionally referred to as ii–V–I turnaround, and ii–V–I) is a common cadential chord progression used in a wide variety of music genres, including jazz harmony.";
 
-		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature unused)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
-			var pairs = chords.GetTriplets();
+			var pairs = chords.GetItems(2);
 			foreach (var pair in pairs)
 			{//Minor: bm7b5, e7, am7 Major: bm7 e7 amaj7
-				if (key.NoteName == pair[2].Root.NoteName)
+				foreach (var key in KeySignature.Catalog)
 				{
 					if (pair.Select(x => x.Formula).IsTwoFive(key))
 					{
@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
 						{
 							result.Add(
 								new HarmonicAnalysisResult(this, true,
-								$"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V, I in {key.Name}.",
+								$"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V in {key.Name}.",
 								pair.ToList()));
 						}
 					}
