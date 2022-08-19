@@ -21,6 +21,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public bool IsMajor { get { return this.ChordType.IsMajor; } }
 		public bool IsMinor { get { return this.ChordType.IsMinor; } }
+		public bool IsHalfDiminished { get { return this.ChordType.IsHalfDiminished; } }
 		public bool IsDiminished { get { return this.ChordType.IsDiminished; } }
 		public bool IsDominant { get { return this.ChordType.IsDominant; } }
 

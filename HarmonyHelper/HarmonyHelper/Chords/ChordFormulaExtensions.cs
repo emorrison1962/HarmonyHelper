@@ -66,8 +66,8 @@ namespace Eric.Morrison.Harmony.Chords
 		static public bool IsTwoFive(this IEnumerable<ChordFormula> pair, KeySignature key)
 		{
 			var result = false;
-			const int EXPECTED_TRIPLET_ELEMENT_COUNT = 2;
-			if (EXPECTED_TRIPLET_ELEMENT_COUNT != pair.Count())
+			const int EXPECTED_ELEMENT_COUNT = 2;
+			if (EXPECTED_ELEMENT_COUNT != pair.Count())
 				throw new ArgumentOutOfRangeException();
 
 			if (key.NoteName == pair.ElementAt(0).Root - new IntervalContext(key, Interval.Major2nd))
@@ -79,7 +79,7 @@ namespace Eric.Morrison.Harmony.Chords
 #if DEBUG
 					var interval = chord0.Root - key.NoteName;
 #endif
-					if ((chord0.IsDiminished && Interval.Major2nd == chord0.Root - key.NoteName)
+					if ((chord0.IsHalfDiminished && Interval.Major2nd == chord0.Root - key.NoteName)
 						&& (chord1.IsDominant && Interval.Perfect5th == chord1.Root - key.NoteName))
 					{
 						result = true;

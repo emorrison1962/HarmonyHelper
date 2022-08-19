@@ -36,22 +36,24 @@
             this.lblChordName.AutoSize = true;
             this.lblChordName.BackColor = System.Drawing.SystemColors.Control;
             this.lblChordName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblChordName.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChordName.Location = new System.Drawing.Point(0, 0);
+            this.lblChordName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblChordName.Name = "lblChordName";
-            this.lblChordName.Size = new System.Drawing.Size(99, 20);
+            this.lblChordName.Size = new System.Drawing.Size(166, 32);
             this.lblChordName.TabIndex = 0;
             this.lblChordName.Text = "ChordName";
             this.lblChordName.UseMnemonic = false;
             // 
             // ChordNameControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.lblChordName);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "ChordNameControl";
-            this.Size = new System.Drawing.Size(99, 20);
+            this.Size = new System.Drawing.Size(254, 46);
             this.ResumeLayout(false);
             this.PerformLayout();
 

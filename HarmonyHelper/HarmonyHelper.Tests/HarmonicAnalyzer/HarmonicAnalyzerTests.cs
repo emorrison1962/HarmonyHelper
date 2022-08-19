@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
@@ -143,6 +144,26 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
+		[TestMethod()]
+		public void II_V_Rule_Test()
+		{
+			{
+				var str = "Dm7b5 g7 cmaj7 AbMaj7";
+				var chords = this.GetChords(str);
+				var rule = new ii_V_Rule();
+				var result = rule.Analyze(chords, null);
+				Assert.IsNotNull(result);
+				new object();
+			}
+			{
+				var str = "Dm7 g7 cmaj7 AbMaj7";
+				var chords = this.GetChords(str);
+				var rule = new ii_V_Rule();
+				var result = rule.Analyze(chords, null);
+				Assert.IsNotNull(result);
+				new object();
+			}
+		}
 
 
 		[TestMethod()]
