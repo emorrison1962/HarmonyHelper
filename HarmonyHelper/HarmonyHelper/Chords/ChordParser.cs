@@ -580,8 +580,8 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 
 		static public bool TryParse(string input, out KeySignature key, out List<ChordFormula> formulas, out string message)
 		{
-			throw new NotImplementedException("Deduce the key.");
 			var result = false;
+			key = null;
 			message = string.Empty;
 			formulas = new List<ChordFormula>();
 
@@ -602,12 +602,23 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			}
 			if (string.IsNullOrEmpty(message))
 				result = true;
+
+			if (KeySignature.TryDetermineKey(formulas,
+							out var matchedKey,
+							out var probableKey))
+			{ 
+				key = matchedKey;
+			}
+			else 
+			{
+				key = probableKey;
+			}
+
 			return result;
 		}
 
 		static bool TryParseImpl(KeySignature key, string input, out ChordFormula chordFormula, out string message)
 		{
-			throw new NotImplementedException("Deduce the key.");
 			var result = false;
 			message = null;
 			chordFormula = null;
