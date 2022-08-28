@@ -21,7 +21,7 @@ namespace NeckDiagrams.Controls
             InitializeComponent();
         }
 
-        public List<Chord> Chords { get; private set; } = new List<Chord>();
+        public List<ChordFormula> Chords { get; private set; } = new List<ChordFormula>();
         public List<HarmonicAnalysisResult> Results { get; private set; }
 
         private void bnChords_Click(object sender, EventArgs e)

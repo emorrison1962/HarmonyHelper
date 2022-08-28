@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Eric.Morrison.Harmony.Chords
 {
+	[Obsolete("", true)]
 	public static class ChordParser
 	{
 		//const int NOTE = 1;
@@ -577,8 +578,9 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			return result;
 		}
 
-		static public bool TryParse(string input, out List<ChordFormula> formulas, out string message, KeySignature key = null)
+		static public bool TryParse(string input, out KeySignature key, out List<ChordFormula> formulas, out string message)
 		{
+			throw new NotImplementedException("Deduce the key.");
 			var result = false;
 			message = string.Empty;
 			formulas = new List<ChordFormula>();
@@ -588,7 +590,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			var successCount = 0;
 			foreach (var s in strings)
 			{
-				if (TryParseImpl(s, out ChordFormula formula, out message, key))
+				if (TryParseImpl(key, s, out ChordFormula formula, out message))
 				{
 					formulas.Add(formula);
 					++successCount;
@@ -603,8 +605,9 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			return result;
 		}
 
-		static bool TryParseImpl(string input, out ChordFormula chordFormula, out string message, KeySignature key = null)
+		static bool TryParseImpl(KeySignature key, string input, out ChordFormula chordFormula, out string message)
 		{
+			throw new NotImplementedException("Deduce the key.");
 			var result = false;
 			message = null;
 			chordFormula = null;
@@ -688,7 +691,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			message = null;
 			chord = null;
 
-			var success = TryParseImpl(input, out ChordFormula formula, out message, key);
+			var success = TryParseImpl(key, input, out ChordFormula formula, out message);
 			if (success)
 			{
 				chord = new Chord(formula, NoteRange.Default);

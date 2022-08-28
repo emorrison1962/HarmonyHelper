@@ -69,6 +69,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (null == noteRange)
 				throw new ArgumentNullException();
 
+
 			this.Key = formula.Key;
 			this.Formula = formula;
 			this.NoteNames = formula.NoteNames;
@@ -199,7 +200,6 @@ namespace Eric.Morrison.Harmony.Chords
 			var count = nonintersect.Count();
 			if (count > 0)
 			{
-#warning HACK ALERT!!
 				result = -1;
 			}
 			return result;
@@ -207,12 +207,14 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static bool operator ==(Chord a, Chord b)
 		{
+			if (a is null)
+				return b is null;
 			var result = a.CompareTo(b) == 0;
 			return result;
 		}
 		public static bool operator !=(Chord a, Chord b)
 		{
-			var result = a.CompareTo(b) != 0;
+			var result = !(a == b);
 			return result;
 		}
 

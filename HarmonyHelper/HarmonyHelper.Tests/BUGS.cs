@@ -194,9 +194,9 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var chordTxt = "eb7 abm7 db7";
 
-			if (ChordParser.TryParse(chordTxt,
-				KeySignature.CMajor,
-				out List<Chord> chords,
+			if (ChordFormulaParser.TryParse(chordTxt,
+				out var key,
+				out List<ChordFormula> chords,
 				out string message))
 			{
 				foreach (var chord in chords)
@@ -217,9 +217,9 @@ namespace Eric.Morrison.Harmony.Tests
 			var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
-			if (ChordParser.TryParse(chordTxt,
-				KeySignature.CMajor,
-				out List<Chord> chords,
+			if (ChordFormulaParser.TryParse(chordTxt,
+				out var key,
+				out List<ChordFormula> chords,
 				out string message))
 			{
 				//chords.ForEach(x => Debug.WriteLine(x));
@@ -228,7 +228,6 @@ namespace Eric.Morrison.Harmony.Tests
 
 			if (success)
 			{
-				var key = KeySignature.CMajor;
 				//foreach (var key in KeySignature.Catalog)
 				{
 					foreach (var nn in NoteName.Catalog)
@@ -259,12 +258,11 @@ namespace Eric.Morrison.Harmony.Tests
 												//new Note(NoteName.B, OctaveEnum.Octave4));
 												new Note(NoteName.B, ascOctave),
 												new Note(NoteName.B, descOctave));
-											chords.ForEach(x => x.Set(noteRange));
-											chords.ForEach(x => Assert.IsTrue(4 <= x.Notes.Count));
+											chords.ForEach(x => Assert.IsTrue(4 <= x.NoteNames.Count));
 
 											new object();
 
-											var startingNote = new Note(chords[0].Root.NoteName,
+											var startingNote = new Note(chords[0].Root,
 											//OctaveEnum.Octave1);
 											OctaveEnum.Octave2);
 

@@ -22,7 +22,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 		}
 
-		public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
@@ -33,16 +33,16 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
 
 			var formulas = chords.Select(x => x).Distinct().ToList();
-			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.Formula.IsDominantOfKey(key));
+			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.IsDominantOfKey(key));
 			new object();
 
-			var dict = new Dictionary<Chord, List<string>>();
+			var dict = new Dictionary<ChordFormula, List<string>>();
 
 			foreach (var chord in nonDiatonic)
 			{
 				foreach (var grid in grids)
 				{
-					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFunctionalEqualityComparer())).ToList(); // get row from grid.
+					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
 					foreach (var row in rows)
 					{
 						var message = $"• {chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
@@ -81,7 +81,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			public KeySignature Key { get; private set; }
 			public string ModeName { get; private set; }
-			public List<Chord> Chords { get; private set; } = new List<Chord>();
+			public List<ChordFormula> Chords { get; private set; } = new List<ChordFormula>();
 			public GridRow(KeySignature key, string modeName)
 			{
 				this.Key = key;
@@ -131,7 +131,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
 					//Debug.WriteLine(scale);
 					var chordFormula = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
-					gridRow.Chords.Add(new Chord(chordFormula));
+					gridRow.Chords.Add(new ChordFormula(chordFormula));
 				}
 
 				result.Rows.Add(gridRow);
@@ -195,7 +195,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				{
 					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
 					//Debug.WriteLine(scale);
-					var chord = new Chord(new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key));
+					var chord = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
 					gridRow.Chords.Add(chord);
 				}
 
@@ -259,7 +259,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				{
 					var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
 					//Debug.WriteLine(scale);
-					var chord = new Chord(new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key));
+					var chord = new ChordFormula(scale.NoteNames[(int)scaleDegree], chordType, key);
 					gridRow.Chords.Add(chord);
 				}
 

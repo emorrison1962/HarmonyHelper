@@ -203,10 +203,6 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 			var snapshot = new StateSnapshot(this);
 			snapshots.Add(snapshot);
 
-#if DEBUG
-			int timesCalled = 0;
-#endif
-
 			var repeat = false;
 			if (this.UntilPatternRepeats)
 				repeat = true;

@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 		}
 
-		public abstract List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key);
+		public abstract List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key);
 
 	}//class
 }//ns

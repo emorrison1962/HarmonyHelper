@@ -52,7 +52,7 @@ namespace Eric.Morrison.Harmony.Chords
 			}
 		}
 
-		protected ChordFormula(ChordFormula src)
+		public ChordFormula(ChordFormula src)
 		{
 			this.Root = src.Root;
 			this.Bass = src.Bass;

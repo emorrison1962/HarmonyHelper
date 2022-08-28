@@ -11,17 +11,17 @@ using Eric.Morrison.Harmony.Chords;
 namespace Eric.Morrison.Harmony.Tests
 {
 	[TestClass()]
-	public class ChordParserTests
+	public class ChordFormulaParserTests
 	{
 		[TestMethod()]
 		public void Bug_Parse_Bbm7_Test()
 		{
 			var s = "bbm7";
-			var success = ChordParser.TryParse(s, KeySignature.CMajor, out List<Chord> result, out string message);
+			var success = ChordFormulaParser.TryParse(s, out var key, out List<ChordFormula> result, out string message);
 			Assert.IsTrue(success);
-			Assert.IsTrue(ChordType.Minor7th == result.First().Formula.ChordType);
+			Assert.IsTrue(ChordType.Minor7th == result.First().ChordType);
 			Debug.WriteLine(result[0]);
-			Assert.IsTrue(NoteName.Bb == result.First().Root.NoteName);
+			Assert.IsTrue(NoteName.Bb == result.First().Root);
 
 			new object();
 		}
@@ -32,11 +32,11 @@ namespace Eric.Morrison.Harmony.Tests
 			var chordsStr = @"D#, A#, E7#9, B7#9, D#aug, Ebdim, Gbdim, Cdim7";
 			var strings = chordsStr.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-			List<Chord> parsedChords = new List<Chord>();
+			List<ChordFormula> parsedChords = new List<ChordFormula>();
 			bool success = false;
 			foreach (var chordStr in strings)
 			{
-				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				success = ChordFormulaParser.TryParse(chordStr, out var key, out List<ChordFormula> result, out string message);
 				if (success)
 				{
 					//Debug.WriteLine($"{chordStr,20} : {result[0]}");
@@ -50,7 +50,7 @@ namespace Eric.Morrison.Harmony.Tests
 				//Assert.IsTrue(success);
 			}
 
-			var ordered = parsedChords.OrderBy(x => x.Root.NoteName).OrderBy(x => x.Formula.ChordType.Name);
+			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name);
 			foreach (var chord in ordered.Distinct().Where(x => !x.ToString().Contains("/")))
 			{
 				Debug.WriteLine($"{chord}");
@@ -118,7 +118,7 @@ Maj9
 			bool success = false;
 			foreach (var s in strings)
 			{
-				success = ChordParser.TryParse(s, out List<Chord> result, out string message);
+				success = ChordFormulaParser.TryParse(s, out var key, out List<ChordFormula> result, out string message);
 				if (success)
 					Debug.WriteLine($"{result[0]}");
 				else
@@ -127,7 +127,7 @@ Maj9
 			}
 
 			new object();
-			//success = ChordParser.TryParse(chords, out List<Chord> result2, out string message2);
+			//success = ChordFormulaParser.TryParse(chords, out List<Chord> result2, out string message2);
 			//Assert.IsTrue(success);
 		}
 
@@ -140,7 +140,7 @@ Maj9
 			bool success = false;
 			foreach (var chordStr in strings)
 			{
-				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				success = ChordFormulaParser.TryParse(chordStr, out var key, out var result, out string message);
 				if (success)
 				{
 					Debug.WriteLine($"{chordStr} : {result[0]}");
@@ -165,7 +165,7 @@ Maj9
 			bool success = false;
 			foreach (var chordStr in strings)
 			{
-				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				success = ChordFormulaParser.TryParse(chordStr, out var key, out var result, out string message);
 				if (success)
 				{
 					Assert.IsTrue(result[0].NoteNames.Contains(NoteName.Ab));
@@ -190,11 +190,11 @@ Maj9
 
 			var strings = chordsStr.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-			List<Chord> parsedChords = new List<Chord>();
+			List<ChordFormula> parsedChords = new List<ChordFormula>();
 			bool success = false;
 			foreach (var chordStr in strings)
 			{
-				success = ChordParser.TryParse(chordStr, out List<Chord> result, out string message);
+				success = ChordFormulaParser.TryParse(chordStr, out var key, out var result, out string message);
 				if (success)
 				{
 					//Debug.WriteLine($"{chordStr,20} : {result[0]}");
@@ -208,7 +208,7 @@ Maj9
 				//Assert.IsTrue(success);
 			}
 
-			var ordered = parsedChords.OrderBy(x => x.Root.NoteName).OrderBy(x => x.Formula.ChordType.Name);
+			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name);
 			foreach (var chord in ordered.Distinct().Where(x => !x.ToString().Contains("/")))
 			{
 				Debug.WriteLine($"{chord}");

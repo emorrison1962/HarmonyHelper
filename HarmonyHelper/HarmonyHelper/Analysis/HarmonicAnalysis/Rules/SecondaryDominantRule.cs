@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		public override string Description => @"A secondary dominant is a chord having a dominant relationship to a chord in a key other than the tonic.";
 
 
-        public override List<HarmonicAnalysisResult> Analyze(List<Chord> chords, KeySignature key)
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 			var nonDiatonic = key.GetNonDiatonic(chords);
@@ -20,9 +20,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var pairs = chords.GetPairs();
 				foreach (var pair in pairs)
 				{
-					if (!pair[0].Formula.IsDominantOfKey(key))
+					if (!pair[0].IsDominantOfKey(key))
 					{
-						if (nonDiatonic.Contains(pair[0]) && pair[0].Formula.ChordType.IsDominant)
+						if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
 						{
 							var interval = pair[0].Root - pair[1].Root;
 							if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 								result.Add(
 									new HarmonicAnalysisResult(this, true, 
 										$"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}.",
-										new List<Chord> { pair[0], pair[1] }));
+										new List<ChordFormula> { pair[0], pair[1] }));
 							}
 						}
 					}

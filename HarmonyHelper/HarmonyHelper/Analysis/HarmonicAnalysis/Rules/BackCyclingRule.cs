@@ -49,17 +49,17 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			@"Back Cycling is when a chord progression, such as a ii-V-I, substitutes a cycle of V7 changes over those chords, such as ii-II7-V-I.";
 		public override string Name { get { return this.GetType().Name; } } 
 		public override string Description { get { return DESCRIPTION; } }
-		public override List<HarmonicAnalysisResult> Analyze(List<Chord> input, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
 		{
 			var result = new List<HarmonicAnalysisResult>();
 
-			var chords = new List<Chord>(input);
+			var chords = new List<ChordFormula>(input);
 			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
 
 			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd);
 			foreach (var pair in pairs)
 			{
-				if (pair.First.Formula.ChordType.IsDominant)
+				if (pair.First.ChordType.IsDominant)
 				{
 					var subbedFor = this.GetTritoneSubstitution(pair.First);
 					var seq = chords.FindAll(x => x == pair.First);
@@ -85,7 +85,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var success = false;
 			while (lastNdx < chords.Count)
 			{
-				success = theCycle.TryGetSubequence(roots.Select(x => x.NoteName),
+				success = theCycle.TryGetSubequence(roots.Select(x => x),
 					new NoteNameValueEqualityComparer(),
 					out List<NoteName> subSequence, ref lastNdx);
 				//Debug.WriteLine(lastNdx);
@@ -135,13 +135,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			return result;
 		}
 
-		Chord GetTritoneSubstitution(Chord orig)
+		ChordFormula GetTritoneSubstitution(ChordFormula orig)
 		{
-			Chord result = null;
-			if (orig.Formula.IsDominant)
+			ChordFormula result = null;
+			if (orig.IsDominant)
 			{
-				var resultFormula = orig.Formula + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
-				result = new Chord(resultFormula);
+				var resultFormula = orig + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
+				result = new ChordFormula(resultFormula);
 			}
 			return result;
 		}

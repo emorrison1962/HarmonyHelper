@@ -125,7 +125,7 @@ namespace Eric.Morrison.Harmony
 			var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
-			if (ChordParser.TryParse(chordTxt, KeySignature.CMajor, out List<Chord> chords, out string message))
+			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> chords, out string message))
 			{
 				chords.ForEach(x => Debug.WriteLine(x));
 				success = true;
@@ -149,11 +149,10 @@ namespace Eric.Morrison.Harmony
 					tmp.Clear();
 				}
 #endif
-				chords.ForEach(x => x.Set(noteRange));
 
 				new object();
 
-				var startingNote = new Note(chords[0].Root.NoteName,
+				var startingNote = new Note(chords[0].Root,
 				//OctaveEnum.Octave1);
 				OctaveEnum.Octave2);
 				var notesToPlay = 4;
