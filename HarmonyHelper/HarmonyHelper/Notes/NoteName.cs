@@ -367,34 +367,29 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static bool TryTransposeUp(NoteName src, Interval interval, out NoteName nn)
+		public static bool TryTransposeUp(NoteName src, Interval interval, out NoteName txposed, out NoteName enharmonicEquivelent)
 		{
 			var result = false;
-			nn = null;
-			try
+			txposed = null;
+			enharmonicEquivelent = null;	
+
+			var success = IsTranspositionValid(src, interval);
+			if (success)
 			{
-				nn = TransposeUp(src, interval);
-				new object();
+				txposed = TransposeUp(src, interval);
 				result = true;
 			}
-			catch (Exception ex)
+			else
 			{
-				var success = IsTranspositionValid(src, interval);
-				var ees = NoteName.GetEnharmonicEquivalents(src);
-				var ee = ees.OrderBy(e => e.AccidentalCount).First();
-				if (TryTransposeUp(ee, interval, out nn))
-				{
-					result = true;
-				}
-				else 
-				{
-					new object();
-				}
+				var enharmonicEquivalents = NoteName.GetEnharmonicEquivalents(src);
+				var enharmonicEquivalent = enharmonicEquivalents.OrderBy(e => e.AccidentalCount).First();
+				success = TryTransposeUp(enharmonicEquivalent, interval, out txposed, out var unused);
+				Debug.Assert(success);
 			}
 			return result;
 		}
 
-		public static NoteName TransposeUp(NoteName src, Interval interval)
+		protected static NoteName TransposeUp(NoteName src, Interval interval)
 		{
 			NoteName result = null;
 			var success = false;
@@ -636,8 +631,8 @@ namespace Eric.Morrison.Harmony
 			var result = nn;
 			if (Interval.Unison < interval)
 			{
-				result = NoteName.TransposeUp(nn, interval);
-				Debug.Assert(result != null);
+				var success = NoteName.TryTransposeUp(nn, interval, out result, out var unused);
+				Debug.Assert(success);
 			}
 			Debug.Assert(result != null);
 			return result;

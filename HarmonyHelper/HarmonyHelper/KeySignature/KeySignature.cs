@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -186,7 +187,9 @@ namespace Eric.Morrison.Harmony
 		public static KeySignature GetTransposed(KeySignature key, Interval interval)
 		{
 			KeySignature result = null;
-			var txposedNote = NoteName.TransposeUp(key.NoteName, interval);
+			var success = NoteName.TryTransposeUp(key.NoteName, interval, out var txposedNote, out var unused);
+			Debug.Assert(success);
+
 			IEnumerable<KeySignature> catalog = null;
 
 			if (key.IsMajor)
@@ -325,8 +328,10 @@ namespace Eric.Morrison.Harmony
 		{
 			if (this.IsMajor)
 				throw new ArgumentOutOfRangeException();
-			var txed = NoteName.TransposeUp(this.NoteName, Interval.Minor3rd);
-			var result = KeySignature.MajorKeys.First(x => x.NoteName == txed);
+			var success = NoteName.TryTransposeUp(this.NoteName, Interval.Minor3rd, out var txposedNote, out var unused);
+			Debug.Assert(success);
+
+			var result = KeySignature.MajorKeys.First(x => x.NoteName == txposedNote);
 			return result;
 		}
 		public KeySignature GetRelativeMinor()

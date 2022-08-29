@@ -150,7 +150,8 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 					if (valid)
 					{
-                        var expected = NoteName.TransposeUp(note, (Interval)interval);
+                        var success = NoteName.TryTransposeUp(note, (Interval)interval, out var expected, out var unused);
+						Assert.IsTrue(success);
                         var expectedValue = note.Value;
                         var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
                         var result = note + ctx;

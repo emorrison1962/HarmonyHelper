@@ -81,9 +81,9 @@ namespace Eric.Morrison.Harmony.Scales
 			result.Add(this.Key.NoteName);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteName.TransposeUp(this.Root, interval);
-				nn = this.GetNormalized(nn, interval);
-				//var nn = NoteNames.Get(this.Key.NoteName, interval, this);
+				var success = NoteName.TryTransposeUp(this.Root, interval, out var nn, out var unused);
+				Debug.Assert(success);
+
 				Debug.Assert(nn != this.Key.NoteName);
 				result.Add(nn);
 			}

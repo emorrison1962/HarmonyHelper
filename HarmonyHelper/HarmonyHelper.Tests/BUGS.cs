@@ -91,7 +91,9 @@ namespace Eric.Morrison.Harmony.Tests
 				var intervals = Interval.Catalog.Where(x => x != Interval.Unison);
 				foreach (var interval in intervals)
 				{
-					var txposedUp = NoteName.TransposeUp(noteName, interval);
+					var success = NoteName.TryTransposeUp(noteName, (Interval)interval, out var txposedUp, out var unused);
+					Assert.IsTrue(success);
+
 					var expectedInterval = txposedUp - noteName;
 
 					var inversion = interval.GetInversion();
@@ -114,7 +116,9 @@ namespace Eric.Morrison.Harmony.Tests
 			var originalNoteName = NoteName.BSharp;
 			var interval = Interval.Major2nd;
 
-			var txposedUp = NoteName.TransposeUp(originalNoteName, interval);
+			var success = NoteName.TryTransposeUp(originalNoteName, (Interval)interval, out var txposedUp, out var unused);
+			Assert.IsTrue(success);
+
 			var expectedInterval = txposedUp - originalNoteName;
 
 			Assert.IsTrue(expectedInterval.Value == interval.Value);

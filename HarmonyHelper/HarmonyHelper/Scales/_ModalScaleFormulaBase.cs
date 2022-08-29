@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+
 using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Scales
@@ -74,11 +76,9 @@ namespace Eric.Morrison.Harmony.Scales
 			result.Add(root);
 			foreach (var interval in this.Intervals)
 			{
-				var nn = NoteName.TransposeUp(this.Root, interval);
-				nn = this.GetNormalized(nn, interval);
-
-				//var nn = NoteNames.Get(root, interval, this);
-				result.Add(nn);
+				var success = NoteName.TryTransposeUp(this.Root, interval, out var txposed, out var unused);
+				Debug.Assert(success);
+				result.Add(txposed);
 			}
 
 			this.NoteNames = result;

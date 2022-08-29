@@ -1,6 +1,7 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony
@@ -135,7 +136,9 @@ namespace Eric.Morrison.Harmony
 
 		public static Note operator +(Note n, Interval interval)
 		{
-			n.NoteName = NoteName.TransposeUp(n.NoteName, interval);
+			var success = NoteName.TryTransposeUp(n.NoteName, interval, out var txposed, out var unused);
+			Debug.Assert(success);
+			n.NoteName = txposed;
 			n.Octave += (int)interval;
 			return n;
 		}
@@ -162,7 +165,11 @@ namespace Eric.Morrison.Harmony
 			var result = note;
 			if (null != note && ctx.Interval > Interval.Unison)
 			{
-				note.NoteName = NoteName.TransposeUp(note.NoteName, ctx.Interval);
+				//note.NoteName = NoteName.TransposeUp(note.NoteName, ctx.Interval);
+				var success = NoteName.TryTransposeUp(note.NoteName, ctx.Interval, out var txposed, out var unused);
+				Debug.Assert(success);
+				note.NoteName = txposed;
+
 			}
 			return result;
 		}

@@ -252,8 +252,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 				foreach (var nn in src.NoteNames)
 				{
-					var success = NoteName.TryTransposeUp(nn, interval, out var txposed);
-					new object();
+					var success = NoteName.TryTransposeUp(nn, interval, out var txposed, out var ee);
+					Debug.Assert(success);
 				}
 			}
 			else
