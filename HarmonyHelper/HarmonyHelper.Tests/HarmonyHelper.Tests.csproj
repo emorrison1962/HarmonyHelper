@@ -61,6 +61,7 @@
     <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
       <DependentUpon>ArpeggiatorTests.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chords\ChordFormulaTests.cs" />
     <Compile Include="Chords\ChordParserTests.cs" />
     <Compile Include="Chords\ChordTests.cs" />
     <Compile Include="Constants.cs" />

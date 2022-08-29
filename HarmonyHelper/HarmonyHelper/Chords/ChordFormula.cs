@@ -232,25 +232,28 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static ChordFormula operator -(ChordFormula chord, Interval interval)
 		{
-			var txedKey = chord.Key - interval;
-			var txedRoot = chord.Root - new IntervalContext(txedKey, interval);
+			var result = TransposeDown(chord, interval);
 
-			var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);// txedKey);
+			//var txedKey = chord.Key - interval;
+			//var txedRoot = chord.Root - new IntervalContext(txedKey, interval);
+			//var result = ChordFormulaFactory.Create(txedRoot, chord.ChordType, chord.Key);
+
 			return result;
 		}
 
-#if false
+#if true
 		public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool respectKey = false)
 		{
 			KeySignature txedKey = null;
 			if (!respectKey)
 			{
-				var key = src.Key.GetEnharmonicEquivalent();
-				var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, key);
+				//var key = src.Key.GetEnharmonicEquivalent();
+				//var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, key);
 
 				foreach (var nn in src.NoteNames)
-				{ 
-					var xnn = NoteName.TransposeUp(nn, interval)
+				{
+					var success = NoteName.TryTransposeUp(nn, interval, out var txposed);
+					new object();
 				}
 			}
 			else

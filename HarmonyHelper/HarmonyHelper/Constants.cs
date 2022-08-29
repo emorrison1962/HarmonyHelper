@@ -4,6 +4,8 @@
 	{
 		public const string SHARP = "♯";
 		public const string FLAT = "♭";
+		public const char SHARP_CHAR = '♯';
+		public const char FLAT_CHAR = '♭';
 		public const string DOUBLE_SHARP = "♯♯";
 		public const string DOUBLE_FLAT = "♭♭";
 
