@@ -125,9 +125,9 @@ namespace Eric.Morrison.Harmony
 			var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
-			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> chords, out string message))
+			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
 			{
-				chords.ForEach(x => Debug.WriteLine(x));
+				formulas.ForEach(x => Debug.WriteLine(x));
 				success = true;
 			}
 
@@ -137,28 +137,15 @@ namespace Eric.Morrison.Harmony
 					new Note(NoteName.B, OctaveEnum.Octave1),
 					new Note(NoteName.B, OctaveEnum.Octave4));
 
-
-#if false
-				var tmp = new List<Note>();
-				while (noteRange.Notes.Count > 0)
-				{
-					tmp = noteRange.Notes.Take(12).ToList();
-					noteRange.Notes.RemoveRange(0, tmp.Count);
-					var output = string.Join(", ", tmp);
-					Debug.WriteLine(output);
-					tmp.Clear();
-				}
-#endif
-
 				new object();
 
-				var startingNote = new Note(chords[0].Root,
+				var startingNote = new Note(formulas[0].Root,
 				//OctaveEnum.Octave1);
 				OctaveEnum.Octave2);
 				var notesToPlay = 4;
 
 				var contexts = new List<ArpeggiationContext>();
-				chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+				formulas.ForEach(x => contexts.Add(new ArpeggiationContext(x, noteRange, notesToPlay)));
 
 				var arpeggiator = new Arpeggiator(contexts,
 					//DirectionEnum.Ascending,

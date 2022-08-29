@@ -268,7 +268,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 											var notesToPlay = 4;
 											var contexts = new List<ArpeggiationContext>();
-											chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+											chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, noteRange, notesToPlay)));
 
 											const int BEATS_PER_BAR = 4;
 											var arpeggiator = new Arpeggiator(contexts,

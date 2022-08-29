@@ -17,9 +17,9 @@ namespace Eric.Morrison.Harmony
 			this.Chord = chord;
 			this.NotesToPlay = notesToPlay;
 		}
-		public ArpeggiationContext(ChordFormula formula, int notesToPlay)
+		public ArpeggiationContext(ChordFormula formula, NoteRange nr, int notesToPlay)
 		{
-			this.Chord = new Chord(formula);
+			this.Chord = new Chord(formula, nr);
 			this.NotesToPlay = notesToPlay;
 		}
 		public override string ToString()

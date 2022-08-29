@@ -39,7 +39,7 @@ namespace Eric.Morrison.Harmony.Chords
 		#region Construction
 
 
-		public Chord(ChordFormula formula) : base(formula.Key)
+		protected Chord(ChordFormula formula) : base(formula.Key)
 		{
 			if (null == formula)
 				throw new ArgumentNullException();

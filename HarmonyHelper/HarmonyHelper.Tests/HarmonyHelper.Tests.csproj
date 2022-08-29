@@ -56,7 +56,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_RuleTests.cs" />
     <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
@@ -104,6 +103,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Analysis\HarmonicAnalysis\Rules\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

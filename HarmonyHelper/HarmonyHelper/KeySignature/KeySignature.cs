@@ -347,5 +347,16 @@ namespace Eric.Morrison.Harmony
 			}
 			noteNames = result;
 		}
+
+        public KeySignature GetEnharmonicEquivalent()
+        {
+			var nns = NoteName.GetEnharmonicEquivalents(this.NoteName);
+			var keys = Catalog
+				.Where(x => x.NoteName.Value == this.NoteName.Value 
+					&& x.IsMajor == this.IsMajor).ToList();
+			var result = keys.OrderBy(x => x.AccidentalCount)
+				.First();
+			return result;
+		}
 	}//class
 }//ns

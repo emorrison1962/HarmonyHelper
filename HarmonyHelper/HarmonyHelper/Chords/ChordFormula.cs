@@ -239,6 +239,42 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+#if false
+		public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool respectKey = false)
+		{
+			KeySignature txedKey = null;
+			if (!respectKey)
+			{
+				var key = src.Key.GetEnharmonicEquivalent();
+				var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, key);
+
+				foreach (var nn in src.NoteNames)
+				{ 
+					var xnn = NoteName.TransposeUp(nn, interval)
+				}
+			}
+			else
+			{
+				src += interval;
+				txedKey = src.Key + interval;
+			}
+
+			var txedRoot = src.Root + new IntervalContext(txedKey, interval);
+			var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, src.Key);
+
+			return result;
+
+		}
+
+		public static ChordFormula TransposeDown(ChordFormula src, Interval interval, bool respectKey = false)
+		{
+
+			var inversion = interval.GetInversion();
+			var result = TransposeUp(src, inversion, respectKey);
+			return result;
+		}
+#endif
+
 		public override string ToString()
 		{
 			var bass = string.Empty;
