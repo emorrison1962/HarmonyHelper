@@ -69,6 +69,8 @@ ScaleToneInterval.Major7th
 
 		public ScaleToneInterval(string name, Interval interval, ScaleToneFunctionEnum ScaleToneFunction) : base(interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			this.Name = name;
 			this.ScaleToneFunction = ScaleToneFunction;
 			Catalog.Add(this);
@@ -132,6 +134,8 @@ ScaleToneInterval.Major7th
 
 		public static ScaleToneInterval ToScaleToneInterval(Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			ScaleToneInterval result = null;
 
 			var matchCount = ScaleToneInterval.Catalog.Where(x => x.Value == interval.Value).Count();

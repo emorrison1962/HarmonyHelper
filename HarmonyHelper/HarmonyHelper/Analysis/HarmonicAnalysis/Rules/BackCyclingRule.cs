@@ -56,7 +56,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			var chords = new List<ChordFormula>(input);
 			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
 
-			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd);
+			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd).ToList();
 			foreach (var pair in pairs)
 			{
 				if (pair.First.ChordType.IsDominant)

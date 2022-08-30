@@ -198,6 +198,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static ChordFormula operator +(ChordFormula chord, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			ChordFormula result = null;
 			var key = KeySignature.Catalog
 				.First(x => x.NoteName == chord.Key.NoteName - interval
@@ -222,6 +224,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static ChordFormula operator -(ChordFormula chord, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var inversion = interval.GetInversion();
 			var result = chord += inversion;
 			return result;
@@ -260,7 +264,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static ChordFormula TransposeDown(ChordFormula src, Interval interval, bool respectKey = false)
 		{
-
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var inversion = interval.GetInversion();
 			var result = TransposeUp(src, inversion, respectKey);
 			return result;
@@ -395,6 +400,8 @@ namespace Eric.Morrison.Harmony.Chords
 		public NoteName GetNormalized(NoteName nn, Interval baseInterval)
 		{
 			var result = nn;
+			if (null == baseInterval)
+				throw new ArgumentNullException(nameof(baseInterval));
 
 			ChordToneInterval interval = null;
 			if (baseInterval is ChordToneInterval)

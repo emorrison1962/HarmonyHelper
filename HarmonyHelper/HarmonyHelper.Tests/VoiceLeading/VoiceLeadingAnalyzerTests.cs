@@ -13,11 +13,6 @@ namespace Eric.Morrison.Harmony.Tests
 	[TestClass()]
 	public class VoiceLeadingAnalyzerTests
 	{
-		[TestMethod()]
-		public void VoiceLeadingAnalyzerTest()
-		{
-			Assert.Fail();
-		}
 
 		[TestMethod()]
 		public void UseCaseOne()

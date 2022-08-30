@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public Interval Minor2nd = new Interval("Minor2nd", Constants.INTERVAL_VALUE_MINOR_2ND, 1, IntervalRoleTypeEnum.Second);
 		static public Interval Major2nd = new Interval("Major2nd", Constants.INTERVAL_VALUE_MAJOR_2ND, 2, IntervalRoleTypeEnum.Second);
 		static public Interval Diminished3rd = new Interval("Diminished3rd", Constants.INTERVAL_VALUE_MAJOR_2ND, 2, IntervalRoleTypeEnum.Third);
-		static public Interval Augmented2nd = new Interval("Augmented2nd", Constants.INTERVAL_VALUE_MINOR_3RD, 3, IntervalRoleTypeEnum.Third);
+		static public Interval Augmented2nd = new Interval("Augmented2nd", Constants.INTERVAL_VALUE_MINOR_3RD, 3, IntervalRoleTypeEnum.Second);
 		static public Interval Minor3rd = new Interval("Minor3rd", Constants.INTERVAL_VALUE_MINOR_3RD, 3, IntervalRoleTypeEnum.Third);
 		static public Interval Major3rd = new Interval("Major3rd", Constants.INTERVAL_VALUE_MAJOR_3RD, 4, IntervalRoleTypeEnum.Third);
 		static public Interval Diminished4th = new Interval("Diminished4th", Constants.INTERVAL_VALUE_DIMINISHED_4TH, 4, IntervalRoleTypeEnum.Fourth);
@@ -274,63 +274,60 @@ namespace Eric.Morrison.Harmony.Intervals
 			return result;
 		}
 		public Interval GetInversion()
-		{
-			Interval result = Interval.Unison;
-			if (Interval.Unison != this)
-			{
-				if (this == Interval.Unison)
-					result = Interval.PerfectOctave;
-				else if (this == Interval.AugmentedUnison)
-					result = Interval.DiminishedOctave;
-				else if (this == Interval.Minor2nd)
-					result = Interval.Major7th;
-				else if (this == Interval.Major2nd)
-					result = Interval.Minor7th;
-				else if (this == Interval.Augmented2nd)
-					result = Interval.Diminished7th;
-				else if (this == Interval.Diminished3rd)
-					result = Interval.Augmented6th;
-				else if (this == Interval.Augmented2nd)
-					result = Interval.Diminished7th;
-				else if (this == Interval.Minor3rd)
-					result = Interval.Major6th;
-				else if (this == Interval.Major3rd)
-					result = Interval.Minor6th;
-				else if (this == Interval.Diminished4th)
-					result = Interval.Augmented5th;
-				else if (this == Interval.Perfect4th)
-					result = Interval.Perfect5th;
-				else if (this == Interval.Augmented4th)
-					result = Interval.Diminished5th;
-				else if (this == Interval.Diminished5th)
-					result = Interval.Augmented4th;
-				else if (this == Interval.Perfect5th)
-					result = Interval.Perfect4th;
-				else if (this == Interval.Augmented5th)
-					result = Interval.Diminished4th;
-				else if (this == Interval.Minor6th)
-					result = Interval.Major3rd;
-				else if (this == Interval.Major6th)
-					result = Interval.Minor3rd;
-				else if (this == Interval.Augmented6th)
-					result = Interval.Diminished3rd;
-				else if (this == Interval.Diminished7th)
-					result = Interval.Augmented2nd;
-				else if (this == Interval.Minor7th)
-					result = Interval.Major2nd;
-				else if (this == Interval.Major7th)
-					result = Interval.Minor2nd;
-				else if (this == Interval.DiminishedOctave)
-					result = Interval.AugmentedUnison;
-				else if (this == Interval.PerfectOctave)
-					result = Interval.Unison;
-				else
-					throw new ArgumentOutOfRangeException();
-			}
+        {
+            Interval result = Interval.Unison;
+            if (this == Interval.Unison)
+                result = Interval.PerfectOctave;
+            else if (this == Interval.AugmentedUnison)
+                result = Interval.DiminishedOctave;
+            else if (this == Interval.Minor2nd)
+                result = Interval.Major7th;
+            else if (this == Interval.Major2nd)
+                result = Interval.Minor7th;
+            else if (this == Interval.Augmented2nd)
+                result = Interval.Diminished7th;
+            else if (this == Interval.Diminished3rd)
+                result = Interval.Augmented6th;
+            else if (this == Interval.Augmented2nd)
+                result = Interval.Diminished7th;
+            else if (this == Interval.Minor3rd)
+                result = Interval.Major6th;
+            else if (this == Interval.Major3rd)
+                result = Interval.Minor6th;
+            else if (this == Interval.Diminished4th)
+                result = Interval.Augmented5th;
+            else if (this == Interval.Perfect4th)
+                result = Interval.Perfect5th;
+            else if (this == Interval.Augmented4th)
+                result = Interval.Diminished5th;
+            else if (this == Interval.Diminished5th)
+                result = Interval.Augmented4th;
+            else if (this == Interval.Perfect5th)
+                result = Interval.Perfect4th;
+            else if (this == Interval.Augmented5th)
+                result = Interval.Diminished4th;
+            else if (this == Interval.Minor6th)
+                result = Interval.Major3rd;
+            else if (this == Interval.Major6th)
+                result = Interval.Minor3rd;
+            else if (this == Interval.Augmented6th)
+                result = Interval.Diminished3rd;
+            else if (this == Interval.Diminished7th)
+                result = Interval.Augmented2nd;
+            else if (this == Interval.Minor7th)
+                result = Interval.Major2nd;
+            else if (this == Interval.Major7th)
+                result = Interval.Minor2nd;
+            else if (this == Interval.DiminishedOctave)
+                result = Interval.AugmentedUnison;
+            else if (this == Interval.PerfectOctave)
+                result = Interval.Unison;
+            else
+                throw new ArgumentOutOfRangeException();
 
-			return result;
-		}
+            return result;
+        }
 
 
-	}//class
+    }//class
 }//ns

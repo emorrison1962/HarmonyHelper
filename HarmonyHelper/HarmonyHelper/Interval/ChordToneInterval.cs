@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -60,6 +61,8 @@ ChordToneInterval.Thirteenth
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
 		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			this.Name = name;
 			this.ChordToneFunction = chordToneFunction;
 			Catalog.Add(this);

@@ -146,12 +146,16 @@ namespace Eric.Morrison.Harmony
 
 		public static KeySignature operator +(KeySignature key, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var result = KeySignature.GetTransposed(key, interval);
 			return result;
 		}
 
 		public static KeySignature operator -(KeySignature key, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var inversion = interval.GetInversion();
 			var result = KeySignature.GetTransposed(key, inversion);
 			return result;
@@ -186,9 +190,13 @@ namespace Eric.Morrison.Harmony
 
 		public static KeySignature GetTransposed(KeySignature key, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			KeySignature result = null;
-			var success = NoteName.TryTransposeUp(key.NoteName, interval, out var txposedNote, out var unused);
-			Debug.Assert(success);
+			if (!NoteName.TryTransposeUp(key.NoteName, interval, out var txposedNote, out var enharmonicEquivalent))
+            {
+				txposedNote = enharmonicEquivalent;
+			}
 
 			IEnumerable<KeySignature> catalog = null;
 
@@ -225,6 +233,8 @@ namespace Eric.Morrison.Harmony
 
 		public NoteName GetNormalized(NoteName nn, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var result = nn.Copy();
 			if (!this.Contains(result, out NoteName suggested))
 			{
@@ -336,10 +346,13 @@ namespace Eric.Morrison.Harmony
 		}
 		public KeySignature GetRelativeMinor()
 		{
+			KeySignature result = null; 
 			if (this.IsMinor)
 				throw new ArgumentOutOfRangeException();
-			var txed = NoteName.TransposeDown(this.NoteName, Interval.Minor3rd);
-			var result = KeySignature.MinorKeys.First(x => x.NoteName == txed);
+			if (NoteName.TryTransposeUp(this.NoteName, Interval.Minor3rd.GetInversion(), out var txposed, out var unused))
+			{
+				result = KeySignature.MinorKeys.First(x => x.NoteName == txposed);
+			}
 			return result;
 		}
 

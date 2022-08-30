@@ -19,144 +19,20 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				foreach (var interval in intervals)
 				{
-					var valid = true;
-					if (
-						(note == NoteName.BSharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Major2nd)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Major3rd)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Perfect5th)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Major6th)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Augmented6th)
-						|| (note == NoteName.BSharpSharp && interval == Interval.Major7th)
-						
-						|| (note == NoteName.CSharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.CSharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.CSharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.CSharpSharp && interval == Interval.Augmented6th)
-
-						|| (note == NoteName.Ebb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Ebb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Ebb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Ebb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Ebb && interval == Interval.DiminishedOctave)
-
-						|| (note == NoteName.Fbb && interval == Interval.Minor2nd)
-						|| (note == NoteName.Fbb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Fbb && interval == Interval.Augmented2nd)
-						|| (note == NoteName.Fbb && interval == Interval.Minor3rd)
-						|| (note == NoteName.Fbb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Fbb && interval == Interval.Perfect4th)
-						|| (note == NoteName.Fbb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Fbb && interval == Interval.Minor6th)
-						|| (note == NoteName.Fbb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Fbb && interval == Interval.Minor7th)
-						|| (note == NoteName.Fbb && interval == Interval.DiminishedOctave)
-
-						|| (note == NoteName.DSharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.DSharpSharp && interval == Interval.Major3rd)
-						|| (note == NoteName.DSharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.DSharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.DSharpSharp && interval == Interval.Augmented6th)
-						|| (note == NoteName.DSharpSharp && interval == Interval.Major7th)
-						
-						|| (note == NoteName.Fb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Fb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Fb && interval == Interval.Diminished7th)
-						
-						|| (note == NoteName.ESharp && interval == Interval.Augmented6th)
-						
-						|| (note == NoteName.Gbb && interval == Interval.Minor2nd)
-						|| (note == NoteName.Gbb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Gbb && interval == Interval.Augmented2nd)
-						|| (note == NoteName.Gbb && interval == Interval.Minor3rd)
-						|| (note == NoteName.Gbb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Gbb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Gbb && interval == Interval.Minor6th)
-						|| (note == NoteName.Gbb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Gbb && interval == Interval.DiminishedOctave)
-						
-						|| (note == NoteName.ESharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Major2nd)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Major3rd)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Major6th)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Augmented6th)
-						|| (note == NoteName.ESharpSharp && interval == Interval.Major7th)
-						
-						|| (note == NoteName.Gb && interval == Interval.Diminished3rd)
-						
-						|| (note == NoteName.FSharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.FSharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.FSharpSharp && interval == Interval.Augmented6th)
-						
-						|| (note == NoteName.Abb && interval == Interval.Minor2nd)
-						|| (note == NoteName.Abb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Abb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Abb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Abb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Abb && interval == Interval.DiminishedOctave)
-						
-						|| (note == NoteName.GSharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.GSharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.GSharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.GSharpSharp && interval == Interval.Augmented6th)
-						|| (note == NoteName.GSharpSharp && interval == Interval.Major7th)
-						
-						|| (note == NoteName.Bbb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Bbb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Bbb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Bbb && interval == Interval.DiminishedOctave)
-						
-						|| (note == NoteName.ASharp && interval == Interval.Augmented6th)
-						
-						|| (note == NoteName.Cbb && interval == Interval.Minor2nd)
-						|| (note == NoteName.Cbb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Cbb && interval == Interval.Augmented2nd)
-						|| (note == NoteName.Cbb && interval == Interval.Minor3rd)
-						|| (note == NoteName.Cbb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Cbb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Cbb && interval == Interval.Minor6th)
-						|| (note == NoteName.Cbb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Cbb && interval == Interval.Minor7th)
-						|| (note == NoteName.Cbb && interval == Interval.DiminishedOctave)
-						
-						|| (note == NoteName.ASharpSharp && interval == Interval.AugmentedUnison)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Major3rd)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Augmented4th)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Major6th)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Augmented6th)
-						|| (note == NoteName.ASharpSharp && interval == Interval.Major7th)
-						
-						|| (note == NoteName.Cb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Cb && interval == Interval.Diminished7th)
-
-						|| (note == NoteName.BSharp && interval == Interval.Augmented5th)
-						|| (note == NoteName.BSharp && interval == Interval.Augmented6th)
-						
-						|| (note == NoteName.Dbb && interval == Interval.Minor2nd)
-						|| (note == NoteName.Dbb && interval == Interval.Diminished3rd)
-						|| (note == NoteName.Dbb && interval == Interval.Diminished4th)
-						|| (note == NoteName.Dbb && interval == Interval.Diminished5th)
-						|| (note == NoteName.Dbb && interval == Interval.Minor6th)
-						|| (note == NoteName.Dbb && interval == Interval.Diminished7th)
-						|| (note == NoteName.Dbb && interval == Interval.DiminishedOctave)
-						)
-					{
-						valid = false;
-					}
+					var valid = false;
+					if (NoteName.IsValidTransposition(note, interval))
+						valid = true;
 					if (valid)
 					{
                         var success = NoteName.TryTransposeUp(note, (Interval)interval, out var expected, out var unused);
 						Assert.IsTrue(success);
-                        var expectedValue = note.Value;
-                        var ctx = interval;
-                        var result = note + ctx;
 
-                        ValidateTransposeUp(note, (Interval)interval, expected);
+						if (expected - interval != note)
+							Assert.Fail();
+
+
+
+						ValidateTransposeUp(note, (Interval)interval, expected);
 					}
 				}
 			}
@@ -164,6 +40,12 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		void ValidateTransposeUp(NoteName input, Interval interval, NoteName expected)
+		{ 
+			if (expected - interval != input)
+				Assert.Fail();
+		}
+
+		void xValidateTransposeUp(NoteName input, Interval interval, NoteName expected)
 		{
 			#region VALIDATION
 			if (input == NoteName.BSharp && (Interval)interval == Interval.Unison)
@@ -2109,8 +1991,12 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						new object();
 					}
-					var expected = NoteName.TransposeDown(note, (Interval)interval);
-					var expectedValue = note.Value;
+
+					if (NoteName.TryTransposeUp(note, interval.GetInversion(), out var expected, out var unused))
+					{
+						var expectedValue = expected.Value;
+					}
+
 					if (note == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 					{
 						new object();

@@ -25,6 +25,8 @@ namespace Eric.Morrison.Harmony
 
 		public VoiceLeadingResult(NoteName from, NoteName to, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			From = from;
 			To = to;
 			Interval = interval;

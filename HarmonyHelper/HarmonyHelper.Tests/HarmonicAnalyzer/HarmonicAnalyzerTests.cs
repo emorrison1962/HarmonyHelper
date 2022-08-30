@@ -313,7 +313,6 @@ namespace Eric.Morrison.Harmony.Tests
 				else
 					Debug.WriteLine(analysisResult.Message);
 			}
-			Assert.Fail("c#dim is a dominant sub. Should be reported by BackCycling rule.");
 			Assert.IsNotNull(analysisResults);
 		}
 

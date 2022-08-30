@@ -8,6 +8,8 @@ namespace Eric.Morrison.Harmony.Intervals
 
 		public static ScaleToneInterval ToScaleToneInterval(this Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			ScaleToneInterval result = null;
 
 			if (interval == Interval.Unison)
@@ -58,6 +60,8 @@ namespace Eric.Morrison.Harmony.Intervals
 
 		public static ChordToneInterval ToChordToneInterval(this Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			ChordToneInterval result = null;
 
 			if (interval == Interval.Unison)

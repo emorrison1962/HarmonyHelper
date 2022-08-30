@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony.Tests
 			};
 		}
 
-		List<ModeEnum> GetModeFormulas()
+		List<ModeEnum> GetModeEnums()
 		{
 			var result = new List<ModeEnum>();
 			var arr = Enum.GetValues(typeof(ModeEnum));
@@ -43,7 +43,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void ModeTest()
 		{
 			var keys = this.GetKeySignatures();
-			var modes = this.GetModeFormulas();
+			var modes = this.GetModeEnums();
 			foreach (var key in keys)
 			{
 				foreach (var formula in modes)
@@ -61,7 +61,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void ToStringTest()
 		{
 			var keys = this.GetKeySignatures();
-			var modes = this.GetModeFormulas();
+			var modes = this.GetModeEnums();
 			foreach (var key in keys)
 			{
 				foreach (var formula in modes)

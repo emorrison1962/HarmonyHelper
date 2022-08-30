@@ -136,6 +136,8 @@ namespace Eric.Morrison.Harmony
 
 		public static Note operator +(Note n, Interval interval)
 		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
 			var success = NoteName.TryTransposeUp(n.NoteName, interval, out var txposed, out var unused);
 			Debug.Assert(success);
 			n.NoteName = txposed;
@@ -155,7 +157,10 @@ namespace Eric.Morrison.Harmony
 			var result = note;
 			if (null != note && ctx.Interval > Interval.Unison)
 			{
-				note.NoteName = NoteName.TransposeDown(note.NoteName, ctx.Interval);
+				if (NoteName.TryTransposeUp(note.NoteName, ctx.Interval.GetInversion(), out var txposed, out var unused))
+				{
+					note.NoteName = txposed;
+				}
 			}
 			return result;
 		}

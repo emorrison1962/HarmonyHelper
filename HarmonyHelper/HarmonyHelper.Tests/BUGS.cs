@@ -101,8 +101,10 @@ namespace Eric.Morrison.Harmony.Tests
 						Assert.IsTrue(expectedInterval.Value == interval.Value);
 						Assert.IsFalse(txposedUp == noteName);
 
-						var txposedDown = NoteName.TransposeDown(txposedUp, interval);
-						expectedInterval = txposedDown - noteName;
+						if (NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var unused2))
+						{
+							expectedInterval = txposedDown - noteName;
+						}
 
 						Assert.IsTrue(expectedInterval == Interval.Unison);
 						Assert.IsFalse(txposedDown == txposedUp);
@@ -126,8 +128,10 @@ namespace Eric.Morrison.Harmony.Tests
 			Assert.IsTrue(expectedInterval.Value == interval.Value);
 			Assert.IsFalse(txposedUp == originalNoteName);
 
-			var txposedDown = NoteName.TransposeDown(txposedUp, interval);
-			expectedInterval = txposedDown - originalNoteName;
+			if (NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var unused2))
+			{
+				expectedInterval = txposedDown - originalNoteName;
+			}
 
 			Assert.IsTrue(expectedInterval == Interval.Unison);
 			Assert.IsFalse(txposedDown == txposedUp);

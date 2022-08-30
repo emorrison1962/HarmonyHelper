@@ -227,7 +227,9 @@ namespace Eric.Morrison.Harmony.Chords
 
         public NoteName GetNormalized(NoteName nn, Interval interval)
         {
-            throw new NotImplementedException();
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
+			throw new NotImplementedException();
         }
 
         public void Normalize(ref List<NoteName> noteNames)

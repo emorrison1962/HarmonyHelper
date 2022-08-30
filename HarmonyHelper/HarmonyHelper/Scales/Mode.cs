@@ -46,12 +46,13 @@ namespace Eric.Morrison.Harmony
 				tonic = this.Key.NoteName + tonicOffset;
 
 			this.Tonic = tonic;
-			this.Second = this.Tonic + this.Formula.Second;
-			this.Third = this.Tonic + this.Formula.Third;
-			this.Fourth = this.Tonic + this.Formula.Fourth;
-			this.Fifth = this.Tonic + this.Formula.Fifth;
-			this.Sixth = this.Tonic + this.Formula.Sixth;
-			this.Seventh = this.Tonic + this.Formula.Seventh;
+			var ndx = 0;
+			this.Second = this.Tonic + this.Formula.Intervals[ndx++];
+			this.Third = this.Tonic + this.Formula.Intervals[ndx++];
+			this.Fourth = this.Tonic + this.Formula.Intervals[ndx++];
+			this.Fifth = this.Tonic + this.Formula.Intervals[ndx++];
+			this.Sixth = this.Tonic + this.Formula.Intervals[ndx++];
+			this.Seventh = this.Tonic + this.Formula.Intervals[ndx++];
 
 			var wantedNotes = new List<NoteName>() { this.Tonic, this.Second, this.Third, this.Fourth, this.Fifth, this.Sixth, this.Seventh };
 			this.Notes = this.NoteRange.GetNotes(wantedNotes);
