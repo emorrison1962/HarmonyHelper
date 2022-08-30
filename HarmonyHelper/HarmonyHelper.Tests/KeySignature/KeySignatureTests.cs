@@ -56,8 +56,8 @@ namespace Eric.Morrison.Harmony.Tests
 				}
 				else
 				{
-					key = key - Interval.Perfect5th;
-					root = root - new IntervalContext(key, Interval.Perfect5th);
+					key -= Interval.Perfect5th;
+					root += Interval.Perfect5th;
 				}
 
 				Debug.WriteLine($"key={key.ToString()} : {root.Name}");

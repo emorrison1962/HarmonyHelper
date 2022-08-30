@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Intervals
 {
+	[Obsolete("", false)]
 	public class IntervalContext
 	{
 		public INoteNameNormalizer NoteNameNormalizer { get; private set; }

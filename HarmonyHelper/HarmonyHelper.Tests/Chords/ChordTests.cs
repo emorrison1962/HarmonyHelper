@@ -88,9 +88,9 @@ namespace Eric.Morrison.Harmony.Tests
             var chord = ChordFormulaCatalog.Formulas.First(x => x.Root == NoteName.Gb && x.ChordType == ChordType.Dominant7th);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
             var origKey = chord.Key;
-            var txedUp = chord + new IntervalContext(origKey, Interval.Perfect4th);
+            var txedUp = chord + Interval.Perfect4th;
             Assert.AreNotEqual(txedUp, chord);
-            var txedDown = txedUp - new IntervalContext(origKey, Interval.Perfect4th);
+            var txedDown = txedUp - Interval.Perfect4th;
             var b = txedDown == chord;
             Assert.AreEqual(txedDown, chord);
             new object();
@@ -106,10 +106,10 @@ namespace Eric.Morrison.Harmony.Tests
 
                 var origKey = origChord.Key;
 
-                var txedUp = origChord + new IntervalContext(origKey, Interval.Perfect4th);
+                var txedUp = origChord + Interval.Perfect4th;
                 Assert.AreNotEqual(txedUp, origChord);
 
-                var txedDown = txedUp - new IntervalContext(origKey, Interval.Perfect4th);
+                var txedDown = txedUp - Interval.Perfect4th;
 
                 var b = txedDown == origChord;
                 Assert.AreEqual(txedDown, origChord);
@@ -122,7 +122,7 @@ namespace Eric.Morrison.Harmony.Tests
         {
             foreach (var chord in ChordFormulaCatalog.Formulas)
             {
-                var newChord = chord + new IntervalContext(chord.Key, Interval.Perfect5th);
+                var newChord = chord + Interval.Perfect5th;
                 //Debug.WriteLine(newChord.ToString());
             }
             new object();

@@ -59,7 +59,7 @@ namespace HarmonyHelper.web.Controllers
 					{
 						chordType = ChordType.Dominant7th;
 					}
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					root += Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);

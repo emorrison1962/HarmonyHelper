@@ -153,7 +153,7 @@ namespace Eric.Morrison.Harmony.Tests
                         var success = NoteName.TryTransposeUp(note, (Interval)interval, out var expected, out var unused);
 						Assert.IsTrue(success);
                         var expectedValue = note.Value;
-                        var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
+                        var ctx = interval;
                         var result = note + ctx;
 
                         ValidateTransposeUp(note, (Interval)interval, expected);
@@ -2111,12 +2111,11 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 					var expected = NoteName.TransposeDown(note, (Interval)interval);
 					var expectedValue = note.Value;
-					var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
 					if (note == NoteName.BSharp && (Interval)interval == Interval.Diminished4th)
 					{
 						new object();
 					}
-					var result = note + ctx;
+					var result = note + interval;
 
 					ValidateTransposeDown(note, (Interval)interval, expected);
 				}
@@ -3428,7 +3427,7 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var interval in intervals)
 			{
 				var key = KeySignature.BbMajor;
-				var subtrahend = NoteName.C + new IntervalContext(key, interval);
+				var subtrahend = NoteName.C + interval;
 				var result = NoteName.C - subtrahend;
 				var expected = interval;
 				Assert.AreEqual(interval.Value, expected.Value);

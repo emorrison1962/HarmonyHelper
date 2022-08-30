@@ -92,20 +92,22 @@ namespace Eric.Morrison.Harmony.Tests
 				foreach (var interval in intervals)
 				{
 					var success = NoteName.TryTransposeUp(noteName, (Interval)interval, out var txposedUp, out var unused);
-					Assert.IsTrue(success);
+					if (NoteName.IsValidTransposition(noteName, interval))
+					{
+						Assert.IsTrue(success);
+						var expectedInterval = txposedUp - noteName;
 
-					var expectedInterval = txposedUp - noteName;
+						var inversion = interval.GetInversion();
+						Assert.IsTrue(expectedInterval.Value == interval.Value);
+						Assert.IsFalse(txposedUp == noteName);
 
-					var inversion = interval.GetInversion();
-					Assert.IsTrue(expectedInterval.Value == interval.Value);
-					Assert.IsFalse(txposedUp == noteName);
+						var txposedDown = NoteName.TransposeDown(txposedUp, interval);
+						expectedInterval = txposedDown - noteName;
 
-					var txposedDown = NoteName.TransposeDown(txposedUp, interval);
-					expectedInterval = txposedDown - noteName;
-
-					Assert.IsTrue(expectedInterval == Interval.Unison);
-					Assert.IsFalse(txposedDown == txposedUp);
-					Assert.IsTrue(txposedDown == noteName);
+						Assert.IsTrue(expectedInterval == Interval.Unison);
+						Assert.IsFalse(txposedDown == txposedUp);
+						Assert.IsTrue(txposedDown == noteName);
+					}
 				}
 			}
 		}

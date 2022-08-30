@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 				
 				key += Interval.Perfect4th;
-				chordFormula = chordFormula + new IntervalContext(key, Interval.Perfect4th);
+				chordFormula = chordFormula + Interval.Perfect4th;
 			}
 
 			var arpeggiator = new Arpeggiator(contexts,
@@ -154,7 +154,7 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						chordType = ChordType.Dominant7th;
 					}
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					root = root + Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -225,7 +225,7 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						chordType = ChordType.Dominant7th;
 					}
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					root = root + Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -288,8 +288,8 @@ namespace Eric.Morrison.Harmony.Tests
 				else
 				{
 					chordType = ChordType.Dominant7th;
-					key = key + Interval.Perfect4th;
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					key += Interval.Perfect4th;
+					root += Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -347,8 +347,8 @@ namespace Eric.Morrison.Harmony.Tests
 				else
 				{
 					chordType = ChordType.Dominant7th;
-					key = key + Interval.Perfect4th;
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					key += Interval.Perfect4th;
+					root += Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -604,7 +604,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>() { chord };
 			for (int i = 0; i <= 10; ++i)
 			{
-				chordFormula = chordFormula + new IntervalContext(chordFormula.Key, Interval.Minor3rd);
+				chordFormula += Interval.Minor3rd;
 				chord = new Chord(chordFormula, noteRange);
 				chords.Add(chord);
 			}
@@ -640,6 +640,15 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>() { chord };
 			for (int i = 0; i <= 10; ++i)
 			{
+				if (chordFormula.Root.AccidentalCount == 2)
+				{
+					var nn = NoteName.GetEnharmonicEquivalents(chordFormula.Root).First();
+					chordFormula = new ChordFormula(nn, 
+						chordFormula.ChordType, 
+						KeySignature.Catalog
+							.First(x => x.NoteName == nn + Interval.Perfect4th && x.IsMajor));
+				}
+
 				chordFormula -= Interval.Major3rd;
 				Debug.WriteLine(chordFormula.Name);
 				//var major3rd = Interval.Major3rd;

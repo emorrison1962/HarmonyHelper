@@ -48,23 +48,23 @@ Ex. 57
 					//get the dim inversions
 					var dimInversions = new List<NoteName>() {
 									firstChord.Root,
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Minor3rd),
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Diminished5th),
-									firstChord.Root + new IntervalContext(firstChord, ChordToneInterval.Diminished7th),
+									firstChord.Root + ChordToneInterval.Minor3rd,
+									firstChord.Root + ChordToneInterval.Diminished5th,
+									firstChord.Root + ChordToneInterval.Diminished7th,
 								};
 
 					var dominants = new List<ChordFormula>();
 					//subtract 1/2 step to create a dom7.
 					foreach (var dim in dimInversions)
 					{
-						var txposedDim = dim - new IntervalContext(firstChord, ChordToneInterval.AugmentedUnison);
+						var txposedDim = dim - ChordToneInterval.AugmentedUnison;
 						var chord = new ChordFormula(txposedDim, ChordType.Dominant7th, firstChord.Key);
 						dominants.Add(chord);
 					}
 
 
 					//now, does dom7 resolve to next chord? (dom root == next.fifth?)
-					var fifth = secondChord.Root + new IntervalContext(secondChord, ChordToneInterval.Perfect5th);
+					var fifth = secondChord.Root + ChordToneInterval.Perfect5th;
 					var subbedFor = dominants
 						.Where(x => x.Root == fifth)
 						.FirstOrDefault();

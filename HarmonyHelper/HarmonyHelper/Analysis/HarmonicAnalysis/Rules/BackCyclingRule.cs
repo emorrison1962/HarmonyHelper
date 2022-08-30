@@ -140,7 +140,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			ChordFormula result = null;
 			if (orig.IsDominant)
 			{
-				var resultFormula = orig + new IntervalContext(orig.Key, ChordToneInterval.Augmented4th);
+				var resultFormula = orig + ChordToneInterval.Augmented4th;
 				result = new ChordFormula(resultFormula);
 			}
 			return result;

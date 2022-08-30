@@ -90,8 +90,8 @@ namespace Eric.Morrison.Harmony
 				else
 				{
 					chordType = ChordType.Dominant7th;
-					key = key + Interval.Perfect4th;
-					root = root + new IntervalContext(key, Interval.Perfect4th);
+					key += Interval.Perfect4th;
+					root += Interval.Perfect4th;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);

@@ -121,7 +121,7 @@ namespace Eric.Morrison.Harmony
 			get 
 			{
 				var result = this.Name.Count(x => x == Constants.SHARP_CHAR 
-					|| x == Constants.SHARP_CHAR);
+					|| x == Constants.FLAT_CHAR);
 				return result;
 			} 
 		}
@@ -227,23 +227,22 @@ namespace Eric.Morrison.Harmony
 		{
 			return new NoteName("dynamic", i, false);
 		}
-		public static NoteName operator +(NoteName note, IntervalContext ctx)
+		public static NoteName operator +(NoteName note, Interval interval)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > Interval.Unison)
+			if (null != note)
 			{
-				result = TransposeUp(note, ctx.Interval);
-				//result = ctx.NoteNameNormalizer.GetNormalized(result, ctx.Interval);
+				result = TransposeUp(note, interval);
 			}
 			return result;
 		}
 
-		public static NoteName operator -(NoteName note, IntervalContext ctx)
+		public static NoteName operator -(NoteName note, Interval interval)
 		{
 			var result = note;
-			if (null != note && ctx.Interval > Interval.Unison)
+			if (null != note)
 			{
-				result = TransposeDown(note, ctx.Interval);
+				result = TransposeDown(note, interval);
 			}
 			return result;
 		}
@@ -318,7 +317,7 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(NoteName other)
 		{
 			var result = false;
-			if (/*this.Name == other.Name && */this.Value == other.Value)
+			if (/*this.Name == other.Name) && */this.Value == other.Value)
 				result = true;
 			return result;
 		}
@@ -373,7 +372,7 @@ namespace Eric.Morrison.Harmony
 			txposed = null;
 			enharmonicEquivelent = null;	
 
-			var success = IsTranspositionValid(src, interval);
+			var success = IsValidTransposition(src, interval);
 			if (success)
 			{
 				txposed = TransposeUp(src, interval);
@@ -454,133 +453,134 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		static bool IsTranspositionValid(NoteName note, Interval interval)
+		public static bool IsValidTransposition(NoteName note, Interval interval)
 		{
 			var result = true;
+			var comparer = new NoteNameAphaEqualityComparer();
 			if (
-				(note == NoteName.BSharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Major2nd)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Major3rd)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Perfect5th)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Major6th)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Augmented6th)
-									|| (note == NoteName.BSharpSharp && interval == Interval.Major7th)
+					(comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Major2nd)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Major3rd)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Perfect5th)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Major6th)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Major7th)
 
-									|| (note == NoteName.CSharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.CSharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.CSharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.CSharpSharp && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.Augmented6th)
 
-									|| (note == NoteName.Ebb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Ebb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Ebb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Ebb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Ebb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Ebb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Ebb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Ebb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Ebb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Ebb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.Fbb && interval == Interval.Minor2nd)
-									|| (note == NoteName.Fbb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Fbb && interval == Interval.Augmented2nd)
-									|| (note == NoteName.Fbb && interval == Interval.Minor3rd)
-									|| (note == NoteName.Fbb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Fbb && interval == Interval.Perfect4th)
-									|| (note == NoteName.Fbb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Fbb && interval == Interval.Minor6th)
-									|| (note == NoteName.Fbb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Fbb && interval == Interval.Minor7th)
-									|| (note == NoteName.Fbb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Minor2nd)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Augmented2nd)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Minor3rd)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Perfect4th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Minor6th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.Minor7th)
+					|| (comparer.Equals(note, NoteName.Fbb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.DSharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.DSharpSharp && interval == Interval.Major3rd)
-									|| (note == NoteName.DSharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.DSharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.DSharpSharp && interval == Interval.Augmented6th)
-									|| (note == NoteName.DSharpSharp && interval == Interval.Major7th)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Major3rd)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Major7th)
 
-									|| (note == NoteName.Fb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Fb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Fb && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Fb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Fb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Fb) && interval == Interval.Diminished7th)
 
-									|| (note == NoteName.ESharp && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.ESharp) && interval == Interval.Augmented6th)
 
-									|| (note == NoteName.Gbb && interval == Interval.Minor2nd)
-									|| (note == NoteName.Gbb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Gbb && interval == Interval.Augmented2nd)
-									|| (note == NoteName.Gbb && interval == Interval.Minor3rd)
-									|| (note == NoteName.Gbb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Gbb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Gbb && interval == Interval.Minor6th)
-									|| (note == NoteName.Gbb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Gbb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Minor2nd)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Augmented2nd)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Minor3rd)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Minor6th)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Gbb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.ESharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Major2nd)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Major3rd)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Major6th)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Augmented6th)
-									|| (note == NoteName.ESharpSharp && interval == Interval.Major7th)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Major2nd)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Major3rd)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Major6th)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.ESharpSharp) && interval == Interval.Major7th)
 
-									|| (note == NoteName.Gb && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Gb) && interval == Interval.Diminished3rd)
 
-									|| (note == NoteName.FSharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.FSharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.FSharpSharp && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.FSharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.FSharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.FSharpSharp) && interval == Interval.Augmented6th)
 
-									|| (note == NoteName.Abb && interval == Interval.Minor2nd)
-									|| (note == NoteName.Abb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Abb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Abb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Abb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Abb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.Minor2nd)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Abb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.GSharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.GSharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.GSharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.GSharpSharp && interval == Interval.Augmented6th)
-									|| (note == NoteName.GSharpSharp && interval == Interval.Major7th)
+					|| (comparer.Equals(note, NoteName.GSharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.GSharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.GSharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.GSharpSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.GSharpSharp) && interval == Interval.Major7th)
 
-									|| (note == NoteName.Bbb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Bbb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Bbb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Bbb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Bbb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Bbb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Bbb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Bbb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.ASharp && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.ASharp) && interval == Interval.Augmented6th)
 
-									|| (note == NoteName.Cbb && interval == Interval.Minor2nd)
-									|| (note == NoteName.Cbb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Cbb && interval == Interval.Augmented2nd)
-									|| (note == NoteName.Cbb && interval == Interval.Minor3rd)
-									|| (note == NoteName.Cbb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Cbb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Cbb && interval == Interval.Minor6th)
-									|| (note == NoteName.Cbb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Cbb && interval == Interval.Minor7th)
-									|| (note == NoteName.Cbb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Minor2nd)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Augmented2nd)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Minor3rd)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Minor6th)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.Minor7th)
+					|| (comparer.Equals(note, NoteName.Cbb) && interval == Interval.DiminishedOctave)
 
-									|| (note == NoteName.ASharpSharp && interval == Interval.AugmentedUnison)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Major3rd)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Augmented4th)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Major6th)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Augmented6th)
-									|| (note == NoteName.ASharpSharp && interval == Interval.Major7th)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.AugmentedUnison)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Major3rd)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Augmented4th)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Major6th)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Major7th)
 
-									|| (note == NoteName.Cb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Cb && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Cb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Cb) && interval == Interval.Diminished7th)
 
-									|| (note == NoteName.BSharp && interval == Interval.Augmented5th)
-									|| (note == NoteName.BSharp && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented5th)
+					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented6th)
 
-									|| (note == NoteName.Dbb && interval == Interval.Minor2nd)
-									|| (note == NoteName.Dbb && interval == Interval.Diminished3rd)
-									|| (note == NoteName.Dbb && interval == Interval.Diminished4th)
-									|| (note == NoteName.Dbb && interval == Interval.Diminished5th)
-									|| (note == NoteName.Dbb && interval == Interval.Minor6th)
-									|| (note == NoteName.Dbb && interval == Interval.Diminished7th)
-									|| (note == NoteName.Dbb && interval == Interval.DiminishedOctave)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Minor2nd)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished3rd)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished4th)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished5th)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Minor6th)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished7th)
+					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.DiminishedOctave)
 									)
 			{
 				result = false;
@@ -588,6 +588,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		[Obsolete("", true)]
 		public static NoteName TransposeDown(NoteName src, Interval interval)
 		{
 
@@ -622,11 +623,12 @@ namespace Eric.Morrison.Harmony
 		new public string Name => Constants.EMPTY;
 	}
 
+	[Obsolete("", true)]
 	public static class NoteNameCatalogExtensions
 	{
-		[Obsolete("", false)]
+		[Obsolete("", true)]
 		static public NoteName Get(this IEnumerable<NoteName> src,
-			NoteName nn, Interval interval, INoteNameNormalizer normalizer)
+			NoteName nn, Interval interval,INoteNameNormalizer normalizer)
 		{
 			var result = nn;
 			if (Interval.Unison < interval)
@@ -637,7 +639,6 @@ namespace Eric.Morrison.Harmony
 			Debug.Assert(result != null);
 			return result;
 		}
-
 	}
 
 }//ns

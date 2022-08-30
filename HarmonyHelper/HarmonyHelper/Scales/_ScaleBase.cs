@@ -89,7 +89,7 @@ namespace Eric.Morrison.Harmony.Scales
 				this.NoteNames.Add(this.Key.NoteName);
 				foreach (var interval in this.Formula.Intervals)
 				{
-					var nn = this.Key.NoteName + new IntervalContext(this.Key, interval);
+					var nn = this.Key.NoteName + interval;
 					this.NoteNames.Add(nn);
 				}
 
