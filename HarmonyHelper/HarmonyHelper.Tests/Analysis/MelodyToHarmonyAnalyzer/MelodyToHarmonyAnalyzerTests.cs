@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Notes;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Analysis.Tests
 {
@@ -23,6 +24,13 @@ namespace Eric.Morrison.Harmony.Analysis.Tests
 
             song.Add(notes);
             var result = new MelodyToHarmonyAnalyzer().Analyze(song);
+            foreach (var bar in result)
+            {
+                foreach (var chord in bar.OrderBy(x => x.Name))
+                {
+                    Debug.WriteLine(chord);
+                }
+            }
             new object();
         }
     }
