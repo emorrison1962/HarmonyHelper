@@ -127,5 +127,16 @@ namespace Eric.Morrison.Harmony.Tests
 			Assert.IsTrue(Interval.Major2nd == i2);
 		}
 
-	}
-}
+		[TestMethod()]
+		public void NoteTest_GSharpGreaterThanAFlat_Test()
+		{
+			var gSharp = new Note(NoteName.GSharp, OctaveEnum.Octave2);
+			var aFlat = new Note(NoteName.Ab, OctaveEnum.Octave2);
+
+			Assert.IsFalse(aFlat == gSharp);
+			Assert.IsFalse(gSharp > aFlat);
+			Assert.IsFalse(aFlat > gSharp);
+		}
+
+	}//class
+}//ns

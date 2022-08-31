@@ -155,18 +155,6 @@ namespace Eric.Morrison.Harmony.Tests
 
 
         [TestMethod()]
-        public void NoteTest_GSharpGreaterThanAFlat_Test()
-        {
-            var gSharp = new Note(NoteName.GSharp, OctaveEnum.Octave2);
-            var aFlat = new Note(NoteName.Ab, OctaveEnum.Octave2);
-
-            Assert.IsFalse(gSharp > aFlat);
-            Assert.IsFalse(aFlat > gSharp);
-            Assert.AreEqual(aFlat, gSharp);
-        }
-
-
-        [TestMethod()]
         public void ChordDiff()
         {
             var key = KeySignature.CMajor;
