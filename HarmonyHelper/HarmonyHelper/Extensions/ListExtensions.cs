@@ -73,11 +73,11 @@ namespace Eric.Morrison.Harmony
 
 			if (DirectionEnum.Ascending == direction)
 			{
-				result = list.Where(x => x > lastNote).FirstOrDefault();
+				result = list.Where(x => x.NoteName.Value > lastNote.NoteName.Value).FirstOrDefault();
 			}
 			else
 			{
-				result = list.Where(x => x < lastNote).LastOrDefault();
+				result = list.Where(x => x.NoteName.Value < lastNote.NoteName.Value).LastOrDefault();
 			}
 			return result;
 		}
