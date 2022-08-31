@@ -569,7 +569,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 		//	return result;
 		//}
 
-		static List<string> PreProcess(string input)
+		static List<string> PreParse(string input)
 		{
 			var result = new List<string>();
 			input = input.ToLower();
@@ -585,7 +585,7 @@ m6 | madd9 | m6add9 | mmaj7 | mmaj9 | m7b5 | m7#5|7|9|11|13|7sus4|7b5|7#5|7b9|7#
 			message = string.Empty;
 			formulas = new List<ChordFormula>();
 
-			var strings = PreProcess(input);
+			var strings = PreParse(input);
 
 			var successCount = 0;
 			foreach (var s in strings)
