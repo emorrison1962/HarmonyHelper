@@ -15,6 +15,7 @@ namespace Eric.Morrison.Harmony.Analysis.Tests
         [TestMethod()]
         public void AnalyzeTest()
         {
+            var s = "d e e d g e";
             var song = new List<List<NoteName>>();
             var notes = new List<NoteName> { NoteName.E, NoteName.G, NoteName.A, NoteName.B, NoteName.D };
             song.Add(notes);

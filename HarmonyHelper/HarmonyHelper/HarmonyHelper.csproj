@@ -99,6 +99,7 @@
     <Compile Include="Notes\EnharmonicEquivalent.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notes\NoteNameParser.cs" />
     <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
     <Compile Include="Scales\IHasRootNoteName.cs" />
     <Compile Include="Scales\INoteNameContainer.cs" />
