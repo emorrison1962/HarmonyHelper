@@ -333,6 +333,39 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		static public bool TryDetermineKey(List<NoteName> notes,
+			out KeySignature matchedKey,
+			out KeySignature probableKey)
+		{
+			matchedKey = null;
+			probableKey = null;
+			var result = false;
+			var keys = new List<Tuple<int, KeySignature>>();
+			foreach (var key in KeySignature.Catalog)
+			{
+				if (key.AreDiatonic(notes, out var notDiatonicCount))
+				{
+					matchedKey = key;
+					result = true;
+					break;
+				}
+				else
+				{
+					keys.Add(new Tuple<int, KeySignature>(notDiatonicCount, key));
+				}
+			}
+			if (!result)
+			{
+				var probableTuple = keys.OrderBy(x => x.Item1)
+					.ThenBy(x => x.Item2.AccidentalCount)
+					.First();
+				probableKey = probableTuple.Item2;
+				result = true;
+			}
+
+			return result;
+		}
+
 
 		public KeySignature GetRelativeMajor()
 		{

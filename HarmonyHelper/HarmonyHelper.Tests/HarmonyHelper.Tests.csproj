@@ -56,6 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzerTests.cs" />
     <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
@@ -67,6 +68,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
+    <Compile Include="Notes\NoteNameParserTests.cs" />
     <Compile Include="Scales\ModeTests.cs" />
     <Compile Include="Notes\NoteNameTests.cs" />
     <Compile Include="Notes\NoteTests.cs" />

@@ -337,7 +337,8 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(NoteName other)
 		{
 			var result = false;
-			if (/*this.Name == other.Name) && */this.Value == other.Value)
+			if (this.Name == other.Name 
+				&& this.Value == other.Value)
 				result = true;
 			return result;
 		}
