@@ -251,12 +251,17 @@ namespace Eric.Morrison.Harmony
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
-			var result = note;
+			NoteName result = null;
 			if (null != note)
 			{
-				if (NoteName.TryTransposeUp(note, interval.GetInversion(), out var txposed, out var unused))
+				var success = NoteName.TryTransposeUp(note, interval.GetInversion(), out var txposed, out var enharmonicEquivelent);
+				if (success)
 				{
 					result = txposed;
+				}
+				else
+				{
+					result = enharmonicEquivelent;
 				}
 			}
 			return result;
@@ -404,6 +409,7 @@ namespace Eric.Morrison.Harmony
 				if (success)
 				{
 					enharmonicEquivelent = txposed;
+					txposed = null;
 				}
 			}
 			return result;
