@@ -67,7 +67,6 @@ namespace Eric.Morrison.Harmony.Analysis
 
         List<ChordFormula> Analyze(List<NoteName> notes)
         {
-            throw new NotImplementedException();
             var result = new List<ChordFormula>();
             foreach (var formula in this.FormulaCatalog)
             {
