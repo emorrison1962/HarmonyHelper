@@ -202,7 +202,7 @@ namespace Eric.Morrison.Harmony.Chords
 				throw new ArgumentNullException(nameof(interval));
 			ChordFormula result = null;
 			var key = KeySignature.Catalog
-				.First(x => x.NoteName == chord.Key.NoteName - interval
+				.First(x => x.NoteName.Value == (chord.Key.NoteName - interval).Value
 					&& x.IsMajor == chord.Key.IsMajor);
 
 			if (chord.Root.AccidentalCount == 2)

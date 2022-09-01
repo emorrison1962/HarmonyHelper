@@ -277,7 +277,7 @@ namespace Eric.Morrison.Harmony.Intervals
         {
             Interval result = Interval.Unison;
             if (this == Interval.Unison)
-                result = Interval.PerfectOctave;
+                result = Interval.Unison;
             else if (this == Interval.AugmentedUnison)
                 result = Interval.DiminishedOctave;
             else if (this == Interval.Minor2nd)
@@ -321,7 +321,7 @@ namespace Eric.Morrison.Harmony.Intervals
             else if (this == Interval.DiminishedOctave)
                 result = Interval.AugmentedUnison;
             else if (this == Interval.PerfectOctave)
-                result = Interval.Unison;
+                result = Interval.PerfectOctave;
             else
                 throw new ArgumentOutOfRangeException();
 

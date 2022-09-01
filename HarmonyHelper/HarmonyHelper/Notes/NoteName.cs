@@ -44,63 +44,65 @@ namespace Eric.Morrison.Harmony
 
 		//static public readonly NullNoteName Empty = NullNoteName.Instance;
 		static List<NoteName> _catalog { get; set; } = new List<NoteName>();
+		static List<NoteName> _internalCatalog { get; set; } = new List<NoteName>();
 		static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
+		static IEnumerable<NoteName> InternalCatalog { get { return _internalCatalog; } }
 
 
 		static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}", VALUE_C);
 		static public readonly NoteName C = new NoteName("C", VALUE_C);
-		static public readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}", VALUE_C);
+		static readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}", VALUE_C, false);
 
 
-		static public readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}", VALUE_Db);
+		static readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}", VALUE_Db, false);
 		static public readonly NoteName CSharp = new NoteName($"C{Constants.SHARP}", VALUE_Db);
 		static public readonly NoteName Db = new NoteName($"D{Constants.FLAT}", VALUE_Db);
 
 
-		static public readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}", VALUE_D);
+		static readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}", VALUE_D, false);
 		static public readonly NoteName D = new NoteName("D", VALUE_D);
-		static public readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}", VALUE_D);
+		static readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}", VALUE_D, false);
 
 
 		static public readonly NoteName DSharp = new NoteName($"D{Constants.SHARP}", VALUE_Eb);
 		static public readonly NoteName Eb = new NoteName($"E{Constants.FLAT}", VALUE_Eb);
-		static public readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}", VALUE_Eb);
+		static readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}", VALUE_Eb, false);
 
 
-		static public readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}", VALUE_E);
+		static readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}", VALUE_E, false);
 		static public readonly NoteName E = new NoteName("E", VALUE_E);
 		static public readonly NoteName Fb = new NoteName($"F{Constants.FLAT}", VALUE_E);
 
 
 		static public readonly NoteName ESharp = new NoteName($"E{Constants.SHARP}", VALUE_F);
 		static public readonly NoteName F = new NoteName("F", VALUE_F);
-		static public readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}", VALUE_F);
+		static readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}", VALUE_F, false);
 
 
-		static public readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}", VALUE_Gb);
+		static readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}", VALUE_Gb, false);
 		static public readonly NoteName FSharp = new NoteName($"F{Constants.SHARP}", VALUE_Gb);
 		static public readonly NoteName Gb = new NoteName($"G{Constants.FLAT}", VALUE_Gb);
 
 
-		static public readonly NoteName FSharpSharp = new NoteName($"F{Constants.DOUBLE_SHARP}", VALUE_G);
+		static readonly NoteName FSharpSharp = new NoteName($"F{Constants.DOUBLE_SHARP}", VALUE_G, false);
 		static public readonly NoteName G = new NoteName("G", VALUE_G);
-		static public readonly NoteName Abb = new NoteName($"A{Constants.DOUBLE_FLAT}", VALUE_G);
+		static readonly NoteName Abb = new NoteName($"A{Constants.DOUBLE_FLAT}", VALUE_G, false);
 
 
 		static public readonly NoteName GSharp = new NoteName($"G{Constants.SHARP}", VALUE_Ab);
 		static public readonly NoteName Ab = new NoteName($"A{Constants.FLAT}", VALUE_Ab);
 
 
-		static public readonly NoteName GSharpSharp = new NoteName($"G{Constants.DOUBLE_SHARP}", VALUE_A);
+		static readonly NoteName GSharpSharp = new NoteName($"G{Constants.DOUBLE_SHARP}", VALUE_A, false);
 		static public readonly NoteName A = new NoteName("A", VALUE_A);
-		static public readonly NoteName Bbb = new NoteName($"B{Constants.DOUBLE_FLAT}", VALUE_A);
+		static readonly NoteName Bbb = new NoteName($"B{Constants.DOUBLE_FLAT}", VALUE_A, false);
 
 
 		static public readonly NoteName ASharp = new NoteName($"A{Constants.SHARP}", VALUE_Bb);
 		static public readonly NoteName Bb = new NoteName($"B{Constants.FLAT}", VALUE_Bb);
-		static public readonly NoteName Cbb = new NoteName($"C{Constants.DOUBLE_FLAT}", VALUE_Bb);
+		static readonly NoteName Cbb = new NoteName($"C{Constants.DOUBLE_FLAT}", VALUE_Bb, false);
 
-		static public readonly NoteName ASharpSharp = new NoteName($"A{Constants.DOUBLE_SHARP}", VALUE_B);
+		static readonly NoteName ASharpSharp = new NoteName($"A{Constants.DOUBLE_SHARP}", VALUE_B, false);
 		static public readonly NoteName B = new NoteName("B", VALUE_B);
 		static public readonly NoteName Cb = new NoteName($"C{Constants.FLAT}", VALUE_B);
 
@@ -167,6 +169,7 @@ namespace Eric.Morrison.Harmony
 				this.AsciiSortValue = this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
 			}
 
+			_internalCatalog.Add(this);
 			if (addToCatalog)
 				_catalog.Add(this);
 		}
@@ -275,10 +278,75 @@ namespace Eric.Morrison.Harmony
 				(a.Value != b.Value))
 				success = true;
 
+			var invert = false;
+			if (a > b)
+			{
+				var tmp = a;
+				a = b;
+				b = tmp;
+				invert = true;
+			}
+			else
+			{
+				new object();
+			}
+			
+
+
 			if (success)
 			{
-				var notes = NoteName.Catalog
-					.Distinct(new NoteNameValueEqualityComparer())
+				var notes = NoteName.InternalCatalog
+					.OrderBy(x => x.Value)
+					.ToList();
+
+				//var ndxA = notes.FindIndex(x => x.Value == a.Value);
+				//var ndxB = notes.FindIndex(x => x.Value == b.Value);
+
+				var shifted = int.MinValue;
+				for (int shift = 0; shift < MAX_UPPER_SHIFT; ++shift)
+				{
+					if (b.Value == a.Value << shift)
+					{
+						shifted = shift;
+						break;
+					}
+				}
+				var intervalValue = (int)Math.Pow(2, shifted);
+
+				result = ResolveInterval(intervalValue, a, b);
+
+				new object();
+#if false
+				var invert = false;
+				var diff = ndxA - ndxB;
+				if (diff < 0)
+				{
+					invert = true;
+					diff = Math.Abs(diff);
+				}
+
+				var val = 1 << diff;
+				result = ResolveInterval(val, a, b);
+
+				if (invert)
+					result = result.GetInversion();
+#endif
+			}
+			return result;
+		}
+
+#if false
+		public static Interval operator -(NoteName a, NoteName b)
+		{
+			var result = Interval.Unison;
+			bool success = false;
+			if ((null != a && null != b) &&
+				(a.Value != b.Value))
+				success = true;
+
+			if (success)
+			{
+				var notes = NoteName.InternalCatalog
 					.OrderBy(x => x.Value)
 					.ToList();
 
@@ -301,7 +369,7 @@ namespace Eric.Morrison.Harmony
 			}
 			return result;
 		}
-
+#endif
 		#endregion
 
 		#region IComparable
@@ -368,6 +436,7 @@ namespace Eric.Morrison.Harmony
 
 		static Interval ResolveInterval(int val, NoteName a, NoteName b)
 		{
+			ghfgh
 			var Letters = new List<char>() { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
 			var ndxA = Letters.IndexOf(a.Name[0]);
 			var ndxB = Letters.IndexOf(b.Name[0]);
@@ -435,7 +504,7 @@ namespace Eric.Morrison.Harmony
 			if (success)
 			{
 				var val = TransposeValue(src, interval);
-				result = ResolveNoteNames(src, interval, val);
+				result = ResolveNoteName(src, interval, val);
 				Debug.Assert(null != result);
 			}
 			Debug.Assert(null != result);
@@ -456,14 +525,14 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static NoteName ResolveNoteNames(NoteName src, Interval interval, int noteVal)
+		public static NoteName ResolveNoteName(NoteName src, Interval interval, int noteVal)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
 			const char ASCII_G = 'G';
 			var intervalRole = interval.IntervalRoleType;
 
-			var notenames = NoteName.Catalog
+			var notenames = NoteName.InternalCatalog
 				.OrderBy(x => x.Value)
 				.ToList();
 			var resultCandidates = notenames.Where(x => x.Value == noteVal).ToList();

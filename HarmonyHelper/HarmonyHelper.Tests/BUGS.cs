@@ -86,28 +86,27 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod]
 		public void NoteName_Transpose()
 		{
+			var i = NoteName.CSharp - NoteName.BSharp;
+			Assert.AreEqual(Interval.Minor3rd, i);
+
 			foreach (var noteName in NoteName.Catalog)
 			{
-				var intervals = Interval.Catalog.Where(x => x != Interval.Unison);
+				var intervals = Interval.Catalog.Where(x => x != Interval.Unison && x != Interval.PerfectOctave);
 				foreach (var interval in intervals)
 				{
 					if (NoteName.IsValidTransposition(noteName, interval))
 					{
-						var success = NoteName.TryTransposeUp(noteName, (Interval)interval, out var txposedUp, out var unused);
+						var success = NoteName.TryTransposeUp(noteName, interval, out var txposedUp, out var unused);
 						Assert.IsTrue(success);
 						var expectedInterval = txposedUp - noteName;
-						if (expectedInterval == Interval.Unison || expectedInterval == Interval.PerfectOctave)
-						{
-							continue;
-						}
+						Assert.AreEqual(expectedInterval, interval);
 
 						Assert.IsTrue(expectedInterval.Value == interval.Value);
 						Assert.IsFalse(txposedUp == noteName);
 
-						if (NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var unused2))
-						{
-							expectedInterval = txposedDown - noteName;
-						}
+						NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var enharmonicEquivalent);
+
+						expectedInterval = (txposedDown ?? enharmonicEquivalent) - noteName;
 
 						//Assert.IsTrue(expectedInterval == Interval.Unison);
 						Assert.IsFalse(txposedDown == txposedUp);
@@ -123,7 +122,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var originalNoteName = NoteName.BSharp;
 			var interval = Interval.Major2nd;
 
-			var success = NoteName.TryTransposeUp(originalNoteName, (Interval)interval, out var txposedUp, out var unused);
+			var success = NoteName.TryTransposeUp(originalNoteName, interval, out var txposedUp, out var unused);
 			Assert.IsTrue(success);
 
 			var expectedInterval = txposedUp - originalNoteName;
