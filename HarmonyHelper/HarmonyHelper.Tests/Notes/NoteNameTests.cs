@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Tests
 						Assert.IsTrue(success);
 
 						var actual = txposed - interval;
-						if (actual != note)
+						if (actual.Value != note.Value)
 							Assert.Fail();
 					}
 				}
@@ -130,7 +130,7 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var nn in NoteName.Catalog)
 			{
 				var ee = NoteName.GetEnharmonicEquivalents(nn);
-				Assert.IsTrue(ee.All(x => x == nn));
+				Assert.IsTrue(ee.All(x => x.Value == nn.Value));
 			}
 			new object();
 		}
@@ -163,7 +163,7 @@ namespace Eric.Morrison.Harmony.Tests
 					if (0 == compare)
 					{
 						var equivalents = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.IsTrue(equivalents.All(x => x == nn2));
+						Assert.IsTrue(equivalents.All(x => x.Value == nn2.Value));
 					}
 					if (compare < 0)
 						++lessThan;
@@ -189,7 +189,7 @@ namespace Eric.Morrison.Harmony.Tests
 					if (0 == compare)
 					{
 						var ee = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.IsTrue(ee.All(x => x == nn1));
+						Assert.IsTrue(ee.All(x => x.Value == nn1.Value));
 					}
 					if (compare < 0)
 						++lessThan;

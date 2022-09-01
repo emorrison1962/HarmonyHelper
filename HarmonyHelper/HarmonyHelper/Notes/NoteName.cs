@@ -109,12 +109,12 @@ namespace Eric.Morrison.Harmony
 
 		#region Properties
 		static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
-		public string Name { get; private set; }
-		public int Value { get; private set; }
-		public bool IsSharped { get; private set; }
-		public bool IsFlatted { get; private set; }
-		public bool IsNatural { get; private set; }
-		public int AsciiSortValue { get; private set; }
+		virtual public string Name { get; protected set; }
+		public int Value { get; protected set; }
+		public bool IsSharped { get; protected set; }
+		public bool IsFlatted { get; protected set; }
+		public bool IsNatural { get; protected set; }
+		public int AsciiSortValue { get; protected set; }
 
 		public int AccidentalCount 
 		{ 
@@ -247,7 +247,7 @@ namespace Eric.Morrison.Harmony
             return result;
 		}
 
-		public static NoteName operator -(NoteName note, Interval interval)
+		public static NonContextualNoteName operator -(NoteName note, Interval interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
@@ -264,7 +264,7 @@ namespace Eric.Morrison.Harmony
 					result = enharmonicEquivelent;
 				}
 			}
-			return result;
+			return new NonContextualNoteName(result);
 		}
 
 		public static Interval operator -(NoteName a, NoteName b)
@@ -323,7 +323,7 @@ namespace Eric.Morrison.Harmony
 			var result = a.Value.CompareTo(b.Value);
 			if (0 == result)
 			{
-				result = a.Name.CompareTo(b.Name);
+				result = a.Name[0].CompareTo(b.Name[0]);
 #if false
 				Less than zero: This instance is less than value.
 				Zero: This instance is equal to value.
@@ -334,7 +334,7 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public bool Equals(NoteName other)
+		virtual public bool Equals(NoteName other)
 		{
 			var result = false;
 			if (this.Name == other.Name 
@@ -658,6 +658,7 @@ namespace Eric.Morrison.Harmony
 
 	}//class
 
+
 	[Obsolete("", true)]
 	public class NullNoteName : NoteName
 	{
@@ -688,6 +689,6 @@ namespace Eric.Morrison.Harmony
 			Debug.Assert(result != null);
 			return result;
 		}
-	}
+	}//class
 
 }//ns
