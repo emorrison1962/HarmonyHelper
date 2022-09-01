@@ -134,8 +134,8 @@ namespace Eric.Morrison.Harmony.Tests
 			var aFlat = new Note(NoteName.Ab, OctaveEnum.Octave2);
 
 			Assert.IsFalse(aFlat == gSharp);
-			Assert.IsFalse(gSharp > aFlat);
-			Assert.IsFalse(aFlat > gSharp);
+			Assert.IsFalse(gSharp.NoteName.Value > aFlat.NoteName.Value);
+			Assert.IsFalse(aFlat.NoteName.Value > gSharp.NoteName.Value);
 		}
 
 	}//class

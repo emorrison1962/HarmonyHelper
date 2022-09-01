@@ -81,6 +81,7 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalyzer.cs" />
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="Helpers\DataSetTracer.cs" />
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Notes\EnharmonicEquivalent.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notes\NonContextualNoteName.cs" />
     <Compile Include="Notes\NoteNameParser.cs" />
     <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
     <Compile Include="Scales\IHasRootNoteName.cs" />

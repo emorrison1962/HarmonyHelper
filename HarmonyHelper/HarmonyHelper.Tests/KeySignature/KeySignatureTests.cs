@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony.Tests
 				else
 				{
 					key -= Interval.Perfect5th;
-					root += Interval.Perfect5th;
+					root += ChordToneInterval.Perfect5th;
 				}
 
 				Debug.WriteLine($"key={key.ToString()} : {root.Name}");

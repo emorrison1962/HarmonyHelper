@@ -232,7 +232,7 @@ namespace Eric.Morrison.Harmony.Chords
 		}
 
 #if true
-		public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool respectKey = false)
+		public static ChordFormula TransposeUp(ChordFormula src, ChordToneInterval interval, bool respectKey = false)
 		{
 			KeySignature txedKey = null;
 #if false
@@ -262,7 +262,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 		}
 
-		public static ChordFormula TransposeDown(ChordFormula src, Interval interval, bool respectKey = false)
+		public static ChordFormula TransposeDown(ChordFormula src, ChordToneInterval interval, bool respectKey = false)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));

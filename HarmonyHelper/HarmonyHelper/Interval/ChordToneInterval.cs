@@ -82,6 +82,7 @@ ChordToneInterval.Thirteenth
 			}
 		}
 
+        [Obsolete("")]
 		override public int ToIndex()
 		{
 			var intervals = ChordToneInterval.Catalog
@@ -93,6 +94,66 @@ ChordToneInterval.Thirteenth
 
 			return result;
 		}
+
+		public ChordToneInterval GetInversion()
+		{ 
+			throw new NotImplementedException();
+		}
+
+		//public ChordToneInterval GetInversion()
+		//{
+		//	ChordToneInterval result = ChordToneInterval.Unison;
+		//	if (this == ChordToneInterval.Unison)
+		//		result = ChordToneInterval.PerfectOctave;
+		//	else if (this == ChordToneInterval.AugmentedUnison)
+		//		result = ChordToneInterval.DiminishedOctave;
+		//	else if (this == ChordToneInterval.Minor2nd)
+		//		result = ChordToneInterval.Major7th;
+		//	else if (this == ChordToneInterval.Major2nd)
+		//		result = ChordToneInterval.Minor7th;
+		//	else if (this == ChordToneInterval.Augmented2nd)
+		//		result = ChordToneInterval.Diminished7th;
+		//	else if (this == ChordToneInterval.Diminished3rd)
+		//		result = ChordToneInterval.Augmented6th;
+		//	else if (this == ChordToneInterval.Augmented2nd)
+		//		result = ChordToneInterval.Diminished7th;
+		//	else if (this == ChordToneInterval.Minor3rd)
+		//		result = ChordToneInterval.Major6th;
+		//	else if (this == ChordToneInterval.Major3rd)
+		//		result = ChordToneInterval.Minor6th;
+		//	else if (this == ChordToneInterval.Diminished4th)
+		//		result = ChordToneInterval.Augmented5th;
+		//	else if (this == ChordToneInterval.Perfect4th)
+		//		result = ChordToneInterval.Perfect5th;
+		//	else if (this == ChordToneInterval.Augmented4th)
+		//		result = ChordToneInterval.Diminished5th;
+		//	else if (this == ChordToneInterval.Diminished5th)
+		//		result = ChordToneInterval.Augmented4th;
+		//	else if (this == ChordToneInterval.Perfect5th)
+		//		result = ChordToneInterval.Perfect4th;
+		//	else if (this == ChordToneInterval.Augmented5th)
+		//		result = ChordToneInterval.Diminished4th;
+		//	else if (this == ChordToneInterval.Minor6th)
+		//		result = ChordToneInterval.Major3rd;
+		//	else if (this == ChordToneInterval.Major6th)
+		//		result = ChordToneInterval.Minor3rd;
+		//	else if (this == ChordToneInterval.Augmented6th)
+		//		result = ChordToneInterval.Diminished3rd;
+		//	else if (this == ChordToneInterval.Diminished7th)
+		//		result = ChordToneInterval.Augmented2nd;
+		//	else if (this == ChordToneInterval.Minor7th)
+		//		result = ChordToneInterval.Major2nd;
+		//	else if (this == ChordToneInterval.Major7th)
+		//		result = ChordToneInterval.Minor2nd;
+		//	else if (this == ChordToneInterval.DiminishedOctave)
+		//		result = ChordToneInterval.AugmentedUnison;
+		//	else if (this == ChordToneInterval.PerfectOctave)
+		//		result = ChordToneInterval.Unison;
+		//	else
+		//		throw new ArgumentOutOfRangeException();
+
+		//	return result;
+		//}
 
 	}//class
 }//ns

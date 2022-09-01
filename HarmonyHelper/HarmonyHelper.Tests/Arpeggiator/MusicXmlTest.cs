@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony
 				{
 					chordType = ChordType.Dominant7th;
 					key += Interval.Perfect4th;
-					root += Interval.Perfect4th;
+					root += ChordToneInterval.Eleventh;
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
