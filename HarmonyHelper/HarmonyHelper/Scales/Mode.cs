@@ -59,35 +59,39 @@ namespace Eric.Morrison.Harmony
 			
 		}
 
-		Interval GetTonicOffset()
+		ScaleToneInterval GetTonicOffset()
 		{
-			Interval result = Interval.Unison;
-			switch (Formula.Mode)
-			{
-				case ModeEnum.Ionian:
-					result = Interval.Unison;
-					break;
-				case ModeEnum.Dorian:
-					result = Interval.Major2nd;
-					break;
-				case ModeEnum.Phrygian:
-					result = Interval.Major3rd;
-					break;
-				case ModeEnum.Lydian:
-					result = Interval.Perfect4th;
-					break;
-				case ModeEnum.Mixolydian:
-					result = Interval.Perfect5th;
-					break;
-				case ModeEnum.Aeolian:
-					result = Interval.Major6th;
-					break;
-				case ModeEnum.Locrian:
-					result = Interval.Major7th;
-					break;
-			}
-			return result;
+			throw new NotImplementedException();
 		}
+		//Interval GetTonicOffset()
+		//{
+		//	Interval result = Interval.Unison;
+		//	switch (Formula.Mode)
+		//	{
+		//		case ModeEnum.Ionian:
+		//			result = Interval.Unison;
+		//			break;
+		//		case ModeEnum.Dorian:
+		//			result = Interval.Major2nd;
+		//			break;
+		//		case ModeEnum.Phrygian:
+		//			result = Interval.Major3rd;
+		//			break;
+		//		case ModeEnum.Lydian:
+		//			result = Interval.Perfect4th;
+		//			break;
+		//		case ModeEnum.Mixolydian:
+		//			result = Interval.Perfect5th;
+		//			break;
+		//		case ModeEnum.Aeolian:
+		//			result = Interval.Major6th;
+		//			break;
+		//		case ModeEnum.Locrian:
+		//			result = Interval.Major7th;
+		//			break;
+		//	}
+		//	return result;
+		//}
 
 		public override string ToString()
 		{

@@ -227,6 +227,7 @@ namespace Eric.Morrison.Harmony
 		{
 			return new NoteName("dynamic", i, false);
 		}
+        [Obsolete("", true)]
 		public static NoteName operator +(NoteName note, Interval interval)
 		{
 			if (null == interval)
@@ -247,6 +248,15 @@ namespace Eric.Morrison.Harmony
             return result;
 		}
 
+		public static NoteName operator +(NoteName note, ScaleToneInterval interval)
+		{ 
+			throw new NotImplementedException();
+		}
+
+		public static NoteName operator +(NoteName note, ChordToneInterval interval)
+		{ 
+			throw new NotImplementedException();
+		}
 		public static NonContextualNoteName operator -(NoteName note, Interval interval)
 		{
 			if (null == interval)

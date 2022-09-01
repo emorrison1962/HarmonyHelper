@@ -88,17 +88,33 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void NoteName_Subtraction_Test02()
 		{
-			var intervals = Interval.Catalog
-				.Where(x => x > Interval.Unison)
-				.ToList();
-
-			foreach (var interval in intervals)
 			{
-				var key = KeySignature.BbMajor;
-				var subtrahend = NoteName.C + interval;
-				var result = NoteName.C - subtrahend;
-				var expected = interval;
-				Assert.AreEqual(interval.Value, expected.Value);
+				var intervals = ChordToneInterval.Catalog
+					.Where(x => x > Interval.Unison)
+					.ToList();
+
+				foreach (var interval in intervals)
+				{
+					var key = KeySignature.BbMajor;
+					var subtrahend = NoteName.C + interval;
+					var result = NoteName.C - subtrahend;
+					var expected = interval;
+					Assert.AreEqual(interval.Value, expected.Value);
+				}
+			}
+			{
+				var intervals = ScaleToneInterval.Catalog
+					.Where(x => x > Interval.Unison)
+					.ToList();
+
+				foreach (var interval in intervals)
+				{
+					var key = KeySignature.BbMajor;
+					var subtrahend = NoteName.C + interval;
+					var result = NoteName.C - subtrahend;
+					var expected = interval;
+					Assert.AreEqual(interval.Value, expected.Value);
+				}
 			}
 
 			new object();
