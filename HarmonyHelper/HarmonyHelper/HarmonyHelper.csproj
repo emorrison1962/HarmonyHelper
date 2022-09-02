@@ -86,21 +86,23 @@
     <Compile Include="Helpers\DebuggingHelpers.cs" />
     <Compile Include="INeedOperators.cs" />
     <Compile Include="Interfaces\INoteNameNormalizer.cs" />
-    <Compile Include="Interval\ChordToneInterval.cs" />
-    <Compile Include="Interval\Interval.cs" />
-    <Compile Include="Interval\IntervalContext.cs" />
-    <Compile Include="Interval\IntervalExtensions.cs" />
-    <Compile Include="Interval\ScaleToneInterval.cs" />
+    <Compile Include="Intervals\ChordToneInterval.cs" />
+    <Compile Include="Intervals\IFunctionalInterval.cs" />
+    <Compile Include="Intervals\Interval.cs" />
+    <Compile Include="Intervals\IntervalContext.cs" />
+    <Compile Include="Intervals\IntervalExtensions.cs" />
+    <Compile Include="Intervals\ScaleToneInterval.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
       <DependentUpon>KeySignature.cs</DependentUpon>
     </Compile>
+    <Compile Include="Intervals\AmbiguousInterval.cs" />
     <Compile Include="Notes\Comparers.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
     <Compile Include="Notes\EnharmonicEquivalent.cs">
       <DependentUpon>NoteName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notes\NonContextualNoteName.cs" />
+    <Compile Include="Notes\AmbiguousNoteName.cs" />
     <Compile Include="Notes\NoteNameParser.cs" />
     <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
     <Compile Include="Scales\IHasRootNoteName.cs" />

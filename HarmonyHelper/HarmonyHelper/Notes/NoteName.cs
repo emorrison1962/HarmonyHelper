@@ -230,7 +230,7 @@ namespace Eric.Morrison.Harmony
 		{
 			return new NoteName("dynamic", i, false);
 		}
-        [Obsolete("", true)]
+
 		public static NoteName operator +(NoteName note, Interval interval)
 		{
 			if (null == interval)
@@ -251,16 +251,7 @@ namespace Eric.Morrison.Harmony
             return result;
 		}
 
-		public static NoteName operator +(NoteName note, ScaleToneInterval interval)
-		{ 
-			throw new NotImplementedException();
-		}
-
-		public static NoteName operator +(NoteName note, ChordToneInterval interval)
-		{ 
-			throw new NotImplementedException();
-		}
-		public static NonContextualNoteName operator -(NoteName note, Interval interval)
+		public static AmbiguousNoteName operator -(NoteName note, Interval interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
@@ -277,10 +268,10 @@ namespace Eric.Morrison.Harmony
 					result = enharmonicEquivelent;
 				}
 			}
-			return new NonContextualNoteName(result);
+			return new AmbiguousNoteName(result);
 		}
 
-		public static Interval operator -(NoteName a, NoteName b)
+		public static AmbiguousInterval operator -(NoteName a, NoteName b)
 		{
 			var result = Interval.Unison;
 			bool success = false;
@@ -337,12 +328,12 @@ namespace Eric.Morrison.Harmony
 
 				var val = 1 << diff;
 				result = ResolveInterval(val, a, b);
+#endif
 
 				if (invert)
 					result = result.GetInversion();
-#endif
 			}
-			return result;
+			return new AmbiguousInterval(result);
 		}
 
 #if false
@@ -446,7 +437,6 @@ namespace Eric.Morrison.Harmony
 
 		static Interval ResolveInterval(int val, NoteName a, NoteName b)
 		{
-			ghfgh
 			var Letters = new List<char>() { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
 			var ndxA = Letters.IndexOf(a.Name[0]);
 			var ndxB = Letters.IndexOf(b.Name[0]);
@@ -465,6 +455,7 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+
 
 		public static bool TryTransposeUp(NoteName src, Interval interval, out NoteName txposed, out NoteName enharmonicEquivelent)
 		{
@@ -719,7 +710,7 @@ namespace Eric.Morrison.Harmony
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
 			var inversion = interval.GetInversion();
-			var result = TransposeUp(src, inversion);
+			var result = TransposeUp(src, (dynamic)inversion);
 			return result;
 		}
 

@@ -79,7 +79,8 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				var i1 = nn2 - nn1;
 				var i2 = nn1 - nn2;
-				Assert.AreEqual(i1, i2.GetInversion());
+
+				Assert.AreEqual(i2.GetInversion().Value, i1.Value);
 			}
 		}
 
@@ -87,7 +88,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void NoteName_Transpose()
 		{
 			var i = NoteName.CSharp - NoteName.BSharp;
-			Assert.AreEqual(Interval.Minor3rd, i);
+			Assert.AreEqual(Interval.DiminishedOctave.Value, i.Value);
 
 			foreach (var noteName in NoteName.Catalog)
 			{
@@ -125,7 +126,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var success = NoteName.TryTransposeUp(originalNoteName, interval, out var txposedUp, out var unused);
 			Assert.IsTrue(success);
 
-			var expectedInterval = txposedUp - originalNoteName;
+			var expectedInterval = originalNoteName - txposedUp;
 
 			Assert.IsTrue(expectedInterval.Value == interval.Value);
 			Assert.IsFalse(txposedUp == originalNoteName);
@@ -135,7 +136,7 @@ namespace Eric.Morrison.Harmony.Tests
 				expectedInterval = txposedDown - originalNoteName;
 			}
 
-			Assert.IsTrue(expectedInterval == Interval.Unison);
+			Assert.IsTrue(expectedInterval.Value == Interval.Unison.Value);
 			Assert.IsFalse(txposedDown == txposedUp);
 			Assert.IsTrue(txposedDown == originalNoteName);
 		}

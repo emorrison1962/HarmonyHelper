@@ -146,9 +146,9 @@ namespace Eric.Morrison.Harmony
 		
 		Minor2nd,
 		Major2nd,
-		Diminished3rd,
 		Augmented2nd,
 
+		Diminished3rd,
 		Minor3rd,
 		Major3rd,
 
@@ -162,16 +162,18 @@ namespace Eric.Morrison.Harmony
 
 		Minor6th,
 		Major6th,
+		Augmented6th,
 
 		Diminished7th,
-		Augmented6th,
 		Minor7th,
 		Major7th,
+
 		DiminishedOctave	
 	}
 
 	public enum IntervalRoleTypeEnum
 	{
+		Unknown = int.MinValue,
 		Unison = 0,
 		Second = 1,
 		Third = 2,

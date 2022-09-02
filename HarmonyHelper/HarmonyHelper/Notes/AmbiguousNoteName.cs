@@ -8,7 +8,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
-	public class NonContextualNoteName : NoteName
+	public class AmbiguousNoteName : NoteName
 	{
 		public override string Name
 		{
@@ -16,63 +16,63 @@ namespace Eric.Morrison.Harmony
 			protected set => base.Name = value;
 		}
 
-		public NonContextualNoteName(NoteName nn)
+		public AmbiguousNoteName(NoteName nn)
 		{
 			ReflectionExtensions.Copy(this, nn);
 		}
 
 		#region Operators
-		public static bool operator <(NonContextualNoteName a, NoteName b)
+		public static bool operator <(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) < 0;
 			return result;
 		}
-		public static bool operator >(NonContextualNoteName a, NoteName b)
+		public static bool operator >(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) > 0;
 			return result;
 		}
-		public static bool operator <=(NonContextualNoteName a, NoteName b)
+		public static bool operator <=(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) <= 0;
 			return result;
 		}
-		public static bool operator >=(NonContextualNoteName a, NoteName b)
+		public static bool operator >=(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) >= 0;
 			return result;
 		}
-		public static bool operator ==(NonContextualNoteName a, NoteName b)
+		public static bool operator ==(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) == 0;
 			return result;
 		}
-		public static bool operator !=(NonContextualNoteName a, NoteName b)
+		public static bool operator !=(AmbiguousNoteName a, NoteName b)
 		{
 			var result = Compare(a, b) != 0;
 			return result;
 		}
-		public static implicit operator int(NonContextualNoteName nn)
+		public static implicit operator int(AmbiguousNoteName nn)
 		{
-			throw new InvalidOperationException($"{nameof(NonContextualNoteName)} does not support this.");
+			throw new InvalidOperationException($"{nameof(AmbiguousNoteName)} does not support this.");
 		}
-		public static explicit operator NonContextualNoteName(int i)
+		public static explicit operator AmbiguousNoteName(int i)
 		{
-			throw new InvalidOperationException($"{nameof(NonContextualNoteName)} does not support this.");
+			throw new InvalidOperationException($"{nameof(AmbiguousNoteName)} does not support this.");
 		}
-		public static NoteName operator +(NonContextualNoteName note, Interval interval)
+		public static NoteName operator +(AmbiguousNoteName note, Interval interval)
 		{
-			throw new InvalidOperationException($"{nameof(NonContextualNoteName)} does not support this.");
-		}
-
-		public static NonContextualNoteName operator -(NonContextualNoteName note, Interval interval)
-		{
-			throw new InvalidOperationException($"{nameof(NonContextualNoteName)} does not support this.");
+			throw new InvalidOperationException($"{nameof(AmbiguousNoteName)} does not support this.");
 		}
 
-		public static Interval operator -(NonContextualNoteName a, NoteName b)
+		public static AmbiguousNoteName operator -(AmbiguousNoteName note, Interval interval)
 		{
-			throw new InvalidOperationException($"{nameof(NonContextualNoteName)} does not support this.");
+			throw new InvalidOperationException($"{nameof(AmbiguousNoteName)} does not support this.");
+		}
+
+		public static Interval operator -(AmbiguousNoteName a, NoteName b)
+		{
+			throw new InvalidOperationException($"{nameof(AmbiguousNoteName)} does not support this.");
 		}
 
 		#endregion
@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony
 			var result = Compare(this, other);
 			return result;
 		}
-		public static int Compare(NonContextualNoteName a, NoteName b)
+		public static int Compare(AmbiguousNoteName a, NoteName b)
 		{
 			if (a is null && b is null)
 				return 0;

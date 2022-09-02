@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Eric.Morrison.Harmony.Intervals
 {
 	public class Interval : IEquatable<Interval>, IComparable<Interval>
-	{
+    {
 		#region Constants
 		#endregion
 
@@ -273,7 +273,7 @@ namespace Eric.Morrison.Harmony.Intervals
 				result = this.Invert();
 			return result;
 		}
-		public Interval GetInversion()
+		virtual public Interval GetInversion()
         {
             Interval result = Interval.Unison;
             if (this == Interval.Unison)

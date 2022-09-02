@@ -66,6 +66,7 @@ ScaleToneInterval.Major7th
 		override public string Name { get; protected set; }
 		public ScaleToneFunctionEnum ScaleToneFunction { get; private set; }
 
+        public IntervalRoleTypeEnum IntervalRoleType => this.ScaleToneFunction.ToIntervalRoleType();
 
 		public ScaleToneInterval(string name, Interval interval, ScaleToneFunctionEnum ScaleToneFunction) : base(interval)
 		{
@@ -92,45 +93,6 @@ ScaleToneInterval.Major7th
 				return obj.Value.GetHashCode();
 			}
 		}
-
-		public static ScaleToneInterval operator -(ScaleToneInterval a, ScaleToneInterval b)
-		{
-			var result = ScaleToneInterval.None;
-			bool success = false;
-			if ((null != a && null != b) &&
-				(a.Value != b.Value))
-				success = true;
-
-			if (success)
-			{
-				var notes = ScaleToneInterval.Catalog
-					.Distinct(new ScaleToneIntervalValueEqualityComparer())
-					.OrderBy(x => x.Value)
-					.ToList();
-
-				var ndxA = notes.FindIndex(x => x.Value == a.Value);
-				var ndxB = notes.FindIndex(x => x.Value == b.Value);
-
-				var invert = false;
-				var diff = ndxA - ndxB;
-				if (diff < 0)
-				{
-					invert = true;
-					diff = Math.Abs(diff);
-				}
-
-				var pow = 1 << diff;
-				var interval = (ScaleToneInterval)pow;
-				var baseInterval = interval;
-
-				if (invert)
-					baseInterval = interval.GetInversion().ToScaleToneInterval();
-
-				result = ScaleToneInterval.Catalog.Where(x => x.Value == baseInterval.Value).First();
-			}
-			return result;
-		}
-
 
 		public static ScaleToneInterval ToScaleToneInterval(Interval interval)
 		{

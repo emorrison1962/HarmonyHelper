@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony.Intervals
 {
-	public class ChordToneInterval : Interval
+    public class ChordToneInterval : Interval
 	{
 		static public List<ChordToneInterval> Catalog { get; set; } = new List<ChordToneInterval>();
 
@@ -59,7 +59,10 @@ ChordToneInterval.Thirteenth
 
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
-		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
+
+        public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
+
+        private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
