@@ -248,15 +248,30 @@ namespace Eric.Morrison.Harmony
             return result;
 		}
 
+		public static NoteName operator +(NoteName note, ChordToneInterval interval)
+		{
+			if (null == interval)
+				throw new ArgumentNullException(nameof(interval));
+			var result = note;
+			if (null != note)
+			{
+				//result = TransposeUp(note, interval);
+				if (TryTransposeUp(note, interval, out var txposed, out var enharmonic))
+				{
+					result = txposed;
+				}
+				else
+				{
+					result = enharmonic;
+				}
+			}
+			return result;
+		}
 		public static NoteName operator +(NoteName note, ScaleToneInterval interval)
 		{ 
 			throw new NotImplementedException();
 		}
 
-		public static NoteName operator +(NoteName note, ChordToneInterval interval)
-		{ 
-			throw new NotImplementedException();
-		}
 		public static NonContextualNoteName operator -(NoteName note, Interval interval)
 		{
 			if (null == interval)
