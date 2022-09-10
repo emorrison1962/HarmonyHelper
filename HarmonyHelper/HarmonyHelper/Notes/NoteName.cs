@@ -251,7 +251,7 @@ namespace Eric.Morrison.Harmony
             return result;
 		}
 
-		public static AmbiguousNoteName operator -(NoteName note, Interval interval)
+		public static NoteName operator -(NoteName note, Interval interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
@@ -268,55 +268,88 @@ namespace Eric.Morrison.Harmony
 					result = enharmonicEquivelent;
 				}
 			}
-			return new AmbiguousNoteName(result);
+			return result;
 		}
 
-		public static AmbiguousInterval operator -(NoteName a, NoteName b)
+		public static Interval operator -(NoteName a, NoteName b)
 		{
-			var result = Interval.Unison;
-			bool success = false;
-			if ((null != a && null != b) &&
-				(a.Value != b.Value))
-				success = true;
-
-			var invert = false;
-			if (a > b)
-			{
-				var tmp = a;
-				a = b;
-				b = tmp;
-				invert = true;
-			}
-			else
-			{
-				new object();
-			}
+			Interval result = null;
 			
+			var logA = Math.Log(a.Value, 2);
+            var logB = Math.Log(b.Value, 2);
+            var pow = (logA - logB);
+
+            var invert = false;
+            if (pow < 0)
+            {
+                invert = true;
+                pow = Math.Abs(pow);
+            }
+            else if (0 == pow)
+            {
+                result = Interval.Unison;
+            }
+
+            var intervalValue = (int)Math.Pow(2, pow);
+            result = (Interval)intervalValue;
+            if (invert)
+            {
+                result = result.Invert();
+            }
+            result = NoteName.ResolveInterval(result, a, b, invert);
+
+            Debug.WriteLine($"{a} - {b} = {result}");
+			
+			return result;
+		}
+#if false
+        public static AmbiguousInterval operator -(NoteName a, NoteName b)
+        {
+            var result = Interval.Unison;
+            bool success = false;
+            if ((null != a && null != b) &&
+                (a.Value != b.Value))
+                success = true;
+
+            var invert = false;
+            if (a < b)
+            {
+                var tmp = a;
+                a = b;
+                b = tmp;
+                invert = true;
+            }
+            else
+            {
+                new object();
+            }
 
 
-			if (success)
-			{
-				var notes = NoteName.InternalCatalog
-					.OrderBy(x => x.Value)
-					.ToList();
 
-				//var ndxA = notes.FindIndex(x => x.Value == a.Value);
-				//var ndxB = notes.FindIndex(x => x.Value == b.Value);
+            if (success)
+            {
+                var notes = NoteName.InternalCatalog
+                    .OrderBy(x => x.Value)
+                    .ToList();
 
-				var shifted = int.MinValue;
-				for (int shift = 0; shift < MAX_UPPER_SHIFT; ++shift)
-				{
-					if (b.Value == a.Value << shift)
-					{
-						shifted = shift;
-						break;
-					}
-				}
-				var intervalValue = (int)Math.Pow(2, shifted);
+                //var ndxA = notes.FindIndex(x => x.Value == a.Value);
+                //var ndxB = notes.FindIndex(x => x.Value == b.Value);
 
-				result = ResolveInterval(intervalValue, a, b);
+                var shifted = int.MinValue;
+                for (int shift = 0; shift < MAX_UPPER_SHIFT; ++shift)
+                {
+                    throw new NotImplementedException("this doesn't work if b < a");
+                    if (b.Value == a.Value << shift)
+                    {
+                        shifted = shift;
+                        break;
+                    }
+                }
+                var intervalValue = (int)Math.Pow(2, shifted);
 
-				new object();
+                result = ResolveInterval((Interval)intervalValue, a, b);
+
+                new object();
 #if false
 				var invert = false;
 				var diff = ndxA - ndxB;
@@ -330,12 +363,13 @@ namespace Eric.Morrison.Harmony
 				result = ResolveInterval(val, a, b);
 #endif
 
-				if (invert)
-					result = result.GetInversion();
-			}
-			return new AmbiguousInterval(result);
-		}
+                if (invert)
+                    result = result.GetInversion();
+            }
+            return new AmbiguousInterval(result);
+        }
 
+#endif
 #if false
 		public static Interval operator -(NoteName a, NoteName b)
 		{
@@ -371,11 +405,11 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 #endif
-		#endregion
+        #endregion
 
-		#region IComparable
+        #region IComparable
 
-		public int CompareTo(NoteName other)
+        public int CompareTo(NoteName other)
 		{
 			var result = Compare(this, other);
 			return result;
@@ -435,20 +469,15 @@ namespace Eric.Morrison.Harmony
 
 		#endregion
 
-		static Interval ResolveInterval(int val, NoteName a, NoteName b)
+		static public Interval ResolveInterval(Interval interval, NoteName a, NoteName b, bool invert = false)
 		{
-			var Letters = new List<char>() { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
-			var ndxA = Letters.IndexOf(a.Name[0]);
-			var ndxB = Letters.IndexOf(b.Name[0]);
-
-			var steps = Math.Abs(ndxA - ndxB) + 1;
-
-			var intervals = Interval.Catalog.Where(x => x.Value == val).ToList();
+			var steps = a.GetDistance<NoteName>(b, !invert);
+			var intervals = Interval.Catalog.Where(x => x.Value == interval.Value).ToList();
 			var result = intervals.FirstOrDefault(x => x.Name.Contains(steps.ToString()));
 
 			if (result == null)
 			{
-				result = (Interval)val;
+				result = (Interval)interval;
 			}
 
 			Debug.Assert(result != null);

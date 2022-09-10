@@ -72,23 +72,141 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod]
 		public void NoteName_Subtration_Operator()
 		{
-			var nn1 = NoteName.Catalog.First();
-			var nns = NoteName.Catalog.Where(x => x != nn1);
-
-			foreach (var nn2 in nns)
+			foreach (var nn1 in NoteName.Catalog)
 			{
-				var i1 = nn2 - nn1;
-				var i2 = nn1 - nn2;
+				var nns = NoteName.Catalog.Where(x => x != nn1);
 
-				Assert.AreEqual(i2.GetInversion().Value, i1.Value);
+				foreach (var nn2 in nns)
+				{
+					var i1 = nn2 - nn1;
+					var i2 = nn1 - nn2;
+
+					Assert.AreEqual(i2.GetInversion().Value, i1.Value);
+				}
 			}
+		}
+
+		[TestMethod]
+		public void GetDistance_Test()
+		{
+			var distance = NoteName.CSharp.GetDistance<NoteName>(NoteName.A);
+		}
+
+		[TestMethod]
+		public void Subtraction_NewImplementation_Bugs_Test()
+		{
+#if false
+	C - B♯ = Interval: Name=Unison Value=0x00000001 //Dimished2nd ?
+C - C = Interval: Name=Unison Value=0x00000001
+C - C♯ = Interval: Name=Diminished Octave Value=0x00000800
+C - D♭ = Interval: Name=Major7th Value=0x00000800
+C - D = Interval: Name=Minor7th Value=0x00000400
+C - D♯ = Interval: Name=Diminished7th Value=0x00000200
+C - E♭ = Interval: Name=Major6th Value=0x00000200
+C - E = Interval: Name=Minor6th Value=0x00000100
+C - F♭ = Interval: Name=Augmented5th Value=0x00000100
+	C - E♯ = Interval: Name=Perfect5th Value=0x00000080 //Diminished6th
+C - F = Interval: Name=Perfect5th Value=0x00000080
+C - F♯ = Interval: Name=Diminished5th Value=0x00000040
+C - G♭ = Interval: Name=Augmented4th Value=0x00000040
+C - G = Interval: Name=Perfect4th Value=0x00000020
+C - G♯ = Interval: Name=Diminished4th Value=0x00000010
+C - A♭ = Interval: Name=Major3rd Value=0x00000010
+C - A = Interval: Name=Minor3rd Value=0x00000008
+C - A♯ = Interval: Name=Diminished3rd Value=0x00000004
+C - B♭ = Interval: Name=Major2nd Value=0x00000004
+C - B = Interval: Name=Minor2nd Value=0x00000002
+C - C♭ = Interval: Name=Minor2nd Value=0x00000002
+#endif
+			var bugs = new List<Tuple<NoteName, Interval>>
+			{
+				new Tuple<NoteName, Interval>(NoteName.BSharp, Interval.Diminished2nd),
+				new Tuple<NoteName, Interval>(NoteName.ESharp, Interval.Diminished6th),
+
+				//new Tuple<NoteName, Interval>(NoteName.Db, Interval.Major7th),
+				//new Tuple<NoteName, Interval>(NoteName.Eb, Interval.Major6th),
+				//new Tuple<NoteName, Interval>(NoteName.Fb, Interval.Augmented5th),
+				//new Tuple<NoteName, Interval>(NoteName.Ab, Interval.Major3rd),
+				//new Tuple<NoteName, Interval>(NoteName.Bb, Interval.Major2nd),
+		};
+
+			var nn = NoteName.C;
+			foreach (var nnTuple in bugs)
+			{
+				var logA = Math.Log(nn.Value, 2);
+				var logB = Math.Log(nnTuple.Item1.Value, 2);
+
+				var interval = Interval.Unison;
+
+				var pow = (logA - logB);
+				var invert = false;
+				if (pow < 0)
+				{
+					invert = true;
+					pow = Math.Abs(pow);
+				}
+				else if (0 == pow)
+				{
+					interval = Interval.Unison;
+				}
+
+				var ival = (int)Math.Pow(2, pow);
+				interval = (Interval)ival;
+				if (invert)
+				{
+					interval = interval.Invert();
+				}
+				interval = NoteName.ResolveInterval(interval, nn, nnTuple.Item1);
+
+				Debug.WriteLine($"{nn} - {nnTuple.Item1} = {interval}, should be {nnTuple.Item2}");
+				new object();
+			}
+			new object();
+		}
+
+
+		[TestMethod]
+		public void Subtraction_NewImplementation_Test()
+		{
+			var nn = NoteName.C;
+			foreach (var noteName in NoteName.Catalog)
+			{
+				var logA = Math.Log(nn.Value, 2);
+				var logB = Math.Log(noteName.Value, 2);
+
+				var interval = Interval.Unison;
+
+				var pow = (logA - logB);
+				var invert = false;
+				if (pow < 0)
+				{
+					invert = true;
+					pow = Math.Abs(pow);
+				}
+				else if (0 == pow)
+				{
+					interval = Interval.Unison;
+				}
+
+				var ival = (int)Math.Pow(2, pow);
+				interval = (Interval)ival;
+				if (invert)
+				{
+					interval = interval.Invert();
+				}
+				interval = NoteName.ResolveInterval(interval, nn, noteName);
+
+				Debug.WriteLine($"{nn} - {noteName} = {interval}");
+				new object();
+			}
+			new object();
 		}
 
 		[TestMethod]
 		public void NoteName_Transpose()
 		{
 			var i = NoteName.CSharp - NoteName.BSharp;
-			Assert.AreEqual(Interval.DiminishedOctave.Value, i.Value);
+			//Assert.AreEqual(Interval.DiminishedOctave.Value, i.Value);
 
 			foreach (var noteName in NoteName.Catalog)
 			{
@@ -100,12 +218,15 @@ namespace Eric.Morrison.Harmony.Tests
 						var success = NoteName.TryTransposeUp(noteName, interval, out var txposedUp, out var unused);
 						Assert.IsTrue(success);
 						var expectedInterval = txposedUp - noteName;
+
+						var eq = expectedInterval == interval;
 						Assert.AreEqual(expectedInterval, interval);
 
 						Assert.IsTrue(expectedInterval.Value == interval.Value);
 						Assert.IsFalse(txposedUp == noteName);
 
-						NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var enharmonicEquivalent);
+						var inversion = interval.GetInversion();
+						NoteName.TryTransposeUp(txposedUp, inversion, out var txposedDown, out var enharmonicEquivalent);
 
 						expectedInterval = (txposedDown ?? enharmonicEquivalent) - noteName;
 
@@ -126,7 +247,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var success = NoteName.TryTransposeUp(originalNoteName, interval, out var txposedUp, out var unused);
 			Assert.IsTrue(success);
 
-			var expectedInterval = originalNoteName - txposedUp;
+			var expectedInterval = txposedUp - originalNoteName;
 
 			Assert.IsTrue(expectedInterval.Value == interval.Value);
 			Assert.IsFalse(txposedUp == originalNoteName);

@@ -13,33 +13,50 @@ namespace Eric.Morrison.Harmony.Intervals
 
 		#region Static
 		static public List<Interval> Catalog { get; set; } = new List<Interval>();
-		static public Interval Unison = new Interval("Unison", 0, 0, IntervalRoleTypeEnum.Unison);
-		static public Interval AugmentedUnison = new Interval("Augmented Unison", Constants.INTERVAL_VALUE_MINOR_2ND, 1, IntervalRoleTypeEnum.Unison);
+		static public Interval Unison = new Interval("Unison", Constants.INTERVAL_VALUE_UNISON, 0, IntervalRoleTypeEnum.Unison);
+        static public Interval Diminished2nd = new Interval("Diminished2nd", Constants.INTERVAL_VALUE_UNISON, 0, IntervalRoleTypeEnum.Second);
 
+        static public Interval AugmentedUnison = new Interval("Augmented Unison", Constants.INTERVAL_VALUE_MINOR_2ND, 1, IntervalRoleTypeEnum.Unison);
 		static public Interval Minor2nd = new Interval("Minor2nd", Constants.INTERVAL_VALUE_MINOR_2ND, 1, IntervalRoleTypeEnum.Second);
+
 		static public Interval Major2nd = new Interval("Major2nd", Constants.INTERVAL_VALUE_MAJOR_2ND, 2, IntervalRoleTypeEnum.Second);
 		static public Interval Diminished3rd = new Interval("Diminished3rd", Constants.INTERVAL_VALUE_MAJOR_2ND, 2, IntervalRoleTypeEnum.Third);
+
 		static public Interval Augmented2nd = new Interval("Augmented2nd", Constants.INTERVAL_VALUE_MINOR_3RD, 3, IntervalRoleTypeEnum.Second);
 		static public Interval Minor3rd = new Interval("Minor3rd", Constants.INTERVAL_VALUE_MINOR_3RD, 3, IntervalRoleTypeEnum.Third);
+
 		static public Interval Major3rd = new Interval("Major3rd", Constants.INTERVAL_VALUE_MAJOR_3RD, 4, IntervalRoleTypeEnum.Third);
+
 		static public Interval Diminished4th = new Interval("Diminished4th", Constants.INTERVAL_VALUE_DIMINISHED_4TH, 4, IntervalRoleTypeEnum.Fourth);
-		static public Interval Perfect4th = new Interval("Perfect4th", Constants.INTERVAL_VALUE_PERFECT_4TH, 5, IntervalRoleTypeEnum.Fourth);
-		static public Interval Augmented4th = new Interval("Augmented4th", Constants.INTERVAL_VALUE_AUGMENTED_4TH, 6, IntervalRoleTypeEnum.Fourth);
+		
+        static public Interval Perfect4th = new Interval("Perfect4th", Constants.INTERVAL_VALUE_PERFECT_4TH, 5, IntervalRoleTypeEnum.Fourth);
+        static public Interval Augmented3rd = new Interval("Augmented3rd", Constants.INTERVAL_VALUE_PERFECT_4TH, 5, IntervalRoleTypeEnum.Third);
+
+        static public Interval Augmented4th = new Interval("Augmented4th", Constants.INTERVAL_VALUE_AUGMENTED_4TH, 6, IntervalRoleTypeEnum.Fourth);
+
 		static public Interval Diminished5th = new Interval("Diminished5th", Constants.INTERVAL_VALUE_DIMINISHED_5TH, 6, IntervalRoleTypeEnum.Fifth);
+
 		static public Interval Perfect5th = new Interval("Perfect5th", Constants.INTERVAL_VALUE_PERFECT_5TH, 7, IntervalRoleTypeEnum.Fifth);
-		static public Interval Augmented5th = new Interval("Augmented5th", Constants.INTERVAL_VALUE_AUGMENTED_5TH, 8, IntervalRoleTypeEnum.Fifth);
+        static public Interval Diminished6th = new Interval("Diminished6th", Constants.INTERVAL_VALUE_PERFECT_5TH, 7, IntervalRoleTypeEnum.Sixth);
+
+        static public Interval Augmented5th = new Interval("Augmented5th", Constants.INTERVAL_VALUE_AUGMENTED_5TH, 8, IntervalRoleTypeEnum.Fifth);
+
 		static public Interval Minor6th = new Interval("Minor6th", Constants.INTERVAL_VALUE_MINOR_6TH, 8, IntervalRoleTypeEnum.Sixth);
+
 		static public Interval Major6th = new Interval("Major6th", Constants.INTERVAL_VALUE_MAJOR_6TH, 9, IntervalRoleTypeEnum.Sixth);
+
 		static public Interval Augmented6th = new Interval("Augmented6th", Constants.INTERVAL_VALUE_MINOR_7TH, 10, IntervalRoleTypeEnum.Sixth);
 		static public Interval Diminished7th = new Interval("Diminished7th", Constants.INTERVAL_VALUE_MAJOR_6TH, 9, IntervalRoleTypeEnum.Seventh);
 		static public Interval Minor7th = new Interval("Minor7th", Constants.INTERVAL_VALUE_MINOR_7TH, 10, IntervalRoleTypeEnum.Seventh);
+
 		static public Interval Major7th = new Interval("Major7th", Constants.INTERVAL_VALUE_MAJOR_7TH, 11, IntervalRoleTypeEnum.Seventh);
-
 		static public Interval DiminishedOctave = new Interval("Diminished Octave", Constants.INTERVAL_VALUE_MAJOR_7TH, 11, IntervalRoleTypeEnum.Octave);
-		static public Interval PerfectOctave = new Interval("Perfect Octave", Constants.INTERVAL_VALUE_MAJOR_7TH, 12, IntervalRoleTypeEnum.Octave);
-		#endregion
+		
+        static public Interval PerfectOctave = new Interval("Perfect Octave", Constants.INTERVAL_VALUE_UNISON, 12, IntervalRoleTypeEnum.Octave);
+        static public Interval Augmented7th = new Interval("Augmented7th", Constants.INTERVAL_VALUE_UNISON, 12, IntervalRoleTypeEnum.Seventh);
+        #endregion
 
-		virtual public string Name { get; protected set; }
+        virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		public int SemiTones { get; private set; }
 		public IntervalRoleTypeEnum IntervalRoleType { get; protected set; }
@@ -101,7 +118,10 @@ namespace Eric.Morrison.Harmony.Intervals
 			else if (this == Interval.Diminished5th)
 				result = Interval.Augmented4th;
 
-			else if (this == Interval.Perfect5th)
+            else if (this == Interval.Augmented5th)
+                result = Interval.Diminished4th;
+            
+            else if (this == Interval.Perfect5th)
 				result = Interval.Perfect4th;
 
 			else if (this == Interval.Minor6th)
@@ -113,7 +133,10 @@ namespace Eric.Morrison.Harmony.Intervals
 			else if (this == Interval.Augmented6th)
 				result = Interval.Diminished3rd;
 
-			else if (this == Interval.Minor7th)
+            else if (this == Interval.Diminished7th)
+                result = Interval.Minor3rd;
+            
+            else if (this == Interval.Minor7th)
 				result = Interval.Major2nd;
 
 			else if (this == Interval.Major7th)
@@ -278,6 +301,10 @@ namespace Eric.Morrison.Harmony.Intervals
             Interval result = Interval.Unison;
             if (this == Interval.Unison)
                 result = Interval.Unison;
+            else if (this == Interval.Diminished2nd)
+                result = Interval.Augmented7th;
+            
+
             else if (this == Interval.AugmentedUnison)
                 result = Interval.DiminishedOctave;
             else if (this == Interval.Minor2nd)
@@ -304,6 +331,12 @@ namespace Eric.Morrison.Harmony.Intervals
                 result = Interval.Augmented4th;
             else if (this == Interval.Perfect5th)
                 result = Interval.Perfect4th;
+
+            else if (this == Interval.Diminished6th)
+                result = Interval.Augmented3rd;
+            else if (this == Interval.Augmented3rd)
+                result = Interval.Diminished6th;
+
             else if (this == Interval.Augmented5th)
                 result = Interval.Diminished4th;
             else if (this == Interval.Minor6th)
@@ -322,6 +355,9 @@ namespace Eric.Morrison.Harmony.Intervals
                 result = Interval.AugmentedUnison;
             else if (this == Interval.PerfectOctave)
                 result = Interval.PerfectOctave;
+            else if (this == Interval.Augmented7th)
+                result = Interval.Diminished2nd;
+
             else
                 throw new ArgumentOutOfRangeException();
 

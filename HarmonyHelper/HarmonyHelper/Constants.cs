@@ -40,7 +40,7 @@
 		public const string THIRTEENTH = "13th";
 		public const string SHARP_13TH = Constants.SHARP + "13th";
 
-		public const int INTERVAL_VALUE_NONE = 0;
+		public const int INTERVAL_VALUE_UNISON = 1;
 		public const int INTERVAL_VALUE_MINOR_2ND = 1 << 1;
 		public const int INTERVAL_VALUE_MAJOR_2ND = 1 << 2;
 		public const int INTERVAL_VALUE_MINOR_3RD = 1 << 3;

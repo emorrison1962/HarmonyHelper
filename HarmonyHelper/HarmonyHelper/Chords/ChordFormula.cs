@@ -72,6 +72,18 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+        internal static NoteName EnsureValidRoot(NoteName nn)
+        {
+			var result = nn;
+			if (nn.AccidentalCount > 1)
+			{
+				result = NoteName.GetEnharmonicEquivalents(nn)
+					.OrderBy(ee => ee.AccidentalCount)
+					.First();
+			}
+			return result;
+        }
+
 		#endregion
 
 		public bool Contains(NoteName note)

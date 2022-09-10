@@ -8,6 +8,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony
 {
+	[Obsolete("", true)]
 	public class AmbiguousNoteName : NoteName
 	{
 		public override string Name

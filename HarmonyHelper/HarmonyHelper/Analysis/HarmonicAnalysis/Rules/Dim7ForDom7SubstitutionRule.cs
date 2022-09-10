@@ -58,7 +58,8 @@ Ex. 57
 					foreach (var dim in dimInversions)
 					{
 						var txposedDim = dim - ChordToneInterval.AugmentedUnison;
-						var chord = new ChordFormula(txposedDim, ChordType.Dominant7th, firstChord.Key);
+						var root = ChordFormula.EnsureValidRoot(txposedDim);
+						var chord = new ChordFormula(root, ChordType.Dominant7th, firstChord.Key);
 						dominants.Add(chord);
 					}
 

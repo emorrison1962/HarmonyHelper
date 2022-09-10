@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using static Eric.Morrison.Harmony.Chords.Chord;
 //using static Eric.Morrison.Harmony.Chord;
@@ -65,6 +66,32 @@ namespace Eric.Morrison.Harmony
 			}
 
 			return result;
+		}
+
+		public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>
+		{
+			var maxNdx = list.Count - 1;
+			var currentNdx = list.IndexOf(startingAt);
+
+			int distance = 0;
+			for (; distance <= list.Count; ++distance)
+			{
+				if (currentNdx < maxNdx)
+				{
+					var result = list[currentNdx];
+					if (result.Equals(criteria))
+					{
+						break;
+					}
+					++currentNdx;
+				}
+				else if (currentNdx == maxNdx)
+				{
+					var result = list[maxNdx];
+					currentNdx = 0;
+				}
+			}
+			return distance + 1;
 		}
 
 		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
@@ -145,6 +172,21 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
+		public static int GetDistance<T>(this NoteName src, NoteName dst, bool invert = false)
+		{
+			int result = int.MinValue;
+			var chars = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', };
+			if (!invert)
+			{
+				result = chars.GetDistance(src.Name[0], dst.Name[0]);
+			}
+			else
+			{
+				result = chars.GetDistance(dst.Name[0], src.Name[0]);
+			}
+
+			return result;
+		}
 
 
 	}//class
