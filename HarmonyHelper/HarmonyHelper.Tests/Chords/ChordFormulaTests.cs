@@ -24,9 +24,6 @@ namespace HarmonyHelperTests.Chords
 			{
 				chordFormula -= Interval.Major3rd;
 				Debug.WriteLine(chordFormula.Name);
-				//var major3rd = Interval.Major3rd;
-				//var txposedKey = chordFormula.Key - major3rd;
-				//chordFormula = chordFormula - new IntervalContext(txposedKey, major3rd);
 			}
 
 			new object();

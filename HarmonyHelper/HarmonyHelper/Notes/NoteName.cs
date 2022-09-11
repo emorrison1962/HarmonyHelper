@@ -285,18 +285,15 @@ namespace Eric.Morrison.Harmony
                 invert = true;
                 pow = Math.Abs(pow);
             }
-            else if (0 == pow)
-            {
-                result = Interval.Unison;
-            }
 
             var intervalValue = (int)Math.Pow(2, pow);
             result = (Interval)intervalValue;
-            if (invert)
+			result = NoteName.ResolveInterval(result, a, b, invert);
+
+			if (invert)
             {
                 result = result.Invert();
             }
-            result = NoteName.ResolveInterval(result, a, b, invert);
 
             Debug.WriteLine($"{a} - {b} = {result}");
 			
@@ -471,9 +468,20 @@ namespace Eric.Morrison.Harmony
 
 		static public Interval ResolveInterval(Interval interval, NoteName a, NoteName b, bool invert = false)
 		{
-			var steps = a.GetDistance<NoteName>(b, !invert);
+			Interval result = null;
+			var lettersAway = a.GetDistance<NoteName>(b, !invert);
 			var intervals = Interval.Catalog.Where(x => x.Value == interval.Value).ToList();
-			var result = intervals.FirstOrDefault(x => x.Name.Contains(steps.ToString()));
+			if (0 == lettersAway)
+			{
+				result = intervals
+					.FirstOrDefault(x => x.Name.Contains("Unison")
+					|| x.Name.Contains("Octave"));
+			}
+			else
+			{
+				result = intervals
+					.FirstOrDefault(x => x.Name.Contains(lettersAway.ToString()));
+			}
 
 			if (result == null)
 			{
@@ -595,6 +603,25 @@ namespace Eric.Morrison.Harmony
 			if (
 					comparer.Equals(note, NoteName.ASharp) && interval == Interval.Augmented6th
 
+					|| (comparer.Equals(note, NoteName.DSharp) && interval == Interval.Augmented3rd)
+					|| (comparer.Equals(note, NoteName.Fb) && interval == Interval.Diminished6th)
+					|| (comparer.Equals(note, NoteName.Fb) && interval == Interval.Diminished2nd)
+					|| (comparer.Equals(note, NoteName.ESharp) && interval == Interval.Augmented7th)
+					|| (comparer.Equals(note, NoteName.ESharp) && interval == Interval.Augmented3rd)
+					|| (comparer.Equals(note, NoteName.Gb) && interval == Interval.Diminished6th)
+					|| (comparer.Equals(note, NoteName.Gb) && interval == Interval.Diminished2nd)
+					|| (comparer.Equals(note, NoteName.GSharp) && interval == Interval.Augmented7th)
+					|| (comparer.Equals(note, NoteName.Ab) && interval == Interval.Diminished2nd)
+					|| (comparer.Equals(note, NoteName.ASharp) && interval == Interval.Augmented7th)
+					|| (comparer.Equals(note, NoteName.ASharp) && interval == Interval.Augmented3rd)
+					|| (comparer.Equals(note, NoteName.Cb) && interval == Interval.Diminished6th)
+					|| (comparer.Equals(note, NoteName.Cb) && interval == Interval.Diminished2nd)
+
+
+
+
+
+
 					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.AugmentedUnison)
 					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Augmented2nd)
 					|| (comparer.Equals(note, NoteName.ASharpSharp) && interval == Interval.Major3rd)
@@ -610,8 +637,10 @@ namespace Eric.Morrison.Harmony
 					|| (comparer.Equals(note, NoteName.Bbb) && interval == Interval.DiminishedOctave)
 
 					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented2nd)
+					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented3rd)
 					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented5th)
 					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented6th)
+					|| (comparer.Equals(note, NoteName.BSharp) && interval == Interval.Augmented7th)
 
 					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.AugmentedUnison)
 					|| (comparer.Equals(note, NoteName.BSharpSharp) && interval == Interval.Major2nd)
@@ -644,6 +673,10 @@ namespace Eric.Morrison.Harmony
 					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.Augmented5th)
 					|| (comparer.Equals(note, NoteName.CSharpSharp) && interval == Interval.Augmented6th)
 
+					|| (comparer.Equals(note, NoteName.Db) && interval == Interval.Diminished2nd)
+					|| (comparer.Equals(note, NoteName.Db) && interval == Interval.Diminished6th)
+					|| (comparer.Equals(note, NoteName.Db) && interval == Interval.Diminished7th)
+
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Minor2nd)
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished3rd)
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished4th)
@@ -651,6 +684,8 @@ namespace Eric.Morrison.Harmony
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Minor6th)
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.Diminished7th)
 					|| (comparer.Equals(note, NoteName.Dbb) && interval == Interval.DiminishedOctave)
+
+					|| (comparer.Equals(note, NoteName.DSharp) && interval == Interval.Augmented7th)
 
 					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.AugmentedUnison)
 					|| (comparer.Equals(note, NoteName.DSharpSharp) && interval == Interval.Augmented2nd)

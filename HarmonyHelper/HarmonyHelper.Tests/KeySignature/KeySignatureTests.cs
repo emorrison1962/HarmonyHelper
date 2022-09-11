@@ -26,12 +26,6 @@ namespace Eric.Morrison.Harmony.Tests
 					var expected = KeySignature.GetTransposed(key, (Interval)interval);
 					Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
 					new object();
-
-					//var expectedValue = key.Value;
-					//var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
-					//var result = key + ctx;
-
-					//ValidateTransposeUp(key, (Interval)interval, expected);
 				}
 				Debug.Unindent();
 
@@ -66,27 +60,6 @@ namespace Eric.Morrison.Harmony.Tests
 
 			}
 
-			/*
-						var intervals = Enum.GetValues(typeof(Interval));
-						foreach (var key in KeySignature.Catalog)
-						{
-							Debug.WriteLine($"Key = {key.NoteName.Name}");
-							Debug.Indent();
-							foreach (var interval in intervals)
-							{
-								var expected = KeySignature.GetTransposed(key, (Interval)interval);
-								Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
-								new object();
-
-								//var expectedValue = key.Value;
-								//var ctx = new IntervalContext(KeySignature.CMajor, (Interval)interval);
-								//var result = key + ctx;
-
-								//ValidateTransposeUp(key, (Interval)interval, expected);
-							}
-							Debug.Unindent();
-						}
-						*/
 			new object();
 		}
 

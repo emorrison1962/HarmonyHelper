@@ -203,42 +203,6 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 		}
 
 		[TestMethod]
-		public void NoteName_Transpose()
-		{
-			var i = NoteName.CSharp - NoteName.BSharp;
-			//Assert.AreEqual(Interval.DiminishedOctave.Value, i.Value);
-
-			foreach (var noteName in NoteName.Catalog)
-			{
-				var intervals = Interval.Catalog.Where(x => x != Interval.Unison && x != Interval.PerfectOctave);
-				foreach (var interval in intervals)
-				{
-					if (NoteName.IsValidTransposition(noteName, interval))
-					{
-						var success = NoteName.TryTransposeUp(noteName, interval, out var txposedUp, out var unused);
-						Assert.IsTrue(success);
-						var expectedInterval = txposedUp - noteName;
-
-						var eq = expectedInterval == interval;
-						Assert.AreEqual(expectedInterval, interval);
-
-						Assert.IsTrue(expectedInterval.Value == interval.Value);
-						Assert.IsFalse(txposedUp == noteName);
-
-						var inversion = interval.GetInversion();
-						NoteName.TryTransposeUp(txposedUp, inversion, out var txposedDown, out var enharmonicEquivalent);
-
-						expectedInterval = (txposedDown ?? enharmonicEquivalent) - noteName;
-
-						//Assert.IsTrue(expectedInterval == Interval.Unison);
-						Assert.IsFalse(txposedDown == txposedUp);
-						Assert.IsTrue(txposedDown == noteName);
-					}
-				}
-			}
-		}
-
-		[TestMethod]
 		public void NoteName_BSharp_Transpose()
 		{
 			var originalNoteName = NoteName.BSharp;

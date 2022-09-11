@@ -106,7 +106,10 @@ namespace Eric.Morrison.Harmony.Intervals
 			else if (this == Interval.Major3rd)
 				result = Interval.Minor6th;
 
-			else if (this == Interval.Diminished4th)
+            else if (this == Interval.Augmented3rd)
+                result = Interval.Diminished6th;
+
+            else if (this == Interval.Diminished4th)
 				result = Interval.Augmented5th;
 
 			else if (this == Interval.Perfect4th)
@@ -120,7 +123,10 @@ namespace Eric.Morrison.Harmony.Intervals
 
             else if (this == Interval.Augmented5th)
                 result = Interval.Diminished4th;
-            
+
+            else if (this == Interval.Diminished6th)
+                result = Interval.Augmented3rd;
+
             else if (this == Interval.Perfect5th)
 				result = Interval.Perfect4th;
 
@@ -134,7 +140,7 @@ namespace Eric.Morrison.Harmony.Intervals
 				result = Interval.Diminished3rd;
 
             else if (this == Interval.Diminished7th)
-                result = Interval.Minor3rd;
+                result = Interval.Augmented2nd;
             
             else if (this == Interval.Minor7th)
 				result = Interval.Major2nd;

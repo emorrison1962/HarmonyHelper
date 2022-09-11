@@ -68,12 +68,16 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>
+		public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>, IComparable<T>
 		{
+			if (startingAt.Equals(criteria))
+			{
+				return 0;
+			}
 			var maxNdx = list.Count - 1;
 			var currentNdx = list.IndexOf(startingAt);
 
-			int distance = 0;
+			int distance = 1;
 			for (; distance <= list.Count; ++distance)
 			{
 				if (currentNdx < maxNdx)
@@ -88,10 +92,14 @@ namespace Eric.Morrison.Harmony
 				else if (currentNdx == maxNdx)
 				{
 					var result = list[maxNdx];
+					if (result.Equals(criteria))
+					{
+						break;
+					}
 					currentNdx = 0;
 				}
 			}
-			return distance + 1;
+			return distance;
 		}
 
 		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)

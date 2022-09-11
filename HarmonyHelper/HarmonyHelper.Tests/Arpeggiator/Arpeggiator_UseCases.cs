@@ -655,9 +655,6 @@ namespace Eric.Morrison.Harmony.Tests
 
                 chordFormula -= Interval.Major3rd;
 				Debug.WriteLine(chordFormula.Name);
-				//var major3rd = Interval.Major3rd;
-				//var txposedKey = chordFormula.Key - major3rd;
-				//chordFormula = chordFormula - new IntervalContext(txposedKey, major3rd);
 				chord = new Chord(chordFormula, noteRange);
 				chords.Add(chord);
 			}

@@ -9,10 +9,49 @@ namespace Eric.Morrison.Harmony.Tests
 	[TestClass()]
 	public class NoteNameTests
 	{
+		[TestMethod]
+		public void NoteName_Transpose()
+		{
+			var i = NoteName.CSharp - NoteName.BSharp;
+			//Assert.AreEqual(Interval.DiminishedOctave.Value, i.Value);
+
+			foreach (var noteName in NoteName.Catalog)
+			{
+				var intervals = Interval.Catalog.Where(x => x != Interval.Unison && x != Interval.PerfectOctave);
+				foreach (var interval in intervals)
+				{
+					if (NoteName.IsValidTransposition(noteName, interval))
+					{
+						var success = NoteName.TryTransposeUp(noteName, interval, out var txposedUp, out var unused);
+						Assert.IsTrue(success);
+
+						var expectedInterval = txposedUp - noteName;
+
+						var eq = expectedInterval == interval;
+						Assert.AreEqual(expectedInterval, interval);
+
+						Assert.IsTrue(expectedInterval.Value == interval.Value);
+						Assert.IsFalse(txposedUp == noteName);
+
+						var inversion = interval.GetInversion();
+						if (NoteName.IsValidTransposition(txposedUp, inversion))
+						{
+							NoteName.TryTransposeUp(txposedUp, inversion, out var txposedDown, out var enharmonicEquivalent);
+
+							expectedInterval = (txposedDown ?? enharmonicEquivalent) - noteName;
+
+							//Assert.IsTrue(expectedInterval == Interval.Unison);
+							Assert.IsFalse(txposedDown == txposedUp);
+							Assert.IsTrue(txposedDown == noteName);
+						}
+					}
+				}
+			}
+		}
 
 
 		[TestMethod()]
-		public void NoteName_IntervalContext_AdditionTest()
+		public void NoteName_Interval_AdditionTest()
 		{
 			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
 			foreach (var note in NoteName.Catalog)
@@ -34,27 +73,36 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		[TestMethod()]
-		public void NoteName_IntervalContext_SubtractionTest()
+		public void NoteName_Interval_SubtractionTest()
 		{
 			var intervals = Interval.Catalog.Where(x => x != Interval.Unison 
 				&& x != Interval.PerfectOctave);
 			foreach (var note in NoteName.Catalog)
-			{
-				foreach (var interval in intervals)
-				{
-					var inversion = interval.GetInversion();
-					if (NoteName.IsValidTransposition(note, inversion))
-					{
-						var success = NoteName.TryTransposeUp(note, inversion, out var txposed, out var unused);
-						Assert.IsTrue(success);
+            {
+                foreach (var interval in intervals)
+                {
+                    var inversion = interval.GetInversion();
+                    if (NoteName.IsValidTransposition(note, inversion))
+                    {
+                        var success = false;
+                        success = NoteName.TryTransposeUp(note, inversion, out var txposed, out var unused);
+                        Assert.IsTrue(success);
 
-						var actual = txposed - inversion;
-						if (actual != note)
-							Assert.Fail();
+						if (NoteName.IsValidTransposition(txposed, inversion))
+						{
+							var actual = txposed - inversion;
+							if (actual != note)
+							{
+								var msg = $"note= {note.Name}, inversion={inversion}, txposed= {txposed.Name}, actual={actual.Name}, expected {note.Name}";
+								Debug.WriteLine(msg);
+
+								Assert.Fail();
+							}
+						}
 					}
-				}
-			}
-			new object();
+                }
+            }
+            new object();
 		}
 
 		[TestMethod()]
@@ -77,7 +125,7 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 					else
 					{
-						Assert.IsTrue(nn1.Value != nn2.Value);
+						Assert.IsTrue(nn1 != nn2);
 						Assert.IsTrue(interval.Value == interval2.GetInversion().Value);
 					}
 				}

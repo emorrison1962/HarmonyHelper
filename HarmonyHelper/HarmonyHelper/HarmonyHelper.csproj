@@ -89,7 +89,6 @@
     <Compile Include="Intervals\ChordToneInterval.cs" />
     <Compile Include="Intervals\IFunctionalInterval.cs" />
     <Compile Include="Intervals\Interval.cs" />
-    <Compile Include="Intervals\IntervalContext.cs" />
     <Compile Include="Intervals\IntervalExtensions.cs" />
     <Compile Include="Intervals\ScaleToneInterval.cs" />
     <Compile Include="KeySignature\KeySignature_Static.cs">
