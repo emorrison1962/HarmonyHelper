@@ -40,12 +40,12 @@ namespace Eric.Morrison.Harmony
 
 		void Create()
 		{
-			var tonicOffset = this.GetTonicOffset();
-			var tonic = this.Key.NoteName;
-			if (tonicOffset > Interval.Unison)
-				tonic = this.Key.NoteName + tonicOffset;
+			this.Tonic = this.Key.NoteName;
 
-			this.Tonic = tonic;
+			var tonicOffset = this.GetTonicOffset();
+			if (tonicOffset > Interval.Unison)
+				this.Tonic = this.Key.NoteName + tonicOffset;
+
 			var ndx = 0;
 			this.Second = this.Tonic + this.Formula.Intervals[ndx++];
 			this.Third = this.Tonic + this.Formula.Intervals[ndx++];
@@ -61,7 +61,9 @@ namespace Eric.Morrison.Harmony
 
 		ScaleToneInterval GetTonicOffset()
 		{
-			throw new NotImplementedException();
+			var interval = this.Key.NoteName - this.Tonic;
+			var result = interval.ToScaleToneInterval();
+			return result;
 		}
 		//Interval GetTonicOffset()
 		//{
