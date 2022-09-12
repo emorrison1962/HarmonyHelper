@@ -64,7 +64,8 @@ namespace HarmonyHelper_DryWetMidi
 
         void InitializeTracks(MidiFile midiFile)
         {
-            var tempo = this.GetTempo(midiFile);
+            var fileDuration = midiFile.GetDuration(TimeSpanType.BarBeatFraction);
+            this.GetTempo(midiFile, out var tempoMap, out var tempo);
 
             Debug.Assert(1 == midiFile.GetTrackChunks().Count());
             foreach (var trackChunk in midiFile.GetTrackChunks())
@@ -80,6 +81,8 @@ namespace HarmonyHelper_DryWetMidi
 
                     for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
                     {
+                        this.Context.Tracks[i].FileDuration = fileDuration;
+                        this.Context.Tracks[i].TempoMap = tempoMap;
                         this.Context.Tracks[i].Tempo = tempo;
                         this.Context.Tracks[i].SetEvents(
                             events.Where(x => x.Channel == i)
@@ -90,21 +93,21 @@ namespace HarmonyHelper_DryWetMidi
             }
         }
 
-        Tempo GetTempo(MidiFile midiFile)
+        void GetTempo(MidiFile midiFile, out TempoMap tempoMap, out Tempo tempo)
         {
-            Tempo result = null;
+            tempoMap = null;
+            tempo = null;
             using (var tempoMapManager = midiFile.ManageTempoMap())
             {
-                var tempoMap = tempoMapManager.TempoMap;
+                tempoMap = tempoMapManager.TempoMap;
                 var tempos = tempoMap.GetTempoChanges().ToList();
-                foreach (var tempo in tempos)
+                foreach (var t in tempos)
                 {
 #warning FIXME: Need to handle multiple tempos.
-                    result = tempo.Value;
+                    tempo = t.Value;
                     new object();
                 }
             }
-            return result;
         }
     }//class
 }//ns

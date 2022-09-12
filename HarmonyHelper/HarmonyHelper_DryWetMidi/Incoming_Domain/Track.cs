@@ -10,15 +10,21 @@ using Melanchall.DryWetMidi.Interaction;
 
 namespace HarmonyHelper_DryWetMidi.Incoming_Domain
 {
+    /// <summary>
+    /// https://melanchall.github.io/drywetmidi/api/Melanchall.DryWetMidi.Composing.PatternUtilities.html#Melanchall_DryWetMidi_Composing_PatternUtilities_TransformChords_Melanchall_DryWetMidi_Composing_Pattern_Melanchall_DryWetMidi_Composing_ChordSelection_Melanchall_DryWetMidi_Composing_ChordTransformation_System_Boolean_
+    /// </summary>
     public class Track
     {
         //public GeneralMidiPatchesEnum Patch { get; set; }
+        public ITimeSpan FileDuration { get; set; }
         public Tempo Tempo { get; set; }
+        public TempoMap TempoMap { get; set; }
         public FourBitNumber Channel { get; set; }
         public List<Note> Notes { get; set; }
         public List<Chord> Chords { get; set; }
         public ProgramChangeEvent Patch { get; set; }
         List<ChannelEvent> Events { get; set; }
+        public int BarLength { get; private set; }
 
         public Track(FourBitNumber channel)
         {
@@ -36,11 +42,8 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
             this.GetPatches();
             this.GetChords();
             this.GetNotes();
+            this.GetBarLength();
             await Task.CompletedTask;
-        }
-
-        void GetBarLines()
-        { 
         }
 
         void GetPatches()
@@ -58,10 +61,6 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
             new object();
         }
 
-        void GetNotes()
-        {
-            this.Notes = this.Events.GetNotes().ToList();
-        }
         void GetChords()
         {
             var chords = new List<Chord>();
@@ -69,6 +68,29 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
                     .Where(x => x.Notes.Count > 1)
                     .ToList();
         }
+        void GetNotes()
+        {
+            this.Notes = this.Events.GetNotes().ToList();
+        }
 
+        void GetBarLength()
+        {
+            this.BarLength = BarBeatUtilities.GetBarLength(0, this.TempoMap);
+
+            this.GetBar(0);
+        }
+
+        void GetBar(int ndx)
+        {
+            //while (true)
+            {
+                var ts = new BarBeatFractionTimeSpan(20);
+                var result = this.Chords
+                    .AtTime(ts, this.TempoMap, LengthedObjectPart.Entire)
+                    .ToList();
+                new object();
+            }
+
+        }
     }//class
 }//ns
