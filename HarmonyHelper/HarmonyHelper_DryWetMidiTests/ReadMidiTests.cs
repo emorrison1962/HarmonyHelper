@@ -15,7 +15,8 @@ namespace HarmonyHelper_DryWetMidi.Tests
         public void OpenTest()
         {
             var reader = new MidiFileConverter();
-            reader.Open();
+            const string MIDI_FILE = @"C:\Users\emorrison\Downloads\Superstitions.mid";
+            reader.Open(MIDI_FILE);
 
             //Assert.Fail();
         }

@@ -48,7 +48,8 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="GeneralMidiPatchesEnum.cs" />
-    <Compile Include="MidiFile.cs" />
+    <Compile Include="Incoming_Domain\Track.cs" />
+    <Compile Include="MidiFileConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
