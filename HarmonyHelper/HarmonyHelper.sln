@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeckDiagrams", "NeckDiagram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper_DryWetMidi", "HarmonyHelper_DryWetMidi\HarmonyHelper_DryWetMidi.csproj", "{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper_DryWetMidiTests", "HarmonyHelper_DryWetMidiTests\HarmonyHelper_DryWetMidiTests.csproj", "{6CADA870-DDBC-4532-844A-DFD3390C1522}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,14 @@ Global
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

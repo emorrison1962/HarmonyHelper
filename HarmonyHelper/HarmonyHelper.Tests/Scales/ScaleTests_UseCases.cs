@@ -254,7 +254,7 @@ namespace Eric.Morrison.Harmony.Tests
 				Debug.WriteLine($"{pair[0].ToString()} and {pair[1].ToString()} share these scales:");
 				Debug.Indent();
 				foreach (var scale in scales)
-					Debug.WriteLine(scale.ToString());
+					Debug.WriteLine(scale.ToString());                                                                                                                                                        
 				Debug.Unindent();
 			}
 			new object();

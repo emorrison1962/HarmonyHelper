@@ -294,8 +294,6 @@ namespace Eric.Morrison.Harmony
             {
                 result = result.Invert();
             }
-
-            Debug.WriteLine($"{a} - {b} = {result}");
 			
 			return result;
 		}

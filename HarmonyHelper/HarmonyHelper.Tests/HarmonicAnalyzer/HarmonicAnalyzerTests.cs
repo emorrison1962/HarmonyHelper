@@ -48,8 +48,18 @@ namespace Eric.Morrison.Harmony.Tests
 		public void ADayInTheLife_Test()
 		{
 			var str = " G Bm Em Em7 C C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C F Em Cmaj7 G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E E D E F#m7 E F#m7 E D E F#m7 E F#m7 C G D A C G D A G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E";
+			var sw = Stopwatch.StartNew();
 			var chords = this.GetChords(str);
+			sw.Stop();
+			Debug.WriteLine($"this.GetChords(str): {sw.ElapsedMilliseconds}");
+
+			sw.Reset();
+
+
 			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			sw.Stop();
+			Debug.WriteLine($"HarmonicAnalyzer.Analyze: {sw.ElapsedMilliseconds}");
+
 			foreach (var analysisResult in analysisResults)
 			{
 				if (null != analysisResult && analysisResult.Success)
