@@ -57,7 +57,7 @@ namespace HarmonyHelper_DryWetMidi
             foreach (var trackChunk in midiFile.GetTrackChunks())
             {
                 this.Context.TrackChunks.Add(trackChunk);
-                this.InitializeTracks(midiFile);
+                this.testInitializeTracks(midiFile);
             }
             new object();
         }
@@ -95,7 +95,7 @@ namespace HarmonyHelper_DryWetMidi
 
         void testInitializeTracks(MidiFile midiFile)
         {
-            var fileDuration = midiFile.GetDuration(TimeSpanType.BarBeatFraction);
+            var fileDuration = midiFile.GetDuration(TimeSpanType.BarBeatFraction) as BarBeatFractionTimeSpan;
             this.GetTempo(midiFile, out var tempoMap, out var tempo);
 
             Debug.Assert(1 == midiFile.GetTrackChunks().Count());
@@ -103,6 +103,7 @@ namespace HarmonyHelper_DryWetMidi
             {
 #warning FIXME: handle multiple trackChunks!!
                 using (var eventManager = trackChunk.ManageTimedEvents())
+                    using (var chordMgr = new TimedObjectsManager<Chord>(trackChunk.Events))
                 {
                     var events = eventManager.Objects
                         .Where(x => x.Event is ChannelEvent)
@@ -111,21 +112,31 @@ namespace HarmonyHelper_DryWetMidi
                         .ToList();
                     var tom = trackChunk.ManageChords();
 
+                    var barLengthTicks = BarBeatUtilities.GetBarLength(1, midiFile.GetTempoMap());
+                    var ts = TimeSpan.FromTicks(barLengthTicks);
+                    for (int i = 0; i < fileDuration.Bars; ++i)
+                    {
 
-                    var start = new BarBeatFractionTimeSpan(1);
-                    var end = new BarBeatFractionTimeSpan(1);
-                    var bar = start.Add(end, TimeSpanMode.TimeLength);
-                    BarBeatUtilities.GetBarLength(1, midiFile.GetTempoMap());
+                        var start = TimeConverter.ConvertTo<MetricTimeSpan>(barLengthTicks * (i + 1), tempoMap);
+                        var end = new BarBeatFractionTimeSpan(1);
+                        var bar = start.Add(end, TimeSpanMode.TimeLength);
 
-                    var result = tom.Objects
-                        //.StartAtTime(bar.)
-                        //.ToList();
-                        .AtTime(start,
-                            midiFile.GetTempoMap(),
-                            LengthedObjectPart.Entire)
-                        .ToList();
+                        var timedObjects = tom.Objects
+                            .AtTime(bar,
+                                midiFile.GetTempoMap(),
+                                LengthedObjectPart.Entire)
+                            .ToList();
 
-                    new object();
+                        
+                        var chords = chordMgr.Objects
+                            .AtTime(bar,
+                                midiFile.GetTempoMap(),
+                                LengthedObjectPart.Entire)
+                            .Where(x => x.Notes.Count > 1)
+                            .ToList();
+
+                        new object();
+                    }
                     //for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
                     //{
                     //    this.Context.Tracks[i].FileDuration = fileDuration;
