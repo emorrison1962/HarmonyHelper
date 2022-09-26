@@ -93,6 +93,54 @@ namespace HarmonyHelper_DryWetMidi
             }
         }
 
+        void testInitializeTracks(MidiFile midiFile)
+        {
+            var fileDuration = midiFile.GetDuration(TimeSpanType.BarBeatFraction);
+            this.GetTempo(midiFile, out var tempoMap, out var tempo);
+
+            Debug.Assert(1 == midiFile.GetTrackChunks().Count());
+            foreach (var trackChunk in midiFile.GetTrackChunks())
+            {
+#warning FIXME: handle multiple trackChunks!!
+                using (var eventManager = trackChunk.ManageTimedEvents())
+                {
+                    var events = eventManager.Objects
+                        .Where(x => x.Event is ChannelEvent)
+                        .Select(x => x.Event)
+                        .Cast<ChannelEvent>()
+                        .ToList();
+                    var tom = trackChunk.ManageChords();
+
+
+                    var start = new BarBeatFractionTimeSpan(1);
+                    var end = new BarBeatFractionTimeSpan(1);
+                    var bar = start.Add(end, TimeSpanMode.TimeLength);
+                    BarBeatUtilities.GetBarLength(1, midiFile.GetTempoMap());
+
+                    var result = tom.Objects
+                        //.StartAtTime(bar.)
+                        //.ToList();
+                        .AtTime(start,
+                            midiFile.GetTempoMap(),
+                            LengthedObjectPart.Entire)
+                        .ToList();
+
+                    new object();
+                    //for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
+                    //{
+                    //    this.Context.Tracks[i].FileDuration = fileDuration;
+                    //    this.Context.Tracks[i].TempoMap = tempoMap;
+                    //    this.Context.Tracks[i].Tempo = tempo;
+                    //    this.Context.Tracks[i].SetEvents(
+                    //        events.Where(x => x.Channel == i)
+                    //            .ToList());
+                    //}
+                    new object();
+                }
+            }
+        }
+
+
         void GetTempo(MidiFile midiFile, out TempoMap tempoMap, out Tempo tempo)
         {
             tempoMap = null;
