@@ -3,6 +3,7 @@
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.Multimedia;
 //using Melanchall.DryWetMidi.MusicTheory;
 using System;
 using System.Collections.Generic;
@@ -135,6 +136,12 @@ namespace HarmonyHelper_DryWetMidi
                             .Where(x => x.Notes.Count > 1)
                             .ToList();
 
+                        //var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
+                        //_playback = midiFile.GetPlayback(outputDevice);
+                        ////_playback.NotesPlaybackStarted += OnNotesPlaybackStarted;
+                        //_playback.Start();
+
+
                         new object();
                     }
                     //for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
@@ -151,6 +158,7 @@ namespace HarmonyHelper_DryWetMidi
             }
         }
 
+        private static Playback _playback;
 
         void GetTempo(MidiFile midiFile, out TempoMap tempoMap, out Tempo tempo)
         {
