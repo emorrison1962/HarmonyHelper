@@ -101,84 +101,13 @@ namespace HarmonyHelper_DryWetMidi
 #endif
         void Init()
         {
-            this.GetTrackChunk()
+            this.MergeTrackChunks()
                 .GetDurationAndTempo()
-                .SplitByChannel();
+                .CreateTracks();
 
-            using (var eventManager = this.TrackChunk.ManageTimedEvents())
-            using (var chordMgr = new TimedObjectsManager<Chord>(this.TrackChunk.Events))
-            {
-                var events = eventManager.Objects
-                    .Where(x => x.Event is ChannelEvent)
-                    .Select(x => x.Event)
-                    .Cast<ChannelEvent>()
-                    .ToList();
-
-                var timedObjectsMgr = this.TrackChunk.ManageChords();
-
-                var barLengthTicks = BarBeatUtilities.GetBarLength(1, MidiFile.GetTempoMap());
-                var ts = TimeSpan.FromTicks(barLengthTicks);
-                for (int i = 0; i < FileDuration.Bars; ++i)
-                {
-                    var start = TimeConverter.ConvertTo<MetricTimeSpan>(barLengthTicks * (i + 1), TempoMap);
-                    var end = new BarBeatFractionTimeSpan(1);
-                    var bar = start.Add(end, TimeSpanMode.TimeLength);
-
-                    var timedObjects = timedObjectsMgr.Objects
-                        .AtTime(bar,
-                            MidiFile.GetTempoMap(),
-                            LengthedObjectPart.Entire)
-                        .ToList();
-
-                    var chords = chordMgr.Objects
-                        .AtTime(bar,
-                            MidiFile.GetTempoMap(),
-                            LengthedObjectPart.Entire)
-                        .Where(x => x.Notes.Count > 1)
-                        .ToList();
-
-                    //var outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth");
-                    //_playback = midiFile.GetPlayback(outputDevice);
-                    ////_playback.NotesPlaybackStarted += OnNotesPlaybackStarted;
-                    //_playback.Start();
-
-
-                    new object();
-                }
-                //for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
-                //{
-                //    this.Context.Tracks[i].FileDuration = fileDuration;
-                //    this.Context.Tracks[i].TempoMap = tempoMap;
-                //    this.Context.Tracks[i].Tempo = tempo;
-                //    this.Context.Tracks[i].SetEvents(
-                //        events.Where(x => x.Channel == i)
-                //            .ToList());
-                //}
-                new object();
-            }
         }
 
-        private void SplitByChannel()
-        {
-            using (var eventManager = this.TrackChunk.ManageTimedEvents())
-            {
-                var allChannelEvents = eventManager.Objects
-                    .Where(x => x.Event is ChannelEvent)
-                    .Select(x => x.Event)
-                    .Cast<ChannelEvent>()
-                    .ToList();
-                for (int channel = Constants.MIDI_CHANNEL_MIN; 
-                    channel <= Constants.MIDI_CHANNEL_MAX; ++channel)
-                {
-                    var channelEvents = allChannelEvents.Where(x => x.Channel == channel)
-                        .ToList();
-                    new object();
-                }
-                new object();
-            }
-        }
-
-        private MidiFileConverter GetTrackChunk()
+        MidiFileConverter MergeTrackChunks()
         {
             Debug.Assert(1 == this.MidiFile.GetTrackChunks().Count());
             var chunks = this.MidiFile.GetTrackChunks();
@@ -197,9 +126,6 @@ namespace HarmonyHelper_DryWetMidi
             return this;
         }
 
-
-        //private static Playback _playback;
-
         void GetTempo(out TempoMap tempoMap, out Tempo tempo)
         {
             tempoMap = null;
@@ -216,5 +142,18 @@ namespace HarmonyHelper_DryWetMidi
                 }
             }
         }
+
+        void CreateTracks()
+        {
+            var exploded = TrackChunk.Explode();
+            foreach (var chunk in exploded)
+            {
+                new Track(chunk,
+                    this.TempoMap,
+                    this.Tempo,
+                    this.FileDuration);
+            }
+        }
+
     }//class
 }//ns

@@ -9,6 +9,7 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using Eric.Morrison.Harmony;
 using System.Diagnostics;
+using Melanchall.DryWetMidi.Tools;
 
 namespace HarmonyHelper_DryWetMidi.Incoming_Domain
 {
@@ -17,8 +18,30 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
     /// </summary>
     public class Track
     {
+        public class Bar
+        {
+            ITimeSpan TimeSpan { get; set; }
+            BarBeatFractionTimeSpan BarBeatFractionTimeSpan { get; set; }
+            List<Chord> Chords { get; set; } = new List<Chord>();
+            List<Note> Notes { get; set; } = new List<Note>();
+            public Bar(ITimeSpan ts, BarBeatFractionTimeSpan tsBbf, List<Chord> chords, List<Note> notes)
+            {
+                this.TimeSpan = ts;
+                this.BarBeatFractionTimeSpan = tsBbf;
+                this.Chords = chords;
+                this.Notes = notes;
+            }
+
+            public override string ToString()
+            {
+                return $"{this.GetType().Name}: {this.BarBeatFractionTimeSpan.ToString()}, Chords={this.Chords.Count}, Notes={this.Notes.Count}";
+            }
+        }
+
+        #region Properties
         //public GeneralMidiPatchesEnum Patch { get; set; }
-        public ITimeSpan FileDuration { get; set; }
+        public TrackChunk TrackChunk { get; set; }
+        public BarBeatFractionTimeSpan FileDuration { get; set; }
         public Tempo Tempo { get; set; }
         public TempoMap TempoMap { get; set; }
         public FourBitNumber Channel { get; set; }
@@ -29,11 +52,77 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
         public int BarLength { get; private set; }
         public MidiFile MidiFile { get; set; }
 
-        public Track(FourBitNumber channel)
+        public List<Bar> Bars { get; set; } = new List<Bar>();
+
+        #endregion
+
+        #region Vonstruction
+        public Track(TrackChunk chunk, TempoMap TempoMap,
+            Tempo Tempo, BarBeatFractionTimeSpan FileDuration)
         {
-            this.Channel = channel;
+            this.TrackChunk = chunk;
+            this.TempoMap = TempoMap;
+            this.Tempo = Tempo;
+            this.FileDuration = FileDuration;
+
+            this.Init();
         }
 
+        public void Init()
+        {
+            using (var eventsMgr = this.TrackChunk.ManageTimedEvents())
+            using (var chordsMgr = this.TrackChunk.ManageChords())
+            using (var notesMgr = this.TrackChunk.ManageNotes())
+            {
+                this.Events = eventsMgr.Objects
+                    .Where(x => x.Event is ChannelEvent)
+                    .Select(x => x.Event)
+                    .Cast<ChannelEvent>()
+                    .ToList();
+
+
+                var barLengthTicks = BarBeatUtilities.GetBarLength(0, this.TempoMap);
+                for (int i = 0; i < FileDuration.Bars; ++i)
+                {
+                    #region Where in time are we?
+                    var start = TimeConverter
+                        .ConvertTo<MetricTimeSpan>(barLengthTicks * i,
+                        this.TempoMap);
+                    var end = new BarBeatFractionTimeSpan(1);
+                    var tsBar = start.Add(end, TimeSpanMode.TimeLength);
+
+                    #endregion
+                    
+                    var chords = chordsMgr.Objects
+                        .AtTime(tsBar,
+                            this.TempoMap,
+                            LengthedObjectPart.Entire)
+                        .Where(x => x.Notes.Count > 1)
+                        .ToList();
+
+                    var notes = notesMgr.Objects
+                        .AtTime(tsBar,
+                            this.TempoMap,
+                            LengthedObjectPart.Entire)
+                        .ToList();
+
+                    var tsBbf = TimeConverter.ConvertTo<BarBeatFractionTimeSpan>(
+                        tsBar, this.TempoMap);
+
+
+                    this.Bars.Add(new Bar(tsBar, tsBbf, chords, notes));
+                    new object();
+                }
+                new object();
+            }
+        }
+
+        #endregion
+        [Obsolete("Get rid of this.")]
+        TempoMap GetTempoMap()
+        { 
+            return this.TempoMap;
+        }
         public async void SetEvents(List<ChannelEvent> events)
         {
             this.Events = events;
