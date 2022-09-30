@@ -1,8 +1,11 @@
 ﻿using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+using Eric.Morrison.Harmony.Intervals;
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,9 +161,36 @@ In another blog post I discuss a different progression in which a ii-V sequence 
 
         public override string Description => throw new NotImplementedException();
 
-        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature unused)
         {
-            throw new NotImplementedException();
+            var result = new List<HarmonicAnalysisResult>();
+
+            var triplets = chords.GetItems(3);
+            foreach (var triplet in triplets)
+            {//Minor: bm7b5, e7 Major: bm7 e7
+                if (triplet.Take(2).IsTwoFive(out var key))
+                {
+                    if (triplet[2].Root - triplet[1].Root == Interval.Major2nd)
+                    {
+                        var backdoorKey = KeySignature.Catalog
+                            .Where(x => x.NoteName == triplet[2].Root
+                                && x.IsMinor == key.IsMinor)
+                            .First();
+                        var item = CreateHarmonicAnalysisResult(triplet, backdoorKey);
+                        result.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
+        HarmonicAnalysisResult CreateHarmonicAnalysisResult(IEnumerable<ChordFormula> chords, KeySignature key)
+        {
+            var one = key.IsMinor ? "i" : "I";
+            var msg = $"{string.Join(", ", chords.Select(x => x.Name))} is a Backdoor ii, V, {one} in {key.Name}.";
+            var result = new HarmonicAnalysisResult(this, true, msg,
+                chords.ToList());
+            return result;
         }
     }
 }

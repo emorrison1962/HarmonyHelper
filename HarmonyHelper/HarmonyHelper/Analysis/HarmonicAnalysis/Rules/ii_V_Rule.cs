@@ -22,11 +22,8 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
 			var pairs = chords.GetItems(2);
 			foreach (var pair in pairs)
             {//Minor: bm7b5, e7, am7 Major: bm7 e7 amaj7
-                if (pair.Select(x => x).IsTwoFive(out var key))
+                if (pair.IsTwoFive(out var key))
                 {
-                    var debug = pair.Select(x => x).IsTwoFive(out var isMinor);
-                    Debug.Assert(debug, "");
-
                     if (key.IsMinor)
                     {//ii V i minor.
                         result.Add(
@@ -44,6 +41,7 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
                 }
 
             }
+
             return result;
 		}
 	}//class

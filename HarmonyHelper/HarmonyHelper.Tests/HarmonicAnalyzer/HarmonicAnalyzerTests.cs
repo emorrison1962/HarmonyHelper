@@ -43,8 +43,9 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
+		
 
-		[TestMethod()]
+        [TestMethod()]
 		public void ADayInTheLife_Test()
 		{
 			var str = " G Bm Em Em7 C C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C F Em Cmaj7 G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E E D E F#m7 E F#m7 E D E F#m7 E F#m7 C G D A C G D A G Bm Em C Em Am Cmaj7 G Bm Em C F Em E C Bm G G E";
@@ -306,7 +307,28 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 		}
 
-		[TestMethod()]
+        [TestMethod()]
+        public void BackDoor_ii_V_Rule()
+        {
+            var rule = new BackDoor_ii_V_Rule();
+            {//positive test
+                var str = "Fm7 Bb7 Cmaj7";
+                var chords = this.GetChords(str);
+
+                var results = rule.Analyze(chords, KeySignature.CMajor);
+				Assert.IsTrue(results.Count == 1);
+				foreach (var result in results)
+				{
+					Assert.IsTrue(result.Success);
+					Debug.WriteLine(result.Message);
+				}
+                new object();
+            }
+        }
+
+
+
+        [TestMethod()]
 		public void HowInsensitive_Test()
 		{
 			const string HOW_INSENSITIVE = "Dm9 c#dim7 c-6 g7/b bbmaj7 ebmaj7 e-7b5 a7b9 dm7 db13 cm7 bdim7 bbmaj7 em7b5 a7 dm7 db7 cm9 f7 bm7 e7b9 bbmaj7 a7 dm7"; //written by A.C. Jobim

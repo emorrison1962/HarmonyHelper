@@ -95,7 +95,7 @@ namespace Eric.Morrison.Harmony
 			var localCount = sequence.Count();
 
 			var result = new List<List<T>>();
-			for (int i = 0; i < localCount - partitionSize; ++i)
+			for (int i = 0; i <= localCount - partitionSize; ++i)
 			{
 				var list = sequence.Skip(i).Take(count).ToArray();
 				//result.Add(list);
