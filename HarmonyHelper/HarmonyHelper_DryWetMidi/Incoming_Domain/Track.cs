@@ -65,7 +65,7 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
 
         #endregion
 
-        #region Vonstruction
+        #region Construction
         public Track(TrackChunk chunk, TempoMap TempoMap,
             Tempo Tempo, BarBeatFractionTimeSpan FileDuration)
         {

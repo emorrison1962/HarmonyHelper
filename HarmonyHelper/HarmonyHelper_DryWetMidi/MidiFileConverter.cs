@@ -40,7 +40,7 @@ namespace HarmonyHelper_DryWetMidi
     }
     public class MidiFileConverter
     {
-        //MidiFileConverterContext Context { get; set; } = new MidiFileConverterContext();
+        #region Properties
         public string Filename { get; private set; }
         public MidiFile MidiFile { get; private set; }
         public TrackChunk TrackChunk { get; private set; }
@@ -48,63 +48,27 @@ namespace HarmonyHelper_DryWetMidi
         public TempoMap TempoMap { get; private set; }
         public Tempo Tempo { get; private set; }
 
-        public void Open(string filename)
-        {
-            if (!File.Exists(filename))
-                throw new FileNotFoundException(filename);
+        #endregion
 
+        public MidiFileConverter(string filename)
+        {
             this.Filename = filename;
-            this.MidiFile = MidiFile.Read(this.Filename);
-
-            this.Init();
-
-            new object();
+            this.Open();
         }
-
-#if false
-        void InitializeTracks()
+        public void Open()
         {
-            var fileDuration = MidiFile.GetDuration(TimeSpanType.BarBeatFraction);
-            this.GetTempo(out var tempoMap, out var tempo);
+            if (!File.Exists(this.Filename))
+                throw new FileNotFoundException(this.Filename);
 
-            Debug.Assert(1 == MidiFile.GetTrackChunks().Count());
-            foreach (var trackChunk in MidiFile.GetTrackChunks())
-            {
-#warning FIXME: handle multiple trackChunks!!
-                using (var eventManager = trackChunk.ManageTimedEvents())
-                {
-                    var events = eventManager.Objects
-                        .Where(x => x.Event is ChannelEvent)
-                        .Select(x => x.Event)
-                        .Cast<ChannelEvent>()
-                        .ToList();
-
-                    for (int i = 0; i < Constants.MIDI_CHANNEL_MAX; ++i)
-                    {
-                        if (0 < events.Where(x => x.Channel == i).Count())
-                        {
-                            var track = new Track((FourBitNumber)i);
-                            track.MidiFile = MidiFile;
-                            track.FileDuration = fileDuration;
-                            track.TempoMap = tempoMap;
-                            track.Tempo = tempo;
-                            track.SetEvents(
-                                events.Where(x => x.Channel == i)
-                                    .ToList());
-                            this.Context.Tracks.Add(track);
-                        }
-                    }
-                    new object();
-                }
-            }
+            this.MidiFile = MidiFile.Read(this.Filename);
+            this.Init();
         }
-#endif
+
         void Init()
         {
             this.MergeTrackChunks()
                 .GetDurationAndTempo()
                 .CreateTracks();
-
         }
 
         MidiFileConverter MergeTrackChunks()
@@ -143,7 +107,7 @@ namespace HarmonyHelper_DryWetMidi
             }
         }
 
-        void CreateTracks()
+        MidiFileConverter CreateTracks()
         {
             var exploded = TrackChunk.Explode();
             foreach (var chunk in exploded)
@@ -153,6 +117,7 @@ namespace HarmonyHelper_DryWetMidi
                     this.Tempo,
                     this.FileDuration);
             }
+            return this;
         }
 
     }//class
