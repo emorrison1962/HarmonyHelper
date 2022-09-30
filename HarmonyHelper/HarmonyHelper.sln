@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper_DryWetMidi", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper_DryWetMidiTests", "HarmonyHelper_DryWetMidiTests\HarmonyHelper_DryWetMidiTests.csproj", "{6CADA870-DDBC-4532-844A-DFD3390C1522}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests.Console", "HarmonyHelper.Tests.Console\HarmonyHelper.Tests.Console.csproj", "{D9B34492-62AE-4825-88AA-E109F4B99171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CADA870-DDBC-4532-844A-DFD3390C1522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9B34492-62AE-4825-88AA-E109F4B99171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B34492-62AE-4825-88AA-E109F4B99171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B34492-62AE-4825-88AA-E109F4B99171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B34492-62AE-4825-88AA-E109F4B99171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
