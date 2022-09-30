@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using Eric.Morrison.Harmony;
+using System.Diagnostics;
 
 namespace HarmonyHelper_DryWetMidi.Incoming_Domain
 {
@@ -25,6 +27,7 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
         public ProgramChangeEvent Patch { get; set; }
         List<ChannelEvent> Events { get; set; }
         public int BarLength { get; private set; }
+        public MidiFile MidiFile { get; set; }
 
         public Track(FourBitNumber channel)
         {
@@ -82,15 +85,87 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
 
         void GetBar(int ndx)
         {
-            //while (true)
+            var barBeatTicksDuration = this.MidiFile.GetDuration<BarBeatTicksTimeSpan>();
+            var bars = barBeatTicksDuration.Bars;
+
+            var tempoMap = this.MidiFile.GetTempoMap();
+            var barLinesMilliseconds = Enumerable
+                .Range(0, (int)bars + 1)
+                .Select(bar => TimeConverter
+                    .ConvertTo<MetricTimeSpan>(new BarBeatTicksTimeSpan(bar), tempoMap)
+                    .TotalMicroseconds)
+                .ToList();
+
+
+            var midiSpans = Enumerable
+                .Range(0, (int)bars + 1)
+                .Select(bar => TimeConverter
+                    .ConvertTo<MidiTimeSpan>(new BarBeatTicksTimeSpan(bar), tempoMap))
+                .ToList();
+
+
+            var pairs = midiSpans.GetPairs();
+            var tsBars = new List<ITimeSpan>();
+            foreach (var pair in pairs)
             {
-                var ts = new BarBeatFractionTimeSpan(20);
-                var result = this.Chords
-                    .AtTime(ts, this.TempoMap, LengthedObjectPart.Entire)
+                var bar = TimeConverter.ConvertTo<BarBeatTicksTimeSpan>((ITimeSpan)pair.First, tempoMap);
+
+                //this.Notes.ForEach(x => Debug.WriteLine($"{x}: {x.Time}-{x.EndTime}"));
+
+                var result = this.Notes
+                    .Where(x => x.Time >= pair.First
+                            && x.Time <= pair.Second)
                     .ToList();
+
+                Debug.WriteLine($"{this.Channel}:{bar}: result.Count={result.Count}");
+
+                //ITimeSpan tsBar = end.Subtract(start, TimeSpanMode.TimeLength);
+                //tsBars.Add(tsBar);
                 new object();
             }
 
+            //foreach (var tsBar in tsBars)
+            //{
+            //    var result = this.Notes
+            //        .Where(x => x.Time >= tsBar);
+            //        .StartAtTime(tsBar.)
+            //        .AtTime(tsBar, this.TempoMap, LengthedObjectPart.Entire)
+            //        .ToList();
+            //}
+
+            //var barLinesBars = Enumerable
+            //    .Range(0, (int)bars + 1)
+            //    .Select(bar => TimeConverter
+            //        .ConvertTo<BarBeatTicksTimeSpan>(new BarBeatTicksTimeSpan(1), tempoMap))
+            //    .ToArray();
+            new object();
+
+#if false
+            //while (true)
+            {
+                var tsStart = new BarBeatTicksTimeSpan(10, 1);
+                var tsEnd = new BarBeatTicksTimeSpan(11, 1);
+                ITimeSpan tsResult = tsEnd.Subtract(tsStart, TimeSpanMode.TimeLength);
+
+                tsResult.Co
+
+                //var ts = new BarBeatFractionTimeSpan(20);
+                var result = this.Notes.Where(x =>
+                    x.GetTimedNoteOnEvent().Time >= tsStart.Ticks
+                    && x.GetTimedNoteOnEvent().Time <= tsEnd.Ticks)
+                    .ToList();
+                    //.AtTime(tsResult, this.TempoMap, LengthedObjectPart.Entire)
+                    //.StartAtTime(tsStart.Ticks)
+                    //.EndAtTime(tsEnd.Ticks)
+                    //.ToList();
+                new object();
+
+                /*
+                IEnumerable<Note> notes = midiFile
+    .GetNotes().AtTime(new BarBeatTicksTimeSpan(10, 4), tempoMap);
+                */
+            }
+#endif
         }
     }//class
 }//ns

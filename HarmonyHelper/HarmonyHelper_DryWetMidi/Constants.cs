@@ -8,6 +8,7 @@ namespace HarmonyHelper_DryWetMidi
 {
     static public class Constants
     {
+        public const int MIDI_CHANNEL_MIN = 0x0;
         public const int MIDI_CHANNEL_MAX = 0xF;
     }
 }

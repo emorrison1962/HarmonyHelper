@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Intervals;
@@ -63,6 +64,7 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
+		[Obsolete("", true)]
 		static public bool IsTwoFive(this IEnumerable<ChordFormula> pair, KeySignature key)
 		{
 			var result = false;
@@ -100,5 +102,39 @@ namespace Eric.Morrison.Harmony.Chords
 
 			return result;
 		}
-	}
+
+        static public bool IsTwoFive(this IEnumerable<ChordFormula> pair, out KeySignature key)
+        {
+            var result = false;
+			key = null;
+
+            const int EXPECTED_ELEMENT_COUNT = 2;
+            if (EXPECTED_ELEMENT_COUNT != pair.Count())
+                throw new ArgumentOutOfRangeException();
+
+            var chord0 = pair.ElementAt(0);
+            var chord1 = pair.ElementAt(1);
+			if (chord1.IsDominant)
+			{
+				if (chord0.IsMinor || chord0.IsHalfDiminished)
+				{
+					if (chord0.Root - chord1.Root == Interval.Perfect5th)
+					{
+						var isMinor = false;
+						if (chord0.IsHalfDiminished)
+                        {
+                            isMinor = true;
+                        }
+                        
+						var knn = chord0.Root - Interval.Major2nd;
+						key = KeySignature.Catalog
+							.FirstOrDefault(x => x.NoteName == knn 
+								&& x.IsMinor == isMinor);
+                        result = true;
+					}
+				}
+			}
+            return result;
+        }
+    }
 }

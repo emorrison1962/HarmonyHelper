@@ -3,6 +3,7 @@ using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,32 +21,30 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
 
 			var pairs = chords.GetItems(2);
 			foreach (var pair in pairs)
-			{//Minor: bm7b5, e7, am7 Major: bm7 e7 amaj7
-				foreach (var key in KeySignature.Catalog)
-				{
-					if (pair.Select(x => x).IsTwoFive(key))
-					{
-						if (key.IsMinor)
-						{//ii V i minor.
-							result.Add(
-								new HarmonicAnalysisResult(this, true,
-								$"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V, i in {key.Name}.",
-								pair.ToList()));
-						}
-						else
-						{
-							result.Add(
-								new HarmonicAnalysisResult(this, true,
-								$"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V in {key.Name}.",
-								pair.ToList()));
-						}
-					}
-				}
-			}
+            {//Minor: bm7b5, e7, am7 Major: bm7 e7 amaj7
+                if (pair.Select(x => x).IsTwoFive(out var key))
+                {
+                    var debug = pair.Select(x => x).IsTwoFive(out var isMinor);
+                    Debug.Assert(debug, "");
 
-			return result;
+                    if (key.IsMinor)
+                    {//ii V i minor.
+                        result.Add(
+                            new HarmonicAnalysisResult(this, true,
+                            $"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V, i in {key.Name}.",
+                            pair.ToList()));
+                    }
+                    else
+                    {
+                        result.Add(
+                            new HarmonicAnalysisResult(this, true,
+                            $"{string.Join(", ", pair.Select(x => x.Name))} is a ii, V in {key.Name}.",
+                            pair.ToList()));
+                    }
+                }
+
+            }
+            return result;
 		}
-
-
-	}
-}
+	}//class
+}//ns
