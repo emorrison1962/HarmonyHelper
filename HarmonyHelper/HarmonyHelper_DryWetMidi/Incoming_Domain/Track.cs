@@ -51,7 +51,16 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
         List<ChannelEvent> Events { get; set; }
         public int BarLength { get; private set; }
         public MidiFile MidiFile { get; set; }
-
+        public bool IsDrumTrack 
+        {
+            get 
+            {
+                var result = false;
+                if (this.Channel == 9)
+                    result = true;
+                return result;
+            }
+        }
         public List<Bar> Bars { get; set; } = new List<Bar>();
 
         #endregion
@@ -80,11 +89,10 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
                     .Cast<ChannelEvent>()
                     .ToList();
 
-
                 var barLengthTicks = BarBeatUtilities.GetBarLength(0, this.TempoMap);
                 for (int i = 0; i < FileDuration.Bars; ++i)
                 {
-                    #region Where in time are we?
+                    #region Determine which bar we're processing.
                     var start = TimeConverter
                         .ConvertTo<MetricTimeSpan>(barLengthTicks * i,
                         this.TempoMap);
@@ -106,8 +114,9 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
                             LengthedObjectPart.Entire)
                         .ToList();
 
-                    var tsBbf = TimeConverter.ConvertTo<BarBeatFractionTimeSpan>(
-                        tsBar, this.TempoMap);
+                    var tsBbf = TimeConverter
+                        .ConvertTo<BarBeatFractionTimeSpan>(
+                            tsBar, this.TempoMap);
 
 
                     this.Bars.Add(new Bar(tsBar, tsBbf, chords, notes));
@@ -118,143 +127,5 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
         }
 
         #endregion
-        [Obsolete("Get rid of this.")]
-        TempoMap GetTempoMap()
-        { 
-            return this.TempoMap;
-        }
-        public async void SetEvents(List<ChannelEvent> events)
-        {
-            this.Events = events;
-            await this.ParseEventsAsync();
-        }
-
-        async Task ParseEventsAsync()
-        {
-            this.GetPatches();
-            this.GetChords();
-            this.GetNotes();
-            this.GetBarLength();
-            await Task.CompletedTask;
-        }
-
-        void GetPatches()
-        {
-            var pcs = this.Events
-                .Where(x => x is ProgramChangeEvent)
-                .Select(x => x)
-                .Cast<ProgramChangeEvent>()
-                .ToList();
-            foreach (var pc in pcs)
-            {
-#warning Handle multple pcs.
-                this.Patch = pc;
-            }
-            new object();
-        }
-
-        void GetChords()
-        {
-            var chords = new List<Chord>();
-            this.Chords = this.Events.GetChords()
-                    .Where(x => x.Notes.Count > 1)
-                    .ToList();
-        }
-        void GetNotes()
-        {
-            this.Notes = this.Events.GetNotes().ToList();
-        }
-
-        void GetBarLength()
-        {
-            this.BarLength = BarBeatUtilities.GetBarLength(0, this.TempoMap);
-
-            this.GetBar(0);
-        }
-
-        void GetBar(int ndx)
-        {
-            var barBeatTicksDuration = this.MidiFile.GetDuration<BarBeatTicksTimeSpan>();
-            var bars = barBeatTicksDuration.Bars;
-
-            var tempoMap = this.MidiFile.GetTempoMap();
-            var barLinesMilliseconds = Enumerable
-                .Range(0, (int)bars + 1)
-                .Select(bar => TimeConverter
-                    .ConvertTo<MetricTimeSpan>(new BarBeatTicksTimeSpan(bar), tempoMap)
-                    .TotalMicroseconds)
-                .ToList();
-
-
-            var midiSpans = Enumerable
-                .Range(0, (int)bars + 1)
-                .Select(bar => TimeConverter
-                    .ConvertTo<MidiTimeSpan>(new BarBeatTicksTimeSpan(bar), tempoMap))
-                .ToList();
-
-
-            var pairs = midiSpans.GetPairs();
-            var tsBars = new List<ITimeSpan>();
-            foreach (var pair in pairs)
-            {
-                var bar = TimeConverter.ConvertTo<BarBeatTicksTimeSpan>((ITimeSpan)pair.First, tempoMap);
-
-                //this.Notes.ForEach(x => Debug.WriteLine($"{x}: {x.Time}-{x.EndTime}"));
-
-                var result = this.Notes
-                    .Where(x => x.Time >= pair.First
-                            && x.Time <= pair.Second)
-                    .ToList();
-
-                Debug.WriteLine($"{this.Channel}:{bar}: result.Count={result.Count}");
-
-                //ITimeSpan tsBar = end.Subtract(start, TimeSpanMode.TimeLength);
-                //tsBars.Add(tsBar);
-                new object();
-            }
-
-            //foreach (var tsBar in tsBars)
-            //{
-            //    var result = this.Notes
-            //        .Where(x => x.Time >= tsBar);
-            //        .StartAtTime(tsBar.)
-            //        .AtTime(tsBar, this.TempoMap, LengthedObjectPart.Entire)
-            //        .ToList();
-            //}
-
-            //var barLinesBars = Enumerable
-            //    .Range(0, (int)bars + 1)
-            //    .Select(bar => TimeConverter
-            //        .ConvertTo<BarBeatTicksTimeSpan>(new BarBeatTicksTimeSpan(1), tempoMap))
-            //    .ToArray();
-            new object();
-
-#if false
-            //while (true)
-            {
-                var tsStart = new BarBeatTicksTimeSpan(10, 1);
-                var tsEnd = new BarBeatTicksTimeSpan(11, 1);
-                ITimeSpan tsResult = tsEnd.Subtract(tsStart, TimeSpanMode.TimeLength);
-
-                tsResult.Co
-
-                //var ts = new BarBeatFractionTimeSpan(20);
-                var result = this.Notes.Where(x =>
-                    x.GetTimedNoteOnEvent().Time >= tsStart.Ticks
-                    && x.GetTimedNoteOnEvent().Time <= tsEnd.Ticks)
-                    .ToList();
-                    //.AtTime(tsResult, this.TempoMap, LengthedObjectPart.Entire)
-                    //.StartAtTime(tsStart.Ticks)
-                    //.EndAtTime(tsEnd.Ticks)
-                    //.ToList();
-                new object();
-
-                /*
-                IEnumerable<Note> notes = midiFile
-    .GetNotes().AtTime(new BarBeatTicksTimeSpan(10, 4), tempoMap);
-                */
-            }
-#endif
-        }
     }//class
 }//ns
