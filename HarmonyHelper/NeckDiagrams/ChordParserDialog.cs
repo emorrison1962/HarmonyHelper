@@ -44,8 +44,7 @@ namespace NeckDiagrams
         {
             foreach (var vm in this.ChordFormulaVMs)
             {
-                var ctl = new ChordNameControl(vm);
-                this.chordsTablePanel.Controls.Add(ctl);
+                this._chordNamesControl.Add(vm);
             }
         }
     }

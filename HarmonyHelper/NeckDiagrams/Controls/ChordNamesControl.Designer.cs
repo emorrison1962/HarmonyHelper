@@ -56,6 +56,9 @@
             this.Controls.Add(this._chordNamesTablePanel);
             this.Name = "ChordNamesControl";
             this.Size = new System.Drawing.Size(743, 467);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseUp);
             this.ResumeLayout(false);
 
         }

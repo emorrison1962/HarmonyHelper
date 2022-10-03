@@ -43,7 +43,8 @@ namespace NeckDiagrams.Controls
         public ChordNameControl(ChordFormulaVM vm, HarmonicAnalysisControl parent)
             : this(vm)
         {
-            this.SubscribeToEvents(parent);
+            if (null != parent)
+                this.SubscribeToEvents(parent);
         }
 
         protected override void OnLoad(EventArgs e)

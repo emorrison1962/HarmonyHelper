@@ -37,12 +37,7 @@ namespace NeckDiagrams.Controls
 
         private void Populate()
         {
-            foreach (var vm in this.ChordFormulaVMs)
-            {
-                var ctl = new ChordNameControl(
-                    vm, this);
-                this.chordsTablePanel.Controls.Add(ctl);
-            }
+            this._chordNamesControl.AddRange(this.ChordFormulaVMs, this);
         }
 
         void PopulateListView()

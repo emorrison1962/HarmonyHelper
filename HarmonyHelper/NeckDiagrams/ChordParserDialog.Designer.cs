@@ -1,4 +1,6 @@
-﻿namespace NeckDiagrams
+﻿using NeckDiagrams.Controls;
+
+namespace NeckDiagrams
 {
     partial class ChordParserDialog
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.chordsTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this._chordNamesControl = new ChordNamesControl();
             this.chordsEditPanel = new System.Windows.Forms.Panel();
             this._tbChords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +43,7 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.chordsTablePanel);
+            this.mainPanel.Controls.Add(this._chordNamesControl);
             this.mainPanel.Controls.Add(this.chordsEditPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
@@ -52,21 +54,12 @@
             // 
             // chordsTablePanel
             // 
-            this.chordsTablePanel.ColumnCount = 8;
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chordsTablePanel.Location = new System.Drawing.Point(0, 250);
-            this.chordsTablePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chordsTablePanel.Name = "chordsTablePanel";
-            this.chordsTablePanel.Size = new System.Drawing.Size(900, 312);
-            this.chordsTablePanel.TabIndex = 3;
+            this._chordNamesControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._chordNamesControl.Location = new System.Drawing.Point(0, 250);
+            this._chordNamesControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this._chordNamesControl.Name = "chordsTablePanel";
+            this._chordNamesControl.Size = new System.Drawing.Size(900, 312);
+            this._chordNamesControl.TabIndex = 3;
             // 
             // chordsEditPanel
             // 
@@ -147,7 +140,7 @@
         private System.Windows.Forms.Panel chordsEditPanel;
         private System.Windows.Forms.TextBox _tbChords;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TableLayoutPanel chordsTablePanel;
+        private ChordNamesControl _chordNamesControl;
         private System.Windows.Forms.Button bnOk;
         private System.Windows.Forms.Button bnParse;
     }
