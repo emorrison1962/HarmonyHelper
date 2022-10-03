@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HarmonyHelper.Tests.Console
@@ -17,10 +18,15 @@ namespace HarmonyHelper.Tests.Console
 
         void Init()
         {
+        }
+
+        internal void Run()
+        {
 #if false
 D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll
 D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\HarmonyHelper.Tests.Console.exe
 #endif
+            var tasks = new List<Task>();
             const string ASSEMBLY_PATH = @"..\..\..\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll";
             Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
             if (File.Exists(ASSEMBLY_PATH))
@@ -28,7 +34,7 @@ D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\Harmon
                 new object();
             }
             else
-            { 
+            {
                 throw new FileNotFoundException(ASSEMBLY_PATH);
             }
             var assembly = Assembly.LoadFrom(ASSEMBLY_PATH);
@@ -41,25 +47,22 @@ D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\Harmon
             {
                 var tc = Activator.CreateInstance(tcType);
                 var tests = tcType.GetMethods()
-                    .Where(x => null != x.GetCustomAttribute<TestMethodAttribute>());
+                    .Where(x => null != x.GetCustomAttribute<TestMethodAttribute>()
+                        && null == x.GetCustomAttribute<IgnoreAttribute>());
 
                 foreach (var mi in tests)
                 {
                     Debug.WriteLine($"{tcType.Name}: {mi.Name}");
                     try
                     {
-                        mi.Invoke(tc, null);
+                        tasks.Add(Task.Run(() => mi.Invoke(tc, null)));
                     }
-                    catch (Exception) { }                
+                    catch (Exception) { }
                 }
                 new object();
             }
+            Task.WaitAll(tasks.ToArray());
             new object();
-        }
-
-        internal void Run()
-        {
-            throw new NotImplementedException();
         }
     }
 }

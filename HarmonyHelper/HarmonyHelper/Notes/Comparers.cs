@@ -38,14 +38,11 @@ namespace Eric.Morrison.Harmony
 		}
 	}
 
-	public class NoteNameAphaEqualityComparer : IEqualityComparer<NoteName>
+	public class NoteNameAlphaEqualityComparer : IEqualityComparer<NoteName>
 	{
 		public bool Equals(NoteName x, NoteName y)
 		{
-			var result = false;
-			if (x.Name == y.Name)
-				result = true;
-			return result;
+			return x.Name.Equals(y.Name);
 		}
 
 		public int GetHashCode(NoteName obj)
@@ -67,7 +64,7 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(List<NoteName> x, List<NoteName> y)
 		{
 			var result = true;
-			var comparer = new NoteNameAphaEqualityComparer();
+			var comparer = new NoteNameAlphaEqualityComparer();
 			foreach (var nn in x)
 			{
 				if (!y.Contains(nn, comparer))

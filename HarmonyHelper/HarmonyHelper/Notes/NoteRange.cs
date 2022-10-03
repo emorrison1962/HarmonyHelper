@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony
 			notes.Add(note);
 
 			var chromatic = new ChromaticScaleFormula(KeySignature.CMajor);
-			var octave = this.LowerLimit.Octave;
+			var octave = (int)this.LowerLimit.Octave;
 			bool wrapped = false;
 
 			while (note < this.UpperLimit)
@@ -65,10 +65,10 @@ namespace Eric.Morrison.Harmony
 				var noteName = chromatic.NoteNames.NextOrFirst(note.NoteName, ref wrapped);
 				if (wrapped)
 				{
-					octave = octave.Next();
+					++octave;
 					wrapped = false;
 				}
-				note = new Note(noteName, octave);
+				note = new Note(noteName, (OctaveEnum)octave);
 				notes.Add(note);
 				if (this.UpperLimit.Equals(note))
 					break;

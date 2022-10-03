@@ -35,7 +35,7 @@ namespace NeckDiagrams
 				.Select(x => x.NoteName)
 				.ToList()
 				.OrderBy(x => x)
-				.ToHashSet(new NoteNameAphaEqualityComparer());
+				.ToHashSet(new NoteNameAlphaEqualityComparer());
 
 			foreach (var nn in set)
 			{

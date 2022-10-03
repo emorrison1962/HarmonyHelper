@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace HarmonyHelper.Tests.Console
         static void Main(string[] args)
         {
             new Program().MainImpl();
+            Debug.WriteLine("Finito!!!");
         }
 
         private void MainImpl()

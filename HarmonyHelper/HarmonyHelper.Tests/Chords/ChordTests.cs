@@ -66,22 +66,6 @@ namespace Eric.Morrison.Harmony.Tests
         }
 
 
-        [TestMethod]
-        public void EnumNextTest()
-        {
-            const int MAX_ITERATIONS = 12;
-            var e = OctaveEnum.Octave0;
-            var sw = Stopwatch.StartNew();
-            for (int i = 0; i < MAX_ITERATIONS; ++i)
-            {
-                e = e.Next();
-                Debug.WriteLine(e);
-            }
-            sw.Stop();
-            Debug.WriteLine(sw.Elapsed);
-            new object();
-        }
-
         [TestMethod()]
         public void Gb7ModulationTest()
         {

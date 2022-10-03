@@ -32,11 +32,23 @@ namespace Eric.Morrison.Harmony.Chords
 			return sb.ToString();
 		}
 
+		static WeakReference<ScaleFormulaCatalog>  _ScaleFormulaCatalog = null;
+		static ScaleFormulaCatalog GetScaleFormulaCatalog()
+		{
+			if (null == _ScaleFormulaCatalog 
+				|| !_ScaleFormulaCatalog.TryGetTarget(out ScaleFormulaCatalog result))
+			{
+                result = new ScaleFormulaCatalog();
+                _ScaleFormulaCatalog = new WeakReference<ScaleFormulaCatalog>(result);
+            }
+			return result;
+        }
 		static public ChordFormulaScalesMapping GetScalesFor(ChordFormula chord)
 		{
 			var mapping = new ChordFormulaScalesMapping(chord);
-			var catalog = new ScaleFormulaCatalog();
-			var formulas = catalog.Formulas.OrderBy(x => x.Name).ToList();
+			var catalog = GetScaleFormulaCatalog();
+
+            var formulas = catalog.Formulas.OrderBy(x => x.Name).ToList();
 
 			var matching = formulas.Where(x => x.Contains(chord));
 			mapping.ScaleFormulas.AddRange(matching);
@@ -44,7 +56,8 @@ namespace Eric.Morrison.Harmony.Chords
 			var enharmonicEquivalents = mapping.ScaleFormulas.GetEnharmonicEquivalents();
 
 			var result = new ChordFormulaScalesMapping(chord);
-			foreach (var list in enharmonicEquivalents.Equivalents.Values)
+            var comparer = new NoteNameAlphaEqualityComparer();
+            foreach (var list in enharmonicEquivalents.Equivalents.Values)
 			{
 #warning **** 031618: Chord-centric or key-centric? ****
 				//var scale = list.Where(x => x.Root == chord.Root).FirstOrDefault();
@@ -70,7 +83,6 @@ namespace Eric.Morrison.Harmony.Chords
 							new Object();
 						}
 
-						var comparer = new NoteNameAphaEqualityComparer();
 						var intersectCount = 0;
 						ScaleFormulaBase selectedScale = null;
 						foreach (var s in list)

@@ -183,7 +183,7 @@ namespace Eric.Morrison.Harmony
 		public override int GetHashCode()
 		{
 			var result = this.NoteName.GetHashCode()
-				^ this.Octave.GetHashCode();
+				^ ((int)this.Octave).GetHashCode();
 			return result;
 		}
 	}//class

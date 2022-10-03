@@ -169,7 +169,9 @@ namespace Eric.Morrison.Harmony
 				this.AsciiSortValue = this.Name[0] - ASCII_C + OFFSET_TO_ASCII_G;
 			}
 
-			_internalCatalog.Add(this);
+			if (!_internalCatalog.Contains(this))
+				_internalCatalog.Add(this);
+
 			if (addToCatalog)
 				_catalog.Add(this);
 		}
@@ -273,7 +275,12 @@ namespace Eric.Morrison.Harmony
 
 		public static Interval operator -(NoteName a, NoteName b)
 		{
-			Interval result = null;
+			if (null == a)
+				throw new ArgumentNullException(nameof(a));
+            if (null == b)
+                throw new ArgumentNullException(nameof(b));
+
+            Interval result = null;
 			
 			var logA = Math.Log(a.Value, 2);
             var logB = Math.Log(b.Value, 2);
@@ -435,9 +442,9 @@ namespace Eric.Morrison.Harmony
 		virtual public bool Equals(NoteName other)
 		{
 			var result = false;
-			if (this.Name == other.Name 
-				&& this.Value == other.Value)
-				result = true;
+			if (this.Value == other.Value
+				&& this.Name == other.Name)
+                result = true;
 			return result;
 		}
 
@@ -597,7 +604,7 @@ namespace Eric.Morrison.Harmony
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
 			var result = true;
-			var comparer = new NoteNameAphaEqualityComparer();
+			var comparer = new NoteNameAlphaEqualityComparer();
 			if (
 					comparer.Equals(note, NoteName.ASharp) && interval == Interval.Augmented6th
 
