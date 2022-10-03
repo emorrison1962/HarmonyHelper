@@ -14,15 +14,34 @@ namespace NeckDiagrams.Controls
 {
     public partial class ChordNameControl : UserControl
     {
-        public ChordFormula Chord { get; set; }
-        public ChordNameControl(ChordFormula chord)
+        Color NORMAL_COLOR = System.Drawing.SystemColors.Control;
+        Color SELECTED_COLOR = Color.CornflowerBlue;
+
+        public ChordFormula Chord { get { return VM.ChordFormula; } }
+        public ChordFormulaVM VM { get; set; }
+
+        public bool _IsSelected = false;
+        public bool IsSelected 
         {
-            InitializeComponent();
-            this.Chord = chord;
+            get 
+            {
+                return _IsSelected;
+            }
+            private set 
+            {
+                _IsSelected = value;
+                this.OnSelected();
+            } 
         }
 
-        public ChordNameControl(ChordFormula chord, HarmonicAnalysisControl parent)
-            : this(chord)
+        public ChordNameControl(ChordFormulaVM vm)
+        {
+            InitializeComponent();
+            this.VM = vm;
+        }
+
+        public ChordNameControl(ChordFormulaVM vm, HarmonicAnalysisControl parent)
+            : this(vm)
         {
             this.SubscribeToEvents(parent);
         }
@@ -42,11 +61,11 @@ namespace NeckDiagrams.Controls
         {
             if (e.Result.Chords.Contains(this.Chord, new ChordFormulaInstanceEqualityComparer()))
             {
-                this.lblChordName.BackColor = Color.CornflowerBlue;
+                this.lblChordName.BackColor = SELECTED_COLOR;
             }
             else
             {
-                this.lblChordName.BackColor = SystemColors.Control;
+                this.lblChordName.BackColor = NORMAL_COLOR;
             }
             this.Refresh();
         }
@@ -62,6 +81,41 @@ namespace NeckDiagrams.Controls
             {
                 return Guid.NewGuid().GetHashCode();
             }
+        }
+
+        private void ChordNameControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.OnSelected();
+        }
+
+        private void lblChordName_Click(object sender, EventArgs e)
+        {
+            this.OnSelected();
+        }
+
+        private void OnSelected()
+        {
+            this._IsSelected = !this._IsSelected;
+            if (this.IsSelected)
+            {
+                this.BackColor = SELECTED_COLOR;
+                this.lblChordName.BackColor = SELECTED_COLOR;
+            }
+            else
+            {
+                this.BackColor = NORMAL_COLOR;
+                this.lblChordName.BackColor = NORMAL_COLOR;
+            }
+        }
+
+        private void lblChordName_BackColorChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChordNameControl_BackColorChanged(object sender, EventArgs e)
+        {
+
         }
     }//class
 }//ns

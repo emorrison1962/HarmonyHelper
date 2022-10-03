@@ -21,7 +21,7 @@ namespace NeckDiagrams.Controls
             InitializeComponent();
         }
 
-        public List<ChordFormula> ChordFormulas { get; private set; } = new List<ChordFormula>();
+        public List<ChordFormulaVM> ChordFormulaVMs { get; private set; } = new List<ChordFormulaVM>();
         public List<HarmonicAnalysisResult> Results { get; private set; }
 
         private void bnChords_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace NeckDiagrams.Controls
             var dlg = new ChordParserDialog();
             if (DialogResult.OK == dlg.ShowDialog())
             { 
-                this.ChordFormulas = dlg.ChordFormulas;
+                this.ChordFormulaVMs = dlg.ChordFormulaVMs;
                 this.Populate();
                 this.Analyze();
             }
@@ -37,9 +37,10 @@ namespace NeckDiagrams.Controls
 
         private void Populate()
         {
-            foreach (var chord in this.ChordFormulas)
+            foreach (var vm in this.ChordFormulaVMs)
             {
-                var ctl = new ChordNameControl(chord, this);
+                var ctl = new ChordNameControl(
+                    vm, this);
                 this.chordsTablePanel.Controls.Add(ctl);
             }
         }
@@ -58,7 +59,10 @@ namespace NeckDiagrams.Controls
         void Analyze()
         {
             var analyzer = new HarmonicAnalyzer();
-            this.Results = analyzer.Analyze(this.ChordFormulas, KeySignature.CMajor);
+            this.Results = analyzer.Analyze(
+                this.ChordFormulaVMs.Select(x => x.ChordFormula)
+                    .ToList(), 
+                KeySignature.CMajor);
             this.PopulateListView();
         }
 

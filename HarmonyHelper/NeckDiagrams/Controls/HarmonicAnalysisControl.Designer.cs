@@ -114,12 +114,12 @@
             this.lvAnalysis.Location = new System.Drawing.Point(0, 0);
             this.lvAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvAnalysis.Name = "lvAnalysis";
+            this.lvAnalysis.ShowItemToolTips = true;
             this.lvAnalysis.Size = new System.Drawing.Size(591, 293);
             this.lvAnalysis.TabIndex = 0;
             this.lvAnalysis.UseCompatibleStateImageBehavior = false;
             this.lvAnalysis.View = System.Windows.Forms.View.Details;
             this.lvAnalysis.SelectedIndexChanged += new System.EventHandler(this.lvAnalysis_SelectedIndexChanged);
-            this.lvAnalysis.ShowItemToolTips = true;
             // 
             // columnHeader1
             // 
@@ -153,7 +153,7 @@
             this.pnlTop.Controls.Add(this.bnChords);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.pnlTop.Margin = new System.Windows.Forms.Padding(10);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlTop.Size = new System.Drawing.Size(1402, 40);

@@ -17,7 +17,7 @@ namespace NeckDiagrams
 {
     public partial class ChordParserDialog : Form
     {
-        public List<ChordFormula> ChordFormulas { get; set; }
+        public List<ChordFormulaVM> ChordFormulaVMs { get; set; }
         public ChordParserDialog()
         {
             InitializeComponent();
@@ -28,7 +28,9 @@ namespace NeckDiagrams
         {
             if (ChordFormulaParser.TryParse(this._tbChords.Text, out var key, out var formulas, out var messageResult))
             {
-                this.ChordFormulas = formulas;   
+                var vms = formulas.Select(x => 
+                new ChordFormulaVM(x, Guid.NewGuid()));
+                this.ChordFormulaVMs = vms.ToList();   
                 this.Populate();
                 this.bnOk.Enabled = true;
             }
@@ -40,9 +42,9 @@ namespace NeckDiagrams
 
         private void Populate()
         {
-            foreach (var chord in this.ChordFormulas)
+            foreach (var vm in this.ChordFormulaVMs)
             {
-                var ctl = new ChordNameControl(chord);
+                var ctl = new ChordNameControl(vm);
                 this.chordsTablePanel.Controls.Add(ctl);
             }
         }
