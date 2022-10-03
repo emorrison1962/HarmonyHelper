@@ -43,6 +43,8 @@
             this.lblChordName.TabIndex = 0;
             this.lblChordName.Text = "ChordName";
             this.lblChordName.UseMnemonic = false;
+            this.lblChordName.BackColorChanged += new System.EventHandler(this.lblChordName_BackColorChanged);
+            this.lblChordName.Click += new System.EventHandler(this.lblChordName_Click);
             // 
             // ChordNameControl
             // 
@@ -54,6 +56,8 @@
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "ChordNameControl";
             this.Size = new System.Drawing.Size(254, 46);
+            this.BackColorChanged += new System.EventHandler(this.ChordNameControl_BackColorChanged);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ChordNameControl_MouseClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 

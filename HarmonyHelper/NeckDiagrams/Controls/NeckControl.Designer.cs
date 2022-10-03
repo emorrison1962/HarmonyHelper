@@ -29,24 +29,25 @@ namespace NeckDiagrams
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.printDocument = new System.Drawing.Printing.PrintDocument();
-			this.SuspendLayout();
-			// 
-			// printDocument
-			// 
-			this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
-			this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
-			this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
-			this.printDocument.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument_QueryPageSettings);
-			// 
-			// NeckControl
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "NeckControl";
-			this.Size = new System.Drawing.Size(453, 219);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.NeckControl_MouseMove);
-			this.ResumeLayout(false);
+            this.printDocument = new System.Drawing.Printing.PrintDocument();
+            this.SuspendLayout();
+            // 
+            // printDocument
+            // 
+            this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
+            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
+            this.printDocument.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument_QueryPageSettings);
+            // 
+            // NeckControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "NeckControl";
+            this.Size = new System.Drawing.Size(680, 337);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.NeckControl_MouseMove);
+            this.ResumeLayout(false);
 
 		}
 

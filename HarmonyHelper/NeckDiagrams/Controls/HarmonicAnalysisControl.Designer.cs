@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chordsTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this._chordNamesControl = new ChordNamesControl();
             this.mainSplitter = new System.Windows.Forms.SplitContainer();
             this.analysisSplitter = new System.Windows.Forms.SplitContainer();
             this.lvAnalysis = new System.Windows.Forms.ListView();
@@ -49,21 +49,12 @@
             // 
             // chordsTablePanel
             // 
-            this.chordsTablePanel.ColumnCount = 8;
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.chordsTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chordsTablePanel.Location = new System.Drawing.Point(0, 0);
-            this.chordsTablePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chordsTablePanel.Name = "chordsTablePanel";
-            this.chordsTablePanel.Size = new System.Drawing.Size(1402, 345);
-            this.chordsTablePanel.TabIndex = 4;
+            this._chordNamesControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._chordNamesControl.Location = new System.Drawing.Point(0, 0);
+            this._chordNamesControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this._chordNamesControl.Name = "_chordNamesControl";
+            this._chordNamesControl.Size = new System.Drawing.Size(1402, 345);
+            this._chordNamesControl.TabIndex = 4;
             // 
             // mainSplitter
             // 
@@ -75,7 +66,7 @@
             // 
             // mainSplitter.Panel1
             // 
-            this.mainSplitter.Panel1.Controls.Add(this.chordsTablePanel);
+            this.mainSplitter.Panel1.Controls.Add(this._chordNamesControl);
             // 
             // mainSplitter.Panel2
             // 
@@ -114,12 +105,12 @@
             this.lvAnalysis.Location = new System.Drawing.Point(0, 0);
             this.lvAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvAnalysis.Name = "lvAnalysis";
+            this.lvAnalysis.ShowItemToolTips = true;
             this.lvAnalysis.Size = new System.Drawing.Size(591, 293);
             this.lvAnalysis.TabIndex = 0;
             this.lvAnalysis.UseCompatibleStateImageBehavior = false;
             this.lvAnalysis.View = System.Windows.Forms.View.Details;
             this.lvAnalysis.SelectedIndexChanged += new System.EventHandler(this.lvAnalysis_SelectedIndexChanged);
-            this.lvAnalysis.ShowItemToolTips = true;
             // 
             // columnHeader1
             // 
@@ -153,7 +144,7 @@
             this.pnlTop.Controls.Add(this.bnChords);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.pnlTop.Margin = new System.Windows.Forms.Padding(10);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlTop.Size = new System.Drawing.Size(1402, 40);
@@ -185,7 +176,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel chordsTablePanel;
+        private ChordNamesControl _chordNamesControl;
         private System.Windows.Forms.SplitContainer mainSplitter;
         private System.Windows.Forms.SplitContainer analysisSplitter;
         private System.Windows.Forms.ListView lvAnalysis;

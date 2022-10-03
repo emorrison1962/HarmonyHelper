@@ -47,6 +47,14 @@ namespace NeckDiagrams
             this.arpeggiatorTabPage = new System.Windows.Forms.TabPage();
             this.analyzerTabPage = new System.Windows.Forms.TabPage();
             this.harmonicAnalysisControl1 = new NeckDiagrams.Controls.HarmonicAnalysisControl();
+            this._pnlNav = new System.Windows.Forms.Panel();
+            this._bnFeatureScales = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this._bnScales = new System.Windows.Forms.RadioButton();
             this.bottomMenuPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -55,6 +63,7 @@ namespace NeckDiagrams
             this.tabControl.SuspendLayout();
             this.neckTabPage.SuspendLayout();
             this.analyzerTabPage.SuspendLayout();
+            this._pnlNav.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottomMenuPanel
@@ -62,10 +71,10 @@ namespace NeckDiagrams
             this.bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
             this.bottomMenuPanel.Controls.Add(this.menuStrip);
             this.bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomMenuPanel.Location = new System.Drawing.Point(0, 750);
+            this.bottomMenuPanel.Location = new System.Drawing.Point(200, 750);
             this.bottomMenuPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.bottomMenuPanel.Name = "bottomMenuPanel";
-            this.bottomMenuPanel.Size = new System.Drawing.Size(1600, 115);
+            this.bottomMenuPanel.Size = new System.Drawing.Size(1400, 115);
             this.bottomMenuPanel.TabIndex = 1;
             // 
             // menuStrip
@@ -77,7 +86,7 @@ namespace NeckDiagrams
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1600, 36);
+            this.menuStrip.Size = new System.Drawing.Size(1400, 33);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "File";
             // 
@@ -85,7 +94,7 @@ namespace NeckDiagrams
             // 
             this.toolStripMenuItem.Name = "toolStripMenuItem";
             this.toolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.toolStripMenuItem.Size = new System.Drawing.Size(64, 32);
+            this.toolStripMenuItem.Size = new System.Drawing.Size(64, 29);
             this.toolStripMenuItem.Text = "Print";
             // 
             // topPanel
@@ -105,7 +114,7 @@ namespace NeckDiagrams
             // 
             this.modelsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modelsControl.Location = new System.Drawing.Point(400, 0);
-            this.modelsControl.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.modelsControl.Margin = new System.Windows.Forms.Padding(8);
             this.modelsControl.Name = "modelsControl";
             this.modelsControl.Size = new System.Drawing.Size(1200, 192);
             this.modelsControl.TabIndex = 2;
@@ -165,7 +174,7 @@ namespace NeckDiagrams
             this.neckPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.neckPanel.Name = "neckPanel";
             this.neckPanel.Padding = new System.Windows.Forms.Padding(40, 39, 40, 39);
-            this.neckPanel.Size = new System.Drawing.Size(1584, 702);
+            this.neckPanel.Size = new System.Drawing.Size(1384, 702);
             this.neckPanel.TabIndex = 3;
             // 
             // _neckCtl
@@ -173,9 +182,9 @@ namespace NeckDiagrams
             this._neckCtl.BackColor = System.Drawing.SystemColors.Control;
             this._neckCtl.Dock = System.Windows.Forms.DockStyle.Fill;
             this._neckCtl.Location = new System.Drawing.Point(40, 39);
-            this._neckCtl.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this._neckCtl.Margin = new System.Windows.Forms.Padding(8);
             this._neckCtl.Name = "_neckCtl";
-            this._neckCtl.Size = new System.Drawing.Size(1504, 624);
+            this._neckCtl.Size = new System.Drawing.Size(1304, 624);
             this._neckCtl.TabIndex = 0;
             // 
             // printDialog
@@ -195,11 +204,11 @@ namespace NeckDiagrams
             this.tabControl.Controls.Add(this.arpeggiatorTabPage);
             this.tabControl.Controls.Add(this.analyzerTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(200, 0);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 2;
-            this.tabControl.Size = new System.Drawing.Size(1600, 750);
+            this.tabControl.Size = new System.Drawing.Size(1400, 750);
             this.tabControl.TabIndex = 1;
             // 
             // neckTabPage
@@ -209,18 +218,18 @@ namespace NeckDiagrams
             this.neckTabPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.neckTabPage.Name = "neckTabPage";
             this.neckTabPage.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.neckTabPage.Size = new System.Drawing.Size(1592, 712);
+            this.neckTabPage.Size = new System.Drawing.Size(1392, 712);
             this.neckTabPage.TabIndex = 0;
             this.neckTabPage.Text = "Neck";
             this.neckTabPage.UseVisualStyleBackColor = true;
             // 
             // arpeggiatorTabPage
             // 
-            this.arpeggiatorTabPage.Location = new System.Drawing.Point(4, 29);
+            this.arpeggiatorTabPage.Location = new System.Drawing.Point(4, 34);
             this.arpeggiatorTabPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.arpeggiatorTabPage.Name = "arpeggiatorTabPage";
             this.arpeggiatorTabPage.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.arpeggiatorTabPage.Size = new System.Drawing.Size(1592, 717);
+            this.arpeggiatorTabPage.Size = new System.Drawing.Size(1592, 712);
             this.arpeggiatorTabPage.TabIndex = 1;
             this.arpeggiatorTabPage.Text = "Arpeggiator";
             this.arpeggiatorTabPage.UseVisualStyleBackColor = true;
@@ -228,11 +237,11 @@ namespace NeckDiagrams
             // analyzerTabPage
             // 
             this.analyzerTabPage.Controls.Add(this.harmonicAnalysisControl1);
-            this.analyzerTabPage.Location = new System.Drawing.Point(4, 29);
+            this.analyzerTabPage.Location = new System.Drawing.Point(4, 34);
             this.analyzerTabPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.analyzerTabPage.Name = "analyzerTabPage";
             this.analyzerTabPage.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.analyzerTabPage.Size = new System.Drawing.Size(1592, 717);
+            this.analyzerTabPage.Size = new System.Drawing.Size(1592, 712);
             this.analyzerTabPage.TabIndex = 2;
             this.analyzerTabPage.Text = "Analyzer";
             this.analyzerTabPage.UseVisualStyleBackColor = true;
@@ -243,8 +252,122 @@ namespace NeckDiagrams
             this.harmonicAnalysisControl1.Location = new System.Drawing.Point(4, 5);
             this.harmonicAnalysisControl1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.harmonicAnalysisControl1.Name = "harmonicAnalysisControl1";
-            this.harmonicAnalysisControl1.Size = new System.Drawing.Size(1584, 707);
+            this.harmonicAnalysisControl1.Size = new System.Drawing.Size(1584, 702);
             this.harmonicAnalysisControl1.TabIndex = 1;
+            // 
+            // _pnlNav
+            // 
+            this._pnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this._pnlNav.Controls.Add(this._bnScales);
+            this._pnlNav.Controls.Add(this.radioButton6);
+            this._pnlNav.Controls.Add(this.radioButton5);
+            this._pnlNav.Controls.Add(this.radioButton4);
+            this._pnlNav.Controls.Add(this.radioButton3);
+            this._pnlNav.Controls.Add(this.radioButton2);
+            this._pnlNav.Controls.Add(this._bnFeatureScales);
+            this._pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
+            this._pnlNav.Location = new System.Drawing.Point(0, 0);
+            this._pnlNav.Name = "_pnlNav";
+            this._pnlNav.Size = new System.Drawing.Size(200, 865);
+            this._pnlNav.TabIndex = 2;
+            // 
+            // _bnFeatureScales
+            // 
+            this._bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureScales.AutoSize = true;
+            this._bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureScales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._bnFeatureScales.Location = new System.Drawing.Point(0, 0);
+            this._bnFeatureScales.Name = "_bnFeatureScales";
+            this._bnFeatureScales.Size = new System.Drawing.Size(200, 37);
+            this._bnFeatureScales.TabIndex = 0;
+            this._bnFeatureScales.TabStop = true;
+            this._bnFeatureScales.Text = "Scales";
+            this._bnFeatureScales.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton2.Location = new System.Drawing.Point(0, 37);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(200, 37);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Argeggios";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton3.Location = new System.Drawing.Point(0, 74);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(200, 37);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Harmonic Analysis";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton4.Location = new System.Drawing.Point(0, 111);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(200, 37);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Re-Harmonize";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton5.Location = new System.Drawing.Point(0, 148);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(200, 37);
+            this.radioButton5.TabIndex = 4;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "radioButton5";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton6.Location = new System.Drawing.Point(0, 185);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(200, 37);
+            this.radioButton6.TabIndex = 5;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "radioButton6";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // _bnScales
+            // 
+            this._bnScales.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnScales.AutoSize = true;
+            this._bnScales.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnScales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._bnScales.Location = new System.Drawing.Point(0, 222);
+            this._bnScales.Name = "_bnScales";
+            this._bnScales.Size = new System.Drawing.Size(200, 37);
+            this._bnScales.TabIndex = 6;
+            this._bnScales.TabStop = true;
+            this._bnScales.Text = "radioButton7";
+            this._bnScales.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -254,6 +377,7 @@ namespace NeckDiagrams
             this.ClientSize = new System.Drawing.Size(1600, 865);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.bottomMenuPanel);
+            this.Controls.Add(this._pnlNav);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
@@ -276,6 +400,8 @@ namespace NeckDiagrams
             this.tabControl.ResumeLayout(false);
             this.neckTabPage.ResumeLayout(false);
             this.analyzerTabPage.ResumeLayout(false);
+            this._pnlNav.ResumeLayout(false);
+            this._pnlNav.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -299,6 +425,14 @@ namespace NeckDiagrams
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox _cbKey;
         private Controls.HarmonicAnalysisControl harmonicAnalysisControl1;
+        private System.Windows.Forms.Panel _pnlNav;
+        private System.Windows.Forms.RadioButton _bnScales;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton _bnFeatureScales;
     }
 }
 
