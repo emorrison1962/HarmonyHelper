@@ -157,7 +157,7 @@ In another blog post I discuss a different progression in which a ii-V sequence 
     /// </summary>
     public class BackDoor_ii_V_Rule : HarmonicAnalysisRuleBase
     {
-        public override string Name => throw new NotImplementedException();
+        public override string Name => "Backdoor ii-V";
 
         public override string Description => throw new NotImplementedException();
 

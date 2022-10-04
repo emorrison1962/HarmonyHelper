@@ -46,7 +46,7 @@
             this._chordNamesTablePanel.Location = new System.Drawing.Point(0, 0);
             this._chordNamesTablePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this._chordNamesTablePanel.Name = "_chordNamesTablePanel";
-            this._chordNamesTablePanel.Size = new System.Drawing.Size(743, 467);
+            this._chordNamesTablePanel.Size = new System.Drawing.Size(741, 465);
             this._chordNamesTablePanel.TabIndex = 5;
             this._chordNamesTablePanel.Paint += new System.Windows.Forms.PaintEventHandler(this._chordNamesTablePanel_Paint);
             // 
@@ -54,9 +54,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this._chordNamesTablePanel);
             this.Name = "ChordNamesControl";
-            this.Size = new System.Drawing.Size(743, 467);
+            this.Size = new System.Drawing.Size(741, 465);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseUp);

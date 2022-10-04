@@ -81,7 +81,12 @@ namespace NeckDiagrams.Controls
             {
                 this.TopLevelControl.Text = this.MouseDragContext.ToString();
                 this.MouseDragContext.SetCurrentPoint(e.Location);
-                this.Invalidate(true);
+
+                var inflated = Rectangle.Inflate(this.MouseDragContext
+                    .CurrentRect, 8, 8);
+                this.Invalidate(inflated);
+
+
                 this.SelectItems(this.MouseDragContext.CurrentRect);
             }
         }

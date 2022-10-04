@@ -47,7 +47,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	{
 		const string DESCRIPTION =
 			@"Back Cycling is when a chord progression, such as a ii-V-I, substitutes a cycle of V7 changes over those chords, such as ii-II7-V-I.";
-		public override string Name { get { return this.GetType().Name; } } 
+		public override string Name { get { return "Back Cycling"; } } 
 		public override string Description { get { return DESCRIPTION; } }
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
 		{

@@ -24,7 +24,7 @@ Ex. 57
 
 										  Extensions of Dim7 Chords 
 #endif
-		public override string Name { get { return this.GetType().Name; } }
+		public override string Name { get { return "Diminished 7 for Dominant 7 substitution"; } }
 		public override string Description => @"A diminished 7 chord can replace an altered dominant 7 chord (commonly b9 or #9) when the root of the diminished 7 is a half-step above the root of the altered dominant 7.";
 
 

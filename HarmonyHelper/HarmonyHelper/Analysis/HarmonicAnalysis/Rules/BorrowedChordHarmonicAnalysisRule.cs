@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 			i = 0, ii, iii, iv, v, vi, vii
 		}
-		public override string Name { get { return this.GetType().Name; } }
+		public override string Name { get { return "Modal Interchange"; } }
 		public override string Description { get { return @"Borrowed chords are chords from a key that's parallel to your song's key signature. So if you're writing in a major key, you could use a chord from its parallel minor. These non-diatonic chords can spruce up a predictable chord progression. Borrowed chords don't appear naturally in a particular song's key."; } }
 
 		public BorrowedChordHarmonicAnalysisRule()

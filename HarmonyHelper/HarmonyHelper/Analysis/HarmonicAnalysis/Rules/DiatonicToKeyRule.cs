@@ -6,7 +6,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
-		public override string Name { get { return this.GetType().Name; } }
+		public override string Name { get { return "Diatonic to Key"; } }
 		public override string Description { get { return @"Chords built from only the seven notes in each key are called diatonic chords."; } }
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
 		{
@@ -35,11 +35,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				var diatonicChords = string.Join(", ",
 					diatonic.Distinct()
 					.Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
-				var diatonicMessage = $"{diatonicChords} are diatonic to the specified key of {key}.";
+				var diatonicMessage = $"{diatonicChords} are diatonic to {key}.";
 				result.Add(new HarmonicAnalysisResult(this, true, diatonicMessage, diatonic.Distinct().ToList()));
 
 				var nonDiatonicChordNames = string.Join(", ", nonDiatonic.Select(x => x.Name));
-				var nonDiatonicMessage = $"{nonDiatonicChordNames}  are not diatonic to the specified key of {key}.";
+				var nonDiatonicMessage = $"{nonDiatonicChordNames}  are not diatonic to {key}.";
 				result.Add(new HarmonicAnalysisResult(this, true, nonDiatonicMessage, nonDiatonic.Distinct().ToList()));
 			}
 

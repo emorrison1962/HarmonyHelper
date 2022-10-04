@@ -60,13 +60,14 @@ namespace NeckDiagrams.Controls
 
         private void Parent_AnalysisResultChanged(object sender, HarmonicAnalysisControl.AnalysisResultEventArgs e)
         {
-            if (e.Result.Chords.Contains(this.Chord, new ChordFormulaInstanceEqualityComparer()))
+            if (e.Result.Chords
+                .Contains(this.Chord, new ChordFormulaInstanceEqualityComparer()))
             {
-                this.lblChordName.BackColor = SELECTED_COLOR;
+                this.IsSelected = true;
             }
             else
             {
-                this.lblChordName.BackColor = NORMAL_COLOR;
+                this.IsSelected = false;
             }
             this.Refresh();
         }
