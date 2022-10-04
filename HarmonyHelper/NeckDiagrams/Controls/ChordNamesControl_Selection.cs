@@ -99,7 +99,11 @@ namespace NeckDiagrams.Controls
                 this.DrawSelectionRectangle(e.Graphics);
             }
         }
+        "
+Pen pen = new Pen(Color.SlateBlue, 0.5f);
 
+        graphics.PageUnit = GraphicsUnit.Pixel;        
+            "
         void DrawSelectionRectangle(Graphics graphics)
         {
             using (Pen pen = new Pen(Color.Black, 3))
