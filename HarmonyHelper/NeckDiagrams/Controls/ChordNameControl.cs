@@ -27,7 +27,7 @@ namespace NeckDiagrams.Controls
             {
                 return _IsSelected;
             }
-            private set 
+            set 
             {
                 _IsSelected = value;
                 this.OnSelected();
@@ -86,17 +86,16 @@ namespace NeckDiagrams.Controls
 
         private void ChordNameControl_MouseClick(object sender, MouseEventArgs e)
         {
-            this.OnSelected();
+            this.IsSelected = !this.IsSelected;
         }
 
         private void lblChordName_Click(object sender, EventArgs e)
         {
-            this.OnSelected();
+            this.IsSelected = !this.IsSelected; 
         }
 
         private void OnSelected()
         {
-            this._IsSelected = !this._IsSelected;
             if (this.IsSelected)
             {
                 this.BackColor = SELECTED_COLOR;

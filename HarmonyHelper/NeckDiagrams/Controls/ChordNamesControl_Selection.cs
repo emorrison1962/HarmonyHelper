@@ -40,7 +40,7 @@ namespace NeckDiagrams.Controls
         }
 
 
-    public void SetCurrentPoint(Point currentPoint)
+        public void SetCurrentPoint(Point currentPoint)
         {
             this.LastPoint = this.CurrentPoint;
             this.CurrentPoint = currentPoint;
@@ -82,6 +82,7 @@ namespace NeckDiagrams.Controls
                 this.TopLevelControl.Text = this.MouseDragContext.ToString();
                 this.MouseDragContext.SetCurrentPoint(e.Location);
                 this.Invalidate(true);
+                this.SelectItems(this.MouseDragContext.CurrentRect);
             }
         }
 
@@ -89,7 +90,14 @@ namespace NeckDiagrams.Controls
         {
             this.Capture = false;
             this.MouseIsDragging = false;
+            this.SelectItems(this.MouseDragContext.CurrentRect);
+
+            var inflated = Rectangle.Inflate(this.MouseDragContext
+                .CurrentRect, 8, 8);
+            this.Invalidate(inflated);
+
             this.MouseDragContext.EndDrag();
+            this.Update();
         }
 
         private void _chordNamesTablePanel_Paint(object sender, PaintEventArgs e)
@@ -99,7 +107,7 @@ namespace NeckDiagrams.Controls
                 this.DrawSelectionRectangle(e.Graphics);
             }
         }
-        
+
         void DrawSelectionRectangle(Graphics graphics)
         {
             var brushColor = Color.FromArgb(63, Color.SlateBlue);
@@ -112,6 +120,24 @@ namespace NeckDiagrams.Controls
                     this.MouseDragContext.CurrentRect);
             }
         }
+
+        private void SelectItems(Rectangle rc)
+        {
+            foreach (var ctl in this._chordNamesTablePanel
+                .Controls
+                .Cast<ChordNameControl>())
+            {
+                if (ctl.Bounds.IntersectsWith(rc))
+                {
+                    ctl.IsSelected = true;
+                }
+                else
+                {
+                    ctl.IsSelected = false;
+                }
+            }
+        }
+
 
     }//class
 }//ns
