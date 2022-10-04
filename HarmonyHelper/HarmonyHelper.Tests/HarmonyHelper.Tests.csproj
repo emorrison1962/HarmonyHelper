@@ -56,6 +56,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackCyclingRuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_RuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\DiatonicToKeyRuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_I_RuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_RuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRuleTests.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRuleTests.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzerTests.cs" />
     <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
@@ -107,9 +116,7 @@
       <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Analysis\HarmonicAnalysis\Rules\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
