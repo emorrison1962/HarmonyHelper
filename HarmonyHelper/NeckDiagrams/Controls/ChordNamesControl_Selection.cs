@@ -99,20 +99,15 @@ namespace NeckDiagrams.Controls
                 this.DrawSelectionRectangle(e.Graphics);
             }
         }
-        "
-Pen pen = new Pen(Color.SlateBlue, 0.5f);
-
-        graphics.PageUnit = GraphicsUnit.Pixel;        
-            "
+        
         void DrawSelectionRectangle(Graphics graphics)
         {
-            using (Pen pen = new Pen(Color.Black, 3))
+            var brushColor = Color.FromArgb(63, Color.SlateBlue);
+            using (var pen = new Pen(Color.SlateBlue, 0.5f))
+            using (var brush = new SolidBrush(brushColor))
             {
-                //this._chordNamesTablePanel
-                //    .Invalidate(this.MouseDragContext.LastRect, true);
-                //this._chordNamesTablePanel.Update();
-
-                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                graphics.FillRectangle(brush,
+                    this.MouseDragContext.CurrentRect);
                 graphics.DrawRectangle(pen,
                     this.MouseDragContext.CurrentRect);
             }
