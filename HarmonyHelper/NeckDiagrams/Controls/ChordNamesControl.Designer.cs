@@ -48,6 +48,7 @@
             this._chordNamesTablePanel.Name = "_chordNamesTablePanel";
             this._chordNamesTablePanel.Size = new System.Drawing.Size(743, 467);
             this._chordNamesTablePanel.TabIndex = 5;
+            this._chordNamesTablePanel.Paint += new System.Windows.Forms.PaintEventHandler(this._chordNamesTablePanel_Paint);
             // 
             // ChordNamesControl
             // 

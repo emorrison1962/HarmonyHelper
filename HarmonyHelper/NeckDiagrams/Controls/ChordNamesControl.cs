@@ -28,6 +28,7 @@ namespace NeckDiagrams.Controls
             this._chordNamesTablePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseDown);
             this._chordNamesTablePanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseMove);
             this._chordNamesTablePanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChordNamesControl_MouseUp);
+            this.MouseDragContext = new MouseDragContext();
         }
 
         public void Add(ChordFormulaVM vm, HarmonicAnalysisControl parent = null)
