@@ -102,7 +102,7 @@ namespace Eric.Morrison.Harmony.Chords
 		public ChordToneFunctionEnum GetRelationship(NoteName note)
 		{
 			var result = ChordToneFunctionEnum.None;
-			var interval = this.Root - note;
+			var interval = (this.Root - note).Invert();
 
 			if (interval == Interval.Unison)
 				result = ChordToneFunctionEnum.Root;

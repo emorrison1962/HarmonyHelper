@@ -305,8 +305,22 @@ namespace Eric.Morrison.Harmony
 			matchedKey = null;
 			probableKey = null;
 			var result = false;
-			var nns = chords.SelectMany(x => x.NoteNames)
-				.ToList();
+
+            #region The 3rd of the V7 in a ii-V-i in minor key is an accidental.
+            var dominants = chords.Where(x => x.IsDominant);
+			
+			var nns = (from formula in dominants
+					   from nn in formula.NoteNames
+					   where formula.GetRelationship(nn) != ChordToneFunctionEnum.Major3rd
+					   select nn)
+					   .ToList();
+			#endregion
+
+			nns.AddRange(
+				chords.Where(x => !x.IsDominant)
+				.SelectMany(x => x.NoteNames)
+				.ToList());
+
 			var keys = new List<Tuple<int, KeySignature>>();
 			foreach (var key in KeySignature.Catalog)
 			{
@@ -327,7 +341,6 @@ namespace Eric.Morrison.Harmony
 					.ThenBy(x => x.Item2.AccidentalCount)
 					.First();
 				probableKey = probableTuple.Item2;
-				result = true;
 			}
 
 			return result;
