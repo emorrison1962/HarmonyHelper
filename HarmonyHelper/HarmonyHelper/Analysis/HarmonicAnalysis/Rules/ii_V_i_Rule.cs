@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			return result;
 		}
 
-        public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
         {
             var result = new List<HarmonicAnalysisResult>();
 
@@ -79,7 +79,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-		private KeySignature DetermineKey(List<ChordFormula> formulas)
+        private KeySignature DetermineKey(List<ChordFormula> formulas)
 		{
             KeySignature result = null;
             if (KeySignature.TryDetermineKey(formulas,

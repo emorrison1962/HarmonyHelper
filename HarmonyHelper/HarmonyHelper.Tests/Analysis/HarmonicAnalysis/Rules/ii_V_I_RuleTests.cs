@@ -26,7 +26,6 @@ a7 dm7 g7"
 #endif
 
             var rule = new ii_V_I_Rule();
-            var results1 = rule.Analyze(formulas, key);
             var results = rule.Analyze(formulas);
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);  

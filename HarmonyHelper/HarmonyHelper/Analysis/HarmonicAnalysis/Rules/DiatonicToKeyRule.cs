@@ -46,6 +46,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			return result;
 		}
 
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		string GetChordFunction(ChordFormula chord, int index)
 		{
 			var result = string.Empty;

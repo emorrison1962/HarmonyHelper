@@ -56,8 +56,7 @@ namespace NeckDiagrams.Controls
             var analyzer = new HarmonicAnalyzer();
             this.Results = analyzer.Analyze(
                 this.ChordFormulaVMs.Select(x => x.ChordFormula)
-                    .ToList(), 
-                KeySignature.CMajor);
+                    .ToList());
             this.PopulateListView();
         }
 

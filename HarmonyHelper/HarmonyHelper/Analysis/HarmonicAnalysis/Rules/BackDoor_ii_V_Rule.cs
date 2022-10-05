@@ -184,6 +184,11 @@ In another blog post I discuss a different progression in which a ii-V sequence 
             return result;
         }
 
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+        {
+            throw new NotImplementedException();
+        }
+
         HarmonicAnalysisResult CreateHarmonicAnalysisResult(IEnumerable<ChordFormula> chords, KeySignature key)
         {
             var one = key.IsMinor ? "i" : "I";

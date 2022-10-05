@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var str = "Dm7 g7 cmaj7";
 			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			Assert.IsNotNull(analysisResults);
 			var expected = analysisResults.First(x => x.Rule is DiatonicToKeyRule);
 			Assert.IsInstanceOfType(expected.Rule, typeof(DiatonicToKeyRule));
@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony.Tests
 			sw.Reset();
 
 
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			sw.Stop();
 			Debug.WriteLine($"HarmonicAnalyzer.Analyze: {sw.ElapsedMilliseconds}");
 
@@ -134,7 +134,7 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						var key = KeySignature.MajorKeys.Where(x => x.NoteName.Name == keyStr).First();
 						var chords = this.GetChords(str, key);
-						var analysisResults = HarmonicAnalyzer.Analyze(chords, key);
+						var analysisResults = HarmonicAnalyzer.Analyze(chords);
 						Debug.WriteLine($"Analysis: {song.Title} in {song.Key}:");
 						Debug.WriteLine(str);
 						Debug.Indent();
@@ -159,7 +159,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = "Dm7b5 g7 cmaj7 AbMaj7";
 				var chords = this.GetChords(str);
 				var rule = new ii_V_Rule();
-				var result = rule.Analyze(chords, null);
+				var result = rule.Analyze(chords);
 				Assert.IsNotNull(result);
 				new object();
 			}
@@ -167,7 +167,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = "Dm7 g7 cmaj7 AbMaj7";
 				var chords = this.GetChords(str);
 				var rule = new ii_V_Rule();
-				var result = rule.Analyze(chords, null);
+				var result = rule.Analyze(chords);
 				Assert.IsNotNull(result);
 				new object();
 			}
@@ -179,7 +179,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var str = "Dm7 g7 cmaj7 AbMaj7";
 			var chords = this.GetChords(str);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			foreach (var analysisResult in analysisResults)
 			{
 				if (null != analysisResult && analysisResult.Success)
@@ -193,7 +193,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var rule = new BorrowedChordHarmonicAnalysisRule();
 			var chords = this.GetChords("am7");
-			rule.Analyze(chords, KeySignature.CMajor);
+			rule.Analyze(chords);
 		}
 
 
@@ -202,7 +202,7 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			var rule = new TritoneSubstitutionRule();
 			var chords = this.GetChords("dm7 c#7 cmaj7");
-			var results = rule.Analyze(chords, KeySignature.CMajor);
+			var results = rule.Analyze(chords);
 			foreach (var result in results)
 				Debug.WriteLine(result.Message);
 			new object();
@@ -214,25 +214,25 @@ namespace Eric.Morrison.Harmony.Tests
 			var rule = new Dim7ForDom7SubstitutionRule();
 			{//positive test
 				var chords = this.GetChords("dm7 g#dim7 cmaj7");
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
 				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
 			}
 			{//positive test - enharmonic
 				var chords = this.GetChords("dm7 abdim7 cmaj7");
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
 				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
 			}
 			{//positive test - inversion
 				var chords = this.GetChords("dm7 cbdim7 cmaj7");
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
 				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
 			}
 			{//positive test - no resolution
 				var chords = this.GetChords("dm7 abdim7 cbmaj7");
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				var expected = results.Where(x => x.Rule is Dim7ForDom7SubstitutionRule);
 				Assert.IsTrue(0 == expected.Count());
 			}
@@ -246,7 +246,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = "Dm7 g7 cmaj7 A7 Dm7 g7 cmaj7 A7";
 				var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				foreach (var result in results)
 					Debug.WriteLine(result.Message);
 				new object();
@@ -256,7 +256,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = "Dm7 g7 cmaj7 Dm7 g7 cmaj7 ";
 				var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				Assert.IsTrue(0 == results.Count);
 			}
 
@@ -264,7 +264,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = "Dm7 g7 em7 Dm7 g7 fMaj7";
 				var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				Assert.IsTrue(0 == results.Count);
 			}
 		}
@@ -284,7 +284,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var str = BIRD_BLUES;
 				var chords = this.GetChords(str);
 
-				var results = rule.Analyze(chords, KeySignature.CMajor);
+				var results = rule.Analyze(chords);
 				foreach (var result in results)
 					Debug.WriteLine(result.Message);
 				new object();
@@ -315,7 +315,7 @@ namespace Eric.Morrison.Harmony.Tests
                 var str = "Fm7 Bb7 Cmaj7";
                 var chords = this.GetChords(str);
 
-                var results = rule.Analyze(chords, KeySignature.CMajor);
+                var results = rule.Analyze(chords);
 				Assert.IsTrue(results.Count == 1);
 				foreach (var result in results)
 				{
@@ -334,7 +334,7 @@ namespace Eric.Morrison.Harmony.Tests
 			const string HOW_INSENSITIVE = "Dm9 c#dim7 c-6 g7/b bbmaj7 ebmaj7 e-7b5 a7b9 dm7 db13 cm7 bdim7 bbmaj7 em7b5 a7 dm7 db7 cm9 f7 bm7 e7b9 bbmaj7 a7 dm7"; //written by A.C. Jobim
 
 			var chords = this.GetChords(HOW_INSENSITIVE);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.CMajor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			Debug.WriteLine("=================================================");
 			Debug.WriteLine($"How Insensitive by A.C. Jobim (in {KeySignature.CMajor.Name}): {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");
@@ -352,7 +352,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void Sunny_Test()
 		{
 			var chords = this.GetChords(SUNNY);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.AMinor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			Debug.WriteLine("=================================================");
 			Debug.WriteLine($"Sunny by Bobby Hebb (in {KeySignature.CMajor.Name}): {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");
@@ -370,7 +370,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void Creep_Test()
 		{
 			var chords = this.GetChords(CREEP);
-			var analysisResults = HarmonicAnalyzer.Analyze(chords, KeySignature.GMajor);
+			var analysisResults = HarmonicAnalyzer.Analyze(chords);
 			Debug.WriteLine("=================================================");
 			Debug.WriteLine($"Creep by Radiohead: {string.Join(", ", chords.Select(x => x.Name))}");
 			Debug.WriteLine("=================================================");

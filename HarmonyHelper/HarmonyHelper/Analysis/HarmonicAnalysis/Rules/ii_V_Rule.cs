@@ -44,5 +44,10 @@ namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules
 
             return result;
 		}
-	}//class
+
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+        {
+            throw new NotImplementedException();
+        }
+    }//class
 }//ns
