@@ -298,7 +298,17 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		static public bool TryDetermineKey(List<ChordFormula> chords,
+		static public KeySignature DetermineKey(List<ChordFormula> chords)
+		{
+            KeySignature result = null;
+            if (KeySignature.TryDetermineKey(chords, out var match, out var probable))
+                result = match;
+            else
+                result = probable;
+			return result;
+        }
+
+        static public bool TryDetermineKey(List<ChordFormula> chords,
 			out KeySignature matchedKey,
 			out KeySignature probableKey)
 		{

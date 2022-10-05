@@ -11,39 +11,35 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		public override string Description => @"A secondary dominant is a chord having a dominant relationship to a chord in a key other than the tonic.";
 
 
-        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
-		{
-			var result = new List<HarmonicAnalysisResult>();
-			var nonDiatonic = key.GetNonDiatonic(chords);
-			if (nonDiatonic.Count > 0)
-			{
-				var pairs = chords.GetPairs();
-				foreach (var pair in pairs)
-				{
-					if (!pair[0].IsDominantOfKey(key))
-					{
-						if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
-						{
-							var interval = pair[0].Root - pair[1].Root;
-							if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
-							{
-								//Debug.WriteLine($"{pair[0]}, {pair[1]}");
-								result.Add(
-									new HarmonicAnalysisResult(this, true, 
-										$"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}.",
-										new List<ChordFormula> { pair[0], pair[1] }));
-							}
-						}
-					}
-				}
-			}
-
-			return result;
-		}
-
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
 		{
-			throw new System.NotImplementedException();
-		}
-	}
+            var result = new List<HarmonicAnalysisResult>();
+            var key = KeySignature.DetermineKey(chords);
+            var nonDiatonic = key.GetNonDiatonic(chords);
+            if (nonDiatonic.Count > 0)
+            {
+                var pairs = chords.GetPairs();
+                foreach (var pair in pairs)
+                {
+                    if (!pair[0].IsDominantOfKey(key))
+                    {
+                        if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
+                        {
+                            var interval = pair[0].Root - pair[1].Root;
+                            if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
+                            {
+                                //Debug.WriteLine($"{pair[0]}, {pair[1]}");
+                                result.Add(
+                                    new HarmonicAnalysisResult(this, true,
+                                        $"{pair[0].Name} could be considered a secondary dominant to {pair[1].Name}.",
+                                        new List<ChordFormula> { pair[0], pair[1] }));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
 }

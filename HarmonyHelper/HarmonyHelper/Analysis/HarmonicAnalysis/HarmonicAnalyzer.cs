@@ -13,26 +13,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 
 		}
 
-		[Obsolete("", true)]
-		public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key, bool unused = false)
-		{
-			var result = new List<HarmonicAnalysisResult>();
-			foreach (var rule in HarmonicAnalysisRuleBase.Catalog)
-			{
-				var har = rule.Analyze(chords, key);
-				result.AddRange(har);
-			}
-
-			return result;
-		}
-
-        [Obsolete("", true)]
-        static public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
-		{
-			var analyzer = new HarmonicAnalyzer();
-			var result = analyzer.Analyze(chords, key, false);
-			return result;
-		}
         static public List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
         {
             var analyzer = new HarmonicAnalyzer();

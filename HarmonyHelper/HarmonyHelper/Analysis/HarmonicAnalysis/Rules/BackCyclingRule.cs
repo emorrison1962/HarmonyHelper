@@ -49,80 +49,75 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			@"Back Cycling is when a chord progression, such as a ii-V-I, substitutes a cycle of V7 changes over those chords, such as ii-II7-V-I.";
 		public override string Name { get { return "Back Cycling"; } } 
 		public override string Description { get { return DESCRIPTION; } }
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input, KeySignature key)
+		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> input)
 		{
-			var result = new List<HarmonicAnalysisResult>();
+            var result = new List<HarmonicAnalysisResult>();
 
-			var chords = new List<ChordFormula>(input);
-			//Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
+            var chords = new List<ChordFormula>(input);
+            //Debug.WriteLine($"Chrds: {string.Join(", ", chords.Select(x => x.Name))}");
 
-			var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd).ToList();
-			foreach (var pair in pairs)
-			{
-				if (pair.First.ChordType.IsDominant)
-				{
-					var subbedFor = this.GetTritoneSubstitution(pair.First);
-					var seq = chords.FindAll(x => x == pair.First);
-					foreach (var item in seq)
-					{
-						var ndx = chords.IndexOf(item);
-						chords[ndx] = subbedFor;
-					}
+            var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd).ToList();
+            foreach (var pair in pairs)
+            {
+                if (pair.First.ChordType.IsDominant)
+                {
+                    var subbedFor = this.GetTritoneSubstitution(pair.First);
+                    var seq = chords.FindAll(x => x == pair.First);
+                    foreach (var item in seq)
+                    {
+                        var ndx = chords.IndexOf(item);
+                        chords[ndx] = subbedFor;
+                    }
 
-					//Debug.WriteLine($"{pair[0].Name} is a tritone sub for {subbedFor.Name}");
-					new object();
-				}
-			}
+                    //Debug.WriteLine($"{pair[0].Name} is a tritone sub for {subbedFor.Name}");
+                    new object();
+                }
+            }
 
-			var theCycle = this.CreateCycle();
-			//Debug.WriteLine($"Cycle: {string.Join(", ", theCycle)}");
-			var roots = chords.Select(x => x.Root);
-			//Debug.WriteLine($"Roots: {string.Join(", ", roots)}");
-
-
-			int startNdx = 0;
-			int lastNdx = 0;
-			var success = false;
-			while (lastNdx < chords.Count)
-			{
-				success = theCycle.TryGetSubequence(roots.Select(x => x),
-					new NoteNameValueEqualityComparer(),
-					out List<NoteName> subSequence, ref lastNdx);
-				//Debug.WriteLine(lastNdx);
-				//Debug.WriteLine($"subSequence: {string.Join(", ", subSequence)}");
-
-				new object();
+            var theCycle = this.CreateCycle();
+            //Debug.WriteLine($"Cycle: {string.Join(", ", theCycle)}");
+            var roots = chords.Select(x => x.Root);
+            //Debug.WriteLine($"Roots: {string.Join(", ", roots)}");
 
 
-				if (success)
-				{
-					//var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
-					var seq = input.GetRange(startNdx, lastNdx - startNdx).ToList();
-					Debug.Assert(seq.Count() == subSequence.Count);
-					
-					var har = new HarmonicAnalysisResult(this, 
-						true,
-						$"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.", 
-						seq.ToList());
-					
-					result.Add(har);
-					//Debug.WriteLine(har.Message);
-					//new object();
-				}
-				startNdx = lastNdx;
+            int startNdx = 0;
+            int lastNdx = 0;
+            var success = false;
+            while (lastNdx < chords.Count)
+            {
+                success = theCycle.TryGetSubequence(roots.Select(x => x),
+                    new NoteNameValueEqualityComparer(),
+                    out List<NoteName> subSequence, ref lastNdx);
+                //Debug.WriteLine(lastNdx);
+                //Debug.WriteLine($"subSequence: {string.Join(", ", subSequence)}");
 
-			}
+                new object();
 
 
-			return result;
-		}
+                if (success)
+                {
+                    //var seq = chords.GetRange(startNdx, lastNdx - startNdx).ToList();
+                    var seq = input.GetRange(startNdx, lastNdx - startNdx).ToList();
+                    Debug.Assert(seq.Count() == subSequence.Count);
 
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
-		{
-			throw new System.NotImplementedException();
-		}
+                    var har = new HarmonicAnalysisResult(this,
+                        true,
+                        $"The sequence: {string.Join(", ", seq.Select(x => x.Name))} could be considered harmonic back-cycling.",
+                        seq.ToList());
 
-		List<NoteName> CreateCycle()
+                    result.Add(har);
+                    //Debug.WriteLine(har.Message);
+                    //new object();
+                }
+                startNdx = lastNdx;
+
+            }
+
+
+            return result;
+        }
+
+        List<NoteName> CreateCycle()
 		{
 			var result = new List<NoteName>();
 

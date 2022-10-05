@@ -18,61 +18,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		public override string Name { get { return "Modal Interchange"; } }
 		public override string Description { get { return @"Borrowed chords are chords from a key that's parallel to your song's key signature. So if you're writing in a major key, you could use a chord from its parallel minor. These non-diatonic chords can spruce up a predictable chord progression. Borrowed chords don't appear naturally in a particular song's key."; } }
 
-		public BorrowedChordHarmonicAnalysisRule()
-		{
-		}
-
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key)
-		{
-			var result = new List<HarmonicAnalysisResult>();
-
-			var grids = new List<Grid>();
-			grids.Add(this.CreateMajorBorrowedChordGrid(key));
-			grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
-			grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
-
-
-			var formulas = chords.Select(x => x).Distinct().ToList();
-			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.IsDominantOfKey(key));
-			new object();
-
-			var dict = new Dictionary<ChordFormula, List<string>>();
-
-			foreach (var chord in nonDiatonic)
-			{
-				foreach (var grid in grids)
-				{
-					var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
-					foreach (var row in rows)
-					{
-						var message = $"• {chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
-						if (dict.Keys.Contains(chord))
-						{
-							dict[chord].Add(message); 
-						}
-						else
-						{
-							dict.Add(chord, new List<string> { message });
-						}
-					}
-					new object();
-				}
-			}
-
-			foreach (var chord in chords)
-			{
-				if (dict.ContainsKey(chord))
-				{
-					var item = dict.Where(x => x.Key == chord).First();
-					var message = string.Join(Environment.NewLine, item.Value);
-					var har = new HarmonicAnalysisResult(this, true, message, item.Key);
-					result.Add(har);
-				}
-			}
-
-			return result;
-		}
-
 		class Grid
 		{
 			public List<GridRow> Rows { get; private set; } = new List<GridRow>();
@@ -88,6 +33,43 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				this.ModeName = modeName;
 			}
 		}
+
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
+		{
+			var result = new List<HarmonicAnalysisResult>();
+
+			var key = KeySignature.DetermineKey(chords);
+			var grids = CreateGrids(key);
+
+			var formulas = chords.Select(x => x).Distinct().ToList();
+			var nonDiatonic = key.GetNonDiatonic(formulas).Where(x => !x.IsDominantOfKey(key));
+			new object();
+
+			var dict = PopulateGrids(key, grids, nonDiatonic);
+
+			foreach (var chord in chords)
+			{
+				if (dict.ContainsKey(chord))
+				{
+					var item = dict.Where(x => x.Key == chord).First();
+					var message = string.Join(Environment.NewLine, item.Value);
+					var har = new HarmonicAnalysisResult(this, true, message, item.Key);
+					result.Add(har);
+				}
+			}
+
+			return result;
+		}
+
+		private List<Grid> CreateGrids(KeySignature key)
+		{
+			var grids = new List<Grid>();
+			grids.Add(this.CreateMajorBorrowedChordGrid(key));
+			grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
+			grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
+			return grids;
+		}
+
 		Grid CreateMajorBorrowedChordGrid(KeySignature inputKey)
 		{
 			//var result = new List<GridRow>();
@@ -282,9 +264,32 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			return result;
 		}
 
-		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
-		{
-			throw new NotImplementedException();
-		}
-	}//class
+        Dictionary<ChordFormula, List<string>> PopulateGrids(KeySignature key, List<Grid> grids, IEnumerable<ChordFormula> nonDiatonic)
+        {
+            var result = new Dictionary<ChordFormula, List<string>>();
+            foreach (var chord in nonDiatonic)
+            {
+                foreach (var grid in grids)
+                {
+                    var rows = grid.Rows.Where(x => x.Chords.Contains(chord, new ChordFormulaFunctionalEqualityComparer())).ToList(); // get row from grid.
+                    foreach (var row in rows)
+                    {
+                        var message = $"• {chord.Name} could be considered a borrowed chord from the parallel {key.NoteName} {row.ModeName} mode in {row.Key}.";
+                        if (result.Keys.Contains(chord))
+                        {
+                            result[chord].Add(message);
+                        }
+                        else
+                        {
+                            result.Add(chord, new List<string> { message });
+                        }
+                    }
+                    new object();
+                }
+            }
+
+            return result;
+        }
+
+    }//class
 }//ns

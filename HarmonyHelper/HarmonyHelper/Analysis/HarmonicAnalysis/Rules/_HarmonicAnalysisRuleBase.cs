@@ -28,9 +28,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		{
 		}
 
-		[Obsolete("", true)]
-		public abstract List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature key);
-
         public abstract List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords);
 
     }//class

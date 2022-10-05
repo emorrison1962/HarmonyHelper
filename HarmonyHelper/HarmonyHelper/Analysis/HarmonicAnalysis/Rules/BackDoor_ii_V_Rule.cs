@@ -161,7 +161,8 @@ In another blog post I discuss a different progression in which a ii-V sequence 
 
         public override string Description => throw new NotImplementedException();
 
-        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords, KeySignature unused)
+
+        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
         {
             var result = new List<HarmonicAnalysisResult>();
 
@@ -182,11 +183,6 @@ In another blog post I discuss a different progression in which a ii-V sequence 
                 }
             }
             return result;
-        }
-
-        public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
-        {
-            throw new NotImplementedException();
         }
 
         HarmonicAnalysisResult CreateHarmonicAnalysisResult(IEnumerable<ChordFormula> chords, KeySignature key)
