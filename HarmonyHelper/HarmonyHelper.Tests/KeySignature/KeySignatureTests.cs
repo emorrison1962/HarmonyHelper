@@ -100,9 +100,10 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 					else
 					{
-						Assert.Fail();
-					}
-				}
+                        Assert.IsNull(key);
+                        Assert.AreEqual(KeySignature.CMajor, probableKey);
+                    }
+                }
 			}
 		}
 

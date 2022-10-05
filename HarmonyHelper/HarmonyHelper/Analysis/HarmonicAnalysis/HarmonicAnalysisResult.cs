@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
 
 		public override string ToString()
 		{
-			return base.ToString();
+			return this.Message;
 		}
 	}
 }

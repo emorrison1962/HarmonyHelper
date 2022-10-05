@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace Eric.Morrison.Harmony.Chords
 {
 	public static class ChordFormulaParser
@@ -28,7 +30,14 @@ namespace Eric.Morrison.Harmony.Chords
 			REGEX = notes + accidentals + chordTypes + bass + accidentals;
 		}
 
-		static public bool TryParse(string input, out KeySignature key, out List<ChordFormula> formulas, out string message)
+		static public List<ChordFormula> Parse(string input)
+		{
+            ChordFormulaParser.TryParse(input, out var key, out var chords, out var msg);
+            return chords;
+		}
+
+
+        static public bool TryParse(string input, out KeySignature key, out List<ChordFormula> formulas, out string message)
 		{
 			var result = false;
 			key = null;
