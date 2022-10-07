@@ -23,7 +23,7 @@ namespace Eric.Morrison.Harmony.Chords
 			String notes = "^([cdefgab])";
 			String accidentals = "(#|##|b|bb)?";
 			String chordTypes =
-				@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
+                @"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|maj7+|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
 			//@"(maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m||)";
 			String bass = "?[\\/]?([cdefgab])?";
 
@@ -300,7 +300,8 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordType.Major7b5;
 					break;
 				case "maj7#5":
-					break;
+                    result = ChordType.Major7Aug5;
+                    break;
 
 
 				#region Minor chords
@@ -337,7 +338,8 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordType.MinorMaj7th;
 					break;
 				case "mmaj9":
-					break;
+                    throw new NotImplementedException();
+                    break;
 
 
 				case "-7b5":
@@ -345,7 +347,8 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordType.HalfDiminished;
 					break;
 				case "m7#5":
-					break;
+                    throw new NotImplementedException();
+                    break;
 
 
 				#region Diatonic Dominant chords
@@ -366,9 +369,11 @@ namespace Eric.Morrison.Harmony.Chords
 
 
 				case "7b5":
-					break;
+                    throw new NotImplementedException();
+                    break;
 				case "7#5":
-					break;
+                    throw new NotImplementedException();
+                    break;
 				case "7b9":
 					result = ChordType.Dominant7b9;
 					break;
@@ -376,20 +381,18 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordType.Dominant7Sharp9;
 					break;
 				case "7b5b9":
-					break;
+                    throw new NotImplementedException();
+                    break;
 				case "7b5#9":
-					break;
+                    throw new NotImplementedException();
+                    break;
 				case "7#5b9":
-					break;
 				case "9#5":
-					break;
 				case "13#11":
-					break;
 				case "13b9":
-					break;
 				case "11b9":
-					break;
-				case "aug":
+                    throw new NotImplementedException();
+                case "aug":
 				case "+":
 					result = ChordType.Augmented;
 					break;
@@ -415,7 +418,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 
 				case "-5":
-					break;
+                    throw new NotImplementedException();
+                    break;
 				default:
 					throw new NotSupportedException(input);
 			}

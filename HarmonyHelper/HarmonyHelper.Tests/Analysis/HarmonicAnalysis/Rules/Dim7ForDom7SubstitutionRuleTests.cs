@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
 {
@@ -15,7 +16,16 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
         [TestMethod()]
         public void AnalyzeTest()
         {
-            Assert.Fail();
+            var txt = "dm7 dbdim7 cmaj7";
+            var chords = ChordFormulaParser.Parse(txt);
+
+            var rule = new Dim7ForDom7SubstitutionRule();
+            var results = rule.Analyze(chords);
+
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count());
+            Assert.IsTrue(results[0].Success);
+            new object();
         }
     }
 }
