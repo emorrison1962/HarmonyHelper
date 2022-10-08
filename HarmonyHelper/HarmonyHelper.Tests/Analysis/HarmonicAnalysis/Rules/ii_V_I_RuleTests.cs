@@ -15,22 +15,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
     {
         [TestMethod()]
         public void AnalyzeTest()
-        {
-            ChordFormulaParser.TryParse("cmaj7 bm7b5 e7 am7 d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 dm7 g7 cmaj7 a7 dm7 g7", out var key, out var formulas, out var msg);
-#if false
-cmaj7 
-* bm7b5 e7 am7 
-d7 gm7 c7 f7 fm7 bb7 ebm7 ab7 
-* dm7 g7 cmaj7 
-a7 dm7 g7"
-#endif
+        { 
+            var chords = ChordFormulaParser.Parse("bm7b5 e7 am7 dm7 g7 cmaj7");
 
             var rule = new ii_V_I_Rule();
-            var results = rule.Analyze(formulas);
+            var results = rule.Analyze(chords);
             Assert.IsNotNull(results);
             Assert.AreEqual(2, results.Count);  
-
-            Assert.Fail();
         }
     }
 }

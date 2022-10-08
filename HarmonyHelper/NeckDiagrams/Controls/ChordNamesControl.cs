@@ -13,6 +13,16 @@ namespace NeckDiagrams.Controls
 {
     public partial class ChordNamesControl : UserControl
     {
+        public class ChordFormulaVMEventArgs : EventArgs
+        {
+            public List<ChordFormulaVM> Items { get; private set; } = new List<ChordFormulaVM>();
+            public ChordFormulaVMEventArgs(List<ChordFormulaVM> Items)
+            {
+                this.Items = Items;
+            }
+        }
+        public event EventHandler<ChordFormulaVMEventArgs> SelectedChordNamesChanged;
+
         public List<ChordFormulaVM> ChordFormulaVMs { get; private set; } = new List<ChordFormulaVM>();
         public bool MouseIsDragging { get; private set; }
         public Point DragBeginPoint { get; private set; }
