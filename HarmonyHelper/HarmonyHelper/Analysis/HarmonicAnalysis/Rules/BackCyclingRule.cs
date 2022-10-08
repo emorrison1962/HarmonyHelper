@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Chords;
@@ -43,6 +44,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	/// 
 	/// It will take some time for your ears to become accustomed to this level of tension and release in your playing, so start today and over time you will begin to hear this kind of chord sub concept as normal in your comping and soloing.
 	/// </summary>
+	[Obsolete("Need to clarify the deistinction of this rule compared to Secondary Dominant rule.", false)]
 	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
 		const string DESCRIPTION =
@@ -205,10 +207,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 				}
 
 				var result = false;
-				if (subSequence.Count < 4)
+				if (subSequence.Count < 2)
 				{
 					result = false;
-					subSequence.Clear(); // if we don't have more tha 4 elements, we don't have backcycling.
+					subSequence.Clear(); // if we don't have more tha 2 elements, we don't have backcycling.
 				}
 				else
 					result = true;

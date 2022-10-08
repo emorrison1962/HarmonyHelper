@@ -30,17 +30,18 @@ namespace Eric.Morrison.Harmony.Chords
 		static public ChordType Minor = new ChordType("m", ChordToneInterval.Minor3rd, ChordToneInterval.Perfect5th);
 		static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, ChordToneInterval.Minor7th);
 		static public ChordType MinorMaj7th = new ChordType("mM7", Minor.Intervals, ChordToneInterval.Major7th);
-		static public ChordType Minor6th = new ChordType("m6", Minor.Intervals, ChordToneInterval.Major6th);
+        static public ChordType MinorMaj7thAug5 = new ChordType("mMaj7+5", ChordToneInterval.Minor3rd, ChordToneInterval.Augmented5th, ChordToneInterval.Major7th);
+        static public ChordType Minor6th = new ChordType("m6", Minor.Intervals, ChordToneInterval.Major6th);
 		static public ChordType Minor9th = new ChordType("m9", Minor7th.Intervals, ChordToneInterval.Ninth);
 		static public ChordType Minor11th = new ChordType("m11", Minor9th.Intervals, ChordToneInterval.Eleventh);
 		static public ChordType Minor13th = new ChordType("m13", Minor11th.Intervals, ChordToneInterval.Thirteenth);
 		static public ChordType MinorAdd9 = new ChordType("mAdd9", Minor.Intervals, ChordToneInterval.Ninth);
 
-		#endregion
+        #endregion
 
 
-		#region Diatonic Major chords
-		static public ChordType Major = new ChordType("Major Triad", ChordToneInterval.Major3rd, ChordToneInterval.Perfect5th);
+        #region Diatonic Major chords
+        static public ChordType Major = new ChordType("Major Triad", ChordToneInterval.Major3rd, ChordToneInterval.Perfect5th);
 		static public ChordType Major6th = new ChordType("6", Major.Intervals, ChordToneInterval.Major6th);
 		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals, ChordToneInterval.Major7th);
 		static public ChordType Major9th = new ChordType("Maj9", Major7th.Intervals, ChordToneInterval.Ninth);
