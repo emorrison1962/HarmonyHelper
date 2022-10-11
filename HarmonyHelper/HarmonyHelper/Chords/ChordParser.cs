@@ -62,16 +62,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (string.IsNullOrEmpty(message))
 				result = true;
 
-			if (KeySignature.TryDetermineKey(formulas,
-							out var matchedKey,
-							out var probableKey))
-			{
-				key = matchedKey;
-			}
-			else
-			{
-				key = probableKey;
-			}
+            key = KeySignature.DetermineKey(formulas);
 
 			return result;
 		}

@@ -16,6 +16,19 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
         [TestMethod()]
         public void AnalyzeTest()
         {
+            {// A harmonic minor. UGH.
+                var txt = "amMaj7 bm7b5 cmaj7#5 dm7 e7 fmaj7 g#dim7";
+                var chords = ChordFormulaParser.Parse(txt);
+
+                var key = KeySignature.DetermineKey(chords);
+
+                var rule = new DiatonicToKeyRule();
+                var results = rule.Analyze(chords);
+
+                Assert.IsNotNull(results);
+                Assert.AreEqual(2, results.Count());
+                new object();
+            }
             {
                 var txt = "cmaj7 dm7 em7 fmaj7 g7 am7 bm7b5";
                 var chords = ChordFormulaParser.Parse(txt);
@@ -26,18 +39,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
                 Assert.IsNotNull(results);
                 Assert.AreEqual(1, results.Count());
                 Assert.IsTrue(results[0].Success);
-                new object();
-            }
-            {// A harmonic minor. UGH.
-                var txt = "amMaj7 bm7b5 cmaj7#5 dm7 e7 fmaj7 gm7";
-                var chords = ChordFormulaParser.Parse(txt);
-
-                var rule = new DiatonicToKeyRule();
-                var results = rule.Analyze(chords);
-
-                Assert.IsNotNull(results);
-                Assert.AreEqual(2, results.Count());
-                Assert.Fail();
                 new object();
             }
         }

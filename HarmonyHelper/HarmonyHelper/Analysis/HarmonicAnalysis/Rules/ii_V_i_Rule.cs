@@ -43,20 +43,5 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        private KeySignature DetermineKey(List<ChordFormula> formulas)
-		{
-            KeySignature result = null;
-            if (KeySignature.TryDetermineKey(formulas,
-                out var matchedKey,
-                out var probableKey))
-            {
-                result = matchedKey;
-            }
-            else
-            {
-                result = probableKey;
-            }
-            return result;
-        }
     }//class
 }//ns

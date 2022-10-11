@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Chords;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
 {
@@ -24,7 +25,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
             var results = rule.Analyze(chords);
 
             Assert.IsNotNull(results);
-            Assert.IsTrue(results.Count() == 4);
+#if false
+• B♭7 could be considered a borrowed chord from the parallel B♭ Mixolydian mode in E♭ Major.
+• B♭7 could be considered a borrowed chord from the parallel B♭ Melodic Minor Overtone Scale mode in F Major.
+• E♭m7 could be considered a borrowed chord from the parallel B♭ Aeolian mode in D♭ Major.
+• E♭m7 could be considered a borrowed chord from the parallel B♭ Hermonic Minor Harmonic Minor mode in B♭ Major.
+#endif
+            Assert.IsTrue(results.Count() == 2);
             new object();
         }
     }

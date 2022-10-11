@@ -57,7 +57,7 @@ Ex. 57
                     //subtract 1/2 step to create a dom7.
                     foreach (var dim in dimInversions)
                     {
-                        var txposedDim = dim - ChordToneInterval.DiminishedOctave;
+                        var txposedDim = dim - ChordToneInterval.AugmentedUnison;
                         var root = ChordFormula.EnsureValidRoot(txposedDim);
                         var chord = new ChordFormula(root, ChordType.Dominant7th, firstChord.Key);
                         dominants.Add(chord);

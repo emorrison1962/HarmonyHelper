@@ -16,15 +16,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
         [TestMethod()]
         public void AnalyzeTest()
         {
-            Assert.Fail();
-            var txt = "dm7 db7 c6";
+            var txt = "g7 c7 f7 bb7 eb7 abmaj7";
             var chords = ChordFormulaParser.Parse(txt);
 
-            var rule = new TritoneSubstitutionRule();
+            var rule = new SecondaryDominantRule();
             var results = rule.Analyze(chords);
 
             Assert.IsNotNull(results);
-            Assert.IsTrue(results.Count() == 1);
+            Assert.IsTrue(results.Count() == 4);
             new object();
 
         }

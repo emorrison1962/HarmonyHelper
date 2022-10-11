@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -74,15 +75,8 @@ namespace Eric.Morrison.Harmony.Tests
 				}
 				else
 				{
-					if (KeySignature.TryDetermineKey(chords, out key, out var probableKey))
-					{
-						Assert.AreEqual(KeySignature.CMajor, key);
-						Assert.IsNull(probableKey);
-					}
-					else
-					{
-						Assert.Fail();
-					}
+					key = KeySignature.DetermineKey(chords);
+					Assert.AreEqual(KeySignature.CMajor, key);
 				}
 			}
 			{
@@ -93,19 +87,33 @@ namespace Eric.Morrison.Harmony.Tests
 				}
 				else
 				{
-					if (KeySignature.TryDetermineKey(chords, out key, out var probableKey))
-					{
-						Assert.IsNull(key);
-						Assert.IsNotNull(probableKey);
-					}
-					else
-					{
-                        Assert.IsNull(key);
-                        Assert.AreEqual(KeySignature.CMajor, probableKey);
-                    }
+					key = KeySignature.DetermineKey(chords);
+					Assert.IsNotNull(key);
                 }
 			}
 		}
 
-	}//class
+        [TestMethod()]
+        public void TryDetermineKey_Test2()
+        {
+            {// A harmonic minor. UGH.
+                var txt = "amMaj7 bm7b5 cmaj7#5 dm7 e7 fmaj7 g#dim7";
+                var chords = ChordFormulaParser.Parse(txt);
+
+                var key = KeySignature.DetermineKey(chords);
+				Assert.IsTrue(KeySignature.CMajor == key); //F* it. cmaj7#5 is the first major chord.
+                new object();
+            }
+            {
+                var txt = "cmaj7 dm7 em7 fmaj7 g7 am7 bm7b5";
+                var chords = ChordFormulaParser.Parse(txt);
+
+                var key = KeySignature.DetermineKey(chords);
+                
+				Assert.IsTrue(KeySignature.CMajor == key);
+                new object();
+            }
+        }
+
+    }//class
 }//ns
