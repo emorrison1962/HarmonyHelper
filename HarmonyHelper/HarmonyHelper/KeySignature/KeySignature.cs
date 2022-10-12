@@ -313,9 +313,16 @@ namespace Eric.Morrison.Harmony
 			else
 			{
                 var min = chords.LastOrDefault(x => x.IsMinor);
-                result = KeySignature.Catalog
-                    .FirstOrDefault(x => x.IsMinor
-                    && x.NoteName == min.Root);
+				if (null != min)
+				{
+					result = KeySignature.Catalog
+						.FirstOrDefault(x => x.IsMinor
+						&& x.NoteName == min.Root);
+				}
+				else
+				{ // Give up
+					result = KeySignature.CMajor;
+				}
             }
             return result;
         }

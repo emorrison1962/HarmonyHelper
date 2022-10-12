@@ -134,7 +134,7 @@
     <Compile Include="Scales\ScaleFormulas.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="All Of Me.XML" />
+    <EmbeddedResource Include="All Of Me.XML" />
     <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <Content Include="_TODO.txt" />

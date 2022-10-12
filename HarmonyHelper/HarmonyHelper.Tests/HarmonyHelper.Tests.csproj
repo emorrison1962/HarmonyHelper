@@ -66,6 +66,7 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRuleTests.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRuleTests.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzerTests.cs" />
+    <Compile Include="Analysis\ReHarmonizer\MusicXmlParserTests.cs" />
     <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
     <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
