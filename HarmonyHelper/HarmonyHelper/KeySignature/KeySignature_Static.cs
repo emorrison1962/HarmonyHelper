@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Intervals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,8 +69,11 @@ namespace Eric.Morrison.Harmony
 		public static readonly KeySignature SevenFlats;
 		public static readonly KeySignature CbMajor;
 		public static readonly KeySignature AbMinor;
-		public static List<KeySignature> Catalog { get; private set; } = new List<KeySignature>();
-		public static List<KeySignature> MajorKeys { get; private set; } = new List<KeySignature>();
+        static List<KeySignature> _internalCatalog { get; set; } = new List<KeySignature>();
+        static IEnumerable<KeySignature> InternalCatalog { get { return _internalCatalog; } }
+
+        public static List<KeySignature> Catalog { get; private set; } = new List<KeySignature>();
+        public static List<KeySignature> MajorKeys { get; private set; } = new List<KeySignature>();
 		public static List<KeySignature> MinorKeys { get; private set; } = new List<KeySignature>();
 		#endregion KeySignatures
 
@@ -262,9 +266,20 @@ namespace Eric.Morrison.Harmony
 			}, false, false, false);// B♭, E♭, A♭, D♭, G♭, C♭, F♭
 			CbMajor = KeySignature.Clone(KeySignature.SevenFlats, true);
 			AbMinor = KeySignature.Clone(KeySignature.SevenFlats, false, NoteName.Ab);
-		}
 
-		private static KeySignature Clone(KeySignature src, bool isMajor, NoteName noteName = null)
+			foreach (var key in MinorKeys)
+			{// To easier deal with the fact that minor keys could be built on Aeolean or Harmonic minor, add both the minor 7th and Major 7th.
+				var maj7th = key.NoteName - Interval.Minor2nd;
+				var modifiedMinorKey = KeySignature.Clone(key, false, key.NoteName, false);
+				modifiedMinorKey.NoteNames.Add(maj7th);
+                modifiedMinorKey.Name = $"{modifiedMinorKey.Name} with Major and minor 7ths";	
+
+				_internalCatalog.Add(modifiedMinorKey);
+			}
+
+        }
+
+        private static KeySignature Clone(KeySignature src, bool isMajor, NoteName noteName = null, bool addToCatalog = true)
 		{
 			var nn = src.NoteName;
 			if (!isMajor)
@@ -273,9 +288,7 @@ namespace Eric.Morrison.Harmony
 					throw new ArgumentNullException();
 				nn = noteName;
 			}
-			var result = new KeySignature(nn, src.NoteNames, src.UsesSharps, isMajor, !isMajor);
-
-
+			var result = new KeySignature(nn, src.NoteNames, src.UsesSharps, isMajor, !isMajor, addToCatalog);
 			return result;
 		}
 		#endregion

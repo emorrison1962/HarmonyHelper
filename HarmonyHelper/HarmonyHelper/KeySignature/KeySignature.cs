@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony
 		#endregion
 
 		#region Construction
-		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor)
+		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor, bool addToCatalog = true)
 		{
 			this.NoteName = key;
 			this.NoteNames = new List<NoteName>(notes);
@@ -49,18 +49,20 @@ namespace Eric.Morrison.Harmony
 			this.IsMinor = isMinor;
 			if (this.IsMajor || this.IsMinor)
 			{
-				Catalog.Add(this);
-			}
+				if (addToCatalog)
+					Catalog.Add(this);
+            }
 			if (this.IsMajor)
 			{
-				MajorKeys.Add(this);
+                if (addToCatalog)
+                    MajorKeys.Add(this);
 			}
 			else if (this.IsMinor)
 			{
-				MinorKeys.Add(this);
-			}
-
-			var majMin = this.IsMajor ? "Major" : "Minor";
+                if (addToCatalog)
+                    MinorKeys.Add(this);
+            }
+            var majMin = this.IsMajor ? "Major" : "Minor";
 			this.Name = $"{this.NoteName} {majMin}";
 		}
 
@@ -299,64 +301,28 @@ namespace Eric.Morrison.Harmony
 		}
 
 		static public KeySignature DetermineKey(List<ChordFormula> chords)
-		{
+		{// This is questionable logic. But limited Real Book examination reveals that this is pretty widely used.
             KeySignature result = null;
-            if (KeySignature.TryDetermineKey(chords, out var match, out var probable))
-                result = match;
-            else
-                result = probable;
-			return result;
+			var maj = chords.FirstOrDefault(x => x.IsMajor);
+			if (maj != null)
+			{
+				result = KeySignature.Catalog
+					.FirstOrDefault(x => x.IsMajor
+					&& x.NoteName == maj.Root);
+			}
+			else
+			{
+                var min = chords.LastOrDefault(x => x.IsMinor);
+                result = KeySignature.Catalog
+                    .FirstOrDefault(x => x.IsMinor
+                    && x.NoteName == min.Root);
+            }
+            return result;
         }
 
-        static public bool TryDetermineKey(List<ChordFormula> chords,
-			out KeySignature matchedKey,
-			out KeySignature probableKey)
-		{
-			matchedKey = null;
-			probableKey = null;
-			var result = false;
 
-            #region The 3rd of the V7 in a ii-V-i in minor key is an accidental.
-            var dominants = chords.Where(x => x.IsDominant);
-			
-			var nns = (from formula in dominants
-					   from nn in formula.NoteNames
-					   where formula.GetRelationship(nn) != ChordToneFunctionEnum.Major3rd
-					   select nn)
-					   .ToList();
-			#endregion
-
-			nns.AddRange(
-				chords.Where(x => !x.IsDominant)
-				.SelectMany(x => x.NoteNames)
-				.ToList());
-
-			var keys = new List<Tuple<int, KeySignature>>();
-			foreach (var key in KeySignature.Catalog)
-			{
-				if (key.AreDiatonic(nns, out var notDiatonicCount))
-				{
-					matchedKey = key;
-					result = true;
-					break;
-				}
-				else
-				{
-					keys.Add(new Tuple<int, KeySignature>(notDiatonicCount, key));
-				}
-			}
-			if (!result)
-			{
-				var probableTuple = keys.OrderBy(x => x.Item1)
-					.ThenBy(x => x.Item2.AccidentalCount)
-					.First();
-				probableKey = probableTuple.Item2;
-			}
-
-			return result;
-		}
-
-		static public bool TryDetermineKey(List<NoteName> notes,
+        [Obsolete("Get rid of this!")]
+        static public bool TryDetermineKey(List<NoteName> notes,
 			out KeySignature matchedKey,
 			out KeySignature probableKey)
 		{

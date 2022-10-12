@@ -69,6 +69,9 @@ namespace NeckDiagrams.Controls
     partial class ChordNamesControl
     {
         MouseDragContext MouseDragContext { get; set; }
+        public List<ChordFormulaVM> SelectedItems { get; private set; } = new List<ChordFormulaVM>();
+
+
         private void ChordNamesControl_MouseDown(object sender, MouseEventArgs e)
         {
             this.MouseDragContext.BeginDrag(e.Location);
@@ -102,6 +105,8 @@ namespace NeckDiagrams.Controls
             this.Invalidate(inflated);
 
             this.MouseDragContext.EndDrag();
+            this.OnSelectedChordNamesChanged();
+
             this.Update();
         }
 
@@ -143,6 +148,26 @@ namespace NeckDiagrams.Controls
             }
         }
 
+        public List<ChordFormulaVM> GetSelectedItems()
+        {
+            var result = this._chordNamesTablePanel
+                .Controls
+                .Cast<ChordNameControl>()
+                .Where(ctl => ctl.IsSelected)
+                .Select(x => x.VM)
+                .ToList();
+            return result;
+        }
+
+        void OnSelectedChordNamesChanged() 
+        {
+            if (null != this.SelectedChordNamesChanged)
+            {
+                this.SelectedChordNamesChanged(this, 
+                    new ChordFormulaVMEventArgs(
+                        this.GetSelectedItems()));
+            }
+        }
 
     }//class
 }//ns

@@ -116,7 +116,9 @@ namespace Eric.Morrison.Harmony.Chords
 		{
 			if (!this.Intervals.Contains(ChordToneInterval.None))
 			{
-				if (this.Intervals.Contains(ChordToneInterval.Major3rd))
+				if (this.Intervals.Contains(ChordToneInterval.Major3rd)
+                    //&& this.Intervals.Contains(ChordToneInterval.Perfect5th)
+                    && !this.Intervals.Contains(ChordToneInterval.Minor7th))
 				{
 					this.IsMajor = true;
 				}
