@@ -44,6 +44,8 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_Rule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
+    <Compile Include="Analysis\ReHarmonizer\MusicXmlParser.cs" />
+    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="Arpeggiator\ArpeggiationContext.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>
     </Compile>
