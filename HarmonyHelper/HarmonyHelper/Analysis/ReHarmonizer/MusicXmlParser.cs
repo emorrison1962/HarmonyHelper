@@ -41,6 +41,35 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        public class PartIdentifier
+        {
+            public string ID;
+            public string Name;
+            public PartIdentifier(string ID, string name)
+            {
+                this.ID = ID;
+                this.Name = name;
+            }
+        }
+        List<PartIdentifier> ParsePartList(XDocument doc)
+        {
+#if false
+  <part-list>
+   <score-part id="P1">
+      <part-name>Bass</part-name>
+  </score-part>
+#endif
+            var result = new List<PartIdentifier>();
+            var part_list = doc.Descendants("part-list").First();
+            var score_parts = doc.Descendants("score-part");
+            foreach (var score_part in score_parts)
+            {
+                var id = score_part.Attribute("id").Value;
+                var name = doc.Descendants("part-name").First().Value;
+                result.Add(new PartIdentifier(id, name));
+            }
+            return result;
+        }
         private MusicXmlPart ParsePart(XElement part)
         {
             var result = new MusicXmlPart();
@@ -138,7 +167,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private ChordFormula ParseChord(XElement chord)
+        private TimedEvent<ChordFormula> ParseChord(XElement chord)
         {
 #if false
 <harmony>
@@ -209,16 +238,31 @@ namespace Eric.Morrison.Harmony
     }//class
     public class MusicXmlParingResult
     {
+        public KeySignature KeySignature { get; set; }
+        public int Tempo { get; set; } 
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
     }//class
 
     public class MusicXmlPart 
     {
+        public string ID { get; set; }
+        public string Name { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
     }
     public class MusicXmlMeasure
     { 
-        public List<ChordFormula> Chords { get; set; } = new List<ChordFormula>();  
-        public List<NoteName> Notes { get; set; } = new List<NoteName>();
+        public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();  
+        public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
+    }
+
+    public class TimedEvent<T>
+    { 
+        public int Start { get; set; }
+        public int End { get; set; }
+        public T Event { get; set; }
+        public TimedEvent()
+        {
+
+        }
     }
 }//ns
