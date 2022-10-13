@@ -31,13 +31,6 @@ namespace Eric.Morrison.Harmony
 		static public int MinValue { get { return VALUE_C; } }
 		static public int MaxValue { get { return VALUE_B; } }
 
-		//const int VALUE_Cb = VALUE_B;
-		//const int VALUE_Fb = VALUE_E;
-
-		//const int VALUE_DSHARP = VALUE_Eb;
-		//const int VALUE_GSHARP = VALUE_Ab;
-		//const int VALUE_CSHARP = VALUE_Db;
-		//const int VALUE_FSHARP = VALUE_Gb;
 		#endregion Constants
 
 		#region Statics

@@ -85,23 +85,34 @@ namespace Eric.Morrison.Harmony
         private MusicXmlMeasure ParseMeasure(XElement measure)
         {
             var result = new MusicXmlMeasure();
+            this.ParseHarmony(measure, ref result);
+            this.ParseNotes(measure, ref result);
+
+            return result;
+        }
+
+        private void ParseNotes(XElement measure, ref MusicXmlMeasure result)
+        {
+
+            var notes = measure.Descendants("note");
+            var nns = new List<TimedEvent<NoteName>>();
+            foreach (var note in notes)
+            {
+                nns.Add(this.ParseNote(note));
+            }
+            result.Notes.AddRange(nns.Where(x => x != null).Distinct());
+        }
+
+        void ParseHarmony(XElement measure, ref MusicXmlMeasure result)
+        {
             var chords = measure.Descendants("harmony");
             foreach (var chord in chords)
             {
                 result.Chords.Add(this.ParseChord(chord));
             }
-            
-            var notes = measure.Descendants("note");
-            var nns = new List<NoteName>();
-            foreach (var note in notes)
-            {
-                nns.Add(this.ParseNote(note));
-            }
-            result.Notes.AddRange(nns.Where(x => x!= null).Distinct());
-            return result;
         }
 
-        private NoteName ParseNote(XElement note)
+        private TimedEvent<NoteName> ParseNote(XElement note)
         {
 #if false
 <note release="55">
@@ -121,16 +132,32 @@ namespace Eric.Morrison.Harmony
     </technical>
   </notations>
 </note>
+    OR
+<note>
+  <rest />
+  <duration>120</duration>
+  <voice>1</voice>
+  <type>quarter</type>
+  <staff>1</staff>
+</note>
 #endif
-            NoteName result = null;
+            TimedEvent<NoteName> result = null;
             var pitches = note.Descendants("pitch");
-            if (pitches.Count() > 0)
+            Debug.Assert(pitches.Count() == 1);
+
+            var pitch = pitches.First();
+            var nn = this.ParsePitch(pitch);
+
+            var durations = note.Descendants("duration");
+            Debug.Assert(durations.Count() == 1);
+
+            if (Int32.TryParse(durations.First().Value, out var dur))
             {
-                Debug.Assert(pitches.Count() == 1);
-                foreach (var pitch in pitches)
-                {
-                    result = this.ParsePitch(pitch);
-                }
+                result = new TimedEvent<NoteName>(nn, dur);
+            }
+            else
+            {
+                throw new ArgumentException(durations.First().Value);
             }
 
             return result;
@@ -170,20 +197,31 @@ namespace Eric.Morrison.Harmony
         private TimedEvent<ChordFormula> ParseChord(XElement chord)
         {
 #if false
-<harmony>
-  <root>
-    <root-step>B</root-step>
-    <root-alter>-1</root-alter>
-  </root>
-  <kind text="Maj7">major-seventh</kind>
-</harmony>
+      <harmony>
+         <root>
+         <root-step>C</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      <offset>240</offset>
+      </harmony>
 #endif
             var root = chord.Descendants("root").First();
             var strRoot = this.ParseRoot(root);
 
             var kind = chord.Descendants("kind").First();
-            var result = this.ParseKind(strRoot, kind);
+            var formula = this.ParseKind(strRoot, kind);
 
+            var strOffset = chord.Descendants("offset").FirstOrDefault()?.Value;
+            var intOffset = 0;
+            if (!string.IsNullOrEmpty(strOffset))
+            {
+                if (!Int32.TryParse(strOffset, out intOffset))
+                {
+                    intOffset = 0;
+                }
+            }
+
+            var result = new TimedEvent<ChordFormula>(formula, intOffset);
             return result;
         }
 
@@ -259,10 +297,12 @@ namespace Eric.Morrison.Harmony
     { 
         public int Start { get; set; }
         public int End { get; set; }
+        public int Duration { get; set; }
         public T Event { get; set; }
-        public TimedEvent()
+        public TimedEvent(T @event, int duration)
         {
-
+            Duration = duration;
+            this.Event = @event;
         }
     }
 }//ns
