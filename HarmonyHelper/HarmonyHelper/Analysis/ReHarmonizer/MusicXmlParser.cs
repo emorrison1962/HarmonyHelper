@@ -233,7 +233,7 @@ namespace Eric.Morrison.Harmony
         {
             var currentMeasure = Int32.Parse(measure.Attribute("number").Value);
             this.CurrentMeasure = currentMeasure;
-            var result = new MusicXmlMeasure();
+            var result = new MusicXmlMeasure(currentMeasure);
             this.ParseHarmony(measure, ref result);
             this.CurrentMeasure = currentMeasure;
             this.ParseNotes(measure, ref result);
@@ -375,7 +375,7 @@ namespace Eric.Morrison.Harmony
                 }
                 this.CurrentOffset = intOffset;
             }
-
+            "this is wrong!!"
             var result = new TimedEvent<ChordFormula>(formula, 
                 intOffset, this.CurrentMeasure + intOffset);
 

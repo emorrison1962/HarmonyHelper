@@ -35,6 +35,9 @@ namespace Eric.Morrison.Harmony.Tests
                 }
             }
 
+
+            var debug = result.Get(4, 0, 0);
+
             new object();
         }
     }

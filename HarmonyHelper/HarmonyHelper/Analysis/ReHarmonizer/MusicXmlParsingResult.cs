@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,20 @@ namespace Eric.Morrison.Harmony
             this.Name = name;
         }
     }
-    
+
     public class MusicXmlParsingResult
     {
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
+
+        public List<TimedEvent<ChordFormula>> Get(int bar, int start, int end) 
+        {
+            var result = this.Parts
+                .SelectMany(p => p.Measures.Where(x => x.MeasureNumber == bar)
+                .SelectMany(m => m.Chords))
+                .ToList();
+            return result;
+        }
     }//class
 
     public class MusicXmlScoreMetadata
@@ -44,8 +54,13 @@ namespace Eric.Morrison.Harmony
     
     public class MusicXmlMeasure
     {
+        public int MeasureNumber { get; set; }
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
         public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
+        public MusicXmlMeasure(int measureNumber)
+        {
+            this.MeasureNumber = measureNumber;  
+        }
     }
     
     public class TimedEvent<T>
@@ -56,9 +71,13 @@ namespace Eric.Morrison.Harmony
         public T Event { get; set; }
         public TimedEvent(T @event, int start, int end)
         {
+            if (end <= start)
+                throw new ArgumentOutOfRangeException();
             this.Start = start;
             this.End = end;
             this.Duration = this.End - this.Start;
+            Debug.Assert(this.Duration > 10);
+
             this.Event = @event;
         }
     }
