@@ -308,7 +308,7 @@ namespace Eric.Morrison.Harmony
                     .First()
                     .Value);
 
-                result = new TimedEvent<NoteName>(nn, this.CurrentOffset, duration);
+                result = new TimedEvent<NoteName>(nn, this.CurrentOffset, this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
             }
 

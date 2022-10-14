@@ -58,6 +58,7 @@ namespace Eric.Morrison.Harmony
         {
             this.Start = start;
             this.End = end;
+            this.Duration = this.End - this.Start;
             this.Event = @event;
         }
     }
