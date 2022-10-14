@@ -11,6 +11,7 @@ using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
+using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony
 {
@@ -21,7 +22,7 @@ namespace Eric.Morrison.Harmony
 
         }
 
-        public MusicXmlParingResult Parse(string filename)
+        public MusicXmlParsingResult Parse(string filename)
         {
             var xml = this.LoadEmbeddedResource();
             var doc = XDocument.Parse(xml);
@@ -29,9 +30,12 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        MusicXmlParingResult Parse(XDocument doc)
+        MusicXmlParsingResult Parse(XDocument doc)
         {
-            var result = new MusicXmlParingResult();
+            var result = new MusicXmlParsingResult();
+            var meta = ParseScoreMetadata(doc);
+            result.Metadata = meta;
+
             var parts = doc.Descendants("part");
             foreach (var part in parts)
             {
@@ -41,16 +45,122 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public class PartIdentifier
+        MusicXmlScoreMetadata ParseScoreMetadata(XDocument doc)
         {
-            public string ID;
-            public string Name;
-            public PartIdentifier(string ID, string name)
-            {
-                this.ID = ID;
-                this.Name = name;
-            }
+#if false
+   <measure number="1">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>-2</fifths>
+        </key>
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+        </time>
+        <clef>
+           <sign>TAB</sign>
+           <line>5</line>
+        </clef>
+           <staff-details>
+           <staff-lines>4</staff-lines>
+            <staff-tuning line="1">
+             <tuning-step>E</tuning-step>
+             <tuning-octave>1</tuning-octave>
+             </staff-tuning>
+            <staff-tuning line="2">
+             <tuning-step>A</tuning-step>
+             <tuning-octave>1</tuning-octave>
+             </staff-tuning>
+            <staff-tuning line="3">
+             <tuning-step>D</tuning-step>
+             <tuning-octave>2</tuning-octave>
+             </staff-tuning>
+            <staff-tuning line="4">
+             <tuning-step>G</tuning-step>
+             <tuning-octave>2</tuning-octave>
+             </staff-tuning>
+           </staff-details>
+      </attributes>
+      <sound tempo="160"/>
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+#endif
+            var result = new MusicXmlScoreMetadata();
+            result.Title = this.ParseTitle(doc);
+            result.KeySignature = this.ParseKeySignature(doc);
+            result.TimeSignatue = this.ParseTimeSignature(doc);
+            result.Tempo = this.ParseTempo(doc);
+            result.PPQN = this.ParsePpqn(doc);
+            return result;
         }
+
+        private int ParsePpqn(XDocument doc)
+        {//<divisions>120</divisions>
+            var result = Int32.Parse(
+                doc.Descendants("divisions")
+                .First()
+                .Value);
+            return result;
+        }
+
+        private int ParseTempo(XDocument doc)
+        {//<sound tempo="160"/>
+            var result = Int32.Parse(
+                doc.Descendants("sound")
+                .First()
+                .Attribute("tempo")
+                .Value);
+            return result;
+        }
+
+        private string ParseTitle(XDocument doc)
+        {
+            var result = doc.Descendants("work-title").First().Value;
+            return result;
+        }
+
+        private TimeSignature ParseTimeSignature(XDocument doc)
+        {
+#if false
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+        </time>
+#endif
+            var ts = doc.Descendants("time").First();
+            var beats = ts.Descendants("beats").First().Value;
+            var beat_type = ts.Descendants("beat-type").First().Value;
+            var result = new TimeSignature(beats, beat_type);
+            return result;
+        }
+
+        KeySignature ParseKeySignature(XDocument doc)
+        {
+            var result = KeySignature.CMajor;
+            var fifths = Int32.Parse(
+                doc.Descendants("key")
+                .Descendants("fifths")
+                .First().Value);
+            if (fifths < 0)
+            {
+                KeySignature.Catalog
+                    .Where(x => x.UsesFlats
+                        && x.AccidentalCount == Math.Abs(fifths))
+                    .First();
+            }
+            else
+            {
+                KeySignature.Catalog
+                    .Where(x => x.UsesSharps
+                        && x.AccidentalCount == fifths)
+                    .First();
+            }
+            return result;
+        }
+
         List<PartIdentifier> ParsePartList(XDocument doc)
         {
 #if false
@@ -142,24 +252,26 @@ namespace Eric.Morrison.Harmony
 </note>
 #endif
             TimedEvent<NoteName> result = null;
-            var pitches = note.Descendants("pitch");
-            Debug.Assert(pitches.Count() == 1);
-
-            var pitch = pitches.First();
-            var nn = this.ParsePitch(pitch);
-
-            var durations = note.Descendants("duration");
-            Debug.Assert(durations.Count() == 1);
-
-            if (Int32.TryParse(durations.First().Value, out var dur))
+            if (null == note.Descendants("rest").FirstOrDefault())
             {
-                result = new TimedEvent<NoteName>(nn, dur);
-            }
-            else
-            {
-                throw new ArgumentException(durations.First().Value);
-            }
+                var pitches = note.Descendants("pitch");
+                Debug.Assert(pitches.Count() == 1);
 
+                var pitch = pitches.First();
+                var nn = this.ParsePitch(pitch);
+
+                var durations = note.Descendants("duration");
+                Debug.Assert(durations.Count() == 1);
+
+                if (Int32.TryParse(durations.First().Value, out var dur))
+                {
+                    result = new TimedEvent<NoteName>(nn, dur);
+                }
+                else
+                {
+                    throw new ArgumentException(durations.First().Value);
+                }
+            }
             return result;
         }
 
@@ -274,13 +386,31 @@ namespace Eric.Morrison.Harmony
 
 
     }//class
-    public class MusicXmlParingResult
+
+    public class PartIdentifier
     {
-        public KeySignature KeySignature { get; set; }
-        public int Tempo { get; set; } 
+        public string ID;
+        public string Name;
+        public PartIdentifier(string ID, string name)
+        {
+            this.ID = ID;
+            this.Name = name;
+        }
+    }
+    public class MusicXmlParsingResult
+    {
+        public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
     }//class
 
+    public class MusicXmlScoreMetadata
+    {
+        public string Title { get; set; }
+        public KeySignature KeySignature { get; set; }
+        public TimeSignature TimeSignatue { get; set; }
+        public int Tempo { get; set; }
+        public int PPQN { get; set; }
+    }
     public class MusicXmlPart 
     {
         public string ID { get; set; }
@@ -292,7 +422,6 @@ namespace Eric.Morrison.Harmony
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();  
         public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
     }
-
     public class TimedEvent<T>
     { 
         public int Start { get; set; }
