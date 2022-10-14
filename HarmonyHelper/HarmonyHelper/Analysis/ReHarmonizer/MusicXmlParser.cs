@@ -17,9 +17,42 @@ namespace Eric.Morrison.Harmony
 {
     public class MusicXmlParser
     {
+        #region Properties
+        int _CurrentMeasure = 0;
+        int CurrentMeasure 
+        { 
+            get 
+            {
+                return _CurrentMeasure;
+            } 
+            set 
+            {
+                this.CurrentOffset = 0;
+                _CurrentMeasure = value;
+                Debug.WriteLine($"set_CurrentMeasure: {this._CurrentMeasure}: {this._CurrentOffset}");
+            }
+        }
+
+        int _CurrentOffset = 0;
+        int CurrentOffset 
+        {
+            get 
+            {
+                return _CurrentOffset;
+            } 
+            set 
+            {
+                _CurrentOffset = value;
+                Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
+            } 
+        }
+        MusicXmlParsingResult Result { get; set; }
+
+        #endregion
+        
         public MusicXmlParser()
         {
-
+            this.Result = new MusicXmlParsingResult();
         }
 
         public MusicXmlParsingResult Parse(string filename)
@@ -32,20 +65,12 @@ namespace Eric.Morrison.Harmony
 
         MusicXmlParsingResult Parse(XDocument doc)
         {
-            var result = new MusicXmlParsingResult();
-            var meta = ParseScoreMetadata(doc);
-            result.Metadata = meta;
-
-            var parts = doc.Descendants("part");
-            foreach (var part in parts)
-            {
-                result.Parts.Add(
-                    this.ParsePart(part));
-            }
-            return result;
+            this.ParseScoreMetadata(doc);
+            this.ParseParts(doc);
+            return this.Result;
         }
 
-        MusicXmlScoreMetadata ParseScoreMetadata(XDocument doc)
+        void ParseScoreMetadata(XDocument doc)
         {
 #if false
    <measure number="1">
@@ -94,10 +119,11 @@ namespace Eric.Morrison.Harmony
             result.TimeSignatue = this.ParseTimeSignature(doc);
             result.Tempo = this.ParseTempo(doc);
             result.PPQN = this.ParsePpqn(doc);
-            return result;
+
+            this.Result.Metadata = result;
         }
 
-        private int ParsePpqn(XDocument doc)
+        int ParsePpqn(XDocument doc)
         {//<divisions>120</divisions>
             var result = Int32.Parse(
                 doc.Descendants("divisions")
@@ -106,7 +132,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private int ParseTempo(XDocument doc)
+        int ParseTempo(XDocument doc)
         {//<sound tempo="160"/>
             var result = Int32.Parse(
                 doc.Descendants("sound")
@@ -116,13 +142,13 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private string ParseTitle(XDocument doc)
+        string ParseTitle(XDocument doc)
         {
             var result = doc.Descendants("work-title").First().Value;
             return result;
         }
 
-        private TimeSignature ParseTimeSignature(XDocument doc)
+        TimeSignature ParseTimeSignature(XDocument doc)
         {
 #if false
         <time>
@@ -180,7 +206,18 @@ namespace Eric.Morrison.Harmony
             }
             return result;
         }
-        private MusicXmlPart ParsePart(XElement part)
+
+        void ParseParts(XDocument doc)
+        {
+            var parts = doc.Descendants("part");
+            foreach (var part in parts)
+            {
+                this.Result.Parts.Add(
+                    this.ParsePart(part));
+            }
+        }
+
+        MusicXmlPart ParsePart(XElement part)
         {
             var result = new MusicXmlPart();
             var measures = part.Descendants("measure");
@@ -192,25 +229,16 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private MusicXmlMeasure ParseMeasure(XElement measure)
+        MusicXmlMeasure ParseMeasure(XElement measure)
         {
+            var currentMeasure = Int32.Parse(measure.Attribute("number").Value);
+            this.CurrentMeasure = currentMeasure;
             var result = new MusicXmlMeasure();
             this.ParseHarmony(measure, ref result);
+            this.CurrentMeasure = currentMeasure;
             this.ParseNotes(measure, ref result);
 
             return result;
-        }
-
-        private void ParseNotes(XElement measure, ref MusicXmlMeasure result)
-        {
-
-            var notes = measure.Descendants("note");
-            var nns = new List<TimedEvent<NoteName>>();
-            foreach (var note in notes)
-            {
-                nns.Add(this.ParseNote(note));
-            }
-            result.Notes.AddRange(nns.Where(x => x != null).Distinct());
         }
 
         void ParseHarmony(XElement measure, ref MusicXmlMeasure result)
@@ -222,8 +250,22 @@ namespace Eric.Morrison.Harmony
             }
         }
 
-        private TimedEvent<NoteName> ParseNote(XElement note)
+        void ParseNotes(XElement xmeasure, ref MusicXmlMeasure measure)
         {
+
+            var notes = xmeasure.Descendants("note");
+            var nns = new List<TimedEvent<NoteName>>();
+            foreach (var note in notes)
+            {
+                nns.Add(this.ParseNote(note));
+            }
+            measure.Notes.AddRange(nns.Where(x => x != null));
+        }
+
+        TimedEvent<NoteName> ParseNote(XElement note)
+        {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+
 #if false
 <note release="55">
   <pitch>
@@ -252,7 +294,7 @@ namespace Eric.Morrison.Harmony
 </note>
 #endif
             TimedEvent<NoteName> result = null;
-            if (null == note.Descendants("rest").FirstOrDefault())
+            if (!note.Descendants("rest").Any())
             {
                 var pitches = note.Descendants("pitch");
                 Debug.Assert(pitches.Count() == 1);
@@ -260,22 +302,21 @@ namespace Eric.Morrison.Harmony
                 var pitch = pitches.First();
                 var nn = this.ParsePitch(pitch);
 
-                var durations = note.Descendants("duration");
-                Debug.Assert(durations.Count() == 1);
+                Debug.Assert(1 == note.Descendants("duration").Count());
+                var duration = Int32.Parse(
+                    note.Descendants("duration")
+                    .First()
+                    .Value);
 
-                if (Int32.TryParse(durations.First().Value, out var dur))
-                {
-                    result = new TimedEvent<NoteName>(nn, dur);
-                }
-                else
-                {
-                    throw new ArgumentException(durations.First().Value);
-                }
+                result = new TimedEvent<NoteName>(nn, this.CurrentOffset, duration);
+                this.CurrentOffset += duration;
             }
+
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;
         }
 
-        private NoteName ParsePitch(XElement pitch)
+        NoteName ParsePitch(XElement pitch)
         {
 #if false
   <pitch>
@@ -306,8 +347,9 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private TimedEvent<ChordFormula> ParseChord(XElement chord)
+        TimedEvent<ChordFormula> ParseChord(XElement chord)
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
 #if false
       <harmony>
          <root>
@@ -331,13 +373,17 @@ namespace Eric.Morrison.Harmony
                 {
                     intOffset = 0;
                 }
+                this.CurrentOffset = intOffset;
             }
 
-            var result = new TimedEvent<ChordFormula>(formula, intOffset);
+            var result = new TimedEvent<ChordFormula>(formula, 
+                intOffset, this.CurrentMeasure + intOffset);
+
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;
         }
 
-        private ChordFormula ParseKind(string root, XElement kind)
+        ChordFormula ParseKind(string root, XElement kind)
         {
 #if false
   <kind text="Maj7">major-seventh</kind>
@@ -350,7 +396,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private string ParseRoot(XElement root)
+        string ParseRoot(XElement root)
         {
 #if false
   <root>
@@ -384,54 +430,6 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-
     }//class
 
-    public class PartIdentifier
-    {
-        public string ID;
-        public string Name;
-        public PartIdentifier(string ID, string name)
-        {
-            this.ID = ID;
-            this.Name = name;
-        }
-    }
-    public class MusicXmlParsingResult
-    {
-        public MusicXmlScoreMetadata Metadata { get; set; }
-        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
-    }//class
-
-    public class MusicXmlScoreMetadata
-    {
-        public string Title { get; set; }
-        public KeySignature KeySignature { get; set; }
-        public TimeSignature TimeSignatue { get; set; }
-        public int Tempo { get; set; }
-        public int PPQN { get; set; }
-    }
-    public class MusicXmlPart 
-    {
-        public string ID { get; set; }
-        public string Name { get; set; }
-        public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
-    }
-    public class MusicXmlMeasure
-    { 
-        public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();  
-        public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
-    }
-    public class TimedEvent<T>
-    { 
-        public int Start { get; set; }
-        public int End { get; set; }
-        public int Duration { get; set; }
-        public T Event { get; set; }
-        public TimedEvent(T @event, int duration)
-        {
-            Duration = duration;
-            this.Event = @event;
-        }
-    }
 }//ns
