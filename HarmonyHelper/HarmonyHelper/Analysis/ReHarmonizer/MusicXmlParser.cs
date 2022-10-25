@@ -27,7 +27,7 @@ namespace Eric.Morrison.Harmony
             } 
             set 
             {
-                this.CurrentOffset = 0;
+                this._CurrentOffset = 0;
                 _CurrentMeasure = value;
                 Debug.WriteLine($"set_CurrentMeasure: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
@@ -43,6 +43,7 @@ namespace Eric.Morrison.Harmony
             set 
             {
                 _CurrentOffset = value;
+                Debug.Assert(_CurrentOffset <= 480);
                 Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             } 
         }
@@ -58,6 +59,7 @@ namespace Eric.Morrison.Harmony
         public MusicXmlParsingResult Parse(string filename)
         {
             var xml = this.LoadEmbeddedResource();
+
             var doc = XDocument.Parse(xml);
             var result = this.Parse(doc);
             return result;
@@ -234,81 +236,72 @@ namespace Eric.Morrison.Harmony
             var currentMeasure = Int32.Parse(measure.Attribute("number").Value);
             this.CurrentMeasure = currentMeasure;
             var result = new MusicXmlMeasure(currentMeasure);
-            this.ParseHarmony(measure, ref result);
-            this.CurrentMeasure = currentMeasure;
-            this.ParseNotes(measure, ref result);
 
+            var descendants = measure.Descendants();
+            foreach (var descendant in descendants)
+            {
+                if (descendant.Name == "harmony")
+                {
+                    result.Add(this.ParseHarmony(descendant));
+                }
+                else if (descendant.Name == "note"
+                    && descendant.Descendants("pitch").Any())
+                {
+                    result.Add(this.ParseNote(descendant));
+                }
+                else if (descendant.Name == "note"
+                    && descendant.Descendants("rest").Any())
+                {
+                    result.Add(this.ParseRest(descendant));
+                }
+            }
             return result;
         }
 
-        void ParseHarmony(XElement measure, ref MusicXmlMeasure result)
+        TimedEvent<ChordFormula> ParseHarmony(XElement harmony)
         {
-            var chords = measure.Descendants("harmony");
-            foreach (var chord in chords)
-            {
-                result.Chords.Add(this.ParseChord(chord));
-            }
-        }
-
-        void ParseNotes(XElement xmeasure, ref MusicXmlMeasure measure)
-        {
-
-            var notes = xmeasure.Descendants("note");
-            var nns = new List<TimedEvent<NoteName>>();
-            foreach (var note in notes)
-            {
-                nns.Add(this.ParseNote(note));
-            }
-            measure.Notes.AddRange(nns.Where(x => x != null));
+            return this.ParseChord(harmony);
         }
 
         TimedEvent<NoteName> ParseNote(XElement note)
         {
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
 
-#if false
-<note release="55">
-  <pitch>
-    <step>B</step>
-    <alter>-1</alter>
-    <octave>1</octave>
-  </pitch>
-  <duration>60</duration>
-  <voice>2</voice>
-  <type>eighth</type>
-  <beam number="1">begin</beam>
-  <notations>
-    <technical>
-      <string>4</string>
-      <fret>6</fret>
-    </technical>
-  </notations>
-</note>
-    OR
-<note>
-  <rest />
-  <duration>120</duration>
-  <voice>1</voice>
-  <type>quarter</type>
-  <staff>1</staff>
-</note>
-#endif
             TimedEvent<NoteName> result = null;
-            if (!note.Descendants("rest").Any())
+            var duration = Int32.Parse(
+                note.Descendants("duration")
+                .First()
+                .Value);
+
+
+            if (note.Descendants("pitch").Any())
             {
-                var pitches = note.Descendants("pitch");
-                Debug.Assert(pitches.Count() == 1);
+                var xpitch = note.Descendants("pitch").First();
+                var nn = this.ParsePitch(xpitch);
 
-                var pitch = pitches.First();
-                var nn = this.ParsePitch(pitch);
-
-                Debug.Assert(1 == note.Descendants("duration").Count());
-                var duration = Int32.Parse(
-                    note.Descendants("duration")
-                    .First()
-                    .Value);
 
                 result = new TimedEvent<NoteName>(nn, this.CurrentOffset, this.CurrentOffset + duration);
+                this.CurrentOffset += duration;
+            }
+
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            return result;
+        }
+
+        TimedEvent<Rest> ParseRest(XElement note)
+        {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+
+            TimedEvent<Rest> result = null;
+            var duration = Int32.Parse(
+                note.Descendants("duration")
+                .First()
+                .Value);
+
+
+            if (note.Descendants("rest").Any())
+            {
+                result = new TimedEvent<Rest>(new Rest(), this.CurrentOffset, this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
             }
 
@@ -366,18 +359,18 @@ namespace Eric.Morrison.Harmony
             var formula = this.ParseKind(strRoot, kind);
 
             var strOffset = chord.Descendants("offset").FirstOrDefault()?.Value;
-            var intOffset = 0;
+            var offset = 0;
             if (!string.IsNullOrEmpty(strOffset))
             {
-                if (!Int32.TryParse(strOffset, out intOffset))
+                if (!Int32.TryParse(strOffset, out offset))
                 {
-                    intOffset = 0;
+                    offset = 0;
                 }
-                this.CurrentOffset = intOffset;
             }
-            "this is wrong!!"
-            var result = new TimedEvent<ChordFormula>(formula, 
-                intOffset, this.CurrentMeasure + intOffset);
+            var result = new TimedEvent<ChordFormula>(formula,
+                offset,
+                this.CurrentMeasure * Result.Metadata.PPQN
+                + offset) ;
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;

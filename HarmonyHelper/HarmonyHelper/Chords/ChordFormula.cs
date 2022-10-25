@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName
-	{
+	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent
+    {
 		static public NullChordFormula Empty = NullChordFormula.Create();
 		
 		#region Properties

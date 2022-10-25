@@ -47,6 +47,8 @@
     <Compile Include="Analysis\ReHarmonizer\MusicXmlParser.cs" />
     <Compile Include="Analysis\ReHarmonizer\MusicXmlParsingResult.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
+    <Compile Include="Rhythm\IMusicalEvent.cs" />
+    <Compile Include="Rhythm\Rest.cs" />
     <Compile Include="Rhythm\TimeSignature.cs" />
     <Compile Include="Arpeggiator\ArpeggiationContext.cs">
       <DependentUpon>Arpeggiator.cs</DependentUpon>

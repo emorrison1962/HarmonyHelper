@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Rhythm;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Eric.Morrison.Harmony.Chords;
-using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony
 {
@@ -26,7 +23,7 @@ namespace Eric.Morrison.Harmony
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
 
-        public List<TimedEvent<ChordFormula>> Get(int bar, int start, int end) 
+        public List<TimedEvent<ChordFormula>> Get(int bar, int start, int end)
         {
             var result = this.Parts
                 .SelectMany(p => p.Measures.Where(x => x.MeasureNumber == bar)
@@ -44,26 +41,40 @@ namespace Eric.Morrison.Harmony
         public int Tempo { get; set; }
         public int PPQN { get; set; }
     }
-    
+
     public class MusicXmlPart
     {
         public string ID { get; set; }
         public string Name { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
     }
-    
+
     public class MusicXmlMeasure
     {
         public int MeasureNumber { get; set; }
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
         public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
+        public List<TimedEvent<Rest>> Rests { get; set; } = new List<TimedEvent<Rest>>();
         public MusicXmlMeasure(int measureNumber)
         {
-            this.MeasureNumber = measureNumber;  
+            this.MeasureNumber = measureNumber;
+        }
+
+        public void Add(TimedEvent<ChordFormula> e) 
+        { 
+            this.Chords.Add(e);
+        }
+        public void Add(TimedEvent<NoteName> e)
+        {
+            this.Notes.Add(e);
+        }
+        public void Add(TimedEvent<Rest> e) 
+        {
+            this.Rests.Add(e);
         }
     }
-    
-    public class TimedEvent<T>
+
+    public class TimedEvent<T> where T : IMusicalEvent
     {
         public int Start { get; set; }
         public int End { get; set; }
@@ -80,5 +91,10 @@ namespace Eric.Morrison.Harmony
 
             this.Event = @event;
         }
-    }
-}
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} Start={this.Start} End={this.End} Event={this.Event.ToString()}";
+        }
+    }//class
+}//ns
