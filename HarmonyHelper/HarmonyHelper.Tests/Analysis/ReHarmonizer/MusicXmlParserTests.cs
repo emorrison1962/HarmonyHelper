@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Diagnostics;
+using System.IO;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -15,7 +18,18 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ParseTest()
         {
-            var result = new MusicXmlParser().Parse(null);
+            var path = Assembly.GetExecutingAssembly().Location;
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.Combine(path, "TEST_FILES");
+            path = Path.Combine(path, "All Of Me.XML");
+            Debug.WriteLine(path);
+            Debug.Assert(File.Exists(path));
+
+
+            var result = new MusicXmlParser().Parse(path);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)

@@ -47,6 +47,10 @@ namespace Eric.Morrison.Harmony
         public string ID { get; set; }
         public string Name { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
+        public MusicXmlPart(string partName)
+        {
+            this.Name = partName;   
+        }
     }
 
     public class MusicXmlMeasure

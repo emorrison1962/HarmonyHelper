@@ -18,6 +18,10 @@ namespace Eric.Morrison.Harmony
     public class MusicXmlParser
     {
         #region Properties
+#if DEBUG
+        string CurrentPartName { get; set; }
+#endif
+
         int _CurrentMeasure = 0;
         int CurrentMeasure 
         { 
@@ -221,7 +225,11 @@ namespace Eric.Morrison.Harmony
 
         MusicXmlPart ParsePart(XElement part)
         {
-            var result = new MusicXmlPart();
+            var partName = part.Attribute("id").Value;
+#if DEBUG
+            this.CurrentPartName = partName;
+#endif
+            var result = new MusicXmlPart(partName);
             var measures = part.Descendants("measure");
             foreach (var measure in measures)
             {
@@ -267,24 +275,105 @@ namespace Eric.Morrison.Harmony
         {
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
 
+            int duration = int.MinValue;
+
+            //if (note.Descendants("duration").Any())
+            //{
+            //    duration = Int32.Parse(
+            //        note.Descendants("duration")
+            //        .First()
+            //        .Value);
+            //}
+            if (note.Attributes("attack").Any() && note.Attributes("release").Any())
+            { //if attack and release, use duration
+                if (TryParseDuration(note, out var parsed))
+                {
+                    duration = parsed;
+                }
+            }
+            else if (note.Attributes("attack").Any() && !note.Attributes("release").Any())
+            { //the beginning of a tied note. Find the matching note with release only.
+                if (TryParseDuration(note, out var parsed))
+                {
+                    duration = parsed;
+                }
+                else
+                {
+                    new object();
+                }
+            }
+            else if (!note.Attributes("attack").Any()
+                && note.Attributes("release").Any())
+            { //the end of a tied note. Find the previous matching note with attack only, to calculate duration.
+                if (TryParseDuration(note, out var parsed))
+                {
+                    duration = parsed;
+                }
+                else
+                {
+                    new object();
+                }
+            }
+            else if (!note.Attributes("attack").Any()
+                && !note.Attributes("release").Any())
+            {
+                if (TryParseDuration(note, out var parsed))
+                {
+                    duration = parsed;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+
+
             TimedEvent<NoteName> result = null;
-            var duration = Int32.Parse(
-                note.Descendants("duration")
-                .First()
-                .Value);
 
-
+            if (note.Descendants("tied").Any())
+            {
+                new object();
+            }
+                //<tie type="stop" />
+                //if (!note.Descendants("tie").Any())
+                //{
             if (note.Descendants("pitch").Any())
             {
                 var xpitch = note.Descendants("pitch").First();
                 var nn = this.ParsePitch(xpitch);
 
-
-                result = new TimedEvent<NoteName>(nn, this.CurrentOffset, this.CurrentOffset + duration);
+                Debug.Assert(duration != int.MinValue);
+                result = new TimedEvent<NoteName>(nn, 
+                    this.CurrentOffset, 
+                    this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
             }
+            else 
+            {
+                throw new NotImplementedException();
+            }
+            //}
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            return result;
+        }
+
+        bool TryParseDuration(XElement note, out int parsed)
+        {
+            var result = false;
+            parsed = int.MinValue;
+            if (note.Descendants("duration").Any())
+            {
+                parsed = Int32.Parse(
+                    note.Descendants("duration")
+                    .First()
+                    .Value);
+                result = true;
+            }
             return result;
         }
 

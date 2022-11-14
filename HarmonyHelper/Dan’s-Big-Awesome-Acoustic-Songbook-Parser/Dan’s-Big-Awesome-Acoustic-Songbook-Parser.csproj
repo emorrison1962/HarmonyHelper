@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Dan_s_Big_Awesome_Acoustic_Songbook_Parser</RootNamespace>
     <AssemblyName>Dan’s-Big-Awesome-Acoustic-Songbook-Parser</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
