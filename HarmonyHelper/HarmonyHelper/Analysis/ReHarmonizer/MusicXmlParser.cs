@@ -12,24 +12,37 @@ using System.Xml.Linq;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
+using Kohoutech.Score.MusicXML;
+
+
+#if false
+
+
+#endif
+
+
 
 namespace Eric.Morrison.Harmony
 {
-    public class MusicXmlParser
+    public class MusicXmlParser : IMusicXmlParser
     {
+        #region Constants
+
+        #endregion
+
         #region Properties
 #if DEBUG
         string CurrentPartName { get; set; }
 #endif
 
         int _CurrentMeasure = 0;
-        int CurrentMeasure 
-        { 
-            get 
+        int CurrentMeasure
+        {
+            get
             {
                 return _CurrentMeasure;
-            } 
-            set 
+            }
+            set
             {
                 this._CurrentOffset = 0;
                 _CurrentMeasure = value;
@@ -38,23 +51,25 @@ namespace Eric.Morrison.Harmony
         }
 
         int _CurrentOffset = 0;
-        int CurrentOffset 
+        int CurrentOffset
         {
-            get 
+            get
             {
                 return _CurrentOffset;
-            } 
-            set 
+            }
+            set
             {
                 _CurrentOffset = value;
                 Debug.Assert(_CurrentOffset <= 480);
                 Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
-            } 
+            }
         }
         MusicXmlParsingResult Result { get; set; }
 
+        List<UnresolvedTiedNote> UnresolvedTiedNotes { get; set; } = new List<UnresolvedTiedNote>();
+
         #endregion
-        
+
         public MusicXmlParser()
         {
             this.Result = new MusicXmlParsingResult();
@@ -253,15 +268,17 @@ namespace Eric.Morrison.Harmony
                     result.Add(this.ParseHarmony(descendant));
                 }
                 else if (descendant.Name == "note"
-                    && descendant.Descendants("pitch").Any())
+                    /*&& descendant.Descendants("pitch").Any()*/)
                 {
                     result.Add(this.ParseNote(descendant));
                 }
+#if false
                 else if (descendant.Name == "note"
                     && descendant.Descendants("rest").Any())
                 {
                     result.Add(this.ParseRest(descendant));
                 }
+#endif
             }
             return result;
         }
@@ -272,109 +289,132 @@ namespace Eric.Morrison.Harmony
         }
 
         TimedEvent<NoteName> ParseNote(XElement note)
-        {
+        {// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
+            Debug.WriteLine("****************************************");
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+
+
+            //Debug.WriteLine($"{note}");
+
 
             int duration = int.MinValue;
 
-            //if (note.Descendants("duration").Any())
-            //{
-            //    duration = Int32.Parse(
-            //        note.Descendants("duration")
-            //        .First()
-            //        .Value);
-            //}
-            if (note.Attributes("attack").Any() && note.Attributes("release").Any())
-            { //if attack and release, use duration
-                if (TryParseDuration(note, out var parsed))
-                {
-                    duration = parsed;
-                }
-            }
-            else if (note.Attributes("attack").Any() && !note.Attributes("release").Any())
-            { //the beginning of a tied note. Find the matching note with release only.
-                if (TryParseDuration(note, out var parsed))
-                {
-                    duration = parsed;
-                }
-                else
-                {
-                    new object();
-                }
-            }
-            else if (!note.Attributes("attack").Any()
-                && note.Attributes("release").Any())
-            { //the end of a tied note. Find the previous matching note with attack only, to calculate duration.
-                if (TryParseDuration(note, out var parsed))
-                {
-                    duration = parsed;
-                }
-                else
-                {
-                    new object();
-                }
-            }
-            else if (!note.Attributes("attack").Any()
-                && !note.Attributes("release").Any())
+            var attributes = note.Attributes();
+            foreach (var attribute in attributes)
             {
-                if (TryParseDuration(note, out var parsed))
-                {
-                    duration = parsed;
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                //Debug.WriteLine($"{attribute}");
             }
-            else
-            {
-                throw new NotImplementedException();
+            var descendants = note.Descendants();
+            foreach (var descendant in descendants)
+            {// <pitch>, <unpitched> or <rest>
+                if (note.Descendants("pitch").Any())
+                {
+                    this.ParsePitched(note);
+                    this.ParsePitch(note);
+                }
+                //else if (note.Descendants("unpitched").Any())
+                //{
+                //    this.ParseUnpitched(note);
+                //}
+                //else if (note.Descendants("rest").Any())
+                //{
+                //    this.ParseRest(note);
+                //}
+                //else 
+                //{ 
+                //    throw new NotImplementedException();
+                //}
             }
-
+            return null;
 
             TimedEvent<NoteName> result = null;
 
-            if (note.Descendants("tied").Any())
-            {
-                new object();
-            }
-                //<tie type="stop" />
-                //if (!note.Descendants("tie").Any())
-                //{
             if (note.Descendants("pitch").Any())
             {
                 var xpitch = note.Descendants("pitch").First();
                 var nn = this.ParsePitch(xpitch);
 
                 Debug.Assert(duration != int.MinValue);
-                result = new TimedEvent<NoteName>(nn, 
-                    this.CurrentOffset, 
+                result = new TimedEvent<NoteName>(nn,
+                    this.CurrentOffset,
                     this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
             }
-            else 
-            {
-                throw new NotImplementedException();
-            }
-            //}
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;
         }
 
-        bool TryParseDuration(XElement note, out int parsed)
+        public HashSet<string> PitchedDescendants { get; private set; } = new HashSet<string>();
+        private void ParsePitched(XElement note)
         {
-            var result = false;
-            parsed = int.MinValue;
-            if (note.Descendants("duration").Any())
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"{note}");
+            var attributes = note.Attributes();
+            foreach (var attribute in attributes)
             {
-                parsed = Int32.Parse(
-                    note.Descendants("duration")
-                    .First()
-                    .Value);
-                result = true;
+                //Debug.WriteLine($"{attribute}");
             }
-            return result;
+            var descendants = note.Elements();
+            foreach (var descendant in descendants)
+            {// <pitch>, <unpitched> or <rest>
+                //Debug.WriteLine($"{descendant}");
+                switch (descendant.Name.ToString())
+                {
+                    case XmlConstants.pitch:
+                        {
+                            var pitch = this.ParsePitch(descendant);
+                            break;
+                        }
+                    case XmlConstants.duration:
+                        {
+                            var duration = this.ParseDuration(descendant);
+                            break;
+                        }
+                    case XmlConstants.tie:
+                        {
+                            if (TieTypeEnum.Start == note.GetTieType())
+                            {
+                                this.UnresolvedTiedNotes.Add(
+                                    new UnresolvedTiedNote(
+                                        this, note, this.CurrentOffset));
+                            }
+                            break;
+                        }
+                    case XmlConstants.voice:
+                    case XmlConstants.type:
+                    case XmlConstants.beam:
+                    case XmlConstants.notations:
+                    case XmlConstants.accidental:
+                    case XmlConstants.dot:
+                    case XmlConstants.staff:
+                    case XmlConstants.chord:
+                    case XmlConstants.time_modification:
+                    default:
+                        {
+                            break;
+                        }
+                }
+
+                this.PitchedDescendants.Add(descendant.Name.ToString());
+            }
+
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+        }
+
+        async public Task TiedNoteResolvedAsync(UnresolvedTiedNote utn)
+        {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            var item = this.UnresolvedTiedNotes.Where(x => utn.Equals(x)).First();
+            //this.UnresolvedTiedNotes.Remove(utn);
+            new object();
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            await Task.CompletedTask;
+        }
+
+        private void ParseUnpitched(XElement note)
+        {
+            throw new NotImplementedException();
         }
 
         TimedEvent<Rest> ParseRest(XElement note)
@@ -398,7 +438,23 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        NoteName ParsePitch(XElement pitch)
+        int ParseDuration(XElement duration)
+        {
+            var result = int.MinValue;
+            var val = string.Empty;
+            if (duration.HasAttributes)
+            {
+                val = duration.FirstAttribute.Value;
+            }
+            else
+            {
+                val = duration.Value;
+            }
+            result = Int32.Parse(val);
+            return result;
+        }
+
+        public NoteName ParsePitch(XElement pitch)
         {
 #if false
   <pitch>
@@ -423,7 +479,7 @@ namespace Eric.Morrison.Harmony
                 result = notes.First();
             }
             else
-            { 
+            {
                 throw new ArgumentException(msg);
             }
             return result;
@@ -459,7 +515,7 @@ namespace Eric.Morrison.Harmony
             var result = new TimedEvent<ChordFormula>(formula,
                 offset,
                 this.CurrentMeasure * Result.Metadata.PPQN
-                + offset) ;
+                + offset);
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;
@@ -489,8 +545,8 @@ namespace Eric.Morrison.Harmony
             var result = root.Descendants("root-step").First().Value;
             var modifier = root.Descendants("root-alter").FirstOrDefault()?.Value;
             if (modifier != null)
-            { 
-                if (modifier ==  "-1")
+            {
+                if (modifier == "-1")
                     result += "b";
                 else
                     result += "#";
@@ -513,5 +569,60 @@ namespace Eric.Morrison.Harmony
         }
 
     }//class
+
+    static public class XmlConstants
+    {
+        public const string pitch = "pitch";
+        public const string duration = "duration";
+        public const string voice = "voice";
+        public const string type = "type";
+        public const string beam = "beam";
+        public const string notations = "notations";
+        public const string accidental = "accidental";
+        public const string dot = "dot";
+        public const string tie = "tie";
+        public const string staff = "staff";
+        public const string chord = "chord";
+        public const string time_modification = "time-modification";
+        public const string start = "start";
+        public const string stop = "stop";
+    }//class
+
+    public enum TieTypeEnum
+    {
+        Unknown,
+        Start,
+        Stop
+    };
+
+    public static partial class XElementExtensions
+    {
+        static public TieTypeEnum GetTieType(this XElement note)
+        {
+#if false
+<note attack="18">
+  <duration>60</duration>
+  <tie type="start" />
+</note>
+#endif
+            var result = TieTypeEnum.Unknown;   
+            var ties = note.Descendants(XmlConstants.tie).ToList();
+            if (ties.Count == 1)
+            {
+                var attrVal = ties[0].Attribute("type").Value;
+                if (XmlConstants.start == attrVal)
+                {
+                    result = TieTypeEnum.Start;
+                }
+                else
+                {
+                    result = TieTypeEnum.Stop;
+                }
+            }
+            return result;
+        }
+
+    }
+
 
 }//ns

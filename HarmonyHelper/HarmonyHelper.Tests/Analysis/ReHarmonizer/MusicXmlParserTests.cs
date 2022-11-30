@@ -28,8 +28,8 @@ namespace Eric.Morrison.Harmony.Tests
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 
-
-            var result = new MusicXmlParser().Parse(path);
+            var parser = new MusicXmlParser();
+            var result = parser.Parse(path);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)
