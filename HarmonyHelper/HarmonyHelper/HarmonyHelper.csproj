@@ -147,6 +147,7 @@
     <EmbeddedResource Include="All Of Me.XML" />
     <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
+    <None Include="_How Duration Works.XML" />
     <Content Include="_TODO.txt" />
   </ItemGroup>
   <ItemGroup>
