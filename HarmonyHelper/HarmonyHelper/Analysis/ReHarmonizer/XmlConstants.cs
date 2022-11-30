@@ -54,9 +54,10 @@ namespace Eric.Morrison.Harmony
         public const string text = "text";
         public const string root_step = "root-step";
         public const string root_alter = "root-alter";
-
-
+        public const string octave = "octave";
         
+
+
     }//class
 
 

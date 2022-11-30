@@ -464,25 +464,30 @@ namespace Eric.Morrison.Harmony
     <octave>1</octave>
   </pitch>
 #endif
-            var nn = pitch.Elements(XmlConstants.step).First().Value;
+            Note result = null;
+            var strNoteName = pitch.Elements(XmlConstants.step).First().Value;
             var modifier = pitch.Elements(XmlConstants.alter).FirstOrDefault()?.Value;
             if (modifier != null)
             {
                 if (modifier == "-1")
-                    nn += "b";
+                    strNoteName += "b";
                 else
-                    nn += "#";
+                    strNoteName += "#";
             }
-            NoteName result = null;
-            if (NoteNameParser.TryParse(nn, out var notes, out var msg))
+            var octave = (OctaveEnum)Int32.Parse(pitch.Elements(XmlConstants.octave).First().Value);
+
+
+            NoteName nn = null;
+            if (NoteNameParser.TryParse(strNoteName, out var notes, out var msg))
             {
-                result = notes.First();
+                nn = notes.First();
+                result = new Note(nn, octave);
             }
             else
             {
                 throw new ArgumentException(msg);
             }
-            return null;
+            return result;
         }
 
         TimedEvent<ChordFormula> ParseChord(XElement chord)
