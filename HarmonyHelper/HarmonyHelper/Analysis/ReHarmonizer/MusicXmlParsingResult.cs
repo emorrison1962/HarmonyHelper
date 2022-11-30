@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony
     {
         public int MeasureNumber { get; set; }
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
-        public List<TimedEvent<NoteName>> Notes { get; set; } = new List<TimedEvent<NoteName>>();
+        public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
         public List<TimedEvent<Rest>> Rests { get; set; } = new List<TimedEvent<Rest>>();
         public MusicXmlMeasure(int measureNumber)
         {
@@ -68,7 +68,7 @@ namespace Eric.Morrison.Harmony
         { 
             this.Chords.Add(e);
         }
-        public void Add(TimedEvent<NoteName> e)
+        public void Add(TimedEvent<Note> e)
         {
             this.Notes.Add(e);
         }

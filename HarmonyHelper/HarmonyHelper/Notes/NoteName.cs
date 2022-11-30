@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Eric.Morrison.Harmony
 {
 	[Serializable]
-	public class NoteName : HarmonyEntityBase, IComparable<NoteName>, IMusicalEvent
+	public class NoteName : HarmonyEntityBase, IComparable<NoteName>
     {
 		#region Constants
 		public const int MIN_LOWER_SHIFT = 1;

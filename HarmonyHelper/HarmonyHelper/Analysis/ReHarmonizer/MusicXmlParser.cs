@@ -65,7 +65,7 @@ namespace Eric.Morrison.Harmony
                 Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
         }
-        MusicXmlParsingResult Result { get; set; }
+        MusicXmlParsingResult ParsingResult { get; set; }
 
         List<UnresolvedTiedNote> UnresolvedTiedNotes { get; set; } = new List<UnresolvedTiedNote>();
 
@@ -73,7 +73,7 @@ namespace Eric.Morrison.Harmony
 
         public MusicXmlParser()
         {
-            this.Result = new MusicXmlParsingResult();
+            this.ParsingResult = new MusicXmlParsingResult();
         }
 
         public MusicXmlParsingResult Parse(string filename)
@@ -89,7 +89,7 @@ namespace Eric.Morrison.Harmony
         {
             this.ParseScoreMetadata(doc);
             this.ParseParts(doc);
-            return this.Result;
+            return this.ParsingResult;
         }
 
         void ParseScoreMetadata(XDocument doc)
@@ -142,7 +142,7 @@ namespace Eric.Morrison.Harmony
             result.Tempo = this.ParseTempo(doc);
             result.PPQN = this.ParsePpqn(doc);
 
-            this.Result.Metadata = result;
+            this.ParsingResult.Metadata = result;
         }
 
         int ParsePpqn(XDocument doc)
@@ -235,7 +235,7 @@ namespace Eric.Morrison.Harmony
             var parts = doc.Descendants(XmlConstants.part);
             foreach (var part in parts)
             {
-                this.Result.Parts.Add(
+                this.ParsingResult.Parts.Add(
                     this.ParsePart(part));
             }
         }
@@ -262,21 +262,21 @@ namespace Eric.Morrison.Harmony
             this.CurrentMeasure = currentMeasure;
             var result = new MusicXmlMeasure(currentMeasure);
 
-            var descendants = measure.Elements();
-            foreach (var descendant in descendants)
+            var elements = measure.Elements();
+            foreach (var element in elements)
             {
-                if (descendant.Name == XmlConstants.backup)
+                if (element.Name == XmlConstants.backup)
                 {
-                    var duration = this.ParseDuration(descendant);
+                    var duration = this.ParseDuration(element);
                     this.CurrentOffset -= duration;
                 }
-                else if (descendant.Name ==XmlConstants.harmony)
+                else if (element.Name ==XmlConstants.harmony)
                 {
-                    result.Add(this.ParseHarmony(descendant));
+                    result.Add(this.ParseHarmony(element));
                 }
-                else if (descendant.Name == XmlConstants.note)
+                else if (element.Name == XmlConstants.note)
                 {
-                    result.Add(this.ParseNote(descendant));
+                    result.Add(this.ParseNote(element));
                 }
 #if false
                 else if (descendant.Name == "note"
@@ -294,7 +294,8 @@ namespace Eric.Morrison.Harmony
             return this.ParseChord(harmony);
         }
 
-        TimedEvent<NoteName> ParseNote(XElement note)
+        List<TimedEvent<IMusicalEvent>> Events { get; set; } = new List<TimedEvent<IMusicalEvent>>();
+        TimedEvent<Note> ParseNote(XElement note)
         {// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
             Debug.WriteLine("****************************************");
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
@@ -303,15 +304,14 @@ namespace Eric.Morrison.Harmony
             //Debug.WriteLine($"{note}");
 
 
-            int duration = int.MinValue;
-
             var attributes = note.Attributes();
             foreach (var attribute in attributes)
             {
                 //Debug.WriteLine($"{attribute}");
             }
-            var descendants = note.Elements();
-            foreach (var descendant in descendants)
+            
+            var elements = note.Elements();
+            foreach (var element in elements)
             {// <pitch>, <unpitched> or <rest>
                 if (note.Elements(XmlConstants.pitch).Any())
                 {
@@ -330,6 +330,7 @@ namespace Eric.Morrison.Harmony
                     throw new NotImplementedException();
                 }
             }
+            
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return null;
 #if false
@@ -352,28 +353,38 @@ namespace Eric.Morrison.Harmony
         }
 
 
+
         private void ParsePitched(XElement note)
         {
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             //Debug.WriteLine($"{note}");
-            var attributes = note.Attributes();
-            foreach (var attribute in attributes)
-            {
-                //Debug.WriteLine($"{attribute}");
-            }
+
+            var isChord = note.ElementsAfterSelf()
+                .FirstOrDefault()
+                ?.Elements(XmlConstants.chord)
+                ?.Any();
+            if (isChord.GetValueOrDefault())
+                new object();
+
             var elements = note.Elements();
+            Note hhNote = null;
+            int duration = 0;
+            int start = 0;
+            int end = 0;
             foreach (var element in elements)
             {// <pitch>, <unpitched> or <rest>
                 switch (element.Name.ToString())
                 {
                     case XmlConstants.pitch:
                         {
-                            var pitch = this.Parse_HarmonyHelper_Note(element);
+                            hhNote = this.Parse_HarmonyHelper_Note(element);
                             break;
                         }
                     case XmlConstants.duration:
                         {
-                            var duration = this.ParseDuration(note);
+                            duration = this.ParseDuration(note);
+                            start = this.CurrentOffset;
+                            end = this.CurrentOffset + duration;
                             break;
                         }
                     case XmlConstants.tie:
@@ -402,6 +413,7 @@ namespace Eric.Morrison.Harmony
                 }
             }
 
+            var result = new TimedEvent<Note>(hhNote, start, end);
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
@@ -519,7 +531,7 @@ namespace Eric.Morrison.Harmony
             }
             var result = new TimedEvent<ChordFormula>(formula,
                 offset,
-                this.CurrentMeasure * Result.Metadata.PPQN
+                this.CurrentMeasure * ParsingResult.Metadata.PPQN
                 + offset);
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
