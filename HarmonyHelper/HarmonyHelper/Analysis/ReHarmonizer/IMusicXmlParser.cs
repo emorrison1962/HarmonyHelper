@@ -5,7 +5,7 @@ namespace Eric.Morrison.Harmony
 {
     public interface IMusicXmlParser
     {
-        NoteName ParsePitch(XElement pitch);
+        NoteName ParseNoteName(XElement pitch);
         Task TiedNoteResolvedAsync(UnresolvedTiedNote utn);
     }
 }

@@ -63,7 +63,7 @@ namespace Eric.Morrison.Harmony
 
         NoteName ParseNote(XElement note)
         {
-            var result = this.Parser.ParsePitch(note.Descendants(XmlConstants.pitch).First());
+            var result = this.Parser.ParseNoteName(note.Descendants(XmlConstants.pitch).First());
             return result;
         }
 

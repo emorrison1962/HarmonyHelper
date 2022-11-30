@@ -14,17 +14,18 @@ using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
 using Kohoutech.Score.MusicXML;
 
-
+#region MusicXml reference
 #if false
 
+https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 #endif
-
+#endregion
 
 
 namespace Eric.Morrison.Harmony
 {
-    public class MusicXmlParser : IMusicXmlParser
+    public class MusicXmlParser: IMusicXmlParser
     {
         #region Constants
 
@@ -147,7 +148,7 @@ namespace Eric.Morrison.Harmony
         int ParsePpqn(XDocument doc)
         {//<divisions>120</divisions>
             var result = Int32.Parse(
-                doc.Descendants("divisions")
+                doc.Descendants(XmlConstants.divisions)
                 .First()
                 .Value);
             return result;
@@ -156,16 +157,16 @@ namespace Eric.Morrison.Harmony
         int ParseTempo(XDocument doc)
         {//<sound tempo="160"/>
             var result = Int32.Parse(
-                doc.Descendants("sound")
+                doc.Descendants(XmlConstants.sound)
                 .First()
-                .Attribute("tempo")
+                .Attribute(XmlConstants.tempo)
                 .Value);
             return result;
         }
 
         string ParseTitle(XDocument doc)
         {
-            var result = doc.Descendants("work-title").First().Value;
+            var result = doc.Descendants(XmlConstants.work_title).First().Value;
             return result;
         }
 
@@ -177,9 +178,9 @@ namespace Eric.Morrison.Harmony
            <beat-type>4</beat-type>
         </time>
 #endif
-            var ts = doc.Descendants("time").First();
-            var beats = ts.Descendants("beats").First().Value;
-            var beat_type = ts.Descendants("beat-type").First().Value;
+            var ts = doc.Descendants(XmlConstants.time).First();
+            var beats = ts.Descendants(XmlConstants.beats).First().Value;
+            var beat_type = ts.Descendants(XmlConstants.beat_type).First().Value;
             var result = new TimeSignature(beats, beat_type);
             return result;
         }
@@ -188,8 +189,8 @@ namespace Eric.Morrison.Harmony
         {
             var result = KeySignature.CMajor;
             var fifths = Int32.Parse(
-                doc.Descendants("key")
-                .Descendants("fifths")
+                doc.Descendants(XmlConstants.key)
+                .Descendants(XmlConstants.fifths)
                 .First().Value);
             if (fifths < 0)
             {
@@ -217,12 +218,12 @@ namespace Eric.Morrison.Harmony
   </score-part>
 #endif
             var result = new List<PartIdentifier>();
-            var part_list = doc.Descendants("part-list").First();
-            var score_parts = doc.Descendants("score-part");
+            var part_list = doc.Descendants(XmlConstants.part_list).First();
+            var score_parts = doc.Descendants(XmlConstants.score_part);
             foreach (var score_part in score_parts)
             {
-                var id = score_part.Attribute("id").Value;
-                var name = doc.Descendants("part-name").First().Value;
+                var id = score_part.Attribute(XmlConstants.id).Value;
+                var name = doc.Descendants(XmlConstants.part_name).First().Value;
                 result.Add(new PartIdentifier(id, name));
             }
             return result;
@@ -230,7 +231,8 @@ namespace Eric.Morrison.Harmony
 
         void ParseParts(XDocument doc)
         {
-            var parts = doc.Descendants("part");
+#warning FIXME:
+            var parts = doc.Descendants(XmlConstants.part);
             foreach (var part in parts)
             {
                 this.Result.Parts.Add(
@@ -240,12 +242,12 @@ namespace Eric.Morrison.Harmony
 
         MusicXmlPart ParsePart(XElement part)
         {
-            var partName = part.Attribute("id").Value;
+            var partName = part.Attribute(XmlConstants.id).Value;
 #if DEBUG
             this.CurrentPartName = partName;
 #endif
             var result = new MusicXmlPart(partName);
-            var measures = part.Descendants("measure");
+            var measures = part.Descendants(XmlConstants.measure);
             foreach (var measure in measures)
             {
                 result.Measures.Add(
@@ -256,19 +258,23 @@ namespace Eric.Morrison.Harmony
 
         MusicXmlMeasure ParseMeasure(XElement measure)
         {
-            var currentMeasure = Int32.Parse(measure.Attribute("number").Value);
+            var currentMeasure = Int32.Parse(measure.Attribute(XmlConstants.number).Value);
             this.CurrentMeasure = currentMeasure;
             var result = new MusicXmlMeasure(currentMeasure);
 
-            var descendants = measure.Descendants();
+            var descendants = measure.Elements();
             foreach (var descendant in descendants)
             {
-                if (descendant.Name == "harmony")
+                if (descendant.Name == XmlConstants.backup)
+                {
+                    var duration = this.ParseDuration(descendant);
+                    this.CurrentOffset -= duration;
+                }
+                else if (descendant.Name ==XmlConstants.harmony)
                 {
                     result.Add(this.ParseHarmony(descendant));
                 }
-                else if (descendant.Name == "note"
-                    /*&& descendant.Descendants("pitch").Any()*/)
+                else if (descendant.Name == XmlConstants.note)
                 {
                     result.Add(this.ParseNote(descendant));
                 }
@@ -304,29 +310,29 @@ namespace Eric.Morrison.Harmony
             {
                 //Debug.WriteLine($"{attribute}");
             }
-            var descendants = note.Descendants();
+            var descendants = note.Elements();
             foreach (var descendant in descendants)
             {// <pitch>, <unpitched> or <rest>
-                if (note.Descendants("pitch").Any())
+                if (note.Elements(XmlConstants.pitch).Any())
                 {
                     this.ParsePitched(note);
-                    this.ParsePitch(note);
                 }
-                //else if (note.Descendants("unpitched").Any())
-                //{
-                //    this.ParseUnpitched(note);
-                //}
-                //else if (note.Descendants("rest").Any())
-                //{
-                //    this.ParseRest(note);
-                //}
-                //else 
-                //{ 
-                //    throw new NotImplementedException();
-                //}
+                else if (note.Elements(XmlConstants.unpitched).Any())
+                {
+                    this.ParseUnpitched(note);
+                }
+                else if (note.Elements(XmlConstants.rest).Any())
+                {
+                    this.ParseRest(note);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return null;
-
+#if false
             TimedEvent<NoteName> result = null;
 
             if (note.Descendants("pitch").Any())
@@ -340,12 +346,12 @@ namespace Eric.Morrison.Harmony
                     this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
             }
-
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
             return result;
+#endif
         }
 
-        public HashSet<string> PitchedDescendants { get; private set; } = new HashSet<string>();
+
         private void ParsePitched(XElement note)
         {
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
@@ -355,20 +361,19 @@ namespace Eric.Morrison.Harmony
             {
                 //Debug.WriteLine($"{attribute}");
             }
-            var descendants = note.Elements();
-            foreach (var descendant in descendants)
+            var elements = note.Elements();
+            foreach (var element in elements)
             {// <pitch>, <unpitched> or <rest>
-                //Debug.WriteLine($"{descendant}");
-                switch (descendant.Name.ToString())
+                switch (element.Name.ToString())
                 {
                     case XmlConstants.pitch:
                         {
-                            var pitch = this.ParsePitch(descendant);
+                            var pitch = this.ParseNoteName(element);
                             break;
                         }
                     case XmlConstants.duration:
                         {
-                            var duration = this.ParseDuration(descendant);
+                            var duration = this.ParseDuration(note);
                             break;
                         }
                     case XmlConstants.tie:
@@ -381,6 +386,7 @@ namespace Eric.Morrison.Harmony
                             }
                             break;
                         }
+                    case XmlConstants.chord:
                     case XmlConstants.voice:
                     case XmlConstants.type:
                     case XmlConstants.beam:
@@ -388,15 +394,12 @@ namespace Eric.Morrison.Harmony
                     case XmlConstants.accidental:
                     case XmlConstants.dot:
                     case XmlConstants.staff:
-                    case XmlConstants.chord:
                     case XmlConstants.time_modification:
                     default:
                         {
                             break;
                         }
                 }
-
-                this.PitchedDescendants.Add(descendant.Name.ToString());
             }
 
             Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
@@ -412,9 +415,16 @@ namespace Eric.Morrison.Harmony
             await Task.CompletedTask;
         }
 
+        public HashSet<string> UnpitchedDescendants { get; private set; } = new HashSet<string>();
+
         private void ParseUnpitched(XElement note)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("No example data to work from.");
+            var descendants = note.Elements();
+            foreach (var descendant in descendants)
+            {
+                this.UnpitchedDescendants.Add(descendant.Name.ToString());
+            }
         }
 
         TimedEvent<Rest> ParseRest(XElement note)
@@ -422,13 +432,8 @@ namespace Eric.Morrison.Harmony
             Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
 
             TimedEvent<Rest> result = null;
-            var duration = Int32.Parse(
-                note.Descendants("duration")
-                .First()
-                .Value);
-
-
-            if (note.Descendants("rest").Any())
+            var duration = ParseDuration(note);
+            if (note.Descendants(XmlConstants.rest).Any())
             {
                 result = new TimedEvent<Rest>(new Rest(), this.CurrentOffset, this.CurrentOffset + duration);
                 this.CurrentOffset += duration;
@@ -438,23 +443,19 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        int ParseDuration(XElement duration)
-        {
-            var result = int.MinValue;
-            var val = string.Empty;
-            if (duration.HasAttributes)
+        int ParseDuration(XElement note)
+        {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
+            var result = 0;
+            if (!note.Elements(XmlConstants.chord).Any())
             {
-                val = duration.FirstAttribute.Value;
+                var duration = note.Elements(XmlConstants.duration).First();
+                var val = duration.Value;
+                result = Int32.Parse(val);
             }
-            else
-            {
-                val = duration.Value;
-            }
-            result = Int32.Parse(val);
             return result;
         }
 
-        public NoteName ParsePitch(XElement pitch)
+        public NoteName ParseNoteName(XElement pitch)
         {
 #if false
   <pitch>
@@ -463,9 +464,8 @@ namespace Eric.Morrison.Harmony
     <octave>1</octave>
   </pitch>
 #endif
-
-            var nn = pitch.Descendants("step").First().Value;
-            var modifier = pitch.Descendants("alter").FirstOrDefault()?.Value;
+            var nn = pitch.Elements(XmlConstants.step).First().Value;
+            var modifier = pitch.Elements(XmlConstants.alter).FirstOrDefault()?.Value;
             if (modifier != null)
             {
                 if (modifier == "-1")
@@ -497,13 +497,13 @@ namespace Eric.Morrison.Harmony
       <offset>240</offset>
       </harmony>
 #endif
-            var root = chord.Descendants("root").First();
+            var root = chord.Descendants(XmlConstants.root).First();
             var strRoot = this.ParseRoot(root);
 
-            var kind = chord.Descendants("kind").First();
+            var kind = chord.Descendants(XmlConstants.kind).First();
             var formula = this.ParseKind(strRoot, kind);
 
-            var strOffset = chord.Descendants("offset").FirstOrDefault()?.Value;
+            var strOffset = chord.Descendants(XmlConstants.offset).FirstOrDefault()?.Value;
             var offset = 0;
             if (!string.IsNullOrEmpty(strOffset))
             {
@@ -528,7 +528,7 @@ namespace Eric.Morrison.Harmony
   OR
   <kind>major</kind>
 #endif
-            var chordType = kind.Attribute("text")?.Value;
+            var chordType = kind.Attribute(XmlConstants.text)?.Value;
             var chord = root + chordType;
             var result = ChordFormulaParser.Parse(chord).First();
             return result;
@@ -542,8 +542,8 @@ namespace Eric.Morrison.Harmony
     <root-alter>-1</root-alter>
   </root>
 #endif
-            var result = root.Descendants("root-step").First().Value;
-            var modifier = root.Descendants("root-alter").FirstOrDefault()?.Value;
+            var result = root.Descendants(XmlConstants.root_step).First().Value;
+            var modifier = root.Descendants(XmlConstants.root_alter).FirstOrDefault()?.Value;
             if (modifier != null)
             {
                 if (modifier == "-1")
@@ -570,24 +570,6 @@ namespace Eric.Morrison.Harmony
 
     }//class
 
-    static public class XmlConstants
-    {
-        public const string pitch = "pitch";
-        public const string duration = "duration";
-        public const string voice = "voice";
-        public const string type = "type";
-        public const string beam = "beam";
-        public const string notations = "notations";
-        public const string accidental = "accidental";
-        public const string dot = "dot";
-        public const string tie = "tie";
-        public const string staff = "staff";
-        public const string chord = "chord";
-        public const string time_modification = "time-modification";
-        public const string start = "start";
-        public const string stop = "stop";
-    }//class
-
     public enum TieTypeEnum
     {
         Unknown,
@@ -609,7 +591,7 @@ namespace Eric.Morrison.Harmony
             var ties = note.Descendants(XmlConstants.tie).ToList();
             if (ties.Count == 1)
             {
-                var attrVal = ties[0].Attribute("type").Value;
+                var attrVal = ties[0].Attribute(XmlConstants.type).Value;
                 if (XmlConstants.start == attrVal)
                 {
                     result = TieTypeEnum.Start;

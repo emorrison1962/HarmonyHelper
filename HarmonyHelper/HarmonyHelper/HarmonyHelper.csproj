@@ -52,6 +52,7 @@
     <Compile Include="Analysis\ReHarmonizer\MusicXmlParsingResult.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="Analysis\ReHarmonizer\UnresolvedTiedNote.cs" />
+    <Compile Include="Analysis\ReHarmonizer\XmlConstants.cs" />
     <Compile Include="Rhythm\IMusicalEvent.cs" />
     <Compile Include="Rhythm\Rest.cs" />
     <Compile Include="Rhythm\TimeSignature.cs" />
