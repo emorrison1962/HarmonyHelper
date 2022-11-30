@@ -12,7 +12,7 @@ namespace Eric.Morrison.Harmony
         protected int _instanceID = ++_instances;
 
         public IMusicXmlParser Parser { get; }
-        public NoteName NoteName { get; set; }
+        public Note Note { get; set; }
         public int CurrentOffset { get; set; }
         public Guid Guid { get; set; } = Guid.NewGuid();
 
@@ -39,7 +39,7 @@ namespace Eric.Morrison.Harmony
                 new object();
             }
             this.Parser = parser;
-            this.NoteName = this.ParseNote(note);
+            this.Note = this.ParseNote(note);
             this.CurrentOffset = CurrentOffset;
             this.ParseTie(note);
         }
@@ -61,9 +61,9 @@ namespace Eric.Morrison.Harmony
                 this._TieType = TieTypeEnum.Stop;
         }
 
-        NoteName ParseNote(XElement note)
+        Note ParseNote(XElement note)
         {
-            var result = this.Parser.ParseNoteName(note.Descendants(XmlConstants.pitch).First());
+            var result = this.Parser.Parse_HarmonyHelper_Note(note.Descendants(XmlConstants.pitch).First());
             return result;
         }
 
@@ -77,7 +77,7 @@ namespace Eric.Morrison.Harmony
             bool result = false;
             if (this.Guid == other.Guid
                 && this.CurrentOffset == other.CurrentOffset
-                && this.NoteName == other.NoteName
+                && this.Note == other.Note
                 && this.TieType == other.TieType)
             {
                 result = true;
@@ -89,7 +89,7 @@ namespace Eric.Morrison.Harmony
         {
             return this.Guid.GetHashCode()
                 ^ this.CurrentOffset.GetHashCode()
-                ^ this.NoteName.GetHashCode()
+                ^ this.Note.GetHashCode()
                 ^ this.TieType.GetHashCode();
         }
         public override bool Equals(object obj)

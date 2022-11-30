@@ -368,7 +368,7 @@ namespace Eric.Morrison.Harmony
                 {
                     case XmlConstants.pitch:
                         {
-                            var pitch = this.ParseNoteName(element);
+                            var pitch = this.Parse_HarmonyHelper_Note(element);
                             break;
                         }
                     case XmlConstants.duration:
@@ -455,7 +455,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public NoteName ParseNoteName(XElement pitch)
+        public Note Parse_HarmonyHelper_Note(XElement pitch)
         {
 #if false
   <pitch>
@@ -482,7 +482,7 @@ namespace Eric.Morrison.Harmony
             {
                 throw new ArgumentException(msg);
             }
-            return result;
+            return null;
         }
 
         TimedEvent<ChordFormula> ParseChord(XElement chord)
