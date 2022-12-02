@@ -47,12 +47,13 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_Rule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
-    <Compile Include="Analysis\ReHarmonizer\IMusicXmlParser.cs" />
-    <Compile Include="Analysis\ReHarmonizer\MusicXmlParser.cs" />
-    <Compile Include="Analysis\ReHarmonizer\MusicXmlParsingResult.cs" />
-    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
-    <Compile Include="Analysis\ReHarmonizer\TiedNoteContext.cs" />
-    <Compile Include="Analysis\ReHarmonizer\XmlConstants.cs" />
+    <Compile Include="MusicXml\IMusicXmlParser.cs" />
+    <Compile Include="MusicXml\MusicXmlParser.cs" />
+    <Compile Include="MusicXml\MusicXmlParsingResult.cs" />
+    <Compile Include="MusicXml\ReHarmonizer.cs" />
+    <Compile Include="MusicXml\ParserHelperClasses.cs" />
+    <Compile Include="MusicXml\XElementExtensions.cs" />
+    <Compile Include="MusicXml\XmlConstants.cs" />
     <Compile Include="Rhythm\IMusicalEvent.cs" />
     <Compile Include="Rhythm\Rest.cs" />
     <Compile Include="Rhythm\TimeSignature.cs" />
@@ -159,6 +160,9 @@
       <Project>{AC360604-5FA7-4537-8CB2-083B2046DB13}</Project>
       <Name>HarmonyHelper.IoC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Analysis\ReHarmonizer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

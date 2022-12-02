@@ -183,5 +183,16 @@ namespace Eric.Morrison.Harmony
 		Seventh = 6,
 		Octave = 7,
 	};
+}//ns
 
+namespace Eric.Morrison.Harmony.MusicXml
+{
+    [Flags]
+    public enum TieTypeEnum
+    {
+        Unknown = 0,
+        Start = 2,
+        Stop = 2 << 1,
+        StartStop = 2 << 2,
+    };
 }//ns

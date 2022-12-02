@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.MusicXml
 {
     public interface IMusicXmlParser
     {

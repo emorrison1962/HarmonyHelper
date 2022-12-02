@@ -25,7 +25,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 #endregion
 
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.MusicXml
 {
     public class MusicXmlParser: IMusicXmlParser
     {
@@ -686,61 +686,4 @@ namespace Eric.Morrison.Harmony
         }
 
     }//class
-
-    [Flags]
-    public enum TieTypeEnum
-    {
-        Unknown = 0,
-        Start = 2,
-        Stop = 2 << 1,
-        StartStop = 2 << 2,
-    };
-
-    public static partial class XElementExtensions
-    {
-        static public TieTypeEnum GetTieType(this XElement note)
-        {
-#if false
-<note attack="18">
-  <duration>60</duration>
-  <tie type="start" />
-</note>
-#endif
-            var result = TieTypeEnum.Unknown;   
-            var ties = note.Descendants(XmlConstants.tie).ToList();
-            if (ties.Count == 1)
-            {
-                var attrVal = ties[0].Attribute(XmlConstants.type).Value;
-                if (XmlConstants.start == attrVal)
-                {
-                    result = TieTypeEnum.Start;
-                }
-                else
-                {
-                    result = TieTypeEnum.Stop;
-                }
-            }
-            return result;
-        }
-
-    }//class
-
-    public class ChordTimeContext
-    {
-        public int Measure { get; set; }
-        public int Start { get; set; }
-        public int End { get; set; }
-        public TimedEvent<Note> FirstNote { get; set; }
-
-        public void Clear()
-        {
-            this.Measure = 0;
-            this.Start = 0;
-            this.End = 0;
-            this.FirstNote= null;
-        }
-    }
-
-
-
 }//ns
