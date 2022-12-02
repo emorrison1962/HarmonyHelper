@@ -50,7 +50,7 @@
     <Compile Include="MusicXml\IMusicXmlParser.cs" />
     <Compile Include="MusicXml\MusicXmlParser.cs" />
     <Compile Include="MusicXml\MusicXmlParsingResult.cs" />
-    <Compile Include="MusicXml\ReHarmonizer.cs" />
+    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="MusicXml\ParserHelperClasses.cs" />
     <Compile Include="MusicXml\XElementExtensions.cs" />
     <Compile Include="MusicXml\XmlConstants.cs" />
@@ -161,9 +161,7 @@
       <Name>HarmonyHelper.IoC</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Analysis\ReHarmonizer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

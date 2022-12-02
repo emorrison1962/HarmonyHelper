@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.MusicXml
 {
     public class PartIdentifier
     {

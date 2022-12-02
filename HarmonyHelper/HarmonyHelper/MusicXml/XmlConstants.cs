@@ -7,7 +7,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 #endregion
 
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison.Harmony.MusicXml
 {
     static public class XmlConstants
     {
