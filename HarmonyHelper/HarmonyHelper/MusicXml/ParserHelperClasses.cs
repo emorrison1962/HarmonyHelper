@@ -12,7 +12,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public IMusicXmlParser Parser { get; }
         public Note Note { get; set; }
-        public int Measure { get; set; }
+        public MusicXmlMeasure Measure { get; set; }
         public int Offset { get; set; }
         public int Duration { get; set; }
         public Guid Guid { get; set; } = Guid.NewGuid();
@@ -22,12 +22,13 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Construction
         public TiedNoteContext(IMusicXmlParser parser, XElement note, 
-            TieTypeEnum tieType, int measure, int offset)
+            TieTypeEnum tieType, MusicXmlMeasure measure, int offset)
         {
             this.Parser = parser;
             this.Note = this.ParseNote(note);
             this.Measure = measure;
             this.Offset = offset;
+            Debug.Assert(this.Offset >= 0);
             this.TieType = tieType;
             this.Duration = Parser.ParseDuration(note);
 

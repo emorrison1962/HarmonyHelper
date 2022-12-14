@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Rhythm
 {
-    public class Rest : IMusicalEvent
+    public class Rest : IMusicalEvent<Rest>
     {
     }
 }

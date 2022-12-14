@@ -20,7 +20,7 @@ namespace Eric.Morrison.Harmony
 		public const string NINE = "⁹";
 	}
 
-	public class Note : ClassBase, IEquatable<Note>, IComparable<Note>, IMusicalEvent
+	public class Note : ClassBase, IEquatable<Note>, IComparable<Note>, IMusicalEvent<Note>
     {
 		#region Properties
 		public NoteName NoteName { get; private set; }

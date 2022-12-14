@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eric.Morrison.Harmony</RootNamespace>
+    <AssemblyName>HarmonyHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Score, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kohoutech.Score.1.0.0\lib\net40\Score.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_Rule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
+    <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
+    <Compile Include="MusicXml\IMusicXmlParser.cs" />
+    <Compile Include="MusicXml\MusicXmlParser.cs" />
+    <Compile Include="MusicXml\MusicXmlParsingResult.cs" />
+    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
+    <Compile Include="MusicXml\ParserHelperClasses.cs" />
+    <Compile Include="MusicXml\XElementExtensions.cs" />
+    <Compile Include="MusicXml\XmlConstants.cs" />
+    <Compile Include="Rhythm\IMusicalEvent.cs" />
+    <Compile Include="Rhythm\Rest.cs" />
+    <Compile Include="Rhythm\TimeSignature.cs" />
+    <Compile Include="Arpeggiator\ArpeggiationContext.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Arpeggiator\Arpeggiator.cs" />
+    <Compile Include="Arpeggiator\Arpeggiator_Snapshot.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chords\Chord.cs" />
+    <Compile Include="Chords\ChordCompareResult.cs" />
+    <Compile Include="Chords\ChordFormula.cs" />
+    <Compile Include="ChordScaleMapping.cs" />
+    <Compile Include="Chords\ChordFormulaCatalog.cs" />
+    <Compile Include="Chords\ChordFormulaExtensions.cs">
+      <DependentUpon>ChordFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chords\ChordFormulaFactory.cs" />
+    <Compile Include="Chords\ChordFormulaScalesMapping.cs" />
+    <Compile Include="Chords\ChordFormula_Comparers.cs">
+      <DependentUpon>ChordFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chords\ChordParser.cs" />
+    <Compile Include="Chords\ChordTone.cs" />
+    <Compile Include="Chords\ChordType.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Rhythm\Duration\Duration.cs" />
+    <Compile Include="Enums\DirectionEnumExtensions.cs" />
+    <Compile Include="Enums\IntervalsEnumExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackCyclingRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\DiatonicToKeyRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalysisResult.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_I_Rule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRule.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\Rules\_HarmonicAnalysisRuleBase.cs" />
+    <Compile Include="Analysis\HarmonicAnalysis\HarmonicAnalyzer.cs" />
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Helpers\DataSetTracer.cs" />
+    <Compile Include="Helpers\DebuggingHelpers.cs" />
+    <Compile Include="INeedOperators.cs" />
+    <Compile Include="Interfaces\INoteNameNormalizer.cs" />
+    <Compile Include="Intervals\ChordToneInterval.cs" />
+    <Compile Include="Intervals\IFunctionalInterval.cs" />
+    <Compile Include="Intervals\Interval.cs" />
+    <Compile Include="Intervals\IntervalExtensions.cs" />
+    <Compile Include="Intervals\ScaleToneInterval.cs" />
+    <Compile Include="KeySignature\KeySignature_Static.cs">
+      <DependentUpon>KeySignature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Intervals\AmbiguousInterval.cs" />
+    <Compile Include="Notes\Comparers.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notes\EnharmonicEquivalent.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notes\AmbiguousNoteName.cs" />
+    <Compile Include="Notes\NoteNameParser.cs" />
+    <Compile Include="Scales\HarmonicMinorModalScaleFormula.cs" />
+    <Compile Include="Scales\IHasRootNoteName.cs" />
+    <Compile Include="Scales\INoteNameContainer.cs" />
+    <Compile Include="Scales\MelodicMinorModalScaleFormula.cs" />
+    <Compile Include="Scales\_ModalScaleFormulaBase.cs" />
+    <Compile Include="Scales\_HeptatonicScaleFormulaBase.cs" />
+    <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
+    <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalysisResult.cs" />
+    <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalyzer.cs" />
+    <Compile Include="_ClassBase.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="HarmonyEntityBase.cs" />
+    <Compile Include="KeySignature\KeySignature.cs" />
+    <Compile Include="Scales\Mode.cs" />
+    <Compile Include="Notes\NoteName.cs" />
+    <Compile Include="Notes\NoteRange.cs" />
+    <Compile Include="Notes\Note.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scales\ModalMajorScaleFormula.cs" />
+    <Compile Include="Scales\Scale.cs" />
+    <Compile Include="Scales\ScaleFormulaCatalog.cs" />
+    <Compile Include="Scales\_ScaleBase.cs" />
+    <Compile Include="Scales\_ScaleFormulaBase.cs" />
+    <Compile Include="Scales\ScaleFormulas.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="All Of Me.XML" />
+    <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
+    <Content Include="Sunny Resolutions MusicXML Test.xml" />
+    <None Include="_How Duration Works.XML" />
+    <Content Include="_TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Sunny Resolutions MusicXML Test.mscz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj">
+      <Project>{AC360604-5FA7-4537-8CB2-083B2046DB13}</Project>
+      <Name>HarmonyHelper.IoC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

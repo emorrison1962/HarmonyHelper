@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -22,7 +23,7 @@ namespace Eric.Morrison.Harmony.Tests
             path = Path.GetDirectoryName(path);
             path = Path.GetDirectoryName(path);
             path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
+            //path = Path.GetDirectoryName(path);
             path = Path.Combine(path, "TEST_FILES");
             path = Path.Combine(path, "All Of Me.XML");
             Debug.WriteLine(path);

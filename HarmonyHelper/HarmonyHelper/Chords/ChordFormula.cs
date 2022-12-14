@@ -7,7 +7,7 @@ using Eric.Morrison.Harmony;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent
+	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>
     {
 		static public NullChordFormula Empty = NullChordFormula.Create();
 		

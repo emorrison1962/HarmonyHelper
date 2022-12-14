@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Score, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Kohoutech.Score.1.0.0\lib\net40\Score.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,8 +45,9 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
     <Compile Include="MusicXml\IMusicXmlParser.cs" />
+    <Compile Include="MusicXml\MusicXmlParser_old.cs" />
     <Compile Include="MusicXml\MusicXmlParser.cs" />
-    <Compile Include="MusicXml\MusicXmlParsingResult.cs" />
+    <Compile Include="MusicXml\MusicXml.Domain.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="MusicXml\ParserHelperClasses.cs" />
     <Compile Include="MusicXml\XElementExtensions.cs" />
@@ -145,14 +143,13 @@
     <Compile Include="Scales\ScaleFormulas.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="All Of Me.XML" />
     <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
+    <EmbeddedResource Include="Resources\parttime.xsl" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <None Include="_How Duration Works.XML" />
     <Content Include="_TODO.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Sunny Resolutions MusicXML Test.mscz" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +158,8 @@
       <Name>HarmonyHelper.IoC</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

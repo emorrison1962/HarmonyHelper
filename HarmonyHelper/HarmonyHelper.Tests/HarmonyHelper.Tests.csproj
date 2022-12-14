@@ -105,6 +105,8 @@
   <ItemGroup>
     <Content Include="MusicXML_TEMPLATE.xml" />
     <Content Include="MusicXML_TEMPLATE_02.xml" />
+    <None Include="TEST_FILES\All Of Me-timewise.xml" />
+    <None Include="TEST_FILES\All Of Me.XML" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
