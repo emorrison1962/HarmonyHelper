@@ -11,6 +11,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     static public class XmlConstants
     {
+        public const string actual_notes = "actual-notes";
         public const string accidental = "accidental";
         public const string alter = "alter";
         public const string backup = "backup";
@@ -28,6 +29,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string key = "key";
         public const string kind = "kind";
         public const string measure = "measure";
+        public const string normal_notes = "normal-notes";
+        public const string normal_type = "normal-type";
         public const string notations = "notations";
         public const string note = "note";
         public const string number = "number";

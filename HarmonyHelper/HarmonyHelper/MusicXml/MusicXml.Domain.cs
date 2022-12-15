@@ -134,12 +134,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     public class ParsingContext
     {
-        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
         #region Properties
 #if DEBUG
-        public MusicXmlPart CurrentPart { get; set; }
+        MusicXmlPart CurrentPart { get; set; }
 #endif
-
+        public MusicXmlScoreMetadata Metadata { get; set; }
         public MusicXmlMeasure CurrentMeasure { get; set; }
 
 
@@ -154,17 +153,43 @@ namespace Eric.Morrison.Harmony.MusicXml
             set
             {
                 _CurrentOffset = value;
-                Debug.Assert(_CurrentOffset <= 480);
+                Debug.Assert(_CurrentOffset <= 481);
                 Debug.Assert(_CurrentOffset >= 0);
                 //Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
         }
+        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
 
-        public ConcurrentDictionary<TiedNoteContext, TiedNoteContext> TiedNotes { get; set; } = new ConcurrentDictionary<TiedNoteContext, TiedNoteContext>();
+        //public ConcurrentDictionary<TiedNoteContext, TiedNoteContext> TiedNotes { get; set; } = new ConcurrentDictionary<TiedNoteContext, TiedNoteContext>();
 
         public ChordTimeContext ChordTimeContext { get; set; } = new ChordTimeContext();
 
         #endregion
     }//class
+
+    public class TimeModification
+    {
+        public int Normal { get; set; }
+        public int Actual { get; set; }
+
+        public TimeModification(XElement xtime_modification)
+        {
+#if false
+        <time-modification>
+            <actual-notes>3</actual-notes>
+            <normal-notes>2</normal-notes>
+            <normal-type>eighth</normal-type>
+        </time-modification>
+#endif
+            this.Actual = int.Parse(xtime_modification.Element(XmlConstants.actual_notes).Value);
+            this.Normal = int.Parse(xtime_modification.Element(XmlConstants.normal_notes).Value);
+        }
+
+        public int GetDuration(int duration)
+        { 
+            var result = (duration * this.Normal) / this.Actual;
+            return result;
+        }
+    }
 
 }//ns

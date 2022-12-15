@@ -34,14 +34,13 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         #region Properties
-        MusicXmlParsingResult ParsingResult { get; set; }
         XDocument Document { get; set; }
+        ParsingContext ParsingContext { get; set; } = new ParsingContext();
 
         #endregion
-        
+
         public MusicXmlParser()
         {
-            this.ParsingResult = new MusicXmlParsingResult();
         }
 
         public MusicXmlParsingResult Parse(string filename)
@@ -49,22 +48,24 @@ namespace Eric.Morrison.Harmony.MusicXml
             //var xml = this.LoadEmbeddedResource();
 
             this.Document = XDocument.Load(filename);
-            var result = this.Parse(this.Document);
+            var result = this.ParseImpl(this.Document);
             return result;
         }
 
-        MusicXmlParsingResult Parse(XDocument doc)
+        MusicXmlParsingResult ParseImpl(XDocument doc)
         {
             //this.Document = this.Transform();
             //this.PreParseTiedNotes(this.Document);
 
-            this.ParseScoreMetadata(doc);
+            var metadata = this.ParseScoreMetadata(doc);
+            this.ParsingContext.Metadata = metadata;
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
-            var parts = this.ParseParts(doc);
+#warning FIXME:
+            var parts = this.ParseParts(doc).Skip(1).ToList();
             foreach (var part in parts)
             {
-                this.ParsingContext.CurrentPart = part;
+                //this.ParsingContext.CurrentPart = part;
                 var xmeasures = part.XElement.Elements(XmlConstants.measure)
                     .ToList();
                 foreach (var xmeasure in xmeasures)
@@ -73,8 +74,16 @@ namespace Eric.Morrison.Harmony.MusicXml
                     part.Measures.Add(measure);
                 }
             }
-            
-            return this.ParsingResult;
+            var result = this.CreateParsingResult(metadata, parts);
+            return result;
+        }
+
+        MusicXmlParsingResult CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        {
+            var result = new MusicXmlParsingResult();
+            result.Metadata = metadata;
+            result.Parts = parts;
+            return result;
         }
 
         private void PreParseTiedNotes(XDocument doc)
@@ -215,7 +224,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.Tempo = this.ParseTempo(doc);
             result.PulsesPerQuarterNote = this.ParsePpqn(doc);
             
-            this.ParsingResult.Metadata = result;
             return result;
         }
 
@@ -330,13 +338,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 #endif
-        private void ParseMusicalElements(List<XElement> elements)
+        private void PopulateMeasure(List<XElement> elements, MusicXmlMeasure measure)
         {
+            this.ParsingContext.CurrentOffset = 0;
+
             var chords = new List<TimedEvent<ChordFormula>>();
             var notes = new List<TimedEvent<Note>>();
             var rests = new List<TimedEvent<Rest>>();
             foreach (var xelement in elements)
             {
+                Debug.WriteLine(this.ParsingContext.CurrentOffset);
                 if (xelement.Name == XmlConstants.backup)
                 {
                     var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
@@ -344,18 +355,21 @@ namespace Eric.Morrison.Harmony.MusicXml
                     this.ParsingContext.CurrentOffset = 0;
                     //this.ParsingContext.CurrentOffset -= duration;
                 }
+
                 else if (xelement.Name == XmlConstants.harmony)
                 {
                     var chord = this.ParseHarmony(xelement);
                     Debug.Assert(chord != null);
                     chords.Add(chord);
                 }
-                if (xelement.Elements(XmlConstants.pitch).Any())
+                
+                else if (xelement.Elements(XmlConstants.pitch).Any())
                 {
-                    var note = this.ParseNote(xelement);
+                    var note = this.ParsePitched(xelement);
                     if (note != null);
                         notes.Add(note);
                 }
+                
                 else if (xelement.Descendants(XmlConstants.rest).Any())
                 {
                     var rest = this.ParseRest(xelement);
@@ -364,12 +378,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
             }
 
-            this.ParsingContext.CurrentPart.CurrentMeasure.Chords = chords;
-            this.ParsingContext.CurrentPart.CurrentMeasure.Notes = notes;
-            this.ParsingContext.CurrentPart.CurrentMeasure.Rests = rests;
+            measure.Chords = chords;
+            measure.Notes = notes;
+            measure.Rests = rests;
         }
 
-        ParsingContext ParsingContext { get; set; } = new ParsingContext();
 #if false
         MusicXmlPart ParsePart(XElement part)
         {
@@ -524,31 +537,27 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var measureNumber = Int32.Parse(xmeasure.Attribute(XmlConstants.number).Value);
             var result = new MusicXmlMeasure(measureNumber);
-
             this.ParsingContext.CurrentMeasure = result;
-            this.ParsingContext.CurrentOffset = 0;
-            this.ParsingContext.CurrentPart.Measures.Add(result);
 
             var elements = xmeasure.Elements().ToList();
-            this.ParseMusicalElements(elements);
-            foreach (var xelement in elements)
-            {
-                if (xelement.Name == XmlConstants.backup)
-                {
-                    var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
-                    Debug.Assert(duration == 480);
-                    this.ParsingContext.CurrentOffset = 0;
-                }
-                else if (xelement.Name == XmlConstants.harmony)
-                {
-                    result.Add(this.ParseHarmony(xelement));
-                }
-                else if (xelement.Name == XmlConstants.note)
-                {
-                    result.Add(this.ParseNote(xelement));
-                }
-            }
-            this.ParsingContext.CurrentPart.Measures.Add(result);
+            this.PopulateMeasure(elements, result);
+            //foreach (var xelement in elements)
+            //{
+            //    if (xelement.Name == XmlConstants.backup)
+            //    {
+            //        var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
+            //        Debug.Assert(duration == 480);
+            //        this.ParsingContext.CurrentOffset = 0;
+            //    }
+            //    else if (xelement.Name == XmlConstants.harmony)
+            //    {
+            //        result.Add(this.ParseHarmony(xelement));
+            //    }
+            //    else if (xelement.Name == XmlConstants.note)
+            //    {
+            //        result.Add(this.ParseNote(xelement));
+            //    }
+            //}
             return result;
         }
 
@@ -558,6 +567,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         List<TimedEvent<object>> Events { get; set; } = new List<TimedEvent<object>>();
+
+        [Obsolete("", true)]
         TimedEvent<Note> ParseNote(XElement xnote)
         {// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
          //Debug.WriteLine($"{note}");
@@ -642,31 +653,37 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (xnote.Elements(XmlConstants.type).Any())
             {
                 duration = this.ParseDuration(xnote);
-                Debug.Assert(duration != 7);
                 start = this.ParsingContext.CurrentOffset;
                 end = this.ParsingContext.CurrentOffset + duration;
+
+                if (this.IsFirstNoteOfChord(xnote))
+                {
+                    this.ParsingContext.ChordTimeContext.Start = start;
+                    this.ParsingContext.ChordTimeContext.End = end;
+                    this.ParsingContext.ChordTimeContext.FirstNote = result;
+                }
+                else if (this.IsLastNoteOfChord(xnote))
+                {
+                    start = this.ParsingContext.ChordTimeContext.Start;
+                    end = this.ParsingContext.ChordTimeContext.End;
+                    this.ParsingContext.ChordTimeContext.Clear();
+                    this.ParsingContext.CurrentOffset += duration;
+                    new object();
+                }
+                else if (this.IsNoteOfChord(xnote))
+                {
+                    start = this.ParsingContext.ChordTimeContext.Start;
+                    end = this.ParsingContext.ChordTimeContext.End;
+                }
+                else //we're not in a chord.
+                {
+                    this.ParsingContext.CurrentOffset += duration;
+                }
                 Debug.Assert(start != end);
             }
 
             result = new TimedEvent<Note>(hhNote, start, end);
-            if (this.IsFirstNoteOfChord(xnote))
-            {
-                this.ParsingContext.ChordTimeContext.Start = start;
-                this.ParsingContext.ChordTimeContext.End = end;
-                this.ParsingContext.ChordTimeContext.FirstNote = result;
-            }
-            if (this.IsNoteOfChord(xnote))
-            {
-                result.Start = this.ParsingContext.ChordTimeContext.Start;
-                result.End = this.ParsingContext.ChordTimeContext.End;
-            }
-            if (this.IsLastNoteOfChord(xnote))
-            {
-                this.ParsingContext.ChordTimeContext.Clear();
-                new object();
-            }
             return result;
-
         }
 
         TieTypeEnum ParseTie(XElement note)
@@ -750,8 +767,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
+        [Obsolete("", true)]
         async public Task ResolveTiedNote(TiedNoteContext tieStop)
         {
+#if false
             var tieStart = this.ParsingContext.TiedNotes.Where(x => tieStop.Equals(x.Key)).First().Key;
 
             if (!this.ParsingContext.TiedNotes.TryRemove(tieStart, out var unused01))
@@ -785,6 +804,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             new object();
 
             await Task.CompletedTask;
+#endif
         }
 
         public HashSet<string> UnpitchedDescendants { get; private set; } = new HashSet<string>();
@@ -814,16 +834,28 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public int ParseDuration(XElement note)
+        public int ParseDuration(XElement xnote)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
             var result = 0;
             //if (!note.Elements(XmlConstants.chord).Any())
             {
-                var duration = note.Elements(XmlConstants.type).First();
+                var duration = xnote.Elements(XmlConstants.type).First();
                 var val = duration.Value;
                 result = this.GetDuration(val);
             }
+            if (xnote.Elements(XmlConstants.time_modification).Any())
+            {
+                var xtime_modification = xnote.Elements(XmlConstants.time_modification)
+                    .First();
+                var tm = this.ParseTimeModification(xtime_modification);
+                result = tm.GetDuration(result);
+            }
             return result;
+        }
+
+        TimeModification ParseTimeModification(XElement xtime_modification)
+        {
+            return new TimeModification(xtime_modification);
         }
 
         private int GetDuration(string val)
@@ -895,7 +927,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                         break;
                     }
             }
-            var result = this.ParsingResult.Metadata.PulsesPerMeasure / divisor;
+            var result = this.ParsingContext.Metadata.PulsesPerMeasure / divisor;
             return result;
         }
 
@@ -966,7 +998,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new TimedEvent<ChordFormula>(formula,
                 offset,
                 this.ParsingContext.CurrentMeasure.MeasureNumber 
-                    * ParsingResult.Metadata.PulsesPerQuarterNote
+                    * this.ParsingContext.Metadata.PulsesPerQuarterNote
                     + offset);
 
             return result;
