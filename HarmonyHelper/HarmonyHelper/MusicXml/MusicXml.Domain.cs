@@ -45,17 +45,30 @@ namespace Eric.Morrison.Harmony.MusicXml
         public KeySignature KeySignature { get; set; }
         public TimeSignature TimeSignatue { get; set; }
         public int Tempo { get; set; }
-        public int PPQN { get; set; }
+        public int PulsesPerQuarterNote { get; set; }
+        public int PulsesPerMeasure 
+        { 
+            get 
+            { 
+                return this.TimeSignatue.BeatCount * this.PulsesPerQuarterNote; 
+            } 
+        }
     }
 
     public class MusicXmlPart
     {
         public PartIdentifier Identifier { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
+        public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
         public MusicXmlPart(PartIdentifier PartIdentifier)
         {
             this.Identifier = PartIdentifier;   
+        }
+        public MusicXmlPart(PartIdentifier PartIdentifier, XElement xelement)
+            : this(PartIdentifier)
+        {
+            this.XElement= xelement; 
         }
         public override string ToString()
         {
@@ -124,7 +137,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
         #region Properties
 #if DEBUG
-        public PartIdentifier CurrentPartName { get; set; }
+        public MusicXmlPart CurrentPart { get; set; }
 #endif
 
         public MusicXmlMeasure CurrentMeasure { get; set; }

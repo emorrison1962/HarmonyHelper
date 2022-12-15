@@ -43,6 +43,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string root_step = "root-step";
         public const string score_part = "score-part";
         public const string score_timewise = "score-timewise";
+        public const string score_partwise = "score-partwise";
         public const string sound = "sound";
         public const string staff = "staff";
         public const string start = "start";
@@ -58,6 +59,24 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string voice = "voice";
         public const string work_title = "work-title";
 
+
+        public class NoteTypes
+        {
+            public const string NoteType_1024th = "1024th";
+            public const string NoteType_512th = "512th";
+            public const string NoteType_256th = "256th";
+            public const string NoteType_128th = "128th";
+            public const string NoteType_64th = "64th";
+            public const string NoteType_32nd = "32nd";
+            public const string NoteType_16th = "16th";
+            public const string NoteType_eighth = "eighth";
+            public const string NoteType_quarter = "quarter";
+            public const string NoteType_half = "half";
+            public const string NoteType_whole = "whole";
+            public const string NoteType_breve = "breve";
+            public const string NoteType_long = "long";
+            public const string NoteType_maxima = "maxima";
+        }
     }//class
 
 
