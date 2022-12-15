@@ -223,7 +223,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.TimeSignatue = this.ParseTimeSignature(doc);
             result.Tempo = this.ParseTempo(doc);
             result.PulsesPerQuarterNote = this.ParsePpqn(doc);
-            
+
+            TimedEventFactory.Instance.PulsesPerMeasure = result.PulsesPerMeasure;
+
             return result;
         }
 
@@ -351,7 +353,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var rests = new List<TimedEvent<Rest>>();
             foreach (var xelement in elements)
             {
-                Debug.WriteLine(this.ParsingContext.CurrentOffset);
+                //Debug.WriteLine(this.ParsingContext.CurrentOffset);
                 if (xelement.Name == XmlConstants.backup)
                 {
                     var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
@@ -991,19 +993,24 @@ namespace Eric.Morrison.Harmony.MusicXml
             var formula = this.ParseKind(strRoot, kind);
 
             var strOffset = harmony.Descendants(XmlConstants.offset).FirstOrDefault()?.Value;
-            var offset = 0;
+            var start = 0;
             if (!string.IsNullOrEmpty(strOffset))
             {
-                if (!Int32.TryParse(strOffset, out offset))
+                if (!Int32.TryParse(strOffset, out start))
                 {
-                    offset = 0;
+                    start = 0;
                 }
             }
-            var result = new TimedEvent<ChordFormula>(formula,
-                offset,
-                this.ParsingContext.CurrentMeasure.MeasureNumber 
-                    * this.ParsingContext.Metadata.PulsesPerQuarterNote
-                    + offset);
+            //var result = new TimedEvent<ChordFormula>(formula,
+            //    offset,
+            //    this.ParsingContext.CurrentMeasure.MeasureNumber 
+            //        * this.ParsingContext.Metadata.PulsesPerMeasure
+            //        + offset);
+            throw new NotImplementedException();
+            var result = TimedEventFactory.Instance.CreateTimedEvent(formula,
+                start,
+                this.ParsingContext.Metadata.PulsesPerMeasure + start,
+                this.ParsingContext.CurrentMeasure.MeasureNumber);
 
             return result;
         }

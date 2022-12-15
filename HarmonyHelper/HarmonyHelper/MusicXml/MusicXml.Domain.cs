@@ -110,27 +110,66 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     public class TimedEvent<T> where T : class
     {
-        public int Start { get; set; }
-        public int End { get; set; }
+        public int StartFromSong { get; set; }
+        public int EndFromSong { get; set; }
+
+        public int StartFromMeasure { get; set; }
+        public int EndFromMeasure { get; set; }
+
         public int Duration { get; set; }
         public T Event { get; set; }
         public TimedEvent(T @event, int start, int end)
         {
             if (end <= start)
                 throw new ArgumentOutOfRangeException();
-            this.Start = start;
-            this.End = end;
-            this.Duration = this.End - this.Start;
-            Debug.Assert(this.Duration > 10);
+            this.StartFromMeasure = start;
+            this.EndFromMeasure = end;
+            Debug.WriteLine($"{this.StartFromMeasure}:{this.EndFromMeasure}, {this.StartFromSong}:{this.EndFromMeasure}, {@event.GetType().Name}");
+            this.Duration = this.EndFromMeasure - this.StartFromMeasure;
+
+            this.Event = @event;
+        }
+        public TimedEvent(T @event, int start, int end, int measure, int ppm)
+        {
+            if (end <= start)
+                throw new ArgumentOutOfRangeException();
+            this.StartFromMeasure = start;
+            this.EndFromMeasure = end;
+            this.StartFromSong = measure * ppm + start;
+            this.EndFromSong = measure * ppm + end;
+            Debug.WriteLine($"*** {this.StartFromMeasure}: {this.EndFromMeasure}, {@event.GetType().Name} ");
+            this.Duration = this.EndFromMeasure - this.StartFromMeasure;
 
             this.Event = @event;
         }
 
         public override string ToString()
         {
-            return $"{this.GetType().Name} Start={this.Start} End={this.End} Event={this.Event.ToString()}";
+            return $"{this.GetType().Name} Start={this.StartFromMeasure} End={this.EndFromMeasure} Event={this.Event.ToString()}";
         }
     }//class
+
+    public class TimedEventFactory
+    {
+        static public TimedEventFactory Instance { get; } = new TimedEventFactory();
+        public int PulsesPerMeasure { get; set; } = int.MinValue;
+
+        TimedEventFactory() { }
+
+        public TimedEvent<ChordFormula> CreateTimedEvent(ChordFormula formula, 
+            int start, 
+            int end,
+            int measureNumber)
+        {
+            Debug.Assert(this.PulsesPerMeasure != int.MinValue);
+            var result = new TimedEvent<ChordFormula>(formula,
+                start,
+                end,
+                measureNumber * PulsesPerMeasure + start,
+                measureNumber * PulsesPerMeasure + end );
+            return result;
+        }
+    }
 
     public class ParsingContext
     {
