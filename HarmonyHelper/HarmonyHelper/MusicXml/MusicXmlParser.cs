@@ -269,21 +269,25 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         KeySignature ParseKeySignature(XDocument doc)
         {
-            var result = KeySignature.CMajor;
+            KeySignature result = null;
             var fifths = Int32.Parse(
                 doc.Descendants(XmlConstants.key)
                 .Descendants(XmlConstants.fifths)
                 .First().Value);
-            if (fifths < 0)
+            if (fifths == 0)
             {
-                KeySignature.Catalog
+                result = KeySignature.CMajor;
+            }
+            else if (fifths < 0)
+            {
+                result = KeySignature.Catalog
                     .Where(x => x.UsesFlats
                         && x.AccidentalCount == Math.Abs(fifths))
                     .First();
             }
             else
             {
-                KeySignature.Catalog
+                result = KeySignature.Catalog
                     .Where(x => x.UsesSharps
                         && x.AccidentalCount == fifths)
                     .First();
