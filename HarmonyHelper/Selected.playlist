@@ -33,6 +33,22 @@
                 </Rule>
               </Rule>
             </Rule>
+            <Rule Match="All">
+              <Property Name="Namespace" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="ReHarmonizerTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests.ReHarmonizerTests.ReHarmonizeTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ReHarmonizeTest" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
           </Rule>
         </Rule>
       </Rule>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,39 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             this.Context = new ReHarmonizerContext(input);
             var chords = this.Context.GetChords();
+
+            var measures = this.Context.GetMergedMeasures();
+            foreach (var measure in measures) 
+            {
+                foreach (var chord in measure.Chords)
+                {
+                    Debug.WriteLine(chord.ToString());
+                    var notes = measure.Notes.GetIntersecting(chord.TimeContext);
+
+                    new object();
+                }
+            }
+
             new object();
         }
     }//class
+
+    public static class TimedEventExtensions
+    {
+        public static List<TimedEvent<T>> GetIntersecting<T>(this List<TimedEvent<T>> src, TimeContext window) 
+            where T : class, IComparable<T>
+        {
+            var result = new List<TimedEvent<T>>();
+            foreach (var item in src)
+            {
+                if (item.TimeContext.Intersects(window))
+                { 
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
+    }
 
     public class ReHarmonizerContext
     {
@@ -36,7 +67,26 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                        select c).ToList();
             return result;
         }
-    }//
+
+        public List<MusicXmlMeasure> GetMergedMeasures()
+        {
+            var result = new List<MusicXmlMeasure>();
+            var seq = (from p in this.MusicXmlParsingResult.Parts
+                          from m in p.Measures
+                          select m).ToList();
+            
+            var groupings = seq.GroupBy(x => x.MeasureNumber).ToList();
+            foreach (var grouping in groupings)
+            {
+                var merged = MusicXmlMeasure.CreateMerged(grouping.ToList());
+                result.Add(merged);
+            }
+
+            return result;
+        }
+
+
+    }//class
 }//ns
 
 

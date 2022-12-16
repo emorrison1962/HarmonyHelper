@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony;
+using System.Reflection;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -313,8 +314,84 @@ namespace Eric.Morrison.Harmony.Chords
 				result = this.Equals(obj as ChordFormula);
 			return result;
 		}
+        public int CompareTo(ChordFormula other)
+        {
+            var result = Compare(this, other);
+            return result;
+        }
+        public static int Compare(ChordFormula a, ChordFormula b)
+        {
+            if (a is null && b is null)
+                return 0;
+            else if (a is null)
+                return -1;
+            else if (b is null)
+                return 1;
 
-		public static bool operator <(ChordFormula a, ChordFormula b)
+            var result = a.Root.CompareTo(b.Root);
+
+            if (0 == result)
+            {
+                result = a.NoteNames.Count.CompareTo(b.NoteNames.Count);
+            }
+            if (0 == result)
+            {
+                for (int i = 0; i < a.NoteNames.Count; ++i)
+                {
+                    result = a.NoteNames[i].CompareTo(b.NoteNames[i]);
+                    if (0 != result)
+                        break;
+                }
+            }
+
+            if (0 == result)
+                result = a.Key.CompareTo(b.Key);
+            return result;
+        }
+        public override int GetHashCode()
+        {
+            var result = this.Root.GetHashCode();
+            this.NoteNames
+				.OrderBy(x => x.AsciiSortValue)
+				.ToList()
+				.ForEach(x => result ^= x.GetHashCode());
+            result ^= this.Key.GetHashCode();
+            return result;
+        }
+        public static bool operator ==(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) == 0;
+            return result;
+        }
+        public static bool operator !=(ChordFormula a, ChordFormula b)
+        {
+            var result = Compare(a, b) != 0;
+            return result;
+        }
+
+        public ChordCompareResult CompareTo(ChordFormula other, bool logicalCompare)
+        {
+            var result = new ChordCompareResult(this, other);
+
+            var tones = this.NoteNames.Select(x => new ChordTone(this, x));
+            var otherTones = other.NoteNames.Select(x => new ChordTone(other, x));
+
+            var common = other.NoteNames.Intersect(this.NoteNames).ToList();
+
+
+            result.CommonTones = common;
+            var otherExcept = other.NoteNames.Except(this.NoteNames).Select(x => new ChordTone(other, x)).ToList();
+            var thisExcept = this.NoteNames.Except(other.NoteNames).Select(x => new ChordTone(this, x)).ToList();
+
+            var diff = new List<ChordTone>(otherExcept);
+            diff.AddRange(thisExcept);
+
+            result.DifferingTones = diff;
+
+            return result;
+        }
+
+        public static bool operator <(ChordFormula a, ChordFormula b)
 		{
 			var result = Compare(a, b) < 0;
 			return result;
@@ -332,81 +409,6 @@ namespace Eric.Morrison.Harmony.Chords
 		public static bool operator >=(ChordFormula a, ChordFormula b)
 		{
 			var result = Compare(a, b) >= 0;
-			return result;
-		}
-		public static bool operator ==(ChordFormula a, ChordFormula b)
-		{
-			var result = Compare(a, b) == 0;
-			return result;
-		}
-		public static bool operator !=(ChordFormula a, ChordFormula b)
-		{
-			var result = Compare(a, b) != 0;
-			return result;
-		}
-
-		public int CompareTo(ChordFormula other)
-		{
-			var result = Compare(this, other);
-			return result;
-		}
-		public static int Compare(ChordFormula a, ChordFormula b)
-		{
-			if (a is null && b is null)
-				return 0;
-			else if (a is null)
-				return -1;
-			else if (b is null)
-				return 1;
-
-			var result = a.Root.CompareTo(b.Root);
-
-			if (0 == result)
-			{
-				result = a.NoteNames.Count.CompareTo(b.NoteNames.Count);
-			}
-			if (0 == result)
-			{
-				for (int i = 0 ; i < a.NoteNames.Count ; ++i)
-				{
-					result = a.NoteNames[i].CompareTo(b.NoteNames[i]);
-					if (0 != result)
-						break;
-				}
-			}
-
-			if (0 == result)
-				result = a.Key.CompareTo(b.Key);
-			return result;
-		}
-		public override int GetHashCode()
-		{
-			var result = this.Root.GetHashCode();
-			this.NoteNames.ForEach(x => result ^= x.GetHashCode());
-			result ^= this.Key.GetHashCode();
-
-			return result;
-		}
-
-		public ChordCompareResult CompareTo(ChordFormula other, bool logicalCompare)
-		{
-			var result = new ChordCompareResult(this, other);
-
-			var tones = this.NoteNames.Select(x => new ChordTone(this, x));
-			var otherTones = other.NoteNames.Select(x => new ChordTone(other, x));
-
-			var common = other.NoteNames.Intersect(this.NoteNames).ToList();
-
-
-			result.CommonTones = common;
-			var otherExcept = other.NoteNames.Except(this.NoteNames).Select(x => new ChordTone(other, x)).ToList();
-			var thisExcept = this.NoteNames.Except(other.NoteNames).Select(x => new ChordTone(this, x)).ToList();
-
-			var diff = new List<ChordTone>(otherExcept);
-			diff.AddRange(thisExcept);
-
-			result.DifferingTones = diff;
-
 			return result;
 		}
 

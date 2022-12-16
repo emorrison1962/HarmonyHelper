@@ -90,7 +90,7 @@ namespace Eric.Morrison.Harmony
 		{
 			var result = false;
 			if (this.NoteName.Equals(other.NoteName)
-				&& this.Octave == other.Octave)
+				&& (int)this.Octave == (int)other.Octave)
 				result = true;
 			return result;
 		}

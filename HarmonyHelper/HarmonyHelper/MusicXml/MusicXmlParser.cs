@@ -61,8 +61,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ParsingContext.Metadata = metadata;
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
-#warning FIXME:
-            var parts = this.ParseParts(doc).Skip(1).ToList();
+            var parts = this.ParseParts(doc).ToList();
             foreach (var part in parts)
             {
                 //this.ParsingContext.CurrentPart = part;
@@ -572,8 +571,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return this.ParseChord(harmony);
         }
 
-        List<TimedEvent<object>> Events { get; set; } = new List<TimedEvent<object>>();
-
         [Obsolete("", true)]
         TimedEvent<Note> ParseNote(XElement xnote)
         {// https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
@@ -623,7 +620,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         private TimedEvent<Note> ParsePitched(XElement xnote)
         {
             TimedEvent<Note> result = null;
-            var lastEvent = this.Events.LastOrDefault();
 
             Note hhNote = null;
             int duration = 0;
@@ -688,7 +684,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Debug.Assert(start != end);
             }
 
-            result = new TimedEvent<Note>(hhNote, start, end);
+            //result = new TimedEvent<Note>(hhNote, start, end);
+            result = TimedEventFactory.Instance.CreateTimedEvent(hhNote,
+                this.ParsingContext.CurrentMeasure.MeasureNumber,
+                start,
+                end);
+
+
             return result;
         }
 
@@ -831,9 +833,15 @@ namespace Eric.Morrison.Harmony.MusicXml
             var duration = ParseDuration(xnote);
             if (xnote.Descendants(XmlConstants.rest).Any())
             {
-                result = new TimedEvent<Rest>(new Rest(), 
-                    this.ParsingContext.CurrentOffset, 
+                //result = new TimedEvent<Rest>(new Rest(), 
+                //    this.ParsingContext.CurrentOffset, 
+                //    this.ParsingContext.CurrentOffset + duration);
+                result = TimedEventFactory.Instance.CreateTimedEvent(new Rest(),
+                    this.ParsingContext.CurrentMeasure.MeasureNumber,
+                    this.ParsingContext.CurrentOffset,
                     this.ParsingContext.CurrentOffset + duration);
+
+
                 this.ParsingContext.CurrentOffset += duration;
             }
 
@@ -992,25 +1000,36 @@ namespace Eric.Morrison.Harmony.MusicXml
             var kind = harmony.Descendants(XmlConstants.kind).First();
             var formula = this.ParseKind(strRoot, kind);
 
-            var strOffset = harmony.Descendants(XmlConstants.offset).FirstOrDefault()?.Value;
-            var start = 0;
-            if (!string.IsNullOrEmpty(strOffset))
+
+            var start = ParsingContext.CurrentOffset;
+            var end = this.ParsingContext.Metadata.PulsesPerMeasure;
+
+            if (harmony.Elements(XmlConstants.offset).Any())
             {
-                if (!Int32.TryParse(strOffset, out start))
+                start = ParsingContext.CurrentOffset + int.Parse(
+                    harmony.Element(XmlConstants.offset).Value);
+            }
+            if (harmony.ElementsAfterSelf().Elements(XmlConstants.harmony).Any())
+            {
+                var sibling = harmony.ElementsAfterSelf().Elements(XmlConstants.harmony).First();
+                if (sibling.Elements(XmlConstants.offset).Any())
                 {
-                    start = 0;
+                    end = int.Parse(
+                        sibling.Element(XmlConstants.offset).Value);
                 }
             }
+            Debug.Assert(start >= 0);
+
             //var result = new TimedEvent<ChordFormula>(formula,
             //    offset,
             //    this.ParsingContext.CurrentMeasure.MeasureNumber 
             //        * this.ParsingContext.Metadata.PulsesPerMeasure
             //        + offset);
-            throw new NotImplementedException();
+            //throw new NotImplementedException("We're getting wacky TimeContexts.");
             var result = TimedEventFactory.Instance.CreateTimedEvent(formula,
+                this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
-                this.ParsingContext.Metadata.PulsesPerMeasure + start,
-                this.ParsingContext.CurrentMeasure.MeasureNumber);
+                end);
 
             return result;
         }
