@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -37,8 +38,26 @@ namespace Eric.Morrison.Harmony.Chords
 		{
             foreach (var ct in ChordType.Catalog)
 			{
-				throw new NotImplementedException("How to add KeySignature dynamically to altered chords??");
-			}
+				foreach (var nn in NoteName.Catalog)
+				{
+					foreach (var key in KeySignature.Catalog)
+					{
+						var cf = ChordFormulaFactory.Create(nn, ct, key);
+						if (key.Contains(cf.NoteNames, out var blueNotes))
+						{
+							var keyName = key.Name
+								.Replace("♯", "Sharp")
+								.Replace("♭", "b")
+								.Replace(" ", "");
+
+
+                            Debug.WriteLine($"\t\t\tFormulas.Add({nn}{ct.Name} = ChordFormulaFactory.Create({nn}, {ct}, KeySignature.{keyName}));\r\n");
+							//Debug.WriteLine($"{cf} is compatible with {key}. diatonis.Count={cf.NoteNames.Count - blueNotes.Count}, blueNotes.Count={blueNotes.Count}");
+						}
+					}
+				}
+                //throw new NotImplementedException("How to add KeySignature dynamically to altered chords??");
+            }
 
             var dominant7th = ChordType.Dominant7th;
 
