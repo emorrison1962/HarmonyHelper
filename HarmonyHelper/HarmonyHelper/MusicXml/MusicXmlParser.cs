@@ -27,7 +27,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlParser : IMusicXmlParser
+    public class MusicXmlParser
     {
         #region Constants
 
@@ -61,7 +61,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ParsingContext.Metadata = metadata;
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
-            var parts = this.ParseParts(doc).ToList();
+#warning FIXME:            
+            var parts = this.ParseParts(doc).Skip(1).ToList();
             foreach (var part in parts)
             {
                 //this.ParsingContext.CurrentPart = part;
@@ -363,7 +364,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                 else if (xelement.Name == XmlConstants.harmony)
                 {
-                    var chord = this.ParseHarmony(xelement);
+                    var chord = this.ParseChord(xelement, chords);
                     Debug.Assert(chord != null);
                     chords.Add(chord);
                 }
@@ -564,11 +565,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             //    }
             //}
             return result;
-        }
-
-        TimedEvent<ChordFormula> ParseHarmony(XElement harmony)
-        {
-            return this.ParseChord(harmony);
         }
 
         [Obsolete("", true)]
@@ -775,46 +771,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        [Obsolete("", true)]
-        async public Task ResolveTiedNote(TiedNoteContext tieStop)
-        {
-#if false
-            var tieStart = this.ParsingContext.TiedNotes.Where(x => tieStop.Equals(x.Key)).First().Key;
-
-            if (!this.ParsingContext.TiedNotes.TryRemove(tieStart, out var unused01))
-            {
-                new object();
-            }
-            if (!this.ParsingContext.TiedNotes.TryRemove(tieStop, out var unused02))
-            {
-                new object();
-            }
-
-            Debug.Assert(tieStart.Measure == tieStop.Measure);
-
-            try
-            {
-                var start = tieStart.Offset;
-                var end = tieStop.Offset + tieStop.Duration;
-                Debug.Assert(start < end);
-                var result = new TimedEvent<Note>(tieStart.Note,
-                    start,
-                    end);
-                this.ParsingContext.CurrentMeasure.Add(result);
-            }
-            catch (Exception ex)
-            {
-                Debug.Assert(false, ex.GetBaseException().Message);
-            }
-
-            //this.TiedNotes
-
-            new object();
-
-            await Task.CompletedTask;
-#endif
-        }
-
         public HashSet<string> UnpitchedDescendants { get; private set; } = new HashSet<string>();
 
         private void ParseUnpitched(XElement xnote)
@@ -983,7 +939,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        TimedEvent<ChordFormula> ParseChord(XElement harmony)
+        TimedEvent<ChordFormula> ParseChord(XElement harmony, List<TimedEvent<ChordFormula>> existingChords)
         {
 #if false
       <harmony>
@@ -1030,6 +986,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
                 end);
+            
+            if (existingChords.Count != 0)
+            {
+                var previousChord = existingChords.Last();
+                previousChord.TimeContext.RelativeEnd = result.RelativeStart;
+            }
 
             return result;
         }

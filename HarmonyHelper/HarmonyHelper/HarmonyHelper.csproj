@@ -44,7 +44,6 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_Rule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
-    <Compile Include="MusicXml\IMusicXmlParser.cs" />
     <Compile Include="MusicXml\MusicXmlParser_old.cs" />
     <Compile Include="MusicXml\MusicXmlParser.cs" />
     <Compile Include="MusicXml\MusicXml.Domain.cs" />
@@ -146,6 +145,7 @@
     <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
     <EmbeddedResource Include="Resources\parttime.xsl" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
+    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.Domain.cs" />
     <None Include="_How Duration Works.XML" />
     <Content Include="_TODO.txt" />
   </ItemGroup>

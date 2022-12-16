@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Tests
             path = Path.GetDirectoryName(path);
             //path = Path.GetDirectoryName(path);
             path = Path.Combine(path, "TEST_FILES");
-            path = Path.Combine(path, "(All Of A Sudden) My Heart Sings.XML");
+            path = Path.Combine(path, "All Of ME.XML");
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 

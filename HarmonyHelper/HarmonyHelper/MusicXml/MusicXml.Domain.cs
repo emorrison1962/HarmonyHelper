@@ -218,7 +218,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = this.Event.GetHashCode()
                 ^ this.TimeContext.ToString().GetHashCode();
-            Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}: {this.ToString()}={result}");
+            //Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}: {this.ToString()}={result}");
 
             return result;
         }

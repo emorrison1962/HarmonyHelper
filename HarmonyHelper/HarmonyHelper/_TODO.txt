@@ -19,3 +19,5 @@ Import of BiaB copy song cipboard format:
 
 Read/ write MusicXml
 
+Recognize repeated sections in MusicXmlParser.
+

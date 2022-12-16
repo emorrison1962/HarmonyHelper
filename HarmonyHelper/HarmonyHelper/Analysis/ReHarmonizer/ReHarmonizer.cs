@@ -13,24 +13,44 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     public class ReHarmonizer
     {
         ReHarmonizerContext Context { get; set; }
+        
         public void ReHarmonize(MusicXmlParsingResult input) 
         {
             this.Context = new ReHarmonizerContext(input);
-            var chords = this.Context.GetChords();
+            var pairings = new List<ChordMelodyPairing>();
 
+            var chords = this.Context.GetChords();
             var measures = this.Context.GetMergedMeasures();
             foreach (var measure in measures) 
             {
                 foreach (var chord in measure.Chords)
                 {
-                    Debug.WriteLine(chord.ToString());
+                    //Debug.WriteLine(chord.ToString());
                     var notes = measure.Notes.GetIntersecting(chord.TimeContext);
-
+                    pairings.Add(new ChordMelodyPairing(chord.Event, 
+                        notes.Select(x => x.Event).ToList()));
                     new object();
                 }
             }
 
+            foreach (var pairing in pairings)
+            {
+                var substitutions = this.ReHarmonize(pairing);
+            }
+
             new object();
+        }
+
+        private List<ChordFormula> ReHarmonize(ChordMelodyPairing pairing)
+        {
+            var keys = KeySignature.Catalog.Where(x => x.AreDiatonic(pairing.Melody));
+            foreach (var key in keys)
+            {
+                var notesStr = string.Join(", ", pairing.Melody);
+                Debug.WriteLine($"{key} contains: {notesStr}");
+            }
+            Debug.WriteLine("====================================");
+            return null;
         }
     }//class
 
