@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -34,7 +35,12 @@ namespace Eric.Morrison.Harmony.Chords
 
 		static ChordFormulaCatalog()
 		{
-			var dominant7th = ChordType.Dominant7th;
+            foreach (var ct in ChordType.Catalog)
+			{
+				throw new NotImplementedException("How to add KeySignature dynamically to altered chords??");
+			}
+
+            var dominant7th = ChordType.Dominant7th;
 
 			Formulas.Add(C7 = ChordFormulaFactory.Create(NoteName.C, dominant7th, KeySignature.FMajor));
 			Formulas.Add(F7 = ChordFormulaFactory.Create(NoteName.F, dominant7th, KeySignature.BbMajor));

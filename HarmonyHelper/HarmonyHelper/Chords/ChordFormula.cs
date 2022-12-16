@@ -95,7 +95,46 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-		public void SetBassNote(NoteName bass)
+        public bool Contains(List<NoteName> notes)
+        {
+            bool result = false;
+
+            var nns = (from nn in this.NoteNames
+                        where notes.Any(x => x.Equals(nn))
+                        select nn);
+			if (nns.Count() == notes.Count)
+				result = true;
+
+            return result;
+        }
+
+        public bool Contains(List<NoteName> notes, out List<NoteName> blueNotes)
+        {
+
+            bool result = false;
+
+            var nns = (from nn in this.NoteNames
+                       where notes.Any(x => x.Equals(nn))
+                       select nn).ToList();
+
+            blueNotes = notes.Except(nns).ToList();
+
+			if (nns.Count > blueNotes.Count)
+			{
+				if (blueNotes.Count > 0)
+				{
+					new object();
+                    result = true;
+                }
+            }
+
+            if (nns.Count == notes.Count)
+                result = true;
+
+            return result;
+        }
+
+        public void SetBassNote(NoteName bass)
 		{
 			this.Bass = bass;
 		}

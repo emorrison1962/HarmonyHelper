@@ -27,8 +27,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 {
                     //Debug.WriteLine(chord.ToString());
                     var notes = measure.Notes.GetIntersecting(chord.TimeContext);
-                    pairings.Add(new ChordMelodyPairing(chord.Event, 
-                        notes.Select(x => x.Event).ToList()));
+                    var pairing = new ChordMelodyPairing(chord,
+                        notes.ToList(),
+                        chord.TimeContext);
+                    pairings.Add(pairing);
                     new object();
                 }
             }
@@ -43,12 +45,45 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         private List<ChordFormula> ReHarmonize(ChordMelodyPairing pairing)
         {
+            var notesStr = string.Join(", ", pairing.Melody);
+
             var keys = KeySignature.Catalog.Where(x => x.AreDiatonic(pairing.Melody));
             foreach (var key in keys)
             {
-                var notesStr = string.Join(", ", pairing.Melody);
-                Debug.WriteLine($"{key} contains: {notesStr}");
+                var formulas = ChordFormulaCatalog.Formulas
+                    .Where(x => x.Key == key);
+                var matches = new List<ChordFormula>();
+                foreach (var formula in formulas)
+                {
+                    if (formula.Contains(pairing.Melody, out var blueNotes))
+                    {
+                        matches.Add(formula);
+                        Debug.WriteLine($"{key}, {formula} contains: {notesStr}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"**** {key}, NO FORMULA contains: {notesStr}");
+                    }
+                }
+
             }
+            if (keys.Count() == 0)
+            {
+                if (pairing.Melody.Count > 7)
+                {
+                    Debug.WriteLine($"******** Need to handle Blue Notes: {notesStr}!");
+                    //Is it reliable to count on duration to identify blue notes?
+                    // Add "Straight, No Chaser" as a test file.
+                    new object();
+                }
+                else
+                {//Need to handle Blue Notes!
+                    Debug.WriteLine($"******** Need to handle Blue Notes: {notesStr}!");
+                    new object();
+                }
+            }
+
+
             Debug.WriteLine("====================================");
             return null;
         }
