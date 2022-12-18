@@ -32,39 +32,140 @@ namespace Eric.Morrison.Harmony
 		#region Construction
 		private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor, bool addToCatalog = true)
 		{
-			this.NoteName = key;
-			this.NoteNames = new List<NoteName>(notes);
-			this.AccidentalCount = this.NoteNames.Where(x => x.Name.EndsWith(Constants.SHARP)
-				|| x.Name.EndsWith(Constants.FLAT)).Count();
+            this.NoteName = key;
+            this.NoteNames = new List<NoteName>(notes);
+            this.AccidentalCount = this.NoteNames.Where(x => x.Name.EndsWith(Constants.SHARP)
+                || x.Name.EndsWith(Constants.FLAT)).Count();
 
-			if (usesSharps.HasValue)
-			{
-				this.UsesSharps = usesSharps.Value;
-				this.UsesFlats = !usesSharps.Value;
-			}
-			if (0 == this.NoteNames.Count)
-				this.UsesFlats = false;
-
-			this.IsMajor = isMajor;
-			this.IsMinor = isMinor;
-			if (this.IsMajor || this.IsMinor)
-			{
-				if (addToCatalog)
-					Catalog.Add(this);
+            if (usesSharps.HasValue)
+            {
+                this.UsesSharps = usesSharps.Value;
+                this.UsesFlats = !usesSharps.Value;
             }
-			if (this.IsMajor)
-			{
+            if (0 == this.NoteNames.Count)
+                this.UsesFlats = false;
+
+            this.IsMajor = isMajor;
+            this.IsMinor = isMinor;
+            if (this.IsMajor || this.IsMinor)
+            {
+                if (addToCatalog)
+                    Catalog.Add(this);
+            }
+            if (this.IsMajor)
+            {
                 if (addToCatalog)
                     MajorKeys.Add(this);
-			}
-			else if (this.IsMinor)
-			{
+            }
+            else if (this.IsMinor)
+            {
                 if (addToCatalog)
                     MinorKeys.Add(this);
             }
             var majMin = this.IsMajor ? "Major" : "Minor";
-			this.Name = $"{this.NoteName} {majMin}";
+            this.Name = $"{this.NoteName} {majMin}";
+
+            this.Init();
 		}
+
+		void Init()
+		{
+			this.SetChords();
+        }
+
+        void SetChords()
+		{
+			if (this.IsMajor)
+			{
+                var ii = this.NoteName + Interval.Major2nd;
+                var iii = this.NoteName + Interval.Major3rd;
+                var IV = this.NoteName + Interval.Perfect4th;
+                var V = this.NoteName + Interval.Perfect5th;
+                var vi = this.NoteName + Interval.Major6th;
+                var vii = this.NoteName + Interval.Major7th;
+
+				this.Ionian = ChordFormulaCatalog.Formulas
+					.Where(x => x.ChordType == ChordType.Major7th
+						&& x.Root == this.NoteName)
+					.First();
+                
+				this.Dorian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == ii)
+                    .First();
+                
+				this.Phrygian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == iii)
+                    .First();
+                
+				this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Major7th
+                        && x.Root == IV)
+                    .First();
+                
+				this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Dominant7th
+                        && x.Root == V)
+                    .First();
+                
+				this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == vi)
+                    .First();
+                
+				this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.HalfDiminished
+                        && x.Root == vii)
+                    .First();
+
+            }
+            else
+			{
+#warning FIXME: Use harmonic minor. 
+				var ii = this.NoteName + Interval.Major2nd;
+                var iii = this.NoteName + Interval.Minor3rd;
+                var IV = this.NoteName + Interval.Perfect4th;
+                var V = this.NoteName + Interval.Perfect5th;
+                var vi = this.NoteName + Interval.Minor6th;
+                var vii = this.NoteName + Interval.Minor7th;
+
+                this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == this.NoteName)
+                    .First();
+
+                this.Dorian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.HalfDiminished
+                        && x.Root == ii)
+                    .First();
+
+                this.Phrygian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Major7th
+                        && x.Root == iii)
+                    .First();
+
+                this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == IV)
+                    .First();
+
+                this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Minor7th
+                        && x.Root == V)
+                    .First();
+
+                this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Major7th
+                        && x.Root == vi)
+                    .First();
+
+                this.Ionian = ChordFormulaCatalog.Formulas
+                    .Where(x => x.ChordType == ChordType.Dominant7th
+                        && x.Root == vii)
+                    .First();
+            }
+        }
 
 		#endregion
 
@@ -316,14 +417,19 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public bool AreDiatonic(List<NoteName> noteNames, out int nonDiatonicCount)
+		public IsDiatonicEnum AreDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
 		{
-			bool result = false;
-			nonDiatonicCount = noteNames.Except(this.NoteNames, 
-				new NoteNameExplicitEqualityComparer()).Count();
-			if (0 == nonDiatonicCount)
-				result = true;
-			return result;
+			var result = IsDiatonicEnum.Unknown;
+            blueNotes = nns.Except(this.NoteNames, 
+				new NoteNameExplicitEqualityComparer())
+				.ToList();
+			if (0 == blueNotes.Count)
+				result = IsDiatonicEnum.Yes;
+            else if (blueNotes.Count < nns.Count)
+                result = IsDiatonicEnum.Partially;
+            else 
+                result = IsDiatonicEnum.No;
+            return result;
 		}
 
 		static public KeySignature DetermineKey(List<ChordFormula> chords)
@@ -362,21 +468,26 @@ namespace Eric.Morrison.Harmony
 			matchedKey = null;
 			probableKey = null;
 			var result = false;
-			var keys = new List<Tuple<int, KeySignature>>();
+			var keys = new List<Tuple<List<NoteName>, KeySignature>>();
 			foreach (var key in KeySignature.Catalog)
 			{
-				if (key.AreDiatonic(notes, out var notDiatonicCount))
+				var areDiatonic = key.AreDiatonic(notes, out var blueNotes);
+                if (areDiatonic == IsDiatonicEnum.Yes)
 				{
 					matchedKey = key;
 					result = true;
 					break;
 				}
-				else
+				else if (areDiatonic == IsDiatonicEnum.Partially)
 				{
-					keys.Add(new Tuple<int, KeySignature>(notDiatonicCount, key));
+					keys.Add(new Tuple<List<NoteName>, KeySignature>(blueNotes, key));
 				}
-			}
-			if (!result)
+                else 
+                {
+                    keys.Add(new Tuple<List<NoteName>, KeySignature>(blueNotes, key));
+                }
+            }
+            if (!result)
 			{
 				var probableTuple = keys.OrderBy(x => x.Item1)
 					.ThenBy(x => x.Item2.AccidentalCount)
@@ -431,5 +542,14 @@ namespace Eric.Morrison.Harmony
 				.First();
 			return result;
 		}
+
+		public ChordFormula Ionian { get; private set; }
+		public ChordFormula Dorian { get; private set; }
+		public ChordFormula Phrygian { get; private set; }
+		public ChordFormula Lydian { get; private set; }
+		public ChordFormula MixoLydian { get; private set; }
+		public ChordFormula Aeolian { get; private set; }
+        public ChordFormula Locrian { get; private set; }
+
 	}//class
 }//ns

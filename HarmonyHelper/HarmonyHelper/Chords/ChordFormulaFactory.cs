@@ -14,8 +14,6 @@ namespace Eric.Morrison.Harmony.Chords
 				throw new ArgumentNullException();
 			if (null == chordType)
 				throw new ArgumentNullException();
-			if (null == key)
-				throw new ArgumentNullException();
 
 			var result = new ChordFormula(root, chordType, key);
 			return result;

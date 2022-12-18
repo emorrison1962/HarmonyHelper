@@ -183,6 +183,15 @@ namespace Eric.Morrison.Harmony
 		Seventh = 6,
 		Octave = 7,
 	};
+
+    public enum IsDiatonicEnum
+    {
+        Unknown,
+        Yes,
+        Partially,
+        No
+    };
+
 }//ns
 
 namespace Eric.Morrison.Harmony.MusicXml

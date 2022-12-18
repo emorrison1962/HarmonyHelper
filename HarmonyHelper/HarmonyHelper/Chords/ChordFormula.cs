@@ -11,10 +11,11 @@ namespace Eric.Morrison.Harmony.Chords
 	public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>
     {
 		static public NullChordFormula Empty = NullChordFormula.Create();
-		
-		#region Properties
+		public static readonly ChordFormulaCatalog Catalog = new ChordFormulaCatalog(); 
 
-		public NoteName Root { get; private set; }
+        #region Properties
+
+        public NoteName Root { get; private set; }
 		public NoteName Bass { get; private set; }
 		public KeySignature Key { get; private set; }
 		public ChordType ChordType { get; private set; }
@@ -38,8 +39,6 @@ namespace Eric.Morrison.Harmony.Chords
 		public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
 		{
 			if (null == root)
-				throw new NullReferenceException();
-			if (null == key)
 				throw new NullReferenceException();
 
 			this.NoteNames.Add(this.Root = root);

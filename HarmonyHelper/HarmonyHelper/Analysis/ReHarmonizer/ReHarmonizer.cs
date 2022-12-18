@@ -47,7 +47,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var notesStr = string.Join(", ", pairing.Melody);
 
-            var keys = KeySignature.Catalog.Where(x => x.AreDiatonic(pairing.Melody));
+            var keys = KeySignature.Catalog.Where(x => IsDiatonicEnum.Partially >= x.AreDiatonic(pairing.Melody, out var blueNotes))
+                .ToList();
             foreach (var key in keys)
             {
                 var formulas = ChordFormulaCatalog.Formulas
@@ -65,7 +66,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                         Debug.WriteLine($"**** {key}, NO FORMULA contains: {notesStr}");
                     }
                 }
-
             }
             if (keys.Count() == 0)
             {

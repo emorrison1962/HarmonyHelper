@@ -1,5 +1,4 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
-using Kohoutech.Score;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-    public static class ChordFormulaCatalog
+    public class ChordFormulaCatalog
     {
         #region Chords
         static public readonly ChordFormula BSharpaug;
