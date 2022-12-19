@@ -106,6 +106,9 @@
   <ItemGroup>
     <Content Include="MusicXML_TEMPLATE.xml" />
     <Content Include="MusicXML_TEMPLATE_02.xml" />
+    <Content Include="TEST_FILES\%28All Of A Sudden%29 My Heart Sings.XML" />
+    <Content Include="TEST_FILES\BUG and Triplet example.xml" />
+    <Content Include="TEST_FILES\Straight, No Chaser - Thelonious Monk.XML" />
     <None Include="TEST_FILES\All Of Me-timewise.xml" />
     <None Include="TEST_FILES\All Of Me.XML" />
   </ItemGroup>

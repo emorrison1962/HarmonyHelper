@@ -1,6 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
-using Kohoutech.Score.MusicXML;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

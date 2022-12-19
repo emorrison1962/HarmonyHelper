@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
-using Kohoutech.Score.MusicXML;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
@@ -77,11 +76,11 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 {
                     if (formula.Contains(pairing.Melody, 
                         out var contained, 
-                        out var notContained) >= ContainsEnum.Yes)
+                        out var notContained) >= ContainsEnum.Partially)
                     {
                         if (matchesSet.Add(formula))
                         {
-                            Debug.WriteLine($"{formula} \t\tcontains: {string.Join(",", contained)}, does not contain: {string.Join(",", notContained)}, melody: {notesStr}");
+                            Debug.WriteLine($"{formula.ToString().Replace('♭', 'b').PadRight(32)} contains: {string.Join(",", contained).PadRight(16)}, does not contain: {string.Join(",", notContained).PadRight(16)}, melody: {notesStr}");
                         }
                     }
                     else
