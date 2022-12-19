@@ -187,10 +187,19 @@ namespace Eric.Morrison.Harmony
     public enum IsDiatonicEnum
     {
         Unknown,
-        Yes,
+        No,
         Partially,
-        No
+        Yes,
     };
+
+    public enum ContainsEnum
+    {
+        Unknown,
+        No,
+        Partially,
+        Yes
+    };
+
 
 }//ns
 

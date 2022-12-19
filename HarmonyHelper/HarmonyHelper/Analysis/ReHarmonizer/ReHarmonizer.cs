@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
+using Kohoutech.Score.MusicXML;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
@@ -45,28 +47,58 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         private List<ChordFormula> ReHarmonize(ChordMelodyPairing pairing)
         {
-            var notesStr = string.Join(", ", pairing.Melody);
+            var ks2cfMap = new KeySignature2ChordFormulaMap();
+            var cf2ksMap = new ChordFormula2KeySignatureMap();
 
-            var keys = KeySignature.Catalog.Where(x => IsDiatonicEnum.Partially >= x.AreDiatonic(pairing.Melody, out var blueNotes))
-                .ToList();
-            foreach (var key in keys)
+            List<KeySignature> mappedKeys = cf2ksMap.GetKeys(pairing.Chord);
+            Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
+            foreach (var key in mappedKeys)
             {
-                var formulas = ChordFormulaCatalog.Formulas
-                    .Where(x => x.Key == key);
-                var matches = new List<ChordFormula>();
+                Debug.WriteLine($"\t{key}");
+            }
+
+
+
+            var notesStr = string.Join(",", pairing.Melody);
+
+            var keys = KeySignature.Catalog
+                .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) >= IsDiatonicEnum.Partially)
+                .OrderBy(x => x.NoteName)
+                .ToList();
+
+            var matchesSet = new HashSet<ChordFormula>();
+            var formulas = ks2cfMap.GetChordFormulas(keys);
+            //foreach (var key in keys)
+            {
+                //var formulas = ks2cfMap.GetChordFormulas(key);
+                //var formulas = ChordFormulaCatalog.Formulas
+                //    .Where(x => x.Key == key);
                 foreach (var formula in formulas)
                 {
-                    if (formula.Contains(pairing.Melody, out var blueNotes))
+                    if (formula.Contains(pairing.Melody, 
+                        out var contained, 
+                        out var notContained) >= ContainsEnum.Yes)
                     {
-                        matches.Add(formula);
-                        Debug.WriteLine($"{key}, {formula} contains: {notesStr}");
+                        if (matchesSet.Add(formula))
+                        {
+                            Debug.WriteLine($"{formula} \t\tcontains: {string.Join(",", contained)}, does not contain: {string.Join(",", notContained)}, melody: {notesStr}");
+                        }
                     }
                     else
                     {
-                        Debug.WriteLine($"**** {key}, NO FORMULA contains: {notesStr}");
+                        //Debug.WriteLine($"**** {key}, NO FORMULA contains: {notesStr}");
                     }
                 }
             }
+
+            /*
+            var matches = matchesSet.OrderBy(x => x).ToList();
+            foreach (var match in matches)
+            {
+                Debug.WriteLine($"{match} \t\tcontains: {notesStr}");
+            }
+
+
             if (keys.Count() == 0)
             {
                 if (pairing.Melody.Count > 7)
@@ -82,7 +114,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                     new object();
                 }
             }
-
+            */
 
             Debug.WriteLine("====================================");
             return null;

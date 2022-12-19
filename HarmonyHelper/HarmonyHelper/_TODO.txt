@@ -21,3 +21,16 @@ Read/ write MusicXml
 
 Recognize repeated sections in MusicXmlParser.
 
+View Chord chart in NeckDiagrams.
+View Staff in NeckDiagrams.
+
+ChordFormula/ Key mapping.
+
+Create Harmonic Minor Key subclass.
+
+ChordFormula: 
+	Extensions, 
+	Altered chords, 
+	EqualityComparer that includes extensions,
+	Chord substitutions
+

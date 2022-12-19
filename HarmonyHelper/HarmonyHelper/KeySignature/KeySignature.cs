@@ -133,37 +133,37 @@ namespace Eric.Morrison.Harmony
                 this.Ionian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == this.NoteName)
-                    .First();
+                    .FirstOrDefault();
 
                 this.Dorian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.HalfDiminished
                         && x.Root == ii)
-                    .First();
+                    .FirstOrDefault();
 
                 this.Phrygian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == iii)
-                    .First();
+                    .FirstOrDefault();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Lydian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == IV)
-                    .First();
+                    .FirstOrDefault();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.MixoLydian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == V)
-                    .First();
+                    .FirstOrDefault();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Aeolian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == vi)
-                    .First();
+                    .FirstOrDefault();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Locrian = ChordFormulaCatalog.Formulas
                     .Where(x => x.ChordType == ChordType.Dominant7th
                         && x.Root == vii)
-                    .First();
+                    .FirstOrDefault();
             }
         }
 
@@ -408,16 +408,16 @@ namespace Eric.Morrison.Harmony
 		{
 			return this.Name;
 		}
-		public bool AreDiatonic(List<NoteName> noteNames)
+		public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
 		{
-			bool result = false;
+			var result = IsDiatonicEnum.No;
 			var count = noteNames.Except(this.NoteNames).Count();
 			if (0 == count)
-				result = true;
+				result = IsDiatonicEnum.Yes;
 			return result;
 		}
 
-		public IsDiatonicEnum AreDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
+		public IsDiatonicEnum IsDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
 		{
 			var result = IsDiatonicEnum.Unknown;
             blueNotes = nns.Except(this.NoteNames, 
@@ -471,7 +471,7 @@ namespace Eric.Morrison.Harmony
 			var keys = new List<Tuple<List<NoteName>, KeySignature>>();
 			foreach (var key in KeySignature.Catalog)
 			{
-				var areDiatonic = key.AreDiatonic(notes, out var blueNotes);
+				var areDiatonic = key.IsDiatonic(notes, out var blueNotes);
                 if (areDiatonic == IsDiatonicEnum.Yes)
 				{
 					matchedKey = key;

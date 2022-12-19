@@ -107,28 +107,21 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        public bool Contains(List<NoteName> notes, out List<NoteName> blueNotes)
+        public ContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained)
         {
+            ContainsEnum result = ContainsEnum.Unknown;
 
-            bool result = false;
-
-            var nns = (from nn in this.NoteNames
-                       where notes.Any(x => x.Equals(nn))
+            contained = (from nn in this.NoteNames
+                       where criteria.Any(x => x.Equals(nn))
                        select nn).ToList();
+            notContained = criteria.Except(contained).ToList();
 
-            blueNotes = notes.Except(nns).ToList();
-
-			if (nns.Count > blueNotes.Count)
-			{
-				if (blueNotes.Count > 0)
-				{
-					new object();
-                    result = true;
-                }
-            }
-
-            if (nns.Count == notes.Count)
-                result = true;
+            if (0 == notContained.Count)
+                result = ContainsEnum.Yes;
+            else if (notContained.Count < contained.Count)
+                result = ContainsEnum.Partially;
+            else
+                result = ContainsEnum.No;
 
             return result;
         }
@@ -382,8 +375,8 @@ namespace Eric.Morrison.Harmony.Chords
                 }
             }
 
-            if (0 == result)
-                result = a.Key.CompareTo(b.Key);
+            //if (0 == result)
+            //    result = a.Key.CompareTo(b.Key);
             return result;
         }
         public override int GetHashCode()
@@ -393,7 +386,7 @@ namespace Eric.Morrison.Harmony.Chords
 				.OrderBy(x => x.AsciiSortValue)
 				.ToList()
 				.ForEach(x => result ^= x.GetHashCode());
-            result ^= this.Key.GetHashCode();
+            //result ^= this.Key.GetHashCode();
             return result;
         }
         public static bool operator ==(ChordFormula a, ChordFormula b)

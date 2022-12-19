@@ -298,21 +298,12 @@ namespace Eric.Morrison.Harmony
 			var result = new List<ChordFormula>();
 			foreach (var chord in chords)
 			{
-				if (!IsDiatonic(chord.NoteNames))
+				if (IsDiatonicEnum.Partially >= IsDiatonic(chord.NoteNames))
 					result.Add(chord);
 			}
 			return result;
 		}
 
-		bool IsDiatonic(List<NoteName> noteNames)
-		{
-			var result = false;
-
-			if (0 == noteNames.Except(this.NoteNames).Count())
-				result = true;
-
-			return result;
-		}
 
 	}//class
 }//ns

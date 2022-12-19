@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 .ToList();
 
             var key = KeySignature.DetermineKey(chords);
-            if (key.AreDiatonic(distinctNoteNames))
+            if (IsDiatonicEnum.Yes == key.IsDiatonic(distinctNoteNames))
             {
                 var chordNames = string.Join(", ", chords.Distinct()
                     .Select(x => $"{x.Name} ({GetChordFunction(x, key.NoteNames.IndexOf(x.Root))})"));
