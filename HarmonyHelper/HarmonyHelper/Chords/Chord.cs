@@ -64,8 +64,6 @@ namespace Eric.Morrison.Harmony.Chords
 		{
 			if (null == formula)
 				throw new ArgumentNullException();
-			if (null == formula.Key)
-				throw new ArgumentNullException();
 			if (null == noteRange)
 				throw new ArgumentNullException();
 

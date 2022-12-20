@@ -5,61 +5,63 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class ChordType
-	{
-		#region Statics
-		static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
-		static public ChordType None = new ChordType("None", ChordToneInterval.None);
-		static public ChordType Augmented = new ChordType("aug", ChordToneInterval.Major3rd, ChordToneInterval.Augmented5th);
-		static public ChordType Diminished = new ChordType("dim", ChordToneInterval.Minor3rd, ChordToneInterval.Diminished5th);
-		static public ChordType HalfDiminished = new ChordType("m7b5", Diminished.Intervals, ChordToneInterval.Minor7th);
-		static public ChordType Diminished7 = new ChordType("dim7", Diminished.Intervals, ChordToneInterval.Diminished7th);
+    public class ChordType : IChordType
+    {
+        static public readonly NullChordType Empty = NullChordType.Instance;
+
+        #region Statics
+        static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
+        static public ChordType None = new ChordType("None", ChordToneInterval.None);
+        static public ChordType Augmented = new ChordType("aug", ChordToneInterval.Major3rd, ChordToneInterval.Augmented5th);
+        static public ChordType Diminished = new ChordType("dim", ChordToneInterval.Minor3rd, ChordToneInterval.Diminished5th);
+        static public ChordType HalfDiminished = new ChordType("m7b5", Diminished.Intervals, ChordToneInterval.Minor7th);
+        static public ChordType Diminished7 = new ChordType("dim7", Diminished.Intervals, ChordToneInterval.Diminished7th);
 
 
-		#region Suspended chords
-		static public ChordType Sus2 = new ChordType("Sus2", ChordToneInterval.Sus2, ChordToneInterval.Perfect5th);
-		static public ChordType SevenSus2 = new ChordType("7Sus2", Sus2.Intervals, ChordToneInterval.Minor7th);
-		static public ChordType Sus4 = new ChordType("Sus4", ChordToneInterval.Sus4, ChordToneInterval.Perfect5th);
-		static public ChordType SevenSus4 = new ChordType("7Sus4", Sus4.Intervals, ChordToneInterval.Minor7th);
-		static public ChordType Sus2Sus4 = new ChordType("Sus2Sus4", Sus2.Intervals, ChordToneInterval.Sus4);
-		#endregion
+        #region Suspended chords
+        static public ChordType Sus2 = new ChordType("Sus2", ChordToneInterval.Sus2, ChordToneInterval.Perfect5th);
+        static public ChordType SevenSus2 = new ChordType("7Sus2", Sus2.Intervals, ChordToneInterval.Minor7th);
+        static public ChordType Sus4 = new ChordType("Sus4", ChordToneInterval.Sus4, ChordToneInterval.Perfect5th);
+        static public ChordType SevenSus4 = new ChordType("7Sus4", Sus4.Intervals, ChordToneInterval.Minor7th);
+        static public ChordType Sus2Sus4 = new ChordType("Sus2Sus4", Sus2.Intervals, ChordToneInterval.Sus4);
+        #endregion
 
 
-		#region Diatonic Minor chords
+        #region Diatonic Minor chords
 
-		static public ChordType Minor = new ChordType("m", ChordToneInterval.Minor3rd, ChordToneInterval.Perfect5th);
-		static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, ChordToneInterval.Minor7th);
-		static public ChordType MinorMaj7th = new ChordType("mM7", Minor.Intervals, ChordToneInterval.Major7th);
+        static public ChordType Minor = new ChordType("m", ChordToneInterval.Minor3rd, ChordToneInterval.Perfect5th);
+        static public ChordType Minor7th = new ChordType("m7", Minor.Intervals, ChordToneInterval.Minor7th);
+        static public ChordType MinorMaj7th = new ChordType("mM7", Minor.Intervals, ChordToneInterval.Major7th);
         static public ChordType MinorMaj7thAug5 = new ChordType("mMaj7aug5", ChordToneInterval.Minor3rd, ChordToneInterval.Augmented5th, ChordToneInterval.Major7th);
         static public ChordType Minor6th = new ChordType("m6", Minor.Intervals, ChordToneInterval.Major6th);
-		static public ChordType Minor9th = new ChordType("m9", Minor7th.Intervals, ChordToneInterval.Ninth);
-		static public ChordType Minor11th = new ChordType("m11", Minor9th.Intervals, ChordToneInterval.Eleventh);
-		static public ChordType Minor13th = new ChordType("m13", Minor11th.Intervals, ChordToneInterval.Thirteenth);
-		static public ChordType MinorAdd9 = new ChordType("mAdd9", Minor.Intervals, ChordToneInterval.Ninth);
+        static public ChordType Minor9th = new ChordType("m9", Minor7th.Intervals, ChordToneInterval.Ninth);
+        static public ChordType Minor11th = new ChordType("m11", Minor9th.Intervals, ChordToneInterval.Eleventh);
+        static public ChordType Minor13th = new ChordType("m13", Minor11th.Intervals, ChordToneInterval.Thirteenth);
+        static public ChordType MinorAdd9 = new ChordType("mAdd9", Minor.Intervals, ChordToneInterval.Ninth);
 
         #endregion
 
 
         #region Diatonic Major chords
         static public ChordType Major = new ChordType("Maj", ChordToneInterval.Major3rd, ChordToneInterval.Perfect5th);
-		static public ChordType Major6th = new ChordType("6", Major.Intervals, ChordToneInterval.Major6th);
-		static public ChordType Major7th = new ChordType("Maj7", Major.Intervals, ChordToneInterval.Major7th);
-		static public ChordType Major9th = new ChordType("Maj9", Major7th.Intervals, ChordToneInterval.Ninth);
-		static public ChordType Major11th = new ChordType("Maj11", Major9th.Intervals, ChordToneInterval.Eleventh);
-		static public ChordType Major13th = new ChordType("Maj13", Major11th.Intervals, ChordToneInterval.Thirteenth);
-		static public ChordType MajorAdd9 = new ChordType("Add9", Major.Intervals, ChordToneInterval.Ninth);
-		static public ChordType MajorMu = new ChordType("MajMu", Major.Intervals, ChordToneInterval.Ninth);
-		static public ChordType Major7b5 = new ChordType("Maj7b5", ChordToneInterval.Major3rd, ChordToneInterval.Diminished5th, ChordToneInterval.Major7th);
-		static public ChordType Major7Aug5 = new ChordType("Maj7aug5", ChordToneInterval.Major3rd, ChordToneInterval.Augmented5th, ChordToneInterval.Major7th);
+        static public ChordType Major6th = new ChordType("6", Major.Intervals, ChordToneInterval.Major6th);
+        static public ChordType Major7th = new ChordType("Maj7", Major.Intervals, ChordToneInterval.Major7th);
+        static public ChordType Major9th = new ChordType("Maj9", Major7th.Intervals, ChordToneInterval.Ninth);
+        static public ChordType Major11th = new ChordType("Maj11", Major9th.Intervals, ChordToneInterval.Eleventh);
+        static public ChordType Major13th = new ChordType("Maj13", Major11th.Intervals, ChordToneInterval.Thirteenth);
+        static public ChordType MajorAdd9 = new ChordType("Add9", Major.Intervals, ChordToneInterval.Ninth);
+        static public ChordType MajorMu = new ChordType("MajMu", Major.Intervals, ChordToneInterval.Ninth);
+        static public ChordType Major7b5 = new ChordType("Maj7b5", ChordToneInterval.Major3rd, ChordToneInterval.Diminished5th, ChordToneInterval.Major7th);
+        static public ChordType Major7Aug5 = new ChordType("Maj7aug5", ChordToneInterval.Major3rd, ChordToneInterval.Augmented5th, ChordToneInterval.Major7th);
 
-		#endregion
+        #endregion
 
 
-		#region Diatonic Dominant7 chords
-		static public ChordType Dominant7th = new ChordType("7", Major.Intervals, ChordToneInterval.Minor7th);
-		static public ChordType Dominant9th = new ChordType("9", Dominant7th.Intervals, ChordToneInterval.Ninth);
-		static public ChordType Dominant11th = new ChordType("11", Dominant9th.Intervals, ChordToneInterval.Eleventh);
-		static public ChordType Dominant13th = new ChordType("13", Dominant11th.Intervals, ChordToneInterval.Thirteenth);
+        #region Diatonic Dominant7 chords
+        static public ChordType Dominant7th = new ChordType("7", Major.Intervals, ChordToneInterval.Minor7th);
+        static public ChordType Dominant9th = new ChordType("9", Dominant7th.Intervals, ChordToneInterval.Ninth);
+        static public ChordType Dominant11th = new ChordType("11", Dominant9th.Intervals, ChordToneInterval.Eleventh);
+        static public ChordType Dominant13th = new ChordType("13", Dominant11th.Intervals, ChordToneInterval.Thirteenth);
 
         #endregion
 
@@ -67,170 +69,198 @@ namespace Eric.Morrison.Harmony.Chords
         #region Altered Dominant7 chords
         static public ChordType Dominant7b5 = new ChordType("7b5", ChordToneInterval.Major3rd, ChordToneInterval.Diminished5th, ChordToneInterval.Minor7th);
         static public ChordType Dominant7b9 = new ChordType("7b9", Dominant7th.Intervals, ChordToneInterval.Flat9th);
-		static public ChordType Dominant7Sharp9 = new ChordType("7sharp9", Dominant7th.Intervals, ChordToneInterval.Sharp9th);
-		#endregion
+        static public ChordType Dominant7Sharp9 = new ChordType("7sharp9", Dominant7th.Intervals, ChordToneInterval.Sharp9th);
+        #endregion
 
 
-		#endregion
+        #endregion
 
-		#region Properties
-		public string Name { get; private set; }
-		public int Value { get; private set; }
-		public List<ChordToneInterval> Intervals { get; set; } = new List<ChordToneInterval>();
+        #region Properties
+        virtual public string Name { get; private set; }
+        virtual public int Value { get; private set; }
+        virtual public List<ChordToneInterval> Intervals { get; private set; } = new List<ChordToneInterval>();
 
-		public bool IsMajor { get; set; }
-		public bool IsMinor { get; set; }
-		public bool IsDiminished { get; set; }
-		public bool IsHalfDiminished { get; set; }
-		public bool IsDominant { get; set; }
+        virtual public bool IsMajor { get; private set; }
+        virtual public bool IsMinor { get; private set; }
+        virtual public bool IsDiminished { get; private set; }
+        virtual public bool IsHalfDiminished { get; private set; }
+        virtual public bool IsDominant { get; private set; }
 
-		#endregion
+        #endregion
 
-		#region Construction
-		private ChordType(string name, params ChordToneInterval[] intervals)
-		{
-			if (string.IsNullOrEmpty(name))
-				throw new ArgumentNullException();
-			this.Name = name;
-			this.Intervals.AddRange(intervals);
-			this.Intervals.ForEach(x => this.Value |= x.Value);
-			if (!this.Intervals.Contains(ChordToneInterval.None))
-				Catalog.Add(this);
-			this.Init();
-		}
+        #region Construction
+        protected ChordType() { }
+        private ChordType(string name, params ChordToneInterval[] intervals)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException();
+            this.Name = name;
+            this.Intervals.AddRange(intervals);
+            this.Intervals.ForEach(x => this.Value |= x.Value);
+            if (!this.Intervals.Contains(ChordToneInterval.None))
+                Catalog.Add(this);
+            this.Init();
+        }
 
-		private ChordType(string name, List<ChordToneInterval> aIntervals, params ChordToneInterval[] bIntervals)
-		{
-			if (string.IsNullOrEmpty(name))
-				throw new ArgumentNullException();
-			this.Name = name;
-			this.Intervals.AddRange(aIntervals);
-			this.Intervals.AddRange(bIntervals);
-			this.Intervals.ForEach(x => this.Value |= x.Value);
-			if (!this.Intervals.Contains(ChordToneInterval.None))
-				Catalog.Add(this);
-			this.Init();
-		}
+        private ChordType(string name, List<ChordToneInterval> aIntervals, params ChordToneInterval[] bIntervals)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException();
+            this.Name = name;
+            this.Intervals.AddRange(aIntervals);
+            this.Intervals.AddRange(bIntervals);
+            this.Intervals.ForEach(x => this.Value |= x.Value);
+            if (!this.Intervals.Contains(ChordToneInterval.None))
+                Catalog.Add(this);
+            this.Init();
+        }
 
-		void Init()
-		{
-			if (!this.Intervals.Contains(ChordToneInterval.None))
-			{
-				if (this.Intervals.Contains(ChordToneInterval.Major3rd)
+        void Init()
+        {
+            if (!this.Intervals.Contains(ChordToneInterval.None))
+            {
+                if (this.Intervals.Contains(ChordToneInterval.Major3rd)
                     //&& this.Intervals.Contains(ChordToneInterval.Perfect5th)
                     && !this.Intervals.Contains(ChordToneInterval.Minor7th))
-				{
-					this.IsMajor = true;
-				}
-				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-					&& this.Intervals.Contains(ChordToneInterval.Perfect5th))
-				{
-					this.IsMinor = true;
-				}
+                {
+                    this.IsMajor = true;
+                }
+                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
+                    && this.Intervals.Contains(ChordToneInterval.Perfect5th))
+                {
+                    this.IsMinor = true;
+                }
 
-				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-					&& (this.Intervals.Contains(ChordToneInterval.Diminished5th)
-						&& this.Intervals.Contains(ChordToneInterval.Minor7th)))
-				{
-					this.IsHalfDiminished = true;
-				}
+                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
+                    && (this.Intervals.Contains(ChordToneInterval.Diminished5th)
+                        && this.Intervals.Contains(ChordToneInterval.Minor7th)))
+                {
+                    this.IsHalfDiminished = true;
+                }
 
-				if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-					&& (this.Intervals.Contains(ChordToneInterval.Diminished5th)
-						&& this.Intervals.Contains(ChordToneInterval.Diminished7th)))
-				{
-					this.IsDiminished = true;
-				}
+                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
+                    && (this.Intervals.Contains(ChordToneInterval.Diminished5th)
+                        && this.Intervals.Contains(ChordToneInterval.Diminished7th)))
+                {
+                    this.IsDiminished = true;
+                }
 
-				if (this.Intervals.Contains(ChordToneInterval.Major3rd)
-					&& this.Intervals.Contains(ChordToneInterval.Minor7th))
-				{
-					this.IsDominant = true;
-				}
-			}
-		}
+                if (this.Intervals.Contains(ChordToneInterval.Major3rd)
+                    && this.Intervals.Contains(ChordToneInterval.Minor7th))
+                {
+                    this.IsDominant = true;
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Operators
-		public static int operator |(ChordType a, ChordType b)
-		{
-			var result = a.Value | b.Value;
-			return result;
-		}
+        #region Operators
+        public static int operator |(ChordType a, ChordType b)
+        {
+            var result = a.Value | b.Value;
+            return result;
+        }
 
-		public static explicit operator int(ChordType ct)
-		{
-			return ct.Value;
-		}
+        public static explicit operator int(ChordType ct)
+        {
+            return ct.Value;
+        }
 
-		#endregion
+        #endregion
 
-		#region Used to be IntervalsEnumExtensions
-		public Interval GetInterval(ChordFunctionEnum cfe)
-		{
-			if (0 == this.Intervals.Count)
-				throw new Exception("this.Intervals not initialized.");
-			var result = ChordToneInterval.None;
+        #region Used to be IntervalsEnumExtensions
+        public Interval GetInterval(ChordFunctionEnum cfe)
+        {
+            if (0 == this.Intervals.Count)
+                throw new Exception("this.Intervals not initialized.");
+            var result = ChordToneInterval.None;
 
-			Predicate<ChordToneInterval> predicate = null;
+            Predicate<ChordToneInterval> predicate = null;
 
-			switch (cfe)
-			{
-				case ChordFunctionEnum.Root:
-				case ChordFunctionEnum.None:
-					break;
+            switch (cfe)
+            {
+                case ChordFunctionEnum.Root:
+                case ChordFunctionEnum.None:
+                    break;
 
-				case ChordFunctionEnum.Sus2:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd;
-					break;
+                case ChordFunctionEnum.Sus2:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd;
+                    break;
 
-				case ChordFunctionEnum.Third:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor3rd || x == ChordToneInterval.Major3rd;
-					break;
+                case ChordFunctionEnum.Third:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor3rd || x == ChordToneInterval.Major3rd;
+                    break;
 
-				case ChordFunctionEnum.Sus4:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th;
-					break;
+                case ChordFunctionEnum.Sus4:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th;
+                    break;
 
-				case ChordFunctionEnum.Fifth:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect5th || x == ChordToneInterval.Diminished5th || x == ChordToneInterval.Augmented5th;
-					break;
+                case ChordFunctionEnum.Fifth:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect5th || x == ChordToneInterval.Diminished5th || x == ChordToneInterval.Augmented5th;
+                    break;
 
-				case ChordFunctionEnum.Seventh:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor7th || x == ChordToneInterval.Major7th || x == ChordToneInterval.Diminished7th;
-					break;
+                case ChordFunctionEnum.Seventh:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor7th || x == ChordToneInterval.Major7th || x == ChordToneInterval.Diminished7th;
+                    break;
 
-				case ChordFunctionEnum.Ninth:
-					//throw new NotImplementedException("#9 ???");
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd || x == ChordToneInterval.Minor2nd;
-					break;
+                case ChordFunctionEnum.Ninth:
+                    //throw new NotImplementedException("#9 ???");
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd || x == ChordToneInterval.Minor2nd;
+                    break;
 
-				case ChordFunctionEnum.Eleventh:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th || x == ChordToneInterval.Augmented4th;
-					break;
+                case ChordFunctionEnum.Eleventh:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th || x == ChordToneInterval.Augmented4th;
+                    break;
 
-				case ChordFunctionEnum.Thirteenth:
-					predicate = (ChordToneInterval x) => x == ChordToneInterval.Major6th || x == ChordToneInterval.Minor6th;
-					break;
-			}
+                case ChordFunctionEnum.Thirteenth:
+                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major6th || x == ChordToneInterval.Minor6th;
+                    break;
+            }
 
-			if (null != predicate)
-			{
-				var found = this.Intervals.FirstOrDefault(x => predicate(x));
-				if (null != found)
-					result = found;
-			}
+            if (null != predicate)
+            {
+                var found = this.Intervals.FirstOrDefault(x => predicate(x));
+                if (null != found)
+                    result = found;
+            }
 
-			return result;
-		}
-		#endregion
+            return result;
+        }
+        #endregion
 
-		public override string ToString()
-		{
-			return this.Name;
-			return $"{this.GetType().Name}: Name={this.Name}";
-		}
+        public override string ToString()
+        {
+            return this.Name;
+            return $"{this.GetType().Name}: Name={this.Name}";
+        }
+    }//class
 
-	}//class
+    public class NullChordType : ChordType, IChordType
+    {
+        static public readonly NullChordType Instance;
+        #region Properties
+        public List<ChordToneInterval> Intervals => new List<ChordToneInterval>();
+
+        override public bool IsDiminished => false;
+
+        override public bool IsDominant => false;
+
+        override public bool IsHalfDiminished => false;
+
+        override public bool IsMajor => false;
+
+        override public bool IsMinor => false;
+
+        override public string Name => Constants.EMPTY;
+
+        override public int Value => int.MinValue;
+        #endregion
+        static NullChordType()
+        {
+            Instance = new NullChordType();
+        }
+
+    }//class
+
 }//ns

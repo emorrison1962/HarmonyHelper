@@ -44,6 +44,10 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_Rule.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
+    <Compile Include="Interfaces\IChordFormula.cs" />
+    <Compile Include="Interfaces\IChordType.cs" />
+    <Compile Include="Interfaces\IKeySignature.cs" />
+    <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
     <Compile Include="Utilities\Domain.Mappings\KeySignature2ChordFormulaMap.cs" />
     <Compile Include="MusicXml\MusicXmlParser_old.cs" />
