@@ -3,10 +3,11 @@ using Eric.Morrison.Harmony.Intervals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if false
 
 namespace Eric.Morrison.Harmony
 {
-	public partial class KeySignature
+	public partial class FIXME_KeySignature
 	{
 		#region KeySignatures
 		public static readonly KeySignature NoAccidentals;
@@ -307,3 +308,5 @@ namespace Eric.Morrison.Harmony
 
 	}//class
 }//ns
+
+#endif

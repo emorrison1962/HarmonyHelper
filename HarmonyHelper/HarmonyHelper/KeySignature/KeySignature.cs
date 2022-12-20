@@ -58,7 +58,7 @@ namespace Eric.Morrison.Harmony
             if (this.IsMajor || this.IsMinor)
             {
                 if (addToCatalog)
-                    Catalog.Add(this);
+                    _Catalog.Add(this);
             }
             if (this.IsMajor)
             {
