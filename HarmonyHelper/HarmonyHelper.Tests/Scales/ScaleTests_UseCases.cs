@@ -1,4 +1,6 @@
-﻿using Eric.Morrison.Harmony.Chords;
+﻿using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,10 +25,10 @@ namespace Eric.Morrison.Harmony.Tests
 			chords.Add(ChordFormulaFactory.Create(NoteName.B, ChordType.HalfDiminished, KeySignature.AMinor));
 			chords.Add(ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant7th, KeySignature.AMinor));
 
-			var mappings = new List<ChordFormulaScalesMapping>();
+			var mappings = new List<ChordFormula2ScalesMap>();
 			foreach (var chord in chords)
 			{
-				var mapping = ChordFormulaScalesMapping.GetScalesFor(chord);
+				var mapping = ChordFormula2ScalesMap.GetScalesFor(chord);
 				mappings.Add(mapping);
 			}
 
@@ -59,10 +61,10 @@ namespace Eric.Morrison.Harmony.Tests
 			chords.Add(ChordFormulaFactory.Create(NoteName.B, ChordType.HalfDiminished, KeySignature.AMinor));
 			chords.Add(ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant7th, KeySignature.AMinor));
 
-			var mappings = new List<ChordFormulaScalesMapping>();
+			var mappings = new List<ChordFormula2ScalesMap>();
 			foreach (var chord in chords)
 			{
-				var mapping = ChordFormulaScalesMapping.GetScalesFor(chord);
+				var mapping = ChordFormula2ScalesMap.GetScalesFor(chord);
 				mappings.Add(mapping);
 			}
 
@@ -79,7 +81,7 @@ namespace Eric.Morrison.Harmony.Tests
 			//	Debug.Unindent();
 			//}
 
-			mappings = ChordFormulaScalesMapping.FilterByMostUsed(mappings);
+			mappings = ChordFormula2ScalesMap.FilterByMostUsed(mappings);
 			Debug.WriteLine("");
 			Debug.WriteLine("SUNNY: For these chords, these scales the most common amongst the chords.");
 			foreach (var mapping in mappings)
@@ -172,14 +174,14 @@ namespace Eric.Morrison.Harmony.Tests
 			chords.Add(ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7th, KeySignature.CMajor));
 			chords.Add(ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7th, KeySignature.CMajor));
 
-			var mappings = new List<ChordFormulaScalesMapping>();
+			var mappings = new List<ChordFormula2ScalesMap>();
 
 
 			var pairs = chords.GetPairs().ToList();
 
 			foreach (var pair in pairs)
 			{
-				var scales = ChordFormulaScalesMapping.GetCommonScales(pair[0], pair[1]);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(pair[0], pair[1]);
 				new object();
 			}
 			new object();
@@ -243,14 +245,14 @@ namespace Eric.Morrison.Harmony.Tests
 
 			}
 
-			var mappings = new List<ChordFormulaScalesMapping>();
+			var mappings = new List<ChordFormula2ScalesMap>();
 
 
 			var pairs = chords.GetPairs().ToList();
 
 			foreach (var pair in pairs)
 			{
-				var scales = ChordFormulaScalesMapping.GetCommonScales(pair[0], pair[1]);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(pair[0], pair[1]);
 				Debug.WriteLine($"{pair[0].ToString()} and {pair[1].ToString()} share these scales:");
 				Debug.Indent();
 				foreach (var scale in scales)
@@ -276,7 +278,7 @@ namespace Eric.Morrison.Harmony.Tests
 			Debug.WriteLine("=== Sunny ===");
 			foreach (var pair in pairs)
 			{
-				var scales = ChordFormulaScalesMapping.GetCommonScales(pair[0], pair[1]);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(pair[0], pair[1]);
 				Debug.WriteLine($"{pair[0].ToString()} and {pair[1].ToString()} share these scales:");
 				Debug.Indent();
 				foreach (var scale in scales)
@@ -305,7 +307,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var chord2 = chordPair[1];
 				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
 				Debug.Indent();
-				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(chord1, chord2);
 				var count = scales.Count;
 				new object();
 				foreach (var scale in scales)
@@ -363,7 +365,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var chord2 = chordPair[1];
 				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
 				Debug.Indent();
-				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(chord1, chord2);
 				var count = scales.Count;
 				new object();
 				foreach (var scale in scales)
@@ -425,7 +427,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var chord2 = chordPair[1];
 				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
 				Debug.Indent();
-				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(chord1, chord2);
 				var count = scales.Count;
 				new object();
 				if (0 == count)
@@ -484,7 +486,7 @@ namespace Eric.Morrison.Harmony.Tests
 				var chord2 = chordPair[1];
 				Debug.WriteLine($"For chords: {chord1.Name} & {chord2.Name}");
 				Debug.Indent();
-				var scales = ChordFormulaScalesMapping.GetCommonScales(chord1, chord2);
+				var scales = ChordFormula2ScalesMap.GetCommonScales(chord1, chord2);
 				var count = scales.Count;
 				new object();
 				if (0 == count)

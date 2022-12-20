@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Scales;
 
-namespace Eric.Morrison.Harmony.Chords
+namespace Eric.Morrison.Harmony
 {
-	public class ChordFormulaScalesMapping
+	public class ChordFormula2ScalesMap
 	{
 		public ChordFormula ChordFormula { get; set; }
 		public List<ScaleFormulaBase> ScaleFormulas { get; set; } = new List<ScaleFormulaBase>();
 
-		public ChordFormulaScalesMapping(ChordFormula formula)
+		public ChordFormula2ScalesMap(ChordFormula formula)
 		{
 			if (null == formula)
 				throw new ArgumentNullException();
@@ -43,9 +45,9 @@ namespace Eric.Morrison.Harmony.Chords
             }
 			return result;
         }
-		static public ChordFormulaScalesMapping GetScalesFor(ChordFormula chord)
+		static public ChordFormula2ScalesMap GetScalesFor(ChordFormula chord)
 		{
-			var mapping = new ChordFormulaScalesMapping(chord);
+			var mapping = new ChordFormula2ScalesMap(chord);
 			var catalog = GetScaleFormulaCatalog();
 
             var formulas = catalog.Formulas.OrderBy(x => x.Name).ToList();
@@ -55,14 +57,11 @@ namespace Eric.Morrison.Harmony.Chords
 
 			var enharmonicEquivalents = mapping.ScaleFormulas.GetEnharmonicEquivalents();
 
-			var result = new ChordFormulaScalesMapping(chord);
+			var result = new ChordFormula2ScalesMap(chord);
             var comparer = new NoteNameAlphaEqualityComparer();
             foreach (var list in enharmonicEquivalents.Equivalents.Values)
 			{
-#warning **** 031618: Chord-centric or key-centric? ****
-				//var scale = list.Where(x => x.Root == chord.Root).FirstOrDefault();
-				var scale = list.Where(x => x.Root == chord.Key.NoteName).FirstOrDefault();
-				//var scale = list.Where(x => x.Root == chord.Key.NoteName || x.Root == chord.Root).FirstOrDefault();
+				var scale = list.Where(x => x.Root == chord.Root).FirstOrDefault();
 				if (null != scale)
 				{
 					result.ScaleFormulas.Add(scale);
@@ -119,7 +118,7 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-		static public List<ChordFormulaScalesMapping> FilterByMostUsed(List<ChordFormulaScalesMapping> mappings)
+		static public List<ChordFormula2ScalesMap> FilterByMostUsed(List<ChordFormula2ScalesMap> mappings)
 		{
 			mappings.ForEach(x => Debug.WriteLine(x.ToString()));
 
@@ -153,10 +152,10 @@ namespace Eric.Morrison.Harmony.Chords
 				}).ToList();
 
 
-			var result = new List<ChordFormulaScalesMapping>();
+			var result = new List<ChordFormula2ScalesMap>();
 			foreach (var anon in pairings)
 			{
-				var mapping = new ChordFormulaScalesMapping(anon.ChordFormula);
+				var mapping = new ChordFormula2ScalesMap(anon.ChordFormula);
 				mapping.ScaleFormulas.Add(anon.ScaleFormula);
 				result.Add(mapping);
 			}

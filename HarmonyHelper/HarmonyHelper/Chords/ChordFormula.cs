@@ -17,6 +17,7 @@ namespace Eric.Morrison.Harmony.Chords
 
         public NoteName Root { get; private set; }
 		public NoteName Bass { get; private set; }
+		[Obsolete("", true)]
 		public KeySignature Key { get; private set; }
 		public ChordType ChordType { get; private set; }
 		public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
