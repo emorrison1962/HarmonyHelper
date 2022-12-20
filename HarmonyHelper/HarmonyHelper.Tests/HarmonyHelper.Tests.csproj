@@ -109,6 +109,7 @@
     <Content Include="TEST_FILES\%28All Of A Sudden%29 My Heart Sings.XML" />
     <Content Include="TEST_FILES\BUG and Triplet example.xml" />
     <Content Include="TEST_FILES\Straight, No Chaser - Thelonious Monk.XML" />
+    <Content Include="TEST_FILES\Superstition_Stevie_Wonder 121922.XML" />
     <None Include="TEST_FILES\All Of Me-timewise.xml" />
     <None Include="TEST_FILES\All Of Me.XML" />
     <None Include="TEST_FILES\Superstition_Stevie_Wonder.mscz" />

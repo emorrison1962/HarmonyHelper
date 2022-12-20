@@ -61,12 +61,12 @@ namespace Eric.Morrison.Harmony.Chords
 		static public ChordType Dominant11th = new ChordType("11", Dominant9th.Intervals, ChordToneInterval.Eleventh);
 		static public ChordType Dominant13th = new ChordType("13", Dominant11th.Intervals, ChordToneInterval.Thirteenth);
 
-		#endregion
+        #endregion
 
 
-		#region Altered Dominant7 chords
-
-		static public ChordType Dominant7b9 = new ChordType("7b9", Dominant7th.Intervals, ChordToneInterval.Flat9th);
+        #region Altered Dominant7 chords
+        static public ChordType Dominant7b5 = new ChordType("7b5", ChordToneInterval.Major3rd, ChordToneInterval.Diminished5th, ChordToneInterval.Minor7th);
+        static public ChordType Dominant7b9 = new ChordType("7b9", Dominant7th.Intervals, ChordToneInterval.Flat9th);
 		static public ChordType Dominant7Sharp9 = new ChordType("7sharp9", Dominant7th.Intervals, ChordToneInterval.Sharp9th);
 		#endregion
 

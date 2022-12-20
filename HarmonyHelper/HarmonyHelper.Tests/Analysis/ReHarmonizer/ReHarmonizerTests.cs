@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             path = Path.GetDirectoryName(path);
 
             path = Path.Combine(path, "TEST_FILES");
-            path = Path.Combine(path, "Straight, No Chaser - Thelonious Monk.XML");
+            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
             var parser = new MusicXmlParser();
             var parsingResult = parser.Parse(path);
 

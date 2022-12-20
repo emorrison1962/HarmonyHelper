@@ -250,7 +250,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         string ParseTitle(XDocument doc)
         {
-            var result = doc.Descendants(XmlConstants.work_title).First().Value;
+            var result = doc.Descendants(XmlConstants.work_title).FirstOrDefault()?.Value;
             return result;
         }
 

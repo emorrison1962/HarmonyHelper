@@ -43,6 +43,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula BSharp9;
         static public readonly ChordFormula BSharp11;
         static public readonly ChordFormula BSharp13;
+        static public readonly ChordFormula BSharp7b5;
         static public readonly ChordFormula BSharp7b9;
         static public readonly ChordFormula BSharp7sharp9;
         static public readonly ChordFormula Caug;
@@ -77,6 +78,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula C9;
         static public readonly ChordFormula C11;
         static public readonly ChordFormula C13;
+        static public readonly ChordFormula C7b5;
         static public readonly ChordFormula C7b9;
         static public readonly ChordFormula C7sharp9;
         static public readonly ChordFormula CSharpaug;
@@ -111,6 +113,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula CSharp9;
         static public readonly ChordFormula CSharp11;
         static public readonly ChordFormula CSharp13;
+        static public readonly ChordFormula CSharp7b5;
         static public readonly ChordFormula CSharp7b9;
         static public readonly ChordFormula CSharp7sharp9;
         static public readonly ChordFormula Dbaug;
@@ -145,6 +148,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Db9;
         static public readonly ChordFormula Db11;
         static public readonly ChordFormula Db13;
+        static public readonly ChordFormula Db7b5;
         static public readonly ChordFormula Db7b9;
         static public readonly ChordFormula Db7sharp9;
         static public readonly ChordFormula Daug;
@@ -179,6 +183,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula D9;
         static public readonly ChordFormula D11;
         static public readonly ChordFormula D13;
+        static public readonly ChordFormula D7b5;
         static public readonly ChordFormula D7b9;
         static public readonly ChordFormula D7sharp9;
         static public readonly ChordFormula DSharpaug;
@@ -213,6 +218,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula DSharp9;
         static public readonly ChordFormula DSharp11;
         static public readonly ChordFormula DSharp13;
+        static public readonly ChordFormula DSharp7b5;
         static public readonly ChordFormula DSharp7b9;
         static public readonly ChordFormula DSharp7sharp9;
         static public readonly ChordFormula Ebaug;
@@ -247,6 +253,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Eb9;
         static public readonly ChordFormula Eb11;
         static public readonly ChordFormula Eb13;
+        static public readonly ChordFormula Eb7b5;
         static public readonly ChordFormula Eb7b9;
         static public readonly ChordFormula Eb7sharp9;
         static public readonly ChordFormula Eaug;
@@ -281,6 +288,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula E9;
         static public readonly ChordFormula E11;
         static public readonly ChordFormula E13;
+        static public readonly ChordFormula E7b5;
         static public readonly ChordFormula E7b9;
         static public readonly ChordFormula E7sharp9;
         static public readonly ChordFormula Fbaug;
@@ -315,6 +323,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Fb9;
         static public readonly ChordFormula Fb11;
         static public readonly ChordFormula Fb13;
+        static public readonly ChordFormula Fb7b5;
         static public readonly ChordFormula Fb7b9;
         static public readonly ChordFormula Fb7sharp9;
         static public readonly ChordFormula ESharpaug;
@@ -349,6 +358,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula ESharp9;
         static public readonly ChordFormula ESharp11;
         static public readonly ChordFormula ESharp13;
+        static public readonly ChordFormula ESharp7b5;
         static public readonly ChordFormula ESharp7b9;
         static public readonly ChordFormula ESharp7sharp9;
         static public readonly ChordFormula Faug;
@@ -383,6 +393,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula F9;
         static public readonly ChordFormula F11;
         static public readonly ChordFormula F13;
+        static public readonly ChordFormula F7b5;
         static public readonly ChordFormula F7b9;
         static public readonly ChordFormula F7sharp9;
         static public readonly ChordFormula FSharpaug;
@@ -417,6 +428,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula FSharp9;
         static public readonly ChordFormula FSharp11;
         static public readonly ChordFormula FSharp13;
+        static public readonly ChordFormula FSharp7b5;
         static public readonly ChordFormula FSharp7b9;
         static public readonly ChordFormula FSharp7sharp9;
         static public readonly ChordFormula Gbaug;
@@ -451,6 +463,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Gb9;
         static public readonly ChordFormula Gb11;
         static public readonly ChordFormula Gb13;
+        static public readonly ChordFormula Gb7b5;
         static public readonly ChordFormula Gb7b9;
         static public readonly ChordFormula Gb7sharp9;
         static public readonly ChordFormula Gaug;
@@ -485,6 +498,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula G9;
         static public readonly ChordFormula G11;
         static public readonly ChordFormula G13;
+        static public readonly ChordFormula G7b5;
         static public readonly ChordFormula G7b9;
         static public readonly ChordFormula G7sharp9;
         static public readonly ChordFormula GSharpaug;
@@ -519,6 +533,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula GSharp9;
         static public readonly ChordFormula GSharp11;
         static public readonly ChordFormula GSharp13;
+        static public readonly ChordFormula GSharp7b5;
         static public readonly ChordFormula GSharp7b9;
         static public readonly ChordFormula GSharp7sharp9;
         static public readonly ChordFormula Abaug;
@@ -553,6 +568,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Ab9;
         static public readonly ChordFormula Ab11;
         static public readonly ChordFormula Ab13;
+        static public readonly ChordFormula Ab7b5;
         static public readonly ChordFormula Ab7b9;
         static public readonly ChordFormula Ab7sharp9;
         static public readonly ChordFormula Aaug;
@@ -587,6 +603,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula A9;
         static public readonly ChordFormula A11;
         static public readonly ChordFormula A13;
+        static public readonly ChordFormula A7b5;
         static public readonly ChordFormula A7b9;
         static public readonly ChordFormula A7sharp9;
         static public readonly ChordFormula ASharpaug;
@@ -621,6 +638,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula ASharp9;
         static public readonly ChordFormula ASharp11;
         static public readonly ChordFormula ASharp13;
+        static public readonly ChordFormula ASharp7b5;
         static public readonly ChordFormula ASharp7b9;
         static public readonly ChordFormula ASharp7sharp9;
         static public readonly ChordFormula Bbaug;
@@ -655,6 +673,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Bb9;
         static public readonly ChordFormula Bb11;
         static public readonly ChordFormula Bb13;
+        static public readonly ChordFormula Bb7b5;
         static public readonly ChordFormula Bb7b9;
         static public readonly ChordFormula Bb7sharp9;
         static public readonly ChordFormula Baug;
@@ -689,6 +708,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula B9;
         static public readonly ChordFormula B11;
         static public readonly ChordFormula B13;
+        static public readonly ChordFormula B7b5;
         static public readonly ChordFormula B7b9;
         static public readonly ChordFormula B7sharp9;
         static public readonly ChordFormula Cbaug;
@@ -723,6 +743,7 @@ namespace Eric.Morrison.Harmony.Chords
         static public readonly ChordFormula Cb9;
         static public readonly ChordFormula Cb11;
         static public readonly ChordFormula Cb13;
+        static public readonly ChordFormula Cb7b5;
         static public readonly ChordFormula Cb7b9;
         static public readonly ChordFormula Cb7sharp9;
         #endregion
@@ -767,6 +788,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(BSharp9 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant9th, null));
             Formulas.Add(BSharp11 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant11th, null));
             Formulas.Add(BSharp13 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant13th, null));
+            Formulas.Add(BSharp7b5 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant7b5, null));
             Formulas.Add(BSharp7b9 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant7b9, null));
             Formulas.Add(BSharp7sharp9 = ChordFormulaFactory.Create(NoteName.BSharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.B♯
@@ -804,6 +826,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(C9 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant9th, null));
             Formulas.Add(C11 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant11th, null));
             Formulas.Add(C13 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant13th, null));
+            Formulas.Add(C7b5 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7b5, null));
             Formulas.Add(C7b9 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7b9, null));
             Formulas.Add(C7sharp9 = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.C
@@ -841,6 +864,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(CSharp9 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant9th, null));
             Formulas.Add(CSharp11 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant11th, null));
             Formulas.Add(CSharp13 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant13th, null));
+            Formulas.Add(CSharp7b5 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant7b5, null));
             Formulas.Add(CSharp7b9 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant7b9, null));
             Formulas.Add(CSharp7sharp9 = ChordFormulaFactory.Create(NoteName.CSharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.C♯
@@ -878,6 +902,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Db9 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant9th, null));
             Formulas.Add(Db11 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant11th, null));
             Formulas.Add(Db13 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant13th, null));
+            Formulas.Add(Db7b5 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant7b5, null));
             Formulas.Add(Db7b9 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant7b9, null));
             Formulas.Add(Db7sharp9 = ChordFormulaFactory.Create(NoteName.Db, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.D♭
@@ -915,6 +940,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(D9 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant9th, null));
             Formulas.Add(D11 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant11th, null));
             Formulas.Add(D13 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant13th, null));
+            Formulas.Add(D7b5 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant7b5, null));
             Formulas.Add(D7b9 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant7b9, null));
             Formulas.Add(D7sharp9 = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.D
@@ -952,6 +978,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(DSharp9 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant9th, null));
             Formulas.Add(DSharp11 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant11th, null));
             Formulas.Add(DSharp13 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant13th, null));
+            Formulas.Add(DSharp7b5 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant7b5, null));
             Formulas.Add(DSharp7b9 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant7b9, null));
             Formulas.Add(DSharp7sharp9 = ChordFormulaFactory.Create(NoteName.DSharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.D♯
@@ -989,6 +1016,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Eb9 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant9th, null));
             Formulas.Add(Eb11 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant11th, null));
             Formulas.Add(Eb13 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant13th, null));
+            Formulas.Add(Eb7b5 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant7b5, null));
             Formulas.Add(Eb7b9 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant7b9, null));
             Formulas.Add(Eb7sharp9 = ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.E♭
@@ -1026,6 +1054,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(E9 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant9th, null));
             Formulas.Add(E11 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant11th, null));
             Formulas.Add(E13 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant13th, null));
+            Formulas.Add(E7b5 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant7b5, null));
             Formulas.Add(E7b9 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant7b9, null));
             Formulas.Add(E7sharp9 = ChordFormulaFactory.Create(NoteName.E, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.E
@@ -1063,6 +1092,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Fb9 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant9th, null));
             Formulas.Add(Fb11 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant11th, null));
             Formulas.Add(Fb13 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant13th, null));
+            Formulas.Add(Fb7b5 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant7b5, null));
             Formulas.Add(Fb7b9 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant7b9, null));
             Formulas.Add(Fb7sharp9 = ChordFormulaFactory.Create(NoteName.Fb, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.F♭
@@ -1100,6 +1130,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(ESharp9 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant9th, null));
             Formulas.Add(ESharp11 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant11th, null));
             Formulas.Add(ESharp13 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant13th, null));
+            Formulas.Add(ESharp7b5 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant7b5, null));
             Formulas.Add(ESharp7b9 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant7b9, null));
             Formulas.Add(ESharp7sharp9 = ChordFormulaFactory.Create(NoteName.ESharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.E♯
@@ -1137,6 +1168,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(F9 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant9th, null));
             Formulas.Add(F11 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant11th, null));
             Formulas.Add(F13 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant13th, null));
+            Formulas.Add(F7b5 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7b5, null));
             Formulas.Add(F7b9 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7b9, null));
             Formulas.Add(F7sharp9 = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.F
@@ -1174,6 +1206,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(FSharp9 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant9th, null));
             Formulas.Add(FSharp11 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant11th, null));
             Formulas.Add(FSharp13 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant13th, null));
+            Formulas.Add(FSharp7b5 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant7b5, null));
             Formulas.Add(FSharp7b9 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant7b9, null));
             Formulas.Add(FSharp7sharp9 = ChordFormulaFactory.Create(NoteName.FSharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.F♯
@@ -1211,6 +1244,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Gb9 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant9th, null));
             Formulas.Add(Gb11 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant11th, null));
             Formulas.Add(Gb13 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant13th, null));
+            Formulas.Add(Gb7b5 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant7b5, null));
             Formulas.Add(Gb7b9 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant7b9, null));
             Formulas.Add(Gb7sharp9 = ChordFormulaFactory.Create(NoteName.Gb, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.G♭
@@ -1248,6 +1282,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(G9 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant9th, null));
             Formulas.Add(G11 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant11th, null));
             Formulas.Add(G13 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant13th, null));
+            Formulas.Add(G7b5 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7b5, null));
             Formulas.Add(G7b9 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7b9, null));
             Formulas.Add(G7sharp9 = ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.G
@@ -1285,6 +1320,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(GSharp9 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant9th, null));
             Formulas.Add(GSharp11 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant11th, null));
             Formulas.Add(GSharp13 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant13th, null));
+            Formulas.Add(GSharp7b5 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant7b5, null));
             Formulas.Add(GSharp7b9 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant7b9, null));
             Formulas.Add(GSharp7sharp9 = ChordFormulaFactory.Create(NoteName.GSharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.G♯
@@ -1322,6 +1358,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Ab9 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant9th, null));
             Formulas.Add(Ab11 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant11th, null));
             Formulas.Add(Ab13 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant13th, null));
+            Formulas.Add(Ab7b5 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant7b5, null));
             Formulas.Add(Ab7b9 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant7b9, null));
             Formulas.Add(Ab7sharp9 = ChordFormulaFactory.Create(NoteName.Ab, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.A♭
@@ -1359,6 +1396,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(A9 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant9th, null));
             Formulas.Add(A11 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant11th, null));
             Formulas.Add(A13 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant13th, null));
+            Formulas.Add(A7b5 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant7b5, null));
             Formulas.Add(A7b9 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant7b9, null));
             Formulas.Add(A7sharp9 = ChordFormulaFactory.Create(NoteName.A, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.A
@@ -1396,6 +1434,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(ASharp9 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant9th, null));
             Formulas.Add(ASharp11 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant11th, null));
             Formulas.Add(ASharp13 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant13th, null));
+            Formulas.Add(ASharp7b5 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant7b5, null));
             Formulas.Add(ASharp7b9 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant7b9, null));
             Formulas.Add(ASharp7sharp9 = ChordFormulaFactory.Create(NoteName.ASharp, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.A♯
@@ -1433,6 +1472,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Bb9 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant9th, null));
             Formulas.Add(Bb11 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant11th, null));
             Formulas.Add(Bb13 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant13th, null));
+            Formulas.Add(Bb7b5 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant7b5, null));
             Formulas.Add(Bb7b9 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant7b9, null));
             Formulas.Add(Bb7sharp9 = ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.B♭
@@ -1470,6 +1510,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(B9 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant9th, null));
             Formulas.Add(B11 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant11th, null));
             Formulas.Add(B13 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant13th, null));
+            Formulas.Add(B7b5 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant7b5, null));
             Formulas.Add(B7b9 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant7b9, null));
             Formulas.Add(B7sharp9 = ChordFormulaFactory.Create(NoteName.B, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.B
@@ -1507,6 +1548,7 @@ namespace Eric.Morrison.Harmony.Chords
             Formulas.Add(Cb9 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant9th, null));
             Formulas.Add(Cb11 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant11th, null));
             Formulas.Add(Cb13 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant13th, null));
+            Formulas.Add(Cb7b5 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant7b5, null));
             Formulas.Add(Cb7b9 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant7b9, null));
             Formulas.Add(Cb7sharp9 = ChordFormulaFactory.Create(NoteName.Cb, ChordType.Dominant7Sharp9, null));
             #endregion NoteName.C♭
@@ -1535,9 +1577,9 @@ namespace Eric.Morrison.Harmony.Chords
                 noteNames.Add(noteName);
             }
 
-            GenerateCodeForFieldDeclarations(keySignatures,
-                chordTypes,
-                noteNames);
+            //GenerateCodeForFieldDeclarations(keySignatures,
+            //    chordTypes,
+            //    noteNames);
             GenerateCode_ForPopulatingCatalog(keySignatures,
                 chordTypes,
                 noteNames);

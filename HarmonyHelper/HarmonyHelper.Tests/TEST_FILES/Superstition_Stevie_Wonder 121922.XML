@@ -1,0 +1,6459 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.0 Partwise//EN"
+"http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="3.0">
+<identification>
+ <encoding>
+  <encoding-date>2022-12-19</encoding-date>
+  <encoder>Owner</encoder>
+  <software>Band-in-a-Box for Windows Version 2021 (838)</software>
+  <software>Direct export, not from Dolet</software>
+  <encoding-description>Band-in-a-Box for Windows / MusicXML 3.0</encoding-description>
+ </encoding>
+</identification>
+  <part-list>
+   <score-part id="P1">
+      <part-name>ElecPiano</part-name>
+  </score-part>
+   <score-part id="P2">
+      <part-name>Calliope</part-name>
+  </score-part>
+  </part-list>
+  <part id="P1">
+   <measure number="1">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>2</fifths>
+        </key>
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+            </time>
+        <staves>2</staves>
+        <clef number="1">
+           <sign>G</sign>
+           <line>2</line>
+        </clef>
+        <clef number="2">
+           <sign>F</sign>
+           <line>4</line>
+        </clef>
+      </attributes>
+      <sound tempo="120"/>
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+   <measure number="2">
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+   <measure number="3">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="4">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>0</fifths>
+        </key>
+      </attributes>
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="5">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="6">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="7">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="8">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="9">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="10">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="11">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="12">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="13">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="14">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="15">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="16">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="17">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="18">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="19">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="20">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-40">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-36">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-34">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-34">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-2" release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-25">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="-1" release="-25">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-28">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note attack="3">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note attack="4">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note attack="5">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>quarter</type>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-87">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="3" release="-16">
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>2</voice>
+         <type>16th</type>
+         <staff>2</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="21">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note release="-10">
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-10">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-10">
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <harmony>
+         <root>
+         <root-step>C</root-step>
+         </root>
+         <kind text="7b5">dominant</kind>
+         <degree print-object="no">
+           <degree-value>5</degree-value>
+           <degree-alter>-1</degree-alter>
+           <degree-type>alter</degree-type>
+         </degree>
+      </harmony>
+      <note release="-2">
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-2">
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-2">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note release="-10">
+        <pitch>
+          <step>A</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>2</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>2</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>1</alter>
+          <octave>3</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>eighth</type>
+        <accidental>sharp</accidental> 
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-2">
+        <pitch>
+          <step>A</step>
+          <alter>1</alter>
+          <octave>3</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+   </measure>
+   <measure number="22">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note release="-10">
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-10">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-10">
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>natural</accidental> 
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         <root-alter>-1</root-alter>
+         </root>
+         <kind text="7b5">dominant</kind>
+         <degree print-object="no">
+           <degree-value>5</degree-value>
+           <degree-alter>-1</degree-alter>
+           <degree-type>alter</degree-type>
+         </degree>
+      </harmony>
+      <note release="57">
+        <pitch>
+          <step>A</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="57">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="57">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="57">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note attack="1" release="20">
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>flat</accidental> 
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note attack="1" release="9">
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note release="-6">
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>3</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>flat</accidental> 
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note release="-70">
+        <pitch>
+          <step>A</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>2</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>2</voice>
+         <type>half</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="23">
+      <harmony>
+         <root>
+         <root-step>A</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-45">
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-45">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-45">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-45">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-35">
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note release="-33">
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-33">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-33">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note release="-33">
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="24">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7#9">dominant</kind>
+         <degree print-object="no">
+           <degree-value>9</degree-value>
+           <degree-alter>1</degree-alter>
+           <degree-type>add</degree-type>
+         </degree>
+      </harmony>
+      <note release="-50">
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-50">
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-50">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="25">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>half</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>6</octave>
+        </pitch>
+         <duration>240</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-63">
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-40">
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="23">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>6</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="96">
+        <pitch>
+          <step>B</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note release="-22">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>360</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>half</type>
+         <dot/>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>360</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>half</type>
+         <dot/>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>360</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>half</type>
+         <dot/>
+        <accidental>sharp</accidental> 
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>360</duration>
+         <tie type="start"/>
+         <voice>2</voice>
+         <type>half</type>
+         <dot/>
+         <staff>2</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>2</voice>
+         <type>eighth</type>
+         <staff>2</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>2</voice>
+         <type>eighth</type>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>2</staff>
+         <beam number="1">end</beam>
+      </note>
+   </measure>
+   <measure number="26">
+      <note attack="3" release="-35">
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>1</voice>
+         <type>whole</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note attack="4" release="-37">
+        <chord/>
+        <pitch>
+          <step>B</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>1</voice>
+         <type>whole</type>
+         <staff>1</staff>
+      </note>
+      <note attack="6" release="-27">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>6</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>1</voice>
+         <type>whole</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note release="-38">
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+      <note release="-33">
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+      <note release="-38">
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+      <note release="-35">
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+  </measure>
+  </part>
+  <part id="P2">
+   <measure number="1">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>2</fifths>
+        </key>
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+            </time>
+        <staves>2</staves>
+        <clef number="1">
+           <sign>G</sign>
+           <line>2</line>
+        </clef>
+        <clef number="2">
+           <sign>F</sign>
+           <line>4</line>
+        </clef>
+      </attributes>
+      <sound tempo="120"/>
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+   <measure number="2">
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+   <measure number="3">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>1</voice>
+         <type>whole</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="4">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>0</fifths>
+        </key>
+      </attributes>
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="5">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="6">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="7">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note attack="30" release="-30">
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="8">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="9">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="10">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="11">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note attack="30" release="-30">
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="12">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="13">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="14">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="15">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <beam number="2">forward hook</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>90</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="16">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <beam number="2">forward hook</beam>
+      </note>
+      <note release="-30">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-30">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <beam number="2">forward hook</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note release="-30">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">backward hook</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="17">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="18">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="19">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note attack="30" release="-30">
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="20">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="21">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note release="-120">
+        <pitch>
+          <step>G</step>
+          <alter>-1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+        <accidental>flat</accidental> 
+         <staff>1</staff>
+      </note>
+      <harmony>
+         <root>
+         <root-step>C</root-step>
+         </root>
+         <kind text="7b5">dominant</kind>
+         <degree print-object="no">
+           <degree-value>5</degree-value>
+           <degree-alter>-1</degree-alter>
+           <degree-type>alter</degree-type>
+         </degree>
+      <offset>-120</offset>
+      </harmony>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <beam number="2">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>-1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="22">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>-1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+        <accidental>flat</accidental> 
+         <staff>1</staff>
+      </note>
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         <root-alter>-1</root-alter>
+         </root>
+         <kind text="7b5">dominant</kind>
+         <degree print-object="no">
+           <degree-value>5</degree-value>
+           <degree-alter>-1</degree-alter>
+           <degree-type>alter</degree-type>
+         </degree>
+      </harmony>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="23">
+      <harmony>
+         <root>
+         <root-step>A</root-step>
+         </root>
+         <kind text="7">dominant</kind>
+      </harmony>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+        <accidental cautionary="yes">natural</accidental> 
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <tie type="start"/>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+         <notations>
+          <tied type="start"/>
+          </notations>
+      </note>
+      <note release="-60">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <tie type="stop"/>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+         <notations>
+           <tied type="stop"/>
+          </notations>
+      </note>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="24">
+      <harmony>
+         <root>
+         <root-step>B</root-step>
+         </root>
+         <kind text="7#9">dominant</kind>
+         <degree print-object="no">
+           <degree-value>9</degree-value>
+           <degree-alter>1</degree-alter>
+           <degree-type>add</degree-type>
+         </degree>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+         <beam number="2">forward hook</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>90</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <dot/>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="25">
+      <harmony>
+         <root>
+         <root-step>E</root-step>
+         </root>
+         <kind text="m7">minor-seventh</kind>
+      </harmony>
+      <note>
+        <rest/>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>180</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <dot/>
+         <staff>1</staff>
+      </note>
+      <note>
+        <rest/>
+         <duration>240</duration>
+         <voice>1</voice>
+         <type>half</type>
+         <staff>1</staff>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+   </measure>
+   <measure number="26">
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+        <accidental>sharp</accidental> 
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>60</duration>
+         <voice>1</voice>
+         <type>eighth</type>
+         <staff>1</staff>
+         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">continue</beam>
+         <beam number="2">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+        </pitch>
+         <duration>30</duration>
+         <voice>1</voice>
+         <type>16th</type>
+         <staff>1</staff>
+         <beam number="1">end</beam>
+         <beam number="2">end</beam>
+      </note>
+      <backup>
+         <duration>480</duration>
+      </backup>
+      <note>
+        <rest/>
+         <duration>480</duration>
+         <voice>2</voice>
+         <type>whole</type>
+         <staff>2</staff>
+      </note>
+  </measure>
+  </part>
+</score-partwise>

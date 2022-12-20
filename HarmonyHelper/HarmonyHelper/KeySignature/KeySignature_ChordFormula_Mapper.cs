@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony
             {
                 foreach (var formula in ChordFormulaCatalog.Formulas)
                 {
-                    if (IsDiatonicEnum.Yes == key.IsDiatonic(formula.NoteNames))
+                    if (IsDiatonicEnum.Partially <= key.IsDiatonic(formula.NoteNames))
                     {
                         if (this.ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
                         {
@@ -115,9 +115,13 @@ namespace Eric.Morrison.Harmony
 
         public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)
         {
-            var result = this.ChordFormulaToKeySignatureMaps[chord.Event]
-                .OrderBy(x => x.NoteName)
-                .ToList();
+            var result = new List<KeySignature>();
+            if (this.ChordFormulaToKeySignatureMaps.ContainsKey(chord.Event))
+            {
+                result = this.ChordFormulaToKeySignatureMaps[chord.Event]?
+                    .OrderBy(x => x.NoteName)
+                    .ToList();
+            }
             return result;
         }
     }//class
