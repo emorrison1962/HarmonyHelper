@@ -144,7 +144,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var kind = new XElement(XmlConstants.kind, te.Event.ChordType.Name);
             harmony.Add(kind);
 
-            throw new NotImplementedException("How do I get the offset?");
+            //throw new NotImplementedException("How do I get the offset?");
             var offset = new XElement(XmlConstants.offset);
             harmony.Add(offset);
 
@@ -254,21 +254,19 @@ namespace Eric.Morrison.Harmony.MusicXml
                 xnote.Add(xpitch);
                 {
                     var duration = new XElement(XmlConstants.duration, time.Duration);
-                    var type = new XElement(XmlConstants.type);
-                    var beam = new XElement(XmlConstants.beam);
                     xnote.Add(duration);
+                    var type = new XElement(XmlConstants.type, time.GetNoteType());
                     xnote.Add(type);
-                    xnote.Add(beam);
+                    //var beam = new XElement(XmlConstants.beam);
+                    //xnote.Add(beam);
                 }
-
             }
-
-
-
-            return null;
+            new object();
+            return xnote;
         }
         public XElement ToXElement(TimedEvent<Rest> te)
         {
+            return null;
             throw new NotImplementedException();
         }
 

@@ -370,6 +370,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             return result;
         }
+        public string GetNoteType()
+        {
+            var nt = this.PulsesPerMeasure / this.Duration;
+            var nlde = (NoteLengthDivisorEnum)nt;
+            return nlde.ToString();
+        }
     }//class
 
     public class TimedEventFactory
