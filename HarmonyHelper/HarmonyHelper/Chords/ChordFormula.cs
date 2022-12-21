@@ -129,6 +129,23 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
+        public bool IsSubsumedBy(ChordFormula other)
+        {
+            var result = false;
+
+            if (other.Root == this.Root)
+            {
+                if (this.NoteNames.Count >= 4)
+                {
+                    if (other.Contains(this.NoteNames))
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
+        }
+
         public ContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained)
         {
             ContainsEnum result = ContainsEnum.Unknown;

@@ -30,5 +30,24 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 .OrderBy(x => x.AsciiSortValue)
                 .ToList();
         }
-    }
-}
+    }//class
+
+    public class ChordSubstitution
+    {
+        public ChordFormula Original { get; private set; }
+        public ChordFormula Substitution { get; private set; }
+        public TimeContext TimeContext { get; private set; }
+
+        public ChordSubstitution(ChordFormula Original, ChordFormula Substitution, TimeContext TimeContext)
+        {
+            this.Original = Original;
+            this.Substitution = Substitution;
+            this.TimeContext = TimeContext;
+        }
+        public override string ToString()
+        {
+            return $"{nameof(ChordSubstitution)}: TimeContext={TimeContext}, Original={Original}, Substitution={Substitution}";
+        }
+    }//class
+
+}//ns

@@ -334,7 +334,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"Start={this.MeasureNumber}:{this.RelativeStart} End={this.MeasureNumber}:{this.RelativeEnd}, Duration={this.Duration}";
+            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.Duration}";
         }
 
         public bool Intersects(TimeContext other)
