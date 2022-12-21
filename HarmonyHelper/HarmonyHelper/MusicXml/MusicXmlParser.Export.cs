@@ -253,12 +253,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 xnote.Add(xpitch);
                 {
-                    var duration = new XElement(XmlConstants.duration, time.Duration);
-                    xnote.Add(duration);
-                    var type = new XElement(XmlConstants.type, time.GetNoteType());
-                    xnote.Add(type);
-                    //var beam = new XElement(XmlConstants.beam);
-                    //xnote.Add(beam);
+                    this.GetDoration(time, out var xduration, out var xtype);
+                    xnote.Add(xduration);
+                    xnote.Add(xtype);
                 }
             }
             new object();
@@ -266,11 +263,38 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XElement ToXElement(TimedEvent<Rest> te)
         {
-            return null;
-            throw new NotImplementedException();
+#if false
+      <note>
+        <rest/>
+         <duration>120</duration>
+         <voice>1</voice>
+         <type>quarter</type>
+         <staff>1</staff>
+      </note>
+
+#endif
+            var rest = te.Event;
+            var time = te.TimeContext;
+
+            var xnote = new XElement(XmlConstants.note);
+            var xrest = new XElement(XmlConstants.rest);
+            xnote.Add(xrest);
+
+            this.GetDoration(time, out var duration, out var noteType);
+            xrest.Add(duration);
+            xrest.Add(noteType);
+
+#warning May need to save voice and staff on import.
+
+            return xrest;
         }
 
-
+        void GetDoration(TimeContext time, out XElement duration, out XElement noteType)
+        {
+            duration = new XElement(XmlConstants.duration, time.Duration);
+            noteType = new XElement(XmlConstants.type,
+                time.GetNoteType().ToLower());
+        }
 
     }//class
 }//ns
