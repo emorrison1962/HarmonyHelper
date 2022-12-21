@@ -146,9 +146,9 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        public ContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained)
+        public ChordFormulaContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained)
         {
-            ContainsEnum result = ContainsEnum.Unknown;
+            ChordFormulaContainsEnum result = ChordFormulaContainsEnum.Unknown;
 
             contained = (from nn in this.NoteNames
                          where criteria.Any(x => x.Equals(nn))
@@ -156,11 +156,11 @@ namespace Eric.Morrison.Harmony.Chords
             notContained = criteria.Except(contained).ToList();
 
             if (0 == notContained.Count)
-                result = ContainsEnum.Yes;
+                result = ChordFormulaContainsEnum.Yes;
             else if (notContained.Count < contained.Count)
-                result = ContainsEnum.Partially;
+                result = ChordFormulaContainsEnum.Partially;
             else
-                result = ContainsEnum.No;
+                result = ChordFormulaContainsEnum.No;
 
             return result;
         }

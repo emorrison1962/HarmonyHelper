@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Eric.Morrison.Harmony.MusicXml;
+
 namespace Eric.Morrison.Harmony
 {
 
@@ -192,7 +194,7 @@ namespace Eric.Morrison.Harmony
         Yes,
     };
 
-    public enum ContainsEnum
+    public enum ChordFormulaContainsEnum
     {
         Unknown,
         No,
@@ -213,4 +215,23 @@ namespace Eric.Morrison.Harmony.MusicXml
         Stop = 2 << 1,
         StartStop = 2 << 2,
     };
+
+	public enum NoteLengthDivisorEnum
+    {
+		Whole = 1,
+		Half = 2,
+		Quarter = 4,
+		Eighth= 8,
+        Sixteenth = 16,
+        _32nd = 32,
+        _64th = 64,
+        _128th = 128,
+        _256th = 256,
+        _512th = 512,
+        _1024th = 1024,
+        Breve = int.MinValue,
+        Long = int.MinValue,
+        Maxima = int.MinValue
+    }
+
 }//ns

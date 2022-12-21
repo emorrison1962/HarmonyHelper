@@ -1,6 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
-using Kohoutech.Score;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -150,13 +149,21 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Rests.AddRange(e);
         }
 
+        public class Envelope 
+        {
+            public IHasTimeContext Event { get; set; }
+            public Envelope(IHasTimeContext Event)
+            {
+                this.Event = Event;
+            }
+        }
         public List<IHasTimeContext> GetMergedEvents()
         {
             var result = new List<IHasTimeContext>();
             
-            result.AddRange(this.Chords.Select(x => x as IHasTimeContext));
-            result.AddRange(this.Notes.Select(x => x as IHasTimeContext));
-            result.AddRange(this.Rests.Select(x => x as IHasTimeContext));
+            result.AddRange(this.Chords.Select(x => x));
+            result.AddRange(this.Notes.Select(x => x));
+            result.AddRange(this.Rests.Select(x => x));
 
             result = result.OrderBy(x => x.TimeContext).ToList();
 

@@ -22,7 +22,7 @@ namespace Eric.Morrison.Harmony.Chords
         int CompareTo(ChordFormula other);
         ChordCompareResult CompareTo(ChordFormula other, bool logicalCompare);
         bool Contains(List<NoteName> notes);
-        ContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained);
+        ChordFormulaContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained);
         bool Contains(NoteName note);
         ChordFormula Copy();
         bool Equals(ChordFormula other);

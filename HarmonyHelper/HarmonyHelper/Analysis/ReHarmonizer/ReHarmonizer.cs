@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             {
                 if (formula.Contains(pairing.Melody,
                     out var contained,
-                    out var notContained) >= ContainsEnum.Partially)
+                    out var notContained) >= ChordFormulaContainsEnum.Partially)
                 {
                     if (matchesSet.Add(formula))
                     {
