@@ -65,9 +65,9 @@ namespace Eric.Morrison.Harmony.Chords
             }
             else if (this.IsHalfDiminished)
             {
-                result = KeySignature.Catalog
+                result = KeySignature.Catalog.Where(x => x.IsMinor)
                     .FirstOrDefault(x => x.NoteName ==
-                        this.Root + Interval.Major7th);
+                        this.Root + Interval.Major2nd);
             }
             else
             {
@@ -275,7 +275,7 @@ namespace Eric.Morrison.Harmony.Chords
                 chord = new ChordFormula(nn, chord.ChordType, null);
             }
 
-            var key = new ChordFormula2KeySignatureMap()
+            var key = ChordFormula2KeySignatureMap
                 .GetKeys(chord)
                 .FirstOrDefault();
 

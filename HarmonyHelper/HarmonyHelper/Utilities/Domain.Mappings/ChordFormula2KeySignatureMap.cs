@@ -10,14 +10,14 @@ using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony
 {
-    public class ChordFormula2KeySignatureMap
+    static public class ChordFormula2KeySignatureMap
     {
-        public Dictionary<ChordFormula, List<KeySignature>>
+        static public Dictionary<ChordFormula, List<KeySignature>>
             ChordFormulaToKeySignatureMaps { get; set; }
                 = new Dictionary<ChordFormula, List<KeySignature>>();
 
 
-        public ChordFormula2KeySignatureMap()
+        static ChordFormula2KeySignatureMap()
         {
             foreach (var key in KeySignature.Catalog)
             {
@@ -25,47 +25,42 @@ namespace Eric.Morrison.Harmony
                 {
                     if (key.IsDiatonic(formula.NoteNames) >= IsDiatonicEnum.Partially)
                     {
-                        if (this.ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
+                        if (ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
                         {
                             dict.Add(key);
                         }
                         else
                         {
-                            this.ChordFormulaToKeySignatureMaps[formula] = new List<KeySignature>();
-                            this.ChordFormulaToKeySignatureMaps[formula].Add(key);
+                            ChordFormulaToKeySignatureMaps[formula] = new List<KeySignature>();
+                            ChordFormulaToKeySignatureMaps[formula].Add(key);
                         }
                     }
                 }
             }
 
-            //foreach (var dict in this.FormulaToKeyMaps)
-            //{
-            //    Debug.WriteLine($"F2KMap {dict.Key} contains:");
-            //    foreach (var key in dict.Value)
-            //    {
-            //        Debug.WriteLine($"\t{key}");
-            //    }
-            //}
-
             new object();
         }
 
-        public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)
+        static public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)
         {
-            return this.GetKeys(chord.Event);
+            return GetKeys(chord.Event);
         }
 
-        public List<KeySignature> GetKeys(ChordFormula formula)
+        static public List<KeySignature> GetKeys(ChordFormula formula)
         {
             var result = new List<KeySignature>();
-            if (this.ChordFormulaToKeySignatureMaps.ContainsKey(formula))
+            if (ChordFormulaToKeySignatureMaps.ContainsKey(formula))
             {
-                result = this.ChordFormulaToKeySignatureMaps[formula]?
+                result = ChordFormulaToKeySignatureMaps[formula]?
                     .OrderBy(x => x.IsMinor)
                     .ThenBy(x => x.NoteName)
                     .ToList();
             }
-            Debug.Assert(result.Count > 0);
+            //Debug.Assert(result.Count > 0);
+            if (result.Count == 0)
+            {
+                Debug.WriteLine(formula);
+            }
             return result;
         }
 

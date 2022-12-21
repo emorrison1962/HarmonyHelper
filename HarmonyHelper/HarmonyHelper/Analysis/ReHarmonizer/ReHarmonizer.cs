@@ -46,10 +46,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         private List<ChordFormula> ReHarmonize(ChordMelodyPairing pairing)
         {
-            var ks2cfMap = new KeySignature2ChordFormulaMap();
-            var cf2ksMap = new ChordFormula2KeySignatureMap();
-
-            List<KeySignature> mappedKeys = cf2ksMap.GetKeys(pairing.Chord);
+            List<KeySignature> mappedKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
             Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
             foreach (var key in mappedKeys)
             {
@@ -66,7 +63,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 .ToList();
 
             var matchesSet = new HashSet<ChordFormula>();
-            var formulas = ks2cfMap.GetChordFormulas(keys);
+            var formulas = KeySignature2ChordFormulaMap.GetChordFormulas(keys);
             //foreach (var key in keys)
             {
                 //var formulas = ks2cfMap.GetChordFormulas(key);

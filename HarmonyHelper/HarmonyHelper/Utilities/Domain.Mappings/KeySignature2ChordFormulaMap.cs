@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-    public class KeySignature2ChordFormulaMap
+    static public class KeySignature2ChordFormulaMap
     {
-        public Dictionary<KeySignature, List<ChordFormula>> 
+        static public Dictionary<KeySignature, List<ChordFormula>> 
             KeySignatureToChordFormulaMaps { get; set; } 
                 = new Dictionary<KeySignature, List<ChordFormula>>();
 
-        public KeySignature2ChordFormulaMap()
+        static KeySignature2ChordFormulaMap()
         {
             foreach (var key in KeySignature.Catalog)
             {
@@ -23,47 +23,36 @@ namespace Eric.Morrison.Harmony
                 {
                     if (IsDiatonicEnum.Yes == key.IsDiatonic(formula.NoteNames))
                     {
-                        if (this.KeySignatureToChordFormulaMaps.TryGetValue(key, out var formulas))
+                        if (KeySignatureToChordFormulaMaps.TryGetValue(key, out var formulas))
                         {
                             formulas.Add(formula);
                         }
                         else
                         {
-                            this.KeySignatureToChordFormulaMaps[key] = new List<ChordFormula>();
-                            this.KeySignatureToChordFormulaMaps[key].Add(formula);
+                            KeySignatureToChordFormulaMaps[key] = new List<ChordFormula>();
+                            KeySignatureToChordFormulaMaps[key].Add(formula);
                         }
                     }
                 }
             }
-
-
-            //foreach (var dict in this.KeyToFormulaMaps)
-            //{
-            //    Debug.WriteLine($"K2FMap {dict.Key} contains:");
-            //    foreach (var formula in dict.Value)
-            //    {
-            //        Debug.WriteLine($"\t{formula}");
-            //    }
-            //}
-
             new object();
         }
 
-        public List<ChordFormula> GetChordFormulas(KeySignature key)
+        static public List<ChordFormula> GetChordFormulas(KeySignature key)
         {
-            var result = this.KeySignatureToChordFormulaMaps[key]
+            var result = KeySignatureToChordFormulaMaps[key]
                 .OrderBy(x => x.Root)
                 .ThenBy(x => x.NoteNames.Count)
                 .ToList();
             return result;
         }
 
-        public List<ChordFormula> GetChordFormulas(List<KeySignature> keys)
+        static public List<ChordFormula> GetChordFormulas(List<KeySignature> keys)
         {
             var set = new HashSet<ChordFormula>();
             foreach (var key in keys)
             {
-                this.KeySignatureToChordFormulaMaps[key]
+                KeySignatureToChordFormulaMaps[key]
                     .ForEach(x => set.Add(x));
             }
             

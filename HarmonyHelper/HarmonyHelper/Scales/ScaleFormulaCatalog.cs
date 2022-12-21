@@ -111,7 +111,7 @@ namespace Eric.Morrison.Harmony
 
 			#region Get rid of enharmonic equivelents.
 
-			var keys = new ChordFormula2KeySignatureMap().GetKeys(cf);
+			var keys = ChordFormula2KeySignatureMap.GetKeys(cf);
 
             var valueComparer = new NoteNameValueEqualityComparer();
 
