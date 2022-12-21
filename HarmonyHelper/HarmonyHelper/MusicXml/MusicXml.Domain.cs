@@ -1,5 +1,6 @@
 ﻿using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
+using Kohoutech.Score;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -149,13 +150,28 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Rests.AddRange(e);
         }
 
+        public List<IHasTimeContext> GetMergedEvents()
+        {
+            var result = new List<IHasTimeContext>();
+            
+            result.AddRange(this.Chords.Select(x => x as IHasTimeContext));
+            result.AddRange(this.Notes.Select(x => x as IHasTimeContext));
+            result.AddRange(this.Rests.Select(x => x as IHasTimeContext));
+
+            result = result.OrderBy(x => x.TimeContext).ToList();
+
+            return result;
+        }
+
+
         public override string ToString()
         {
             return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={Chords.Count}, Notes={Notes.Count}, Rests={Rests.Count}";
         }
     }
 
-    public class TimedEvent<T> : IEquatable<TimedEvent<T>>, IComparable<TimedEvent<T>> where T : class, IComparable<T>
+    public class TimedEvent<T> : IHasTimeContext, IEquatable<TimedEvent<T>>, IComparable<TimedEvent<T>> 
+        where T : class, IMusicalEvent<T>, IComparable<T>
     {
         public int AbsoluteStart { get { return this.TimeContext.AbsoluteStart; } }
         public int AbsoluteEnd { get { return this.TimeContext.AbsoluteEnd; } }

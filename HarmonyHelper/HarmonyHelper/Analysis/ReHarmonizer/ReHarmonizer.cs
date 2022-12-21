@@ -121,7 +121,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     public static class TimedEventExtensions
     {
         public static List<TimedEvent<T>> GetIntersecting<T>(this List<TimedEvent<T>> src, TimeContext window)
-            where T : class, IComparable<T>
+            where T : class, IMusicalEvent<T>, IComparable<T>
         {
             var result = new List<TimedEvent<T>>();
             foreach (var item in src)

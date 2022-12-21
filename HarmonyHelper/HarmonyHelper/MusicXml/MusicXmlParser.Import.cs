@@ -27,7 +27,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlParser
+    public partial class MusicXmlParser
     {
         #region Constants
 

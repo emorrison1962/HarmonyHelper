@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony.Chords
 {
@@ -33,4 +34,14 @@ namespace Eric.Morrison.Harmony.Chords
         void SetBassNote(NoteName bass);
         string ToString();
     }
-}
+
+    public interface IHasTimeContext
+    {
+        TimeContext TimeContext { get; }
+    }
+    public interface IHasTimeContext<T> where T : class, IMusicalEvent<T>
+    {
+        T Event { get; }
+    }
+
+}//ns
