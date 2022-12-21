@@ -8,9 +8,8 @@ using System.Reflection;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-    public class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
+    public partial class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
     {
-        public static readonly ChordFormulaCatalog Catalog = new ChordFormulaCatalog();
         static public readonly NullChordFormula Empty = NullChordFormula.Instance;
 
         #region Properties
@@ -269,15 +268,20 @@ namespace Eric.Morrison.Harmony.Chords
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             ChordFormula result = null;
-            var key = KeySignature.Catalog
-                .First(x => x.NoteName.Value == (chord.Key.NoteName - interval).Value
-                    && x.IsMajor == chord.Key.IsMajor);
 
             if (chord.Root.AccidentalCount == 2)
             {
                 var nn = NoteName.GetEnharmonicEquivalents(chord.Root).First();
-                chord = new ChordFormula(nn, chord.ChordType, key);
+                chord = new ChordFormula(nn, chord.ChordType, null);
             }
+
+            var key = new ChordFormula2KeySignatureMap()
+                .GetKeys(chord)
+                .FirstOrDefault();
+
+            //var key = KeySignature.Catalog
+            //    .First(x => x.NoteName.Value == (chord.Key.NoteName - interval).Value
+            //        && x.IsMajor == chord.Key.IsMajor);
 
             if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelnt))
             {

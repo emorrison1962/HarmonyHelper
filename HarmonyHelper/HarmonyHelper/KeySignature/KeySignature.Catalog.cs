@@ -59,8 +59,8 @@ namespace Eric.Morrison.Harmony
         public static KeySignature AbMinor { get; protected set; }
 
         #endregion        
-        public static List<KeySignature> MinorKeys { get; protected set; }
-        public static List<KeySignature> MajorKeys { get; protected set; }
+        public static List<KeySignature> MinorKeys { get; protected set; } = new List<KeySignature>();
+        public static List<KeySignature> MajorKeys { get; protected set; } = new List<KeySignature>();
 
         static List<KeySignature> _Catalog { get; set; } = new List<KeySignature>();
         static List<KeySignature> _InternalCatalog { get; set; } = new List<KeySignature>();

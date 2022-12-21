@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony
         {
             foreach (var key in KeySignature.Catalog)
             {
-                foreach (var formula in ChordFormulaCatalog.Formulas)
+                foreach (var formula in ChordFormula.Catalog)
                 {
                     if (IsDiatonicEnum.Yes == key.IsDiatonic(formula.NoteNames))
                     {

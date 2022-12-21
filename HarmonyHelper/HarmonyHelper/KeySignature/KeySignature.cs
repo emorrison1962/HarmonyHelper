@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-
+using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
@@ -73,17 +73,17 @@ namespace Eric.Morrison.Harmony
             var majMin = this.IsMajor ? "Major" : "Minor";
             this.Name = $"{this.NoteName} {majMin}";
 
-            this.Init();
+            Task.Run(() => this.InitAsync());
         }
 
         protected KeySignature() { }
 
-        void Init()
+        async Task InitAsync()
         {
-            this.SetChords();
+            await this.SetChordsAsync();
         }
 
-        void SetChords()
+        async Task SetChordsAsync()
         {
             if (this.IsMajor)
             {
@@ -94,37 +94,37 @@ namespace Eric.Morrison.Harmony
                 var vi = this.NoteName + Interval.Major6th;
                 var vii = this.NoteName + Interval.Major7th;
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == this.NoteName)
                     .First();
 
-                this.Dorian = ChordFormulaCatalog.Formulas
+                this.Dorian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == ii)
                     .First();
 
-                this.Phrygian = ChordFormulaCatalog.Formulas
+                this.Phrygian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == iii)
                     .First();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == IV)
                     .First();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Dominant7th
                         && x.Root == V)
                     .First();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == vi)
                     .First();
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.HalfDiminished
                         && x.Root == vii)
                     .First();
@@ -140,41 +140,42 @@ namespace Eric.Morrison.Harmony
                 var vi = this.NoteName + Interval.Minor6th;
                 var vii = this.NoteName + Interval.Minor7th;
 
-                this.Ionian = ChordFormulaCatalog.Formulas
+                this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == this.NoteName)
                     .FirstOrDefault();
 
-                this.Dorian = ChordFormulaCatalog.Formulas
+                this.Dorian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.HalfDiminished
                         && x.Root == ii)
                     .FirstOrDefault();
 
-                this.Phrygian = ChordFormulaCatalog.Formulas
+                this.Phrygian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == iii)
                     .FirstOrDefault();
 
-                this.Lydian = ChordFormulaCatalog.Formulas
+                this.Lydian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == IV)
                     .FirstOrDefault();
 
-                this.MixoLydian = ChordFormulaCatalog.Formulas
+                this.MixoLydian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Minor7th
                         && x.Root == V)
                     .FirstOrDefault();
 
-                this.Aeolian = ChordFormulaCatalog.Formulas
+                this.Aeolian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Major7th
                         && x.Root == vi)
                     .FirstOrDefault();
 
-                this.Locrian = ChordFormulaCatalog.Formulas
+                this.Locrian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordType.Dominant7th
                         && x.Root == vii)
                     .FirstOrDefault();
             }
+            await Task.CompletedTask;
         }
 
         #endregion

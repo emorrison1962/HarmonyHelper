@@ -32,24 +32,24 @@ namespace Eric.Morrison.Harmony
 		public void TheChickenTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SixthPosition);
-			var chordFormula = ChordFormulaCatalog.Bb7;
+			var chordFormula = ChordFormula.Bb7;
 			var chord = new Chord(chordFormula, noteRange);
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
 			var chords = new List<Chord>() { chord };
 			{
-				chords.Add(new Chord(ChordFormulaCatalog.Bb7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.Bb7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.Bb7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.Eb7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.Eb7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.D7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.G7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.C7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.C7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.C7, noteRange));
-				chords.Add(new Chord(ChordFormulaCatalog.C7, noteRange));
+				chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+				chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+				chords.Add(new Chord(ChordFormula.Bb7, noteRange));
+				chords.Add(new Chord(ChordFormula.Eb7, noteRange));
+				chords.Add(new Chord(ChordFormula.Eb7, noteRange));
+				chords.Add(new Chord(ChordFormula.D7, noteRange));
+				chords.Add(new Chord(ChordFormula.G7, noteRange));
+				chords.Add(new Chord(ChordFormula.C7, noteRange));
+				chords.Add(new Chord(ChordFormula.C7, noteRange));
+				chords.Add(new Chord(ChordFormula.C7, noteRange));
+				chords.Add(new Chord(ChordFormula.C7, noteRange));
 			}
 
 

@@ -395,7 +395,8 @@ namespace Eric.Morrison.Harmony.Chords
 					result = ChordType.Diminished7;
 					break;
 
-				case "sus4":
+                case "sus":
+                case "sus4":
 					result = ChordType.Sus4;
 					break;
 				case "sus2":

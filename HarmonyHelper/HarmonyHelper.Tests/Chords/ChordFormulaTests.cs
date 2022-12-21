@@ -18,7 +18,7 @@ namespace HarmonyHelperTests.Chords
 		[TestMethod()]
 		public void ColtraneChangesTest()
 		{
-			var chordFormula = ChordFormulaCatalog.Bb7;
+			var chordFormula = ChordFormula.Bb7;
 
 			for (int i = 0; i <= 10; ++i)
 			{

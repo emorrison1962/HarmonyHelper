@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,7 @@ namespace Eric.Morrison.Harmony
     public class ChordFormula2KeySignatureMap
     {
         public Dictionary<ChordFormula, List<KeySignature>>
-            ChordFormulaToKeySignatureMaps
-        { get; set; }
+            ChordFormulaToKeySignatureMaps { get; set; }
                 = new Dictionary<ChordFormula, List<KeySignature>>();
 
 
@@ -21,9 +21,9 @@ namespace Eric.Morrison.Harmony
         {
             foreach (var key in KeySignature.Catalog)
             {
-                foreach (var formula in ChordFormulaCatalog.Formulas)
+                foreach (var formula in ChordFormula.Catalog)
                 {
-                    if (IsDiatonicEnum.Partially <= key.IsDiatonic(formula.NoteNames))
+                    if (key.IsDiatonic(formula.NoteNames) >= IsDiatonicEnum.Partially)
                     {
                         if (this.ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
                         {
@@ -52,14 +52,22 @@ namespace Eric.Morrison.Harmony
 
         public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)
         {
+            return this.GetKeys(chord.Event);
+        }
+
+        public List<KeySignature> GetKeys(ChordFormula formula)
+        {
             var result = new List<KeySignature>();
-            if (this.ChordFormulaToKeySignatureMaps.ContainsKey(chord.Event))
+            if (this.ChordFormulaToKeySignatureMaps.ContainsKey(formula))
             {
-                result = this.ChordFormulaToKeySignatureMaps[chord.Event]?
-                    .OrderBy(x => x.NoteName)
+                result = this.ChordFormulaToKeySignatureMaps[formula]?
+                    .OrderBy(x => x.IsMinor)
+                    .ThenBy(x => x.NoteName)
                     .ToList();
             }
+            Debug.Assert(result.Count > 0);
             return result;
         }
+
     }//class
 }//ns

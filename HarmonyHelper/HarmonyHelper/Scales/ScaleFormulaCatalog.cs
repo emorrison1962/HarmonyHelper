@@ -94,30 +94,36 @@ namespace Eric.Morrison.Harmony
 		public List<ScaleFormulaBase> GetScalesContaining(ChordFormula cf)
 		{
 			var result = new List<ScaleFormulaBase>();
-			var tmp = new List<ScaleFormulaBase>();
+			var scaleFormulas = new List<ScaleFormulaBase>();
 
 			#region Get the scales containing the chord
-			var sorted = this.Formulas.OrderBy(x => x.Name).ToList();
-			foreach (var sf in sorted)
+			var sortedScaleFormulas = this.Formulas.OrderBy(x => x.Name).ToList();
+			foreach (var scaleFormula in sortedScaleFormulas)
 			{
-				var hasChord = sf.Contains(cf);
+				var hasChord = scaleFormula.Contains(cf);
 				if (hasChord)
 				{
 					//Debug.Write(scale.Name.ToString());
-					tmp.Add(sf);
+					scaleFormulas.Add(scaleFormula);
 				}
 			}
 			#endregion
 
 			#region Get rid of enharmonic equivelents.
-			var valueComparer = new NoteNameValueEqualityComparer();
-			var groups = tmp
-				.Where(x => (x.Key.UsesFlats == cf.Key.UsesFlats
-					&& x.Key.UsesSharps == cf.Key.UsesSharps))
-				.GroupBy(x => x.NoteNames.Sum(y => y.Value), x => x)
-				.ToList();
 
-			foreach (var group in groups)
+			var keys = new ChordFormula2KeySignatureMap().GetKeys(cf);
+
+            var valueComparer = new NoteNameValueEqualityComparer();
+
+			var groups = (from scaleFormula in scaleFormulas
+				from key in keys
+				where key.UsesSharps == scaleFormula.Key.UsesSharps
+					&& key.UsesFlats == scaleFormula.Key.UsesFlats
+				select (scaleFormula))
+					   .GroupBy(x => x.NoteNames.Sum(y => y.Value), x => x)
+					   .ToList();
+
+            foreach (var group in groups)
 			{
 				var scales = group.ToList();
 				foreach (var scale in scales)

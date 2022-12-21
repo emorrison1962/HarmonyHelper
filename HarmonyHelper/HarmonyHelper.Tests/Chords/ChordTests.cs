@@ -69,7 +69,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void Gb7ModulationTest()
         {
-            var chord = ChordFormulaCatalog.Formulas.First(x => x.Root == NoteName.Gb && x.ChordType == ChordType.Dominant7th);
+            var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordType.Dominant7th);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
             var origKey = chord.Key;
             var txedUp = chord + Interval.Perfect4th;
@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ChordTest()
         {
-            foreach (var origChord in ChordFormulaCatalog.Formulas)
+            foreach (var origChord in ChordFormula.Catalog)
             {
                 Debug.WriteLine(string.Format("{0}7 = {1}", origChord.Root.ToString(), origChord.ToString()));
 
@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void IteratorTest()
         {
-            foreach (var chord in ChordFormulaCatalog.Formulas)
+            foreach (var chord in ChordFormula.Catalog)
             {
                 var newChord = chord + Interval.Perfect5th;
                 //Debug.WriteLine(newChord.ToString());
@@ -115,7 +115,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ToStringTest()
         {
-            foreach (var chord in ChordFormulaCatalog.Formulas)
+            foreach (var chord in ChordFormula.Catalog)
             {
                 Debug.WriteLine(chord.ToString());
             }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace HarmonyHelper_DryWetMidi.Tests
 {
@@ -14,9 +16,15 @@ namespace HarmonyHelper_DryWetMidi.Tests
         [TestMethod()]
         public void OpenTest()
         {
-            //const string MIDI_FILE = @"C:\Users\Eric\Documents\MuseScore3\Scores\Superstition.mid";
-            const string MIDI_FILE = @"C:\Users\emorrison\Downloads\Superstitions.mid";
-            var reader = new MidiFileConverter(MIDI_FILE);
+            var path = Assembly.GetExecutingAssembly().Location;
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+
+            path = Path.Combine(path, "TEST_FILES");
+            path = Path.Combine(path, "Superstition.mid");
+
+            var reader = new MidiFileConverter(path);
 
             //Assert.Fail();
         }
