@@ -44,19 +44,19 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-        public MusicXmlParsingResult Parse(string filename)
+        public MusicXmlParsingModel Parse(string filename)
         {
             //var xml = this.LoadEmbeddedResource();
 
             this.Document = XDocument.Load(filename);
 
-            MusicXmlBase.ValidateMusicXmlSchema(this.Document);
+//            MusicXmlBase.ValidateMusicXmlSchema(this.Document);
 
             var result = this.ParseImpl(this.Document);
             return result;
         }
 
-        MusicXmlParsingResult ParseImpl(XDocument doc)
+        MusicXmlParsingModel ParseImpl(XDocument doc)
         {
             //this.ValidateMusicXmlSchema(doc);
 
@@ -81,9 +81,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlParsingResult CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        MusicXmlParsingModel CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
         {
-            var result = new MusicXmlParsingResult();
+            var result = new MusicXmlParsingModel();
             result.Metadata = metadata;
             result.Parts = parts;
             return result;

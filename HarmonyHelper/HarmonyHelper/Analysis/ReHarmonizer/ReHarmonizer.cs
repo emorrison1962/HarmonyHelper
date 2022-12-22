@@ -15,12 +15,11 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     {
         ReHarmonizerContext Context { get; set; }
 
-        public void ReHarmonize(MusicXmlParsingResult input)
+        public void ReHarmonize(MusicXmlParsingModel model)
         {
-            this.Context = new ReHarmonizerContext(input);
+            this.Context = new ReHarmonizerContext(model);
             var pairings = new List<ChordMelodyPairing>();
 
-            var chords = this.Context.GetChords();
             var measures = this.Context.GetMergedMeasures();
             foreach (var measure in measures)
             {
@@ -36,9 +35,24 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 }
             }
 
+            var used = new HashSet<ChordSubstitution>();
             foreach (var pairing in pairings)
             {
                 var substitutions = this.ReHarmonize(pairing);
+
+                foreach (var substitution in substitutions)
+                {
+                    if (used.Contains(substitution))
+                    {
+                        new object();
+                    }
+                    else
+                    {// create a new measure here.
+                        throw new NotImplementedException("The measures exist within th parts!");
+                        used.Add(substitution);
+                        new object();
+                    }
+                }
             }
 
             new object();
@@ -137,8 +151,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
     public class ReHarmonizerContext
     {
-        MusicXmlParsingResult MusicXmlParsingResult { get; set; }
-        public ReHarmonizerContext(MusicXmlParsingResult input)
+        MusicXmlParsingModel MusicXmlParsingResult { get; set; }
+        public ReHarmonizerContext(MusicXmlParsingModel input)
         {
             this.MusicXmlParsingResult = input;
         }

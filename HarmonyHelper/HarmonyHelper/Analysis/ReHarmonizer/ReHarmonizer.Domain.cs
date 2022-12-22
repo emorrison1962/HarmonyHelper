@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         }
     }//class
 
-    public class ChordSubstitution
+    public class ChordSubstitution : IEquatable<ChordSubstitution>, IComparable<ChordSubstitution>
     {
         public ChordFormula Original { get; private set; }
         public ChordFormula Substitution { get; private set; }
@@ -47,6 +47,29 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         public override string ToString()
         {
             return $"{nameof(ChordSubstitution)}: TimeContext={TimeContext}, Original={Original}, Substitution={Substitution}";
+        }
+
+        public bool Equals(ChordSubstitution other)
+        {
+            var result = false;
+            if (this.Original.Equals(other.Original)
+                && this.Substitution.Equals(other.Substitution)) 
+                result = true ;
+            return result;
+        }
+
+        public int CompareTo(ChordSubstitution other)
+        {
+            var result = this.Original.CompareTo(other.Original);
+            if (0 == result)
+                result = this.Substitution.CompareTo(other.Substitution);
+            return result;
+        }
+
+        public override int GetHashCode()
+        {
+            //return base.GetHashCode();
+            return 0;
         }
     }//class
 

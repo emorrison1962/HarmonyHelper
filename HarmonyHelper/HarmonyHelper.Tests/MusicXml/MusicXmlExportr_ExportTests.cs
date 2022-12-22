@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             doc.Save(path);
         }
 
-        static public MusicXmlParsingResult Parse()
+        static public MusicXmlParsingModel Parse()
         {
             var path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
