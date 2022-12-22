@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 
             path = Path.Combine(path, "TEST_FILES");
             path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
-            var parser = new MusicXmlParser();
+            var parser = new MusicXmlImporter();
             var parsingResult = parser.Parse(path);
 
             new ReHarmonizer().ReHarmonize(parsingResult);

@@ -28,7 +28,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public partial class MusicXmlParser : MusicXmlBase
+    public partial class MusicXmlImporter : MusicXmlBase
     {
         #region Constants
 
@@ -40,7 +40,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public MusicXmlParser()
+        public MusicXmlImporter()
         {
         }
 
@@ -49,6 +49,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             //var xml = this.LoadEmbeddedResource();
 
             this.Document = XDocument.Load(filename);
+
+            MusicXmlBase.ValidateMusicXmlSchema(this.Document);
+
             var result = this.ParseImpl(this.Document);
             return result;
         }

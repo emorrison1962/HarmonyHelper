@@ -28,7 +28,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public partial class MusicXmlExportr_Export : MusicXmlBase
+    public partial class MusicXmlExporter : MusicXmlBase
     {
         #region Constants
 
@@ -41,41 +41,43 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         #region Construction
-        public MusicXmlExportr_Export()
+        public MusicXmlExporter()
         {
         }
 
         #endregion
         
-        public bool Export(MusicXmlParsingResult model)
+        public XDocument Export(MusicXmlParsingResult model)
         {
-            var xml = this.LoadEmbeddedResource("ExportTemplate_MusicXml.xml");
-
-            this.Document = XDocument.Parse(xml);
-            var result = this.ExportImpl(model);
-            return result;
+            this.ExportImpl(model);
+            return this.Document;
         }
 
-        bool ExportImpl(MusicXmlParsingResult model)
+        void ExportImpl(MusicXmlParsingResult model)
         {
+            this.Document = new ExportTemplateFactory().Create(model);
             foreach (var part in model.Parts) 
             {
+                var xpart = new XElement(XmlConstants.part);
+                xpart.Add(new XAttribute(XmlConstants.id, part.Identifier.ID));
+
                 foreach (var measure in part.Measures)
                 {
+                    var xmeasure = new XElement(XmlConstants.measure);
+                    xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
+
                     var events = measure.GetMergedEvents();
                     foreach (var @event in events)
                     {
                         var ob = (dynamic)@event;
-                        var cft = this.ToXElement(ob);
+                        var xevent = this.ToXElement(ob);
+                        xmeasure.Add(xevent);
                     }
+                    xpart.Add(xmeasure);
                 }
+                this.Document.Element(XmlConstants.score_partwise)
+                    .Add(xpart);
             }
-
-            //var metadata = this.ExportScoreMetadata(model);
-            //this.ParsingContext.Metadata = metadata;
-            var score = this.Document.Elements(XmlConstants.score_partwise).First();
-
-            return false;
         }
 
 

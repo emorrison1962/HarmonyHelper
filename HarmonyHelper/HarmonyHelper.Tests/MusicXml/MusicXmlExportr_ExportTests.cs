@@ -20,8 +20,20 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void ExportTest()
         {
+            var folder = @"c:\temp\MusicXml";
+            if (!Directory.Exists(Path.GetDirectoryName(folder)))
+                Directory.CreateDirectory(Path.GetDirectoryName(folder));
+
+
             var model = Parse();
-            new MusicXmlExportr_Export().Export(model);
+            var doc = new MusicXmlExporter()
+                .Export(model);
+
+            MusicXmlBase.ValidateMusicXmlSchema(doc);
+
+            var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
+            var path = Path.Combine(folder, filename);
+            doc.Save(path);
         }
 
         static public MusicXmlParsingResult Parse()
@@ -35,7 +47,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 
-            var parser = new MusicXmlParser();
+            var parser = new MusicXmlImporter();
             var result = parser.Parse(path);
 
             return result;

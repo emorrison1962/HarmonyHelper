@@ -12,7 +12,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     abstract public class MusicXmlBase
     {
-        protected bool ValidateMusicXmlSchema(XDocument doc)
+        static public bool ValidateMusicXmlSchema(XDocument doc)
         {
             var result = false;
             try

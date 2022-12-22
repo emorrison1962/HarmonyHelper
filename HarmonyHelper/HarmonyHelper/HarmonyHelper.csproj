@@ -49,12 +49,12 @@
     <Compile Include="Interfaces\IKeySignature.cs" />
     <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="KeySignature\KeySignature.Catalog.cs" />
-    <Compile Include="MusicXml\_MusicXmlBase.cs" />
-    <Compile Include="MusicXml\MusicXmlParser.Export.cs" />
+    <Compile Include="MusicXml\_MusicXml.Base.cs" />
+    <Compile Include="MusicXml\MusicXml.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
     <Compile Include="Utilities\Domain.Mappings\KeySignature2ChordFormulaMap.cs" />
     <Compile Include="MusicXml\MusicXmlParser_old.cs" />
-    <Compile Include="MusicXml\MusicXmlParser.Import.cs" />
+    <Compile Include="MusicXml\MusicXml.Import.cs" />
     <Compile Include="MusicXml\MusicXml.Domain.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="MusicXml\ParserHelperClasses.cs" />

@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony.Tests
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 
-            var parser = new MusicXmlParser();
+            var parser = new MusicXmlImporter();
             var result = parser.Parse(path);
 
             Assert.IsNotNull(result);
