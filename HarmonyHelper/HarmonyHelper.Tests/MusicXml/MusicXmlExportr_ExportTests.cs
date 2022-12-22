@@ -20,11 +20,11 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void ExportTest()
         {
-            var model = this.Parse();
+            var model = Parse();
             new MusicXmlExportr_Export().Export(model);
         }
 
-        public MusicXmlParsingResult Parse()
+        static public MusicXmlParsingResult Parse()
         {
             var path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
@@ -44,7 +44,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void foo()
         {
-            var model = this.Parse();
+            var model = Parse();
             foreach (var part in model.Parts)
             {
                 foreach (var measure in part.Measures)

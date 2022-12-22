@@ -79,6 +79,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
     <Compile Include="KeySignature\KeySignatureTests.cs" />
+    <Compile Include="MusicXml\ExportTemplateFactoryTests.cs" />
     <Compile Include="MusicXml\MusicXmlExportr_ExportTests.cs" />
     <Compile Include="Notes\NoteNameParserTests.cs" />
     <Compile Include="Scales\ModeTests.cs" />

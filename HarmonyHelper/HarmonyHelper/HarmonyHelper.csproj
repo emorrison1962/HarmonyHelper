@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IKeySignature.cs" />
     <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="KeySignature\KeySignature.Catalog.cs" />
+    <Compile Include="MusicXml\_MusicXmlBase.cs" />
     <Compile Include="MusicXml\MusicXmlParser.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
     <Compile Include="Utilities\Domain.Mappings\KeySignature2ChordFormulaMap.cs" />
@@ -152,9 +153,18 @@
   <ItemGroup>
     <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
     <EmbeddedResource Include="Resources\parttime.xsl" />
-    <EmbeddedResource Include="MusicXml\ExportTemplate_MusicXml.xml" />
+    <EmbeddedResource Include="MusicXml\MusicXmlExportTemplate.xml" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.Domain.cs" />
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\musicxml.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\xlink.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\xml.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="_How Duration Works.XML" />
     <Content Include="_TODO.txt" />
   </ItemGroup>

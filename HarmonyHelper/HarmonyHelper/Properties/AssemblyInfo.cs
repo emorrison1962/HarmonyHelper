@@ -1,16 +1,17 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ContiuousAreggiationExercise")]
+[assembly: AssemblyTitle("Harmony Helper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ContiuousAreggiationExercise")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("Harmony Helper")]
+[assembly: AssemblyCopyright("Copyright © 2017 Eric Morrison")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

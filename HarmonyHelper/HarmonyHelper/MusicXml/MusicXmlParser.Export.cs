@@ -28,7 +28,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public partial class MusicXmlExportr_Export
+    public partial class MusicXmlExportr_Export : MusicXmlBase
     {
         #region Constants
 
@@ -194,7 +194,7 @@ namespace Eric.Morrison.Harmony.MusicXml
       </harmony>
 #endif
             var harmony = new XElement(XmlConstants.harmony);
-            var root = ToRoot((dynamic)te);
+            var root = this.ToRoot((dynamic)te);
             harmony.Add(root);
 
             var kind = new XElement(XmlConstants.kind, te.Event.ChordType.Name);
@@ -253,7 +253,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 xnote.Add(xpitch);
                 {
-                    this.GetDoration(time, out var xduration, out var xtype);
+                    this.GetDuration(time, out var xduration, out var xtype);
                     xnote.Add(xduration);
                     xnote.Add(xtype);
                 }
@@ -280,7 +280,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var xrest = new XElement(XmlConstants.rest);
             xnote.Add(xrest);
 
-            this.GetDoration(time, out var duration, out var noteType);
+            this.GetDuration(time, out var duration, out var noteType);
             xrest.Add(duration);
             xrest.Add(noteType);
 
@@ -289,7 +289,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xrest;
         }
 
-        void GetDoration(TimeContext time, out XElement duration, out XElement noteType)
+        void GetDuration(TimeContext time, out XElement duration, out XElement noteType)
         {
             duration = new XElement(XmlConstants.duration, time.Duration);
             noteType = new XElement(XmlConstants.type,

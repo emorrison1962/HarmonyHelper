@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Xsl;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
@@ -27,7 +28,7 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public partial class MusicXmlParser
+    public partial class MusicXmlParser : MusicXmlBase
     {
         #region Constants
 
@@ -54,8 +55,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         MusicXmlParsingResult ParseImpl(XDocument doc)
         {
-            //this.Document = this.Transform();
-            //this.PreParseTiedNotes(this.Document);
+            //this.ValidateMusicXmlSchema(doc);
 
             var metadata = this.ParseScoreMetadata(doc);
             this.ParsingContext.Metadata = metadata;
@@ -1029,21 +1029,5 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        string LoadEmbeddedResource(string partialName)
-        {
-            var result = string.Empty;
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceNames()
-                .Where(x => x.Contains(partialName)).FirstOrDefault();
-            using (var sr = new StreamReader(assembly
-                .GetManifestResourceStream(resource)))
-            {
-                result = sr.ReadToEnd();
-            }
-            return result;
-        }
-
     }//class
-
-
 }//ns

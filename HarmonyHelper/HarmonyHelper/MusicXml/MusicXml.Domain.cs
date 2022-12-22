@@ -489,6 +489,51 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = (duration * this.Normal) / this.Actual;
             return result;
         }
-    }
+    }//class
+
+    public class ExportTemplateFactory
+    {
+        public string Now { get { return DateTime.Now.ToString("MM-dd-yyyy"); } }
+
+        public XDocument Create(MusicXmlParsingResult model)
+        {
+            var xml = MusicXmlBase.LoadEmbeddedResource("MusicXmlExportTemplate.xml");
+
+            var work = this.GetWork(model);
+            var identification = this.GetIdentification();
+            
+            var result = XDocument.Parse(xml);
+            result.Element("score-partwise").Add(work);
+            result.Element("score-partwise").Add(identification);
+
+            return result;
+
+        }
+
+        XElement GetWork(MusicXmlParsingResult model)
+        {
+            var template = $@" 
+<work>
+  <work-title>{model.Metadata.Title}</work-title>
+</work>";
+            var result = XElement.Parse(template);
+            return result;
+        }
+
+        XElement GetIdentification()
+        {
+            var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            var template = $@"
+<identification>
+ <encoding>
+  <encoding-date>{this.Now}</encoding-date>
+  <software>{fvi.ProductName}, Version {fvi.ProductVersion}</software>
+ </encoding>
+</identification>";
+            var result = XElement.Parse(template);
+            return result;
+        }
+
+    }//class
 
 }//ns
