@@ -16,16 +16,23 @@ namespace Eric.Morrison.Harmony.Tests
     [TestClass()]
     public class MusicXmlParserTests
     {
+        string TEST_FILES_PATH
+        {
+            get
+            {
+                var path = Assembly.GetExecutingAssembly().Location;
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.Combine(path, "TEST_FILES");
+                return path;
+            }
+        }
         [TestMethod()]
         public void ParseTest()
         {
-            var path = Assembly.GetExecutingAssembly().Location;
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
-            //path = Path.GetDirectoryName(path);
-            path = Path.Combine(path, "TEST_FILES");
-            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
+            var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922-Electric_Piano.musicxml");
+
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 

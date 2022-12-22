@@ -17,11 +17,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = false;
             try
             {
+                XmlSchemaSet schemaSet = new XmlSchemaSet();
+
                 var xsd = LoadEmbeddedResource("musicxml.xsd");
                 var reader = new StringReader(xsd);
                 var schema = XmlSchema.Read(reader, ValidationEventHandler);
-
-                XmlSchemaSet schemaSet = new XmlSchemaSet();
                 schemaSet.Add(schema);
 
                 xsd = LoadEmbeddedResource("xlink.xsd");
