@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             doc.Save(path);
         }
 
-        static public MusicXmlParsingModel Parse()
+        static public MusicXmlModel Parse()
         {
             var path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             Debug.Assert(File.Exists(path));
 
             var parser = new MusicXmlImporter();
-            var result = parser.Parse(path);
+            var result = parser.Import(path);
 
             return result;
         }

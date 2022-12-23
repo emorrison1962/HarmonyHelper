@@ -44,28 +44,25 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-        public MusicXmlParsingModel Parse(string filename)
+        public MusicXmlModel Import(string filename)
         {
-            //var xml = this.LoadEmbeddedResource();
-
             this.Document = XDocument.Load(filename);
 
-//            MusicXmlBase.ValidateMusicXmlSchema(this.Document);
+            //if (!MusicXmlBase.ValidateMusicXmlSchema(this.Document))
+            //    throw new NotImplementedException();
 
-            var result = this.ParseImpl(this.Document);
+            var result = this.ParseImpl();
             return result;
         }
 
-        MusicXmlParsingModel ParseImpl(XDocument doc)
+        MusicXmlModel ParseImpl()
         {
-            //this.ValidateMusicXmlSchema(doc);
-
-            var metadata = this.ParseScoreMetadata(doc);
+            var metadata = this.ParseScoreMetadata();
             this.ParsingContext.Metadata = metadata;
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
 #warning FIXME:            
-            var parts = this.ParseParts(doc).Skip(1).ToList();
+            var parts = this.ParseParts().Skip(1).ToList();
             foreach (var part in parts)
             {
                 //this.ParsingContext.CurrentPart = part;
@@ -81,17 +78,17 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlParsingModel CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        MusicXmlModel CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
         {
-            var result = new MusicXmlParsingModel();
+            var result = new MusicXmlModel();
             result.Metadata = metadata;
             result.Parts = parts;
             return result;
         }
 
-        private void PreParseTiedNotes(XDocument doc)
+        private void PreParseTiedNotes()
         {
-            var xnotesArr = doc.Descendants().Where(x => x.Name == XmlConstants.note
+            var xnotesArr = this.Document.Descendants().Where(x => x.Name == XmlConstants.note
                 && x.Elements(XmlConstants.tie).Any()).ToArray();
             var xnotes = xnotesArr.Reverse().ToList();
 
@@ -177,7 +174,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlScoreMetadata ParseScoreMetadata(XDocument doc)
+        MusicXmlScoreMetadata ParseScoreMetadata()
         {
 #if false
    <measure number="1">
@@ -221,43 +218,43 @@ namespace Eric.Morrison.Harmony.MusicXml
    </measure>
 #endif
             var result = new MusicXmlScoreMetadata();
-            result.Title = this.ParseTitle(doc);
-            result.KeySignature = this.ParseKeySignature(doc);
-            result.TimeSignatue = this.ParseTimeSignature(doc);
-            result.Tempo = this.ParseTempo(doc);
-            result.PulsesPerQuarterNote = this.ParsePpqn(doc);
+            result.Title = this.ParseTitle();
+            result.KeySignature = this.ParseKeySignature();
+            result.TimeSignatue = this.ParseTimeSignature();
+            result.Tempo = this.ParseTempo();
+            result.PulsesPerQuarterNote = this.ParsePpqn();
 
             TimedEventFactory.Instance.PulsesPerMeasure = result.PulsesPerMeasure;
 
             return result;
         }
 
-        int ParsePpqn(XDocument doc)
+        int ParsePpqn()
         {//<divisions>120</divisions>
             var result = Int32.Parse(
-                doc.Descendants(XmlConstants.divisions)
+                this.Document.Descendants(XmlConstants.divisions)
                 .First()
                 .Value);
             return result;
         }
 
-        int ParseTempo(XDocument doc)
+        int ParseTempo()
         {//<sound tempo="160"/>
             var result = Int32.Parse(
-                doc.Descendants(XmlConstants.sound)
+                this.Document.Descendants(XmlConstants.sound)
                 .First()
                 .Attribute(XmlConstants.tempo)
                 .Value);
             return result;
         }
 
-        string ParseTitle(XDocument doc)
+        string ParseTitle()
         {
-            var result = doc.Descendants(XmlConstants.work_title).FirstOrDefault()?.Value;
+            var result = this.Document.Descendants(XmlConstants.work_title).FirstOrDefault()?.Value;
             return result;
         }
 
-        TimeSignature ParseTimeSignature(XDocument doc)
+        TimeSignature ParseTimeSignature()
         {
 #if false
         <time>
@@ -265,18 +262,18 @@ namespace Eric.Morrison.Harmony.MusicXml
            <beat-type>4</beat-type>
         </time>
 #endif
-            var ts = doc.Descendants(XmlConstants.time).First();
+            var ts = this.Document.Descendants(XmlConstants.time).First();
             var beats = ts.Descendants(XmlConstants.beats).First().Value;
             var beat_type = ts.Descendants(XmlConstants.beat_type).First().Value;
             var result = new TimeSignature(beats, beat_type);
             return result;
         }
 
-        KeySignature ParseKeySignature(XDocument doc)
+        KeySignature ParseKeySignature()
         {
             KeySignature result = null;
             var fifths = Int32.Parse(
-                doc.Descendants(XmlConstants.key)
+                this.Document.Descendants(XmlConstants.key)
                 .Descendants(XmlConstants.fifths)
                 .First().Value);
             if (fifths == 0)
@@ -300,7 +297,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        List<PartIdentifier> ParsePartList(XDocument doc)
+        List<PartIdentifier> ParsePartList()
         {
 #if false
   <part-list>
@@ -309,12 +306,12 @@ namespace Eric.Morrison.Harmony.MusicXml
   </score-part>
 #endif
             var result = new List<PartIdentifier>();
-            var part_list = doc.Descendants(XmlConstants.part_list).First();
-            var score_parts = doc.Descendants(XmlConstants.score_part);
+            var part_list = this.Document.Descendants(XmlConstants.part_list).First();
+            var score_parts = this.Document.Descendants(XmlConstants.score_part);
             foreach (var score_part in score_parts)
             {
                 var id = score_part.Attribute(XmlConstants.id).Value;
-                var name = doc.Descendants(XmlConstants.part_name).First().Value;
+                var name = this.Document.Descendants(XmlConstants.part_name).First().Value;
                 var pid = new PartIdentifier(id, name);
                 result.Add(pid);
             }
@@ -322,21 +319,21 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 #if true
-        List<MusicXmlPart> ParseParts(XDocument doc)
+        List<MusicXmlPart> ParseParts()
         {
             var result = new List<MusicXmlPart>();
 
             var pids = new List<PartIdentifier>();
-            var score_parts = doc.Descendants(XmlConstants.score_part);
+            var score_parts = this.Document.Descendants(XmlConstants.score_part);
             foreach (var score_part in score_parts)
             {
                 var id = score_part.Attribute(XmlConstants.id).Value;
-                var name = doc.Descendants(XmlConstants.part_name).First().Value;
+                var name = this.Document.Descendants(XmlConstants.part_name).First().Value;
                 var pid = new PartIdentifier(id, name);
                 pids.Add(pid);
             }
 
-            var xparts = doc.Descendants(XmlConstants.part);
+            var xparts = this.Document.Descendants(XmlConstants.part);
             foreach (var xpart in xparts)
             {
                 var partName = xpart.Attribute(XmlConstants.id).Value;

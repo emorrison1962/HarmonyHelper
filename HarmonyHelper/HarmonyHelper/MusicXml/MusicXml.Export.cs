@@ -47,13 +47,13 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
         
-        public XDocument Export(MusicXmlParsingModel model)
+        public XDocument Export(MusicXmlModel model)
         {
             this.ExportImpl(model);
             return this.Document;
         }
 
-        void ExportImpl(MusicXmlParsingModel model)
+        void ExportImpl(MusicXmlModel model)
         {
             this.Document = new ExportTemplateFactory().Create(model);
             foreach (var part in model.Parts) 

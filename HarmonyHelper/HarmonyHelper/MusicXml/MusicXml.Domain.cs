@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
     }
 
-    public class MusicXmlParsingModel
+    public class MusicXmlModel
     {
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
@@ -495,7 +495,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public string Now { get { return DateTime.Now.ToString("MM-dd-yyyy"); } }
 
-        public XDocument Create(MusicXmlParsingModel model)
+        public XDocument Create(MusicXmlModel model)
         {
             var xml = MusicXmlBase.LoadEmbeddedResource("MusicXmlExportTemplate.xml");
 
@@ -510,7 +510,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         }
 
-        XElement GetWork(MusicXmlParsingModel model)
+        XElement GetWork(MusicXmlModel model)
         {
             var template = $@" 
 <work>

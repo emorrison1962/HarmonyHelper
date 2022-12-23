@@ -15,7 +15,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     {
         ReHarmonizerContext Context { get; set; }
 
-        public void ReHarmonize(MusicXmlParsingModel model)
+        public void ReHarmonize(MusicXmlModel model)
         {
             this.Context = new ReHarmonizerContext(model);
             var pairings = new List<ChordMelodyPairing>();
@@ -151,8 +151,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
     public class ReHarmonizerContext
     {
-        MusicXmlParsingModel MusicXmlParsingResult { get; set; }
-        public ReHarmonizerContext(MusicXmlParsingModel input)
+        MusicXmlModel MusicXmlParsingResult { get; set; }
+        public ReHarmonizerContext(MusicXmlModel input)
         {
             this.MusicXmlParsingResult = input;
         }
