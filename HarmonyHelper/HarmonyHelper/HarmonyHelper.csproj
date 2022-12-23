@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IKeySignature.cs" />
     <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="KeySignature\KeySignature.Catalog.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlModel.cs" />
     <Compile Include="MusicXml\_MusicXml.Base.cs" />
     <Compile Include="MusicXml\MusicXml.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />

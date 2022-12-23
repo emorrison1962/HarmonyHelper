@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
+using Kohoutech.Score;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
@@ -38,7 +39,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var used = new HashSet<ChordSubstitution>();
             foreach (var pairing in pairings)
             {
-                var substitutions = this.ReHarmonize(pairing);
+                var substitutions = this.GetChordSubstitutions(pairing);
 
                 foreach (var substitution in substitutions)
                 {
@@ -48,7 +49,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                     }
                     else
                     {// create a new measure here.
-                        throw new NotImplementedException("The measures exist within th parts!");
+                        throw new NotImplementedException("The measures exist within the parts!");
                         used.Add(substitution);
                         new object();
                     }
@@ -58,7 +59,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             new object();
         }
 
-        private List<ChordSubstitution> ReHarmonize(ChordMelodyPairing pairing)
+        private List<ChordSubstitution> GetChordSubstitutions(ChordMelodyPairing pairing)
         {
             List<KeySignature> mappedKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
             Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
@@ -131,7 +132,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         }
     }
 
-
     public static class TimedEventExtensions
     {
         public static List<TimedEvent<T>> GetIntersecting<T>(this List<TimedEvent<T>> src, TimeContext window)
@@ -171,12 +171,14 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var result = new List<MusicXmlMeasure>();
             var seq = (from p in this.MusicXmlParsingResult.Parts
                        from m in p.Measures
-                       select m).ToList();
+                       select new { Part = p, Measure = m }).ToList();
 
-            var groupings = seq.GroupBy(x => x.MeasureNumber).ToList();
+            var groupings = seq.GroupBy(x => x.Measure.MeasureNumber).ToList();
             foreach (var grouping in groupings)
             {
-                var merged = MusicXmlMeasure.CreateMerged(grouping.ToList());
+                var merged = MusicXmlMeasure
+                    .CreateMergedMeasure(grouping.Select(x => x.Measure)
+                    .ToList());
                 result.Add(merged);
             }
 

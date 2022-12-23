@@ -23,21 +23,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             return $"{nameof(PartIdentifier)}: ID={ID}, Name={Name}";
         }
-    }
-
-    public class MusicXmlModel
-    {
-        public MusicXmlScoreMetadata Metadata { get; set; }
-        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
-
-        public List<TimedEvent<ChordFormula>> Get(int bar, int start, int end)
-        {
-            var result = this.Parts
-                .SelectMany(p => p.Measures.Where(x => x.MeasureNumber == bar)
-                .SelectMany(m => m.Chords))
-                .ToList();
-            return result;
-        }
     }//class
 
     public class MusicXmlScoreMetadata
@@ -54,23 +39,35 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return this.TimeSignatue.BeatCount * this.PulsesPerQuarterNote; 
             } 
         }
-    }
+    }//class
 
     public class MusicXmlPart
     {
+        #region Properties
         public PartIdentifier Identifier { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
         public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
+
+        #endregion
+
+        #region Construction
+        public MusicXmlPart(MusicXmlPart part)
+        {
+            this.Identifier = part.Identifier;
+
+        }
         public MusicXmlPart(PartIdentifier PartIdentifier)
         {
-            this.Identifier = PartIdentifier;   
+            this.Identifier = PartIdentifier;
         }
         public MusicXmlPart(PartIdentifier PartIdentifier, XElement xelement)
             : this(PartIdentifier)
         {
-            this.XElement= xelement; 
+            this.XElement = xelement;
         }
+
+	    #endregion        
         public override string ToString()
         {
             return $"{nameof(MusicXmlPart)}: {Identifier}";
@@ -93,7 +90,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.MeasureNumber = measureNumber;
         }
 
-        static public MusicXmlMeasure CreateMerged(List<MusicXmlMeasure> items)
+        static public MusicXmlMeasure CreateMergedMeasure(List<MusicXmlMeasure> items)
         {
             if (null == items || items.Count == 0)
                 throw new ArgumentNullException("items");
@@ -283,17 +280,25 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
+        #region Construction
         public TimeContext(int measure, int ppm, int start, int end)
         {
             if (end <= start)
                 throw new ArgumentOutOfRangeException();
-            this.MeasureNumber= measure;
-            this.PulsesPerMeasure= ppm;
+            this.MeasureNumber = measure;
+            this.PulsesPerMeasure = ppm;
             this.RelativeStart = start;
             this.RelativeEnd = end;
             this.Duration = this.RelativeEnd - this.RelativeStart;
         }
 
+        public TimeContext(int measure)
+        {
+            this.MeasureNumber = measure;
+        }
+        #endregion
+
+        #region Equality
         public bool Equals(TimeContext other)
         {
             var result = false;
@@ -354,6 +359,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = Compare(a, b) != 0;
             return result;
         }
+
+        #endregion
 
         public override string ToString()
         {

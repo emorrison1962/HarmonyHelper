@@ -15,7 +15,7 @@ using Eric.Morrison.Harmony.Rhythm;
 namespace Eric.Morrison.Harmony.MusicXml.Tests
 {
     [TestClass()]
-    public class MusicXmlExportr_ExportTests
+    public class MusicXmlExport_ExportTests
     {
         [TestMethod()]
         public void ExportTest()
@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             var doc = new MusicXmlExporter()
                 .Export(model);
 
-            MusicXmlBase.ValidateMusicXmlSchema(doc);
+            //MusicXmlBase.ValidateMusicXmlSchema(doc);
 
             var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
             var path = Path.Combine(folder, filename);
