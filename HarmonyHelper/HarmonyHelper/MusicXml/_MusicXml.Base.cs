@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,8 +13,9 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     abstract public class MusicXmlBase
     {
+        [Obsolete("", true)]
         static public bool ValidateMusicXmlSchema(XDocument doc)
-        {
+        {//https://www.c-sharpcorner.com/article/how-to-validate-xml-using-xsd-in-c-sharp/
             var result = false;
             try
             {
@@ -34,23 +36,21 @@ namespace Eric.Morrison.Harmony.MusicXml
                 schema = XmlSchema.Read(reader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
-                doc.Validate(schemaSet, ValidationEventHandler);
+                doc.Validate(schemaSet, ValidationEventHandler, true);
                 result = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
             }
             return result;
         }
-        protected static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        public static void ValidationEventHandler(object sender, ValidationEventArgs e)
         {
-            XmlSeverityType type = XmlSeverityType.Warning;
-            if (Enum.TryParse<XmlSeverityType>("Error", out type))
-            {
-                if (type == XmlSeverityType.Error)
-                    throw new Exception(e.Message);
-            }
+            if (e.Severity == XmlSeverityType.Warning) 
+                Debug.WriteLine(e.Message);
+            else if (e.Severity == XmlSeverityType.Error)
+                throw new Exception(e.Message);
         }
         static public string LoadEmbeddedResource(string partialName)
         {
