@@ -10,7 +10,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class MusicXmlModel
     {
         #region Properties
-        List<MusicXmlPart> Section { get; set; } = new List<MusicXmlPart>();
+        public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
 
@@ -42,16 +42,24 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 MeasureCount = measureCount;
             }
+            public SectionContext(params int[] parms)
+            {
+                MeasureCount = parms.ToList();
+            }
         }
         void SplitSections(SectionContext ctx)
         {
 
         }
-        public List<MusicXmlSection> CreateSections(SectionContext ctx)
+        public void CreateSections(SectionContext ctx)
         {
             var result = new List<MusicXmlSection>();
+            int start = 0;
+            int end = 0;
             foreach (var count in ctx.MeasureCount)
             {
+                end = count;
+                var lastCount = count;
                 var section = new MusicXmlSection();
                 var list = (from p in this.Parts
                            select new { Part = p, Measures = p.Measures })
@@ -59,20 +67,16 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                 foreach (var item in list)
                 {
-                    var p = new MusicXmlPart(item.Part);
-                    p.Measures.AddRange(item.Measures);
+                    var p = MusicXmlPart.CloneShallow(item.Part);
+                    p.Measures.AddRange(item.Measures.Skip(start).Take(end));
                     section.Parts.Add(p);
                 }
                 result.Add(section);
+                start = end;
             }
-            return result;
+            this.Sections = result;
         }
 
     }//class
-
-    public class MusicXmlSection
-    { 
-        public List<MusicXmlPart> Parts {get; set;}
-    }
 
 }//ns

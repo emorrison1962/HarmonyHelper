@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony.Rhythm
+namespace Eric.Morrison.Harmony
 {
     public class Rest : IMusicalEvent<Rest>, IComparable<Rest>, IEquatable<Rest>
     {

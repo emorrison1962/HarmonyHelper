@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
 using Kohoutech.Score;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
@@ -19,58 +22,101 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         public void ReHarmonize(MusicXmlModel model)
         {
             this.Context = new ReHarmonizerContext(model);
-            var pairings = new List<ChordMelodyPairing>();
 
-            var measures = this.Context.GetMergedMeasures();
-            foreach (var measure in measures)
+            foreach (var section in model.Sections)
             {
-                foreach (var chord in measure.Chords)
-                {
-                    //Debug.WriteLine(chord.ToString());
-                    var notes = measure.Notes.GetIntersecting(chord.TimeContext);
-                    var pairing = new ChordMelodyPairing(chord,
-                        notes.ToList(),
-                        chord.TimeContext);
-                    pairings.Add(pairing);
-                    new object();
-                }
-            }
-
-            var used = new HashSet<ChordSubstitution>();
-            foreach (var pairing in pairings)
-            {
-                var substitutions = this.GetChordSubstitutions(pairing);
-
-                foreach (var substitution in substitutions)
-                {
-                    if (used.Contains(substitution))
-                    {
-                        new object();
-                    }
-                    else
-                    {// create a new measure here.
-                        throw new NotImplementedException("The measures exist within the parts!");
-                        used.Add(substitution);
-                        new object();
-                    }
-                }
+                var reharmonizedSection = GetReharmonized(section);
             }
 
             new object();
         }
 
-        private List<ChordSubstitution> GetChordSubstitutions(ChordMelodyPairing pairing)
+        List<MusicXmlSection> GetReharmonized(MusicXmlSection section)
         {
-            List<KeySignature> mappedKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
+            var result = new List<MusicXmlSection>();
+
+            var pairings = section.GetChordMelodyPairings();
+            var substitutionResults = this.GetChordSubstitutions(pairings);
+            var used = new HashSet<ChordSubstitution>();
+            var measures = section.GetMergedMeasures();
+            var measureNumber = measures.Max(x => x.MeasureNumber) + 1;
+
+            var newMeasures = new List<MusicXmlMeasure>();
+            ChordSubstitution substitution = null;
+
+            for (int i = 0; i < substitutionResults.Count; ++i)
+            {
+                var newSection = new MusicXmlSection();
+
+                foreach (var part in section.Parts)
+                {
+                    var newPart = MusicXmlPart.CloneShallow(part);
+                    newSection.Parts.Add(newPart);
+                    foreach (var measure in measures)
+                    {
+                        foreach (var pairing in measure.ChordMelodyPairings)
+                        {
+                            if (measure.Chords.Any())
+                            {
+                                substitution = substitutionResults[pairing];
+
+                                //if (used.Contains(substitution))
+                                //{//Omit it.
+                                //    throw new NotImplementedException("Gonna need to handle this.");
+                                //    new object();
+                                //}
+                                //else
+                                {// create a new measure here.
+                                    var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, measureNumber);
+                                    var events = newMeasure.Chords
+                                        .Select(x => x.Event = substitution.Substitution);
+                                    newMeasures.Add(newMeasure);
+                                    used.Add(substitution);
+                                    new object();
+                                }
+                                new object();
+                            }
+                        }//foreach (var pairing in pairings)
+                        new object();
+                        newPart.Measures.AddRange(newMeasures);
+                    }//foreach (var measure in measures)
+                    newSection.Parts.Add(newPart);
+                }
+                result.Add(newSection);
+            }
+
+            return result;
+        }
+
+        private ChordSubstitutionResults GetChordSubstitutions(List<ChordMelodyPairing> pairings)
+        {
+            var result = new ChordSubstitutionResults();
+            var distinct = pairings.Distinct().ToList();
+            foreach (var pairing in distinct)
+            {
+                var substitutions = this.GetChordSubstitutions(pairing);
+                result.Substitutions[pairing] = substitutions;
+            }
+            foreach (var item in result.Substitutions)
+            {//Prime the pump.
+                item.Value.GetEnumerator().MoveNext();
+            }
+
+            return result;
+        }
+
+        private Queue<ChordSubstitution> GetChordSubstitutions(ChordMelodyPairing pairing)
+        {
+            List<KeySignature> pertinentKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
             Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
-            foreach (var key in mappedKeys)
+            foreach (var key in pertinentKeys)
             {
                 Debug.WriteLine($"\t{key}");
             }
 
             var notesStr = string.Join(",", pairing.Melody);
 
-            
+
             var keys = KeySignature.Catalog
                 .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) >= IsDiatonicEnum.Partially)
                 .Distinct()
@@ -84,7 +130,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 .ToList();
 
 
-            var result = new List<ChordSubstitution>();
+            var result = new Queue<ChordSubstitution>();
             foreach (var formula in formulas.Where(x => x.NoteNames.Count >= 4))
             {
                 if (formula.Contains(pairing.Melody,
@@ -93,9 +139,9 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 {
                     if (matchesSet.Add(formula))
                     {
-                        result.Add(
-                            new ChordSubstitution(pairing.Chord.Event, 
-                            formula, 
+                        result.Enqueue(
+                            new ChordSubstitution(pairing.Chord.Event,
+                            formula,
                             pairing.TimeContext));
                     }
                 }
@@ -151,39 +197,21 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
     public class ReHarmonizerContext
     {
-        MusicXmlModel MusicXmlParsingResult { get; set; }
+        MusicXmlModel MusicXmlModel { get; set; }
         public ReHarmonizerContext(MusicXmlModel input)
         {
-            this.MusicXmlParsingResult = input;
+            this.MusicXmlModel = input;
         }
 
         public List<TimedEvent<ChordFormula>> GetChords()
         {
-            var result = (from p in this.MusicXmlParsingResult.Parts
+            var result = (from p in this.MusicXmlModel.Parts
                           from m in p.Measures
                           from c in m.Chords
                           select c).ToList();
             return result;
         }
 
-        public List<MusicXmlMeasure> GetMergedMeasures()
-        {
-            var result = new List<MusicXmlMeasure>();
-            var seq = (from p in this.MusicXmlParsingResult.Parts
-                       from m in p.Measures
-                       select new { Part = p, Measure = m }).ToList();
-
-            var groupings = seq.GroupBy(x => x.Measure.MeasureNumber).ToList();
-            foreach (var grouping in groupings)
-            {
-                var merged = MusicXmlMeasure
-                    .CreateMergedMeasure(grouping.Select(x => x.Measure)
-                    .ToList());
-                result.Add(merged);
-            }
-
-            return result;
-        }
 
 
     }//class

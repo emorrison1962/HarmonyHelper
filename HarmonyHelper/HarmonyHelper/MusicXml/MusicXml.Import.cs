@@ -240,11 +240,12 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         int ParseTempo()
         {//<sound tempo="160"/>
-            var result = Int32.Parse(
+            Int32.TryParse(
                 this.Document.Descendants(XmlConstants.sound)
-                .First()
-                .Attribute(XmlConstants.tempo)
-                .Value);
+                .FirstOrDefault()
+                ?.Attribute(XmlConstants.tempo)
+                ?.Value, out var tempo);
+            var result = tempo;
             return result;
         }
 

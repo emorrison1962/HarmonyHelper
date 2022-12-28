@@ -68,7 +68,8 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>, IComparable<T>
+
+        public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>, IComparable<T>
 		{
 			if (startingAt.Equals(criteria))
 			{

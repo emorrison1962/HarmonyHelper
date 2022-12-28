@@ -9,7 +9,7 @@ using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
-    public class ChordMelodyPairing
+    public class ChordMelodyPairing : IEquatable<ChordMelodyPairing>, IComparable<ChordMelodyPairing>
     {
         public TimedEvent<ChordFormula> Chord { get; set; }
         public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
@@ -29,6 +29,28 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 .Distinct()
                 .OrderBy(x => x.AsciiSortValue)
                 .ToList();
+        }
+
+        public bool Equals(ChordMelodyPairing other)
+        {
+            var result = false;
+
+            var myMelody = string.Join(",", this.Melody.OrderBy(x => x).ToList());
+            var otherMelody = string.Join(",", other.Melody.OrderBy(x => x).ToList());
+            if (this.Chord.Event == other.Chord.Event
+                && myMelody == otherMelody)
+                result = true;
+            return result;
+        }
+
+        public int CompareTo(ChordMelodyPairing other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
         }
     }//class
 

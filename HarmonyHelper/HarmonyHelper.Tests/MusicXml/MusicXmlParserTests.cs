@@ -28,6 +28,7 @@ namespace Eric.Morrison.Harmony.Tests
                 return path;
             }
         }
+
         [TestMethod()]
         public void ParseTest()
         {
@@ -58,7 +59,7 @@ namespace Eric.Morrison.Harmony.Tests
             }
 
 
-            var debug = result.Get(4, 0, 0);
+            var debug = result.Get(new TimeContext(4));
 
             new object();
         }

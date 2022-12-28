@@ -30,11 +30,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public class MusicXmlParser : IMusicXmlParser
     {
-        #region Constants
+#region Constants
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 #if DEBUG
         string CurrentPartName { get; set; }
 #endif
@@ -70,21 +70,21 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
         }
-        MusicXmlParsingResult ParsingResult { get; set; }
+        MusicXmlModel ParsingResult { get; set; }
 
         ConcurrentDictionary<TiedNoteContext, TiedNoteContext> TiedNotes { get; set; } = new ConcurrentDictionary<TiedNoteContext, TiedNoteContext>();
 
         ChordTimeContext ChordTimeContext { get; set; } = new ChordTimeContext();
 
         XDocument Document { get; set; }
-        #endregion
+#endregion
 
         public MusicXmlParser()
         {
-            this.ParsingResult = new MusicXmlParsingResult();
+            this.ParsingResult = new MusicXmlModel();
         }
 
-        public MusicXmlParsingResult Parse(string filename)
+        public MusicXmlModel Parse(string filename)
         {
             //var xml = this.LoadEmbeddedResource();
 
@@ -116,7 +116,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlParsingResult Parse(XDocument doc)
+        MusicXmlModel Parse(XDocument doc)
         {
             this.Document = this.Transform();
 
