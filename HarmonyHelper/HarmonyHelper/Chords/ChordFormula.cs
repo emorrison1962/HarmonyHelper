@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony.Chords
 
         #region Construction
 
-        protected ChordFormula()
+        public ChordFormula()
         {
         }
         public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
@@ -54,27 +54,6 @@ namespace Eric.Morrison.Harmony.Chords
             this.Key = this.DetermineKey();
         }
 
-        KeySignature DetermineKey()
-        {
-            KeySignature result = null;
-            if (this.IsDominant)
-            {
-                result = KeySignature.Catalog
-                    .FirstOrDefault(x => x.NoteName ==
-                        this.Root + Interval.Perfect4th);
-            }
-            else if (this.IsHalfDiminished)
-            {
-                result = KeySignature.Catalog.Where(x => x.IsMinor)
-                    .FirstOrDefault(x => x.NoteName ==
-                        this.Root + Interval.Major2nd);
-            }
-            else
-            {
-                Debug.WriteLine($"Unable to determine key for: {this.ToString()}");
-            }
-            return result;
-        }
         public ChordFormula(ChordFormula src)
         {
             this.Root = src.Root;
@@ -567,6 +546,27 @@ namespace Eric.Morrison.Harmony.Chords
             noteNames = result;
         }
 
+        KeySignature DetermineKey()
+        {
+            KeySignature result = null;
+            if (this.IsDominant)
+            {
+                result = KeySignature.Catalog
+                    .FirstOrDefault(x => x.NoteName ==
+                        this.Root + Interval.Perfect4th);
+            }
+            else if (this.IsHalfDiminished)
+            {
+                result = KeySignature.Catalog.Where(x => x.IsMinor)
+                    .FirstOrDefault(x => x.NoteName ==
+                        this.Root + Interval.Major2nd);
+            }
+            else
+            {
+                //Debug.WriteLine($"Unable to determine key for: {this.ToString()}");
+            }
+            return result;
+        }
 
     }//class
 

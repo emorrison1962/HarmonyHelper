@@ -48,9 +48,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         MusicXmlMeasure(MusicXmlMeasure src)
         {
             this.MeasureNumber = src.MeasureNumber;
-            this.Notes = src.Notes;
-            this.Chords = src.Chords;
-            this.Rests = src.Rests;
+            this.Notes = src.Notes.Select(x => new TimedEvent<Note>(x)).ToList();
+            this.Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList(); 
+            this.Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList(); 
         }
 
         static public MusicXmlMeasure CopyWithOffset(MusicXmlMeasure src, int offset)
@@ -132,7 +132,14 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={Chords.Count}, Notes={Notes.Count}, Rests={Rests.Count}";
+            var chords = string.Join(",", this.Chords.Select(x => x.Event));
+            var nns = this.Notes
+                .Select(x => x.Event.NoteName)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+            var notes = string.Join(",", nns);
+            return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}";
         }
     }//class
 }//ns

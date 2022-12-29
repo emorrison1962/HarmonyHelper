@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -8,9 +10,16 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
-    public class ChordSubstitutionResults : IEnumerable<ChordSubstitution>
+    public class ChordSubstitutionResults
     {
-        public Dictionary<ChordMelodyPairing, Queue<ChordSubstitution>> Substitutions { get; set; } = new Dictionary<ChordMelodyPairing, Queue<ChordSubstitution>>();
+        #region Properties
+        Dictionary<ChordMelodyPairing, Queue<ChordSubstitution>> InternalSubstitutions { get; set; } = new Dictionary<ChordMelodyPairing, Queue<ChordSubstitution>>();
+
+        public ReadOnlyDictionary<ChordMelodyPairing, Queue<ChordSubstitution>> Substitutions 
+        {
+            get { return new ReadOnlyDictionary<ChordMelodyPairing, Queue<ChordSubstitution>>(this.InternalSubstitutions); }
+        } 
+
         public int Count
         {
             get
@@ -23,20 +32,9 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             }
         }
 
-        public IEnumerator<ChordSubstitution> GetEnumerator()
-        {
-            var result = this.Substitutions
-                .OrderByDescending(x => x.Value.Count)
-                .Select(x => x.Value)
-                .First()
-                .GetEnumerator();
-            return result;
-        }
+        #endregion
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public ChordSubstitutionResults() {  }
 
         public ChordSubstitution this[ChordMelodyPairing cmp] 
         { 
@@ -47,6 +45,12 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 queue.Enqueue(result);
                 return result;
             } 
+        }
+
+        public void Add(ChordMelodyPairing key, Queue<ChordSubstitution> queue)
+        {
+            this.InternalSubstitutions[key] = queue;
+            Debug.WriteLine(key);
         }
     }//class
 }//ns

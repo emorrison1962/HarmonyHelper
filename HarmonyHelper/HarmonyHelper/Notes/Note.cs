@@ -31,6 +31,7 @@ namespace Eric.Morrison.Harmony
 
 		#region Construction
 
+		public Note() {  }
 		public Note(Note src)
 		{
 			if (null == src)

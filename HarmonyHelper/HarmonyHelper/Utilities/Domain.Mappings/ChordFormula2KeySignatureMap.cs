@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -19,26 +20,32 @@ namespace Eric.Morrison.Harmony
 
         static ChordFormula2KeySignatureMap()
         {
+            Task.Run(()=> Init());
+        }
+
+        static async Task Init()
+        {
             foreach (var key in KeySignature.Catalog)
             {
                 foreach (var formula in ChordFormula.Catalog)
                 {
-                    if (key.IsDiatonic(formula.NoteNames) >= IsDiatonicEnum.Partially)
+                    await Task.Run(() =>
                     {
-                        if (ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
+                        if (key.IsDiatonic(formula.NoteNames) >= IsDiatonicEnum.Partially)
                         {
-                            dict.Add(key);
+                            if (ChordFormulaToKeySignatureMaps.TryGetValue(formula, out var dict))
+                            {
+                                dict.Add(key);
+                            }
+                            else
+                            {
+                                ChordFormulaToKeySignatureMaps[formula] = new List<KeySignature>();
+                                ChordFormulaToKeySignatureMaps[formula].Add(key);
+                            }
                         }
-                        else
-                        {
-                            ChordFormulaToKeySignatureMaps[formula] = new List<KeySignature>();
-                            ChordFormulaToKeySignatureMaps[formula].Add(key);
-                        }
-                    }
+                    });
                 }
             }
-
-            new object();
         }
 
         static public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)

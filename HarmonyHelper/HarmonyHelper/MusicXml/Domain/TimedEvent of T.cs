@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 namespace Eric.Morrison.Harmony.MusicXml
 {
     public class TimedEvent<T> : IHasTimeContext, IEquatable<TimedEvent<T>>, IComparable<TimedEvent<T>>
-        where T : class, IMusicalEvent<T>, IComparable<T>
+        where T : class, IMusicalEvent<T>, IComparable<T>, new()
     {
+        #region Properties
         public int AbsoluteStart { get { return this.TimeContext.AbsoluteStart; } }
         public int AbsoluteEnd { get { return this.TimeContext.AbsoluteEnd; } }
         public int RelativeStart { get { return this.TimeContext.RelativeStart; } }
@@ -20,17 +21,29 @@ namespace Eric.Morrison.Harmony.MusicXml
         public T Event { get; set; }
         public TimeContext TimeContext { get; set; }
 
+        #endregion
+
+        #region Construction
+        public TimedEvent(TimedEvent<T> src)
+        {
+            this.Event = new T(src.Event);
+            this.TimeContext = new TimeContext(src.TimeContext);
+        }
+
         public TimedEvent(T @event, TimeContext ctx)
         {
             this.Event = @event;
             this.TimeContext = ctx;
         }
 
+        #endregion
+
         public override string ToString()
         {
             return $"{this.GetType().Name} TimeContext={this.TimeContext}, Event={this.Event.ToString()}";
         }
 
+        #region IEquatable
         public bool Equals(TimedEvent<T> other)
         {
             var result = false;
@@ -87,6 +100,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
+        #endregion
     }//class
     
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>

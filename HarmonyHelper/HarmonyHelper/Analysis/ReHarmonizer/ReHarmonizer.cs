@@ -36,17 +36,16 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var result = new List<MusicXmlSection>();
 
             var pairings = section.GetChordMelodyPairings();
-            var substitutionResults = this.GetChordSubstitutions(pairings);
+            var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
             var used = new HashSet<ChordSubstitution>();
             var measures = section.GetMergedMeasures();
             var measureNumber = measures.Max(x => x.MeasureNumber) + 1;
 
             var newMeasures = new List<MusicXmlMeasure>();
-            ChordSubstitution substitution = null;
 
             for (int i = 0; i < substitutionResults.Count; ++i)
             {
-                var newSection = new MusicXmlSection();
+                var newSection = new ReHarmonizedMusicXmlSection();
 
                 foreach (var part in section.Parts)
                 {
@@ -58,28 +57,27 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                         {
                             if (measure.Chords.Any())
                             {
-                                substitution = substitutionResults[pairing];
+                                // create a new measure here.
+                                var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, measureNumber);
 
-                                //if (used.Contains(substitution))
-                                //{//Omit it.
-                                //    throw new NotImplementedException("Gonna need to handle this.");
-                                //    new object();
-                                //}
-                                //else
-                                {// create a new measure here.
-                                    var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, measureNumber);
-                                    var events = newMeasure.Chords
-                                        .Select(x => x.Event = substitution.Substitution);
-                                    newMeasures.Add(newMeasure);
-                                    used.Add(substitution);
-                                    new object();
+                                var substitution = substitutionResults[pairing];
+                                foreach (var teChord in newMeasure.Chords)
+                                {
+                                    teChord.Event = substitution.Substitution;
                                 }
+                                
+                                newMeasures.Add(newMeasure);
+                                used.Add(substitution);
+                                new object();
+
                                 new object();
                             }
                         }//foreach (var pairing in pairings)
                         new object();
                         newPart.Measures.AddRange(newMeasures);
                     }//foreach (var measure in measures)
+                    Debug.Assert(newMeasures.Count == 16);
+
                     newSection.Parts.Add(newPart);
                 }
                 result.Add(newSection);
@@ -88,14 +86,16 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             return result;
         }
 
-        private ChordSubstitutionResults GetChordSubstitutions(List<ChordMelodyPairing> pairings)
+        async Task<ChordSubstitutionResults> GetChordSubstitutionsAsync(List<ChordMelodyPairing> pairings)
         {
             var result = new ChordSubstitutionResults();
             var distinct = pairings.Distinct().ToList();
             foreach (var pairing in distinct)
             {
-                var substitutions = this.GetChordSubstitutions(pairing);
-                result.Substitutions[pairing] = substitutions;
+                var substitutions = await this.GetChordSubstitutionsAsync(pairing);
+                result.Add(pairing, substitutions);
+                //Debug.WriteLine(pairing);
+                new object();
             }
             foreach (var item in result.Substitutions)
             {//Prime the pump.
@@ -105,23 +105,26 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             return result;
         }
 
-        private Queue<ChordSubstitution> GetChordSubstitutions(ChordMelodyPairing pairing)
+        async Task<Queue<ChordSubstitution>> GetChordSubstitutionsAsync(ChordMelodyPairing pairing)
         {
             List<KeySignature> pertinentKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
-            Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
+            //Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
             foreach (var key in pertinentKeys)
             {
-                Debug.WriteLine($"\t{key}");
+                //Debug.WriteLine($"\t{key}");
             }
 
             var notesStr = string.Join(",", pairing.Melody);
 
-
-            var keys = KeySignature.Catalog
+            var keys = new List<KeySignature>();
+            await Task.Run(() =>
+            {
+                keys = KeySignature.Catalog
                 .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) >= IsDiatonicEnum.Partially)
                 .Distinct()
                 .OrderBy(x => x.NoteName)
                 .ToList();
+            });
 
             var matchesSet = new HashSet<ChordFormula>();
             var formulas = KeySignature2ChordFormulaMap.GetChordFormulas(keys);
@@ -149,10 +152,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
             foreach (var substitution in result)
             {
-                Debug.WriteLine($"{substitution}");
+                //Debug.WriteLine($"{substitution}");
             }
 
-            Debug.WriteLine($"====================================");
+            //Debug.WriteLine($"====================================");
             return result;
         }
 
@@ -181,7 +184,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     public static class TimedEventExtensions
     {
         public static List<TimedEvent<T>> GetIntersecting<T>(this List<TimedEvent<T>> src, TimeContext window)
-            where T : class, IMusicalEvent<T>, IComparable<T>
+            where T : class, IMusicalEvent<T>, IComparable<T>, new()
         {
             var result = new List<TimedEvent<T>>();
             foreach (var item in src)

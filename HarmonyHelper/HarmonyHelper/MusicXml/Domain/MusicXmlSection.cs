@@ -2,6 +2,7 @@
 using Kohoutech.Score;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var measures = this.GetMergedMeasures();
             foreach (var measure in measures)
             {
+                //Debug.WriteLine(measure);
                 result.AddRange(measure.ChordMelodyPairings);
             }
             return result;
