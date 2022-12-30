@@ -48,6 +48,7 @@
     <Compile Include="Analysis\ReHarmonizer\ChordSubstitutionResults.cs" />
     <Compile Include="Interfaces\IChordFormula.cs" />
     <Compile Include="Interfaces\IChordType.cs" />
+    <Compile Include="Interfaces\IImplementCopy.cs" />
     <Compile Include="Interfaces\IKeySignature.cs" />
     <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="KeySignature\KeySignature.Catalog.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="MusicXml\ParserHelperClasses.cs" />
     <Compile Include="MusicXml\XElementExtensions.cs" />
     <Compile Include="MusicXml\XmlConstants.cs" />
-    <Compile Include="Rhythm\IMusicalEvent.cs" />
+    <Compile Include="Interfaces\IMusicalEvent.cs" />
     <Compile Include="Rhythm\Rest.cs" />
     <Compile Include="Rhythm\TimeSignature.cs" />
     <Compile Include="Arpeggiator\ArpeggiationContext.cs">

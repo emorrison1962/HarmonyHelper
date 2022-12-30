@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
-    public class ChordMelodyPairing : IEquatable<ChordMelodyPairing>, IComparable<ChordMelodyPairing>
+    public class ChordMelodyPairing : IEquatable<ChordMelodyPairing>
     {
         public TimedEvent<ChordFormula> Chord { get; set; }
         public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
@@ -37,19 +37,12 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             int myMelody = 0;
             int otherMelody = 0;
             this.Melody.ForEach(x => myMelody |= x.Value);
-            //var myMelody = string.Join(",", this.Melody.OrderBy(x => x).ToList());
             other.Melody.ForEach(x => otherMelody |= x.Value);
-            //var otherMelody = string.Join(",", other.Melody.OrderBy(x => x).ToList());
 
             if (this.Chord.Event == other.Chord.Event
                 && myMelody == otherMelody)
                 result = true;
             return result;
-        }
-
-        public int CompareTo(ChordMelodyPairing other)
-        {
-            throw new NotImplementedException();
         }
 
         public override int GetHashCode()

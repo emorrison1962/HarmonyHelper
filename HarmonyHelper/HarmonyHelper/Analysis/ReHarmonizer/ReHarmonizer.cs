@@ -31,55 +31,49 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             new object();
         }
 
-        List<MusicXmlSection> GetReharmonized(MusicXmlSection section)
+        List<ReHarmonizedMusicXmlSection> GetReharmonized(MusicXmlSection section)
         {
-            var result = new List<MusicXmlSection>();
+            var result = new List<ReHarmonizedMusicXmlSection>();
 
             var pairings = section.GetChordMelodyPairings();
             var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
-            var used = new HashSet<ChordSubstitution>();
             var measures = section.GetMergedMeasures();
-            var measureNumber = measures.Max(x => x.MeasureNumber) + 1;
+            var currentMeasureNumber = measures.Max(x => x.MeasureNumber) + 1;
 
-            var newMeasures = new List<MusicXmlMeasure>();
 
-            for (int i = 0; i < substitutionResults.Count; ++i)
+            var newSectionCount = substitutionResults.Count / measures.Count;
+            newSectionCount += (substitutionResults.Count % measures.Count) > 0 ? 1 : 0;
+
+            for (int i = 0; i < newSectionCount; ++i)
             {
                 var newSection = new ReHarmonizedMusicXmlSection();
+                var newMeasures = new List<MusicXmlMeasure>();
+                foreach (var measure in measures)
+                {
+                    var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
+                    newMeasures.Add(newMeasure);
+
+                    foreach (var pairing in measure.ChordMelodyPairings)
+                    {
+                        if (measure.Chords.Any())
+                        {
+                            var substitution = substitutionResults[pairing];
+                            foreach (var teChord in newMeasure.Chords)
+                            {// Make the substitution.
+                                teChord.Event = substitution.Substitution;
+                            }
+                        }
+                    }//foreach (var pairing in pairings)
+                }//foreach (var measure in measures)
 
                 foreach (var part in section.Parts)
                 {
                     var newPart = MusicXmlPart.CloneShallow(part);
-                    newSection.Parts.Add(newPart);
-                    foreach (var measure in measures)
-                    {
-                        foreach (var pairing in measure.ChordMelodyPairings)
-                        {
-                            if (measure.Chords.Any())
-                            {
-                                // create a new measure here.
-                                var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, measureNumber);
-
-                                var substitution = substitutionResults[pairing];
-                                foreach (var teChord in newMeasure.Chords)
-                                {
-                                    teChord.Event = substitution.Substitution;
-                                }
-                                
-                                newMeasures.Add(newMeasure);
-                                used.Add(substitution);
-                                new object();
-
-                                new object();
-                            }
-                        }//foreach (var pairing in pairings)
-                        new object();
-                        newPart.Measures.AddRange(newMeasures);
-                    }//foreach (var measure in measures)
-                    Debug.Assert(newMeasures.Count == 16);
-
+                    newPart.Measures.AddRange(newMeasures);
                     newSection.Parts.Add(newPart);
                 }
+                Debug.Assert(newMeasures.Count == 16);
+
                 result.Add(newSection);
             }
 

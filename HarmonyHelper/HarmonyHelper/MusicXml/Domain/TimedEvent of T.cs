@@ -26,7 +26,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Construction
         public TimedEvent(TimedEvent<T> src)
         {
-            this.Event = new T(src.Event);
+            var dst = src.Event.Copy();
+            this.Event = dst;
             this.TimeContext = new TimeContext(src.TimeContext);
         }
 
