@@ -14,6 +14,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
         public ChordFormula Formula { get; set; }
         public List<NoteName> Melody { get; set; } = new List<NoteName>();
+        public int MelodyBitMask { get; set; } 
         public TimeContext TimeContext { get; set; }
 
         public ChordMelodyPairing(TimedEvent<ChordFormula> Chord,
@@ -24,23 +25,19 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             this.TimeContext = TimeContext;
 
             this.Formula = Chord.Event;
+            Notes.ForEach(x => this.MelodyBitMask |= x.Event.NoteName.Value);
             this.Melody = Notes.Select(x => x.Event.NoteName)
-                .Distinct()
-                .OrderBy(x => x.AsciiSortValue)
-                .ToList();
+               .Distinct()
+               .OrderBy(x => x.AsciiSortValue)
+               .ToList();
         }
 
         public bool Equals(ChordMelodyPairing other)
         {
             var result = false;
 
-            int myMelody = 0;
-            int otherMelody = 0;
-            this.Melody.ForEach(x => myMelody |= x.Value);
-            other.Melody.ForEach(x => otherMelody |= x.Value);
-
             if (this.Chord.Event == other.Chord.Event
-                && myMelody == otherMelody)
+                && this.MelodyBitMask == other.MelodyBitMask)
                 result = true;
             return result;
         }

@@ -72,8 +72,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                     newPart.Measures.AddRange(newMeasures);
                     newSection.Parts.Add(newPart);
                 }
-                Debug.Assert(newMeasures.Count == 16);
-
                 result.Add(newSection);
             }
 
