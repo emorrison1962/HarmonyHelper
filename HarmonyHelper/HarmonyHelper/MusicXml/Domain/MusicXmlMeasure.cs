@@ -13,6 +13,9 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         #region Properties
         public int MeasureNumber { get; set; }
+        public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
+
+        public bool HasMetadata { get; set; }   
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
         public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
         public List<TimedEvent<Rest>> Rests { get; set; } = new List<TimedEvent<Rest>>();
@@ -86,6 +89,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 notes.Distinct().ToList(),
                 rests.Distinct().ToList());
 
+            if (items.Any(x => x.HasMetadata))
+                new object();
             result.Chords = result.Chords.OrderBy(x => x.AbsoluteStart).ToList();
             result.Notes = result.Notes.OrderBy(x => x.AbsoluteStart).ToList();
             result.Rests = result.Rests.OrderBy(x => x.AbsoluteStart).ToList();
@@ -111,7 +116,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.AddRange(this.Notes.Select(x => x));
             result.AddRange(this.Rests.Select(x => x));
 
-            result = result.OrderBy(x => x.TimeContext).ToList();
+            result = result.OrderBy(x => x.TimeContext.AbsoluteStart)
+                .ThenBy(x => x.GetType().Name)
+                .ToList();
 
             return result;
         }
@@ -139,7 +146,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .OrderBy(x => x)
                 .ToList();
             var notes = string.Join(",", nns);
-            return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}";
+            return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
         }
     }//class
 }//ns

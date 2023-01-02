@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Kohoutech.Score.MusicXML;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,21 +21,28 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public T Event { get; set; }
         public TimeContext TimeContext { get; set; }
+        public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
         #endregion
 
         #region Construction
-        public TimedEvent(TimedEvent<T> src)
+        public TimedEvent(TimedEvent<T> src,
+                    XmlSerializationProperties xmlSerializationProperties = null)
         {
             var dst = src.Event.Copy();
             this.Event = dst;
             this.TimeContext = new TimeContext(src.TimeContext);
+            if (null != xmlSerializationProperties)
+                this.Serialization = xmlSerializationProperties;
         }
 
-        public TimedEvent(T @event, TimeContext ctx)
+        public TimedEvent(T @event, TimeContext ctx,
+                    XmlSerializationProperties xmlSerializationProperties = null)
         {
             this.Event = @event;
             this.TimeContext = ctx;
+            if (null != xmlSerializationProperties)
+                this.Serialization = xmlSerializationProperties;
         }
 
         #endregion
@@ -103,7 +111,18 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
     }//class
-    
+
+    public class XmlSerializationProperties
+    {
+        public string Voice { get; internal set; }
+        public string Staff { get; internal set; }
+        public bool IsLastNoteOfChord { get; set; }
+        public int Forward { get; set; }
+        public int Backup { get; set; }
+        public bool HasForward { get { return  this.Forward != 0; } }
+        public bool HasBackup { get { return  this.Backup != 0; } }   
+    }
+
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
     {
         #region Properties
@@ -260,44 +279,53 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEvent<ChordFormula> CreateTimedEvent(ChordFormula formula,
             int measureNumber,
             int start,
-            int end)
+            int end,
+            XmlSerializationProperties xmlSerializationProperties = null)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var result = new TimedEvent<ChordFormula>(formula,
-                new TimeContext(
-                    measureNumber,
-                    PulsesPerMeasure,
-                    start,
-                    end));
+            var time = new TimeContext(
+                measureNumber,
+                PulsesPerMeasure,
+                start,
+                end);
+            var result = new TimedEvent<ChordFormula>(formula, 
+                time,
+                xmlSerializationProperties);
             return result;
         }
 
         public TimedEvent<Note> CreateTimedEvent(Note note,
             int measureNumber,
             int start,
-            int end)
+            int end,
+            XmlSerializationProperties xmlSerializationProperties = null)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
+            var time = new TimeContext(
+                measureNumber,
+                PulsesPerMeasure,
+                start,
+                end);
             var result = new TimedEvent<Note>(note,
-                new TimeContext(
-                    measureNumber,
-                    PulsesPerMeasure,
-                    start,
-                    end));
+                time, 
+                xmlSerializationProperties);
             return result;
         }
         public TimedEvent<Rest> CreateTimedEvent(Rest rest,
             int measureNumber,
             int start,
-            int end)
+            int end, 
+            XmlSerializationProperties xmlSerializationProperties = null)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
+            var time = new TimeContext(
+                measureNumber,
+                PulsesPerMeasure,
+                start,
+                end);
             var result = new TimedEvent<Rest>(rest,
-                new TimeContext(
-                    measureNumber,
-                    PulsesPerMeasure,
-                    start,
-                    end));
+                time, 
+                xmlSerializationProperties);
             return result;
         }
 

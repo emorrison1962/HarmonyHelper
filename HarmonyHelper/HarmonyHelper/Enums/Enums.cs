@@ -211,9 +211,9 @@ namespace Eric.Morrison.Harmony.MusicXml
     public enum TieTypeEnum
     {
         Unknown = 0,
-        Start = 2,
-        Stop = 2 << 1,
-        StartStop = 2 << 2,
+        Start = 1 << 1,
+        Stop = 1 << 2,
+        StartStop = 1 << 3,
     };
 
 	public enum NoteLengthDivisorEnum
@@ -234,4 +234,10 @@ namespace Eric.Morrison.Harmony.MusicXml
         Maxima = int.MinValue
     }
 
+	public enum ClefEnum
+	{
+        Unknown = 0,
+        Treble = 1 << 1, //G clef
+        Bass = 1 << 2,   //F clef
+    };
 }//ns

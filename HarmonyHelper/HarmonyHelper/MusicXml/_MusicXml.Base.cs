@@ -21,17 +21,17 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
 
-                var xsd = LoadEmbeddedResource("musicxml.xsd");
+                var xsd = Helpers.LoadEmbeddedResource("musicxml.xsd");
                 var reader = new StringReader(xsd);
                 var schema = XmlSchema.Read(reader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
-                xsd = LoadEmbeddedResource("xlink.xsd");
+                xsd = Helpers.LoadEmbeddedResource("xlink.xsd");
                 reader = new StringReader(xsd);
                 schema = XmlSchema.Read(reader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
-                xsd = LoadEmbeddedResource("xml.xsd");
+                xsd = Helpers.LoadEmbeddedResource("xml.xsd");
                 reader = new StringReader(xsd);
                 schema = XmlSchema.Read(reader, ValidationEventHandler);
                 schemaSet.Add(schema);
@@ -51,19 +51,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Debug.WriteLine(e.Message);
             else if (e.Severity == XmlSeverityType.Error)
                 throw new Exception(e.Message);
-        }
-        static public string LoadEmbeddedResource(string partialName)
-        {
-            var result = string.Empty;
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceNames()
-                .Where(x => x.Contains(partialName)).FirstOrDefault();
-            using (var sr = new StreamReader(assembly
-                .GetManifestResourceStream(resource)))
-            {
-                result = sr.ReadToEnd();
-            }
-            return result;
         }
     }//class
 }//ns

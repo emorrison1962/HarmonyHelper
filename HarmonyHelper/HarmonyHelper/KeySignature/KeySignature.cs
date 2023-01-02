@@ -47,8 +47,10 @@ namespace Eric.Morrison.Harmony
 
             if (usesSharps.HasValue)
             {
-                this.UsesSharps = usesSharps.Value;
-                this.UsesFlats = !usesSharps.Value;
+                if (0 <= this.AccidentalCount)
+                    this.UsesSharps = usesSharps.Value;
+                if (0 <= this.AccidentalCount)
+                    this.UsesFlats = !usesSharps.Value;
             }
             if (0 == this.NoteNames.Count)
                 this.UsesFlats = false;

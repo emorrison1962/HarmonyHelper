@@ -57,6 +57,7 @@
     <Compile Include="MusicXml\Domain\MusicXmlPart.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
+    <Compile Include="MusicXml\MusicXmlClef.cs" />
     <Compile Include="MusicXml\_MusicXml.Base.cs" />
     <Compile Include="MusicXml\MusicXml.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Scales\ScaleEnharmonicEquivalents.cs" />
     <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalysisResult.cs" />
     <Compile Include="Analysis\VoiceLeading\VoiceLeadingAnalyzer.cs" />
+    <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="_ClassBase.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\Enums.cs" />

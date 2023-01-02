@@ -39,18 +39,27 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         public ChordSubstitution this[ChordMelodyPairing cmp] 
         { 
             get 
-            { 
+            {
+                ChordSubstitution result = null;
                 var queue = this.Substitutions[cmp];
-                var result = queue.Dequeue();
-                queue.Enqueue(result);
+                if (queue.Count > 0)
+                {
+                    result = queue.Dequeue();
+                    queue.Enqueue(result);
+                }
+                else
+                {
+                    result = new ChordSubstitution(cmp.Formula, 
+                        cmp.Formula, cmp.TimeContext);
+                }
                 return result;
             } 
         }
 
-        public void Add(ChordMelodyPairing key, Queue<ChordSubstitution> queue)
+        public void Add(ChordMelodyPairing cmp, Queue<ChordSubstitution> queue)
         {
-            this.InternalSubstitutions[key] = queue;
-            Debug.WriteLine(key);
+            this.InternalSubstitutions[cmp] = queue;
+            Debug.WriteLine(cmp);
         }
     }//class
 }//ns

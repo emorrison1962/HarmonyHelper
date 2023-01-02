@@ -5,7 +5,8 @@ namespace Eric.Morrison.Harmony.Rhythm
     public class TimeSignature
     {
         public int BeatCount { get; set; }
-        public DurationEnum BeatUnit { get; set; }
+        //public DurationEnum BeatUnit { get; set; }
+        public int BeatUnit { get; set; }
 
         public TimeSignature(string count, string unit)
         {
@@ -20,8 +21,7 @@ namespace Eric.Morrison.Harmony.Rhythm
             
             if (int.TryParse(count, out var beatUnit))
             {
-                this.BeatUnit = (DurationEnum)
-                    ((int)DurationEnum.Whole / beatUnit);
+                this.BeatUnit = beatUnit;
             }
             else
             {

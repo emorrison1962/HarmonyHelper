@@ -2,6 +2,7 @@
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
 using Kohoutech.Score;
+using Kohoutech.Score.MusicXML;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -33,15 +34,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public string Title { get; set; }
         public KeySignature KeySignature { get; set; }
         public Eric.Morrison.Harmony.Rhythm.TimeSignature TimeSignatue { get; set; }
-        public int Tempo { get; set; }
-        public int PulsesPerQuarterNote { get; set; }
-        public int PulsesPerMeasure 
-        { 
-            get 
-            { 
-                return this.TimeSignatue.BeatCount * this.PulsesPerQuarterNote; 
-            } 
-        }
     }//class
 
     public class ParsingContext
@@ -52,6 +44,15 @@ namespace Eric.Morrison.Harmony.MusicXml
 #endif
         public MusicXmlScoreMetadata Metadata { get; set; }
         public MusicXmlMeasure CurrentMeasure { get; set; }
+        public int PulsesPerQuarterNote { get { return Parts.First().PulsesPerQuarterNote; } }
+        public int PulsesPerMeasure
+        {
+            get
+            {
+                return Parts.First().PulsesPerMeasure;
+            }
+        }
+
 
 
         int _CurrentOffset = 0;
@@ -98,7 +99,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         public int GetDuration(int duration)
-        { 
+        {
             var result = (duration * this.Normal) / this.Actual;
             return result;
         }
@@ -110,14 +111,16 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public XDocument Create(MusicXmlModel model)
         {
-            var xml = MusicXmlBase.LoadEmbeddedResource("MusicXmlExportTemplate.xml");
+            var xml = Helpers.LoadEmbeddedResource("MusicXmlExportTemplate.xml");
 
             var work = this.GetWork(model);
             var identification = this.GetIdentification();
-            
+            var partsList = this.GetPartsList(model);
+
             var result = XDocument.Parse(xml);
-            result.Element("score-partwise").Add(work);
-            result.Element("score-partwise").Add(identification);
+            result.Element(XmlConstants.score_partwise).Add(work);
+            result.Element(XmlConstants.score_partwise).Add(identification);
+            result.Element(XmlConstants.score_partwise).Add(partsList);
 
             return result;
 
@@ -147,6 +150,29 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
+        XElement GetPartsList(MusicXmlModel model)
+        {
+#if false
+<part-list>
+   <score-part id="P1">
+      <part-name>ElecPiano</part-name>
+  </score-part>
+   <score-part id="P2">
+      <part-name>Calliope</part-name>
+  </score-part>
+  </part-list>
+#endif
+            var result = new XElement(XmlConstants.part_list);
+            foreach (var part in model.Parts)
+            {
+                var xscore_part = new XElement(XmlConstants.score_part,
+                    new XAttribute(XmlConstants.id, part.Identifier.ID));
+                var xpart_name = new XElement(XmlConstants.part_name,
+                    part.Identifier.Name);
+                xscore_part.Add(xpart_name);
+                result.Add(xscore_part);
+            }
+            return result;
+        }
     }//class
-
 }//ns

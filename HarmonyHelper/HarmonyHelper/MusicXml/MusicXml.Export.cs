@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -46,7 +47,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #endregion
-        
+
         public XDocument Export(MusicXmlModel model)
         {
             this.ExportImpl(model);
@@ -56,7 +57,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         void ExportImpl(MusicXmlModel model)
         {
             this.Document = new ExportTemplateFactory().Create(model);
-            foreach (var part in model.Parts) 
+
+            foreach (var part in model.Parts)
             {
                 var xpart = new XElement(XmlConstants.part);
                 xpart.Add(new XAttribute(XmlConstants.id, part.Identifier.ID));
@@ -65,6 +67,25 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     var xmeasure = new XElement(XmlConstants.measure);
                     xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
+
+                    if (measure.HasMetadata)
+                    {
+                        xmeasure = this.GetPartMetadata(part, xmeasure);
+                    }
+                    if (measure.Serialization.HasBackup)
+                    {
+                        var backup = new XElement(XmlConstants.backup, 
+                            new XElement (XmlConstants.duration, 
+                                measure.Serialization.Backup));
+                        xmeasure.Add(backup);
+                    }
+                    if (measure.Serialization.HasForward)
+                    {
+                        var forward = new XElement(XmlConstants.forward,
+                            new XElement(XmlConstants.duration,
+                                measure.Serialization.Forward));
+                        xmeasure.Add(forward);
+                    }
 
                     var events = measure.GetMergedEvents();
                     foreach (var @event in events)
@@ -80,24 +101,80 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-
-        string LoadEmbeddedResource(string partialName)
+        XElement GetPartMetadata(MusicXmlPart part, XElement xmeasure)
         {
-            var result = string.Empty;
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceNames()
-                .Where(x => x.Contains(partialName)).FirstOrDefault();
-            using (var sr = new StreamReader(assembly
-                .GetManifestResourceStream(resource)))
+#if false
+   <measure number="1">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>2</fifths>
+        </key>
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+        </time>
+        <staves>2</staves>
+        <clef number="1">
+           <sign>G</sign>
+           <line>2</line>
+        </clef>
+        <clef number="2">
+           <sign>F</sign>
+           <line>4</line>
+        </clef>
+      </attributes>
+      <sound tempo="120"/>
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+#endif
+            var result = xmeasure;
+            var xattributes = new XElement(XmlConstants.attributes);
+            result.Add(xattributes);
+
+            var xdivisions = new XElement(XmlConstants.divisions, 
+                part.PulsesPerMeasure / part.TimeSignatue.BeatCount);
+            xattributes.Add(xdivisions);
+
+            var xkey = new XElement(XmlConstants.key);
+            var fifths = 0;
+            if (part.KeySignature.UsesFlats)
             {
-                result = sr.ReadToEnd();
+                fifths = -part.KeySignature.AccidentalCount;
             }
+            else
+            {
+                fifths = part.KeySignature.AccidentalCount;
+            }
+            xkey.Add(new XElement(XmlConstants.fifths, fifths));
+            xattributes.Add(xkey);
+
+
+            var xtime = new XElement(XmlConstants.time);
+            var xbeats = new XElement(XmlConstants.beats, part.TimeSignatue.BeatCount);
+            xtime.Add(xbeats);
+            var xbeat_type = new XElement(XmlConstants.beat_type, part.TimeSignatue.BeatUnit);
+            xtime.Add(xbeat_type);
+            xattributes.Add(xtime);
+
+            var xstaves = new XElement(XmlConstants.staves, part.Staves.Count);
+            xattributes.Add(xstaves);
+
+            foreach (var staff in part.Staves)
+            {
+                xattributes.Add(staff.Clef.ToXml());
+            }
+
+            var xsound = new XElement(XmlConstants.sound);
+            var xtempo = new XAttribute(XmlConstants.tempo, part.Tempo);
+            xsound.Add(xtempo);
+            
+            result.Add(xsound);
+
             return result;
         }
-
-
-
-
 
         public XElement ToPitch(Note note)
         {
@@ -144,6 +221,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             harmony.Add(root);
 
             var kind = new XElement(XmlConstants.kind, te.Event.ChordType.Name);
+            kind.Add(new XAttribute(XmlConstants.text,
+                $"{te.Event.Root.Name[0]}{te.Event.ChordType.Name}"));
             harmony.Add(kind);
 
             //throw new NotImplementedException("How do I get the offset?");
@@ -184,7 +263,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         public XElement ToXElement<T>(T te)
-            where T: TimedEvent<ChordFormula>
+            where T : TimedEvent<ChordFormula>
         {
 #if false
       <harmony>
@@ -237,9 +316,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 var xpitch = new XElement(XmlConstants.pitch);
                 {
-                    var xstep = new XElement(XmlConstants.step);
-                    xpitch.Add(xstep, nn.Name[0]);
-                    
+                    var xstep = new XElement(XmlConstants.step, nn.Name[0]);
+                    xpitch.Add(xstep);
+
                     if (!nn.IsNatural)
                     {
                         XElement xalter = null;
@@ -253,11 +332,17 @@ namespace Eric.Morrison.Harmony.MusicXml
                     var xoctave = new XElement(XmlConstants.octave, (int)note.Octave);
                     xpitch.Add(xoctave);
                 }
+                if (te.Serialization.IsLastNoteOfChord)
+                {
+                    xnote.Add(new XElement(XmlConstants.chord));
+                }
                 xnote.Add(xpitch);
                 {
                     this.GetDuration(time, out var xduration, out var xtype);
                     xnote.Add(xduration);
+                    xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
                     xnote.Add(xtype);
+                    xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
                 }
             }
             new object();
@@ -283,12 +368,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             xnote.Add(xrest);
 
             this.GetDuration(time, out var duration, out var noteType);
-            xrest.Add(duration);
-            xrest.Add(noteType);
+            xnote.Add(duration);
+            xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
+            xnote.Add(noteType);
+            xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
 
-#warning May need to save voice and staff on import.
-
-            return xrest;
+            return xnote;
         }
 
         void GetDuration(TimeContext time, out XElement duration, out XElement noteType)

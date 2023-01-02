@@ -13,6 +13,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public const string actual_notes = "actual-notes";
         public const string accidental = "accidental";
+        public const string attributes = "attributes";
         public const string alter = "alter";
         public const string backup = "backup";
         public const string beam = "beam";
@@ -20,14 +21,17 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string beats = "beats";
         public const string chord = "chord";
         public const string chord_start = "chord_start";
+        public const string clef = "clef";
         public const string divisions = "divisions";
         public const string dot = "dot";
         public const string duration = "duration";
         public const string fifths = "fifths";
+        public const string forward = "forward";
         public const string harmony = "harmony";
         public const string id = "id";
         public const string key = "key";
         public const string kind = "kind";
+        public const string line = "line";
         public const string measure = "measure";
         public const string normal_notes = "normal-notes";
         public const string normal_type = "normal-type";
@@ -47,9 +51,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string score_part = "score-part";
         public const string score_timewise = "score-timewise";
         public const string score_partwise = "score-partwise";
+        public const string sign = "sign";
         public const string sound = "sound";
         public const string staff = "staff";
         public const string start = "start";
+        public const string staves = "staves";
         public const string step = "step";
         public const string stop = "stop";
         public const string tempo = "tempo";
