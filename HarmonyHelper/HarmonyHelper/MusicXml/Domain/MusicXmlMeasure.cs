@@ -63,7 +63,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList();
             this.Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
             this.Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
-            this.Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList(); 
+            this.Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList();
+            this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
         static public MusicXmlMeasure CopyWithOffset(MusicXmlMeasure src, int offset)
@@ -102,6 +103,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var backups = items.SelectMany(x => x.Backups
                 .Select(y => y))
                 .ToList();
+            var serialization = items.Select(x => x.Serialization).First();
 
             if (forwards.Count > 0 || backups.Count > 0)
                 new object();
@@ -113,6 +115,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 rests.Distinct().ToList(),
                 forwards.Distinct().ToList(),
                 backups.Distinct().ToList());
+            result.Serialization = serialization;
 
             if (items.Any(x => x.HasMetadata))
                 new object();

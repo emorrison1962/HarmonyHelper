@@ -123,6 +123,17 @@ namespace Eric.Morrison.Harmony.MusicXml
         bool HasBackup { get { return  this.Backup != 0; } }   
         public string Attack { get; set; }
         public string Release { get; set; }
+
+        public XmlSerializationProperties() { }
+        public XmlSerializationProperties(XmlSerializationProperties src) 
+        { 
+            this.Staff = src.Staff;
+            this.Forward = src.Forward; 
+            this.Backup = src.Backup;
+            this.Attack = src.Attack;
+            this.Release = src.Release;
+            this.Voice = src.Voice; 
+        }
     }
 
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
