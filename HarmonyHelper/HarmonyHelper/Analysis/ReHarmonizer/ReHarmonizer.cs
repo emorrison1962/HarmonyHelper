@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
 
+using static System.Collections.Specialized.BitVector32;
+
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
     public class ReHarmonizer
@@ -21,17 +23,27 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             this.Context = new ReHarmonizerContext(model);
 
+            var newSections = new List<MusicXmlSection>();
             foreach (var section in model.Sections)
             {
-                var reharmonizedSection = GetReharmonized(section);
+                var sections = GetReharmonized(section);
+                foreach (var section2 in sections)
+                {
+                    newSections.Add(section2);
+                }
             }
+            foreach (var newSection in newSections)
+            {
+                model.Sections.Add(newSection);
+            }
+
 
             new object();
         }
 
-        List<ReHarmonizedMusicXmlSection> GetReharmonized(MusicXmlSection section)
+        List<MusicXmlSection> GetReharmonized(MusicXmlSection section)
         {
-            var result = new List<ReHarmonizedMusicXmlSection>();
+            var result = new List<MusicXmlSection>();
 
             var pairings = section.GetChordMelodyPairings();
             var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
@@ -44,7 +56,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
             for (int i = 0; i < newSectionCount; ++i)
             {
-                var newSection = new ReHarmonizedMusicXmlSection();
+                var newSection = new MusicXmlSection();
                 var newMeasures = new List<MusicXmlMeasure>();
                 foreach (var measure in measures)
                 {

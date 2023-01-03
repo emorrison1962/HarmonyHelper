@@ -31,6 +31,20 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 
             new ReHarmonizer().ReHarmonize(model);
 
+
+            var doc = new MusicXmlExporter()
+                .Export(model);
+
+            //MusicXmlBase.ValidateMusicXmlSchema(doc);
+
+            var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
+            filename = "000000-000001.xml";
+            var folder = @"c:\temp\MusicXml";
+            var savePath = Path.Combine(folder, filename);
+            doc.Save(savePath);
+            new object();
+
+
         }
     }
 }

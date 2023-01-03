@@ -47,7 +47,4 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
     }//class
-
-    public class ReHarmonizedMusicXmlSection : MusicXmlSection
-    { }//class
 }//ns
