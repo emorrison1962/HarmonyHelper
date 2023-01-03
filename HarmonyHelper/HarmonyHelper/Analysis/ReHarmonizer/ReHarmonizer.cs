@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
-using Kohoutech.Score;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {

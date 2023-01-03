@@ -7,6 +7,12 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 #endregion
 
 
+using Eric.Morrison.Harmony.Chords;
+using System.Net.NetworkInformation;
+using System.Security.Policy;
+using System.Xml.Linq;
+using System;
+
 namespace Eric.Morrison.Harmony.MusicXml
 {
     static public class XmlConstants
@@ -90,5 +96,41 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
     }//class
 
+    static public class MusicXml_HarmonyKind_Constants
+    {
+        public const string augmented = "augmented"; //Triad: major third, augmented fifth.
+        public const string augmented_seventh = "augmented-seventh"; //Seventh: augmented triad, minor seventh.
+        public const string diminished = "diminished"; //Triad: minor third, diminished fifth.
+        public const string diminished_seventh = "diminished-seventh"; //Seventh: diminished triad, diminished seventh.
+        public const string dominant = "dominant"; //Seventh: major triad, minor seventh.
+        public const string dominant_11th = "dominant-11th";    //11th: dominant-ninth, perfect 11th.
+        public const string dominant_13th = "dominant-13th";    //13th: dominant-11th, major 13th.
+        public const string dominant_ninth = "dominant-ninth"; //Ninth: dominant, major ninth.
+        public const string French = "French";  //Functional French sixth.
+        public const string German = "German"; //Functional German sixth.
+        public const string half_diminished = "half-diminished"; //Seventh: diminished triad, minor seventh.
+        public const string Italian = "Italian"; //Functional Italian sixth.
+        public const string major = "major"; //Triad: major third, perfect fifth.
+        public const string major_11th = "major-11th";  //11th: major-ninth, perfect 11th.
+        public const string major_13th = "major-13th";  //13th: major-11th, major 13th.
+        public const string major_minor = "major-minor"; //Seventh: minor triad, major seventh.
+        public const string major_ninth = "major-ninth"; //Ninth: major-seventh, major ninth.
+        public const string major_seventh = "major-seventh"; //Seventh: major triad, major seventh.
+        public const string major_sixth = "major-sixth"; //Sixth: major triad, added sixth.
+        public const string minor = "minor"; //Triad: minor third, perfect fifth.
+        public const string minor_11th = "minor-11th";  //11th: minor-ninth, perfect 11th.
+        public const string minor_13th = "minor-13th";  //13th: minor-11th, major 13th.
+        public const string minor_ninth = "minor-ninth"; //Ninth: minor-seventh, major ninth.
+        public const string minor_seventh = "minor-seventh"; //Seventh: minor triad, minor seventh.
+        public const string minor_sixth = "minor-sixth"; //Sixth: minor triad, added sixth.
+        public const string Neapolitan = "Neapolitan"; //Functional Neapolitan sixth.
+        public const string none = "none"; //Used to explicitly encode the absence of chords or functional harmony. In this case, the<root> <numeral>, or<function> element has no meaning.When using the <root> or<numeral> element, the <root-step> or<numeral-step> text attribute should be set to the empty string to keep the root or numeral from being displayed.
+        public const string other = "other";   //Used when the harmony is entirely composed of add elements.
+        public const string pedal = "pedal"; //Pedal-point bass
+        public const string power = "power"; //Perfect fifth.
+        public const string suspended_fourth = "suspended-fourth"; //Suspended: perfect fourth, perfect fifth.
+        public const string suspended_second = "suspended-second"; //Suspended: major second, perfect fifth.
+        public const string Tristan = "Tristan"; //Augmented fourth, augmented sixth, augmented ninth.
 
+    }
 }//ns

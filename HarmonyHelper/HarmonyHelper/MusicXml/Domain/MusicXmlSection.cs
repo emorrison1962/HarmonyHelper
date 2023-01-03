@@ -1,5 +1,4 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
-using Kohoutech.Score;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,7 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
-using Kohoutech.Score;
-using Kohoutech.Score.MusicXML;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;

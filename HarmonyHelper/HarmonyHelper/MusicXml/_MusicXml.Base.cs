@@ -52,5 +52,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             else if (e.Severity == XmlSeverityType.Error)
                 throw new Exception(e.Message);
         }
+    
+    
     }//class
 }//ns

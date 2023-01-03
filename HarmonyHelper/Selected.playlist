@@ -36,6 +36,17 @@
                     </Rule>
                   </Rule>
                 </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="MusicXmlExportr_ExportTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.MusicXml.Tests.MusicXmlExportr_ExportTests.ExportTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ExportTest" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
               </Rule>
             </Rule>
           </Rule>

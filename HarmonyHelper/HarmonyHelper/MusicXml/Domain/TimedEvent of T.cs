@@ -1,5 +1,4 @@
 ﻿using Eric.Morrison.Harmony.Chords;
-using Kohoutech.Score.MusicXML;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -261,7 +260,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var nt = this.PulsesPerMeasure / this.Duration;
             var nlde = (NoteLengthDivisorEnum)nt;
-            return nlde.ToString();
+            return nlde.GetMusicXmlName();
         }
 
         static public TimeContext CopyWithOffset(TimeContext src, int offset)

@@ -57,6 +57,7 @@
     <Compile Include="MusicXml\Domain\MusicXmlPart.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
+    <Compile Include="MusicXml\Extensions.cs" />
     <Compile Include="MusicXml\MusicXmlClef.cs" />
     <Compile Include="MusicXml\_MusicXml.Base.cs" />
     <Compile Include="MusicXml\MusicXml.Export.cs" />

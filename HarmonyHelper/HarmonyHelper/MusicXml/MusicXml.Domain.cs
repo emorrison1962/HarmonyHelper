@@ -1,8 +1,6 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
-using Kohoutech.Score;
-using Kohoutech.Score.MusicXML;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -107,7 +105,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     public class ExportTemplateFactory
     {
-        public string Now { get { return DateTime.Now.ToString("MM-dd-yyyy"); } }
+        public string Now { get { return DateTime.Now.ToString("yyyy-MM-dd"); } }
 
         public XDocument Create(MusicXmlModel model)
         {

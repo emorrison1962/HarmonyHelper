@@ -20,6 +20,11 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void ExportTest()
         {
+            //foreach (var ct in ChordType.Catalog)
+            //{ 
+            //    Debug.WriteLine(ct.Name);
+            //}
+
             var folder = @"c:\temp\MusicXml";
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);

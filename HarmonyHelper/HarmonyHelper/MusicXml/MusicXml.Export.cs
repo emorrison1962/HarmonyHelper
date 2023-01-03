@@ -17,7 +17,6 @@ using System.Xml.Xsl;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
-using Kohoutech.Score;
 
 #region MusicXml reference
 #if false
@@ -207,14 +206,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             var root = ToRoot(te);
             harmony.Add(root);
 
-            var kind = new XElement(XmlConstants.kind, te.Event.ChordType.Name);
+            var kind = new XElement(XmlConstants.kind, te.Event.ChordType.GetMusicXmlName());
             kind.Add(new XAttribute(XmlConstants.text,
                 $"{te.Event.Root.Name[0]}{te.Event.ChordType.Name}"));
             harmony.Add(kind);
 
-            //throw new NotImplementedException("How do I get the offset?");
-            var offset = new XElement(XmlConstants.offset);
-            harmony.Add(offset);
+#warning throw new NotImplementedException("How do I get the offset?");
+            //var offset = new XElement(XmlConstants.offset);
+            //harmony.Add(offset);
 
             return harmony;
         }
