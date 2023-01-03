@@ -3,192 +3,370 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
+    public class ChordAlteration
+    {
+        public const string ADD = "add";//add	If the degree element is in addition to the kind of the current chord.
+        public const string ALTER = "alter";//alter	If the degree element is an alteration to the kind of the current chord.
+        public const string REMOVE = "subtract";//subtract	If the degree element is a subtraction from the kind of the current chord.
+        public int Degree { get; set; }
+        public int Alteration { get; set; }
+        public string Type { get; set; }
+
+        public ChordAlteration(string type, int degree, int alteration=0 )
+        {
+            this.Degree = degree;
+            this.Alteration = alteration;
+            this.Type = type;
+            if (this.Type != ADD
+                && this.Type != ALTER
+                && this.Type != REMOVE)
+                throw new ArgumentOutOfRangeException("type");
+        }
+
+        public XElement ToXElement()
+        {
+#if false
+<degree-value>5</degree-value>
+<degree-alter>-1</degree-alter>
+<degree-type>alter</degree-type>
+#endif
+
+            var result = new XElement(XmlConstants.degree);
+            result.Add(new XElement(XmlConstants.degree_value, this.Degree));
+            result.Add(new XElement(XmlConstants.degree_alter, this.Alteration));
+            result.Add(new XElement(XmlConstants.degree_type, this.Type));
+            return result;
+        }
+    }
     public static class Extensions
     {
-        static public string GetMusicXmlName(this ChordType ct)
+        static public List<XElement> ToXElements(this ChordType ct)
         {
-            var result = string.Empty;
+            var result = new List<XElement>();
+
+#if false
+<degree>
+<degree-value>5</degree-value>
+<degree-alter>-1</degree-alter>
+<degree-type>alter</degree-type>
+
+</degree>
+#endif
             switch (ct.Name)
             {
                 case "aug":
                     {
-                        result = MusicXml_HarmonyKind_Constants.augmented;
+                        var kind = new XElement(XmlConstants.kind, 
+                            MusicXml_HarmonyKind_Constants.augmented);
+                        result.Add(kind);
                         break;
                     }
                 case "dim":
                     {
-                        result = MusicXml_HarmonyKind_Constants.diminished;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.diminished);
+                        result.Add(kind);
                         break;
+
                     }
                 case "m7b5":
                     {
-                        result = MusicXml_HarmonyKind_Constants.half_diminished;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.half_diminished);
+                        result.Add(kind);
                         break;
+
                     }
                 case "dim7":
                     {
-                        result = MusicXml_HarmonyKind_Constants.diminished_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.diminished_seventh);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Sus2":
                     {
-                        result = MusicXml_HarmonyKind_Constants.suspended_second;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.suspended_second);
+                        result.Add(kind);
                         break;
+
                     }
                 case "7Sus2":
                     {
-                        result = MusicXml_HarmonyKind_Constants.suspended_second;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 2)
+                            .ToXElement());
                         break;
+
                     }
                 case "Sus4":
                     {
-                        result = MusicXml_HarmonyKind_Constants.suspended_fourth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.suspended_fourth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "7Sus4":
                     {
-                        result = MusicXml_HarmonyKind_Constants.suspended_fourth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.suspended_fourth);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 7)
+                            .ToXElement());
                         break;
+
                     }
                 case "Sus2Sus4":
                     {
-                        result = MusicXml_HarmonyKind_Constants.suspended_second;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.suspended_second);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 4)
+                            .ToXElement());
                         break;
+
                     }
                 case "m":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor);
+                        result.Add(kind);
                         break;
+
                     }
                 case "m7":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_seventh);
+                        result.Add(kind);
                         break;
+
                     }
                 case "mM7":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_minor;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_seventh);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 7, 1)
+                            .ToXElement());
                         break;
+
                     }
                 case "mMaj7aug5":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_minor;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 7, 1)
+                            .ToXElement());
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 5, 1)
+                            .ToXElement());
                         break;
+
                     }
                 case "m6":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_sixth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_sixth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "m9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_ninth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "m11":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_11th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_11th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "m13":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_13th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor_13th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "mAdd9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.minor_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.minor);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 9)
+                            .ToXElement());
                         break;
+
                     }
                 case "Maj":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major);
+                        result.Add(kind);
                         break;
+
                     }
                 case "6":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_sixth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_sixth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Maj7":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_seventh);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Maj9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_ninth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Maj11":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_11th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_11th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Maj13":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_13th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_13th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "Add9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 9)
+                            .ToXElement());
                         break;
+
                     }
                 case "MajMu":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ADD, 2)
+                            .ToXElement());
+
                         break;
+
                     }
                 case "Maj7b5":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_seventh);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 5, -1)
+                            .ToXElement());
                         break;
+
                     }
                 case "Maj7aug5":
                     {
-                        result = MusicXml_HarmonyKind_Constants.major_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.major_seventh);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 5, 1)
+                            .ToXElement());
                         break;
+
                     }
                 case "7":
                     {
-                        result = MusicXml_HarmonyKind_Constants.dominant;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant);
+                        result.Add(kind);
                         break;
+
                     }
                 case "9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.dominant_ninth;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant_ninth);
+                        result.Add(kind);
                         break;
+
                     }
                 case "11":
                     {
-                        result = MusicXml_HarmonyKind_Constants.dominant_11th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant_11th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "13":
                     {
-                        result = MusicXml_HarmonyKind_Constants.dominant_13th;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant_13th);
+                        result.Add(kind);
                         break;
+
                     }
                 case "7b5":
                     {
-                        result = MusicXml_HarmonyKind_Constants.diminished_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 5, -1)
+                            .ToXElement());
                         break;
+
                     }
                 case "7b9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.diminished_seventh;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant_ninth);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 9, -1)
+                            .ToXElement());
                         break;
+
                     }
                 case "7sharp9":
                     {
-                        result = MusicXml_HarmonyKind_Constants.dominant;
+                        var kind = new XElement(XmlConstants.kind,
+                            MusicXml_HarmonyKind_Constants.dominant);
+                        result.Add(kind);
+                        result.Add(new ChordAlteration(ChordAlteration.ALTER, 9, 1)
+                            .ToXElement());
                         break;
+
                     }
                 default:
                     {

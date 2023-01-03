@@ -78,9 +78,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
                 foreach (var part in section.Parts)
                 {
-                    var newPart = MusicXmlPart.CloneShallow(part);
-                    newPart.Measures.AddRange(newMeasures);
-                    newSection.Parts.Add(newPart);
+                    part.Measures.AddRange(newMeasures);
+                    newSection.Parts.Add(part);
                 }
                 result.Add(newSection);
             }

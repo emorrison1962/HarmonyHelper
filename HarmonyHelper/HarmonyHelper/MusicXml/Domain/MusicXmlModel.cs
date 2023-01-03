@@ -77,6 +77,22 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Sections = result;
         }
 
+        public void MergeSections()
+        { 
+            var seq = (from s in this.Sections
+                       from p in s.Parts
+                       //from m in p.Measures
+                       select new { Part = p, Measures = p.Measures})
+                       .ToList();
+
+            foreach (var item in seq)
+            {
+                var part = this.Parts.First(x => x.Identifier.ID == item.Part.Identifier.ID);
+                part.Measures.AddRange(item.Measures);
+                new object();
+            }
+        }
+
     }//class
 
 }//ns

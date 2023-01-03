@@ -191,33 +191,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public XElement ToXElement(TimedEvent<ChordFormula> te)
-        {
-#if false
-      <harmony>
-         <root>
-         <root-step>C</root-step>
-         </root>
-         <kind text="m7">minor-seventh</kind>
-      <offset>240</offset>
-      </harmony>
-#endif
-            var harmony = new XElement(XmlConstants.harmony);
-            var root = ToRoot(te);
-            harmony.Add(root);
-
-            var kind = new XElement(XmlConstants.kind, te.Event.ChordType.GetMusicXmlName());
-            kind.Add(new XAttribute(XmlConstants.text,
-                $"{te.Event.Root.Name[0]}{te.Event.ChordType.Name}"));
-            harmony.Add(kind);
-
-#warning throw new NotImplementedException("How do I get the offset?");
-            //var offset = new XElement(XmlConstants.offset);
-            //harmony.Add(offset);
-
-            return harmony;
-        }
-
         public XElement ToRoot(TimedEvent<ChordFormula> te)
         {
 #if false
@@ -248,8 +221,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return root;
         }
 
-        public XElement ToXElement<T>(T te)
-            where T : TimedEvent<ChordFormula>
+        public XElement ToXElement(TimedEvent<ChordFormula> te)
         {
 #if false
       <harmony>
@@ -261,19 +233,23 @@ namespace Eric.Morrison.Harmony.MusicXml
       </harmony>
 #endif
             var harmony = new XElement(XmlConstants.harmony);
-            var root = this.ToRoot((dynamic)te);
+            var root = ToRoot(te);
             harmony.Add(root);
 
-            var kind = new XElement(XmlConstants.kind, te.Event.ChordType.Name);
-            harmony.Add(kind);
+            var elems = te.Event.ChordType.ToXElements();
+            harmony.Add(elems);
 
-            //throw new NotImplementedException("How do I get the offset?");
-            var offset = new XElement(XmlConstants.offset);
-            harmony.Add(offset);
+            //var kind = new XElement(XmlConstants.kind, te.Event.ChordType.GetMusicXmlName());
+            //kind.Add(new XAttribute(XmlConstants.text,
+            //    $"{te.Event.Root.Name[0]}{te.Event.ChordType.Name}"));
+            //harmony.Add(kind);
+
+#warning throw new NotImplementedException("How do I get the offset?");
+            //var offset = new XElement(XmlConstants.offset);
+            //harmony.Add(offset);
 
             return harmony;
         }
-
 
         /// <summary>
         /// </summary>

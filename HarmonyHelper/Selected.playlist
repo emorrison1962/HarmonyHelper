@@ -26,23 +26,28 @@
               <Property Name="Namespace" Value="Eric.Morrison.Harmony.MusicXml.Tests" />
               <Rule Match="Any">
                 <Rule Match="All">
-                  <Property Name="Class" Value="MusicXmlExport_ExportTests" />
-                  <Rule Match="Any">
-                    <Rule Match="All">
-                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.MusicXml.Tests.MusicXmlExport_ExportTests.ExportTest" />
-                      <Rule Match="Any">
-                        <Property Name="DisplayName" Value="ExportTest" />
-                      </Rule>
-                    </Rule>
-                  </Rule>
-                </Rule>
-                <Rule Match="All">
                   <Property Name="Class" Value="MusicXmlExportr_ExportTests" />
                   <Rule Match="Any">
                     <Rule Match="All">
                       <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.MusicXml.Tests.MusicXmlExportr_ExportTests.ExportTest" />
                       <Rule Match="Any">
                         <Property Name="DisplayName" Value="ExportTest" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+            <Rule Match="All">
+              <Property Name="Namespace" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="ReHarmonizerTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests.ReHarmonizerTests.ReHarmonizeTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ReHarmonizeTest" />
                       </Rule>
                     </Rule>
                   </Rule>

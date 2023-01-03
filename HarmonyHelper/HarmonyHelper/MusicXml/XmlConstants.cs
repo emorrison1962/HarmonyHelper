@@ -29,6 +29,10 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string chord = "chord";
         public const string chord_start = "chord_start";
         public const string clef = "clef";
+        public const string degree = "degree";
+        public const string degree_value = "degree-value";
+        public const string degree_alter = "degree-alter";
+        public const string degree_type = "degree-type";
         public const string divisions = "divisions";
         public const string dot = "dot";
         public const string duration = "duration";

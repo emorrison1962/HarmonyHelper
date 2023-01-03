@@ -30,7 +30,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             model.CreateSections(new MusicXmlModel.SectionContext(20, 4));
 
             new ReHarmonizer().ReHarmonize(model);
-
+            model.MergeSections();
 
             var doc = new MusicXmlExporter()
                 .Export(model);
