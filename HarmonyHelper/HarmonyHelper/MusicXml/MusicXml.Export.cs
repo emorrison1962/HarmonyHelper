@@ -309,6 +309,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     xnote.Add(xduration);
                     xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
                     xnote.Add(xtype);
+                    Debug.Assert(!string.IsNullOrEmpty(te.Serialization.Staff));
                     xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
                 }
             }
@@ -338,6 +339,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             xnote.Add(duration);
             xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
             xnote.Add(noteType);
+            Debug.Assert(!string.IsNullOrEmpty(te.Serialization.Staff));
             xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
 
             return xnote;
