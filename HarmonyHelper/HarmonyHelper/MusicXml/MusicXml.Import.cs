@@ -438,30 +438,22 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 #endif
-        private void PopulateMeasure(List<XElement> elements, MusicXmlMeasure measure)
+        private void PopulateMeasure(XElement xmeasure, MusicXmlMeasure measure)
         {
+            var xelements = xmeasure.Elements().ToList();
+
+
             this.ParsingContext.CurrentOffset = 0;
 
             var chords = new List<TimedEvent<ChordFormula>>();
             var notes = new List<TimedEvent<Note>>();
             var rests = new List<TimedEvent<Rest>>();
-            foreach (var xelement in elements)
+            var forwards = new List<TimedEvent<Forward>>();
+            var backups = new List<TimedEvent<Backup>>();
+            foreach (var xelement in xelements)
             {
                 //Debug.WriteLine(this.ParsingContext.CurrentOffset);
-                if (xelement.Name == XmlConstants.backup)
-                {
-                    var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
-                    this.ParsingContext.CurrentOffset = 0;
-                    measure.Serialization.Backup = duration;
-                }
-
-                else if (xelement.Name == XmlConstants.forward)
-                {
-                    var duration = int.Parse(xelement.Element(XmlConstants.duration).Value);
-                    measure.Serialization.Forward = duration;
-                }
-
-                else if (xelement.Name == XmlConstants.harmony)
+                if (xelement.Name == XmlConstants.harmony)
                 {
                     var chord = this.ParseChord(xelement, chords);
                     Debug.Assert(chord != null);
@@ -481,11 +473,61 @@ namespace Eric.Morrison.Harmony.MusicXml
                     Debug.Assert(rest != null);
                     rests.Add(rest);
                 }
+                else if (xelement.Name == XmlConstants.forward)
+                {
+                    TimedEvent<Forward> forward = this.ParseForward(xelement);
+                    Debug.Assert(forward != null);
+                    forwards.Add(forward);
+                }
+                else if (xelement.Name == XmlConstants.backup)
+                {
+                    TimedEvent<Backup> backup = this.ParseBackup(xelement);
+                    Debug.Assert(backup != null);
+                    backups.Add(backup);
+                }
             }
 
             measure.Chords = chords;
             measure.Notes = notes;
             measure.Rests = rests;
+            if (forwards.Count > 0)
+                measure.Forwards= forwards;
+            if (backups.Count > 0)
+                measure.Backups= backups;
+        }
+
+        TimedEvent<Forward> ParseForward(XElement xelement)
+        {
+            TimedEvent<Forward> result = null;
+            var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            if (xelement.Name == XmlConstants.forward)
+            {
+                result = TimedEventFactory.Instance.CreateTimedEvent(new Forward(),
+                    this.ParsingContext.CurrentMeasure.MeasureNumber,
+                    this.ParsingContext.CurrentOffset,
+                    this.ParsingContext.CurrentOffset + duration);
+
+                //this.ParsingContext.CurrentOffset += duration;
+            }
+
+            return result;
+        }
+
+        TimedEvent<Backup> ParseBackup(XElement xelement)
+        {
+            TimedEvent<Backup> result = null;
+            var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            if (xelement.Name == XmlConstants.backup)
+            {
+                result = TimedEventFactory.Instance.CreateTimedEvent(new Backup(),
+                    this.ParsingContext.CurrentMeasure.MeasureNumber,
+                    this.ParsingContext.CurrentOffset,
+                    this.ParsingContext.CurrentOffset + duration);
+
+                //this.ParsingContext.CurrentOffset += duration;
+            }
+
+            return result;
         }
 
 #if false
@@ -648,8 +690,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             this.ParsingContext.CurrentMeasure = measure;
 
-            var elements = xmeasure.Elements().ToList();
-            this.PopulateMeasure(elements, measure);
+            this.PopulateMeasure(xmeasure, measure);
             //foreach (var xelement in elements)
             //{
             //    if (xelement.Name == XmlConstants.backup)
@@ -723,7 +764,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             int duration = 0;
             int start = 0;
             int end = 0;
-            bool isLastNoteOfChord = false;
+
+
 
 #if false //Ignore tied notes, for now.
             if (xnote.Elements(XmlConstants.tie).Any())
@@ -765,7 +807,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 else if (this.IsLastNoteOfChord(xnote))
                 {
-                    isLastNoteOfChord = true;
                     start = this.ParsingContext.ChordTimeContext.Start;
                     end = this.ParsingContext.ChordTimeContext.End;
                     this.ParsingContext.ChordTimeContext.Clear();
@@ -784,12 +825,24 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Debug.Assert(start != end);
             }
 
-            //result = new TimedEvent<Note>(hhNote, start, end);
-            result = TimedEventFactory.Instance.CreateTimedEvent(hhNote,
+            bool hasChord = false;
+            if (xnote.Elements(XmlConstants.chord).Any())
+            {
+                hasChord = true;
+            }
+
+
+                //result = new TimedEvent<Note>(hhNote, start, end);
+                result = TimedEventFactory.Instance.CreateTimedEvent(hhNote,
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
                 end,
-                new XmlSerializationProperties { IsLastNoteOfChord=true });
+                new XmlSerializationProperties { HasChord = hasChord });
+
+            if (xnote.Attributes(XmlConstants.attack).Any())
+                result.Serialization.Attack = xnote.Attribute(XmlConstants.attack).Value;
+            if (xnote.Attributes(XmlConstants.release).Any())
+                result.Serialization.Release = xnote.Attribute(XmlConstants.release).Value;
 
             result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
             result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;

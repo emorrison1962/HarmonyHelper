@@ -66,8 +66,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             set
             {
                 _CurrentOffset = value;
-                Debug.Assert(_CurrentOffset <= 481);
-                Debug.Assert(_CurrentOffset >= 0);
+                //Debug.Assert(_CurrentOffset <= 481);
+                //Debug.Assert(_CurrentOffset >= 0);
                 //Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
         }

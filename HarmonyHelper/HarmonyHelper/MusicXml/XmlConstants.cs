@@ -15,6 +15,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string accidental = "accidental";
         public const string attributes = "attributes";
         public const string alter = "alter";
+        public const string attack = "attack";
         public const string backup = "backup";
         public const string beam = "beam";
         public const string beat_type = "beat-type";
@@ -44,6 +45,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string part_list = "part-list";
         public const string part_name = "part-name";
         public const string pitch = "pitch";
+        public const string release = "release";
         public const string rest = "rest";
         public const string root = "root";
         public const string root_alter = "root-alter";

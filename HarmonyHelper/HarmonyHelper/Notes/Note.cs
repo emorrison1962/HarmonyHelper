@@ -22,8 +22,10 @@ namespace Eric.Morrison.Harmony
 
 	public class Note : ClassBase, IEquatable<Note>, IComparable<Note>, IMusicalEvent<Note>
     {
-		#region Properties
-		public NoteName NoteName { get; private set; }
+        #region Properties
+        public int SortOrder { get { return 5; } }
+
+        public NoteName NoteName { get; private set; }
 
 		public OctaveEnum Octave { get; set; }
 

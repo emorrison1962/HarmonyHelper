@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public int RelativeStart { get { return this.TimeContext.RelativeStart; } }
         public int RelativeEnd { get { return this.TimeContext.RelativeEnd; } }
         public int Duration { get { return this.TimeContext.Duration; } }
-
+        public int SortOrder { get { return this.Event.SortOrder; } }
         public T Event { get; set; }
         public TimeContext TimeContext { get; set; }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
@@ -116,11 +117,13 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public string Voice { get; internal set; }
         public string Staff { get; internal set; }
-        public bool IsLastNoteOfChord { get; set; }
-        public int Forward { get; set; }
-        public int Backup { get; set; }
-        public bool HasForward { get { return  this.Forward != 0; } }
-        public bool HasBackup { get { return  this.Backup != 0; } }   
+        public bool HasChord { get; set; }
+        int Forward { get; set; }
+        int Backup { get; set; }
+        bool HasForward { get { return  this.Forward != 0; } }
+        bool HasBackup { get { return  this.Backup != 0; } }   
+        public string Attack { get; set; }
+        public string Release { get; set; }
     }
 
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
@@ -325,6 +328,42 @@ namespace Eric.Morrison.Harmony.MusicXml
                 end);
             var result = new TimedEvent<Rest>(rest,
                 time, 
+                xmlSerializationProperties);
+            return result;
+        }
+
+        public TimedEvent<Forward> CreateTimedEvent(Forward rest,
+            int measureNumber,
+            int start,
+            int end,
+            XmlSerializationProperties xmlSerializationProperties = null)
+        {
+            Debug.Assert(this.PulsesPerMeasure != int.MinValue);
+            var time = new TimeContext(
+                measureNumber,
+                PulsesPerMeasure,
+                start,
+                end);
+            var result = new TimedEvent<Forward>(rest,
+                time,
+                xmlSerializationProperties);
+            return result;
+        }
+
+        public TimedEvent<Backup> CreateTimedEvent(Backup rest,
+            int measureNumber,
+            int start,
+            int end,
+            XmlSerializationProperties xmlSerializationProperties = null)
+        {
+            Debug.Assert(this.PulsesPerMeasure != int.MinValue);
+            var time = new TimeContext(
+                measureNumber,
+                PulsesPerMeasure,
+                start,
+                end);
+            var result = new TimedEvent<Backup>(rest,
+                time,
                 xmlSerializationProperties);
             return result;
         }

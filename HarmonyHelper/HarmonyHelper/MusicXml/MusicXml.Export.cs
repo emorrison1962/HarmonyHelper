@@ -17,6 +17,7 @@ using System.Xml.Xsl;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
+using Kohoutech.Score;
 
 #region MusicXml reference
 #if false
@@ -71,20 +72,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                     if (measure.HasMetadata)
                     {
                         xmeasure = this.GetPartMetadata(part, xmeasure);
-                    }
-                    if (measure.Serialization.HasBackup)
-                    {
-                        var backup = new XElement(XmlConstants.backup, 
-                            new XElement (XmlConstants.duration, 
-                                measure.Serialization.Backup));
-                        xmeasure.Add(backup);
-                    }
-                    if (measure.Serialization.HasForward)
-                    {
-                        var forward = new XElement(XmlConstants.forward,
-                            new XElement(XmlConstants.duration,
-                                measure.Serialization.Forward));
-                        xmeasure.Add(forward);
                     }
 
                     var events = measure.GetMergedEvents();
@@ -314,6 +301,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var xnote = new XElement(XmlConstants.note);
             {
+                if (null != te.Serialization.Attack)
+                    xnote.Add(new XAttribute(XmlConstants.attack, te.Serialization.Attack));
+                if (null != te.Serialization.Release)
+                    xnote.Add(new XAttribute(XmlConstants.release, te.Serialization.Release));
+
                 var xpitch = new XElement(XmlConstants.pitch);
                 {
                     var xstep = new XElement(XmlConstants.step, nn.Name[0]);
@@ -332,7 +324,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     var xoctave = new XElement(XmlConstants.octave, (int)note.Octave);
                     xpitch.Add(xoctave);
                 }
-                if (te.Serialization.IsLastNoteOfChord)
+                if (te.Serialization.HasChord)
                 {
                     xnote.Add(new XElement(XmlConstants.chord));
                 }
@@ -375,6 +367,29 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             return xnote;
         }
+
+        public XElement ToXElement(TimedEvent<Forward> te)
+        {
+            var rest = te.Event;
+            var time = te.TimeContext;
+
+            var xforward = new XElement(XmlConstants.forward);
+            var xduration = new XElement(XmlConstants.duration, time.Duration);
+            xforward.Add(xduration);
+            return xforward;
+        }
+
+        public XElement ToXElement(TimedEvent<Backup> te)
+        {
+            var rest = te.Event;
+            var time = te.TimeContext;
+
+            var xbackup = new XElement(XmlConstants.backup);
+            var xduration = new XElement(XmlConstants.duration, time.Duration);
+            xbackup.Add(xduration);
+            return xbackup;
+        }
+
 
         void GetDuration(TimeContext time, out XElement duration, out XElement noteType)
         {

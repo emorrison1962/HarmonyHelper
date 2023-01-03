@@ -38,6 +38,7 @@ namespace Eric.Morrison.Harmony.Chords
     public interface IHasTimeContext
     {
         TimeContext TimeContext { get; }
+        int SortOrder { get; }
     }
     public interface IHasTimeContext<T> where T : class, IMusicalEvent<T>
     {

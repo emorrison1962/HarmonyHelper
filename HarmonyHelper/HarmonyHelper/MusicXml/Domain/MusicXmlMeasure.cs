@@ -1,7 +1,9 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
 using Kohoutech.Score;
+using Kohoutech.Score.MusicXML;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,10 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
         public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
         public List<TimedEvent<Rest>> Rests { get; set; } = new List<TimedEvent<Rest>>();
+        public List<TimedEvent<Forward>> Forwards { get; set; } = new List<TimedEvent<Forward>>();
+        public List<TimedEvent<Backup>> Backups { get; set; } = new List<TimedEvent<Backup>>();
+        public bool HasForwards { get { return this.Forwards.Count > 0; } }
+        public bool HasBackups { get { return this.Backups.Count > 0; } }
 
         List<ChordMelodyPairing> _ChordMelodyPairings;
         public List<ChordMelodyPairing> ChordMelodyPairings 
@@ -41,19 +47,25 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlMeasure(int measureNumber,
             List<TimedEvent<ChordFormula>> Chords,
             List<TimedEvent<Note>> Notes,
-            List<TimedEvent<Rest>> Rests)
+            List<TimedEvent<Rest>> Rests,
+            List<TimedEvent<Forward>> Forwards,
+            List<TimedEvent<Backup>> Backups)
         {
             this.MeasureNumber = measureNumber;
             this.Chords = Chords;
             this.Notes = Notes;
             this.Rests = Rests;
+            this.Forwards = Forwards;
+            this.Backups = Backups; 
         }
         MusicXmlMeasure(MusicXmlMeasure src)
         {
             this.MeasureNumber = src.MeasureNumber;
             this.Notes = src.Notes.Select(x => new TimedEvent<Note>(x)).ToList();
-            this.Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList(); 
-            this.Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList(); 
+            this.Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList();
+            this.Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
+            this.Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
+            this.Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList(); 
         }
 
         static public MusicXmlMeasure CopyWithOffset(MusicXmlMeasure src, int offset)
@@ -64,6 +76,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.Chords.ForEach(x => x.TimeContext = TimeContext
                 .CopyWithOffset(x.TimeContext, offset));
             result.Rests.ForEach(x => x.TimeContext = TimeContext
+                .CopyWithOffset(x.TimeContext, offset));
+            result.Forwards.ForEach(x => x.TimeContext = TimeContext
+                .CopyWithOffset(x.TimeContext, offset));
+            result.Backups.ForEach(x => x.TimeContext = TimeContext
                 .CopyWithOffset(x.TimeContext, offset));
             return result;
         }
@@ -82,18 +98,31 @@ namespace Eric.Morrison.Harmony.MusicXml
             var rests = items.SelectMany(x => x.Rests
                 .Select(y => y))
                 .ToList();
+            var forwards = items.SelectMany(x => x.Forwards
+                .Select(y => y))
+                .ToList();
+            var backups = items.SelectMany(x => x.Backups
+                .Select(y => y))
+                .ToList();
+
+            if (forwards.Count > 0 || backups.Count > 0)
+                new object();
 
             var result = new MusicXmlMeasure(
                 items.First().MeasureNumber,
                 chords.Distinct().ToList(),
                 notes.Distinct().ToList(),
-                rests.Distinct().ToList());
+                rests.Distinct().ToList(),
+                forwards.Distinct().ToList(),
+                backups.Distinct().ToList());
 
             if (items.Any(x => x.HasMetadata))
                 new object();
             result.Chords = result.Chords.OrderBy(x => x.AbsoluteStart).ToList();
             result.Notes = result.Notes.OrderBy(x => x.AbsoluteStart).ToList();
             result.Rests = result.Rests.OrderBy(x => x.AbsoluteStart).ToList();
+            result.Forwards = result.Forwards.OrderBy(x => x.AbsoluteStart).ToList();
+            result.Backups = result.Backups.OrderBy(x => x.AbsoluteStart).ToList();
 
             return result;
         }
@@ -115,9 +144,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.AddRange(this.Chords.Select(x => x));
             result.AddRange(this.Notes.Select(x => x));
             result.AddRange(this.Rests.Select(x => x));
+            result.AddRange(this.Forwards.Select(x => x));
+            result.AddRange(this.Backups.Select(x => x));
 
-            result = result.OrderBy(x => x.TimeContext.AbsoluteStart)
-                .ThenBy(x => x.GetType().Name)
+            result = result.OrderBy(x => x.TimeContext.RelativeStart)
+                .ThenBy(x => x.SortOrder)
                 .ToList();
 
             return result;

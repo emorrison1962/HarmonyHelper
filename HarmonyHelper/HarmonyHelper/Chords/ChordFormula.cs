@@ -14,6 +14,7 @@ namespace Eric.Morrison.Harmony.Chords
 
         #region Properties
 
+        public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
         [Obsolete("", false)]

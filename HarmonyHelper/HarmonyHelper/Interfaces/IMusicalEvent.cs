@@ -8,5 +8,6 @@ namespace Eric.Morrison.Harmony
     }
     public interface IMusicalEvent<T> : IImplementCopy<T>, IMusicalEvent where T : class
     {
+        int SortOrder { get; }
     }
 }
