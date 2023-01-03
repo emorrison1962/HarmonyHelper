@@ -54,6 +54,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.XElement = xelement;
         }
+        [Obsolete("", true)]
         static public MusicXmlPart CloneShallow(MusicXmlPart part)
         {
             return new MusicXmlPart(part);

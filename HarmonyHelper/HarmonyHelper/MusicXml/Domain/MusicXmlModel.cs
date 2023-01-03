@@ -67,7 +67,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                 foreach (var item in list)
                 {
-                    var p = MusicXmlPart.CloneShallow(item.Part);
+                    var p = item.Part;
                     p.Measures.AddRange(item.Measures.Skip(start).Take(end));
                     section.Parts.Add(p);
                 }
