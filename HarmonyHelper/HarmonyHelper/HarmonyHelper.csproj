@@ -70,7 +70,6 @@
     <Compile Include="MusicXml\Export\MusicXml.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
     <Compile Include="Utilities\Domain.Mappings\KeySignature2ChordFormulaMap.cs" />
-    <Compile Include="MusicXml\MusicXmlParser_old.cs" />
     <Compile Include="MusicXml\Import\MusicXml.Import.cs" />
     <Compile Include="MusicXml\MusicXml.Domain.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
