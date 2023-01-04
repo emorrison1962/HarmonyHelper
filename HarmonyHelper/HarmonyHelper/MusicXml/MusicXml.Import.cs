@@ -442,45 +442,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        private List<XElement> PrepareChords(List<XElement> musicalElements)
-        {
-            foreach (var musicalElement in musicalElements)
-            {
-                if (musicalElement.ElementsAfterSelf().Count() > 0
-                    && musicalElement.Name == XmlConstants.note
-                    && musicalElement.Elements(XmlConstants.chord).Any()
-                    && musicalElement.ElementsAfterSelf()
-                        .FirstOrDefault()
-                        .Elements(XmlConstants.chord)
-                        .Any())
-                {
-                    musicalElement.Add(new XElement(XmlConstants.chord_start));
-                }
-            }
-            return musicalElements;
-        }
-
-        private List<XElement> PrepareTies(List<XElement> musicalElements)
-        {
-            foreach (var musicalElement in musicalElements)
-            {
-                if (musicalElement.ElementsAfterSelf().Count() > 0
-                    && musicalElement.Name == XmlConstants.note //note
-                    && musicalElement.Elements()
-                    .Where(x => x.Name.ToString() == XmlConstants.tie
-                        && x.Value == XmlConstants.start) //child element "tie" with attribute "start"
-                    .Any()
-                    && musicalElement.ElementsAfterSelf()
-                        .FirstOrDefault()
-                        .Elements(XmlConstants.chord)
-                        .Any())
-                {
-                    musicalElement.Add(new XElement(XmlConstants.chord_start));
-                }
-            }
-            return musicalElements;
-        }
-
         void ParseMeasure(XElement xmeasure, ref MusicXmlMeasure measure)
         {
             if (measure == null)
@@ -586,31 +547,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        TieTypeEnum ParseTie(XElement note)
-        {
-#if false
-<note attack="18">
-  <duration>60</duration>
-  <tie type="start" />
-</note>
-#endif
-            var result = TieTypeEnum.Unknown;
-            var ties = note.Descendants(XmlConstants.tie).ToList();
-            if (ties.Count == 1)
-            {
-                var attrVal = ties[0].Attribute(XmlConstants.type).Value;
-                if (XmlConstants.start == attrVal)
-                    result = TieTypeEnum.Start;
-                else
-                    result = TieTypeEnum.Stop;
-            }
-            else
-            {
-                result = TieTypeEnum.StartStop;
-            }
-            return result;
-        }
-
         bool IsFirstNoteOfChord(XElement note)
         {
             var elements = note.ElementsAfterSelf(XmlConstants.note).ToList();
@@ -667,8 +603,6 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             return result;
         }
-
-        public HashSet<string> UnpitchedDescendants { get; private set; } = new HashSet<string>();
 
         TimedEvent<Rest> ParseRest(XElement xnote)
         {
