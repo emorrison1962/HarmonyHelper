@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ParseTest()
         {
-            var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922-Electric_Piano.musicxml");
+            var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
 
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));

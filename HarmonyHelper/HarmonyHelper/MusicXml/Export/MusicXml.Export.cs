@@ -58,6 +58,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.Document = new ExportTemplateFactory().Create(model);
 
+            XElement xparts_list = this.ToXElement(model.Parts);
+            this.Document.Element(XmlConstants.score_partwise).Add(xparts_list);
+
             foreach (var part in model.Parts)
             {
                 var xpart = new XElement(XmlConstants.part);
@@ -221,6 +224,22 @@ namespace Eric.Morrison.Harmony.MusicXml
             return root;
         }
 
+        public XElement ToXElement(List<MusicXmlPart> parts)
+        {
+            var result = new XElement(XmlConstants.part_list);
+            foreach (var part in parts)
+            {
+#if false
+   <score-part id="P1">
+      <part-name>ElecPiano</part-name>
+  </score-part>
+#endif
+                var xscore_part = new XElement(XmlConstants.score_part, new XAttribute(XmlConstants.id, part.Identifier.ID));
+                xscore_part.Add(new XElement(XmlConstants.part_name, part.Identifier.Name));
+                result.Add(xscore_part);
+            }
+            return result;
+        }
         public XElement ToXElement(TimedEvent<ChordFormula> te)
         {
 #if false
@@ -309,8 +328,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                     xnote.Add(xduration);
                     xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
                     xnote.Add(xtype);
-                    Debug.Assert(!string.IsNullOrEmpty(te.Serialization.Staff));
-                    xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
+                    if(!string.IsNullOrEmpty(te.Serialization.Staff))
+                        xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
                 }
             }
             new object();
@@ -339,8 +358,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             xnote.Add(duration);
             xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
             xnote.Add(noteType);
-            Debug.Assert(!string.IsNullOrEmpty(te.Serialization.Staff));
-            xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
+            if(!string.IsNullOrEmpty(te.Serialization.Staff))
+                xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
 
             return xnote;
         }

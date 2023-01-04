@@ -97,21 +97,25 @@ namespace Eric.Morrison.Harmony.MusicXml
         static public MusicXmlClef FromXml(XElement xclef)
         {
             MusicXmlClef result = null;
-            Int32.TryParse(xclef.Attribute(XmlConstants.number).Value, out var number);
+            int clefNumber = 0;
+            if (xclef.Attributes(XmlConstants.number).Any())
+            {
+                Int32.TryParse(xclef.Attribute(XmlConstants.number).Value, out clefNumber);
+            }
             var sign = xclef.Element(XmlConstants.sign).Value;
             var line = xclef.Element(XmlConstants.line).Value;
             if (TREBLE_SIGN == sign)
             {
                 if (TREBLE_LINE == line)
                 {
-                    result = new MusicXmlClef(ClefEnum.Treble, number);
+                    result = new MusicXmlClef(ClefEnum.Treble, clefNumber);
                 }
             }
             else if (BASS_SIGN == sign)
             {
                 if (BASS_LINE == line)
                 {
-                    result = new MusicXmlClef(ClefEnum.Bass, number);
+                    result = new MusicXmlClef(ClefEnum.Bass, clefNumber);
                 }
             }
             else

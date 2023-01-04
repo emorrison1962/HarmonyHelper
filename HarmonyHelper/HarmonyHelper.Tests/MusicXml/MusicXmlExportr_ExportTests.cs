@@ -17,6 +17,19 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
     [TestClass()]
     public class MusicXmlExport_ExportTests
     {
+        static string TEST_FILES_PATH
+        {
+            get
+            {
+                var path = Assembly.GetExecutingAssembly().Location;
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.Combine(path, "TEST_FILES");
+                return path;
+            }
+        }
+
         [TestMethod()]
         public void ExportTest()
         {
@@ -25,33 +38,25 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             //    Debug.WriteLine(ct.Name);
             //}
 
+
+            var path = TEST_FILES_PATH;
+            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
+            var model = Parse(path);
+            var doc = new MusicXmlExporter().Export(model);
+
             var folder = @"c:\temp\MusicXml";
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
-
-            var model = Parse();
-            var doc = new MusicXmlExporter()
-                .Export(model);
-
-            //MusicXmlBase.ValidateMusicXmlSchema(doc);
-
             var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
             filename = "000000-000000.xml";
-            var path = Path.Combine(folder, filename);
-            doc.Save(path);
+            var dstPath = Path.Combine(folder, filename);
+            doc.Save(dstPath);
             new object();
         }
 
-        static public MusicXmlModel Parse()
+        static public MusicXmlModel Parse(string path)
         {
-            var path = Assembly.GetExecutingAssembly().Location;
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
-            path = Path.Combine(path, "TEST_FILES");
-            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
-            Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 
             var parser = new MusicXmlImporter();
@@ -63,37 +68,19 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void foo()
         {
-            var model = Parse();
-            foreach (var part in model.Parts)
-            {
-                foreach (var measure in part.Measures)
-                {
-                    var events = measure.GetMergedEvents();
-                    //measure.Chords
-                    //    measure.Notes
-                    //    measure.Rests
-                    foreach (var @event in events)
-                    {
-                        //if (evt is IHasTimeContext<ChordFormula>)
-                        //var cft = ((dynamic)evt).ToXElement();
-                        Debug.WriteLine(@event);
-                        foo((dynamic)@event);
-                    }
-                        Debug.WriteLine("========================");
-                    new object();
-                }
-            }
+            var path = TEST_FILES_PATH;
+            path = Path.Combine(path, "Untitled score-Piano.xml");
+
+            var model = Parse(path);
+            var doc = new MusicXmlExporter().Export(model);
+
+            var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
+            filename = "000000-000002.xml";
+            var dstPath = Path.Combine(TEST_FILES_PATH, filename);
+            doc.Save(dstPath);
+            new object();
         }
 
-        void foo(TimedEvent<ChordFormula> te)
-        { 
-        }
-        void foo(TimedEvent<Note> te)
-        {
-        }
-        void foo(TimedEvent<Rest> te)
-        {
-        }
     }//class
 
 }//ns

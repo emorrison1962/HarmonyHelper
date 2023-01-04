@@ -101,7 +101,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result.Serialization.Release = xnote.Attribute(XmlConstants.release).Value;
 
             result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
-            result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
+            
+            if (xnote.Elements(XmlConstants.staff).Any())
+                result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
 
             return result;
         }

@@ -63,6 +63,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
             var parts = this.ParseParts().ToList();
+            Debug.Assert(parts.Count > 0);
             this.ParsingContext.Parts = parts;
             foreach (var part in parts)
             {
@@ -95,7 +96,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         List<MusicXmlPart> ParseParts()
         {
             var result = new List<MusicXmlPart>();
-            var xscore_parts = this.Document.Elements(XmlConstants.part_list).Elements(XmlConstants.score_part);
+            var xscore_parts = this.Document.Elements(XmlConstants.score_partwise)
+                .Elements(XmlConstants.part_list)
+                .Elements(XmlConstants.score_part)
+                .ToList();
+            Debug.Assert(xscore_parts.Count > 0);
             var pids = new List<MusicXmlPartIdentifier>();
             foreach (var xscore_part in xscore_parts)
             {
@@ -105,7 +110,10 @@ namespace Eric.Morrison.Harmony.MusicXml
                 pids.Add(pid);
             }
 
-            var xparts = this.Document.Elements(XmlConstants.part);
+            var xparts = this.Document.Elements(XmlConstants.score_partwise)
+                .Elements(XmlConstants.part)
+                .ToList();
+            Debug.Assert(xparts.Count > 0);
             foreach (var xpart in xparts)
             {
                 var partName = xpart.Attribute(XmlConstants.id).Value;
@@ -220,7 +228,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                     this.ParsingContext.CurrentOffset,
                     this.ParsingContext.CurrentOffset + duration);
                 result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
-                result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
+                if (xnote.Elements(XmlConstants.staff).Any())
+                    result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
 
                 this.ParsingContext.CurrentOffset += duration;
             }
@@ -267,16 +276,23 @@ namespace Eric.Morrison.Harmony.MusicXml
         int ParseDuration(XElement xnote)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
             var result = 0;
-            var duration = xnote.Elements(XmlConstants.type).First();
-            var val = duration.Value;
-            result = this.GetDurationFromTicks(val);
-
-            if (xnote.Elements(XmlConstants.time_modification).Any())
+            if (xnote.Elements(XmlConstants.duration).Any())
             {
-                var xtime_modification = xnote.Elements(XmlConstants.time_modification)
-                    .First();
-                var tm = this.ParseTimeModification(xtime_modification);
-                result = tm.GetDuration(result);
+                result = Int32.Parse(xnote.Element(XmlConstants.duration).Value);
+            }
+            else
+            {
+                var duration = xnote.Elements(XmlConstants.type).First();
+                var val = duration.Value;
+                result = this.GetDurationFromTicks(val);
+
+                if (xnote.Elements(XmlConstants.time_modification).Any())
+                {
+                    var xtime_modification = xnote.Elements(XmlConstants.time_modification)
+                        .First();
+                    var tm = this.ParseTimeModification(xtime_modification);
+                    result = tm.GetDuration(result);
+                }
             }
             return result;
         }
