@@ -78,6 +78,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string type = "type";
         public const string unpitched = "unpitched";
         public const string voice = "voice";
+        public const string work = "work";
         public const string work_title = "work-title";
 
 

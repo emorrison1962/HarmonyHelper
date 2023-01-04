@@ -12,7 +12,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         #region Properties
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>(); 
-        public PartIdentifier Identifier { get; set; }
+        public MusicXmlPartIdentifier Identifier { get; set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
         public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
@@ -45,11 +45,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.Identifier = part.Identifier;
         }
-        public MusicXmlPart(PartIdentifier PartIdentifier)
+        public MusicXmlPart(MusicXmlPartIdentifier PartIdentifier)
         {
             this.Identifier = PartIdentifier;
         }
-        public MusicXmlPart(PartIdentifier PartIdentifier, XElement xelement)
+        public MusicXmlPart(MusicXmlPartIdentifier PartIdentifier, XElement xelement)
             : this(PartIdentifier)
         {
             this.XElement = xelement;

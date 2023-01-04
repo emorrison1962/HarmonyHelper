@@ -55,21 +55,28 @@
     <Compile Include="MusicXml\Domain\MusicXmlMeasure.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlModel.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlPart.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlPartIdentifier.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlScoreMetadata.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />
     <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
+    <Compile Include="MusicXml\Export\ExportTemplateFactory.cs" />
     <Compile Include="MusicXml\Extensions.cs" />
-    <Compile Include="MusicXml\MusicXmlClef.cs" />
+    <Compile Include="MusicXml\Import\MusicXml.Import.Metadata.cs" />
+    <Compile Include="MusicXml\Import\MusicXml.Import.Notes.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlClef.cs" />
+    <Compile Include="MusicXml\Import\MusicXml.Import.ParsingContext.cs" />
     <Compile Include="MusicXml\_MusicXml.Base.cs" />
-    <Compile Include="MusicXml\MusicXml.Export.cs" />
+    <Compile Include="MusicXml\Export\MusicXml.Export.cs" />
     <Compile Include="Utilities\Domain.Mappings\ChordFormula2KeySignatureMap.cs" />
     <Compile Include="Utilities\Domain.Mappings\KeySignature2ChordFormulaMap.cs" />
     <Compile Include="MusicXml\MusicXmlParser_old.cs" />
-    <Compile Include="MusicXml\MusicXml.Import.cs" />
+    <Compile Include="MusicXml\Import\MusicXml.Import.cs" />
     <Compile Include="MusicXml\MusicXml.Domain.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.cs" />
     <Compile Include="MusicXml\ParserHelperClasses.cs" />
     <Compile Include="MusicXml\XElementExtensions.cs" />
-    <Compile Include="MusicXml\XmlConstants.cs" />
+    <Compile Include="MusicXml\Domain\XmlConstants.cs" />
     <Compile Include="Interfaces\IMusicalEvent.cs" />
     <Compile Include="Rhythm\Rest.cs" />
     <Compile Include="Rhythm\TimeSignature.cs" />
@@ -176,6 +183,7 @@
     <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\xml.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="MusicXml\Import\MusicXml.Import.Chords.cs" />
     <None Include="_How Duration Works.XML" />
     <Content Include="_TODO.txt" />
   </ItemGroup>
