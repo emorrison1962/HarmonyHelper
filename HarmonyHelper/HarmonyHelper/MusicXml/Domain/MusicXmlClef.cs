@@ -97,7 +97,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         static public MusicXmlClef FromXml(XElement xclef)
         {
             MusicXmlClef result = null;
-            int clefNumber = 0;
+            int clefNumber = 1;
             if (xclef.Attributes(XmlConstants.number).Any())
             {
                 Int32.TryParse(xclef.Attribute(XmlConstants.number).Value, out clefNumber);

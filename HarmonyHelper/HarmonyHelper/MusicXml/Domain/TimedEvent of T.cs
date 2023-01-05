@@ -262,11 +262,15 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             return result;
         }
-        public string GetNoteType()
+        public NoteLengthDivisorEnum NoteLengthDivisor()
         {
-            var nt = this.PulsesPerMeasure / this.Duration;
-            var nlde = (NoteLengthDivisorEnum)nt;
-            return nlde.GetMusicXmlName();
+            throw new NotImplementedException("Fix this.");
+            var nt = this.PulsesPerMeasure / (float)this.Duration;
+            if (Enum.TryParse<NoteLengthDivisorEnum>(nt.ToString(), out var nlde))
+                new object();
+            else
+                new object();
+            return nlde;
         }
 
         static public TimeContext CopyWithOffset(TimeContext src, int offset)

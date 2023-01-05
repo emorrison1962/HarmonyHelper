@@ -324,11 +324,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 xnote.Add(xpitch);
                 {
-                    this.GetDuration(time, out var xduration, out var xtype);
+                    this.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
                     xnote.Add(xduration);
                     xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
-                    xnote.Add(xtype);
-                    if(!string.IsNullOrEmpty(te.Serialization.Staff))
+                    xnote.Add(xnoteTypeName);
+                    xnote.Add(xdot);
+
+                    if (!string.IsNullOrEmpty(te.Serialization.Staff))
                         xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
                 }
             }
@@ -354,11 +356,13 @@ namespace Eric.Morrison.Harmony.MusicXml
             var xrest = new XElement(XmlConstants.rest);
             xnote.Add(xrest);
 
-            this.GetDuration(time, out var duration, out var noteType);
-            xnote.Add(duration);
+            this.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
+            xnote.Add(xduration);
             xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
-            xnote.Add(noteType);
-            if(!string.IsNullOrEmpty(te.Serialization.Staff))
+            xnote.Add(xnoteTypeName);
+            xnote.Add(xdot);
+
+            if (!string.IsNullOrEmpty(te.Serialization.Staff))
                 xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
 
             return xnote;
@@ -387,11 +391,19 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 
-        void GetDuration(TimeContext time, out XElement duration, out XElement noteType)
+        void ToXElements(TimeContext time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
         {
-            duration = new XElement(XmlConstants.duration, time.Duration);
-            noteType = new XElement(XmlConstants.type,
-                time.GetNoteType().ToLower());
+            var nlde = time.NoteLengthDivisor();
+            
+            var ntn = nlde.GetMusicXmlName();
+            xnoteTypeName = new XElement(XmlConstants.type, ntn);
+
+            xduration = new XElement(XmlConstants.duration, time.Duration);
+            xdot = null;
+            if (nlde == NoteLengthDivisorEnum.DottedEighth)
+            {
+                xdot = new XElement(XmlConstants.dot);
+            }
         }
 
     }//class

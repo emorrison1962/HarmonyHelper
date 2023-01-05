@@ -23,22 +23,23 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
 
-#if false //Ignore tied notes, for now.
+#if true //Ignore tied notes, for now.
             if (xnote.Elements(XmlConstants.tie).Any())
             {
                 var tieType = this.ParseTie(xnote);
                 Debug.WriteLine($"**** tie count = {xnote.Elements(XmlConstants.tie).Count()}");
                 if (tieType == TieTypeEnum.Start || tieType == TieTypeEnum.Stop)
                 {// There can be a start AND a stop.
-                    var tiedNote = new TiedNoteContext(
-                            this, xnote, tieType,
-                            this.ParsingContext.CurrentMeasure, this.ParsingContext.CurrentOffset);
-                    this.ParsingContext.TiedNotes.TryAdd(tiedNote, tiedNote);
+                    new object();
+                    //var tiedNote = new TiedNoteContext(
+                    //        this, xnote, tieType,
+                    //        this.ParsingContext.CurrentMeasure, this.ParsingContext.CurrentOffset);
+                    //this.ParsingContext.TiedNotes.TryAdd(tiedNote, tiedNote);
 
-                    tiedNote.TryResolve();
+                    //tiedNote.TryResolve();
                 }
                 //short circuit processing for tied notes.
-                return result;
+                //return result;
                 //if (TieTypeEnum.Stop == note.GetTieType())
                 //{
                 //    new object();
@@ -49,7 +50,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 hhNote = this.Parse_HarmonyHelper_Note(xnote);
             }
-            if (xnote.Elements(XmlConstants.type).Any())
+
+            if (xnote.Elements(XmlConstants.duration).Any())
             {
                 duration = this.ParseDuration(xnote);
                 start = this.ParsingContext.CurrentOffset;
@@ -81,6 +83,10 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Debug.Assert(start != end);
             }
 
+            if (xnote.Elements(XmlConstants.type).Any())
+            {
+            }
+
             bool hasChord = false;
             if (xnote.Elements(XmlConstants.chord).Any())
             {
@@ -88,11 +94,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
 
 
-            //result = new TimedEvent<Note>(hhNote, start, end);
             result = TimedEventFactory.Instance.CreateTimedEvent(hhNote,
-            this.ParsingContext.CurrentMeasure.MeasureNumber,
-            start,
-            end);
+                this.ParsingContext.CurrentMeasure.MeasureNumber,
+                start,
+                end);
             result.Serialization.HasChord = hasChord;
 
             if (xnote.Attributes(XmlConstants.attack).Any())
@@ -100,11 +105,37 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (xnote.Attributes(XmlConstants.release).Any())
                 result.Serialization.Release = xnote.Attribute(XmlConstants.release).Value;
 
-            result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
+            if (xnote.Elements(XmlConstants.voice).Any())
+                result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
             
             if (xnote.Elements(XmlConstants.staff).Any())
                 result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
 
+            return result;
+        }
+
+        TieTypeEnum ParseTie(XElement note)
+        {
+#if false
+<note attack="18">
+  <duration>60</duration>
+  <tie type="start" />
+</note>
+#endif
+            var result = TieTypeEnum.Unknown;
+            var ties = note.Descendants(XmlConstants.tie).ToList();
+            if (ties.Count == 1)
+            {
+                var attrVal = ties[0].Attribute(XmlConstants.type).Value;
+                if (XmlConstants.start == attrVal)
+                    result = TieTypeEnum.Start;
+                else
+                    result = TieTypeEnum.Stop;
+            }
+            else
+            {
+                result = TieTypeEnum.StartStop;
+            }
             return result;
         }
 

@@ -19,12 +19,10 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var work = this.GetWork(model);
             var identification = this.GetIdentification();
-            var partsList = this.GetPartsList(model);
 
             var result = XDocument.Parse(xml);
             result.Element(XmlConstants.score_partwise).Add(work);
             result.Element(XmlConstants.score_partwise).Add(identification);
-            result.Element(XmlConstants.score_partwise).Add(partsList);
 
             return result;
 

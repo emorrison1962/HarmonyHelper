@@ -44,13 +44,9 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             var model = Parse(path);
             var doc = new MusicXmlExporter().Export(model);
 
-            var folder = @"c:\temp\MusicXml";
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
             var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
-            filename = "000000-000000.xml";
-            var dstPath = Path.Combine(folder, filename);
+            filename = @"000000-000004.xml";
+            var dstPath = Path.Combine(TEST_FILES_PATH, filename);
             doc.Save(dstPath);
             new object();
         }
@@ -69,13 +65,13 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         public void foo()
         {
             var path = TEST_FILES_PATH;
-            path = Path.Combine(path, "Untitled score-Piano.xml");
+            path = Path.Combine(path, "Untitled score-Piano-Piano 2.xml");
 
             var model = Parse(path);
             var doc = new MusicXmlExporter().Export(model);
 
             var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
-            filename = "000000-000002.xml";
+            filename = "000000-000003.xml";
             var dstPath = Path.Combine(TEST_FILES_PATH, filename);
             doc.Save(dstPath);
             new object();
