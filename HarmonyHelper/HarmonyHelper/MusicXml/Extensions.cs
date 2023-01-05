@@ -397,12 +397,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                         break;
                     }
                 case NoteLengthDivisorEnum.Eighth:
-                case NoteLengthDivisorEnum.DottedEighth:
                     {
                         result = "Eighth";
                         break;
                     }
-                case NoteLengthDivisorEnum.Sixteenth:
+                case NoteLengthDivisorEnum._16th:
                     {
                         result = "16th";
                         break;

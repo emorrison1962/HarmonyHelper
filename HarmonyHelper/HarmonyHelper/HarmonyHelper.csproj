@@ -59,6 +59,7 @@
     <Compile Include="MusicXml\Domain\MusicXmlScoreMetadata.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />
+    <Compile Include="MusicXml\Domain\TimeContext.cs" />
     <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
     <Compile Include="MusicXml\Export\ExportTemplateFactory.cs" />
     <Compile Include="MusicXml\Extensions.cs" />

@@ -6,7 +6,7 @@
   </work>
   <identification>
     <encoding>
-      <encoding-date>2023-01-04</encoding-date>
+      <encoding-date>2023-01-05</encoding-date>
       <software>Harmony Helper, Version 1.0.0.0</software>
     </encoding>
   </identification>
@@ -3396,7 +3396,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3408,7 +3409,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3419,7 +3421,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -3509,7 +3512,8 @@
         </pitch>
         <duration>180</duration>
         <voice>2</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -3550,7 +3554,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3562,7 +3567,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3573,7 +3579,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -3995,7 +4002,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4006,7 +4014,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4018,7 +4027,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4030,7 +4040,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -4237,7 +4248,8 @@
         </pitch>
         <duration>360</duration>
         <voice>2</voice>
-        <type>whole</type>
+        <type>half</type>
+        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4248,7 +4260,8 @@
         </pitch>
         <duration>360</duration>
         <voice>2</voice>
-        <type>whole</type>
+        <type>half</type>
+        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4260,7 +4273,8 @@
         </pitch>
         <duration>360</duration>
         <voice>2</voice>
-        <type>whole</type>
+        <type>half</type>
+        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4271,7 +4285,8 @@
         </pitch>
         <duration>360</duration>
         <voice>2</voice>
-        <type>whole</type>
+        <type>half</type>
+        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4583,7 +4598,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -4810,7 +4826,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5037,7 +5054,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5285,7 +5303,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5684,7 +5703,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note release="-60">
@@ -5827,7 +5847,8 @@
         </pitch>
         <duration>180</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <dot />
         <staff>1</staff>
       </note>
       <note>

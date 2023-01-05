@@ -226,7 +226,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 		DottedQuarter = 6,
 		Eighth= 8,
         DottedEighth = 5,
-        Sixteenth = 16,
+        _16th = 16,
         //DottedSixteenth = 24,
         _32nd = 32,
         _64th = 64,

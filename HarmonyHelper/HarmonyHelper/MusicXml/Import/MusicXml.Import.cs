@@ -283,8 +283,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             else
             {
                 var duration = xnote.Elements(XmlConstants.type).First();
-                var val = duration.Value;
-                result = this.GetDurationFromTicks(val);
+                result = Int32.Parse(duration.Value);
 
                 if (xnote.Elements(XmlConstants.time_modification).Any())
                 {
@@ -294,79 +293,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                     result = tm.GetDuration(result);
                 }
             }
-            return result;
-        }
-
-        int GetDurationFromTicks(string val)
-        {
-            var divisor = 0;
-            switch (val)
-            {
-                case XmlConstants.NoteTypes.NoteType_1024th:
-                    {
-                        divisor = 1024;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_512th:
-                    {
-                        divisor = 512;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_256th:
-                    {
-                        divisor = 256;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_128th:
-                    {
-                        divisor = 128;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_64th:
-                    {
-                        divisor = 64;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_32nd:
-                    {
-                        divisor = 32;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_16th:
-                    {
-                        divisor = 16;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_eighth:
-                    {
-                        divisor = 8;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_quarter:
-                    {
-                        divisor = 4;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_half:
-                    {
-                        divisor = 2;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_whole:
-                    {
-                        divisor = 1;
-                        break;
-                    }
-                case XmlConstants.NoteTypes.NoteType_breve:
-                case XmlConstants.NoteTypes.NoteType_long:
-                case XmlConstants.NoteTypes.NoteType_maxima:
-                default:
-                    {
-                        throw new NotImplementedException();
-                        break;
-                    }
-            }
-            var result = this.ParsingContext.PulsesPerMeasure / divisor;
             return result;
         }
 

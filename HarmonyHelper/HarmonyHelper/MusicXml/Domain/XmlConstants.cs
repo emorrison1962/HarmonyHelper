@@ -81,24 +81,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string work = "work";
         public const string work_title = "work-title";
 
-
-        public class NoteTypes
-        {
-            public const string NoteType_1024th = "1024th";
-            public const string NoteType_512th = "512th";
-            public const string NoteType_256th = "256th";
-            public const string NoteType_128th = "128th";
-            public const string NoteType_64th = "64th";
-            public const string NoteType_32nd = "32nd";
-            public const string NoteType_16th = "16th";
-            public const string NoteType_eighth = "eighth";
-            public const string NoteType_quarter = "quarter";
-            public const string NoteType_half = "half";
-            public const string NoteType_whole = "whole";
-            public const string NoteType_breve = "breve";
-            public const string NoteType_long = "long";
-            public const string NoteType_maxima = "maxima";
-        }
     }//class
 
     static public class MusicXml_HarmonyKind_Constants

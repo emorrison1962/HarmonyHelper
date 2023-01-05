@@ -393,17 +393,18 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         void ToXElements(TimeContext time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
         {
-            var nlde = time.NoteLengthDivisor();
-            
-            var ntn = nlde.GetMusicXmlName();
-            xnoteTypeName = new XElement(XmlConstants.type, ntn);
+            time.TryGetName(time.Duration, out var name, out var isDotted);
+            xnoteTypeName = null; xduration = null; xdot = null;
+#if true
+            xnoteTypeName = new XElement(XmlConstants.type, name);
 
             xduration = new XElement(XmlConstants.duration, time.Duration);
             xdot = null;
-            if (nlde == NoteLengthDivisorEnum.DottedEighth)
+            if (isDotted)
             {
                 xdot = new XElement(XmlConstants.dot);
             }
+#endif
         }
 
     }//class
