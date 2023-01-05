@@ -20,17 +20,6 @@
                     </Rule>
                   </Rule>
                 </Rule>
-                <Rule Match="All">
-                  <Property Name="Class" Value="MusicXmlParserTests" />
-                  <Rule Match="Any">
-                    <Rule Match="All">
-                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Tests.MusicXmlParserTests.ParseTest" />
-                      <Rule Match="Any">
-                        <Property Name="DisplayName" Value="ParseTest" />
-                      </Rule>
-                    </Rule>
-                  </Rule>
-                </Rule>
               </Rule>
             </Rule>
             <Rule Match="All">
@@ -47,13 +36,18 @@
                     </Rule>
                   </Rule>
                 </Rule>
+              </Rule>
+            </Rule>
+            <Rule Match="All">
+              <Property Name="Namespace" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests" />
+              <Rule Match="Any">
                 <Rule Match="All">
-                  <Property Name="Class" Value="MusicXmlExport_ExportTests" />
+                  <Property Name="Class" Value="ReHarmonizerTests" />
                   <Rule Match="Any">
                     <Rule Match="All">
-                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.MusicXml.Tests.MusicXmlExport_ExportTests.ExportTest" />
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests.ReHarmonizerTests.ReHarmonizeTest" />
                       <Rule Match="Any">
-                        <Property Name="DisplayName" Value="ExportTest" />
+                        <Property Name="DisplayName" Value="ReHarmonizeTest" />
                       </Rule>
                     </Rule>
                   </Rule>
