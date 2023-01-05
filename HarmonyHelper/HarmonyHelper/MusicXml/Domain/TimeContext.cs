@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml
@@ -50,6 +51,178 @@ namespace Eric.Morrison.Harmony.MusicXml
         public int RelativeEnd { get; set; }
         public int Duration { get; set; }
 
+        #region Note Types
+        public int Whole
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int Half
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 2;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int DottedHalf
+        {
+            get
+            {
+                var result = this.Quarter * 3;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int Quarter
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 4;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int DottedQuarter
+        {
+            get
+            {
+                var result = this.Eighth * 3;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int Eighth
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 8;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int DottedEighth
+        {
+            get
+            {
+                var result = this._16th * 3;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _16th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 16;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int DottedSixteenth
+        {
+            get
+            {
+                var result = this._32nd * 3;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _32nd
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 32;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _64th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 64;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _128th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 128;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _256th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 256;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _512th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 512;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        public int _1024th
+        {
+            get
+            {
+                var result = this.PulsesPerMeasure / 1024;
+                if (0 == result)
+                    throw new ArgumentOutOfRangeException("result");
+                return result;
+            }
+        }
+        int Breve
+        {
+            get
+            {
+                throw new NotSupportedException();
+            }
+        }
+        int Long
+        {
+            get
+            {
+                throw new NotSupportedException();
+            }
+        }
+        int Maxima
+        {
+            get { throw new NotSupportedException(); }
+        }
+
+        #endregion
+
         #endregion
 
         #region Construction
@@ -67,7 +240,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             if (end <= start)
                 throw new ArgumentOutOfRangeException();
-            this.TimeSignature= ts;
+            this.TimeSignature = ts;
             this.MeasureNumber = measure;
             this.PulsesPerMeasure = ppm;
             this.RelativeStart = start;
@@ -187,201 +360,20 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public int Whole 
-        { 
-            get 
-            {
-                var result = this.PulsesPerMeasure;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int Half
-        { 
-            get 
-            {
-                var result = this.PulsesPerMeasure / 2;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int DottedHalf
-        { 
-            get 
-            {
-                var result = this.Quarter * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int Quarter
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 4;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int DottedQuarter
-        {
-            get 
-            {
-                var result = this.Eighth * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int Eighth
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 8;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int DottedEighth
-        {
-            get 
-            {
-                var result = this._16th * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _16th
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 16;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int DottedSixteenth
-        {
-            get 
-            {
-                var result = this._32nd * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _32nd
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 32;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _64th
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 64;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _128th
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 128;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _256th
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 256;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _512th
-        {
-            get 
-            {
-                var result = this.PulsesPerMeasure / 512;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        public int _1024th
-        {
-            get 
-            { 
-                var result = this.PulsesPerMeasure / 1024;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-
-        int Breve
-        {
-            get
-            {
-                throw new NotSupportedException();
-            }
-        }
-
-        int Long
-        {
-            get
-            {
-                throw new NotSupportedException();
-            }
-        }
-
-        int Maxima
-        {
-            get { throw new NotSupportedException(); }
-        }
-
-
         public bool TryGetName(int duration, out string name, out bool isDotted)
         {
             var result = false;
             name = string.Empty;
             isDotted = false;
             if (duration == this.Whole)
-            { 
+            {
                 name = NoteType_whole;
             }
 
             else if (duration == this.DottedHalf)
             {
                 name = NoteType_half;
-                isDotted= true;
+                isDotted = true;
             }
             else if (duration == this.Half)
             {
@@ -432,6 +424,18 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
             return result;
+        }
+
+        public static TimeContext operator +(TimeContext addend, TimeContext augend)
+        {
+            var PulsesPerMeasure = addend.PulsesPerMeasure;
+            var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
+            var RelativeStart = addend.RelativeStart + augend.RelativeStart;
+            var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
+            return new TimeContext(MeasureNumber, 
+                PulsesPerMeasure, 
+                RelativeStart, 
+                RelativeEnd);
         }
     }//class
 

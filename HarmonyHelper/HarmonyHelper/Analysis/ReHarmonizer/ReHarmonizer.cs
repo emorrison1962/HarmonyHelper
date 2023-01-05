@@ -47,7 +47,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
             var pairings = section.GetChordMelodyPairings();
             var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
-            var measures = section.GetMergedMeasures();
+            var measures = section.Measures;
             var currentMeasureNumber = measures.Max(x => x.MeasureNumber) + 1;
 
 
@@ -60,6 +60,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 var newMeasures = new List<MusicXmlMeasure>();
                 foreach (var measure in measures)
                 {
+                    measure += new TimeContext(100);
+
                     var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
                     newMeasures.Add(newMeasure);
 

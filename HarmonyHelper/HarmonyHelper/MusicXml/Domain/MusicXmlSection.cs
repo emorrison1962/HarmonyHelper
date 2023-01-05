@@ -12,7 +12,34 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class MusicXmlSection
     {
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
+        public List<MusicXmlMeasure> Measures 
+        {
+            get 
+            { 
+                var result = this.Parts
+                    .SelectMany(x => x.Measures)
+                    .OrderBy(x => x.MeasureNumber)
+                    .ToList();
+                return result;
+            } 
+        }
 
+        public List<MusicXmlMeasure> CopyMeasures()
+        {
+            var result = new List<MusicXmlMeasure>();
+            foreach (var part in this.Parts)
+            {
+                foreach (var src in part.Measures)
+                {
+                    var dst = new MusicXmlMeasure(src);
+                    part.Copy(dst);
+                    result.Add(dst);
+                }
+            }
+            return result;
+        }
+
+        [Obsolete("", true)]
         public List<MusicXmlMeasure> GetMergedMeasures()
         {
             var result = new List<MusicXmlMeasure>();
@@ -36,10 +63,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = new List<ChordMelodyPairing>();
 
-            var measures = this.GetMergedMeasures();
+            var measures = this.Measures;
             foreach (var measure in measures)
             {
-                //Debug.WriteLine(measure);
                 result.AddRange(measure.ChordMelodyPairings);
             }
             return result;
