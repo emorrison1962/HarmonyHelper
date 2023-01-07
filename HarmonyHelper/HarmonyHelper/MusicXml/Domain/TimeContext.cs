@@ -253,7 +253,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.MeasureNumber = src.MeasureNumber;
             this.PulsesPerMeasure = src.PulsesPerMeasure;
             this.RelativeStart = src.RelativeStart;
-            this.RelativeEnd = this.RelativeEnd;
+            this.RelativeEnd = src.RelativeEnd;
             this.Duration = src.Duration;
         }
         public TimeContext(int measure)

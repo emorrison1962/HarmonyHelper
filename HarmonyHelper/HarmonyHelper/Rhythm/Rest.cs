@@ -37,6 +37,10 @@ namespace Eric.Morrison.Harmony
 
     public class Forward : IMusicalEvent<Forward>, IComparable<Forward>, IEquatable<Forward>
     {
+        public Forward()
+        {
+
+        }
         public int SortOrder { get { return 1; } }
         public Forward Copy()
         {

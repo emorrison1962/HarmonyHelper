@@ -1,5 +1,6 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
+using Kohoutech.Score;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -50,11 +51,16 @@ namespace Eric.Morrison.Harmony.MusicXml
             List<TimedEvent<Backup>> Backups)
         {
             this.MeasureNumber = measureNumber;
-            this.Chords = Chords;
-            this.Notes = Notes;
-            this.Rests = Rests;
-            this.Forwards = Forwards;
-            this.Backups = Backups; 
+            if (null != Chords)
+                this.Chords = Chords;
+            if (null != Notes)
+                this.Notes = Notes;
+            if (null != Rests)
+                this.Rests = Rests;
+            if (null != Forwards)
+                this.Forwards = Forwards;
+            if (null != Backups)
+                this.Backups = Backups; 
         }
         public MusicXmlMeasure(MusicXmlMeasure src)
         {
@@ -68,6 +74,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
+        [Obsolete("", true)]
         static public MusicXmlMeasure CopyWithOffset(MusicXmlMeasure src, int offset)
         {
             var result = new MusicXmlMeasure(src);
@@ -84,16 +91,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public static MusicXmlMeasure operator +(MusicXmlMeasure measure, TimeContext tc)
+        public void AddOffset(TimeContext tc)
         {
-            measure.Notes.ForEach(x => x.TimeContext += tc);
-            measure.Chords.ForEach(x => x.TimeContext += tc);
-            measure.Rests.ForEach(x => x.TimeContext += tc);
-            measure.Forwards.ForEach(x => x.TimeContext += tc);
-            measure.Backups.ForEach(x => x.TimeContext += tc);
-            throw new NotImplementedException();
+            this.Notes.ForEach(x => x.TimeContext += tc);
+            this.Chords.ForEach(x => x.TimeContext += tc);
+            this.Rests.ForEach(x => x.TimeContext += tc);
+            this.Forwards.ForEach(x => x.TimeContext += tc);
+            this.Backups.ForEach(x => x.TimeContext += tc);
         }
-
 
         [Obsolete("", true)]
         static public MusicXmlMeasure CreateMergedMeasure(List<MusicXmlMeasure> items)
@@ -149,6 +154,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.Event = Event;
             }
         }
+
         public List<IHasTimeContext> GetMergedEvents()
         {
             var result = new List<IHasTimeContext>();

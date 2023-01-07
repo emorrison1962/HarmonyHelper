@@ -60,9 +60,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 var newMeasures = new List<MusicXmlMeasure>();
                 foreach (var measure in measures)
                 {
-                    measure += new TimeContext(100);
+                    var newMeasure = new MusicXmlMeasure(measure);
+                    newMeasure.AddOffset(new TimeContext(currentMeasureNumber));
 
-                    var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
+                    //var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
                     newMeasures.Add(newMeasure);
 
                     foreach (var pairing in measure.ChordMelodyPairings)

@@ -66,6 +66,9 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRuleTests.cs" />
     <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRuleTests.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzerTests.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlMeasureTests.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlPartTests.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlSectionTests.cs" />
     <Compile Include="MusicXml\Domain\TimeContextTests.cs" />
     <Compile Include="MusicXml\MusicXmlParserTests.cs" />
     <Compile Include="Analysis\ReHarmonizer\ReHarmonizerTests.cs" />
