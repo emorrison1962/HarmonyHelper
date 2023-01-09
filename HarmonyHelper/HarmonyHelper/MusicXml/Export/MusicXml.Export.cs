@@ -124,7 +124,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.Add(xattributes);
 
             var xdivisions = new XElement(XmlConstants.divisions, 
-                part.PulsesPerMeasure / part.TimeSignatue.BeatCount);
+                this.ParsingContext.Rhythm.PulsesPerMeasure /
+                this.ParsingContext.Rhythm.TimeSignature.BeatCount);
             xattributes.Add(xdivisions);
 
             var xkey = new XElement(XmlConstants.key);
@@ -142,9 +143,12 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
             var xtime = new XElement(XmlConstants.time);
-            var xbeats = new XElement(XmlConstants.beats, part.TimeSignatue.BeatCount);
+
+            var xbeats = new XElement(XmlConstants.beats,
+                this.ParsingContext.Rhythm.TimeSignature.BeatCount);
             xtime.Add(xbeats);
-            var xbeat_type = new XElement(XmlConstants.beat_type, part.TimeSignatue.BeatUnit);
+            var xbeat_type = new XElement(XmlConstants.beat_type,
+                this.ParsingContext.Rhythm.TimeSignature.BeatUnit);
             xtime.Add(xbeat_type);
             xattributes.Add(xtime);
 

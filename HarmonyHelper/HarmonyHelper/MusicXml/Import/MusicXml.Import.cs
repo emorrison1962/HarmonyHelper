@@ -38,7 +38,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Properties
         XDocument Document { get; set; }
         ParsingContext ParsingContext { get; set; } = new ParsingContext();
-
         #endregion
 
         public MusicXmlImporter()
@@ -137,7 +136,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 part.KeySignature = keySignature;
 
             if (this.TryParseTimeSignature(xmeasure, out var timeSignature))
-                part.TimeSignatue = timeSignature;
+                this.ParsingContext.Rhythm.TimeSignature = timeSignature;
 
             if (this.TryParseStaves(xmeasure, out var staves))
                 part.Staves = staves;
@@ -146,9 +145,10 @@ namespace Eric.Morrison.Harmony.MusicXml
                 part.Tempo = tempo;
 
             if (this.TryParsePpqn(xmeasure, out var ppqn))
-                part.PulsesPerQuarterNote = ppqn;
+                this.ParsingContext.Rhythm.PulsesPerQuarterNote = ppqn;
 
-            TimedEventFactory.Instance.PulsesPerMeasure = part.PulsesPerMeasure;
+            TimedEventFactory.Instance.PulsesPerMeasure = 
+                this.ParsingContext.Rhythm.PulsesPerMeasure;
 
             return measure;
         }
@@ -220,13 +220,14 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEvent<Rest> ParseRest(XElement xnote)
         {
             TimedEvent<Rest> result = null;
-            var duration = ParseDuration(xnote);
+            var duration = ParseDuration(xnote, out var durationEnum);
             if (xnote.Elements(XmlConstants.rest).Any())
             {
                 result = TimedEventFactory.Instance.CreateTimedEvent(new Rest(),
+                    this.ParsingContext.Rhythm,
                     this.ParsingContext.CurrentMeasure.MeasureNumber,
                     this.ParsingContext.CurrentOffset,
-                    this.ParsingContext.CurrentOffset + duration);
+                    durationEnum);
                 result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
                 if (xnote.Elements(XmlConstants.staff).Any())
                     result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
@@ -240,13 +241,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEvent<Forward> ParseForward(XElement xelement)
         {
             TimedEvent<Forward> result = null;
-            var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            var duration = ParseDuration(xelement, out var durationEnum);
+
             if (xelement.Name == XmlConstants.forward)
             {
                 result = TimedEventFactory.Instance.CreateTimedEvent(new Forward(),
+                    this.ParsingContext.Rhythm,
                     this.ParsingContext.CurrentMeasure.MeasureNumber,
                     this.ParsingContext.CurrentOffset,
-                    this.ParsingContext.CurrentOffset + duration);
+                    duration);
 
                 //this.ParsingContext.CurrentOffset += duration;
             }
@@ -257,13 +261,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEvent<Backup> ParseBackup(XElement xelement)
         {
             TimedEvent<Backup> result = null;
-            var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
+            var duration = ParseDuration(xelement, out var durationEnum);
+
             if (xelement.Name == XmlConstants.backup)
             {
                 result = TimedEventFactory.Instance.CreateTimedEvent(new Backup(),
+                    this.ParsingContext.Rhythm,
                     this.ParsingContext.CurrentMeasure.MeasureNumber,
                     this.ParsingContext.CurrentOffset,
-                    this.ParsingContext.CurrentOffset + duration);
+                    duration);
 
                 //this.ParsingContext.CurrentOffset += duration;
             }
@@ -273,15 +280,19 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
 
-        int ParseDuration(XElement xnote)
+        int ParseDuration(XElement xnote, out DurationEnum durationEnum)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
             var result = 0;
+            durationEnum = DurationEnum.None;
             if (xnote.Elements(XmlConstants.duration).Any())
             {
                 result = Int32.Parse(xnote.Element(XmlConstants.duration).Value);
             }
             else
             {
+                var xtype = xnote.Elements(XmlConstants.type).First();
+                durationEnum = xtype.Value.ToDurationEnum();
+
                 var duration = xnote.Elements(XmlConstants.type).First();
                 result = Int32.Parse(duration.Value);
 

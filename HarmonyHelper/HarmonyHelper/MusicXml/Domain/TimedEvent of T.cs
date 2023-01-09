@@ -13,11 +13,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         where T : class, IMusicalEvent<T>, IComparable<T>, new()
     {
         #region Properties
-        public int AbsoluteStart { get { return this.TimeContext.AbsoluteStart; } }
-        public int AbsoluteEnd { get { return this.TimeContext.AbsoluteEnd; } }
+        //public int AbsoluteStart { get { return this.TimeContext.AbsoluteStart; } }
+        //public int AbsoluteEnd { get { return this.TimeContext.AbsoluteEnd; } }
         public int RelativeStart { get { return this.TimeContext.RelativeStart; } }
         public int RelativeEnd { get { return this.TimeContext.RelativeEnd; } }
-        public int Duration { get { return this.TimeContext.Duration; } }
+        //public int Duration { get { return this.TimeContext.Duration; } }
         public int SortOrder { get { return this.Event.SortOrder; } }
         public T Event { get; set; }
         public TimeContext TimeContext { get; set; }
@@ -139,79 +139,99 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEventFactory() { }
 
         public TimedEvent<ChordFormula> CreateTimedEvent(ChordFormula formula,
+            RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int end)
+            int duration)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var time = new TimeContext(
-                measureNumber,
-                PulsesPerMeasure,
-                start,
-                end);
+            var ctx = new TimeContext.CreationContext()
+            {
+                MeasureNumber = measureNumber,
+                Rhythm = rhythm,
+                RelativeStart = start,
+                RelativeEnd = start + duration
+            };
+            var time = new TimeContext(ctx);
             var result = new TimedEvent<ChordFormula>(formula, 
                 time);
             return result;
         }
 
         public TimedEvent<Note> CreateTimedEvent(Note note,
+            RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int end)
+            DurationEnum duration)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var time = new TimeContext(
-                measureNumber,
-                PulsesPerMeasure,
-                start,
-                end);
+            var ctx = new TimeContext.CreationContext()
+            {
+                MeasureNumber = measureNumber,
+                Rhythm = rhythm,
+                RelativeStart = start,
+                Duration = duration
+            };
+            var time = new TimeContext(ctx);
             var result = new TimedEvent<Note>(note,
                 time);
             return result;
         }
         public TimedEvent<Rest> CreateTimedEvent(Rest rest,
+            RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int end)
+            DurationEnum duration)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var time = new TimeContext(
-                measureNumber,
-                PulsesPerMeasure,
-                start,
-                end);
+            var ctx = new TimeContext.CreationContext()
+            {
+                MeasureNumber = measureNumber,
+                Rhythm = rhythm,
+                RelativeStart = start,
+                Duration = duration
+            };
+            var time = new TimeContext(ctx);
             var result = new TimedEvent<Rest>(rest,
                 time);
             return result;
         }
 
         public TimedEvent<Forward> CreateTimedEvent(Forward rest,
+            RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int end)
+            int duration)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var time = new TimeContext(
-                measureNumber,
-                PulsesPerMeasure,
-                start,
-                end);
+            var ctx = new TimeContext.CreationContext()
+            {
+                MeasureNumber = measureNumber,
+                Rhythm = rhythm,
+                RelativeStart = start,
+                RelativeEnd = start + duration
+            };
+            var time = new TimeContext(ctx);
             var result = new TimedEvent<Forward>(rest,
                 time);
             return result;
         }
 
         public TimedEvent<Backup> CreateTimedEvent(Backup rest,
+            RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int end)
+            int duration)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var time = new TimeContext(
-                measureNumber,
-                PulsesPerMeasure,
-                start,
-                end);
+            var ctx = new TimeContext.CreationContext()
+            {
+                MeasureNumber = measureNumber,
+                Rhythm = rhythm,
+                RelativeStart = start,
+                RelativeEnd = start + duration
+            };
+            var time = new TimeContext(ctx);
             var result = new TimedEvent<Backup>(rest,
                 time);
             return result;

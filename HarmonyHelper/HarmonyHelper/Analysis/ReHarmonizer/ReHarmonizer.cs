@@ -12,15 +12,17 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
 
 using static System.Collections.Specialized.BitVector32;
+using static Eric.Morrison.Harmony.MusicXml.TimeContext;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
     public class ReHarmonizer
     {
         ReHarmonizerContext Context { get; set; }
-
+        MusicXmlModel Model { get; set; }
         public void ReHarmonize(MusicXmlModel model)
         {
+            this.Model = model;
             this.Context = new ReHarmonizerContext(model);
 
             var newSections = new List<MusicXmlSection>();
@@ -61,7 +63,11 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 foreach (var measure in measures)
                 {
                     var newMeasure = new MusicXmlMeasure(measure);
-                    newMeasure.AddOffset(new TimeContext(currentMeasureNumber));
+                    var ctx = new TimeContext.CreationContext() { 
+                        MeasureNumber = currentMeasureNumber,
+                        Rhythm = this.Model.Rhythm
+                    };
+                    newMeasure.AddOffset(new TimeContext(ctx));
 
                     //var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
                     newMeasures.Add(newMeasure);

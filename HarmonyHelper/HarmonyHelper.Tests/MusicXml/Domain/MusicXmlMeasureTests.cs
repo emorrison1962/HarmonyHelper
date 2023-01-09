@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml.Tests
 {
@@ -15,13 +16,18 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void AddOffsetTest()
         {
+            var rhythm = new RhythmicContext() { TimeSignature = new TimeSignature(4, 4), PulsesPerQuarterNote = 120 };
+            new TimeContext.CreationContext()
+            { MeasureNumber = 1, Rhythm = rhythm, RelativeStart = 0, RelativeEnd = 240 };
+
+
             var chords = new List<TimedEvent<ChordFormula>>() { 
-                new TimedEvent<ChordFormula>(ChordFormula.CMaj7, new TimeContext(1, 480, 120, 240)) };
+                new TimedEvent<ChordFormula>(ChordFormula.CMaj7, new TimeContext(1, rhythm, 120, 240)) };
             var measure = new MusicXmlMeasure(1, chords, null, null, null, null);
-            measure.AddOffset(new TimeContext(2));
+            measure.AddOffset(new TimeContext(2, null));
 
             var chord = measure.Chords.First();
-            Assert.IsTrue(measure.Chords.First().TimeContext == new TimeContext(3, 480, 120, 240));
+            Assert.IsTrue(measure.Chords.First().TimeContext == new TimeContext(3, rhythm, 120, 240));
         }
 
         [Ignore]

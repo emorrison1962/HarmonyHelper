@@ -135,11 +135,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             if (items.Any(x => x.HasMetadata))
                 new object();
-            result.Chords = result.Chords.OrderBy(x => x.AbsoluteStart).ToList();
-            result.Notes = result.Notes.OrderBy(x => x.AbsoluteStart).ToList();
-            result.Rests = result.Rests.OrderBy(x => x.AbsoluteStart).ToList();
-            result.Forwards = result.Forwards.OrderBy(x => x.AbsoluteStart).ToList();
-            result.Backups = result.Backups.OrderBy(x => x.AbsoluteStart).ToList();
+            result.Chords = result.Chords.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
+            result.Notes = result.Notes.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
+            result.Rests = result.Rests.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
+            result.Forwards = result.Forwards.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
+            result.Backups = result.Backups.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
 
             return result;
         }

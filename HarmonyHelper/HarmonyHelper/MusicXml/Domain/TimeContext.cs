@@ -9,7 +9,46 @@ using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
+    public class RhythmicContext
+    {
+        public TimeSignature TimeSignature { get; set; }
+        //public int PulsesPerMeasure { get; protected set; }
+        public int PulsesPerQuarterNote { get; set; }
+        public int PulsesPerMeasure
+        {
+            get
+            {
+                return this.TimeSignature.BeatCount * this.PulsesPerQuarterNote;
+            }
+        }
+
+        public int ToInt32(DurationEnum duration)
+        { 
+            throw new NotImplementedException();
+        }
+    }
+
+    [Flags]
+    public enum DurationEnum
+    {
+        None = 0,
+        Duration_Maxima = 1 << 1,
+        Duration_Long = 1 << 2,
+        Duration_Breve = 1 << 3,
+        Duration_Whole = 1 << 4,
+        Duration_Half = 1 << 5,
+        Duration_Quarter = 1 << 6,
+        Duration_Eighth = 1 << 7,
+        Duration_16th = 1 << 8,
+        Duration_32nd = 1 << 9,
+        Duration_64th = 1 << 10,
+        Duration_128th = 1 << 11,
+        Duration_256th = 1 << 12,
+        Duration_512th = 1 << 13,
+        Duration_1024th = 1 << 14,
+    };
+
+    public abstract class DurationStrings
     {
         #region Constants
         public const string NoteType_1024th = "1024th";
@@ -29,236 +68,110 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
+    }
+
+    public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
+    {
         #region Properties
-        public TimeSignature TimeSignature { get; set; }
-        public int PulsesPerMeasure { get; set; } = int.MinValue;
+        public RhythmicContext Rhythm { get; set; }
         public int MeasureNumber { get; set; }
         public int AbsoluteStart
         {
             get
             {
-                return (this.PulsesPerMeasure * this.MeasureNumber) + this.RelativeStart;
+                return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeStart;
             }
         }
         public int AbsoluteEnd
         {
             get
             {
-                return (this.PulsesPerMeasure * this.MeasureNumber) + this.RelativeEnd;
+                return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeEnd;
             }
         }
         public int RelativeStart { get; set; }
         public int RelativeEnd { get; set; }
-        public int Duration { get; set; }
+        public DurationEnum Duration { get; set; }
 
-        #region Note Types
-        public int Whole
+        TimeContext TiedPrevious { get; set; }
+        TimeContext TiedNext { get; set; }
+        public bool IsTieStart 
+        { 
+            get 
+            {
+                var result = true;
+                if (null == TiedPrevious)
+                    result = false;
+                return result;
+            } 
+        }
+        public bool IsTieEnd
         {
             get
             {
-                var result = this.PulsesPerMeasure;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
+                var result = true;
+                if (null == TiedNext)
+                    result = false;
                 return result;
             }
         }
-        public int Half
+        public bool IsTied
         {
             get
             {
-                var result = this.PulsesPerMeasure / 2;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
+                var result = false;
+                if (null != TiedPrevious || null != TiedNext)
+                    result = true;
                 return result;
             }
         }
-        public int DottedHalf
-        {
-            get
-            {
-                var result = this.Quarter * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int Quarter
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 4;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int DottedQuarter
-        {
-            get
-            {
-                var result = this.Eighth * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int Eighth
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 8;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int DottedEighth
-        {
-            get
-            {
-                var result = this._16th * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _16th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 16;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int DottedSixteenth
-        {
-            get
-            {
-                var result = this._32nd * 3;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _32nd
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 32;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _64th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 64;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _128th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 128;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _256th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 256;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _512th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 512;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        public int _1024th
-        {
-            get
-            {
-                var result = this.PulsesPerMeasure / 1024;
-                if (0 == result)
-                    throw new ArgumentOutOfRangeException("result");
-                return result;
-            }
-        }
-        int Breve
-        {
-            get
-            {
-                throw new NotSupportedException();
-            }
-        }
-        int Long
-        {
-            get
-            {
-                throw new NotSupportedException();
-            }
-        }
-        int Maxima
-        {
-            get { throw new NotSupportedException(); }
-        }
+        public bool IsDotted { get; set; }
 
-        #endregion
 
         #endregion
 
         #region Construction
-        public TimeContext(int measure, int ppm, int start, int end)
+        public class CreationContext
         {
-            if (end <= start)
-                throw new ArgumentOutOfRangeException();
-            this.MeasureNumber = measure;
-            this.PulsesPerMeasure = ppm;
-            this.RelativeStart = start;
-            this.RelativeEnd = end;
-            this.Duration = this.RelativeEnd - this.RelativeStart;
+            public int MeasureNumber { get; set; }
+            public RhythmicContext Rhythm { get; set; }
+            public int RelativeStart { get; set; }
+            public int RelativeEnd { get; set; }
+            public DurationEnum Duration { get; set; }
+            public bool IsDotted { get; set; }
+            public TimeContext TiedPrevious { get; set; }
+            public TimeContext TiedNext { get; set; }
         }
-        public TimeContext(TimeSignature ts, int measure, int ppm, int start, int end)
+        public TimeContext(CreationContext ctx)
         {
-            if (end <= start)
-                throw new ArgumentOutOfRangeException();
-            this.TimeSignature = ts;
-            this.MeasureNumber = measure;
-            this.PulsesPerMeasure = ppm;
-            this.RelativeStart = start;
-            this.RelativeEnd = end;
-            this.Duration = this.RelativeEnd - this.RelativeStart;
+            this.MeasureNumber = ctx.MeasureNumber;
+            this.Rhythm = ctx.Rhythm;
+            this.RelativeStart = ctx.RelativeStart;
+            //this.RelativeEnd = ctx.Start + ctx.Duration;
+            this.Duration = ctx.Duration;
+            this.TiedPrevious= ctx.TiedPrevious;
+            this.TiedNext = ctx.TiedNext;
+            this.IsDotted = ctx.IsDotted;    
         }
-
+        public TimeContext(int measure, CreationContext ctx)
+        {
+            this.MeasureNumber = measure;
+            this.Rhythm = ctx.Rhythm;
+        }
+        public TimeContext(int measure, RhythmicContext rhythm, int start, int duration)
+        {
+            this.MeasureNumber = measure;
+            this.Rhythm = rhythm;
+            this.RelativeStart= start;
+            this.RelativeEnd = start + duration;
+        }
         public TimeContext(TimeContext src)
         {
             this.MeasureNumber = src.MeasureNumber;
-            this.PulsesPerMeasure = src.PulsesPerMeasure;
+            this.Rhythm = src.Rhythm;
             this.RelativeStart = src.RelativeStart;
             this.RelativeEnd = src.RelativeEnd;
             this.Duration = src.Duration;
-        }
-        public TimeContext(int measure)
-        {
-            this.MeasureNumber = measure;
         }
 
         #endregion
@@ -268,7 +181,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = false;
             if (this.MeasureNumber == other.MeasureNumber
-                && this.PulsesPerMeasure == other.PulsesPerMeasure
                 && this.RelativeStart == other.RelativeStart
                 && this.RelativeEnd == other.RelativeEnd)
                 result = true;
@@ -297,20 +209,17 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var result = a.MeasureNumber.CompareTo(b.MeasureNumber);
             if (0 == result)
-                result = a.PulsesPerMeasure.CompareTo(b.PulsesPerMeasure);
+                result = a.Duration.CompareTo(b.Duration);
             if (0 == result)
                 result = a.RelativeStart.CompareTo(b.RelativeStart);
-            if (0 == result)
-                result = a.RelativeEnd.CompareTo(b.RelativeEnd);
 
             return result;
         }
         public override int GetHashCode()
         {
             var result = this.MeasureNumber.GetHashCode()
-            ^ this.PulsesPerMeasure.GetHashCode()
             ^ this.RelativeStart.GetHashCode()
-            ^ this.RelativeEnd.GetHashCode();
+            ^ this.Duration.GetHashCode();
 
             return result;
         }
@@ -342,17 +251,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             return result;
         }
-        public NoteLengthDivisorEnum NoteLengthDivisor()
-        {
-            throw new NotImplementedException("Fix this.");
-            var nt = this.PulsesPerMeasure / (float)this.Duration;
-            if (Enum.TryParse<NoteLengthDivisorEnum>(nt.ToString(), out var nlde))
-                new object();
-            else
-                new object();
-            return nlde;
-        }
-
         static public TimeContext CopyWithOffset(TimeContext src, int offset)
         {
             var result = new TimeContext(src);
@@ -360,82 +258,78 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public bool TryGetName(int duration, out string name, out bool isDotted)
+        public bool TryGetName(DurationEnum duration, out string name, out bool isDotted)
         {
             var result = false;
             name = string.Empty;
-            isDotted = false;
-            if (duration == this.Whole)
-            {
-                name = NoteType_whole;
-            }
+            isDotted = this.IsDotted;
 
-            else if (duration == this.DottedHalf)
+            switch (duration)
             {
-                name = NoteType_half;
-                isDotted = true;
+                case DurationEnum.Duration_Maxima:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Long:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Breve:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Whole:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Half:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Quarter:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Eighth:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_16th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_32nd:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_64th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_128th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_256th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_512th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_1024th:
+                    name = DurationStrings.NoteType_maxima;
+                    break;
+                default:
+                    throw new ArgumentException();
+                    break;
             }
-            else if (duration == this.Half)
-            {
-                name = NoteType_half;
-            }
-            else if (duration == this.DottedQuarter)
-            {
-                name = NoteType_quarter;
-                isDotted = true;
-            }
-            else if (duration == this.Quarter)
-            {
-                name = NoteType_quarter;
-            }
-            else if (duration == this.DottedEighth)
-            {
-                name = NoteType_eighth;
-                isDotted = true;
-            }
-            else if (duration == this.Eighth)
-            {
-                name = NoteType_eighth;
-            }
-            else if (duration == this._16th)
-            {
-                name = NoteType_16th;
-            }
-            else if (duration == this._32nd)
-            {
-                name = NoteType_32nd;
-            }
-            else if (duration == this._64th)
-            {
-                name = NoteType_64th;
-            }
-            else if (duration == this._128th)
-            {
-                name = NoteType_128th;
-            }
-            else if (duration == this._256th)
-            {
-                name = NoteType_256th;
-            }
-            else if (duration == this._512th)
-            {
-                name = NoteType_512th;
-            }
-
 
             return result;
         }
 
         public static TimeContext operator +(TimeContext addend, TimeContext augend)
         {
-            var PulsesPerMeasure = addend.PulsesPerMeasure;
+            var Duration = addend.Duration;
             var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
             var RelativeStart = addend.RelativeStart + augend.RelativeStart;
             var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
-            return new TimeContext(MeasureNumber, 
-                PulsesPerMeasure, 
-                RelativeStart, 
-                RelativeEnd);
+
+            var ctx = new TimeContext.CreationContext() { 
+                MeasureNumber= MeasureNumber,
+                RelativeStart = RelativeStart,
+                Duration = Duration,
+                Rhythm = augend.Rhythm,
+            };
+            return new TimeContext(ctx);
         }
     }//class
 

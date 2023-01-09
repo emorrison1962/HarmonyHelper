@@ -82,7 +82,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var xtime = xmeasure.Elements(XmlConstants.attributes).Elements(XmlConstants.time).First();
                 var beats = xtime.Elements(XmlConstants.beats).First().Value;
                 var beat_type = xtime.Elements(XmlConstants.beat_type).First().Value;
-                timeSignature = new TimeSignature(Int32.Parse(beats), Int32.Parse(beat_type));
+                this.ParsingContext.Rhythm.TimeSignature = new TimeSignature(Int32.Parse(beats), Int32.Parse(beat_type));
                 result = true;
             }
             return result;

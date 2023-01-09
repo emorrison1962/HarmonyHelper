@@ -10,7 +10,6 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public string Title { get; set; }
         public KeySignature KeySignature { get; set; }
-        public Eric.Morrison.Harmony.Rhythm.TimeSignature TimeSignatue { get; set; }
     }//class
 
 }//ns

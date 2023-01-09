@@ -26,16 +26,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     _KeySignature = value;  
             } 
         }
-        public TimeSignature TimeSignatue { get; set; }
         public int Tempo { get; set; }
-        public int PulsesPerQuarterNote { get; set; }
-        public int PulsesPerMeasure
-        {
-            get
-            {
-                return this.TimeSignatue.BeatCount * this.PulsesPerQuarterNote;
-            }
-        }
 
 
         #endregion

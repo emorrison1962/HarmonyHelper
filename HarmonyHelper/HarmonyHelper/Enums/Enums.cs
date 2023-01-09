@@ -216,29 +216,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         StartStop = 1 << 3,
     };
 
-	[Flags]
-	public enum NoteLengthDivisorEnum
-    {
-		Whole = 1,
-		Half = 2,
-		//DottedHalf = 3,
-		Quarter = 4,
-		DottedQuarter = 6,
-		Eighth= 8,
-        DottedEighth = 5,
-        _16th = 16,
-        //DottedSixteenth = 24,
-        _32nd = 32,
-        _64th = 64,
-        _128th = 128,
-        _256th = 256,
-        _512th = 512,
-        _1024th = 1024,
-        Breve = int.MinValue,
-        Long = int.MinValue,
-        Maxima = int.MinValue
-    }
-
 	public enum ClefEnum
 	{
         Unknown = 0,

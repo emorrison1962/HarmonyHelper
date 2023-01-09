@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Notes;
+using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -17,9 +19,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             TimedEvent<Note> result = null;
 
             Note hhNote = null;
-            int duration = 0;
+            var durationEnum = DurationEnum.None;
             int start = 0;
-            int end = 0;
 
 
 
@@ -51,11 +52,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 hhNote = this.Parse_HarmonyHelper_Note(xnote);
             }
 
-            if (xnote.Elements(XmlConstants.duration).Any())
+            if (xnote.Elements(XmlConstants.type).Any())
             {
-                duration = this.ParseDuration(xnote);
+                //duration = this.ParseDuration(xnote);
+                var duration = ParseDuration(xnote, out durationEnum);
+
                 start = this.ParsingContext.CurrentOffset;
-                end = this.ParsingContext.CurrentOffset + duration;
+                var end = this.ParsingContext.CurrentOffset + duration;
 
                 if (this.IsFirstNoteOfChord(xnote))
                 {
@@ -83,10 +86,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Debug.Assert(start != end);
             }
 
-            if (xnote.Elements(XmlConstants.type).Any())
-            {
-            }
-
             bool hasChord = false;
             if (xnote.Elements(XmlConstants.chord).Any())
             {
@@ -95,9 +94,10 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
             result = TimedEventFactory.Instance.CreateTimedEvent(hhNote,
+                this.ParsingContext.Rhythm,
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
-                end);
+                durationEnum);
             result.Serialization.HasChord = hasChord;
 
             if (xnote.Attributes(XmlConstants.attack).Any())

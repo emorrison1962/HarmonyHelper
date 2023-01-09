@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
             var start = ParsingContext.CurrentOffset;
-            var end = this.ParsingContext.PulsesPerMeasure;
+            var end = this.ParsingContext.Rhythm.PulsesPerMeasure;
 
             if (harmony.Elements(XmlConstants.offset).Any())
             {
@@ -49,16 +49,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             Debug.Assert(start >= 0);
 
-            //var result = new TimedEvent<ChordFormula>(formula,
-            //    offset,
-            //    this.ParsingContext.CurrentMeasure.MeasureNumber 
-            //        * this.ParsingContext.Metadata.PulsesPerMeasure
-            //        + offset);
-            //throw new NotImplementedException("We're getting wacky TimeContexts.");
+            var duration = end - start;
             var result = TimedEventFactory.Instance.CreateTimedEvent(formula,
+                this.ParsingContext.Rhythm,
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
-                end);
+                duration);
 
             if (existingChords.Count != 0)
             {

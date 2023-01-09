@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -376,84 +377,59 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        static public string GetMusicXmlName(this NoteLengthDivisorEnum nlde)
+        static public DurationEnum ToDurationEnum(this string name)
         {
-            var result = string.Empty;
-            switch (nlde)
+            var result = DurationEnum.None;
+            switch (name) 
             {
-                case NoteLengthDivisorEnum.Whole:
-                    {
-                        result = "Whole";
-                        break;
-                    }
-                case NoteLengthDivisorEnum.Half:
-                    {
-                        result = "Half";
-                        break;
-                    }
-                case NoteLengthDivisorEnum.Quarter:
-                    {
-                        result = "Quarter";
-                        break;
-                    }
-                case NoteLengthDivisorEnum.Eighth:
-                    {
-                        result = "Eighth";
-                        break;
-                    }
-                case NoteLengthDivisorEnum._16th:
-                    {
-                        result = "16th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._32nd:
-                    {
-                        result = "32nd";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._64th:
-                    {
-                        result = "64th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._128th:
-                    {
-                        result = "128th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._256th:
-                    {
-                        result = "256th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._512th:
-                    {
-                        result = "512th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum._1024th:
-                    {
-                        result = "1024th";
-                        break;
-                    }
-                case 
-                    NoteLengthDivisorEnum.Breve:
-                    {
-                        result = "Breve";
-                        break;
-                    }
-                default: 
-                    { 
-                        throw new NotImplementedException();    
-                    }
-                }
-            return result = result.ToLower();
+                case DurationStrings.NoteType_1024th:
+                    result = DurationEnum.Duration_1024th;
+                    break;
+                case DurationStrings.NoteType_512th:
+                    result = DurationEnum.Duration_512th;
+                    break;
+                case DurationStrings.NoteType_256th:
+                    result = DurationEnum.Duration_256th;
+                    break;
+                case DurationStrings.NoteType_128th:
+                    result = DurationEnum.Duration_128th;
+                    break;
+                case DurationStrings.NoteType_64th:
+                    result = DurationEnum.Duration_64th;
+                    break;
+                case DurationStrings.NoteType_32nd:
+                    result = DurationEnum.Duration_32nd;
+                    break;
+                case DurationStrings.NoteType_16th:
+                    result = DurationEnum.Duration_16th;
+                    break;
+                case DurationStrings.NoteType_eighth:
+                    result = DurationEnum.Duration_Eighth;
+                    break;
+                case DurationStrings.NoteType_quarter:
+                    result = DurationEnum.Duration_Quarter;
+                    break;
+                case DurationStrings.NoteType_half:
+                    result = DurationEnum.Duration_Half;
+                    break;
+                case DurationStrings.NoteType_whole:
+                    result = DurationEnum.Duration_Whole;
+                    break;
+                case DurationStrings.NoteType_breve:
+                    result = DurationEnum.Duration_Breve;
+                    break;
+                case DurationStrings.NoteType_long:
+                    result = DurationEnum.Duration_Long;
+                    break;
+                case DurationStrings.NoteType_maxima:
+                    result = DurationEnum.Duration_Maxima;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+                    break;
+            }
+            return result;
         }
+
     }//class
 }//ns

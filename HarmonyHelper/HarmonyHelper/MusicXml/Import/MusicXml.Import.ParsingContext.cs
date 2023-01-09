@@ -9,20 +9,9 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class ParsingContext
     {
         #region Properties
-#if DEBUG
-        MusicXmlPart CurrentPart { get; set; }
-#endif
         public MusicXmlScoreMetadata Metadata { get; set; }
         public MusicXmlMeasure CurrentMeasure { get; set; }
-        public int PulsesPerQuarterNote { get { return Parts.First().PulsesPerQuarterNote; } }
-        public int PulsesPerMeasure
-        {
-            get
-            {
-                return Parts.First().PulsesPerMeasure;
-            }
-        }
-
+        public RhythmicContext Rhythm { get; set; } = new RhythmicContext();
 
 
         int _CurrentOffset = 0;

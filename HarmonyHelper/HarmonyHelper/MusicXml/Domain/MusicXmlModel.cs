@@ -13,6 +13,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
+        public RhythmicContext Rhythm { get; set; }
 
         #endregion
 
