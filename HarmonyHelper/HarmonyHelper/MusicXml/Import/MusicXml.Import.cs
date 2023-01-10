@@ -291,13 +291,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 result = Int32.Parse(xnote.Element(XmlConstants.duration).Value);
             }
-            else
+            if (xnote.Elements(XmlConstants.type).Any())
             {
                 var xtype = xnote.Elements(XmlConstants.type).First();
                 durationEnum = xtype.Value.ToDurationEnum();
-
-                var duration = xnote.Elements(XmlConstants.type).First();
-                result = Int32.Parse(duration.Value);
 
                 if (xnote.Elements(XmlConstants.time_modification).Any())
                 {

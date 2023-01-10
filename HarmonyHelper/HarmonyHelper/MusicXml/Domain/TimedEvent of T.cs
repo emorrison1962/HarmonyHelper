@@ -164,6 +164,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int start,
             DurationEnum duration)
         {
+            Debug.Assert(duration != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
@@ -183,6 +184,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int start,
             DurationEnum duration)
         {
+            Debug.Assert(duration != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
