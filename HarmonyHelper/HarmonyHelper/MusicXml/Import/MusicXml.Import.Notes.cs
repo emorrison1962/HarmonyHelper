@@ -9,7 +9,6 @@ using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
-using Kohoutech.Score.Symbols;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {

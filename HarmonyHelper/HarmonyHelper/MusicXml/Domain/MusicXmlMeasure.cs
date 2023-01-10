@@ -1,6 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
-using Kohoutech.Score;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlMeasure
+    public class MusicXmlMeasure : ClassBase
     {
         #region Properties
         public int _MeasureNumber { get; set; }
@@ -20,6 +19,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             get { return _MeasureNumber; }
             set 
             {
+                Debug.Assert(value < 3 * 1000);
                 Debug.Assert(value > 0);
                 _MeasureNumber = value;
             } 
@@ -35,16 +35,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public bool HasForwards { get { return this.Forwards.Count > 0; } }
         public bool HasBackups { get { return this.Backups.Count > 0; } }
 
-        List<ChordMelodyPairing> _ChordMelodyPairings;
-        public List<ChordMelodyPairing> ChordMelodyPairings 
-        {
-            get 
-            {
-                if (null == this._ChordMelodyPairings)
-                    this.CreateChordMelodyPairings();
-                return this._ChordMelodyPairings;
-            } 
-        } 
         #endregion
 
         #region Construction
@@ -59,8 +49,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             List<TimedEvent<Rest>> Rests,
             List<TimedEvent<Forward>> Forwards,
             List<TimedEvent<Backup>> Backups)
+            : this(measureNumber)
         {
-            this.MeasureNumber = measureNumber;
             if (null != Chords)
                 this.Chords = Chords;
             if (null != Notes)
@@ -101,8 +91,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public void AddOffset(TimeContext tc)
+        public void AddOffset(int measureNumber)
         {
+            var tc = new TimeContext(measureNumber);
             this.MeasureNumber += tc.MeasureNumber;
             this.Notes.ForEach(x => x.TimeContext += tc);
             this.Chords.ForEach(x => x.TimeContext += tc);
@@ -183,18 +174,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public void CreateChordMelodyPairings()
+        public static List<ChordMelodyPairing> GetChordMelodyPairings(MusicXmlMeasure melody, MusicXmlMeasure harmony)
         {
             var result = new List<ChordMelodyPairing>();
-            foreach (var chord in this.Chords)
+            foreach (var chord in harmony.Chords)
             {
-                var notes = this.Notes.GetIntersecting(chord.TimeContext);
+                var notes = melody.Notes.GetIntersecting(chord.TimeContext);
                 var pairing = new ChordMelodyPairing(chord,
                     notes.ToList(),
                     chord.TimeContext);
                 result.Add(pairing);
             }
-            this._ChordMelodyPairings = result;
+            return result;
         }
 
         public override string ToString()

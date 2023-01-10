@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,7 +117,17 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         #region Properties
         public RhythmicContext Rhythm { get; private set; }
-        public int MeasureNumber { get; private set; }
+        int _MeasureNumber;
+        public int MeasureNumber 
+        {
+            get { return _MeasureNumber; }
+            private set 
+            {
+                Debug.Assert(value < 6 * 1000);
+                _MeasureNumber = value;
+            }
+        }
+                
         public int AbsoluteStart
         {
             get

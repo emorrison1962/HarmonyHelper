@@ -6,7 +6,7 @@
   </work>
   <identification>
     <encoding>
-      <encoding-date>2023-01-07</encoding-date>
+      <encoding-date>2023-01-10</encoding-date>
       <software>Harmony Helper, Version 1.0.0.0</software>
     </encoding>
   </identification>
@@ -21,9 +21,9 @@
   <part id="P1">
     <measure number="1">
       <attributes>
-        <divisions>120</divisions>
+        <divisions>30</divisions>
         <key>
-          <fifths>2</fifths>
+          <fifths>0</fifths>
         </key>
         <time>
           <beats>4</beats>
@@ -212,7 +212,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -235,9 +234,9 @@
     </measure>
     <measure number="4">
       <attributes>
-        <divisions>120</divisions>
+        <divisions>30</divisions>
         <key>
-          <fifths>2</fifths>
+          <fifths>0</fifths>
         </key>
         <time>
           <beats>4</beats>
@@ -416,7 +415,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -600,7 +598,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -784,7 +781,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -968,7 +964,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -1152,7 +1147,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -1336,7 +1330,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -1520,7 +1513,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -1704,7 +1696,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -1888,7 +1879,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2072,7 +2062,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2256,7 +2245,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2440,7 +2428,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2624,7 +2611,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2808,7 +2794,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -2992,7 +2977,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -3176,7 +3160,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -3360,7 +3343,6 @@
         <duration>90</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note attack="3" release="-16">
@@ -3397,7 +3379,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3410,7 +3391,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3422,7 +3402,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -3513,7 +3492,6 @@
         <duration>180</duration>
         <voice>2</voice>
         <type>quarter</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -3555,7 +3533,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3568,7 +3545,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-10">
@@ -3580,7 +3556,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -4003,7 +3978,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4015,7 +3989,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4028,7 +4001,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-50">
@@ -4041,7 +4013,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -4249,7 +4220,6 @@
         <duration>360</duration>
         <voice>2</voice>
         <type>half</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4261,7 +4231,6 @@
         <duration>360</duration>
         <voice>2</voice>
         <type>half</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4274,7 +4243,6 @@
         <duration>360</duration>
         <voice>2</voice>
         <type>half</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4286,7 +4254,6 @@
         <duration>360</duration>
         <voice>2</voice>
         <type>half</type>
-        <dot />
         <staff>2</staff>
       </note>
       <note>
@@ -4429,9 +4396,9 @@
   <part id="P2">
     <measure number="1">
       <attributes>
-        <divisions>120</divisions>
+        <divisions>30</divisions>
         <key>
-          <fifths>2</fifths>
+          <fifths>0</fifths>
         </key>
         <time>
           <beats>4</beats>
@@ -4484,9 +4451,9 @@
     </measure>
     <measure number="4">
       <attributes>
-        <divisions>120</divisions>
+        <divisions>30</divisions>
         <key>
-          <fifths>2</fifths>
+          <fifths>0</fifths>
         </key>
         <time>
           <beats>4</beats>
@@ -4599,7 +4566,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -4827,7 +4793,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5055,7 +5020,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5166,7 +5130,6 @@
         <duration>90</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5304,7 +5267,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5704,7 +5666,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note release="-60">
@@ -5772,7 +5733,6 @@
         <duration>90</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>
@@ -5848,7 +5808,6 @@
         <duration>180</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <dot />
         <staff>1</staff>
       </note>
       <note>

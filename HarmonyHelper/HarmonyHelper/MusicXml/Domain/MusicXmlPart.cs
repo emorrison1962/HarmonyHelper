@@ -1,7 +1,9 @@
 ﻿using Eric.Morrison.Harmony.Rhythm;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,34 +11,32 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
+    public enum PartTypeEnum
+    {
+        Unknown = int.MinValue,
+        Melody = 1,
+        Harmony = 2
+    };
     public class MusicXmlPart
     {
         #region Properties
-        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>(); 
+        public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
+        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>();
         public MusicXmlPartIdentifier Identifier { get; set; }
         List<MusicXmlMeasure> _Measures { get; set; } = new List<MusicXmlMeasure>();
-        public ReadOnlyCollection<MusicXmlMeasure> Measures 
-        { 
-            get 
-            { 
+        public ReadOnlyCollection<MusicXmlMeasure> Measures
+        {
+            get
+            {
                 return _Measures
                     .OrderBy(x => x.MeasureNumber)
                     .ToList()
-                    .AsReadOnly(); 
+                    .AsReadOnly();
             }
-        } 
+        }
         public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
-        KeySignature _KeySignature = null;
-        public KeySignature KeySignature 
-        {
-            get { return _KeySignature; }
-            set 
-            {
-                if (null == _KeySignature)
-                    _KeySignature = value;  
-            } 
-        }
+        public KeySignature KeySignature { get; set; }
         public int Tempo { get; set; }
 
 
@@ -45,14 +45,22 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Construction
         MusicXmlPart(MusicXmlPart part)
         {
+            this.PartType = part.PartType;
             this.Identifier = part.Identifier;
         }
-        public MusicXmlPart(MusicXmlPartIdentifier PartIdentifier)
+        public MusicXmlPart(PartTypeEnum PartType)
+        {
+            if (PartType == PartTypeEnum.Unknown)
+                throw new ArgumentOutOfRangeException(nameof(PartType));
+            this.PartType = PartType;
+        }
+        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
+            : this(PartType)
         {
             this.Identifier = PartIdentifier;
         }
-        public MusicXmlPart(MusicXmlPartIdentifier PartIdentifier, XElement xelement)
-            : this(PartIdentifier)
+        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, XElement xelement)
+            : this(PartType, PartIdentifier)
         {
             this.XElement = xelement;
         }
@@ -72,16 +80,19 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //    .DefaultIfEmpty(1)
                 //    .LastOrDefault();
                 var currentMeasureNumber = this._Measures.Max(x => x.MeasureNumber) + 1;
+                Debug.Assert(currentMeasureNumber < 3 * 1000 - 1);
 
-
-                measures.ToList().ForEach(x => x.AddOffset(new TimeContext(currentMeasureNumber)));
+                foreach (var measure in measures)
+                {
+                    measure.AddOffset(currentMeasureNumber);
+                }
             }
 
             var pending = measures.Select(x => x.MeasureNumber).ToList();
 
             var existing = this._Measures.Where(x => pending.Contains(x.MeasureNumber))
                 .ToList();
-            if (existing.Any()) 
+            if (existing.Any())
             {
                 new object();
             }

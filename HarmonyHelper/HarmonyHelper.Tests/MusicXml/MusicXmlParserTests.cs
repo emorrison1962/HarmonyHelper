@@ -38,7 +38,7 @@ namespace Eric.Morrison.Harmony.Tests
             Debug.Assert(File.Exists(path));
 
             var parser = new MusicXmlImporter();
-            var result = parser.Import(path);
+            var result = parser.Import(path, 1, 2);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)

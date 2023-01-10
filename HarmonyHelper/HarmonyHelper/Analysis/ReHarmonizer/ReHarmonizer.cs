@@ -19,16 +19,14 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
     public class ReHarmonizer
     {
         ReHarmonizerContext Context { get; set; }
-        MusicXmlModel Model { get; set; }
         public void ReHarmonize(MusicXmlModel model)
         {
-            this.Model = model;
             this.Context = new ReHarmonizerContext(model);
 
             var newSections = new List<MusicXmlSection>();
             foreach (var section in model.Sections)
             {
-                var sections = GetReharmonized(section);
+                var sections = this.GetReharmonized(section);
                 foreach (var section2 in sections)
                 {
                     newSections.Add(section2);
@@ -47,31 +45,35 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var result = new List<MusicXmlSection>();
 
-            var pairings = section.GetChordMelodyPairings();
-            var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
-            var measures = section.Measures;
+            var sectionCmmPairings = section.GetChordMelodyPairings();
+            var substitutionResults = this.GetChordSubstitutionsAsync(sectionCmmPairings).Result;
+            var cmmPairings = section.GetChordMelodyMeasurePairings();
 
 
-            var newSectionCount = substitutionResults.Count / measures.Count;
-            newSectionCount += (substitutionResults.Count % measures.Count) > 0 ? 1 : 0;
+            var newSectionCount = substitutionResults.Count / cmmPairings.Count;
+            newSectionCount += (substitutionResults.Count % cmmPairings.Count) > 0 ? 1 : 0;
 
             for (int i = 0; i < newSectionCount; ++i)
             {
                 var newSection = new MusicXmlSection();
                 var newMeasures = new List<MusicXmlMeasure>();
-                foreach (var measure in measures)
+                foreach (var cmmPairing in cmmPairings)
                 {
-                    var newMeasure = new MusicXmlMeasure(measure);
+                    var newMelodyMeasure = new MusicXmlMeasure(cmmPairing.MelodyMeasure);
+                    var newHarmonyMeasure = new MusicXmlMeasure(cmmPairing.HarmonyMeasure);
 
-                    //var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
-                    newMeasures.Add(newMeasure);
+                    newMeasures.AddRange(new MusicXmlMeasure[] 
+                    { newMelodyMeasure, newHarmonyMeasure });
 
-                    foreach (var pairing in measure.ChordMelodyPairings)
+                    var cmPairings = MusicXmlMeasure.GetChordMelodyPairings(cmmPairing.MelodyMeasure,
+                        cmmPairing.HarmonyMeasure);
+
+                    foreach (var cmPairing in cmPairings)
                     {
-                        if (measure.Chords.Any())
+                        if (null != cmPairing.Chord)
                         {
-                            var substitution = substitutionResults[pairing];
-                            foreach (var teChord in newMeasure.Chords)
+                            var substitution = substitutionResults[cmPairing];
+                            foreach (var teChord in newHarmonyMeasure.Chords)
                             {// Make the substitution.
                                 teChord.Event = substitution.Substitution;
                             }

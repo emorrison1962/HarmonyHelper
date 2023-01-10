@@ -5,12 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HarmonyHelper.Tests.Console
 {
     internal class TestRunner
     {
+        const string ASSEMBLY_PATH = @"..\..\..\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll";
+
         public TestRunner()
         {
             this.Init();
@@ -20,6 +23,24 @@ namespace HarmonyHelper.Tests.Console
         {
         }
 
+        Dictionary<MethodInfo, string> methods = new Dictionary<MethodInfo, string>();
+
+        public class TaskContext
+        { 
+            public MethodInfo MethodInfo { get; set; }
+            public Stopwatch Stopwatch { get; set; }
+            public TaskContext(MethodInfo MethodInfo)
+            {
+                this.MethodInfo = MethodInfo;
+                this.Stopwatch = Stopwatch.StartNew();
+            }
+
+            public void Stop()
+            { 
+                this.Stopwatch.Stop();
+            }
+        }
+
         internal void Run()
         {
 #if false
@@ -27,16 +48,34 @@ D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.
 D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\HarmonyHelper.Tests.Console.exe
 #endif
             var tasks = new List<Task>();
-            const string ASSEMBLY_PATH = @"..\..\..\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll";
-            Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-            if (File.Exists(ASSEMBLY_PATH))
+            //var tests = this.GetTestMethods();
+            var tests = this.GetTestMethod("ReHarmonizeTest");
+            foreach (var mi in tests)
             {
-                new object();
+                methods.Add(mi, mi.Name);
+                System.Console.WriteLine($"+{mi.DeclaringType.Name}: {mi.Name}");
+                try
+                {
+                    var testClass = Activator.CreateInstance(mi.DeclaringType);
+                    var task = new TaskFactory().StartNew(
+                        (state) => mi.Invoke(testClass, null), new TaskContext(mi));
+
+                    task.ContinueWith((t) => this.Continue(t));
+                    tasks.Add(task);
+                }
+                catch (Exception) { }
             }
-            else
-            {
-                throw new FileNotFoundException(ASSEMBLY_PATH);
-            }
+
+
+
+            var tasksArr = tasks.ToArray();
+            Task.WaitAll(tasksArr);
+            new object();
+        }
+
+        List<MethodInfo> GetTestMethods()
+        {
+            var result = new List<MethodInfo>();
             var assembly = Assembly.LoadFrom(ASSEMBLY_PATH);
 
             var testClassTypes = assembly.GetTypes()
@@ -48,21 +87,37 @@ D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\Harmon
                 var tc = Activator.CreateInstance(tcType);
                 var tests = tcType.GetMethods()
                     .Where(x => null != x.GetCustomAttribute<TestMethodAttribute>()
-                        && null == x.GetCustomAttribute<IgnoreAttribute>());
-
-                foreach (var mi in tests)
-                {
-                    Debug.WriteLine($"{tcType.Name}: {mi.Name}");
-                    try
-                    {
-                        tasks.Add(Task.Run(() => mi.Invoke(tc, null)));
-                    }
-                    catch (Exception) { }
-                }
-                new object();
+                        && null == x.GetCustomAttribute<IgnoreAttribute>())
+                    .ToList();
+                result.AddRange(tests);
             }
-            Task.WaitAll(tasks.ToArray());
+
+#if false
+            result.OrderBy(x => x.DeclaringType.Name)
+                .ThenBy(x => x.Name)
+                .ToList()
+                .ForEach(x => Debug.WriteLine($"{x.DeclaringType.Name}: {x.Name}"));
+#endif
+
+            return result;
+        }
+
+        List<MethodInfo> GetTestMethod(string testName)
+        { 
+            var result = this.GetTestMethods()
+                .Where(x => x.Name.ToLower() == testName.ToLower())
+                .ToList();
+            return result;
+        }
+
+        void Continue(Task<object> task) 
+        {
+            var ctx = task.AsyncState as TaskContext;
+            ctx.Stop();
+            methods.Remove(ctx.MethodInfo);
+            System.Console.WriteLine($"-{ctx.MethodInfo.DeclaringType.Name}: {ctx.MethodInfo.Name}");
+
             new object();
         }
-    }
-}
+    }//class
+}//ns

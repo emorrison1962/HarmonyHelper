@@ -44,21 +44,24 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-        public MusicXmlModel Import(string filename)
+        public MusicXmlModel Import(string filename, int pidMelody, int pidHarmony)
         {
             this.Document = XDocument.Load(filename);
 
             //if (!MusicXmlBase.ValidateMusicXmlSchema(this.Document))
             //    throw new NotImplementedException();
 
-            var result = this.ParseImpl();
+            var result = this.ParseImpl(pidMelody, pidHarmony);
             return result;
         }
 
-        MusicXmlModel ParseImpl()
+        MusicXmlModel ParseImpl(int pidMelody, int pidHarmony)
         {
             var metadata = this.ParseScoreMetadata();
             this.ParsingContext.Metadata = metadata;
+            this.ParsingContext.PartIdMelody= pidMelody;
+            this.ParsingContext.PartIdHarmony= pidHarmony;
+
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
             var parts = this.ParseParts().ToList();
@@ -117,7 +120,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 var partName = xpart.Attribute(XmlConstants.id).Value;
                 var pid = pids.First(x => x.ID == partName);
-                var part = new MusicXmlPart(pid, xpart);
+                
+                var pte = PartTypeEnum.Unknown;
+                if (this.ParsingContext.PartIdHarmony == Int32.Parse(pid.ID.TrimStart('P')))
+                    pte = PartTypeEnum.Harmony;
+                else if (this.ParsingContext.PartIdMelody == Int32.Parse(pid.ID.TrimStart('P')))
+                    pte = PartTypeEnum.Melody;
+                var part = new MusicXmlPart(pte, pid, xpart);
+
                 result.Add(part);
             }
             return result;
