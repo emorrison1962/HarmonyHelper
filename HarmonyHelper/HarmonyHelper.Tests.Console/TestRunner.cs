@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,13 +44,12 @@ namespace HarmonyHelper.Tests.Console
 
         internal void Run()
         {
-#if false
-D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll
-D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\HarmonyHelper.Tests.Console.exe
-#endif
             var tasks = new List<Task>();
             //var tests = this.GetTestMethods();
             var tests = this.GetTestMethod("ReHarmonizeTest");
+
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
             foreach (var mi in tests)
             {
                 methods.Add(mi, mi.Name);
@@ -58,7 +58,9 @@ D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests.Console\bin\Debug\Harmon
                 {
                     var testClass = Activator.CreateInstance(mi.DeclaringType);
                     var task = new TaskFactory().StartNew(
-                        (state) => mi.Invoke(testClass, null), new TaskContext(mi));
+                        (state) => mi.Invoke(testClass, null), 
+                        new TaskContext(mi), 
+                        token);
 
                     task.ContinueWith((t) => this.Continue(t));
                     tasks.Add(task);
