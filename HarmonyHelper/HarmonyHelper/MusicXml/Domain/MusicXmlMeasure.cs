@@ -4,6 +4,7 @@ using Kohoutech.Score;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,16 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class MusicXmlMeasure
     {
         #region Properties
-        public int MeasureNumber { get; set; }
+        public int _MeasureNumber { get; set; }
+        public int MeasureNumber 
+        {
+            get { return _MeasureNumber; }
+            set 
+            {
+                Debug.Assert(value > 0);
+                _MeasureNumber = value;
+            } 
+        }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
         public bool HasMetadata { get; set; }   

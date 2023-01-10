@@ -50,7 +50,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var pairings = section.GetChordMelodyPairings();
             var substitutionResults = this.GetChordSubstitutionsAsync(pairings).Result;
             var measures = section.Measures;
-            var currentMeasureNumber = measures.Max(x => x.MeasureNumber) + 1;
 
 
             var newSectionCount = substitutionResults.Count / measures.Count;

@@ -67,10 +67,12 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             if (this._Measures.Any())
             {
-                var currentMeasureNumber = this._Measures
-                    .Select(x => x.MeasureNumber)
-                    .DefaultIfEmpty(1)
-                    .LastOrDefault();
+                //var currentMeasureNumber = this._Measures
+                //    .Select(x => x.MeasureNumber)
+                //    .DefaultIfEmpty(1)
+                //    .LastOrDefault();
+                var currentMeasureNumber = this._Measures.Max(x => x.MeasureNumber) + 1;
+
 
                 measures.ToList().ForEach(x => x.AddOffset(new TimeContext(currentMeasureNumber)));
             }
