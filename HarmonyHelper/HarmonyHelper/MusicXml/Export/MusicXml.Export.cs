@@ -57,6 +57,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         void ExportImpl(MusicXmlModel model)
         {
             this.Document = new ExportTemplateFactory().Create(model);
+            this.ParsingContext.Rhythm = model.Rhythm;
 
             XElement xparts_list = this.ToXElement(model.Parts);
             this.Document.Element(XmlConstants.score_partwise).Add(xparts_list);

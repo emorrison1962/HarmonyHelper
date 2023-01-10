@@ -16,7 +16,9 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         [TestMethod()]
         public void AddOffsetTest()
         {
-            var rhythm = new RhythmicContext() { TimeSignature = new TimeSignature(4, 4), PulsesPerQuarterNote = 120 };
+            var rhythm = new RhythmicContext()
+                .SetTimeSignature(new TimeSignature(4, 4))
+                .SetPulsesPerQuarterNote(120);
             new TimeContext.CreationContext()
             { MeasureNumber = 1, Rhythm = rhythm, RelativeStart = 0, RelativeEnd = 240 };
 

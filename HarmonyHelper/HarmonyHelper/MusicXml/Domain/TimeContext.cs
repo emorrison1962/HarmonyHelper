@@ -11,16 +11,58 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public class RhythmicContext
     {
-        public TimeSignature TimeSignature { get; set; }
+        #region Properties
+        public TimeSignature TimeSignature { get; private set; }
         //public int PulsesPerMeasure { get; protected set; }
-        public int PulsesPerQuarterNote { get; set; }
-        public int PulsesPerMeasure
+        public int PulsesPerQuarterNote { get; private set; }
+        public int PulsesPerMeasure { get; private set; }
+        //{
+        //    get
+        //    {
+        //        return this.TimeSignature.BeatCount * this.PulsesPerQuarterNote;
+        //    }
+        //}
+
+        #endregion
+        
+        #region Construction
+        public RhythmicContext()
         {
-            get
-            {
-                return this.TimeSignature.BeatCount * this.PulsesPerQuarterNote;
-            }
+
         }
+
+        public RhythmicContext(TimeSignature ts, int ppm)
+        {
+            this.TimeSignature = ts;
+            this.PulsesPerMeasure = ppm;
+        }
+
+        #endregion
+
+        #region Fluency
+        public RhythmicContext SetTimeSignature(TimeSignature ts)
+        {
+            this.TimeSignature = ts;
+            return this;
+        }
+
+        public RhythmicContext SetPulsesPerMeasure(int ppm)
+        {
+            this.PulsesPerMeasure = ppm;
+#warning FIXME: We're assuming this.TimeSignature.BeatUnit is Quarter note.
+            this.PulsesPerQuarterNote = this.PulsesPerMeasure / this.TimeSignature.BeatCount;
+            return this;
+        }
+
+        public RhythmicContext SetPulsesPerQuarterNote(int ppqn)
+        {
+            this.PulsesPerQuarterNote = ppqn;
+#warning FIXME: We're assuming this.TimeSignature.BeatUnit is Quarter note.
+            this.PulsesPerMeasure = this.TimeSignature.BeatCount * this.PulsesPerQuarterNote;
+            return this;
+        }
+
+        #endregion
 
         public int ToInt32(DurationEnum duration)
         { 
@@ -73,8 +115,8 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
     {
         #region Properties
-        public RhythmicContext Rhythm { get; set; }
-        public int MeasureNumber { get; set; }
+        public RhythmicContext Rhythm { get; private set; }
+        public int MeasureNumber { get; private set; }
         public int AbsoluteStart
         {
             get
@@ -89,9 +131,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeEnd;
             }
         }
-        public int RelativeStart { get; set; }
-        public int RelativeEnd { get; set; }
-        public DurationEnum Duration { get; set; }
+        public int RelativeStart { get; private set; }
+        public int RelativeEnd { get; private set; }
+        public DurationEnum Duration { get; private set; }
 
         TimeContext TiedPrevious { get; set; }
         TimeContext TiedNext { get; set; }
@@ -125,7 +167,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return result;
             }
         }
-        public bool IsDotted { get; set; }
+        public bool IsDotted { get; private set; }
 
 
         #endregion
@@ -141,6 +183,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             public bool IsDotted { get; set; }
             public TimeContext TiedPrevious { get; set; }
             public TimeContext TiedNext { get; set; }
+
+            public CreationContext() {  }
+            public CreationContext(RhythmicContext rhythm) 
+            {  
+                this.Rhythm= rhythm;    
+            }
         }
         public TimeContext(CreationContext ctx)
         {
@@ -173,6 +221,47 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.RelativeEnd = src.RelativeEnd;
             this.Duration = src.Duration;
         }
+        public TimeContext()
+        {
+        }
+
+        #endregion
+
+        #region Fluent
+        public TimeContext SetMeasureNumber(int measureNumber)
+        {
+            this.MeasureNumber = measureNumber;
+            return this;
+        }
+        public TimeContext SetRhythmicContext(RhythmicContext ctx)
+        {
+            this.Rhythm = ctx;
+            return this;
+        }
+
+        public TimeContext SetRelativeStart(int start) 
+        {
+            this.RelativeStart = start;
+            return this;
+        }
+        public TimeContext SetRelativeEnd(int end)
+        {
+            this.RelativeEnd = end;
+            return this;
+        }
+
+        public TimeContext SetDuration(DurationEnum duration)
+        {
+            this.Duration = duration;
+            return this;
+        }
+
+        public TimeContext SetIsDotted(bool isDotted)
+        {
+            this.IsDotted= isDotted;
+            return this;
+        }
+
 
         #endregion
 

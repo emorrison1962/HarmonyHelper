@@ -1,6 +1,7 @@
 ﻿using Eric.Morrison.Harmony.Chords;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Properties
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
-        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
+        public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
         public RhythmicContext Rhythm { get; set; }
 
         #endregion
@@ -94,6 +95,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
+        public void Add(MusicXmlPart part)
+        {
+            if (part.Measures.Count > 0)
+            {
+                var rhythm = (from m in part.Measures
+                           from n in m.Notes
+                           where n.TimeContext.Rhythm != null
+                           select n.TimeContext.Rhythm).First();
+                this.Rhythm = rhythm;
+            }
+            this.Parts.Add(part);
+        }
     }//class
 
 }//ns

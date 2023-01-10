@@ -135,8 +135,13 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (TryParseKeySignature(xmeasure, out var keySignature))
                 part.KeySignature = keySignature;
 
-            if (this.TryParseTimeSignature(xmeasure, out var timeSignature))
-                this.ParsingContext.Rhythm.TimeSignature = timeSignature;
+            if (this.TryParsePpqn(xmeasure, out var ppqn))
+            {
+                if (this.TryParseTimeSignature(xmeasure, out var timeSignature))
+                    this.ParsingContext.Rhythm
+                        .SetTimeSignature(timeSignature)
+                        .SetPulsesPerMeasure(ppqn);
+            }
 
             if (this.TryParseStaves(xmeasure, out var staves))
                 part.Staves = staves;
@@ -144,8 +149,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (this.TryParseTempo(xmeasure, out var tempo))
                 part.Tempo = tempo;
 
-            if (this.TryParsePpqn(xmeasure, out var ppqn))
-                this.ParsingContext.Rhythm.PulsesPerQuarterNote = ppqn;
 
             TimedEventFactory.Instance.PulsesPerMeasure = 
                 this.ParsingContext.Rhythm.PulsesPerMeasure;
@@ -318,7 +321,10 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = new MusicXmlModel();
             result.Metadata = metadata;
-            result.Parts = parts;
+            foreach (var part in parts)
+            {
+                result.Add(part);
+            }
             return result;
         }
 

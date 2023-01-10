@@ -59,7 +59,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (existingChords.Count != 0)
             {
                 var previousChord = existingChords.Last();
-                previousChord.TimeContext.RelativeEnd = result.RelativeStart;
+                previousChord.TimeContext
+                    .SetRelativeEnd(result.RelativeStart);
             }
 
             return result;

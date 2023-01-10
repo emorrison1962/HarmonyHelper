@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony.Tests
             }
 
 
-            var debug = result.Get(new TimeContext(4));
+            //var debug = result.Get(new TimeContext(4));
 
             new object();
         }
