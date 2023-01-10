@@ -398,7 +398,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         void ToXElements(TimeContext time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
         {
-            time.TryGetName(time.Duration, out var name, out var isDotted);
+            time.TryGetName(time.DurationEnum, out var name, out var isDotted);
             xnoteTypeName = null; xduration = null; xdot = null;
 #if true
             xnoteTypeName = new XElement(XmlConstants.type, name);

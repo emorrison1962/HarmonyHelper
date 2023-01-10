@@ -93,6 +93,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public void AddOffset(TimeContext tc)
         {
+            this.MeasureNumber += tc.MeasureNumber;
             this.Notes.ForEach(x => x.TimeContext += tc);
             this.Chords.ForEach(x => x.TimeContext += tc);
             this.Rests.ForEach(x => x.TimeContext += tc);

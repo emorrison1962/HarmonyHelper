@@ -78,7 +78,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     }
 
                     this.ParseMeasure(xmeasure, ref measure);
-                    part.Measures.Add(measure);
+                    part.Add(measure);
                 }
             }
             var result = this.CreateParsingResult(metadata, parts);
@@ -230,6 +230,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     this.ParsingContext.Rhythm,
                     this.ParsingContext.CurrentMeasure.MeasureNumber,
                     this.ParsingContext.CurrentOffset,
+                    duration,
                     durationEnum);
                 result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
                 if (xnote.Elements(XmlConstants.staff).Any())

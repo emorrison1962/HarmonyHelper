@@ -70,7 +70,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 foreach (var item in list)
                 {
                     var p = MusicXmlPart.CloneShallow(item.Part);
-                    p.Measures.AddRange(item.Measures.Skip(start).Take(end));
+                    p.AddRange(item.Measures.Skip(start).Take(end));
                     section.Parts.Add(p);
                 }
                 result.Add(section);
@@ -90,7 +90,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             foreach (var item in seq)
             {
                 var part = this.Parts.First(x => x.Identifier.ID == item.Part.Identifier.ID);
-                part.Measures.AddRange(item.Measures);
+                part.AddRange(item.Measures);
                 new object();
             }
         }

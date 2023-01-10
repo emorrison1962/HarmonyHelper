@@ -9,6 +9,7 @@ using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
+using Kohoutech.Score.Symbols;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -21,6 +22,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             Note hhNote = null;
             var durationEnum = DurationEnum.None;
             int start = 0;
+            int duration = 0;
 
 
 
@@ -55,7 +57,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (xnote.Elements(XmlConstants.type).Any())
             {
                 //duration = this.ParseDuration(xnote);
-                var duration = ParseDuration(xnote, out durationEnum);
+                duration = ParseDuration(xnote, out durationEnum);
 
                 start = this.ParsingContext.CurrentOffset;
                 var end = this.ParsingContext.CurrentOffset + duration;
@@ -97,6 +99,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.ParsingContext.Rhythm,
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
+                duration,
                 durationEnum);
             result.Serialization.HasChord = hasChord;
 

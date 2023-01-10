@@ -63,11 +63,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 foreach (var measure in measures)
                 {
                     var newMeasure = new MusicXmlMeasure(measure);
-                    var ctx = new TimeContext.CreationContext() { 
-                        MeasureNumber = currentMeasureNumber,
-                        Rhythm = this.Model.Rhythm
-                    };
-                    newMeasure.AddOffset(new TimeContext(ctx));
 
                     //var newMeasure = MusicXmlMeasure.CopyWithOffset(measure, currentMeasureNumber++);
                     newMeasures.Add(newMeasure);
@@ -87,7 +82,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
                 foreach (var part in section.Parts)
                 {
-                    part.Measures.AddRange(newMeasures);
+                    part.AddRange(newMeasures);
                     newSection.Parts.Add(part);
                 }
                 result.Add(newSection);

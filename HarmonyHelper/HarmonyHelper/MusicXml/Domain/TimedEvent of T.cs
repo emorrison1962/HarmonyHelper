@@ -162,16 +162,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             RhythmicContext rhythm,
             int measureNumber,
             int start,
-            DurationEnum duration)
+            int duration,
+            DurationEnum de)
         {
-            Debug.Assert(duration != DurationEnum.None);
+            Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
                 RelativeStart = start,
-                Duration = duration
+                RelativeEnd = start + duration,
+                Duration = de
             };
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Note>(note,
@@ -182,16 +184,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             RhythmicContext rhythm,
             int measureNumber,
             int start,
-            DurationEnum duration)
+            int duration,
+            DurationEnum de)
         {
-            Debug.Assert(duration != DurationEnum.None);
+            Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
                 RelativeStart = start,
-                Duration = duration
+                RelativeEnd = start + duration,
+                Duration = de
             };
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Rest>(rest,
