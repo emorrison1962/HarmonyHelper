@@ -123,7 +123,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             get { return _MeasureNumber; }
             private set 
             {
-                Debug.Assert(value < 6 * 1000);
+                //Debug.Assert(value < 6 * 1000);
                 _MeasureNumber = value;
             }
         }
@@ -209,7 +209,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        public TimeContext(int measureNumber)
+        TimeContext(int measureNumber)
         {
             this.MeasureNumber = measureNumber;
         }

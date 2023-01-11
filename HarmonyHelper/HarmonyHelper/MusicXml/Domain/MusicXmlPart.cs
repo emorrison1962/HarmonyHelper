@@ -79,12 +79,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //    .Select(x => x.MeasureNumber)
                 //    .DefaultIfEmpty(1)
                 //    .LastOrDefault();
-                var currentMeasureNumber = this._Measures.Max(x => x.MeasureNumber) + 1;
-                Debug.Assert(currentMeasureNumber < 3 * 1000 - 1);
+                //Debug.Assert(currentMeasureNumber < 3 * 1000 - 1);
 
                 foreach (var measure in measures)
                 {
-                    measure.AddOffset(currentMeasureNumber);
+                    var currentMeasureNumber = this._Measures.Count + 1;
+                    measure.SetMeasureNumber(currentMeasureNumber);
                 }
             }
 

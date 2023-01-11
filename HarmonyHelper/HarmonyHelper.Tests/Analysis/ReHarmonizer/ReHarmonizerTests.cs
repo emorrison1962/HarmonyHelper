@@ -40,6 +40,15 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                 model.MergeSections();
                 sw.Stop();
                 Debug.WriteLine(sw.Elapsed.ToString());
+
+                foreach (var part in model.Parts)
+                {
+                    Debug.WriteLine($"part.Measures.Count= {part.Measures.Count}");
+                    new object();
+                }
+
+
+
                 var doc = new MusicXmlExporter()
                     .Export(model);
 

@@ -26,7 +26,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             var chords = new List<TimedEvent<ChordFormula>>() { 
                 new TimedEvent<ChordFormula>(ChordFormula.CMaj7, new TimeContext(1, rhythm, 120, 240)) };
             var measure = new MusicXmlMeasure(1, chords, null, null, null, null);
-            measure.AddOffset(2);
+            measure.SetMeasureNumber(2);
 
             var chord = measure.Chords.First();
             Assert.IsTrue(measure.Chords.First().TimeContext == new TimeContext(3, rhythm, 120, 240));

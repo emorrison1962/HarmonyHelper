@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             get { return _MeasureNumber; }
             set 
             {
-                Debug.Assert(value < 3 * 1000);
+                Debug.Assert(value < 18 * 1000);
                 Debug.Assert(value > 0);
                 _MeasureNumber = value;
             } 
@@ -74,16 +74,39 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
+        [Obsolete("", true)]
         public void AddOffset(int measureNumber)
         {
-            var tc = new TimeContext(measureNumber);
-            this.MeasureNumber += tc.MeasureNumber;
-            this.Notes.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Chords.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Rests.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Forwards.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Backups.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            //Debug.WriteLine($"{this.MeasureNumber}: {this.MeasureNumber += measureNumber}");
+            this.MeasureNumber += measureNumber;
+            this.Notes.ForEach(x => x.TimeContext
+                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Chords.ForEach(x => x.TimeContext
+                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Rests.ForEach(x => x.TimeContext
+                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Forwards.ForEach(x => x.TimeContext
+                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Backups.ForEach(x => x.TimeContext
+                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
         }
+
+        public void SetMeasureNumber(int measureNumber)
+        {
+            //Debug.WriteLine($"{this.MeasureNumber}: {this.MeasureNumber += measureNumber}");
+            this.MeasureNumber = measureNumber;
+            this.Notes.ForEach(x => x.TimeContext
+                .SetMeasureNumber(measureNumber));
+            this.Chords.ForEach(x => x.TimeContext
+                .SetMeasureNumber(measureNumber));
+            this.Rests.ForEach(x => x.TimeContext
+                .SetMeasureNumber(measureNumber));
+            this.Forwards.ForEach(x => x.TimeContext
+                .SetMeasureNumber(measureNumber));
+            this.Backups.ForEach(x => x.TimeContext
+                .SetMeasureNumber(measureNumber));
+        }
+
 
         [Obsolete("", true)]
         static public MusicXmlMeasure CreateMergedMeasure(List<MusicXmlMeasure> items)
