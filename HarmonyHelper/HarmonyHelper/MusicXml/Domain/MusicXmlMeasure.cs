@@ -74,32 +74,15 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        [Obsolete("", true)]
-        static public MusicXmlMeasure CopyWithOffset(MusicXmlMeasure src, int offset)
-        {
-            var result = new MusicXmlMeasure(src);
-            result.Notes.ForEach(x => x.TimeContext = TimeContext
-                .CopyWithOffset(x.TimeContext, offset));
-            result.Chords.ForEach(x => x.TimeContext = TimeContext
-                .CopyWithOffset(x.TimeContext, offset));
-            result.Rests.ForEach(x => x.TimeContext = TimeContext
-                .CopyWithOffset(x.TimeContext, offset));
-            result.Forwards.ForEach(x => x.TimeContext = TimeContext
-                .CopyWithOffset(x.TimeContext, offset));
-            result.Backups.ForEach(x => x.TimeContext = TimeContext
-                .CopyWithOffset(x.TimeContext, offset));
-            return result;
-        }
-
         public void AddOffset(int measureNumber)
         {
             var tc = new TimeContext(measureNumber);
             this.MeasureNumber += tc.MeasureNumber;
-            this.Notes.ForEach(x => x.TimeContext += tc);
-            this.Chords.ForEach(x => x.TimeContext += tc);
-            this.Rests.ForEach(x => x.TimeContext += tc);
-            this.Forwards.ForEach(x => x.TimeContext += tc);
-            this.Backups.ForEach(x => x.TimeContext += tc);
+            this.Notes.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Chords.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Rests.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Forwards.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
+            this.Backups.ForEach(x => x.TimeContext.SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
         }
 
         [Obsolete("", true)]
@@ -161,11 +144,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = new List<IHasTimeContext>();
 
-            result.AddRange(this.Chords.Select(x => x));
-            result.AddRange(this.Notes.Select(x => x));
-            result.AddRange(this.Rests.Select(x => x));
-            result.AddRange(this.Forwards.Select(x => x));
-            result.AddRange(this.Backups.Select(x => x));
+            result.AddRange(this.Chords);
+            result.AddRange(this.Notes);
+            result.AddRange(this.Rests);
+            result.AddRange(this.Forwards);
+            result.AddRange(this.Backups);
 
             result = result.OrderBy(x => x.TimeContext.RelativeStart)
                 .ThenBy(x => x.SortOrder)

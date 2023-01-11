@@ -45,7 +45,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var result = new List<MusicXmlSection>();
 
-            var sectionCmmPairings = section.GetChordMelodyPairings();
+            var sectionCmmPairings = section.GetChordMelodyPairings(); 
             var substitutionResults = this.GetChordSubstitutionsAsync(sectionCmmPairings).Result;
             var cmmPairings = section.GetChordMelodyMeasurePairings();
 

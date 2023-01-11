@@ -8,6 +8,7 @@ using System.Reflection;
 
 namespace Eric.Morrison.Harmony.Chords
 {
+    [Serializable]
     public partial class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
     {
         static public readonly NullChordFormula Empty = NullChordFormula.Instance;

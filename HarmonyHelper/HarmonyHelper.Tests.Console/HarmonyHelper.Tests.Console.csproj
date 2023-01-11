@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>HarmonyHelper.Tests.Console</RootNamespace>
     <AssemblyName>HarmonyHelper.Tests.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Foo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestRunner.cs" />
@@ -53,9 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyHelper.Tests\HarmonyHelper.Tests.csproj">
+    <ProjectReference Include="..\HarmonyHelper.Tests\zHarmonyHelper.Tests.csproj">
       <Project>{a179ea40-2903-4dc9-8c6a-744694961245}</Project>
-      <Name>HarmonyHelper.Tests</Name>
+      <Name>zHarmonyHelper.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

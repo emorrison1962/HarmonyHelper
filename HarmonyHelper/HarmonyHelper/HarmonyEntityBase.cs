@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
+    [Serializable]
     public abstract class HarmonyEntityBase : ClassBase
     {
         public KeySignature Key { get; protected set; }

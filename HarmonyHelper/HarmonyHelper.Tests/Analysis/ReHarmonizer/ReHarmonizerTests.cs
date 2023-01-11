@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using Eric.Morrison.Harmony.Rhythm;
 using Eric.Morrison.Harmony.Chords;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 {
@@ -20,32 +21,43 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
         [TestMethod()]
         public void ReHarmonizeTest()
         {
-            var path = Assembly.GetExecutingAssembly().Location;
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
-            path = Path.GetDirectoryName(path);
+            try
+            {
+                //TestUtilities.DisableAssertionDialogs();
+                var path = Assembly.GetExecutingAssembly().Location;
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
 
-            path = Path.Combine(path, "TEST_FILES");
-            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
-            var parser = new MusicXmlImporter();
-            var model = parser.Import(path, 1, 2);
-            model.CreateSections(new MusicXmlModel.SectionContext(20, 4));
+                path = Path.Combine(path, "TEST_FILES");
+                path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
+                var parser = new MusicXmlImporter();
+                var model = parser.Import(path, 1, 2);
+                model.CreateSections(new MusicXmlModel.SectionContext(20, 4));
 
-            new ReHarmonizer().ReHarmonize(model);
-            model.MergeSections();
+                var sw = Stopwatch.StartNew();
+                new ReHarmonizer().ReHarmonize(model);
+                model.MergeSections();
+                sw.Stop();
+                Debug.WriteLine(sw.Elapsed.ToString());
+                var doc = new MusicXmlExporter()
+                    .Export(model);
 
-            var doc = new MusicXmlExporter()
-                .Export(model);
+                //MusicXmlBase.ValidateMusicXmlSchema(doc);
 
-            //MusicXmlBase.ValidateMusicXmlSchema(doc);
+                var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
+                filename = "000000-000001.xml";
+                var folder = @"c:\temp\MusicXml";
+                var savePath = Path.Combine(folder, filename);
+                doc.Save(savePath);
+                new object();
 
-            var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
-            filename = "000000-000001.xml";
-            var folder = @"c:\temp\MusicXml";
-            var savePath = Path.Combine(folder, filename);
-            doc.Save(savePath);
-            new object();
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
 
         }
 

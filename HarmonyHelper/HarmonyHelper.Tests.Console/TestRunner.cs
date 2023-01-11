@@ -15,6 +15,9 @@ namespace HarmonyHelper.Tests.Console
     {
         const string ASSEMBLY_PATH = @"..\..\..\HarmonyHelper.Tests\bin\Debug\HarmonyHelper.Tests.dll";
 
+        Dictionary<MethodInfo, string> methods = new Dictionary<MethodInfo, string>();
+
+
         public TestRunner()
         {
             this.Init();
@@ -22,24 +25,6 @@ namespace HarmonyHelper.Tests.Console
 
         void Init()
         {
-        }
-
-        Dictionary<MethodInfo, string> methods = new Dictionary<MethodInfo, string>();
-
-        public class TaskContext
-        { 
-            public MethodInfo MethodInfo { get; set; }
-            public Stopwatch Stopwatch { get; set; }
-            public TaskContext(MethodInfo MethodInfo)
-            {
-                this.MethodInfo = MethodInfo;
-                this.Stopwatch = Stopwatch.StartNew();
-            }
-
-            public void Stop()
-            { 
-                this.Stopwatch.Stop();
-            }
         }
 
         internal void Run()
@@ -122,4 +107,22 @@ namespace HarmonyHelper.Tests.Console
             new object();
         }
     }//class
+
+    public class TaskContext
+    {
+        public MethodInfo MethodInfo { get; set; }
+        public Stopwatch Stopwatch { get; set; }
+        public TaskContext(MethodInfo MethodInfo)
+        {
+            this.MethodInfo = MethodInfo;
+            this.Stopwatch = Stopwatch.StartNew();
+        }
+
+        public void Stop()
+        {
+            this.Stopwatch.Stop();
+        }
+    }//class
+
+
 }//ns
