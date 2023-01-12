@@ -11,6 +11,8 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class MusicXmlModel
     {
         #region Properties
+        [Obsolete("", true)]
+        public SectionContext SectionContext { get; set; }
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
@@ -36,63 +38,48 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public class SectionContext
-        {
-            public List<int> MeasureCount { get; set; }
-
-            public SectionContext(List<int> measureCount)
-            {
-                MeasureCount = measureCount;
-            }
-            public SectionContext(params int[] parms)
-            {
-                MeasureCount = parms.ToList();
-            }
-        }
         void SplitSections(SectionContext ctx)
         {
 
         }
+
         public void CreateSections(SectionContext ctx)
         {
-            var result = new List<MusicXmlSection>();
             int start = 0;
             int end = 0;
             foreach (var count in ctx.MeasureCount)
             {
                 end = count;
                 var lastCount = count;
-                var section = new MusicXmlSection();
-                var list = (from p in this.Parts
-                           select new { Part = p, Measures = p.Measures })
+                var parts = (from p in this.Parts
+                             select new { Part = p, Measures = p.Measures })
                            .ToList();
-
-                foreach (var item in list)
+                foreach (var part in this.Parts)
                 {
-                    var p = MusicXmlPart.CloneShallow(item.Part);
-                    p.AddRange(item.Measures.Skip(start).Take(end));
-                    section.Parts.Add(p);
+                    var measures = (part.Measures.Skip(start).Take(end));
+                    var section = new MusicXmlSection(measures);
+                    part.Sections.Add(section); 
+                    this.Sections.Add(section);
                 }
-                result.Add(section);
                 start = end;
             }
-            this.Sections = result;
         }
 
-        public void MergeSections()
-        { 
-            var seq = (from s in this.Sections
-                       from p in s.Parts
-                       //from m in p.Measures
-                       select new { Part = p, Measures = p.Measures})
-                       .ToList();
-
-            foreach (var item in seq)
+            public void MergeSections()
+        {
+            foreach (var part in this.Parts) 
             {
-                var part = this.Parts.First(x => x.Identifier.ID == item.Part.Identifier.ID);
-                part.AddRange(item.Measures);
-                new object();
+                foreach (var section in part.Sections)
+                {
+                    part.AddRange(section.Measures, false);
+                }
             }
+
+            //foreach (var item in seq)
+            //{
+            //    var part = this.Parts.First(x => x.Identifier.ID == item.Part.Identifier.ID);
+            //    new object();
+            //}
         }
 
         public void Add(MusicXmlPart part)
@@ -106,6 +93,20 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.Rhythm = rhythm;
             }
             this.Parts.Add(part);
+        }
+    }//class
+
+    public class SectionContext
+    {
+        public List<int> MeasureCount { get; set; }
+
+        public SectionContext(List<int> measureCount)
+        {
+            MeasureCount = measureCount;
+        }
+        public SectionContext(params int[] parms)
+        {
+            MeasureCount = parms.ToList();
         }
     }//class
 

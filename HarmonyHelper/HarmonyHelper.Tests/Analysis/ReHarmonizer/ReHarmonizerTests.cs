@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                 path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
                 var parser = new MusicXmlImporter();
                 var model = parser.Import(path, 1, 2);
-                model.CreateSections(new MusicXmlModel.SectionContext(20, 4));
+                model.CreateSections(new SectionContext(20, 4));
 
                 var sw = Stopwatch.StartNew();
                 new ReHarmonizer().ReHarmonize(model);
