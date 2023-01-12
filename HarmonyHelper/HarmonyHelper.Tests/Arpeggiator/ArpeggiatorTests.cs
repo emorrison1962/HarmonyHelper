@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Eric.Morrison.Harmony.Tests
 {
 	[TestClass()]
-	public partial class ArpeggiatorTests
+	public partial class Arpeggiator_UseCases
 	{
 		[Ignore]
 		[TestMethod()]

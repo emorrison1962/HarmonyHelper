@@ -8,9 +8,9 @@ using static Eric.Morrison.Harmony.Arpeggiator;
 
 namespace Eric.Morrison.Harmony.Tests
 {
-	public partial class ArpeggiatorTests
+	public partial class Arpeggiator_UseCases
 	{
-		void RegisterEventHandlers(Arpeggiator arpeggiator)
+		void RegisterEventHandlersForPrinting(Arpeggiator arpeggiator)
 		{
             arpeggiator.Starting += Arpeggiator_Starting;
             arpeggiator.ChordChanging += Arpeggiator_ChordChanging;

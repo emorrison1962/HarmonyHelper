@@ -10,7 +10,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Tests
 {
-	public partial class ArpeggiatorTests
+	public partial class Arpeggiator_UseCases
 	{
 		[TestMethod()]
 		public void TheCycleTest()
@@ -71,7 +71,7 @@ namespace Eric.Morrison.Harmony.Tests
 					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
 					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure));
 
-			this.RegisterEventHandlers(arpeggiator);
+			this.RegisterEventHandlersForPrinting(arpeggiator);
 			arpeggiator.Arpeggiate();
 
 			new object();
@@ -126,7 +126,7 @@ namespace Eric.Morrison.Harmony.Tests
 		}
 
 		[TestMethod()]
-		public void ii_V_CycleTest()
+		public void ii_V_CycleTest_Bass()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
 
@@ -154,7 +154,17 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						chordType = ChordType.Dominant7th;
 					}
-					root = root + ChordToneInterval.Eleventh;
+					//root = root + ChordToneInterval.Eleventh;
+                    root = root + ChordToneInterval.Perfect4th;
+					if (root.AccidentalCount > 0)
+					{
+						var ee = NoteName.GetEnharmonicEquivalents(root)
+							.OrderBy(x => x.AccidentalCount)
+							.FirstOrDefault(x => 
+								x.AccidentalCount < root.AccidentalCount);
+						root = ee ?? root;
+						new Object();
+					}
 				}
 
 				var formula = ChordFormulaFactory.Create(root, chordType, key);
@@ -181,15 +191,9 @@ namespace Eric.Morrison.Harmony.Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
-			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
-			arpeggiator.Starting += Arpeggiator_Starting;
-			arpeggiator.Ending += Arpeggiator_Ending;
+			this.RegisterEventHandlersForPrinting(arpeggiator);
 
-
-			arpeggiator.Arpeggiate();
+            arpeggiator.Arpeggiate();
 
 			new object();
 		}
