@@ -133,7 +133,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = ChordType.Augmented;
+			ChordType chordType = null;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -154,8 +154,7 @@ namespace Eric.Morrison.Harmony.Tests
 					{
 						chordType = ChordType.Dominant7th;
 					}
-					//root = root + ChordToneInterval.Eleventh;
-                    root = root + ChordToneInterval.Perfect4th;
+                    root += ChordToneInterval.Perfect4th;
 					if (root.AccidentalCount > 0)
 					{
 						var ee = NoteName.GetEnharmonicEquivalents(root)
@@ -163,7 +162,6 @@ namespace Eric.Morrison.Harmony.Tests
 							.FirstOrDefault(x => 
 								x.AccidentalCount < root.AccidentalCount);
 						root = ee ?? root;
-						new Object();
 					}
 				}
 
