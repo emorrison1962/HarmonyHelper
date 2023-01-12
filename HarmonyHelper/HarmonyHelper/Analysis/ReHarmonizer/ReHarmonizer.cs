@@ -23,25 +23,45 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             this.Context = new ReHarmonizerContext(model);
 
-            var newSections = new List<MusicXmlSection>();
+            var listOf_ListOf_NewSections = new List<List<MusicXmlSection>>();
             foreach (var section in model.Sections)
             {
-                var sections = this.GetReharmonized(section);
-                foreach (var section2 in sections)
-                {
-                    newSections.Add(section2);
+                var reharmonizedSections = this.GetReharmonizedSections(section);
+                listOf_ListOf_NewSections.Add(reharmonizedSections);
+            }
+
+            var queue = new CircularMultiQueue
+                <List<MusicXmlSection>, MusicXmlSection>();
+            foreach (var newSection  in listOf_ListOf_NewSections)
+            {
+                queue.Add(newSection, newSection);
+            }
+
+            var count = queue.GetCount();
+            for (int i = 0; i < count; ++i)
+            {
+                foreach (var x in queue)
+                { 
                 }
             }
-            foreach (var newSection in newSections)
+
+
+            for (int i = 0; i < listOf_ListOf_NewSections.Count; ++i)
+            { 
+                var sections = listOf_ListOf_NewSections[i];
+
+            }
+            
+            foreach (var newSection in listOf_ListOf_NewSections)
             {
-                model.Sections.Add(newSection);
+                //model.Sections.Add(newSection);
             }
 
 
             new object();
         }
 
-        List<MusicXmlSection> GetReharmonized(MusicXmlSection section)
+        List<MusicXmlSection> GetReharmonizedSections(MusicXmlSection section)
         {
             var result = new List<MusicXmlSection>();
 
@@ -81,12 +101,12 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                     }//foreach (var pairing in pairings)
                 }//foreach (var measure in measures)
 
-                foreach (var part in section.Parts)
-                {
-                    part.AddRange(newMeasures);
-                    newSection.Parts.Add(part);
-                }
-                result.Add(newSection);
+                //foreach (var part in section.Parts)
+                //{
+                //    part.AddRange(newMeasures);
+                //    newSection.Parts.Add(part);
+                //}
+                //result.Add(newSection);
             }
 
             return result;

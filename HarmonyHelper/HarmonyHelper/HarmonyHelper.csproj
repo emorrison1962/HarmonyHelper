@@ -46,6 +46,7 @@
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordMelodyPairing.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordSubstitutionResults.cs" />
+    <Compile Include="Analysis\ReHarmonizer\CircularMultiQueue.cs" />
     <Compile Include="Interfaces\IChordFormula.cs" />
     <Compile Include="Interfaces\IChordType.cs" />
     <Compile Include="Interfaces\IImplementCopy.cs" />

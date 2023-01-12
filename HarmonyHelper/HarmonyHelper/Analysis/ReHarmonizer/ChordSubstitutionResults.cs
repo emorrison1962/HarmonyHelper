@@ -62,4 +62,5 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             Debug.WriteLine(cmp);
         }
     }//class
+
 }//ns
