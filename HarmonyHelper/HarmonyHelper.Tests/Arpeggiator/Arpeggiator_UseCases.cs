@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
+using System.IO;
 
 namespace Eric.Morrison.Harmony.Tests
 {
@@ -128,7 +129,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void ii_V_CycleTest_Bass()
 		{
-			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.TwelfthPosition);
+			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.EigthPosition);
 
 			var chords = new List<Chord>();
 			NoteName root = null;
@@ -189,11 +190,20 @@ namespace Eric.Morrison.Harmony.Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			this.RegisterEventHandlersForPrinting(arpeggiator);
+			var handlers = new CsvEventHandlers(arpeggiator).Register();
+
+            //this.RegisterEventHandlersForPrinting(arpeggiator);
 
             arpeggiator.Arpeggiate();
+			handlers.Register(false);
 
-			new object();
+			File.WriteAllText(@"c:\temp\csvExport.csv", handlers.Result, Encoding.Unicode);
+			
+            
+
+
+
+            new object();
 		}
 
 		[TestMethod()]
@@ -254,15 +264,10 @@ namespace Eric.Morrison.Harmony.Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
-			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
-			arpeggiator.Starting += Arpeggiator_Starting;
-			arpeggiator.Ending += Arpeggiator_Ending;
+            RegisterEventHandlersForPrinting(arpeggiator);
 
 
-			arpeggiator.Arpeggiate();
+            arpeggiator.Arpeggiate();
 
 			new object();
 		}
@@ -311,13 +316,7 @@ namespace Eric.Morrison.Harmony.Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
-			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
-			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
-			arpeggiator.Starting += Arpeggiator_Starting;
-			arpeggiator.Ending += Arpeggiator_Ending;
-
+			RegisterEventHandlersForPrinting(arpeggiator);
 			arpeggiator.Arpeggiate();
 
 			var noteUsage = this.noteRangeUsageStatistics.NoteUsages.ToList();
