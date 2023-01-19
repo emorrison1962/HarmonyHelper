@@ -1,5 +1,4 @@
 ﻿using Eric.Morrison.Harmony.Chords;
-using Kohoutech.Score;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
