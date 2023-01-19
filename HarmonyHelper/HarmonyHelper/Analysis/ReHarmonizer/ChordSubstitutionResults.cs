@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
+using Eric.Morrison.Harmony.Intervals;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,7 +30,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 var result = this.Substitutions
                     .OrderByDescending(x => x.Value.Count)
                     .Select(x => x.Value.Count)
-                    .First();
+                    .FirstOrDefault();
                 return result;
             }
         }
@@ -42,6 +45,14 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             {
                 ChordSubstitution result = null;
                 var queue = this.Substitutions[cmp];
+
+                Func<ChordSubstitution, ChordMelodyPairing> orderBy = (key) =>   
+                {
+                    return null;
+                };
+
+                var ordered = queue.OrderBy(orderBy).ToList();
+
                 if (queue.Count > 0)
                 {
                     result = queue.Dequeue();
@@ -58,8 +69,11 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         public void Add(ChordMelodyPairing cmp, Queue<ChordSubstitution> queue)
         {
-            this.InternalSubstitutions[cmp] = queue;
-            Debug.WriteLine(cmp);
+            var list = queue.OrderBy(x => x.Original.GetRelationship(x.Substitution.Root));
+            var q = new Queue<ChordSubstitution>(list);
+
+            this.InternalSubstitutions[cmp] = q;
+            //Debug.WriteLine(cmp);
         }
     }//class
 

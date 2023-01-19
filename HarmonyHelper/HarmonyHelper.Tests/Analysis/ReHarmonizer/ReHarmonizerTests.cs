@@ -32,35 +32,48 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                 path = Path.Combine(path, "TEST_FILES");
                 path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
                 var parser = new MusicXmlImporter();
-                var model = parser.Import(path, 1, 2);
-                model.CreateSections(new SectionContext(20, 4));
 
-                var sw = Stopwatch.StartNew();
-                new ReHarmonizer().ReHarmonize(model);
-                model.MergeSections();
-                sw.Stop();
-                Debug.WriteLine(sw.Elapsed.ToString());
-
-                foreach (var part in model.Parts)
+                var sctx = new SectionContext(0, 16, 4);
+                var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P1");
+                using (var model = parser.Import(cctx))
                 {
-                    Debug.WriteLine($"part.Measures.Count= {part.Measures.Count}");
+                    //model.CreateSections(new SectionContext(0, 16, 4));
+
+                    var sw = Stopwatch.StartNew();
+                    new ReHarmonizer().ReHarmonize(model);
+                    //model.MergeSections();
+                    sw.Stop();
+                    Debug.WriteLine(sw.Elapsed.ToString());
+
+                    foreach (var part in model.Parts)
+                    {
+                        Debug.WriteLine($"part.Measures.Count= {part.Measures.Count}");
+                        new object();
+                    }
+
+
+                    foreach (var part in model.Parts)
+                    {
+                        var nMeasures = part.Measures.Count;
+                        foreach (var measure in part.Measures)
+                        {
+                            Debug.WriteLine(measure.MeasureNumber);
+                        }
+                    }
+
+                    var doc = new MusicXmlExporter()
+                        .Export(model);
+
+
+                    //MusicXmlBase.ValidateMusicXmlSchema(doc);
+
+                    var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
+                    filename = "000000-000001.xml";
+                    var folder = @"c:\temp\MusicXml";
+                    var savePath = Path.Combine(folder, filename);
+                    doc.Save(savePath);
                     new object();
                 }
-
-
-
-                var doc = new MusicXmlExporter()
-                    .Export(model);
-
-                //MusicXmlBase.ValidateMusicXmlSchema(doc);
-
-                var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
-                filename = "000000-000001.xml";
-                var folder = @"c:\temp\MusicXml";
-                var savePath = Path.Combine(folder, filename);
-                doc.Save(savePath);
-                new object();
-
             }
             catch (Exception)
             {

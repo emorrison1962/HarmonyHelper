@@ -3,6 +3,7 @@ using Eric.Morrison.Harmony.Chords;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlMeasure : ClassBase
+    public class MusicXmlMeasure : ClassBase, IDisposable
     {
+        private bool disposedValue;
         #region Properties
+        public MusicXmlPart Part { get; private set; } 
         public int _MeasureNumber { get; set; }
         public int MeasureNumber 
         {
@@ -26,12 +29,25 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
-        public bool HasMetadata { get; set; }   
-        public List<TimedEvent<ChordFormula>> Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
-        public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
-        public List<TimedEvent<Rest>> Rests { get; set; } = new List<TimedEvent<Rest>>();
-        public List<TimedEvent<Forward>> Forwards { get; set; } = new List<TimedEvent<Forward>>();
-        public List<TimedEvent<Backup>> Backups { get; set; } = new List<TimedEvent<Backup>>();
+        public bool HasMetadata { get; set; }
+
+        List<TimedEvent<ChordFormula>> _Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
+        List<TimedEvent<Note>> _Notes { get; set; } = new List<TimedEvent<Note>>();
+        List<TimedEvent<Rest>> _Rests { get; set; } = new List<TimedEvent<Rest>>();
+        List<TimedEvent<Forward>> _Forwards { get; set; } = new List<TimedEvent<Forward>>();
+        List<TimedEvent<Backup>> _Backups { get; set; } = new List<TimedEvent<Backup>>();
+
+        public ReadOnlyCollection<TimedEvent<ChordFormula>> Chords 
+        { get { return this._Chords.AsReadOnly(); } }
+        public ReadOnlyCollection<TimedEvent<Note>> Notes
+        { get { return this._Notes.AsReadOnly(); } }
+        public ReadOnlyCollection<TimedEvent<Rest>> Rests
+        { get { return this._Rests.AsReadOnly(); } }
+        public ReadOnlyCollection<TimedEvent<Forward>> Forwards
+        { get { return this._Forwards.AsReadOnly(); } }
+        public ReadOnlyCollection<TimedEvent<Backup>> Backups
+        { get { return this._Backups.AsReadOnly(); } }
+
         public bool HasForwards { get { return this.Forwards.Count > 0; } }
         public bool HasBackups { get { return this.Backups.Count > 0; } }
 
@@ -39,120 +55,90 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Construction
 
-        public MusicXmlMeasure(int measureNumber)
+        public MusicXmlMeasure(MusicXmlPart part, int measureNumber)
         {
+            if (part == null)
+                throw new ArgumentNullException(nameof(part));
+            this.Part = part;
             this.MeasureNumber = measureNumber;
         }
-        public MusicXmlMeasure(int measureNumber,
+        public MusicXmlMeasure(
+            MusicXmlPart part,
+            int measureNumber,
             List<TimedEvent<ChordFormula>> Chords,
             List<TimedEvent<Note>> Notes,
             List<TimedEvent<Rest>> Rests,
             List<TimedEvent<Forward>> Forwards,
             List<TimedEvent<Backup>> Backups)
-            : this(measureNumber)
+            : this(part, measureNumber)
         {
             if (null != Chords)
-                this.Chords = Chords;
+                this.AddRange(Chords);
             if (null != Notes)
-                this.Notes = Notes;
+                this.AddRange(Notes);
             if (null != Rests)
-                this.Rests = Rests;
+                this.AddRange(Rests);
             if (null != Forwards)
-                this.Forwards = Forwards;
+                this.AddRange(Forwards);
             if (null != Backups)
-                this.Backups = Backups; 
+                this.AddRange(Backups); 
         }
         public MusicXmlMeasure(MusicXmlMeasure src)
+            : this(src.Part, src.MeasureNumber)
         {
             this.MeasureNumber = src.MeasureNumber;
-            this.Notes = src.Notes.Select(x => new TimedEvent<Note>(x)).ToList();
-            this.Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList();
-            this.Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
-            this.Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
-            this.Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList();
+            this._Notes = src.Notes.Select(x => new TimedEvent<Note>(x)).ToList();
+            this._Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList();
+            this._Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
+            this._Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
+            this._Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList();
             
             this.Serialization = new XmlSerializationProperties(src.Serialization);
-        }
-
-        [Obsolete("", true)]
-        public void AddOffset(int measureNumber)
-        {
-            //Debug.WriteLine($"{this.MeasureNumber}: {this.MeasureNumber += measureNumber}");
-            this.MeasureNumber += measureNumber;
-            this.Notes.ForEach(x => x.TimeContext
-                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Chords.ForEach(x => x.TimeContext
-                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Rests.ForEach(x => x.TimeContext
-                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Forwards.ForEach(x => x.TimeContext
-                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
-            this.Backups.ForEach(x => x.TimeContext
-                .SetMeasureNumber(x.TimeContext.MeasureNumber + measureNumber));
         }
 
         public void SetMeasureNumber(int measureNumber)
         {
             //Debug.WriteLine($"{this.MeasureNumber}: {this.MeasureNumber += measureNumber}");
             this.MeasureNumber = measureNumber;
-            this.Notes.ForEach(x => x.TimeContext
+            this._Notes.ForEach(x => x.TimeContext
                 .SetMeasureNumber(measureNumber));
-            this.Chords.ForEach(x => x.TimeContext
+            this._Chords.ForEach(x => x.TimeContext
                 .SetMeasureNumber(measureNumber));
-            this.Rests.ForEach(x => x.TimeContext
+            this._Rests.ForEach(x => x.TimeContext
                 .SetMeasureNumber(measureNumber));
-            this.Forwards.ForEach(x => x.TimeContext
+            this._Forwards.ForEach(x => x.TimeContext
                 .SetMeasureNumber(measureNumber));
-            this.Backups.ForEach(x => x.TimeContext
+            this._Backups.ForEach(x => x.TimeContext
                 .SetMeasureNumber(measureNumber));
-        }
-
-
-        [Obsolete("", true)]
-        static public MusicXmlMeasure CreateMergedMeasure(List<MusicXmlMeasure> items)
-        {
-            if (null == items || items.Count == 0)
-                throw new ArgumentNullException("items");
-
-            var chords = items.SelectMany(x => x.Chords
-                .Select(y => y))
-                .ToList();
-            var notes = items.SelectMany(x => x.Notes
-                .Select(y => y))
-                .ToList();
-            var rests = items.SelectMany(x => x.Rests
-                .Select(y => y))
-                .ToList();
-            var forwards = items.SelectMany(x => x.Forwards
-                .Select(y => y))
-                .ToList();
-            var backups = items.SelectMany(x => x.Backups
-                .Select(y => y))
-                .ToList();
-
-            if (forwards.Count > 0 || backups.Count > 0)
-                new object();
-
-            var result = new MusicXmlMeasure(
-                items.First().MeasureNumber,
-                chords.Distinct().ToList(),
-                notes.Distinct().ToList(),
-                rests.Distinct().ToList(),
-                forwards.Distinct().ToList(),
-                backups.Distinct().ToList());
-
-            if (items.Any(x => x.HasMetadata))
-                new object();
-            result.Chords = result.Chords.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
-            result.Notes = result.Notes.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
-            result.Rests = result.Rests.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
-            result.Forwards = result.Forwards.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
-            result.Backups = result.Backups.OrderBy(x => x.TimeContext.AbsoluteStart).ToList();
-
-            return result;
         }
 
         #endregion
+
+        public void AddRange(List<TimedEvent<ChordFormula>> Chords)
+        { 
+            if (this.Part.PartType == PartTypeEnum.Harmony)
+                this._Chords.AddRange(Chords);
+        }
+        public void AddRange(List<TimedEvent<Note>> Notes)
+        {
+            if (this.Part.PartType == PartTypeEnum.Melody)
+                this._Notes.AddRange(Notes);
+        }
+        public void AddRange(List<TimedEvent<Rest>> Rests)
+        {
+            if (this.Part.PartType == PartTypeEnum.Melody)
+                this._Rests.AddRange(Rests);
+        }
+        public void AddRange(List<TimedEvent<Forward>> Forwards) 
+        { 
+            this._Forwards.AddRange(Forwards);
+        }
+        public void AddRange(List<TimedEvent<Backup>> Backups)
+        { 
+            this._Backups.AddRange(Backups);
+        }
+
+
 
         public class Envelope
         {
@@ -185,7 +171,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new List<ChordMelodyPairing>();
             foreach (var chord in harmony.Chords)
             {
-                var notes = melody.Notes.GetIntersecting(chord.TimeContext);
+                var notes = melody.Notes.ToList().GetIntersecting(chord.TimeContext);
                 var pairing = new ChordMelodyPairing(chord,
                     notes.ToList(),
                     chord.TimeContext);
@@ -203,7 +189,30 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .OrderBy(x => x)
                 .ToList();
             var notes = string.Join(",", nns);
-            return $"{nameof(MusicXmlMeasure)}: MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
+            return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
         }
+
+        #region IDisposable
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this.Part = null;
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }//class
 }//ns

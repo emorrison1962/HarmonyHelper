@@ -15,7 +15,7 @@ using Eric.Morrison.Harmony.Rhythm;
 namespace Eric.Morrison.Harmony.MusicXml.Tests
 {
     [TestClass()]
-    public class MusicXmlExport_ExportTests
+    public class MusicXmlExporterTests
     {
         static string TEST_FILES_PATH
         {
@@ -56,7 +56,10 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             Debug.Assert(File.Exists(path));
 
             var parser = new MusicXmlImporter();
-            var result = parser.Import(path, 1, 2);
+
+            var sctx = new SectionContext(2, 16, 4);
+            var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
+            var result = parser.Import(cctx);
 
             return result;
         }

@@ -44,18 +44,19 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-        public MusicXmlModel Import(string filename, int pidMelody, int pidHarmony)
+        public MusicXmlModel Import(MusicXmlModelCreationContext cctx)
         {
-            this.Document = XDocument.Load(filename);
+            this.Document = XDocument.Load(cctx.Path);
 
             //if (!MusicXmlBase.ValidateMusicXmlSchema(this.Document))
             //    throw new NotImplementedException();
 
-            var result = this.ParseImpl(pidMelody, pidHarmony);
+            var result = this.ParseImpl(cctx.PartIdMelody, cctx.PartIdHarmony);
+            result.InitSections(cctx.SectionContext);
             return result;
         }
 
-        MusicXmlModel ParseImpl(int pidMelody, int pidHarmony)
+        MusicXmlModel ParseImpl(string pidMelody, string pidHarmony)
         {
             var metadata = this.ParseScoreMetadata();
             this.ParsingContext.Metadata = metadata;
@@ -80,7 +81,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                         measure = this.ParsePartMetadata(part, xmeasure);
                     }
 
-                    this.ParseMeasure(xmeasure, ref measure);
+                    this.ParseMeasure(part, xmeasure, ref measure);
                     part.Add(measure);
                 }
             }
@@ -122,9 +123,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var pid = pids.First(x => x.ID == partName);
                 
                 var pte = PartTypeEnum.Unknown;
-                if (this.ParsingContext.PartIdHarmony == Int32.Parse(pid.ID.TrimStart('P')))
+                if (this.ParsingContext.PartIdHarmony == pid.ID)
                     pte = PartTypeEnum.Harmony;
-                else if (this.ParsingContext.PartIdMelody == Int32.Parse(pid.ID.TrimStart('P')))
+                else if (this.ParsingContext.PartIdMelody == pid.ID)
                     pte = PartTypeEnum.Melody;
                 var part = new MusicXmlPart(pte, pid, xpart);
 
@@ -139,7 +140,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .FirstOrDefault(x => x.Attribute(XmlConstants.id).Value == part.Identifier.ID);
 
             var measureNumber = Int32.Parse(xmeasure.Attribute(XmlConstants.number).Value);
-            var measure = new MusicXmlMeasure(measureNumber);
+            var measure = new MusicXmlMeasure(part, measureNumber);
             measure.HasMetadata = true;
 
             if (TryParseKeySignature(xmeasure, out var keySignature))
@@ -166,12 +167,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             return measure;
         }
 
-        void ParseMeasure(XElement xmeasure, ref MusicXmlMeasure measure)
+        void ParseMeasure(MusicXmlPart part, XElement xmeasure, ref MusicXmlMeasure measure)
         {
             if (measure == null)
             {
                 var measureNumber = Int32.Parse(xmeasure.Attribute(XmlConstants.number).Value);
-                measure = new MusicXmlMeasure(measureNumber);
+                measure = new MusicXmlMeasure(part, measureNumber);
             }
             this.ParsingContext.CurrentMeasure = measure;
             this.PopulateMeasure(xmeasure, measure);
@@ -223,11 +224,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
             }
 
-            measure.Chords = chords;
-            measure.Notes = notes;
-            measure.Rests = rests;
-            measure.Forwards = forwards;
-            measure.Backups = backups;
+            measure.AddRange(chords);
+            measure.AddRange(notes);
+            measure.AddRange(rests);
+            measure.AddRange(forwards);
+            measure.AddRange(backups);
         }
 
         TimedEvent<Rest> ParseRest(XElement xnote)

@@ -14,7 +14,7 @@ using Eric.Morrison.Harmony.MusicXml;
 namespace Eric.Morrison.Harmony.Tests
 {
     [TestClass()]
-    public class MusicXmlParserTests
+    public class MusicXmlImporterTests
     {
         string TEST_FILES_PATH
         {
@@ -30,15 +30,19 @@ namespace Eric.Morrison.Harmony.Tests
         }
 
         [TestMethod()]
-        public void ParseTest()
+        public void ImportTest()
         {
             var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
 
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
 
+            
             var parser = new MusicXmlImporter();
-            var result = parser.Import(path, 1, 2);
+
+            var sctx = new SectionContext(2, 16, 4);
+            var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
+            var result = parser.Import(cctx);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)

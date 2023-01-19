@@ -88,7 +88,10 @@ namespace Eric.Morrison.Harmony.Intervals
 			else if (this == Interval.AugmentedUnison)
 				result = Interval.DiminishedOctave;
 
-			else if (this == Interval.Minor2nd)
+            else if (this == Interval.Diminished2nd)
+                result = Interval.Augmented7th;
+
+            else if (this == Interval.Minor2nd)
 				result = Interval.Major7th;
 
 			else if (this == Interval.Major2nd)
@@ -148,7 +151,10 @@ namespace Eric.Morrison.Harmony.Intervals
 			else if (this == Interval.Major7th)
 				result = Interval.Minor2nd;
 
-			else if (this == Interval.DiminishedOctave)
+            else if (this == Interval.Augmented7th)
+                result = Interval.Diminished2nd;
+
+            else if (this == Interval.DiminishedOctave)
 				result = Interval.AugmentedUnison;
 
 			else

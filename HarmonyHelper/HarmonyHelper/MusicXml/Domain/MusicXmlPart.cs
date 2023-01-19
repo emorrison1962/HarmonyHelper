@@ -17,8 +17,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         Melody = 1,
         Harmony = 2
     };
-    public class MusicXmlPart
+    public class MusicXmlPart : IDisposable
     {
+        private bool disposedValue;
         #region Properties
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>();
@@ -38,7 +39,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; }
         public int Tempo { get; set; }
-        public List<MusicXmlSection> Sections { get; private set; } = new List<MusicXmlSection>();
+        List<SinglePartSection> _Sections { get; set; } = new List<SinglePartSection>();
+        public ReadOnlyCollection<SinglePartSection> Sections { get { return _Sections.AsReadOnly(); } } 
 
         #endregion
 
@@ -73,42 +75,33 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public void AddRange(IEnumerable<MusicXmlMeasure> measures, bool renumberMeasures = true)
         {
-            if (this._Measures.Any())
-            {
-                //var currentMeasureNumber = this._Measures
-                //    .Select(x => x.MeasureNumber)
-                //    .DefaultIfEmpty(1)
-                //    .LastOrDefault();
-                //Debug.Assert(currentMeasureNumber < 3 * 1000 - 1);
-
-                foreach (var measure in measures)
-                {
-                    var currentMeasureNumber = this._Measures.Count + 1;
-                    measure.SetMeasureNumber(currentMeasureNumber);
-                }
-            }
-
-            var pending = measures.Select(x => x.MeasureNumber).ToList();
-
-            var existing = this._Measures.Where(x => pending.Contains(x.MeasureNumber))
-                .ToList();
-            if (existing.Any())
-            {
-                new object();
-            }
-
             this._Measures.AddRange(measures);
+            this.ResetMeasureNumbers();
         }
 
         public void Add(MusicXmlMeasure measure)
         {
-            var existing = this._Measures.Where(x => x.MeasureNumber == measure.MeasureNumber)
-                .ToList();
-            if (existing.Any())
-            {
-                new object();
-            }
             this._Measures.Add(measure);
+            this.ResetMeasureNumbers();
+        }
+
+        public void Remove(MusicXmlMeasure measure)
+        {
+            this._Measures.Remove(measure);
+            this.ResetMeasureNumbers();
+        }
+
+        public void Add(SinglePartSection section)
+        {
+            this._Sections.Add(section);
+        }
+
+        public void ResetMeasureNumbers()
+        {
+            for (int i = 0; i < this._Measures.Count; ++i)
+            {
+                this._Measures[i]._MeasureNumber = i + 1;
+            }
         }
 
         public override string ToString()
@@ -116,6 +109,37 @@ namespace Eric.Morrison.Harmony.MusicXml
             return $"{nameof(MusicXmlPart)}: {Identifier}";
         }
 
+        #region IDisposable
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    foreach (var section in this._Sections)
+                    {
+                        section.Dispose();
+                    }
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        [Obsolete("", true)]
+        internal void ClearMeasures()
+        {
+            this._Measures.Clear(); 
+        }
+
+        #endregion
     }//class
 
 }//ns
