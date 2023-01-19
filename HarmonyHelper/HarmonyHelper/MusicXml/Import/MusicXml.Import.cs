@@ -51,17 +51,20 @@ namespace Eric.Morrison.Harmony.MusicXml
             //if (!MusicXmlBase.ValidateMusicXmlSchema(this.Document))
             //    throw new NotImplementedException();
 
-            var result = this.ParseImpl(cctx.PartIdMelody, cctx.PartIdHarmony);
+            var result = this.ParseImpl();
+
+            //cctx.PartIdMelody, 
+            //cctx.PartIdHarmony
+
+
             result.InitSections(cctx.SectionContext);
             return result;
         }
 
-        MusicXmlModel ParseImpl(string pidMelody, string pidHarmony)
+        MusicXmlModel ParseImpl()
         {
             var metadata = this.ParseScoreMetadata();
             this.ParsingContext.Metadata = metadata;
-            this.ParsingContext.PartIdMelody= pidMelody;
-            this.ParsingContext.PartIdHarmony= pidHarmony;
 
             var score = this.Document.Elements(XmlConstants.score_partwise).First();
 
@@ -85,7 +88,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     part.Add(measure);
                 }
             }
-            var result = this.CreateParsingResult(metadata, parts);
+            var result = this.CreateMusicXmlModel(metadata, parts);
             return result;
         }
 
@@ -123,10 +126,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var pid = pids.First(x => x.ID == partName);
                 
                 var pte = PartTypeEnum.Unknown;
-                if (this.ParsingContext.PartIdHarmony == pid.ID)
-                    pte = PartTypeEnum.Harmony;
-                else if (this.ParsingContext.PartIdMelody == pid.ID)
-                    pte = PartTypeEnum.Melody;
                 var part = new MusicXmlPart(pte, pid, xpart);
 
                 result.Add(part);
@@ -326,7 +325,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
 
-        MusicXmlModel CreateParsingResult(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
         {
             var result = new MusicXmlModel();
             result.Metadata = metadata;

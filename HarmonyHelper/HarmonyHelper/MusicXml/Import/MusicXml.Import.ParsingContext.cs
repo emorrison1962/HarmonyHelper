@@ -9,8 +9,6 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class ParsingContext
     {
         #region Properties
-        public string PartIdMelody { get; set; }
-        public string PartIdHarmony { get; set; }
         public MusicXmlScoreMetadata Metadata { get; set; }
         public MusicXmlMeasure CurrentMeasure { get; set; }
         public RhythmicContext Rhythm { get; set; } = new RhythmicContext();

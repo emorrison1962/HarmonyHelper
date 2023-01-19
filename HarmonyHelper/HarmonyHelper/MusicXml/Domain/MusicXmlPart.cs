@@ -52,8 +52,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public MusicXmlPart(PartTypeEnum PartType)
         {
-            if (PartType == PartTypeEnum.Unknown)
-                throw new ArgumentOutOfRangeException(nameof(PartType));
             this.PartType = PartType;
         }
         public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
