@@ -286,3 +286,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/HarmonyHelper/HarmonyHelper.Tests/TEST_FILES/Effendi MusicXml Files_exported
