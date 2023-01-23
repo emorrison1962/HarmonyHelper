@@ -35,7 +35,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 
                 var sctx = new SectionContext(0, 16, 4);
                 var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P1");
-                using (var model = parser.Import(cctx))
+                using (var model = parser.Import(path))
                 {
                     //model.CreateSections(new SectionContext(0, 16, 4));
 

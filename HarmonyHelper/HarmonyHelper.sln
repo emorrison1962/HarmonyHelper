@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests.Console
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelper.Tests1", "HarmonyHelper.Tests1\zHarmonyHelper.Tests1.csproj", "{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffendiWebCrawler.console", "EffendiWebCrawler.console\EffendiWebCrawler.console.csproj", "{C6CC4EAB-883B-4789-A552-B5F85F473BEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{2D4A6088-D75B-496F-ABDE-77555E91155A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (xnote.Elements(XmlConstants.tie).Any())
             {
                 var tieType = this.ParseTie(xnote);
-                Debug.WriteLine($"**** tie count = {xnote.Elements(XmlConstants.tie).Count()}");
+                //Debug.WriteLine($"**** tie count = {xnote.Elements(XmlConstants.tie).Count()}");
                 if (tieType == TieTypeEnum.Start || tieType == TieTypeEnum.Stop)
                 {// There can be a start AND a stop.
                     new object();
@@ -46,6 +46,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //{
                 //    new object();
                 //}
+                return result;
             }
 #endif
             if (xnote.Elements(XmlConstants.pitch).Any())
@@ -53,10 +54,16 @@ namespace Eric.Morrison.Harmony.MusicXml
                 hhNote = this.Parse_HarmonyHelper_Note(xnote);
             }
 
+            MusicXmlTimeModification timeModification = null;
+            if (!xnote.Elements(XmlConstants.type).Any())
+            {
+                throw new XmlException($"<{XmlConstants.note}> does not contain required element: <{XmlConstants.type}>");
+                new object();
+            }
             if (xnote.Elements(XmlConstants.type).Any())
             {
                 //duration = this.ParseDuration(xnote);
-                duration = ParseDuration(xnote, out durationEnum);
+                duration = ParseDuration(xnote, out durationEnum, out timeModification);
 
                 start = this.ParsingContext.CurrentOffset;
                 var end = this.ParsingContext.CurrentOffset + duration;
@@ -84,7 +91,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     this.ParsingContext.CurrentOffset += duration;
                 }
-                Debug.Assert(start != end);
             }
 
             bool hasChord = false;
@@ -99,7 +105,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
                 duration,
-                durationEnum);
+                durationEnum,
+                timeModification,
+                xnote);
             result.Serialization.HasChord = hasChord;
 
             if (xnote.Attributes(XmlConstants.attack).Any())

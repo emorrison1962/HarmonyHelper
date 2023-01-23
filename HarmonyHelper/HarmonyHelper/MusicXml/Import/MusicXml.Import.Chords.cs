@@ -15,13 +15,21 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEvent<ChordFormula> ParseChord(XElement harmony, List<TimedEvent<ChordFormula>> existingChords)
         {
 #if false
-      <harmony>
-         <root>
-         <root-step>C</root-step>
-         </root>
-         <kind text="m7">minor-seventh</kind>
-      <offset>240</offset>
-      </harmony>
+<harmony>
+    <root>
+        <root-step>B</root-step>
+    </root>
+    <kind>dominant</kind>
+    <degree>
+        <degree-value>9</degree-value>
+        <degree-alter>1</degree-alter>
+        <degree-type>add</degree-type>
+    </degree>
+    <offset>240</offset>
+</harmony>
+
+
+
 #endif
             var root = harmony.Elements(XmlConstants.root).First();
             var strRoot = this.ParseRoot(root);
@@ -47,7 +55,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                         sibling.Element(XmlConstants.offset).Value);
                 }
             }
-            Debug.Assert(start >= 0);
 
             var duration = end - start;
             var result = TimedEventFactory.Instance.CreateTimedEvent(formula,

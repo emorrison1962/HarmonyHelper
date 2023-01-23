@@ -57,9 +57,9 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
 
             var parser = new MusicXmlImporter();
 
+            var result = parser.Import(path);
             var sctx = new SectionContext(2, 16, 4);
             var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
-            var result = parser.Import(cctx);
 
             return result;
         }
@@ -79,6 +79,47 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             doc.Save(dstPath);
             new object();
         }
+
+        [TestMethod()]
+        public void ImportEffendiMusicXmlFilesTest()
+        {
+            var srcFolder = Path.Combine(TEST_FILES_PATH, "Effendi MusicXml Files");
+            var dstFolder = $"{srcFolder}_exported";
+
+            var files = Directory.GetFiles(srcFolder, "*.xml", SearchOption.AllDirectories)
+                .ToList();
+
+            //files.Clear();
+            //files.Add(@"C:\Dev\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\TEST_FILES\Effendi MusicXml Files\I\dorado 3.xml");
+
+            foreach (var file in files)
+            {
+                Debug.WriteLine(file);
+                var parser = new MusicXmlImporter();
+                try
+                {
+                    var model = parser.Import(file);
+                    Assert.IsNotNull(model.Rhythm);
+
+                    var doc = new MusicXmlExporter().Export(model);
+
+
+                    var dstPath = file.Replace(srcFolder, dstFolder);
+                    if (!Directory.Exists(Path.GetDirectoryName(dstPath)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(dstPath));
+                    Debug.WriteLine(dstPath);
+
+
+                    doc.Save(dstPath);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            new object();
+        }
+
 
     }//class
 

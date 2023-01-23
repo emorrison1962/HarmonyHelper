@@ -15,17 +15,17 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
-        public MusicXmlPart Part { get; private set; } 
+        public MusicXmlPart Part { get; private set; }
         public int _MeasureNumber { get; set; }
-        public int MeasureNumber 
+        public int MeasureNumber
         {
             get { return _MeasureNumber; }
-            set 
+            set
             {
                 Debug.Assert(value < 18 * 1000);
-                Debug.Assert(value > 0);
+                Debug.Assert(value >= 0);
                 _MeasureNumber = value;
-            } 
+            }
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
@@ -37,7 +37,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         List<TimedEvent<Forward>> _Forwards { get; set; } = new List<TimedEvent<Forward>>();
         List<TimedEvent<Backup>> _Backups { get; set; } = new List<TimedEvent<Backup>>();
 
-        public ReadOnlyCollection<TimedEvent<ChordFormula>> Chords 
+        public ReadOnlyCollection<TimedEvent<ChordFormula>> Chords
         { get { return this._Chords.AsReadOnly(); } }
         public ReadOnlyCollection<TimedEvent<Note>> Notes
         { get { return this._Notes.AsReadOnly(); } }
@@ -81,7 +81,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (null != Forwards)
                 this.AddRange(Forwards);
             if (null != Backups)
-                this.AddRange(Backups); 
+                this.AddRange(Backups);
         }
         public MusicXmlMeasure(MusicXmlMeasure src)
             : this(src.Part, src.MeasureNumber)
@@ -92,7 +92,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this._Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
             this._Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
             this._Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList();
-            
+
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
@@ -115,26 +115,23 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         public void AddRange(List<TimedEvent<ChordFormula>> Chords)
-        { 
-            if (this.Part.PartType == PartTypeEnum.Harmony)
-                this._Chords.AddRange(Chords);
+        {
+            this._Chords.AddRange(Chords);
         }
         public void AddRange(List<TimedEvent<Note>> Notes)
         {
-            if (this.Part.PartType == PartTypeEnum.Melody)
-                this._Notes.AddRange(Notes);
+            this._Notes.AddRange(Notes);
         }
         public void AddRange(List<TimedEvent<Rest>> Rests)
         {
-            if (this.Part.PartType == PartTypeEnum.Melody)
-                this._Rests.AddRange(Rests);
+            this._Rests.AddRange(Rests);
         }
-        public void AddRange(List<TimedEvent<Forward>> Forwards) 
-        { 
+        public void AddRange(List<TimedEvent<Forward>> Forwards)
+        {
             this._Forwards.AddRange(Forwards);
         }
         public void AddRange(List<TimedEvent<Backup>> Backups)
-        { 
+        {
             this._Backups.AddRange(Backups);
         }
 

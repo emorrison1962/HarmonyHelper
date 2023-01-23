@@ -13,6 +13,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlClef Clef { get; set; }
         public MusicXmlStaff(MusicXmlClef Clef)
         {
+            if (null == Clef)
+                throw new ArgumentNullException(nameof(Clef));
             this.Clef = Clef;
         }
 
@@ -51,6 +53,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         const string TREBLE_LINE = "2";
         const string BASS_SIGN = "F";
         const string BASS_LINE = "4";
+        const string PERCUSSION_SIGN = "percussion";
+        const string PERCUSSION_LINE = "2";
+
         /// <summary>
         ///     <clef number="1">
         ///        <sign>G</sign>
@@ -86,6 +91,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 sign = BASS_SIGN;
                 line = BASS_LINE;
             }
+            else if (this.ClefType == ClefEnum.Percussion)
+            {
+                sign = PERCUSSION_SIGN;
+                line = PERCUSSION_LINE;
+            }
             else
             {
                 throw new NotImplementedException();
@@ -102,8 +112,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 Int32.TryParse(xclef.Attribute(XmlConstants.number).Value, out clefNumber);
             }
+            
             var sign = xclef.Element(XmlConstants.sign).Value;
-            var line = xclef.Element(XmlConstants.line).Value;
+            string line = null;
+            if (xclef.Elements(XmlConstants.line).Any())
+            {
+                line = xclef.Element(XmlConstants.line).Value;
+            }
+            
             if (TREBLE_SIGN == sign)
             {
                 if (TREBLE_LINE == line)
@@ -116,6 +132,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 if (BASS_LINE == line)
                 {
                     result = new MusicXmlClef(ClefEnum.Bass, clefNumber);
+                }
+            }
+            else if (PERCUSSION_SIGN == sign)
+            {
+                if (PERCUSSION_LINE == line)
+                {
+                    result = new MusicXmlClef(ClefEnum.Percussion, clefNumber);
                 }
             }
             else

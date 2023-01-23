@@ -221,5 +221,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         Unknown = 0,
         Treble = 1 << 1, //G clef
         Bass = 1 << 2,   //F clef
+		Percussion = 1 << 3,
     };
 }//ns

@@ -33,6 +33,7 @@ namespace Eric.Morrison.Harmony.Tests
         public void ImportTest()
         {
             var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
+            //var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.musicxml");
 
             Debug.WriteLine(path);
             Debug.Assert(File.Exists(path));
@@ -40,9 +41,10 @@ namespace Eric.Morrison.Harmony.Tests
             
             var parser = new MusicXmlImporter();
 
-            var sctx = new SectionContext(2, 16, 4);
+            var result = parser.Import(path);
+            var sctx = new SectionContext(0, 16, 4);
             var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
-            var result = parser.Import(cctx);
+            //result.InitSections(cctx.SectionContext);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)
@@ -67,5 +69,33 @@ namespace Eric.Morrison.Harmony.Tests
 
             new object();
         }
-    }
-}
+
+        [TestMethod()]
+        public void ImportEffendiMusicXmlFilesTest()
+        {
+            var folder = Path.Combine(TEST_FILES_PATH, "Effendi MusicXml Files");
+            var files = Directory.GetFiles(folder, "*.xml", SearchOption.AllDirectories)
+                .ToList();
+
+            //files.Clear();
+            //files.Add(@"C:\Dev\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\TEST_FILES\Effendi MusicXml Files\I\dorado 3.xml");
+
+            foreach (var file in files)
+            {
+                Debug.WriteLine(file);
+                var parser = new MusicXmlImporter();
+                try
+                {
+                    var model = parser.Import(file);
+                    Assert.IsNotNull(model.Rhythm);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            new object();
+        }
+
+    }//class
+}//ns

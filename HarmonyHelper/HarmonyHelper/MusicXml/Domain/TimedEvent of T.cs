@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -22,6 +23,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public T Event { get; set; }
         public TimeContext TimeContext { get; set; }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
+        public MusicXmlTimeModification TimeModification { get; set; }
+        public bool HasTimeModification { get { return null == this.TimeModification; } }
 
         #endregion
 
@@ -163,7 +166,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
-            DurationEnum de)
+            DurationEnum de,
+            MusicXmlTimeModification timeModification,
+            XElement xnote)
         {
             Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
@@ -178,6 +183,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Note>(note,
                 time);
+            result.TimeModification = timeModification;
             return result;
         }
         public TimedEvent<Rest> CreateTimedEvent(Rest rest,
@@ -185,9 +191,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
-            DurationEnum de)
+            DurationEnum de,
+            MusicXmlTimeModification timeModification,
+            XElement xnote)
         {
-            Debug.Assert(de != DurationEnum.None);
+            //Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
@@ -200,6 +208,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Rest>(rest,
                 time);
+            result.TimeModification = timeModification;
             return result;
         }
 
@@ -207,7 +216,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int duration)
+            int duration,
+            MusicXmlTimeModification timeModification)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
@@ -220,6 +230,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Forward>(rest,
                 time);
+            result.TimeModification = timeModification;
             return result;
         }
 
@@ -227,7 +238,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             RhythmicContext rhythm,
             int measureNumber,
             int start,
-            int duration)
+            int duration,
+            MusicXmlTimeModification timeModification)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
@@ -240,6 +252,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Backup>(rest,
                 time);
+            result.TimeModification = timeModification;
             return result;
         }
 

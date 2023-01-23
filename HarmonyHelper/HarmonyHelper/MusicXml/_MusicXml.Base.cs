@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 
@@ -21,26 +22,27 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
 
-                var xsd = Helpers.LoadEmbeddedResource("musicxml.xsd");
-                var reader = new StringReader(xsd);
-                var schema = XmlSchema.Read(reader, ValidationEventHandler);
+                var xsd = Helpers.LoadEmbeddedResource("xml.xsd");
+                var textReader = new StringReader(xsd);
+                var schema = XmlSchema.Read(textReader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
                 xsd = Helpers.LoadEmbeddedResource("xlink.xsd");
-                reader = new StringReader(xsd);
-                schema = XmlSchema.Read(reader, ValidationEventHandler);
+                textReader = new StringReader(xsd);
+                schema = XmlSchema.Read(textReader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
-                xsd = Helpers.LoadEmbeddedResource("xml.xsd");
-                reader = new StringReader(xsd);
-                schema = XmlSchema.Read(reader, ValidationEventHandler);
+                xsd = Helpers.LoadEmbeddedResource("musicxml.xsd");
+                textReader = new StringReader(xsd);
+                schema = XmlSchema.Read(textReader, ValidationEventHandler);
                 schemaSet.Add(schema);
 
-                doc.Validate(schemaSet, ValidationEventHandler, true);
+                doc.Validate(schemaSet, ValidationEventHandler);
                 result = true;
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.GetBaseException().Message);
                 result = false;
             }
             return result;
