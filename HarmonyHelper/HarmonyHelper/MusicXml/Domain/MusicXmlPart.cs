@@ -39,12 +39,12 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; }
         public int Tempo { get; set; }
-        List<SinglePartSection> _Sections { get; set; } = new List<SinglePartSection>();
-        public ReadOnlyCollection<SinglePartSection> Sections { get { return _Sections.AsReadOnly(); } } 
+        public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
 
         #endregion
 
         #region Construction
+        [Obsolete("", true)]
         MusicXmlPart(MusicXmlPart part)
         {
             this.PartType = part.PartType;
@@ -53,6 +53,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlPart(PartTypeEnum PartType)
         {
             this.PartType = PartType;
+            this.Sections.Add(new MusicXmlSection(this));
         }
         public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
             : this(PartType)
@@ -64,11 +65,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.XElement = xelement;
         }
-        [Obsolete("", false)]
-        static public MusicXmlPart CloneShallow(MusicXmlPart part)
-        {
-            return new MusicXmlPart(part);
-        }
+
         #endregion
 
         public void AddRange(IEnumerable<MusicXmlMeasure> measures, bool renumberMeasures = true)
@@ -89,9 +86,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
-        public void Add(SinglePartSection section)
+        public void Add(MusicXmlSection section)
         {
-            this._Sections.Add(section);
+            this.Sections.Add(section);
         }
 
         public void ResetMeasureNumbers()
@@ -114,7 +111,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 if (disposing)
                 {
-                    foreach (var section in this._Sections)
+                    foreach (var section in this.Sections)
                     {
                         section.Dispose();
                     }

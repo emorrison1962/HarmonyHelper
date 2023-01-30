@@ -60,15 +60,15 @@
           <Property Name="Project" Value="zHarmonyHelper.Tests" />
           <Rule Match="Any">
             <Rule Match="All">
-              <Property Name="Namespace" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests" />
+              <Property Name="Namespace" Value="Eric.Morrison.Harmony.MusicXml.Tests" />
               <Rule Match="Any">
                 <Rule Match="All">
-                  <Property Name="Class" Value="ReHarmonizerTests" />
+                  <Property Name="Class" Value="MusicXmlExporterTests" />
                   <Rule Match="Any">
                     <Rule Match="All">
-                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests.ReHarmonizerTests.ReHarmonizeTest" />
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Eric.Morrison.Harmony.MusicXml.Tests.MusicXmlExporterTests.ExportEffendiMusicXmlFilesTest" />
                       <Rule Match="Any">
-                        <Property Name="DisplayName" Value="ReHarmonizeTest" />
+                        <Property Name="DisplayName" Value="ExportEffendiMusicXmlFilesTest" />
                       </Rule>
                     </Rule>
                   </Rule>

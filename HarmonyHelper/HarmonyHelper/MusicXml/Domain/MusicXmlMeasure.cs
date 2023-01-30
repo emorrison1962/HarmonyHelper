@@ -1,5 +1,7 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.MusicXml.Domain;
+
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
         public bool HasMetadata { get; set; }
+        public List<MusicXmlBarlineContext> BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
 
         List<TimedEvent<ChordFormula>> _Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
         List<TimedEvent<Note>> _Notes { get; set; } = new List<TimedEvent<Note>>();

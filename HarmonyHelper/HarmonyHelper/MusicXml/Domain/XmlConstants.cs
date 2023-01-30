@@ -25,6 +25,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string backup = "backup";
         
         public const string barline = "barline";
+        public const string barline_location = "location";
+        public const string barline_location_left = "left";
+        public const string barline_location_right = "right";
         public const string bar_style = "bar-style";
 
         public const string bar_style_dashed = "dashed";
@@ -51,6 +54,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string chord = "chord";
         public const string chord_start = "chord_start";
         public const string clef = "clef";
+        public const string coda = "coda";
         public const string degree = "degree";
         public const string degree_value = "degree-value";
         public const string degree_alter = "degree-alter";
@@ -60,6 +64,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string duration = "duration";
 
         public const string ending = "ending";
+        public const string ending_number = "number";
         
         public const string fifths = "fifths";
         public const string forward = "forward";
@@ -88,6 +93,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string score_part = "score-part";
         public const string score_timewise = "score-timewise";
         public const string score_partwise = "score-partwise";
+        public const string segno = "segno";
         public const string sign = "sign";
         public const string sound = "sound";
         public const string staff = "staff";

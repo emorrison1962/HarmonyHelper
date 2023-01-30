@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             this.Context = new ReHarmonizerContext(model);
 
-            var listOf_ListOf_NewSections = new List<List<SinglePartSection>>();
+            var listOf_ListOf_NewSections = new List<List<MusicXmlSection>>();
 
 
             var sectionPairs = (from p in model.Parts
@@ -51,7 +51,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             //}
 
             var multiQueue = new CircularMultiQueue
-                <List<SinglePartSection>, SinglePartSection>();
+                <List<MusicXmlSection>, MusicXmlSection>();
             foreach (var newSection  in listOf_ListOf_NewSections)
             {
                 multiQueue.Add(newSection, newSection);
@@ -72,9 +72,9 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             new object();
         }
 
-        List<SinglePartSection> GetReharmonizedSections(List<SinglePartSection> sectionPairing)
+        List<MusicXmlSection> GetReharmonizedSections(List<MusicXmlSection> sectionPairing)
         {
-            var result = new List<SinglePartSection>();
+            var result = new List<MusicXmlSection>();
 
             var melodyPart = sectionPairing
                 .First(x => x.Part.PartType == PartTypeEnum.Melody);
@@ -118,11 +118,11 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
                 if (newMelodyMeasures.Any() && newHarmonyMeasures.Any())
                 {
-                    var newMelodySection = new SinglePartSection(
+                    var newMelodySection = new MusicXmlSection(
                         newMelodyMeasures.Select(x => x.Part)
                         .First(),
                         newMelodyMeasures);
-                    var newHarmonySection = new SinglePartSection(
+                    var newHarmonySection = new MusicXmlSection(
                         newHarmonyMeasures.Select(x => x.Part)
                         .First(),
                         newHarmonyMeasures);
@@ -209,7 +209,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         }
 
         public List<ChordMelodyMeasurePairing> GetChordMelodyMeasurePairings(
-            List<SinglePartSection> sectionPairing)
+            List<MusicXmlSection> sectionPairing)
         {
             var result = new List<ChordMelodyMeasurePairing>();
 
@@ -243,7 +243,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
 
         public List<ChordMelodyPairing> GetChordMelodyPairings(
-            List<SinglePartSection> sectionPairing)
+            List<MusicXmlSection> sectionPairing)
         {
             var result = new List<ChordMelodyPairing>();
 

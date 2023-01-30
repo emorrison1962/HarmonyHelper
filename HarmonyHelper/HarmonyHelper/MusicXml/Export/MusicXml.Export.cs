@@ -67,25 +67,37 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var xpart = new XElement(XmlConstants.part);
                 xpart.Add(new XAttribute(XmlConstants.id, part.Identifier.ID));
 
-                foreach (var measure in part.Measures)
+                foreach (var section in part.Sections)
                 {
-                    var xmeasure = new XElement(XmlConstants.measure);
-                    xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
-
-                    if (measure.HasMetadata)
+                    foreach (var measure in section.Measures)
                     {
-                        xmeasure = this.GetPartMetadata(part, xmeasure);
-                    }
+                        var xmeasure = new XElement(XmlConstants.measure);
+                        xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
 
-                    var events = measure.GetMergedEvents();
-                    foreach (var @event in events)
-                    {
-                        var ob = (dynamic)@event;
-                        var xevent = this.ToXElement(ob);
-                        xmeasure.Add(xevent);
+                        if (measure.HasMetadata)
+                        {
+                            xmeasure = this.GetPartMetadata(part, xmeasure);
+                        }
+
+                        var events = measure.GetMergedEvents();
+                        foreach (var @event in events)
+                        {
+                            var ob = (dynamic)@event;
+                            var xevent = this.ToXElement(ob);
+                            xmeasure.Add(xevent);
+                        }
+                        if (null != section.RepeatContext)
+                        {
+                            var repeatCtx = section.RepeatContext;
+                            if (repeatCtx.RepeatEnum == Domain.RepeatEnum.Forward)
+                            { //2nd endings, section.Endings, measure.Barline, measure.HasRepeat
+                                throw new NotImplementedException();
+                            }
+                        }
+                        xpart.Add(xmeasure);
                     }
-                    xpart.Add(xmeasure);
                 }
+
                 this.Document.Element(XmlConstants.score_partwise)
                     .Add(xpart);
             }

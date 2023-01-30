@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
+using Eric.Morrison.Harmony.MusicXml.Domain;
 
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
-        public List<SinglePartSection> Sections { get; protected set; }
+        public List<MusicXmlSection> Sections { get; protected set; }
 
         #endregion
 
         #region Construction
-        public MultiPartSection(List<SinglePartSection> Sections)
+        public MultiPartSection(List<MusicXmlSection> Sections)
         {
             this.Sections = Sections;
         }
@@ -55,17 +56,19 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
     }//class
-    public class SinglePartSection : IDisposable
+    public class MusicXmlSection : IDisposable
     {
         private bool disposedValue;
         #region Properties
         public MusicXmlPart Part { get; protected set; }
         public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
+        public MusicXmlRepeatContext RepeatContext { get; set; }
 
         #endregion
 
         #region Construction
-        public SinglePartSection(MusicXmlPart Part, IEnumerable<MusicXmlMeasure> measures)
+        public MusicXmlSection(MusicXmlPart Part, 
+            IEnumerable<MusicXmlMeasure> measures)
         {
             if (null == Part)
                 throw new ArgumentNullException(nameof(Part));
@@ -75,7 +78,31 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Measures = measures.ToList();
         }
 
+        public MusicXmlSection(MusicXmlPart Part,
+            MusicXmlRepeatContext repeatCtx)
+        {
+            if (null == Part)
+                throw new ArgumentNullException(nameof(Part));
+            this.Part = Part;
+            this.RepeatContext = repeatCtx;
+        }
+
+
+        public MusicXmlSection(MusicXmlPart Part)
+        {
+            if (null == Part)
+                throw new ArgumentNullException(nameof(Part));
+            this.Part = Part;
+        }
+
         #endregion
+
+        public void Add(MusicXmlMeasure measure)
+        { 
+            if (null == measure)
+                throw new ArgumentNullException(nameof(measure));
+            this.Measures.Add(measure);
+        }
 
         #region IDisposable
         protected virtual void Dispose(bool disposing)
