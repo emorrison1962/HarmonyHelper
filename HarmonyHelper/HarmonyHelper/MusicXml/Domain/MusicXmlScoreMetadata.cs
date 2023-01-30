@@ -12,6 +12,11 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public string Title { get; set; }
         public KeySignature KeySignature { get; set; }
+
+        public MusicXmlScoreMetadata()
+        {
+
+        }
     }//class
 
     public class MusicXmlMetadata
@@ -19,6 +24,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         public KeySignature KeySignature { get; set; }
         public TimeSignature TimeSignature { get; set; }
         public int PulsesPerMeasure { get; set; }
+
+        MusicXmlMetadata()
+        {
+
+        }
     }
 
 }//ns

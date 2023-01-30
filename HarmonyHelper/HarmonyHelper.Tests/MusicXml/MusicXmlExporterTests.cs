@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
+using Eric.Morrison.Harmony.Tests;
 
 namespace Eric.Morrison.Harmony.MusicXml.Tests
 {
@@ -89,8 +90,9 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             var files = Directory.GetFiles(srcFolder, "*.xml", SearchOption.AllDirectories)
                 .ToList();
 
-            //files.Clear();
-            //files.Add(@"C:\Dev\HarmonyHelper\HarmonyHelper\HarmonyHelper.Tests\TEST_FILES\Effendi MusicXml Files\I\dorado 3.xml");
+            files.Clear();
+            var targetFile = Path.Combine(new string[]{ srcFolder, "I", "630blues.xml"});
+            files.Add(targetFile);
 
             foreach (var file in files)
             {

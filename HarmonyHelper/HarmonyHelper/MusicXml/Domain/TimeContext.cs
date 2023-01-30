@@ -17,6 +17,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         //public int PulsesPerMeasure { get; protected set; }
         public int PulsesPerQuarterNote { get; private set; }
         public int PulsesPerMeasure { get; private set; }
+        public int Tempo { get; private set; }
+
         //{
         //    get
         //    {
@@ -25,7 +27,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         //}
 
         #endregion
-        
+
         #region Construction
         public RhythmicContext()
         {
@@ -63,12 +65,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             return this;
         }
 
+        public RhythmicContext SetTempo(int tempo)
+        {
+            this.Tempo = tempo;
+            return this;
+        }
+
         #endregion
 
-        public int ToInt32(DurationEnum duration)
-        { 
-            throw new NotImplementedException();
-        }
     }
 
     [Flags]

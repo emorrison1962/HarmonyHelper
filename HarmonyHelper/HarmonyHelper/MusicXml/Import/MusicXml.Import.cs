@@ -149,7 +149,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 part.Staves = staves;
 
             if (this.TryParseTempo(xmeasure, out var tempo))
-                part.Tempo = tempo;
+                this.ParsingContext.Rhythm.SetTempo(tempo);
 
 
             TimedEventFactory.Instance.PulsesPerMeasure =

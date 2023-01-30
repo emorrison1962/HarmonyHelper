@@ -38,7 +38,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; }
-        public int Tempo { get; set; }
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
 
         #endregion

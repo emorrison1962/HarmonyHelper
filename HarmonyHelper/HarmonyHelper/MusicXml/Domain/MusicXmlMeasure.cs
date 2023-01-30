@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
 
-        public bool HasMetadata { get; set; }
+        bool HasMetadata { get; set; }
         public List<MusicXmlBarlineContext> BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
 
         List<TimedEvent<ChordFormula>> _Chords { get; set; } = new List<TimedEvent<ChordFormula>>();

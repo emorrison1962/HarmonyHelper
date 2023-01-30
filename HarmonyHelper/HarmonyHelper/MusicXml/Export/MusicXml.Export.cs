@@ -177,7 +177,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
 
             var xsound = new XElement(XmlConstants.sound);
-            var xtempo = new XAttribute(XmlConstants.tempo, part.Tempo);
+            var xtempo = new XAttribute(XmlConstants.tempo, 
+                this.ParsingContext.Rhythm.Tempo);
             xsound.Add(xtempo);
             
             result.Add(xsound);
