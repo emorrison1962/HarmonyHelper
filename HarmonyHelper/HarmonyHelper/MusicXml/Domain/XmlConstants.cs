@@ -23,6 +23,28 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string alter = "alter";
         public const string attack = "attack";
         public const string backup = "backup";
+        
+        public const string barline = "barline";
+        public const string bar_style = "bar-style";
+
+        public const string bar_style_dashed = "dashed";
+        public const string bar_style_dotted = "dotted";
+        public const string bar_style_heavy = "heavy";
+        public const string bar_style_heavy_heavy = "heavy-heavy";
+        public const string bar_style_heavy_light = "heavy-light";
+        public const string bar_style_light_heavy = "light-heavy";
+        public const string bar_style_light_light = "light-light";
+        public const string bar_style_regular = "regular";
+        public const string bar_style_short = "short";
+        public const string bar_style_tick = "tick";
+
+        public const string repeat = "repeat";
+        public const string repeat_backward = "backward";
+        public const string repeat_forward = "forward";
+        public const string repeat_after_jump = "after-jump";
+        public const string repeat_times = "times";
+
+
         public const string beam = "beam";
         public const string beat_type = "beat-type";
         public const string beats = "beats";
@@ -36,6 +58,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string divisions = "divisions";
         public const string dot = "dot";
         public const string duration = "duration";
+
+        public const string ending = "ending";
+        
         public const string fifths = "fifths";
         public const string forward = "forward";
         public const string harmony = "harmony";
