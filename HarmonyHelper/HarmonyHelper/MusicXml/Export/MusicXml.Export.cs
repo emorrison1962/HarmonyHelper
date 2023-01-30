@@ -57,7 +57,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         void ExportImpl(MusicXmlModel model)
         {
             this.Document = new ExportTemplateFactory().Create(model);
-            Debug.Assert(model.Rhythm != null);
             this.ParsingContext.Rhythm = model.Rhythm;
 
             XElement xparts_list = this.ToXElement(model.Parts);
@@ -125,10 +124,23 @@ namespace Eric.Morrison.Harmony.MusicXml
             var xattributes = new XElement(XmlConstants.attributes);
             result.Add(xattributes);
 
-            var xdivisions = new XElement(XmlConstants.divisions, 
-                this.ParsingContext.Rhythm.PulsesPerMeasure /
-                this.ParsingContext.Rhythm.TimeSignature.BeatCount);
-            xattributes.Add(xdivisions);
+            if (null != this.ParsingContext.Rhythm)
+            {
+                var xdivisions = new XElement(XmlConstants.divisions,
+                    this.ParsingContext.Rhythm.PulsesPerMeasure /
+                    this.ParsingContext.Rhythm.TimeSignature.BeatCount);
+                xattributes.Add(xdivisions);
+                var xtime = new XElement(XmlConstants.time);
+
+                var xbeats = new XElement(XmlConstants.beats,
+                    this.ParsingContext.Rhythm.TimeSignature.BeatCount);
+                xtime.Add(xbeats);
+                var xbeat_type = new XElement(XmlConstants.beat_type,
+                    this.ParsingContext.Rhythm.TimeSignature.BeatUnit);
+                xtime.Add(xbeat_type);
+                xattributes.Add(xtime);
+
+            }
 
             var xkey = new XElement(XmlConstants.key);
             var fifths = 0;
@@ -143,16 +155,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             xkey.Add(new XElement(XmlConstants.fifths, fifths));
             xattributes.Add(xkey);
 
-
-            var xtime = new XElement(XmlConstants.time);
-
-            var xbeats = new XElement(XmlConstants.beats,
-                this.ParsingContext.Rhythm.TimeSignature.BeatCount);
-            xtime.Add(xbeats);
-            var xbeat_type = new XElement(XmlConstants.beat_type,
-                this.ParsingContext.Rhythm.TimeSignature.BeatUnit);
-            xtime.Add(xbeat_type);
-            xattributes.Add(xtime);
 
             var xstaves = new XElement(XmlConstants.staves, part.Staves.Count);
             xattributes.Add(xstaves);
@@ -338,6 +340,38 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                     if (!string.IsNullOrEmpty(te.Serialization.Staff))
                         xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
+                }
+
+                if (te.TimeContext.TieType != TieTypeEnum.None)
+                {
+#if false
+        <notations>
+          <tied type="start"/>
+        </notations>
+#endif
+                    var xnotations = new XElement(XmlConstants.notations);
+                    xnote.Add(xnotations);
+                    if (te.TimeContext.TieType == TieTypeEnum.Start)
+                    {
+                        var xtype = new XAttribute(XmlConstants.type, XmlConstants.start);
+                        var xtied = new XElement(XmlConstants.tied, xtype);
+                        xnotations.Add(xtied);
+                    }
+                    if (te.TimeContext.TieType == TieTypeEnum.Stop)
+                    {
+                        var xtype = new XAttribute(XmlConstants.type, XmlConstants.stop);
+                        var xtied = new XElement(XmlConstants.tied, xtype);
+                        xnotations.Add(xtied);
+                    }
+                    if (te.TimeContext.TieType == TieTypeEnum.StartStop)
+                    {
+                        var xtypeStart = new XAttribute(XmlConstants.type, XmlConstants.start);
+                        var xtiedStart = new XElement(XmlConstants.tied, xtypeStart);
+                        xnotations.Add(xtiedStart);
+                        var xtypeStop = new XAttribute(XmlConstants.type, XmlConstants.stop);
+                        var xtiedStop = new XElement(XmlConstants.tied, xtypeStart);
+                        xnotations.Add(xtiedStop);
+                    }
                 }
             }
             new object();

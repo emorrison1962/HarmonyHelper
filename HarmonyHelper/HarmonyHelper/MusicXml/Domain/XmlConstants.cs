@@ -72,7 +72,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string stop = "stop";
         public const string tempo = "tempo";
         public const string text = "text";
-        public const string tie = "tie";
+        const string tie = "tie";
+        public const string tied = "tied";
         public const string time = "time";
         public const string time_modification = "time-modification";
         public const string type = "type";

@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public static partial class XElementExtensions
     {
-        static public TieTypeEnum GetTieType(this XElement note)
+        static public TieTypeEnum GetTieType(this XElement xnote)
         {
 #if false
 <note attack="18">
@@ -17,8 +17,9 @@ namespace Eric.Morrison.Harmony.MusicXml
   <tie type="start" />
 </note>
 #endif
-            var result = TieTypeEnum.Unknown;
-            var ties = note.Descendants(XmlConstants.tie).ToList();
+            var result = TieTypeEnum.None;
+            var ties = xnote.Element(XmlConstants.notations).Elements(XmlConstants.tied).ToList();
+
             if (ties.Count == 1)
             {
                 var attrVal = ties[0].Attribute(XmlConstants.type).Value;

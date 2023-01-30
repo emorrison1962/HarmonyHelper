@@ -136,7 +136,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             else if (PERCUSSION_SIGN == sign)
             {
-                if (PERCUSSION_LINE == line)
+                if (line == null || PERCUSSION_LINE == line)
                 {
                     result = new MusicXmlClef(ClefEnum.Percussion, clefNumber);
                 }

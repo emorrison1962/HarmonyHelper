@@ -210,7 +210,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     [Flags]
     public enum TieTypeEnum
     {
-        Unknown = 0,
+        None = 0,
         Start = 1 << 1,
         Stop = 1 << 2,
         StartStop = 1 << 3,

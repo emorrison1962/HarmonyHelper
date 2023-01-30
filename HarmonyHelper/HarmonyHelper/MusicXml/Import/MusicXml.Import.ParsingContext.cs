@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,18 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Properties
         public MusicXmlScoreMetadata Metadata { get; set; }
         public MusicXmlMeasure CurrentMeasure { get; set; }
-        public RhythmicContext Rhythm { get; set; } = new RhythmicContext();
+        RhythmicContext _Rhythm { get; set; } = new RhythmicContext();
+        public RhythmicContext Rhythm
+        {
+            get 
+            { 
+                return this._Rhythm; 
+            }
+            set
+            {
+                this._Rhythm = value;
+            }
+        }
 
 
         int _CurrentOffset = 0;

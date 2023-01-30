@@ -18,79 +18,34 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             TimedEvent<Note> result = null;
 
-            Note hhNote = null;
-            var durationEnum = DurationEnum.None;
-            int start = 0;
-            int duration = 0;
+            var tieType = this.ParseTie(xnote);
+            var hhNote = this.Parse_HarmonyHelper_Note(xnote);
+            var duration = ParseDuration(xnote, out var durationEnum, out var timeModification);
+            var start = this.ParsingContext.CurrentOffset;
+            var end = this.ParsingContext.CurrentOffset + duration;
 
-
-
-#if true //Ignore tied notes, for now.
-            if (xnote.Elements(XmlConstants.tie).Any())
+            if (this.IsFirstNoteOfChord(xnote))
             {
-                var tieType = this.ParseTie(xnote);
-                //Debug.WriteLine($"**** tie count = {xnote.Elements(XmlConstants.tie).Count()}");
-                if (tieType == TieTypeEnum.Start || tieType == TieTypeEnum.Stop)
-                {// There can be a start AND a stop.
-                    new object();
-                    //var tiedNote = new TiedNoteContext(
-                    //        this, xnote, tieType,
-                    //        this.ParsingContext.CurrentMeasure, this.ParsingContext.CurrentOffset);
-                    //this.ParsingContext.TiedNotes.TryAdd(tiedNote, tiedNote);
-
-                    //tiedNote.TryResolve();
-                }
-                //short circuit processing for tied notes.
-                //return result;
-                //if (TieTypeEnum.Stop == note.GetTieType())
-                //{
-                //    new object();
-                //}
-                return result;
+                this.ParsingContext.ChordTimeContext.Start = start;
+                this.ParsingContext.ChordTimeContext.End = end;
+                this.ParsingContext.ChordTimeContext.FirstNote = result;
             }
-#endif
-            if (xnote.Elements(XmlConstants.pitch).Any())
+            else if (this.IsLastNoteOfChord(xnote))
             {
-                hhNote = this.Parse_HarmonyHelper_Note(xnote);
-            }
-
-            MusicXmlTimeModification timeModification = null;
-            if (!xnote.Elements(XmlConstants.type).Any())
-            {
-                throw new XmlException($"<{XmlConstants.note}> does not contain required element: <{XmlConstants.type}>");
+                start = this.ParsingContext.ChordTimeContext.Start;
+                end = this.ParsingContext.ChordTimeContext.End;
+                this.ParsingContext.ChordTimeContext.Clear();
+                this.ParsingContext.CurrentOffset += duration;
                 new object();
             }
-            if (xnote.Elements(XmlConstants.type).Any())
+            else if (this.IsNoteOfChord(xnote))
             {
-                //duration = this.ParseDuration(xnote);
-                duration = ParseDuration(xnote, out durationEnum, out timeModification);
-
-                start = this.ParsingContext.CurrentOffset;
-                var end = this.ParsingContext.CurrentOffset + duration;
-
-                if (this.IsFirstNoteOfChord(xnote))
-                {
-                    this.ParsingContext.ChordTimeContext.Start = start;
-                    this.ParsingContext.ChordTimeContext.End = end;
-                    this.ParsingContext.ChordTimeContext.FirstNote = result;
-                }
-                else if (this.IsLastNoteOfChord(xnote))
-                {
-                    start = this.ParsingContext.ChordTimeContext.Start;
-                    end = this.ParsingContext.ChordTimeContext.End;
-                    this.ParsingContext.ChordTimeContext.Clear();
-                    this.ParsingContext.CurrentOffset += duration;
-                    new object();
-                }
-                else if (this.IsNoteOfChord(xnote))
-                {
-                    start = this.ParsingContext.ChordTimeContext.Start;
-                    end = this.ParsingContext.ChordTimeContext.End;
-                }
-                else //we're not in a chord.
-                {
-                    this.ParsingContext.CurrentOffset += duration;
-                }
+                start = this.ParsingContext.ChordTimeContext.Start;
+                end = this.ParsingContext.ChordTimeContext.End;
+            }
+            else //we're not in a chord.
+            {
+                this.ParsingContext.CurrentOffset += duration;
             }
 
             bool hasChord = false;
@@ -109,6 +64,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 timeModification,
                 xnote);
             result.Serialization.HasChord = hasChord;
+            result.TimeContext.TieType = tieType;
 
             if (xnote.Attributes(XmlConstants.attack).Any())
                 result.Serialization.Attack = xnote.Attribute(XmlConstants.attack).Value;
@@ -117,14 +73,14 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             if (xnote.Elements(XmlConstants.voice).Any())
                 result.Serialization.Voice = xnote.Element(XmlConstants.voice).Value;
-            
+
             if (xnote.Elements(XmlConstants.staff).Any())
                 result.Serialization.Staff = xnote.Element(XmlConstants.staff).Value;
 
             return result;
         }
 
-        TieTypeEnum ParseTie(XElement note)
+        TieTypeEnum ParseTie(XElement xnote)
         {
 #if false
 <note attack="18">
@@ -132,24 +88,28 @@ namespace Eric.Morrison.Harmony.MusicXml
   <tie type="start" />
 </note>
 #endif
-            var result = TieTypeEnum.Unknown;
-            var ties = note.Descendants(XmlConstants.tie).ToList();
-            if (ties.Count == 1)
+            var result = TieTypeEnum.None;
+            if (xnote.Elements(XmlConstants.notations).Any()
+                && xnote.Element(XmlConstants.notations).Elements(XmlConstants.tied).Any())
             {
-                var attrVal = ties[0].Attribute(XmlConstants.type).Value;
-                if (XmlConstants.start == attrVal)
-                    result = TieTypeEnum.Start;
+                var ties = xnote.Element(XmlConstants.notations).Elements(XmlConstants.tied).ToList();
+                if (ties.Count == 1)
+                {
+                    var attrVal = ties[0].Attribute(XmlConstants.type).Value;
+                    if (XmlConstants.start == attrVal)
+                        result = TieTypeEnum.Start;
+                    else
+                        result = TieTypeEnum.Stop;
+                }
                 else
-                    result = TieTypeEnum.Stop;
-            }
-            else
-            {
-                result = TieTypeEnum.StartStop;
+                {
+                    result = TieTypeEnum.StartStop;
+                }
             }
             return result;
         }
 
-        public Note Parse_HarmonyHelper_Note(XElement note)
+        public Note Parse_HarmonyHelper_Note(XElement xnote)
         {
 #if false
   <pitch>
@@ -159,30 +119,33 @@ namespace Eric.Morrison.Harmony.MusicXml
   </pitch>
 #endif
             Note result = null;
-            var pitch = note.Elements(XmlConstants.pitch).First();
-
-            var strNoteName = pitch.Elements(XmlConstants.step).First().Value;
-            var modifier = pitch.Elements(XmlConstants.alter).FirstOrDefault()?.Value;
-            if (modifier != null)
+            if (xnote.Elements(XmlConstants.pitch).Any())
             {
-                if (modifier == "-1")
-                    strNoteName += "b";
+                var pitch = xnote.Elements(XmlConstants.pitch).First();
+
+                var strNoteName = pitch.Elements(XmlConstants.step).First().Value;
+                var modifier = pitch.Elements(XmlConstants.alter).FirstOrDefault()?.Value;
+                if (modifier != null)
+                {
+                    if (modifier == "-1")
+                        strNoteName += "b";
+                    else
+                        strNoteName += "#";
+                }
+                var octave = (OctaveEnum)Int32.Parse(
+                    pitch.Elements(XmlConstants.octave)
+                    .First()
+                    .Value);
+
+                if (NoteNameParser.TryParse(strNoteName, out var notes, out var msg))
+                {
+                    var nn = notes.First();
+                    result = new Note(nn, octave);
+                }
                 else
-                    strNoteName += "#";
-            }
-            var octave = (OctaveEnum)Int32.Parse(
-                pitch.Elements(XmlConstants.octave)
-                .First()
-                .Value);
-
-            if (NoteNameParser.TryParse(strNoteName, out var notes, out var msg))
-            {
-                var nn = notes.First();
-                result = new Note(nn, octave);
-            }
-            else
-            {
-                throw new ArgumentException(msg);
+                {
+                    throw new ArgumentException(msg);
+                }
             }
             return result;
         }

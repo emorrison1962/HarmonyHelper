@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     [Flags]
     public enum DurationEnum
     {
-        None = 0,
+        Unknown = 0,
         Duration_Maxima = 1 << 1,
         Duration_Long = 1 << 2,
         Duration_Breve = 1 << 3,
@@ -89,6 +89,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         Duration_256th = 1 << 12,
         Duration_512th = 1 << 13,
         Duration_1024th = 1 << 14,
+        None = 1 << 32,
     };
 
     public abstract class DurationStrings
@@ -116,7 +117,16 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>
     {
         #region Properties
-        public RhythmicContext Rhythm { get; private set; }
+        RhythmicContext _Rhythm { get; set; }
+        public RhythmicContext Rhythm
+        {
+            get { return this._Rhythm; }
+            set
+            {
+                this._Rhythm = value;
+                Debug.Assert(null != value);
+            }
+        }
         int _MeasureNumber;
         public int MeasureNumber 
         {
@@ -144,7 +154,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public int RelativeStart { get; private set; }
         public int RelativeEnd { get; private set; }
-        public DurationEnum DurationEnum { get; private set; }
+        public DurationEnum _DurationEnum { get; private set; }
+        public DurationEnum DurationEnum 
+        {
+            get { return this._DurationEnum; }
+            private set 
+            { 
+                this._DurationEnum = value;
+                Debug.Assert(value != DurationEnum.Unknown);
+            } 
+        }
         public int Duration 
         {
             get 
@@ -153,6 +172,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             } 
         }
 
+#if false
         TimeContext TiedPrevious { get; set; }
         TimeContext TiedNext { get; set; }
         public bool IsTieStart 
@@ -185,23 +205,31 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return result;
             }
         }
+#endif
+        public TieTypeEnum TieType { get; set; } = TieTypeEnum.None;
         public bool IsDotted { get; private set; }
 
 
-        #endregion
+#endregion
 
-        #region Construction
+#region Construction
         public class CreationContext
         {
             public int MeasureNumber { get; set; }
-            public RhythmicContext Rhythm { get; set; }
+            RhythmicContext _Rhythm { get; set; }
+            public RhythmicContext Rhythm
+            {
+                get { return this._Rhythm; }
+                set
+                {
+                    this._Rhythm = value;
+                    Debug.Assert(null != value);
+                }
+            }
             public int RelativeStart { get; set; }
             public int RelativeEnd { get; set; }
             public DurationEnum Duration { get; set; }
             public bool IsDotted { get; set; }
-            public TimeContext TiedPrevious { get; set; }
-            public TimeContext TiedNext { get; set; }
-
             public CreationContext() {  }
             public CreationContext(RhythmicContext rhythm) 
             {  
@@ -228,8 +256,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.RelativeStart = ctx.RelativeStart;
             this.RelativeEnd = ctx.RelativeEnd;
             this.DurationEnum = ctx.Duration;
-            this.TiedPrevious= ctx.TiedPrevious;
-            this.TiedNext = ctx.TiedNext;
             this.IsDotted = ctx.IsDotted;    
         }
         public TimeContext(int measure, CreationContext ctx)
@@ -253,9 +279,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-        #endregion
+#endregion
 
-        #region Fluent
+#region Fluent
         public TimeContext SetMeasureNumber(int measureNumber)
         {
             this.MeasureNumber = measureNumber;
@@ -291,9 +317,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 
-        #endregion
+#endregion
 
-        #region Equality
+#region Equality
         public bool Equals(TimeContext other)
         {
             var result = false;
@@ -351,7 +377,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        #endregion
+#endregion
 
         public override string ToString()
         {
@@ -424,6 +450,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                     break;
                 case DurationEnum.Duration_1024th:
                     name = DurationStrings.NoteType_1024th;
+                    break;
+                case DurationEnum.None:
+                    name = string.Empty;
                     break;
                 default:
                     throw new ArgumentException();

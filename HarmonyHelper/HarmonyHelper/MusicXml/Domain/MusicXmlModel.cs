@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         List<MultiPartSection> _Sections { get; set; } = new List<MultiPartSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
-        public RhythmicContext Rhythm { get; set; }
+        RhythmicContext _Rhythm { get; set; }
+        public RhythmicContext Rhythm 
+        {
+            get { return this._Rhythm; }
+            set 
+            {
+                this._Rhythm = value;
+                //Debug.Assert(null != value);
+            } 
+        }
 
         #endregion
 

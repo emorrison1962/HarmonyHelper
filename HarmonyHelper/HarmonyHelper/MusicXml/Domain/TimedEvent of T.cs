@@ -153,7 +153,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
                 RelativeStart = start,
-                RelativeEnd = start + duration
+                RelativeEnd = start + duration,
+                Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
             var result = new TimedEvent<ChordFormula>(formula, 
@@ -170,7 +171,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             MusicXmlTimeModification timeModification,
             XElement xnote)
         {
-            Debug.Assert(de != DurationEnum.None);
+            Debug.Assert(de != DurationEnum.Unknown);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {
@@ -247,7 +248,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
                 RelativeStart = start,
-                RelativeEnd = start + duration
+                RelativeEnd = start + duration,
+                Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
             var result = new TimedEvent<Backup>(rest,
