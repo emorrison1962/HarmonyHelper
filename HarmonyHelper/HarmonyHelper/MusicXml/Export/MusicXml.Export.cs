@@ -56,11 +56,15 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         void ExportImpl(MusicXmlModel model)
         {
-            this.Document = new ExportTemplateFactory().Create(model);
+            this.Document = new XDocument();
+
             this.ParsingContext.Rhythm = model.Rhythm;
 
-            XElement xparts_list = this.ToXElement(model.Parts);
-            this.Document.Element(XmlConstants.score_partwise).Add(xparts_list);
+            this.Document.Add(new XElement(XmlConstants.score_partwise));
+            this.Document.Element(XmlConstants.score_partwise)
+                .Add(model.Metadata.ToXElements());
+            this.Document.Element(XmlConstants.score_partwise)
+                .Add(this.ToXElement(model.Parts));
 
             foreach (var part in model.Parts)
             {
@@ -72,12 +76,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                     foreach (var measure in section.Measures)
                     {
                         var xmeasure = new XElement(XmlConstants.measure);
-                        xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
-
-                        if (measure.HasMetadata)
+                        if (measure == part.Sections.First().Measures.First())
                         {
-                            xmeasure = this.GetPartMetadata(part, xmeasure);
+                            this.GetPartMetadata(part, xmeasure);
                         }
+
+                        xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
 
                         var events = measure.GetMergedEvents();
                         foreach (var @event in events)
@@ -459,6 +463,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
 #endif
         }
+
 
     }//class
 }//ns

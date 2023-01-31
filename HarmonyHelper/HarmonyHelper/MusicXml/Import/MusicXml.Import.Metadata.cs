@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,13 +58,68 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        string ParseTitle()
+        Identification ParseIdentification()
         {
-            var result = string.Empty;
-            if (this.Document.Elements(XmlConstants.work).Elements(XmlConstants.work_title).Any())
+#if false
+   <identification>
+      <creator type="composer">Franz Schubert</creator>
+      <creator type="poet">Wilhelm Müller</creator>
+   </identification>
+#endif
+            var root = this.Document.Element(XmlConstants.score_partwise);
+            var result = new Identification();
+            if (root.Elements(XmlConstants.identification).Any())
             {
-                result = this.Document.Element(XmlConstants.work).Element(XmlConstants.work_title).Value;
+                if (root.Elements(XmlConstants.identification)
+                    .Elements(XmlConstants.creator).Any())
+                {
+                    foreach (var xcreator in root.Elements(XmlConstants.identification)
+                        .Elements(XmlConstants.creator))
+                    {
+                        var role = xcreator.Attribute(XmlConstants.type).Value;
+                        var name = xcreator.Value;
+                        result.Creators.Add(new Creator(role, name));
+                    }
+                }
             }
+
+            return result;
+        }
+
+        Credits ParseCredits()
+        {
+            var result = new Credits();
+#if false
+<score-partwise>
+   <work>
+      <work-number>D. 911</work-number>
+      <work-title>Winterreise</work-title>
+   </work>
+   <movement-number>22</movement-number>
+   <movement-title>Mut</movement-title>
+</score-partwise>
+#endif
+            var root = this.Document.Element(XmlConstants.score_partwise);
+            if (root.Elements(XmlConstants.work).Elements(XmlConstants.work_title).Any())
+            {
+                result.WorkTitle = root.Element(XmlConstants.work).Element(XmlConstants.work_title).Value;
+            }
+
+            if (root.Elements(XmlConstants.work).Elements(XmlConstants.work_number).Any())
+            {
+                result.WorkTitle = root.Element(XmlConstants.work).Element(XmlConstants.work_number).Value;
+            }
+
+            if (root.Elements(XmlConstants.movement_number).Any())
+            {
+                result.MovementNumber = root.Element(XmlConstants.movement_number).Value;
+            }
+
+            if (root.Elements(XmlConstants.movement_title).Any())
+            {
+                result.MovementTitle = root.Element(XmlConstants.movement_title).Value;
+            }
+
             return result;
         }
 

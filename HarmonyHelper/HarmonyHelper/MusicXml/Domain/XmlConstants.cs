@@ -55,6 +55,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string chord_start = "chord_start";
         public const string clef = "clef";
         public const string coda = "coda";
+        public const string creator = "creator";
         public const string degree = "degree";
         public const string degree_value = "degree-value";
         public const string degree_alter = "degree-alter";
@@ -70,10 +71,13 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string forward = "forward";
         public const string harmony = "harmony";
         public const string id = "id";
+        public const string identification = "identification";
         public const string key = "key";
         public const string kind = "kind";
         public const string line = "line";
         public const string measure = "measure";
+        public const string movement_title = "movement-title";
+        public const string movement_number = "movement-number";
         public const string normal_notes = "normal-notes";
         public const string normal_type = "normal-type";
         public const string notations = "notations";
@@ -112,6 +116,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string voice = "voice";
         public const string work = "work";
         public const string work_title = "work-title";
+        public const string work_number = "work-number";
 
     }//class
 

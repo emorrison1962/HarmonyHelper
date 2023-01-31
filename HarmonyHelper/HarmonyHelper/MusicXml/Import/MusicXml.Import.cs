@@ -91,7 +91,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         MusicXmlScoreMetadata ParseScoreMetadata()
         {
             var result = new MusicXmlScoreMetadata();
-            result.Title = this.ParseTitle();
+            result.Credits = this.ParseCredits();
+            result.Identification = this.ParseIdentification();
+            
             return result;
         }
 
@@ -476,6 +478,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = new MusicXmlModel();
             result.Metadata = metadata;
+            result.Rhythm = this.ParsingContext.Rhythm;
             foreach (var part in parts)
             {
                 result.Add(part);

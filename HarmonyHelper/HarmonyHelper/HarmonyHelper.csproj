@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\INoteName.cs" />
     <Compile Include="KeySignature\KeySignature.Catalog.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlBarlineContext.cs" />
+    <Compile Include="MusicXml\Domain\MusicXmlCredits.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlMeasure.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlModel.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlPart.cs" />
