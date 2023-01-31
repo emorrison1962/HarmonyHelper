@@ -93,7 +93,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new MusicXmlScoreMetadata();
             result.Credits = this.ParseCredits();
             result.Identification = this.ParseIdentification();
-            
+
             return result;
         }
 
@@ -173,13 +173,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     result.BarlineContexts.Add(barlineCtx);
                 }
-
-                this.ParseRepeats(xmeasure, out var newSection, out var repeatCtx);
-                if (newSection)
-                {
-                    var section = new MusicXmlSection(part, repeatCtx);
-                    part.Add(section);
-                }
             }
             part.Sections.Last().Add(result);
         }
@@ -239,17 +232,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             measure.AddRange(backups);
         }
 
-        private void ParseRepeats(XElement xmeasure, out bool doubleBarline,
-            out MusicXmlRepeatContext repeatCtx)
+        private MusicXmlRepeatContext ParseRepeats(XElement xmeasure)
         {
-            doubleBarline = false;
-            repeatCtx = null;
+            MusicXmlRepeatContext result = null;
+
             RepeatEnum repeat = RepeatEnum.None;
             int nTimes = 1;
             if (xmeasure.Elements(XmlConstants.barline).Elements(XmlConstants.repeat).Any())
             {
-                var xrepeat = xmeasure.Element(XmlConstants.barline)
-                    .Element(XmlConstants.repeat);
+                var xbarline = xmeasure.Elements(XmlConstants.barline)
+                    .Where(x => null != x.Element(XmlConstants.repeat))
+                    .First();
+                var xrepeat = xbarline.Element(XmlConstants.repeat);
                 var strDirection = xrepeat
                     .Attribute(XmlConstants.repeat_direction).Value;
                 if (strDirection == XmlConstants.repeat_forward)
@@ -281,21 +275,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 repeat = RepeatEnum.Segno;
             }
 
-            if (xmeasure.Elements(XmlConstants.bar_style).Any())
-            {
-                var xbar_style = xmeasure.Element(XmlConstants.bar_style).Value;
-                if (xbar_style == XmlConstants.bar_style_heavy_heavy
-                    || xbar_style == XmlConstants.bar_style_heavy_light
-                    || xbar_style == XmlConstants.bar_style_light_heavy
-                    || xbar_style == XmlConstants.bar_style_light_light)
-                { //double barline. Create a new section.
-                    doubleBarline = true;
-                }
-            }
             if (repeat != RepeatEnum.None)
             {
-                repeatCtx = new MusicXmlRepeatContext(repeat, nTimes);
+                result = new MusicXmlRepeatContext(repeat, nTimes);
             }
+            return result;
         }
 
         private List<MusicXmlBarlineContext> ParseBarlineContexts(XElement xmeasure)
@@ -306,7 +290,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 foreach (var xbarline in xmeasure.Elements(XmlConstants.barline))
                 {
-                    var eBarlineStyle = BarlineStyleEnum.Unknown;
+                    var eBarlineStyle = BarlineStyleEnum.None;
                     if (xbarline.Elements(XmlConstants.bar_style).Any())
                     {
                         var xbarlineStyle = xbarline.Element(XmlConstants.bar_style);
@@ -321,33 +305,42 @@ namespace Eric.Morrison.Harmony.MusicXml
                         else if (strBarlineStyle == XmlConstants.bar_style_light_light)
                             eBarlineStyle = BarlineStyleEnum.Light_Light;
                     }
-                    if (BarlineStyleEnum.Unknown != eBarlineStyle)
+
+                    var ctx = new MusicXmlBarlineContext(eBarlineStyle);
+                    if (xbarline.Attributes(XmlConstants.barline_location).Any())
                     {
-                        var ctx = new MusicXmlBarlineContext(eBarlineStyle);
-                        if (xbarline.Attributes(XmlConstants.barline_location).Any())
-                        {
-                            if (xbarline.Attribute(XmlConstants.barline_location)
-                                .Value == XmlConstants.barline_location_left)
-                                ctx.IsLeft = true;
-                            else
-                                ctx.IsRight = true;
-                        }
-
-                        if (xbarline.Elements(XmlConstants.ending).Any())
-                        {
-                            var xending = xbarline.Element(XmlConstants.ending);
-                            this.ParseEnding(xending);
-                        }
-
-                        result.Add(ctx);
-
+                        if (xbarline.Attribute(XmlConstants.barline_location)
+                            .Value == XmlConstants.barline_location_left)
+                            ctx.IsLeft = true;
+                        else
+                            ctx.IsRight = true;
                     }
+
+                    if (xbarline.Elements(XmlConstants.ending).Any())
+                    {
+                        var xending = xbarline.Element(XmlConstants.ending);
+                        var endings = this.ParseEnding(xending);
+                        foreach (var ending in endings)
+                        {
+                            ctx.Endings.Add(ending);
+                        }
+                        new object();
+                    }
+
+                    if (xbarline.Elements(XmlConstants.repeat).Any())
+                    {
+                        var repeatCtx = this.ParseRepeats(xmeasure);
+                        ctx.RepeatContext = repeatCtx;
+                    }
+
+                    result.Add(ctx);
+
                 }
             }
             return result;
         }
 
-        private void ParseEnding(XElement xending)
+        private List<MusicXmlEnding> ParseEnding(XElement xending)
         {
 #if false
 <ending number="1,2" type="start" default-y="30" end-length="15">1., 2.</ending>
@@ -356,15 +349,37 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 <ending number="3" type="start" default-y="30" end-length="15">3.</ending>
 #endif
-            throw new NotImplementedException();
+            var result = new List<MusicXmlEnding>();
+            var endingNumbers = new List<string>();
             if (xending.Attributes(XmlConstants.ending_number).Any())
-            {
+            {//Split the ending numbers. (<ending number="1,2")
                 var item = xending.Attribute(XmlConstants.ending_number).Value;
                 {
-                    var q = item.Split(new char[] { ',' }, 
-                        StringSplitOptions.RemoveEmptyEntries);
+                    endingNumbers = item.Split(new char[] { ',' },
+                        StringSplitOptions.RemoveEmptyEntries).ToList();
+                }
+
+                foreach (var endingNumber in endingNumbers)
+                {
+                    var eEndingType = EndingTypeEnum.Unknown;
+                    if (xending.Attributes(XmlConstants.ending_type).Any())
+                    {
+                        var strEndingType = xending.Attribute(XmlConstants.ending_type).Value;
+                        if (strEndingType == XmlConstants.ending_type_start)
+                            eEndingType = EndingTypeEnum.Start;
+                        else if (strEndingType == XmlConstants.ending_type_stop)
+                            eEndingType = EndingTypeEnum.Stop;
+                        else if (strEndingType == XmlConstants.ending_type_discontinue)
+                            eEndingType = EndingTypeEnum.Discontinue;
+                    }
+                    result.Add(new MusicXmlEnding(eEndingType, endingNumber));
                 }
             }
+
+
+            //throw new NotImplementedException();
+            new object();
+            return result;
         }
 
         TimedEvent<Rest> ParseRest(XElement xnote)

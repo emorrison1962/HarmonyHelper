@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
                 .ToList();
 
             files.Clear();
-            var targetFile = Path.Combine(new string[]{ srcFolder, "I", "630blues.xml"});
+            var targetFile = Path.Combine(new string[] { srcFolder, "I", "630blues.xml" });
             files.Add(targetFile);
 
             foreach (var file in files)

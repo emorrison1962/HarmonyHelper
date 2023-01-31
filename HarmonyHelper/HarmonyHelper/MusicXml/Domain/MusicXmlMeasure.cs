@@ -10,6 +10,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+
+using static System.Collections.Specialized.BitVector32;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -30,7 +33,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
-
         bool HasMetadata { get; set; }
         public List<MusicXmlBarlineContext> BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
 
@@ -190,6 +192,36 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .ToList();
             var notes = string.Join(",", nns);
             return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
+        }
+
+        public XElement ToXElement()
+        {
+            var result = new XElement(XmlConstants.measure);
+            result.Add(new XAttribute(XmlConstants.number, this.MeasureNumber));
+
+            var events = this.GetMergedEvents();
+            foreach (var @event in events)
+            {
+                var ob = (dynamic)@event;
+                var xevent = ob.ToXElement(ob);
+                result.Add(xevent);
+            }
+
+            if (this.BarlineContexts.Any(x => null != x.RepeatContext))
+            {
+                var ctxs = this.BarlineContexts.Where(x => null != x.RepeatContext);
+                foreach (var ctx in ctxs)
+                {
+                    XElement barline = ctx.ToXElement();
+                    if (ctx.RepeatContext.RepeatEnum == Domain.RepeatEnum.Forward)
+                    { //2nd endings, section.Endings, measure.Barline, measure.HasRepeat
+                        throw new NotImplementedException();
+                    }
+                }
+            }
+
+            throw new NotImplementedException();
+            return result;
         }
 
         #region IDisposable

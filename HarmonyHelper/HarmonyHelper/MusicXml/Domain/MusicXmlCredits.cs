@@ -20,7 +20,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 var xcreator = new XElement(XmlConstants.creator, creator.CreatorName);
                 if (!string.IsNullOrEmpty(creator.CreatorType))
-                    xidentification.Add(new XAttribute(XmlConstants.type, creator.CreatorType));
+                {
+                    xidentification.Add(new XElement(XmlConstants.type, creator.CreatorType));
+                }
                 xidentification.Add(xcreator);
             }
             xidentification.Add(this.GetEncoding());

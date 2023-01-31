@@ -75,6 +75,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     foreach (var measure in section.Measures)
                     {
+                        measure.ToXElement();
                         var xmeasure = new XElement(XmlConstants.measure);
                         if (measure == part.Sections.First().Measures.First())
                         {
@@ -265,6 +266,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             return result;
         }
+        
+        
+        
         public XElement ToXElement(TimedEvent<ChordFormula> te)
         {
 #if false
@@ -277,7 +281,7 @@ namespace Eric.Morrison.Harmony.MusicXml
       </harmony>
 #endif
             var harmony = new XElement(XmlConstants.harmony);
-            var root = ToRoot(te);
+            var root = this.ToRoot(te);
             harmony.Add(root);
 
             var elems = te.Event.ChordType.ToXElements();

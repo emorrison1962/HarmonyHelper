@@ -67,7 +67,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public const string ending = "ending";
         public const string ending_number = "number";
-        
+        public const string ending_type = "type";
+        public const string ending_type_start = "start";
+        public const string ending_type_stop = "stop";
+        public const string ending_type_discontinue = "discontinue";
+
         public const string fifths = "fifths";
         public const string forward = "forward";
         public const string harmony = "harmony";
