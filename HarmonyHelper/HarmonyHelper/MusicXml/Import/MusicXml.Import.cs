@@ -246,17 +246,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             repeatCtx = null;
             RepeatEnum repeat = RepeatEnum.None;
             int nTimes = 1;
-            if (xmeasure.Elements(XmlConstants.repeat).Any())
+            if (xmeasure.Elements(XmlConstants.barline).Elements(XmlConstants.repeat).Any())
             {
-                var xrepeat = xmeasure.Element(XmlConstants.repeat);
-                if (xrepeat.Attributes(XmlConstants.repeat_forward).Any())
+                var xrepeat = xmeasure.Element(XmlConstants.barline)
+                    .Element(XmlConstants.repeat);
+                var strDirection = xrepeat
+                    .Attribute(XmlConstants.repeat_direction).Value;
+                if (strDirection == XmlConstants.repeat_forward)
                 {
-                    xrepeat.Attribute(XmlConstants.repeat_forward);
                     repeat = RepeatEnum.Forward;
                 }
-                else if (xrepeat.Attributes(XmlConstants.repeat_backward).Any())
+                else if (strDirection == XmlConstants.repeat_backward)
                 {
-                    xrepeat.Attribute(XmlConstants.repeat_backward);
                     repeat = RepeatEnum.Backward;
                     if (xrepeat.Attributes(XmlConstants.repeat_after_jump).Any())
                     {
@@ -301,38 +302,40 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = new List<MusicXmlBarlineContext>();
 
-            if (xmeasure.Elements(XmlConstants.barline)
-                .Elements(XmlConstants.bar_style).Any())
+            if (xmeasure.Elements(XmlConstants.barline).Any())
             {
-                foreach (var element in xmeasure.Element(XmlConstants.barline)
-                    .Elements(XmlConstants.bar_style))
+                foreach (var xbarline in xmeasure.Elements(XmlConstants.barline))
                 {
-                    var barlineStyle = BarlineStyleEnum.Unknown;
-                    var xbar_style = element.Value;
-                    if (xbar_style == XmlConstants.bar_style_heavy_heavy)
-                        barlineStyle = BarlineStyleEnum.Heavy_Heavy;
-                    else if (xbar_style == XmlConstants.bar_style_heavy_light)
-                        barlineStyle = BarlineStyleEnum.Heavy_Light;
-                    else if (xbar_style == XmlConstants.bar_style_light_heavy)
-                        barlineStyle = BarlineStyleEnum.Light_Heavy;
-                    else if (xbar_style == XmlConstants.bar_style_light_light)
-                        barlineStyle = BarlineStyleEnum.Light_Light;
-
-                    if (BarlineStyleEnum.Unknown != barlineStyle)
+                    var eBarlineStyle = BarlineStyleEnum.Unknown;
+                    if (xbarline.Elements(XmlConstants.bar_style).Any())
                     {
-                        var ctx = new MusicXmlBarlineContext(barlineStyle);
-                        if (element.Attributes(XmlConstants.barline_location).Any())
+                        var xbarlineStyle = xbarline.Element(XmlConstants.bar_style);
+                        var strBarlineStyle = xbarlineStyle.Value;
+
+                        if (strBarlineStyle == XmlConstants.bar_style_heavy_heavy)
+                            eBarlineStyle = BarlineStyleEnum.Heavy_Heavy;
+                        else if (strBarlineStyle == XmlConstants.bar_style_heavy_light)
+                            eBarlineStyle = BarlineStyleEnum.Heavy_Light;
+                        else if (strBarlineStyle == XmlConstants.bar_style_light_heavy)
+                            eBarlineStyle = BarlineStyleEnum.Light_Heavy;
+                        else if (strBarlineStyle == XmlConstants.bar_style_light_light)
+                            eBarlineStyle = BarlineStyleEnum.Light_Light;
+                    }
+                    if (BarlineStyleEnum.Unknown != eBarlineStyle)
+                    {
+                        var ctx = new MusicXmlBarlineContext(eBarlineStyle);
+                        if (xbarline.Attributes(XmlConstants.barline_location).Any())
                         {
-                            if (element.Attribute(XmlConstants.barline_location)
+                            if (xbarline.Attribute(XmlConstants.barline_location)
                                 .Value == XmlConstants.barline_location_left)
                                 ctx.IsLeft = true;
                             else
                                 ctx.IsRight = true;
                         }
 
-                        if (element.Elements(XmlConstants.ending).Any())
+                        if (xbarline.Elements(XmlConstants.ending).Any())
                         {
-                            var xending = element.Element(XmlConstants.ending);
+                            var xending = xbarline.Element(XmlConstants.ending);
                             this.ParseEnding(xending);
                         }
 

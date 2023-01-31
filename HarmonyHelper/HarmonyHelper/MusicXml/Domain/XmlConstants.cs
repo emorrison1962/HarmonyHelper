@@ -42,6 +42,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string bar_style_tick = "tick";
 
         public const string repeat = "repeat";
+        public const string repeat_direction = "direction";
         public const string repeat_backward = "backward";
         public const string repeat_forward = "forward";
         public const string repeat_after_jump = "after-jump";
