@@ -29,8 +29,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<XElement> ToXElements ()
         {
             var result = new List<XElement>();
-            result.Add(this.Identification.ToXElement());
             result.AddRange(this.Credits.ToXElements());
+            result.Add(this.Identification.ToXElement());
 
             return result;
         }

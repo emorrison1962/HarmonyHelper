@@ -15,13 +15,17 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public XElement ToXElement()
         {
+#if false
+    <creator type="composer">Ivan "Boogaloo" Joe Jones
+Arr. 6EQUJ5</creator>
+#endif
             var xidentification = new XElement(XmlConstants.identification);
             foreach (var creator in this.Creators)
             {
                 var xcreator = new XElement(XmlConstants.creator, creator.CreatorName);
                 if (!string.IsNullOrEmpty(creator.CreatorType))
                 {
-                    xidentification.Add(new XElement(XmlConstants.type, creator.CreatorType));
+                    xcreator.Add(new XAttribute(XmlConstants.type, creator.CreatorType));
                 }
                 xidentification.Add(xcreator);
             }

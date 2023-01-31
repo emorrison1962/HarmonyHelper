@@ -143,10 +143,32 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             if (null != this.ParsingContext.Rhythm)
             {
+                #region divisions
                 var xdivisions = new XElement(XmlConstants.divisions,
-                    this.ParsingContext.Rhythm.PulsesPerMeasure /
-                    this.ParsingContext.Rhythm.TimeSignature.BeatCount);
+            this.ParsingContext.Rhythm.PulsesPerMeasure /
+            this.ParsingContext.Rhythm.TimeSignature.BeatCount);
                 xattributes.Add(xdivisions);
+
+                #endregion
+                
+                #region key
+                var xkey = new XElement(XmlConstants.key);
+                var fifths = 0;
+                if (part.KeySignature.UsesFlats)
+                {
+                    fifths = -part.KeySignature.AccidentalCount;
+                }
+                else
+                {
+                    fifths = part.KeySignature.AccidentalCount;
+                }
+                xkey.Add(new XElement(XmlConstants.fifths, fifths));
+                xattributes.Add(xkey);
+
+                #endregion
+
+                #region time
+
                 var xtime = new XElement(XmlConstants.time);
 
                 var xbeats = new XElement(XmlConstants.beats,
@@ -157,36 +179,32 @@ namespace Eric.Morrison.Harmony.MusicXml
                 xtime.Add(xbeat_type);
                 xattributes.Add(xtime);
 
+                #endregion
             }
 
-            var xkey = new XElement(XmlConstants.key);
-            var fifths = 0;
-            if (part.KeySignature.UsesFlats)
-            {
-                fifths = -part.KeySignature.AccidentalCount;
-            }
-            else
-            {
-                fifths = part.KeySignature.AccidentalCount;
-            }
-            xkey.Add(new XElement(XmlConstants.fifths, fifths));
-            xattributes.Add(xkey);
-
-
+            #region staves
             var xstaves = new XElement(XmlConstants.staves, part.Staves.Count);
             xattributes.Add(xstaves);
 
+            #endregion
+
+            #region clefs
             foreach (var staff in part.Staves)
             {
                 xattributes.Add(staff.Clef.ToXml());
             }
 
+            #endregion
+
+            #region tempo
             var xsound = new XElement(XmlConstants.sound);
-            var xtempo = new XAttribute(XmlConstants.tempo, 
+            var xtempo = new XAttribute(XmlConstants.tempo,
                 this.ParsingContext.Rhythm.Tempo);
             xsound.Add(xtempo);
-            
+
             result.Add(xsound);
+
+            #endregion
 
             return result;
         }

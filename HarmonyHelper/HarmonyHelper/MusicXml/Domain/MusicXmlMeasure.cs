@@ -151,9 +151,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        public List<IHasTimeContext> GetMergedEvents()
+        public List<TimedEventBase> GetMergedEvents()
         {
-            var result = new List<IHasTimeContext>();
+            var result = new List<TimedEventBase>();
 
             result.AddRange(this.Chords);
             result.AddRange(this.Notes);
@@ -202,8 +202,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             var events = this.GetMergedEvents();
             foreach (var @event in events)
             {
-                var ob = (dynamic)@event;
-                var xevent = ob.ToXElement(ob);
+                //var ob = (dynamic)@event;
+                var xevent = @event.ToXElement();
                 result.Add(xevent);
             }
 
@@ -212,15 +212,19 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var ctxs = this.BarlineContexts.Where(x => null != x.RepeatContext);
                 foreach (var ctx in ctxs)
                 {
-                    XElement barline = ctx.ToXElement();
+                    XElement xbarline = ctx.ToXElement();
                     if (ctx.RepeatContext.RepeatEnum == Domain.RepeatEnum.Forward)
                     { //2nd endings, section.Endings, measure.Barline, measure.HasRepeat
-                        throw new NotImplementedException();
+                        xbarline.Add(ctx.RepeatContext.ToXElement());
+                        if (ctx.RepeatContext.RepeatCount > 1)
+                        {
+                            throw new NotImplementedException();
+                        }
                     }
+                    result.Add(xbarline);
                 }
             }
 
-            throw new NotImplementedException();
             return result;
         }
 

@@ -70,7 +70,6 @@
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventNote.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventChordFormula.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\_TimedEventBase.cs" />
-    <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
     <Compile Include="MusicXml\Extensions.cs" />
     <Compile Include="MusicXml\Import\MusicXml.Import.Metadata.cs" />
     <Compile Include="MusicXml\Import\MusicXml.Import.Notes.cs" />

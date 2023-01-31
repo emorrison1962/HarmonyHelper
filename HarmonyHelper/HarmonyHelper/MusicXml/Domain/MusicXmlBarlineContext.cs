@@ -66,7 +66,6 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
                 result.Add(ending.ToXElement());
             }
 
-            throw new NotImplementedException();
             return result;
         }
 
