@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony
             }
         }
 
-        static public List<KeySignature> GetKeys(TimedEvent<ChordFormula> chord)
+        static public List<KeySignature> GetKeys(TimedEventChordFormula chord)
         {
             return GetKeys(chord.Event);
         }

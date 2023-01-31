@@ -10,15 +10,15 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 {
     public class ChordMelodyPairing : IEquatable<ChordMelodyPairing>
     {
-        public TimedEvent<ChordFormula> Chord { get; set; }
-        public List<TimedEvent<Note>> Notes { get; set; } = new List<TimedEvent<Note>>();
+        public TimedEventChordFormula Chord { get; set; }
+        public List<TimedEventNote> Notes { get; set; } = new List<TimedEventNote>();
         public ChordFormula Formula { get; set; }
         public List<NoteName> Melody { get; set; } = new List<NoteName>();
         public int MelodyBitMask { get; set; } 
         public TimeContext TimeContext { get; set; }
 
-        public ChordMelodyPairing(TimedEvent<ChordFormula> Chord,
-            List<TimedEvent<Note>> Notes, TimeContext TimeContext)
+        public ChordMelodyPairing(TimedEventChordFormula Chord,
+            List<TimedEventNote> Notes, TimeContext TimeContext)
         {
             this.Chord = Chord;
             this.Notes = Notes;

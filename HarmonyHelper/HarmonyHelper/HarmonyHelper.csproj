@@ -64,6 +64,12 @@
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />
     <Compile Include="MusicXml\Domain\TimeContext.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventBackup.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventForward.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventRest.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventNote.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventChordFormula.cs" />
+    <Compile Include="MusicXml\Domain\_TimedEventBase.cs" />
     <Compile Include="MusicXml\Domain\TimedEvent of T.cs" />
     <Compile Include="MusicXml\Extensions.cs" />
     <Compile Include="MusicXml\Import\MusicXml.Import.Metadata.cs" />
