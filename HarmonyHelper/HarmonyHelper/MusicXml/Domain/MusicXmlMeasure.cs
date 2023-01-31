@@ -36,21 +36,21 @@ namespace Eric.Morrison.Harmony.MusicXml
         bool HasMetadata { get; set; }
         public List<MusicXmlBarlineContext> BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
 
-        List<TimedEvent<ChordFormula>> _Chords { get; set; } = new List<TimedEvent<ChordFormula>>();
-        List<TimedEvent<Note>> _Notes { get; set; } = new List<TimedEvent<Note>>();
-        List<TimedEvent<Rest>> _Rests { get; set; } = new List<TimedEvent<Rest>>();
-        List<TimedEvent<Forward>> _Forwards { get; set; } = new List<TimedEvent<Forward>>();
-        List<TimedEvent<Backup>> _Backups { get; set; } = new List<TimedEvent<Backup>>();
+        List<TimedEventChordFormula> _Chords { get; set; } = new List<TimedEventChordFormula>();
+        List<TimedEventNote> _Notes { get; set; } = new List<TimedEventNote>();
+        List<TimedEventRest> _Rests { get; set; } = new List<TimedEventRest>();
+        List<TimedEventForward> _Forwards { get; set; } = new List<TimedEventForward>();
+        List<TimedEventBackup> _Backups { get; set; } = new List<TimedEventBackup>();
 
-        public ReadOnlyCollection<TimedEvent<ChordFormula>> Chords
+        public ReadOnlyCollection<TimedEventChordFormula> Chords
         { get { return this._Chords.AsReadOnly(); } }
-        public ReadOnlyCollection<TimedEvent<Note>> Notes
+        public ReadOnlyCollection<TimedEventNote> Notes
         { get { return this._Notes.AsReadOnly(); } }
-        public ReadOnlyCollection<TimedEvent<Rest>> Rests
+        public ReadOnlyCollection<TimedEventRest> Rests
         { get { return this._Rests.AsReadOnly(); } }
-        public ReadOnlyCollection<TimedEvent<Forward>> Forwards
+        public ReadOnlyCollection<TimedEventForward> Forwards
         { get { return this._Forwards.AsReadOnly(); } }
-        public ReadOnlyCollection<TimedEvent<Backup>> Backups
+        public ReadOnlyCollection<TimedEventBackup> Backups
         { get { return this._Backups.AsReadOnly(); } }
 
         public bool HasForwards { get { return this.Forwards.Count > 0; } }
@@ -70,11 +70,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlMeasure(
             MusicXmlPart part,
             int measureNumber,
-            List<TimedEvent<ChordFormula>> Chords,
-            List<TimedEvent<Note>> Notes,
-            List<TimedEvent<Rest>> Rests,
-            List<TimedEvent<Forward>> Forwards,
-            List<TimedEvent<Backup>> Backups)
+            List<TimedEventChordFormula> Chords,
+            List<TimedEventNote> Notes,
+            List<TimedEventRest> Rests,
+            List<TimedEventForward> Forwards,
+            List<TimedEventBackup> Backups)
             : this(part, measureNumber)
         {
             if (null != Chords)
@@ -92,11 +92,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             : this(src.Part, src.MeasureNumber)
         {
             this.MeasureNumber = src.MeasureNumber;
-            this._Notes = src.Notes.Select(x => new TimedEvent<Note>(x)).ToList();
-            this._Chords = src.Chords.Select(x => new TimedEvent<ChordFormula>(x)).ToList();
-            this._Rests = src.Rests.Select(x => new TimedEvent<Rest>(x)).ToList();
-            this._Forwards = src.Forwards.Select(x => new TimedEvent<Forward>(x)).ToList();
-            this._Backups = src.Backups.Select(x => new TimedEvent<Backup>(x)).ToList();
+            this._Notes = src.Notes.Select(x => new TimedEventNote(x)).ToList();
+            this._Chords = src.Chords.Select(x => new TimedEventChordFormula(x)).ToList();
+            this._Rests = src.Rests.Select(x => new TimedEventRest(x)).ToList();
+            this._Forwards = src.Forwards.Select(x => new TimedEventForward(x)).ToList();
+            this._Backups = src.Backups.Select(x => new TimedEventBackup(x)).ToList();
 
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
@@ -119,23 +119,23 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public void AddRange(List<TimedEvent<ChordFormula>> Chords)
+        public void AddRange(List<TimedEventChordFormula> Chords)
         {
             this._Chords.AddRange(Chords);
         }
-        public void AddRange(List<TimedEvent<Note>> Notes)
+        public void AddRange(List<TimedEventNote> Notes)
         {
             this._Notes.AddRange(Notes);
         }
-        public void AddRange(List<TimedEvent<Rest>> Rests)
+        public void AddRange(List<TimedEventRest> Rests)
         {
             this._Rests.AddRange(Rests);
         }
-        public void AddRange(List<TimedEvent<Forward>> Forwards)
+        public void AddRange(List<TimedEventForward> Forwards)
         {
             this._Forwards.AddRange(Forwards);
         }
-        public void AddRange(List<TimedEvent<Backup>> Backups)
+        public void AddRange(List<TimedEventBackup> Backups)
         {
             this._Backups.AddRange(Backups);
         }

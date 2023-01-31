@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         [Obsolete("Do we need this?")]
-        public List<TimedEvent<ChordFormula>> Get(TimeContext time)
+        public List<TimedEventChordFormula> Get(TimeContext time)
         {
             var result = this.Parts
                 .SelectMany(p => p.Measures.Where(x => x.MeasureNumber == time.MeasureNumber)

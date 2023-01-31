@@ -112,9 +112,9 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             var ts3 = t3e - t3s;
 
 
-            var te1 = new TimedEvent<Note>(n1, t1s, ts1);
-            var te2 = new TimedEvent<Note>(n2, t2s, ts2);
-            var te3 = new TimedEvent<Note>(n3, t3s, ts3);
+            var te1 = new TimedEventNote(n1, t1s, ts1);
+            var te2 = new TimedEventNote(n2, t2s, ts2);
+            var te3 = new TimedEventNote(n3, t3s, ts3);
 
         }
 
@@ -128,7 +128,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             {
             }
 
-            public TestMeasure(int measureNumber, List<TimedEvent<ChordFormula>> Chords, List<TimedEvent<Note>> Notes, List<TimedEvent<Rest>> Rests, List<TimedEvent<Forward>> Forwards, List<TimedEvent<Backup>> Backups) : base(measureNumber, Chords, Notes, Rests, Forwards, Backups)
+            public TestMeasure(int measureNumber, List<TimedEventChordFormula> Chords, List<TimedEventNote> Notes, List<TimedEventRest> Rests, List<TimedEventForward> Forwards, List<TimedEventBackup> Backups) : base(measureNumber, Chords, Notes, Rests, Forwards, Backups)
             {
             }
             public RhythmicContext RhythmicContext { get; set; }

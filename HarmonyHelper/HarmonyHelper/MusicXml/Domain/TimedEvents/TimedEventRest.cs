@@ -10,11 +10,11 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    abstract public class TimedEventRest : TimedEventBase, IHasTimeContext, IEquatable<TimedEventRest>, IComparable<TimedEventRest>
+    public class TimedEventRest : TimedEventBase, IHasTimeContext, IEquatable<TimedEventRest>, IComparable<TimedEventRest>
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
-        public Note Event { get; set; }
+        public Rest Event { get; set; }
 
         #endregion
 
@@ -26,9 +26,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventRest(TimeContext ctx)
+        public TimedEventRest(Rest rest, TimeContext ctx)
             : base(ctx)
         {
+            this.Event = rest;
             this.TimeContext = ctx;
         }
 
@@ -36,7 +37,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Serialization
 
-        public XElement ToXElement()
+        override public XElement ToXElement()
         {
 #if false
       <note>

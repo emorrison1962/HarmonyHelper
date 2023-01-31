@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Serialization
 
-        public XElement ToRoot(TimedEvent<ChordFormula> te)
+        public XElement ToRoot(TimedEventChordFormula te)
         {
 #if false
   <root>
@@ -78,8 +78,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             return root;
         }
 
-        public XElement ToXElement<TE>(TimedEvent<ChordFormula> te)
-            where TE: TimedEvent<ChordFormula>
+        public XElement ToXElement<TE>(TimedEventChordFormula te)
+            where TE: TimedEventChordFormula
         {
 #if false
       <harmony>
@@ -126,8 +126,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         ///      </note>
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public XElement ToXElement<TE>(TimedEvent<Note> te)
-            where TE: TimedEvent<Note> 
+        public XElement ToXElement<TE>(TimedEventNote te)
+            where TE: TimedEventNote 
         {
             var nn = te.Event.NoteName;
             var note = te.Event;
@@ -209,8 +209,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             new object();
             return xnote;
         }
-        public XElement ToXElement<TE>(TimedEvent<Rest> te)
-            where TE: TimedEvent<Rest> 
+        public XElement ToXElement<TE>(TimedEventRest te)
+            where TE: TimedEventRest 
         {
 #if false
       <note>
@@ -241,8 +241,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xnote;
         }
 
-        public XElement ToXElement<TE>(TimedEvent<Forward> te)
-            where TE: TimedEvent<Forward>
+        public XElement ToXElement<TE>(TimedEventForward te)
+            where TE: TimedEventForward
         {
             var rest = te.Event;
             var time = te.TimeContext;
@@ -253,8 +253,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xforward;
         }
 
-        public XElement ToXElement<TE>(TimedEvent<Backup> te)
-            where TE: TimedEvent<Backup>
+        public XElement ToXElement<TE>(TimedEventBackup te)
+            where TE: TimedEventBackup
         {
             var rest = te.Event;
             var time = te.TimeContext;
@@ -380,7 +380,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         TimedEventFactory() { }
 
-        public TimedEvent<ChordFormula> CreateTimedEvent(ChordFormula formula,
+        public TimedEventChordFormula CreateTimedEvent(ChordFormula formula,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -396,12 +396,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<ChordFormula>(formula, 
+            var result = new TimedEventChordFormula(formula, 
                 time);
             return result;
         }
 
-        public TimedEvent<Note> CreateTimedEvent(Note note,
+        public TimedEventNote CreateTimedEvent(Note note,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -421,12 +421,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Note>(note,
+            var result = new TimedEventNote(note,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
-        public TimedEvent<Rest> CreateTimedEvent(Rest rest,
+        public TimedEventRest CreateTimedEvent(Rest rest,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -446,13 +446,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Rest>(rest,
+            var result = new TimedEventRest(rest,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
 
-        public TimedEvent<Forward> CreateTimedEvent(Forward rest,
+        public TimedEventForward CreateTimedEvent(Forward rest,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -468,13 +468,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 RelativeEnd = start + duration
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Forward>(rest,
+            var result = new TimedEventForward(rest,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
 
-        public TimedEvent<Backup> CreateTimedEvent(Backup rest,
+        public TimedEventBackup CreateTimedEvent(Backup rest,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -491,7 +491,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Backup>(rest,
+            var result = new TimedEventBackup(rest,
                 time);
             result.TimeModification = timeModification;
             return result;

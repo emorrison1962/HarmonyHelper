@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    abstract public class TimedEventNote : TimedEventBase, IHasTimeContext, IEquatable<TimedEventNote>, IComparable<TimedEventNote>
+    public class TimedEventNote : TimedEventBase, IHasTimeContext, IEquatable<TimedEventNote>, IComparable<TimedEventNote>
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
@@ -26,9 +26,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventNote(TimeContext ctx)
+        public TimedEventNote(Note note, TimeContext ctx)
             : base(ctx)
         {
+            this.Event = note;
             this.TimeContext = ctx;
         }
 
@@ -53,18 +54,18 @@ namespace Eric.Morrison.Harmony.MusicXml
         ///      </note>
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public XElement ToXElement()
+        override public XElement ToXElement()
         {
-            var nn = te.Event.NoteName;
-            var note = te.Event;
-            var time = te.TimeContext;
+            var nn = this.Event.NoteName;
+            var note = this.Event;
+            var time = this.TimeContext;
 
             var xnote = new XElement(XmlConstants.note);
             {
-                if (null != te.Serialization.Attack)
-                    xnote.Add(new XAttribute(XmlConstants.attack, te.Serialization.Attack));
-                if (null != te.Serialization.Release)
-                    xnote.Add(new XAttribute(XmlConstants.release, te.Serialization.Release));
+                if (null != this.Serialization.Attack)
+                    xnote.Add(new XAttribute(XmlConstants.attack, this.Serialization.Attack));
+                if (null != this.Serialization.Release)
+                    xnote.Add(new XAttribute(XmlConstants.release, this.Serialization.Release));
 
                 var xpitch = new XElement(XmlConstants.pitch);
                 {
@@ -84,7 +85,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     var xoctave = new XElement(XmlConstants.octave, (int)note.Octave);
                     xpitch.Add(xoctave);
                 }
-                if (te.Serialization.HasChord)
+                if (this.Serialization.HasChord)
                 {
                     xnote.Add(new XElement(XmlConstants.chord));
                 }
@@ -92,15 +93,15 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     this.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
                     xnote.Add(xduration);
-                    xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
+                    xnote.Add(new XElement(XmlConstants.voice, this.Serialization.Voice));
                     xnote.Add(xnoteTypeName);
                     xnote.Add(xdot);
 
-                    if (!string.IsNullOrEmpty(te.Serialization.Staff))
-                        xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
+                    if (!string.IsNullOrEmpty(this.Serialization.Staff))
+                        xnote.Add(new XElement(XmlConstants.staff, this.Serialization.Staff));
                 }
 
-                if (te.TimeContext.TieType != TieTypeEnum.None)
+                if (this.TimeContext.TieType != TieTypeEnum.None)
                 {
 #if false
         <notations>
@@ -109,19 +110,19 @@ namespace Eric.Morrison.Harmony.MusicXml
 #endif
                     var xnotations = new XElement(XmlConstants.notations);
                     xnote.Add(xnotations);
-                    if (te.TimeContext.TieType == TieTypeEnum.Start)
+                    if (this.TimeContext.TieType == TieTypeEnum.Start)
                     {
                         var xtype = new XAttribute(XmlConstants.type, XmlConstants.start);
                         var xtied = new XElement(XmlConstants.tied, xtype);
                         xnotations.Add(xtied);
                     }
-                    if (te.TimeContext.TieType == TieTypeEnum.Stop)
+                    if (this.TimeContext.TieType == TieTypeEnum.Stop)
                     {
                         var xtype = new XAttribute(XmlConstants.type, XmlConstants.stop);
                         var xtied = new XElement(XmlConstants.tied, xtype);
                         xnotations.Add(xtied);
                     }
-                    if (te.TimeContext.TieType == TieTypeEnum.StartStop)
+                    if (this.TimeContext.TieType == TieTypeEnum.StartStop)
                     {
                         var xtypeStart = new XAttribute(XmlConstants.type, XmlConstants.start);
                         var xtiedStart = new XElement(XmlConstants.tied, xtypeStart);
@@ -134,77 +135,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             new object();
             return xnote;
-        }
-        public XElement ToXElement<TE>(TimedEvent<Rest> te)
-            where TE: TimedEvent<Rest> 
-        {
-#if false
-      <note>
-        <rest/>
-         <duration>120</duration>
-         <voice>1</voice>
-         <type>quarter</type>
-         <staff>1</staff>
-      </note>
-
-#endif
-            var rest = te.Event;
-            var time = te.TimeContext;
-
-            var xnote = new XElement(XmlConstants.note);
-            var xrest = new XElement(XmlConstants.rest);
-            xnote.Add(xrest);
-
-            this.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
-            xnote.Add(xduration);
-            xnote.Add(new XElement(XmlConstants.voice, te.Serialization.Voice));
-            xnote.Add(xnoteTypeName);
-            xnote.Add(xdot);
-
-            if (!string.IsNullOrEmpty(te.Serialization.Staff))
-                xnote.Add(new XElement(XmlConstants.staff, te.Serialization.Staff));
-
-            return xnote;
-        }
-
-        public XElement ToXElement<TE>(TimedEvent<Forward> te)
-            where TE: TimedEvent<Forward>
-        {
-            var rest = te.Event;
-            var time = te.TimeContext;
-
-            var xforward = new XElement(XmlConstants.forward);
-            var xduration = new XElement(XmlConstants.duration, time.Duration);
-            xforward.Add(xduration);
-            return xforward;
-        }
-
-        public XElement ToXElement<TE>(TimedEvent<Backup> te)
-            where TE: TimedEvent<Backup>
-        {
-            var rest = te.Event;
-            var time = te.TimeContext;
-
-            var xbackup = new XElement(XmlConstants.backup);
-            var xduration = new XElement(XmlConstants.duration, time.Duration);
-            xbackup.Add(xduration);
-            return xbackup;
-        }
-
-        void ToXElements(TimeContext time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
-        {
-            time.TryGetName(time.DurationEnum, out var name, out var isDotted);
-            xnoteTypeName = null; xduration = null; xdot = null;
-#if true
-            xnoteTypeName = new XElement(XmlConstants.type, name);
-
-            xduration = new XElement(XmlConstants.duration, time.Duration);
-            xdot = null;
-            if (isDotted)
-            {
-                xdot = new XElement(XmlConstants.dot);
-            }
-#endif
         }
 
         #endregion

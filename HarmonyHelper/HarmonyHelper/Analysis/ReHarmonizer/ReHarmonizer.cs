@@ -280,10 +280,9 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
     public static class TimedEventExtensions
     {
-        public static List<TimedEvent<T>> GetIntersecting<T>(this List<TimedEvent<T>> src, TimeContext window)
-            where T : class, IMusicalEvent<T>, IComparable<T>, new()
+        public static List<TimedEventNote> GetIntersecting(this List<TimedEventNote> src, TimeContext window)
         {
-            var result = new List<TimedEvent<T>>();
+            var result = new List<TimedEventNote>();
             foreach (var item in src)
             {
                 if (item.TimeContext.Intersects(window))
@@ -303,7 +302,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             this.MusicXmlModel = input;
         }
 
-        public List<TimedEvent<ChordFormula>> GetChords()
+        public List<TimedEventChordFormula> GetChords()
         {
             var result = (from p in this.MusicXmlModel.Parts
                           from m in p.Measures

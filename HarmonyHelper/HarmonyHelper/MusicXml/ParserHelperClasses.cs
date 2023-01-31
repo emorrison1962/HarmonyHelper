@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public int Measure { get; set; }
         public int Start { get; set; }
         public int End { get; set; }
-        public TimedEvent<Note> FirstNote { get; set; }
+        public TimedEventNote FirstNote { get; set; }
 
         public void Clear()
         {

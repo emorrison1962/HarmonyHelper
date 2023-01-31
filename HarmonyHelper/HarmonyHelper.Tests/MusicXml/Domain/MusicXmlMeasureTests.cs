@@ -23,8 +23,8 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             { MeasureNumber = 1, Rhythm = rhythm, RelativeStart = 0, RelativeEnd = 240 };
 
 
-            var chords = new List<TimedEvent<ChordFormula>>() { 
-                new TimedEvent<ChordFormula>(ChordFormula.CMaj7, new TimeContext(1, rhythm, 120, 240)) };
+            var chords = new List<TimedEventChordFormula>() { 
+                new TimedEventChordFormula(ChordFormula.CMaj7, new TimeContext(1, rhythm, 120, 240)) };
             var part = new MusicXmlPart(PartTypeEnum.Harmony);
             var measure = new MusicXmlMeasure(part, 1, chords, null, null, null, null);
             measure.SetMeasureNumber(2);

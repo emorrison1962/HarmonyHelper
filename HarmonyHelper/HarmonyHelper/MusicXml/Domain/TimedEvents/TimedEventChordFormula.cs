@@ -13,7 +13,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class TimedEventChordFormula : TimedEventBase, IHasTimeContext, IEquatable<TimedEventChordFormula>, IComparable<TimedEventChordFormula>
     {
         #region Properties
-        public int SortOrder { get { return this.Event.SortOrder; } }
+        override public int SortOrder { get { return this.Event.SortOrder; } }
         public ChordFormula Event { get; set; }
 
         #endregion
@@ -49,7 +49,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var root = new XElement(XmlConstants.root);
 
-            var root_step = new XElement(XmlConstants.root_step, te.Event.Root.Name[0]);
+            var root_step = new XElement(XmlConstants.root_step, this.Event.Root.Name[0]);
             root.Add(root_step);
 
             if (!this.Event.Root.IsNatural)
@@ -68,7 +68,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return root;
         }
 
-        public XElement ToXElement()
+        override public XElement ToXElement()
         {
 #if false
       <harmony>
@@ -80,15 +80,15 @@ namespace Eric.Morrison.Harmony.MusicXml
       </harmony>
 #endif
             var harmony = new XElement(XmlConstants.harmony);
-            var root = this.ToRoot(te);
+            var root = this.ToXElementRootNote();
             harmony.Add(root);
 
-            var elems = te.Event.ChordType.ToXElements();
+            var elems = this.Event.ChordType.ToXElements();
             harmony.Add(elems);
 
-            //var kind = new XElement(XmlConstants.kind, te.Event.ChordType.GetMusicXmlName());
+            //var kind = new XElement(XmlConstants.kind, this.Event.ChordType.GetMusicXmlName());
             //kind.Add(new XAttribute(XmlConstants.text,
-            //    $"{te.Event.Root.Name[0]}{te.Event.ChordType.Name}"));
+            //    $"{this.Event.Root.Name[0]}{this.Event.ChordType.Name}"));
             //harmony.Add(kind);
 
 #warning throw new NotImplementedException("How do I get the offset?");

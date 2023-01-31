@@ -10,25 +10,26 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    abstract public class TimedEventBackup : TimedEventBase, IHasTimeContext, IEquatable<TimedEventBackup>, IComparable<TimedEventBackup>
+    public class TimedEventForward : TimedEventBase, IHasTimeContext, IEquatable<TimedEventForward>, IComparable<TimedEventForward>
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
-        public Note Event { get; set; }
+        public Forward Event { get; set; }
 
         #endregion
 
         #region Construction
-        public TimedEventBackup(TimedEventBackup src)
+        public TimedEventForward(TimedEventForward src)
             : base(src)
         {
             this.TimeContext = new TimeContext(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventBackup(TimeContext ctx)
+        public TimedEventForward(Forward f, TimeContext ctx)
             : base(ctx)
         {
+            this.Event = f;
             this.TimeContext = ctx;
         }
 
@@ -36,16 +37,17 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Serialization
 
-        public XElement ToXElement()
+        override public XElement ToXElement()
         {
             var rest = this.Event;
             var time = this.TimeContext;
 
-            var xbackup = new XElement(XmlConstants.backup);
+            var xforward = new XElement(XmlConstants.forward);
             var xduration = new XElement(XmlConstants.duration, time.Duration);
-            xbackup.Add(xduration);
-            return xbackup;
+            xforward.Add(xduration);
+            return xforward;
         }
+
 
         #endregion
 
@@ -55,7 +57,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #region IEquatable
-        public bool Equals(TimedEventBackup other)
+        public bool Equals(TimedEventForward other)
         {
             var result = false;
             if (this.Event.Equals(other.Event)
@@ -66,16 +68,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         public override bool Equals(object obj)
         {
             var result = false;
-            if (obj is TimedEventBackup)
-                result = this.Equals(obj as TimedEventBackup);
+            if (obj is TimedEventForward)
+                result = this.Equals(obj as TimedEventForward);
             return result;
         }
-        public int CompareTo(TimedEventBackup other)
+        public int CompareTo(TimedEventForward other)
         {
             var result = Compare(this, other);
             return result;
         }
-        public static int Compare(TimedEventBackup a, TimedEventBackup b)
+        public static int Compare(TimedEventForward a, TimedEventForward b)
         {
             if (a is null && b is null)
                 return 0;
@@ -98,12 +100,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 ^ this.TimeContext.ToString().GetHashCode();
             return result;
         }
-        public static bool operator ==(TimedEventBackup a, TimedEventBackup b)
+        public static bool operator ==(TimedEventForward a, TimedEventForward b)
         {
             var result = Compare(a, b) == 0;
             return result;
         }
-        public static bool operator !=(TimedEventBackup a, TimedEventBackup b)
+        public static bool operator !=(TimedEventForward a, TimedEventForward b)
         {
             var result = Compare(a, b) != 0;
             return result;

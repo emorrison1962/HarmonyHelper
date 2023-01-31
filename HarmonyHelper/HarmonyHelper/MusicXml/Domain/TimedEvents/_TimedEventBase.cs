@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    abstract public class TimedEventBase : IHasTimeContext, IEquatable<TimedEventBase>, IComparable<TimedEventBase>
+    abstract public class TimedEventBase : IHasTimeContext
     {
         #region Properties
         public int RelativeStart { get { return this.TimeContext.RelativeStart; } }
@@ -41,7 +41,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         abstract public XElement ToXElement();
 
-        [Obsolete("", true)]
+        [Obsolete("", false)]
         protected void ToXElements(TimeContext time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
         {
             time.TryGetName(time.DurationEnum, out var name, out var isDotted);
@@ -62,67 +62,9 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"{this.GetType().Name} TimeContext={this.TimeContext}, Event={this.Event.ToString()}";
+            return $"{this.GetType().Name} TimeContext={this.TimeContext}";
         }
 
-        #region IEquatable
-        public bool Equals(TimedEvent<T> other)
-        {
-            var result = false;
-            if (this.Event.Equals(other.Event)
-                && this.TimeContext.Equals(other.TimeContext))
-                result = true;
-            return result;
-        }
-        public override bool Equals(object obj)
-        {
-            var result = false;
-            if (obj is TimedEvent<T>)
-                result = this.Equals(obj as TimedEvent<T>);
-            return result;
-        }
-        public int CompareTo(TimedEvent<T> other)
-        {
-            var result = Compare(this, other);
-            return result;
-        }
-        public static int Compare(TimedEvent<T> a, TimedEvent<T> b)
-        {
-            if (a is null && b is null)
-                return 0;
-            else if (a is null)
-                return -1;
-            else if (b is null)
-                return 1;
-
-            var result = a.Event.CompareTo(b.Event);
-
-            if (0 == result)
-            {
-                result = a.TimeContext.CompareTo(b.TimeContext);
-            }
-            return result;
-        }
-        public override int GetHashCode()
-        {
-            var result = this.Event.GetHashCode()
-                ^ this.TimeContext.ToString().GetHashCode();
-            //Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}: {this.ToString()}={result}");
-
-            return result;
-        }
-        public static bool operator ==(TimedEvent<T> a, TimedEvent<T> b)
-        {
-            var result = Compare(a, b) == 0;
-            return result;
-        }
-        public static bool operator !=(TimedEvent<T> a, TimedEvent<T> b)
-        {
-            var result = Compare(a, b) != 0;
-            return result;
-        }
-
-        #endregion
     }//class
 
     public class XmlSerializationProperties
@@ -156,7 +98,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         TimedEventFactory() { }
 
-        public TimedEvent<ChordFormula> CreateTimedEvent(ChordFormula formula,
+        public TimedEventChordFormula CreateTimedEvent(ChordFormula formula,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -172,12 +114,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<ChordFormula>(formula, 
+            var result = new TimedEventChordFormula(formula, 
                 time);
             return result;
         }
 
-        public TimedEvent<Note> CreateTimedEvent(Note note,
+        public TimedEventNote CreateTimedEvent(Note note,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -197,12 +139,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Note>(note,
+            var result = new TimedEventNote(note,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
-        public TimedEvent<Rest> CreateTimedEvent(Rest rest,
+        public TimedEventRest CreateTimedEvent(Rest rest,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -222,13 +164,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Rest>(rest,
+            var result = new TimedEventRest(rest,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
 
-        public TimedEvent<Forward> CreateTimedEvent(Forward rest,
+        public TimedEventForward CreateTimedEvent(Forward forward,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -244,13 +186,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 RelativeEnd = start + duration
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Forward>(rest,
+            var result = new TimedEventForward(forward,
                 time);
             result.TimeModification = timeModification;
             return result;
         }
 
-        public TimedEvent<Backup> CreateTimedEvent(Backup rest,
+        public TimedEventBackup CreateTimedEvent(Backup backup,
             RhythmicContext rhythm,
             int measureNumber,
             int start,
@@ -267,7 +209,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = DurationEnum.None
             };
             var time = new TimeContext(ctx);
-            var result = new TimedEvent<Backup>(rest,
+            var result = new TimedEventBackup(backup,
                 time);
             result.TimeModification = timeModification;
             return result;

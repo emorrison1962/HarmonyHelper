@@ -220,7 +220,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public XElement ToRoot(TimedEvent<ChordFormula> te)
+        public XElement ToRoot(TimedEventChordFormula te)
         {
 #if false
   <root>
@@ -269,7 +269,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         
         
         
-        public XElement ToXElement(TimedEvent<ChordFormula> te)
+        public XElement ToXElement(TimedEventChordFormula te)
         {
 #if false
       <harmony>
@@ -316,7 +316,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         ///      </note>
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public XElement ToXElement(TimedEvent<Note> te)
+        public XElement ToXElement(TimedEventNote te)
         {
             var nn = te.Event.NoteName;
             var note = te.Event;
@@ -398,7 +398,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             new object();
             return xnote;
         }
-        public XElement ToXElement(TimedEvent<Rest> te)
+        public XElement ToXElement(TimedEventRest te)
         {
 #if false
       <note>
@@ -429,7 +429,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xnote;
         }
 
-        public XElement ToXElement(TimedEvent<Forward> te)
+        public XElement ToXElement(TimedEventForward te)
         {
             var rest = te.Event;
             var time = te.TimeContext;
@@ -440,7 +440,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xforward;
         }
 
-        public XElement ToXElement(TimedEvent<Backup> te)
+        public XElement ToXElement(TimedEventBackup te)
         {
             var rest = te.Event;
             var time = te.TimeContext;

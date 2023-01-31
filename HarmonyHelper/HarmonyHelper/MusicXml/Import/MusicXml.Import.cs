@@ -182,11 +182,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             var xelements = xmeasure.Elements().ToList();
             this.ParsingContext.CurrentOffset = 0;
 
-            var chords = new List<TimedEvent<ChordFormula>>();
-            var notes = new List<TimedEvent<Note>>();
-            var rests = new List<TimedEvent<Rest>>();
-            var forwards = new List<TimedEvent<Forward>>();
-            var backups = new List<TimedEvent<Backup>>();
+            var chords = new List<TimedEventChordFormula>();
+            var notes = new List<TimedEventNote>();
+            var rests = new List<TimedEventRest>();
+            var forwards = new List<TimedEventForward>();
+            var backups = new List<TimedEventBackup>();
             foreach (var xelement in xelements)
             {
                 if (xelement.Name == XmlConstants.harmony)
@@ -213,13 +213,13 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 else if (xelement.Name == XmlConstants.forward)
                 {
-                    TimedEvent<Forward> forward = this.ParseForward(xelement);
+                    TimedEventForward forward = this.ParseForward(xelement);
                     Debug.Assert(forward != null);
                     forwards.Add(forward);
                 }
                 else if (xelement.Name == XmlConstants.backup)
                 {
-                    TimedEvent<Backup> backup = this.ParseBackup(xelement);
+                    TimedEventBackup backup = this.ParseBackup(xelement);
                     Debug.Assert(backup != null);
                     backups.Add(backup);
                 }
@@ -382,9 +382,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        TimedEvent<Rest> ParseRest(XElement xnote)
+        TimedEventRest ParseRest(XElement xnote)
         {
-            TimedEvent<Rest> result = null;
+            TimedEventRest result = null;
             var duration = ParseDuration(xnote, out var durationEnum, out var timeModification);
             if (xnote.Elements(XmlConstants.rest).Any())
             {
@@ -412,9 +412,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        TimedEvent<Forward> ParseForward(XElement xelement)
+        TimedEventForward ParseForward(XElement xelement)
         {
-            TimedEvent<Forward> result = null;
+            TimedEventForward result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
             var duration = ParseDuration(xelement, out var durationEnum, out var timeModification);
 
@@ -432,9 +432,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        TimedEvent<Backup> ParseBackup(XElement xelement)
+        TimedEventBackup ParseBackup(XElement xelement)
         {
-            TimedEvent<Backup> result = null;
+            TimedEventBackup result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
             var duration = ParseDuration(xelement, out var durationEnum, out var timeModification);
 

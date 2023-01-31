@@ -12,7 +12,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public partial class MusicXmlImporter : MusicXmlBase
     {
-        TimedEvent<ChordFormula> ParseChord(XElement harmony, List<TimedEvent<ChordFormula>> existingChords)
+        TimedEventChordFormula ParseChord(XElement harmony, List<TimedEventChordFormula> existingChords)
         {
 #if false
 <harmony>

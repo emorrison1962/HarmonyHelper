@@ -14,9 +14,9 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public partial class MusicXmlImporter : MusicXmlBase
     {
-        private TimedEvent<Note> ParsePitched(XElement xnote)
+        private TimedEventNote ParsePitched(XElement xnote)
         {
-            TimedEvent<Note> result = null;
+            TimedEventNote result = null;
 
             var tieType = this.ParseTie(xnote);
             var hhNote = this.Parse_HarmonyHelper_Note(xnote);
