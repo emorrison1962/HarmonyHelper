@@ -16,7 +16,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         override public int SortOrder { get { return this.Event.SortOrder; } }
         public Note Event { get; set; }
         protected TimeContextEx _TimeContext { get; set; }
-        override public TimeContext TimeContext
+        new public TimeContextEx TimeContext
         {
             get { return this._TimeContext; }
             set 
@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 if (value is TimeContextEx)
                     this._TimeContext = (TimeContextEx)value;
                 else
-                    throw new NotImplementedException(); 
+                    Debug.Assert(false);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventNote(TimedEventNote src)
             : base(src)
         {
-            this.TimeContext = new TimeContext(src.TimeContext);
+            this.TimeContext = new TimeContextEx(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 

@@ -603,4 +603,18 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
     }//class
 
+
+    public static class TimeContextExtension
+    {
+        public static TimeContext Copy(this TimeContext src)
+        { 
+            var result = new TimeContext(src); 
+            return result;
+        }
+        public static TimeContextEx Copy(this TimeContextEx src)
+        {
+            var result = new TimeContextEx(src);
+            return result;
+        }
+    }
 }//ns

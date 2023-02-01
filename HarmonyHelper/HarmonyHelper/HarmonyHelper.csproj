@@ -45,8 +45,10 @@
     <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_Rule.cs" />
     <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzer.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordMelodyPairing.cs" />
+    <Compile Include="Analysis\ReHarmonizer\ChordSubstitution.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordSubstitutionResults.cs" />
     <Compile Include="Analysis\ReHarmonizer\CircularMultiQueue.cs" />
+    <Compile Include="Analysis\ReHarmonizer\MelodyHarmonyPair of T.cs" />
     <Compile Include="Interfaces\IChordFormula.cs" />
     <Compile Include="Interfaces\IChordType.cs" />
     <Compile Include="Interfaces\IImplementCopy.cs" />
@@ -181,7 +183,6 @@
     <EmbeddedResource Include="Resources\parttime.xsl" />
     <EmbeddedResource Include="MusicXml\MusicXmlExportTemplate.xml" />
     <Content Include="Sunny Resolutions MusicXML Test.xml" />
-    <Compile Include="Analysis\ReHarmonizer\ReHarmonizer.Domain.cs" />
     <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\musicxml.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>

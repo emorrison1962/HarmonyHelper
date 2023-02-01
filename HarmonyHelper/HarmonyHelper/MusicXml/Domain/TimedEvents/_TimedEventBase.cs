@@ -67,6 +67,23 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     }//class
 
+    public static class TimedEventExtensions
+    {
+        public static List<TimedEventNote> GetIntersecting(this List<TimedEventNote> src, TimeContext window)
+        {
+            var result = new List<TimedEventNote>();
+            foreach (var item in src)
+            {
+                if (item.TimeContext.Intersects(window))
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
+    }//class
+
+
     public class XmlSerializationProperties
     {
         public string Voice { get; set; }

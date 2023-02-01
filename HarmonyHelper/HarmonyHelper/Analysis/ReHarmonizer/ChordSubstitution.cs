@@ -30,8 +30,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var result = false;
             if (this.Original.Equals(other.Original)
-                && this.Substitution.Equals(other.Substitution)) 
-                result = true ;
+                && this.Substitution.Equals(other.Substitution))
+                result = true;
             return result;
         }
 
@@ -49,5 +49,4 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             return 0;
         }
     }//class
-
 }//ns

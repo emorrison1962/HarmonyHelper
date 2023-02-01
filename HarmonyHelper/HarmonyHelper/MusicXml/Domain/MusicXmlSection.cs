@@ -131,23 +131,4 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
     }//class
-
-    public class ChordMelodyMeasurePairing
-    {
-        MusicXmlPart MelodyPart { get; set; }
-        MusicXmlPart HarmonyPart { get; set; }
-        public MusicXmlMeasure MelodyMeasure { get; set; }
-        public MusicXmlMeasure HarmonyMeasure { get; set; }
-        public ChordMelodyMeasurePairing(MusicXmlPart melodyPart,
-            MusicXmlPart harmonyPart,
-            MusicXmlMeasure melodyMeasure, 
-            MusicXmlMeasure harmonyMeasure)
-        {
-            this.MelodyPart = melodyPart;
-            this.HarmonyPart = harmonyPart;
-            this.MelodyMeasure = melodyMeasure;
-            this.HarmonyMeasure = harmonyMeasure;
-        }
-    }//class
-
 }//ns

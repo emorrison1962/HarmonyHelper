@@ -168,12 +168,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public static List<ChordMelodyPairing> GetChordMelodyPairings(MusicXmlMeasure melody, MusicXmlMeasure harmony)
+        public static List<ChordMelodyPairing> GetChordMelodyPairings(MelodyHarmonyPair<MusicXmlMeasure> mhPair)
         {
             var result = new List<ChordMelodyPairing>();
-            foreach (var chord in harmony.Chords)
+            foreach (var chord in mhPair.Harmony.Chords)
             {
-                var notes = melody.Notes.ToList().GetIntersecting(chord.TimeContext);
+                var notes = mhPair.Melody.Notes.ToList().GetIntersecting(chord.TimeContext);
                 var pairing = new ChordMelodyPairing(chord,
                     notes.ToList(),
                     chord.TimeContext);
