@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,8 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
                 return result;
             }
         }
-        public List<MusicXmlEnding> Endings { get; set; } = new List<MusicXmlEnding>();
+        public List<MusicXmlEnding> _Endings { get; set; } = new List<MusicXmlEnding>();
+        public ReadOnlyCollection<MusicXmlEnding> Endings { get { return _Endings.AsReadOnly(); } }
         public MusicXmlRepeatContext RepeatContext { get; set; }
 
         #endregion
@@ -53,9 +55,16 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
             this.BarlineStyle = style;
         }
 
+        public void Add(MusicXmlEnding ending)
+        {
+            this._Endings.Add(ending);
+        }
+
         internal XElement ToXElement()
         {
             var result = new XElement(XmlConstants.barline);
+            result.Add(this.ToXElement(this.BarlineStyle));
+
             if (null != this.RepeatContext)
             {
                 XElement xrepeat = this.RepeatContext.ToXElement();
@@ -66,6 +75,22 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
                 result.Add(ending.ToXElement());
             }
 
+            return result;
+        }
+
+        XElement ToXElement(BarlineStyleEnum style)
+        {
+            var result = new XElement(XmlConstants.bar_style);
+            if (style == BarlineStyleEnum.Heavy_Heavy)
+                result.Value = XmlConstants.bar_style_heavy_heavy;
+            else if (style == BarlineStyleEnum.Heavy_Light)
+                result.Value = XmlConstants.bar_style_heavy_light;
+            else if (style == BarlineStyleEnum.Light_Heavy)
+                result.Value = XmlConstants.bar_style_light_heavy;
+            else if (style == BarlineStyleEnum.Light_Light)
+                result.Value = XmlConstants.bar_style_light_light;
+            else
+                result = null;
             return result;
         }
 
@@ -86,7 +111,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         public string EndingNumber { get; set; }
 
         #endregion
-        
+
         #region Construction
         public MusicXmlEnding(EndingTypeEnum EndingType, string endingNumber)
         {
@@ -95,7 +120,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         }
 
         #endregion
-        
+
         public XElement ToXElement()
         {
 #if false
@@ -105,13 +130,13 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
 
 <ending number="3" type="start">3.</ending>
 #endif
-            
+
             var result = new XElement(XmlConstants.ending);
 
             result.Add(
-            new XAttribute(XmlConstants.ending_number, 
-                $"{this.EndingNumber.ToString()}."));
-            
+            new XAttribute(XmlConstants.ending_number,
+                $"{this.EndingNumber.ToString()}"));
+
             var strEndingType = string.Empty;
             if (this.EndingType == EndingTypeEnum.Start)
                 strEndingType = XmlConstants.ending_type_start;
@@ -123,8 +148,52 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
                 strEndingType = XmlConstants.ending_type_discontinue;
 
             result.Add(
-                new XAttribute(XmlConstants.ending_type, 
+                new XAttribute(XmlConstants.ending_type,
                     strEndingType));
+
+            return result;
+        }
+    }//class
+
+    public enum RepeatEnum
+    {
+        None,
+        Forward,
+        Backward,
+        RepeatAfterJump,
+        Segno,
+        Coda
+    };
+    public class MusicXmlRepeatContext
+    {
+        public RepeatEnum RepeatEnum { get; set; }
+        public int RepeatCount { get; set; }
+
+        public MusicXmlRepeatContext(RepeatEnum repeatEnum, int repeatCount = 1)
+        {
+            this.RepeatEnum = repeatEnum;
+            this.RepeatCount = repeatCount;
+        }
+
+        public XElement ToXElement()
+        {
+            var result = new XElement(XmlConstants.repeat);
+
+            result.Add(
+                new XAttribute(XmlConstants.repeat_direction,
+                    this.RepeatEnum.ToString().ToLower()));
+
+            if (this.RepeatCount > 1)
+            {
+                result.Add(
+                    new XAttribute(XmlConstants.repeat_times,
+                        this.RepeatCount.ToString()));
+            }
+
+            if (this.RepeatEnum == RepeatEnum.RepeatAfterJump)
+            {
+                throw new NotImplementedException("Does this work?");
+            }
 
             return result;
         }

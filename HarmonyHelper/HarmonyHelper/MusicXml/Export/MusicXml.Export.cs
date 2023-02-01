@@ -75,30 +75,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 {
                     foreach (var measure in section.Measures)
                     {
-                        measure.ToXElement();
-                        var xmeasure = new XElement(XmlConstants.measure);
+                        var xmeasure = measure.ToXElement();
                         if (measure == part.Sections.First().Measures.First())
                         {
                             this.GetPartMetadata(part, xmeasure);
                         }
 
-                        xmeasure.Add(new XAttribute(XmlConstants.number, measure.MeasureNumber));
-
-                        var events = measure.GetMergedEvents();
-                        foreach (var @event in events)
-                        {
-                            var ob = (dynamic)@event;
-                            var xevent = this.ToXElement(ob);
-                            xmeasure.Add(xevent);
-                        }
-                        if (null != section.RepeatContext)
-                        {
-                            var repeatCtx = section.RepeatContext;
-                            if (repeatCtx.RepeatEnum == Domain.RepeatEnum.Forward)
-                            { //2nd endings, section.Endings, measure.Barline, measure.HasRepeat
-                                throw new NotImplementedException();
-                            }
-                        }
                         xpart.Add(xmeasure);
                     }
                 }
@@ -108,7 +90,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        XElement GetPartMetadata(MusicXmlPart part, XElement xmeasure)
+        void GetPartMetadata(MusicXmlPart part, XElement xmeasure)
         {
 #if false
    <measure number="1">
@@ -137,9 +119,9 @@ namespace Eric.Morrison.Harmony.MusicXml
       </forward>
    </measure>
 #endif
-            var result = xmeasure;
+            //var result = xmeasure;
             var xattributes = new XElement(XmlConstants.attributes);
-            result.Add(xattributes);
+            //result.Add(xattributes);
 
             if (null != this.ParsingContext.Rhythm)
             {
@@ -196,17 +178,22 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             #endregion
 
+            xmeasure.AddFirst(this.GetTempo());
+            xmeasure.AddFirst(xattributes);
+
+        }
+
+        XElement GetTempo()
+        {
             #region tempo
-            var xsound = new XElement(XmlConstants.sound);
+            var result = new XElement(XmlConstants.sound);
             var xtempo = new XAttribute(XmlConstants.tempo,
                 this.ParsingContext.Rhythm.Tempo);
-            xsound.Add(xtempo);
-
-            result.Add(xsound);
-
-            #endregion
+            result.Add(xtempo);
 
             return result;
+
+            #endregion
         }
 
         public XElement ToPitch(Note note)

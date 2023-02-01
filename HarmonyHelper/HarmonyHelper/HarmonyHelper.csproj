@@ -59,7 +59,6 @@
     <Compile Include="MusicXml\Domain\MusicXmlModel.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlPart.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlPartIdentifier.cs" />
-    <Compile Include="MusicXml\Domain\MusicXmlRepeatContext.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlScoreMetadata.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />

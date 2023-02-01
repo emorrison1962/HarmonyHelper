@@ -318,13 +318,9 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                     if (xbarline.Elements(XmlConstants.ending).Any())
                     {
-                        var xending = xbarline.Element(XmlConstants.ending);
-                        var endings = this.ParseEnding(xending);
-                        foreach (var ending in endings)
-                        {
-                            ctx.Endings.Add(ending);
-                        }
-                        new object();
+                        var xending = xbarline.Elements(XmlConstants.ending).First();
+                        var ending = this.ParseEnding(xending);
+                        ctx.Add(ending);
                     }
 
                     if (xbarline.Elements(XmlConstants.repeat).Any())
@@ -340,7 +336,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        private List<MusicXmlEnding> ParseEnding(XElement xending)
+        private MusicXmlEnding ParseEnding(XElement xending)
         {
 #if false
 <ending number="1,2" type="start" default-y="30" end-length="15">1., 2.</ending>
@@ -349,7 +345,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 <ending number="3" type="start" default-y="30" end-length="15">3.</ending>
 #endif
-            var result = new List<MusicXmlEnding>();
+            MusicXmlEnding result = null;
             var endingNumbers = new List<string>();
             if (xending.Attributes(XmlConstants.ending_number).Any())
             {//Split the ending numbers. (<ending number="1,2")
@@ -372,7 +368,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                         else if (strEndingType == XmlConstants.ending_type_discontinue)
                             eEndingType = EndingTypeEnum.Discontinue;
                     }
-                    result.Add(new MusicXmlEnding(eEndingType, endingNumber));
+                    result = new MusicXmlEnding(eEndingType, endingNumber);
                 }
             }
 
@@ -385,7 +381,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEventRest ParseRest(XElement xnote)
         {
             TimedEventRest result = null;
-            var duration = ParseDuration(xnote, out var durationEnum, out var timeModification);
+            var duration = ParseDuration(xnote, out var durationEnum, 
+                out var timeModification, out var isDotted);
             if (xnote.Elements(XmlConstants.rest).Any())
             {
                 if (xnote.Element(XmlConstants.rest).Attributes(XmlConstants.measure).Any())
@@ -398,6 +395,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     this.ParsingContext.CurrentMeasure.MeasureNumber,
                     this.ParsingContext.CurrentOffset,
                     duration,
+                    isDotted,
                     durationEnum,
                     timeModification,
                     xnote);
@@ -416,7 +414,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             TimedEventForward result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
-            var duration = ParseDuration(xelement, out var durationEnum, out var timeModification);
+            var duration = ParseDuration(xelement, out var durationEnum, 
+                out var timeModification, out var isDotted);
 
             if (xelement.Name == XmlConstants.forward)
             {
@@ -436,7 +435,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             TimedEventBackup result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
-            var duration = ParseDuration(xelement, out var durationEnum, out var timeModification);
+            var duration = ParseDuration(xelement, out var durationEnum, 
+                out var timeModification, out var isDotted);
 
             if (xelement.Name == XmlConstants.backup)
             {
@@ -455,11 +455,16 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
 
-        int ParseDuration(XElement xnote, out DurationEnum durationEnum, out MusicXmlTimeModification tm)
+        int ParseDuration(XElement xnote, out DurationEnum durationEnum, 
+            out MusicXmlTimeModification timeModification, out bool isDotted)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
+            isDotted = false;
+            if (xnote.Elements(XmlConstants.dot).Any())
+                isDotted = true;
+
             var result = 0;
             durationEnum = DurationEnum.None;
-            tm = null;
+            timeModification = null;
             if (xnote.Elements(XmlConstants.duration).Any())
             {
                 result = Int32.Parse(xnote.Element(XmlConstants.duration).Value);
@@ -478,8 +483,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 var xtime_modification = xnote.Elements(XmlConstants.time_modification)
                     .First();
-                tm = this.ParseTimeModification(xtime_modification);
-                result = tm.GetDuration(result);
+                timeModification = this.ParseTimeModification(xtime_modification);
+                result = timeModification.GetDuration(result);
             }
 
             return result;

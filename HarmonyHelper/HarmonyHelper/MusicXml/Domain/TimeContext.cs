@@ -132,16 +132,16 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
         int _MeasureNumber;
-        public int MeasureNumber 
+        public int MeasureNumber
         {
             get { return _MeasureNumber; }
-            private set 
+            private set
             {
                 //Debug.Assert(value < 6 * 1000);
                 _MeasureNumber = value;
             }
         }
-                
+
         public int AbsoluteStart
         {
             get
@@ -159,64 +159,31 @@ namespace Eric.Morrison.Harmony.MusicXml
         public int RelativeStart { get; private set; }
         public int RelativeEnd { get; private set; }
         public DurationEnum _DurationEnum { get; private set; }
-        public DurationEnum DurationEnum 
+        public DurationEnum DurationEnum
         {
             get { return this._DurationEnum; }
-            private set 
-            { 
+            private set
+            {
                 this._DurationEnum = value;
                 Debug.Assert(value != DurationEnum.Unknown);
-            } 
+            }
         }
-        public int Duration 
+        public int Duration
         {
-            get 
-            { 
+            get
+            {
                 return RelativeEnd - RelativeStart;
-            } 
+            }
         }
 
-#if false
-        TimeContext TiedPrevious { get; set; }
-        TimeContext TiedNext { get; set; }
-        public bool IsTieStart 
-        { 
-            get 
-            {
-                var result = true;
-                if (null == TiedPrevious)
-                    result = false;
-                return result;
-            } 
-        }
-        public bool IsTieEnd
-        {
-            get
-            {
-                var result = true;
-                if (null == TiedNext)
-                    result = false;
-                return result;
-            }
-        }
-        public bool IsTied
-        {
-            get
-            {
-                var result = false;
-                if (null != TiedPrevious || null != TiedNext)
-                    result = true;
-                return result;
-            }
-        }
-#endif
         public TieTypeEnum TieType { get; set; } = TieTypeEnum.None;
         public bool IsDotted { get; private set; }
 
 
-#endregion
+        #endregion
 
-#region Construction
+        #region Construction
+
         public class CreationContext
         {
             public int MeasureNumber { get; set; }
@@ -234,10 +201,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             public int RelativeEnd { get; set; }
             public DurationEnum Duration { get; set; }
             public bool IsDotted { get; set; }
-            public CreationContext() {  }
-            public CreationContext(RhythmicContext rhythm) 
-            {  
-                this.Rhythm= rhythm;    
+            public CreationContext() { }
+            public CreationContext(RhythmicContext rhythm)
+            {
+                this.Rhythm = rhythm;
             }
         }
 
@@ -248,19 +215,19 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public TimeContext(int measureNumber, RhythmicContext rhythm)
             : this(measureNumber)
-        { 
+        {
             if (null == rhythm)
                 throw new ArgumentNullException(nameof(rhythm));
             this.Rhythm = rhythm;
         }
 
-        public TimeContext(CreationContext ctx) 
-            : this (ctx.MeasureNumber, ctx.Rhythm)
+        public TimeContext(CreationContext ctx)
+            : this(ctx.MeasureNumber, ctx.Rhythm)
         {
             this.RelativeStart = ctx.RelativeStart;
             this.RelativeEnd = ctx.RelativeEnd;
             this.DurationEnum = ctx.Duration;
-            this.IsDotted = ctx.IsDotted;    
+            this.IsDotted = ctx.IsDotted;
         }
         public TimeContext(int measure, CreationContext ctx)
             : this(ctx.MeasureNumber, ctx.Rhythm)
@@ -269,7 +236,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimeContext(int measureNumber, RhythmicContext rhythm, int start, int duration)
             : this(measureNumber, rhythm)
         {
-            this.RelativeStart= start;
+            this.RelativeStart = start;
             this.RelativeEnd = start + duration;
         }
         public TimeContext(TimeContext src)
@@ -283,9 +250,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
         }
 
-#endregion
+        #endregion
 
-#region Fluent
+        #region Fluent
         public TimeContext SetMeasureNumber(int measureNumber)
         {
             this.MeasureNumber = measureNumber;
@@ -297,7 +264,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return this;
         }
 
-        public TimeContext SetRelativeStart(int start) 
+        public TimeContext SetRelativeStart(int start)
         {
             this.RelativeStart = start;
             return this;
@@ -316,14 +283,14 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public TimeContext SetIsDotted(bool isDotted)
         {
-            this.IsDotted= isDotted;
+            this.IsDotted = isDotted;
             return this;
         }
 
 
-#endregion
+        #endregion
 
-#region Equality
+        #region Equality
         public bool Equals(TimeContext other)
         {
             var result = false;
@@ -381,7 +348,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-#endregion
+        #endregion
 
         public override string ToString()
         {

@@ -207,14 +207,14 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result.Add(xevent);
             }
 
-            if (this.BarlineContexts.Any(x => null != x.RepeatContext))
+            if (this.BarlineContexts.Any())
             {
-                var ctxs = this.BarlineContexts.Where(x => null != x.RepeatContext);
+                var ctxs = this.BarlineContexts;
                 foreach (var ctx in ctxs)
                 {
                     XElement xbarline = ctx.ToXElement();
-                    if (ctx.RepeatContext.RepeatEnum == Domain.RepeatEnum.Forward)
-                    { //2nd endings, section.Endings, measure.Barline, measure.HasRepeat
+                    if (null != ctx.RepeatContext)
+                    {
                         xbarline.Add(ctx.RepeatContext.ToXElement());
                         if (ctx.RepeatContext.RepeatCount > 1)
                         {

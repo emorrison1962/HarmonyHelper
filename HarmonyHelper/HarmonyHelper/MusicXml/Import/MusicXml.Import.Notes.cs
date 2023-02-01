@@ -20,7 +20,8 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var tieType = this.ParseTie(xnote);
             var hhNote = this.Parse_HarmonyHelper_Note(xnote);
-            var duration = ParseDuration(xnote, out var durationEnum, out var timeModification);
+            var duration = this.ParseDuration(xnote, out var durationEnum, 
+                out var timeModification, out var isDotted);
             var start = this.ParsingContext.CurrentOffset;
             var end = this.ParsingContext.CurrentOffset + duration;
 
@@ -60,6 +61,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.ParsingContext.CurrentMeasure.MeasureNumber,
                 start,
                 duration,
+                isDotted,
                 durationEnum,
                 timeModification,
                 xnote);

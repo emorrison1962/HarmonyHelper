@@ -124,6 +124,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
+            bool isDotted,
             DurationEnum de,
             MusicXmlTimeModification timeModification,
             XElement xnote)
@@ -136,7 +137,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Rhythm = rhythm,
                 RelativeStart = start,
                 RelativeEnd = start + duration,
-                Duration = de
+                Duration = de,
+                IsDotted= isDotted,
             };
             var time = new TimeContext(ctx);
             var result = new TimedEventNote(note,
@@ -149,6 +151,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
+            bool isDotted,
             DurationEnum de,
             MusicXmlTimeModification timeModification,
             XElement xnote)
@@ -161,7 +164,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Rhythm = rhythm,
                 RelativeStart = start,
                 RelativeEnd = start + duration,
-                Duration = de
+                Duration = de,
+                IsDotted = isDotted,
             };
             var time = new TimeContext(ctx);
             var result = new TimedEventRest(rest,
