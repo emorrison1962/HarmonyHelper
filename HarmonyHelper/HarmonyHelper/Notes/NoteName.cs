@@ -524,6 +524,8 @@ namespace Eric.Morrison.Harmony
 
         protected static NoteName TransposeUp(NoteName src, Interval interval)
         {
+            //if (src == NoteName.BSharp && interval == ChordToneInterval.Sharp9th)
+            //    new object();
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             NoteName result = null;

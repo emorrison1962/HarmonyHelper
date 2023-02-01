@@ -19,7 +19,13 @@ namespace Eric.Morrison.Harmony.MusicXml
         override public TimeContext TimeContext
         {
             get { return this._TimeContext; }
-            set { throw new NotImplementedException(); }
+            set 
+            { 
+                if (value is TimeContextEx)
+                    this._TimeContext = (TimeContextEx)value;
+                else
+                    throw new NotImplementedException(); 
+            }
         }
 
         #endregion

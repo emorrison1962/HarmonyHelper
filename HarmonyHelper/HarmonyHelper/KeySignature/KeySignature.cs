@@ -82,7 +82,14 @@ namespace Eric.Morrison.Harmony
 
         async Task InitAsync()
         {
-            await this.SetChordsAsync();
+            try
+            {
+                await this.SetChordsAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }        
         }
 
         async Task SetChordsAsync()

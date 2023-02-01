@@ -18,7 +18,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
     [TestClass()]
     public class MusicXmlExporterTests
     {
-        static string TEST_FILES_PATH
+        public static string TEST_FILES_PATH
         {
             get
             {

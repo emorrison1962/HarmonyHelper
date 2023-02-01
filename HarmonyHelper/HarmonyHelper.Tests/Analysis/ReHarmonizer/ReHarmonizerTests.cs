@@ -12,6 +12,7 @@ using System.Reflection;
 using Eric.Morrison.Harmony.Rhythm;
 using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
+using Eric.Morrison.Harmony.MusicXml.Tests;
 
 namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 {
@@ -24,18 +25,13 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             try
             {
                 //TestUtilities.DisableAssertionDialogs();
-                var path = Assembly.GetExecutingAssembly().Location;
-                path = Path.GetDirectoryName(path);
-                path = Path.GetDirectoryName(path);
-                path = Path.GetDirectoryName(path);
-
-                path = Path.Combine(path, "TEST_FILES");
-                path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
+                
+                var srcPath = Path.Combine(MusicXmlExporterTests.TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
                 var parser = new MusicXmlImporter();
 
                 var sctx = new SectionContext(0, 16, 4);
-                var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P1");
-                using (var model = parser.Import(path))
+                var cctx = new MusicXmlModelCreationContext(srcPath, sctx, "P1", "P1");
+                using (var model = parser.Import(srcPath))
                 {
                     //model.CreateSections(new SectionContext(0, 16, 4));
 
@@ -69,8 +65,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
 
                     var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
                     filename = "000000-000001.xml";
-                    var folder = @"c:\temp\MusicXml";
-                    var savePath = Path.Combine(folder, filename);
+                    var savePath = Path.Combine(MusicXmlExporterTests.TEST_FILES_PATH, filename);
                     doc.Save(savePath);
                     new object();
                 }
