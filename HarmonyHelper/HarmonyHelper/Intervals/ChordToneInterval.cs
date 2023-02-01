@@ -7,7 +7,7 @@ namespace Eric.Morrison.Harmony.Intervals
 {
     public class ChordToneInterval : Interval
 	{
-		static public List<ChordToneInterval> Catalog { get; set; } = new List<ChordToneInterval>();
+		static new public List<ChordToneInterval> Catalog { get; set; } = new List<ChordToneInterval>();
 
 		static public new ChordToneInterval None = new ChordToneInterval("None", Interval.Unison, ChordToneFunctionEnum.None);
 		static public ChordToneInterval Root = new ChordToneInterval("Root", Interval.Unison, ChordToneFunctionEnum.Root);
@@ -60,7 +60,7 @@ ChordToneInterval.Thirteenth
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
 
-        public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
+        override public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
 
         private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{

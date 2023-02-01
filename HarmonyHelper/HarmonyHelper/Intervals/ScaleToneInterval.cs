@@ -66,7 +66,7 @@ ScaleToneInterval.Major7th
 		override public string Name { get; protected set; }
 		public ScaleToneFunctionEnum ScaleToneFunction { get; private set; }
 
-        public IntervalRoleTypeEnum IntervalRoleType => this.ScaleToneFunction.ToIntervalRoleType();
+        override public IntervalRoleTypeEnum IntervalRoleType => this.ScaleToneFunction.ToIntervalRoleType();
 
 		public ScaleToneInterval(string name, Interval interval, ScaleToneFunctionEnum ScaleToneFunction) : base(interval)
 		{

@@ -15,6 +15,12 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
         public Note Event { get; set; }
+        protected TimeContextEx _TimeContext { get; set; }
+        override public TimeContext TimeContext
+        {
+            get { return this._TimeContext; }
+            set { throw new NotImplementedException(); }
+        }
 
         #endregion
 
@@ -26,7 +32,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventNote(Note note, TimeContext ctx)
+        public TimedEventNote(Note note, TimeContextEx ctx)
             : base(ctx)
         {
             this.Event = note;
@@ -58,7 +64,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var nn = this.Event.NoteName;
             var note = this.Event;
-            var time = this.TimeContext;
+            var time = this.TimeContext as TimeContextEx;
 
             var xnote = new XElement(XmlConstants.note);
             {

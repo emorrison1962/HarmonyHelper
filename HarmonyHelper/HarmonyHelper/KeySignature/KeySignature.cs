@@ -590,62 +590,62 @@ namespace Eric.Morrison.Harmony
         NullKeySignature() : base() { }
 
 
-        public int CompareTo(KeySignature other)
+        new public int CompareTo(KeySignature other)
         {
             throw new NotImplementedException();
         }
 
-        public bool Contains(List<NoteName> notes, out List<NoteName> blueNotes)
+        new public bool Contains(List<NoteName> notes, out List<NoteName> blueNotes)
         {
             throw new NotImplementedException();
         }
 
-        public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
+        new public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
         {
             throw new NotImplementedException();
         }
 
-        public bool Equals(KeySignature other)
+        new public bool Equals(KeySignature other)
         {
             throw new NotImplementedException();
         }
 
-        public KeySignature GetEnharmonicEquivalent()
+        new public KeySignature GetEnharmonicEquivalent()
         {
             throw new NotImplementedException();
         }
 
-        public List<ChordFormula> GetNonDiatonic(List<ChordFormula> chords)
+        new public List<ChordFormula> GetNonDiatonic(List<ChordFormula> chords)
         {
             throw new NotImplementedException();
         }
 
-        public NoteName GetNormalized(NoteName nn, Interval interval)
+        new public NoteName GetNormalized(NoteName nn, Interval interval)
         {
             throw new NotImplementedException();
         }
 
-        public KeySignature GetRelativeMajor()
+        new public KeySignature GetRelativeMajor()
         {
             throw new NotImplementedException();
         }
 
-        public KeySignature GetRelativeMinor()
+        new public KeySignature GetRelativeMinor()
         {
             throw new NotImplementedException();
         }
 
-        public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
+        new public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
         {
             throw new NotImplementedException();
         }
 
-        public IsDiatonicEnum IsDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
+        new public IsDiatonicEnum IsDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
         {
             throw new NotImplementedException();
         }
 
-        public void Normalize(ref List<NoteName> noteNames)
+        new public void Normalize(ref List<NoteName> noteNames)
         {
             throw new NotImplementedException();
         }

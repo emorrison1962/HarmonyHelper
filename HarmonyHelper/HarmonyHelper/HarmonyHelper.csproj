@@ -64,6 +64,7 @@
     <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />
     <Compile Include="MusicXml\Domain\TimeContext.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventBackup.cs" />
+    <Compile Include="MusicXml\Domain\TimedEvents\TimedEventFactory.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventForward.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventRest.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventNote.cs" />

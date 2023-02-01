@@ -26,7 +26,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventRest(Rest rest, TimeContext ctx)
+        public TimedEventRest(Rest rest, TimeContextEx ctx)
             : base(ctx)
         {
             this.Event = rest;
@@ -50,12 +50,12 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 #endif
             var rest = this.Event;
-            var time = this.TimeContext;
 
             var xnote = new XElement(XmlConstants.note);
             var xrest = new XElement(XmlConstants.rest);
             xnote.Add(xrest);
 
+            var time = this.TimeContext as TimeContextEx;
             base.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
             xnote.Add(xduration);
             xnote.Add(new XElement(XmlConstants.voice, this.Serialization.Voice));

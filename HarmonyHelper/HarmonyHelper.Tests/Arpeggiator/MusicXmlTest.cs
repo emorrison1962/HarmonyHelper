@@ -221,9 +221,7 @@ namespace Eric.Morrison.Harmony
 			//}
 
 			Debug.Write(noteStr);
-			g_directionChanged = false;
 		}
-		bool g_directionChanged = false;
 		private void Log_DirectionChanged(object sender, Arpeggiator ctx)
 		{
 			const string ASC = "˄";
@@ -231,7 +229,6 @@ namespace Eric.Morrison.Harmony
 
 			var direction = ctx.Direction.HasFlag(DirectionEnum.Ascending) ? ASC : DESC;
 			Debug.Write(direction);
-			g_directionChanged = true;
 			g_direction = direction;
 		}
 		string g_direction = string.Empty;

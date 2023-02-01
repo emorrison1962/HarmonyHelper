@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony.Intervals
         virtual public string Name { get; protected set; }
 		public int Value { get; private set; }
 		public int SemiTones { get; private set; }
-		public IntervalRoleTypeEnum IntervalRoleType { get; protected set; }
+		virtual public IntervalRoleTypeEnum IntervalRoleType { get; protected set; }
 		private Interval(string name, int value, int semitones, IntervalRoleTypeEnum it)
 		{
 			this.Name = name;

@@ -135,7 +135,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public int MeasureNumber
         {
             get { return _MeasureNumber; }
-            private set
+            protected set
             {
                 //Debug.Assert(value < 6 * 1000);
                 _MeasureNumber = value;
@@ -156,18 +156,8 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeEnd;
             }
         }
-        public int RelativeStart { get; private set; }
-        public int RelativeEnd { get; private set; }
-        public DurationEnum _DurationEnum { get; private set; }
-        public DurationEnum DurationEnum
-        {
-            get { return this._DurationEnum; }
-            private set
-            {
-                this._DurationEnum = value;
-                Debug.Assert(value != DurationEnum.Unknown);
-            }
-        }
+        public int RelativeStart { get; protected set; }
+        public int RelativeEnd { get; protected set; }
         public int Duration
         {
             get
@@ -177,7 +167,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         public TieTypeEnum TieType { get; set; } = TieTypeEnum.None;
-        public bool IsDotted { get; private set; }
+        public bool IsDotted { get; protected set; }
 
 
         #endregion
@@ -199,7 +189,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
             public int RelativeStart { get; set; }
             public int RelativeEnd { get; set; }
-            public DurationEnum Duration { get; set; }
             public bool IsDotted { get; set; }
             public CreationContext() { }
             public CreationContext(RhythmicContext rhythm)
@@ -226,7 +215,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.RelativeStart = ctx.RelativeStart;
             this.RelativeEnd = ctx.RelativeEnd;
-            this.DurationEnum = ctx.Duration;
             this.IsDotted = ctx.IsDotted;
         }
         public TimeContext(int measure, CreationContext ctx)
@@ -244,7 +232,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.RelativeStart = src.RelativeStart;
             this.RelativeEnd = src.RelativeEnd;
-            this.DurationEnum = src.DurationEnum;
         }
         public TimeContext()
         {
@@ -272,12 +259,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimeContext SetRelativeEnd(int end)
         {
             this.RelativeEnd = end;
-            return this;
-        }
-
-        public TimeContext SetDuration(DurationEnum duration)
-        {
-            this.DurationEnum = duration;
             return this;
         }
 
@@ -323,8 +304,6 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             var result = a.MeasureNumber.CompareTo(b.MeasureNumber);
             if (0 == result)
-                result = a.DurationEnum.CompareTo(b.DurationEnum);
-            if (0 == result)
                 result = a.RelativeStart.CompareTo(b.RelativeStart);
 
             return result;
@@ -332,8 +311,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public override int GetHashCode()
         {
             var result = this.MeasureNumber.GetHashCode()
-            ^ this.RelativeStart.GetHashCode()
-            ^ this.DurationEnum.GetHashCode();
+            ^ this.RelativeStart.GetHashCode();
 
             return result;
         }
@@ -352,7 +330,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.DurationEnum}";
+            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}";
         }
 
         public bool Intersects(TimeContext other)
@@ -368,6 +346,182 @@ namespace Eric.Morrison.Harmony.MusicXml
         static public TimeContext CopyWithOffset(TimeContext src, int offset)
         {
             var result = new TimeContext(src);
+            result.MeasureNumber = result.MeasureNumber + offset;
+            return result;
+        }
+
+        public static TimeContext operator +(TimeContext addend, TimeContext augend)
+        {
+            var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
+            var RelativeStart = addend.RelativeStart + augend.RelativeStart;
+            var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
+
+            var result = new TimeContext(MeasureNumber)
+                .SetRelativeStart(RelativeStart)
+                .SetRelativeEnd(RelativeEnd);
+
+            return result;
+        }
+    }//class
+
+    public class TimeContextEx : TimeContext
+    {
+        new public class CreationContext : TimeContext.CreationContext
+        {
+            public DurationEnum Duration { get; set; }
+            public CreationContext() { }
+            public CreationContext(RhythmicContext rhythm)
+                : base(rhythm)
+            {
+            }
+        }
+
+        #region Properties
+        public DurationEnum _DurationEnum { get; protected set; }
+        public DurationEnum DurationEnum
+        {
+            get { return this._DurationEnum; }
+            protected set
+            {
+                this._DurationEnum = value;
+                Debug.Assert(value != DurationEnum.Unknown);
+            }
+        }
+
+        #endregion
+
+        #region Construction
+
+        TimeContextEx(int measureNumber)
+        {
+            this.MeasureNumber = measureNumber;
+        }
+
+        public TimeContextEx(int measureNumber, RhythmicContext rhythm)
+            : this(measureNumber)
+        {
+            if (null == rhythm)
+                throw new ArgumentNullException(nameof(rhythm));
+            this.Rhythm = rhythm;
+        }
+
+        public TimeContextEx(CreationContext ctx)
+            : this(ctx.MeasureNumber, ctx.Rhythm)
+        {
+            this.RelativeStart = ctx.RelativeStart;
+            this.RelativeEnd = ctx.RelativeEnd;
+            this.DurationEnum = ctx.Duration;
+            this.IsDotted = ctx.IsDotted;
+        }
+        public TimeContextEx(int measure, CreationContext ctx)
+            : this(ctx.MeasureNumber, ctx.Rhythm)
+        {
+        }
+        public TimeContextEx(int measureNumber, RhythmicContext rhythm, int start, int duration)
+            : this(measureNumber, rhythm)
+        {
+            this.RelativeStart = start;
+            this.RelativeEnd = start + duration;
+        }
+        public TimeContextEx(TimeContextEx src)
+            : this(src.MeasureNumber, src.Rhythm)
+        {
+            this.RelativeStart = src.RelativeStart;
+            this.RelativeEnd = src.RelativeEnd;
+            this.DurationEnum = src.DurationEnum;
+        }
+        public TimeContextEx()
+        {
+        }
+
+        #endregion
+
+        #region Fluency
+        public TimeContextEx SetDuration(DurationEnum duration)
+        {
+            this.DurationEnum = duration;
+            return this;
+        }
+
+        #endregion
+        #region Equality
+        public bool Equals(TimeContextEx other)
+        {
+            var result = false;
+            if (this.MeasureNumber == other.MeasureNumber
+                && this.RelativeStart == other.RelativeStart
+                && this.RelativeEnd == other.RelativeEnd)
+                result = true;
+            return result;
+        }
+        public override bool Equals(object obj)
+        {
+            var result = false;
+            if (obj is TimeContextEx)
+                result = this.Equals(obj as TimeContextEx);
+            return result;
+        }
+        public int CompareTo(TimeContextEx other)
+        {
+            var result = Compare(this, other);
+            return result;
+        }
+        public static int Compare(TimeContextEx a, TimeContextEx b)
+        {
+            if (a is null && b is null)
+                return 0;
+            else if (a is null)
+                return -1;
+            else if (b is null)
+                return 1;
+
+            var result = a.MeasureNumber.CompareTo(b.MeasureNumber);
+            if (0 == result)
+                result = a.DurationEnum.CompareTo(b.DurationEnum);
+            if (0 == result)
+                result = a.RelativeStart.CompareTo(b.RelativeStart);
+
+            return result;
+        }
+        public override int GetHashCode()
+        {
+            var result = this.MeasureNumber.GetHashCode()
+            ^ this.RelativeStart.GetHashCode()
+            ^ this.DurationEnum.GetHashCode();
+
+            return result;
+        }
+        public static bool operator ==(TimeContextEx a, TimeContextEx b)
+        {
+            var result = Compare(a, b) == 0;
+            return result;
+        }
+        public static bool operator !=(TimeContextEx a, TimeContextEx b)
+        {
+            var result = Compare(a, b) != 0;
+            return result;
+        }
+
+        #endregion
+
+        public override string ToString()
+        {
+            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.DurationEnum}";
+        }
+
+        public bool Intersects(TimeContextEx other)
+        {
+            var result = false;
+            if (this.AbsoluteStart >= other.AbsoluteStart
+                && this.AbsoluteStart <= other.AbsoluteEnd)
+            {
+                result = true;
+            }
+            return result;
+        }
+        static public TimeContextEx CopyWithOffset(TimeContextEx src, int offset)
+        {
+            var result = new TimeContextEx(src);
             result.MeasureNumber = result.MeasureNumber + offset;
             return result;
         }
@@ -433,17 +587,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public static TimeContext operator +(TimeContext addend, TimeContext augend)
+        public static TimeContextEx operator +(TimeContextEx addend, TimeContextEx augend)
         {
             var Duration = addend.DurationEnum;
             var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
             var RelativeStart = addend.RelativeStart + augend.RelativeStart;
             var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
 
-            var result = new TimeContext(MeasureNumber)
-                .SetRelativeStart(RelativeStart)
-                .SetRelativeEnd(RelativeEnd)
-                .SetDuration(Duration);
+            var result = new TimeContextEx(MeasureNumber);
+            result.SetRelativeStart(RelativeStart);
+            result.SetRelativeEnd(RelativeEnd);
+            result.SetDuration(Duration);
+
             return result;
         }
     }//class

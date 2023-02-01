@@ -80,7 +80,7 @@ namespace Eric.Morrison.Harmony
 
 		#region IComparable
 
-		public int CompareTo(NoteName other)
+		new public int CompareTo(NoteName other)
 		{
 			var result = Compare(this, other);
 			return result;
