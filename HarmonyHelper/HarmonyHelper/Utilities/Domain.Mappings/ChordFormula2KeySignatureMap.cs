@@ -14,13 +14,14 @@ namespace Eric.Morrison.Harmony
     static public class ChordFormula2KeySignatureMap
     {
         static public Dictionary<ChordFormula, List<KeySignature>>
-            ChordFormulaToKeySignatureMaps { get; set; }
+            ChordFormulaToKeySignatureMaps
+        { get; set; }
                 = new Dictionary<ChordFormula, List<KeySignature>>();
 
 
         static ChordFormula2KeySignatureMap()
         {
-            Task.Run(()=> Init());
+            Task.Run(() => Init());
         }
 
         static async Task Init()
@@ -63,11 +64,10 @@ namespace Eric.Morrison.Harmony
                     .ThenBy(x => x.NoteName)
                     .ToList();
             }
-            //Debug.Assert(result.Count > 0);
-            if (result.Count == 0)
-            {
-                Debug.WriteLine(formula);
-            }
+            //if (result.Count == 0)
+            //{
+            //    Debug.WriteLine(formula);
+            //}
             return result;
         }
 

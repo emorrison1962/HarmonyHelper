@@ -15,24 +15,28 @@ namespace Eric.Morrison.Collections.Generic.Tests
     public class CircularMultiQueueTests
     {
         [TestMethod()]
+        [Ignore]
         public void GetCountTest()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void GetNextTest()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void AddTest()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void AddTest1()
         {
             Assert.Fail();

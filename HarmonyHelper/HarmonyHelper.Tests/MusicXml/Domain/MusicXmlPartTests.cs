@@ -12,24 +12,28 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
     public class MusicXmlPartTests
     {
         [TestMethod()]
+        [Ignore]
         public void MusicXmlPartTest()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void MusicXmlPartTest1()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void CloneShallowTest()
         {
             Assert.Fail();
         }
 
         [TestMethod()]
+        [Ignore]
         public void ToStringTest()
         {
             Assert.Fail();

@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         public void CopyWithOffsetTest()
         {
             var tc = new TimeContext()
-                .SetRhythmicContext(new RhythmicContext()
+                .SetRhythmicContext(new RhythmicContext(new TimeSignature(4,4), 480)
                     .SetPulsesPerMeasure(480))
                 .SetMeasureNumber(1)
                 .SetRelativeStart(0)
@@ -38,6 +38,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void TryGetNameTest()
         {
             Assert.Fail();

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.Intervals;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony.Tests
@@ -104,11 +106,22 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void IteratorTest()
         {
+            var assert = false;
             foreach (var chord in ChordFormula.Catalog)
             {
-                var newChord = chord + Interval.Perfect5th;
-                //Debug.WriteLine(newChord.ToString());
+                try
+                {
+                    var newChord = chord + Interval.Perfect5th;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(chord);
+                    //Debug.WriteLine(ex);
+                    assert = true;
+                }
             }
+            Assert.IsFalse(assert);
             new object();
         }
 
