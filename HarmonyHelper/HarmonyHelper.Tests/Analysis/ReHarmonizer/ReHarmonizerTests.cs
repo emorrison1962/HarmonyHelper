@@ -27,16 +27,16 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                 //TestUtilities.DisableAssertionDialogs();
                 
                 var srcPath = Path.Combine(MusicXmlExporterTests.TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
+                Debug.WriteLine(srcPath);
                 var parser = new MusicXmlImporter();
 
                 var sctx = new SectionContext(0, 16, 4);
-                var cctx = new MusicXmlModelCreationContext(srcPath, sctx, "P1", "P1");
                 using (var model = parser.Import(srcPath))
                 {
                     //model.CreateSections(new SectionContext(0, 16, 4));
 
                     var sw = Stopwatch.StartNew();
-                    new ReHarmonizer().ReHarmonize(model);
+                    new ReHarmonizer().ReHarmonize(model, "P1", "P1");
                     //model.MergeSections();
                     sw.Stop();
                     Debug.WriteLine(sw.Elapsed.ToString());

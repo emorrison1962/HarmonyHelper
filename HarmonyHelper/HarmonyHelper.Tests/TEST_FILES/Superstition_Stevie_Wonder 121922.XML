@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore 4.0.1</software>
-      <encoding-date>2023-01-17</encoding-date>
+      <encoding-date>2023-02-01</encoding-date>
       <supports element="accidental" type="yes"/>
       <supports element="beam" type="yes"/>
       <supports element="print" attribute="new-page" type="no"/>
@@ -91,9 +91,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="2">
       <harmony print-frame="no">
@@ -174,9 +177,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="3">
       <harmony print-frame="no">
@@ -206,9 +212,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="4">
       <harmony print-frame="no">
@@ -289,12 +298,14 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="5">
-      <print new-system="yes"/>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -330,11 +341,15 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="6">
+      <print new-system="yes"/>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -413,9 +428,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="7">
       <harmony print-frame="no">
@@ -445,9 +463,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="8">
       <harmony print-frame="no">
@@ -528,12 +549,14 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="9">
-      <print new-system="yes"/>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -569,9 +592,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="10">
       <harmony print-frame="no">
@@ -638,9 +664,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="11">
       <harmony print-frame="no">
@@ -704,11 +733,15 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="12">
+      <print new-system="yes"/>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -809,12 +842,14 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="13">
-      <print new-system="yes"/>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -850,9 +885,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="14">
       <harmony print-frame="no">
@@ -933,9 +971,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="15">
       <harmony print-frame="no">
@@ -965,9 +1006,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="16">
       <harmony print-frame="no">
@@ -1034,9 +1078,15 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
+      <barline location="right">
+        <bar-style>light-light</bar-style>
+        </barline>
       </measure>
     <measure number="17">
       <print new-system="yes"/>
@@ -1144,9 +1194,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="18">
       <harmony print-frame="no">
@@ -1247,9 +1300,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="19">
       <harmony print-frame="no">
@@ -1311,9 +1367,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       </measure>
     <measure number="20">
       <harmony print-frame="no">
@@ -1411,9 +1470,12 @@
       <backup>
         <duration>16</duration>
         </backup>
-      <forward>
+      <note print-object="no">
+        <rest measure="yes"/>
         <duration>16</duration>
-        </forward>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
         <repeat direction="backward"/>

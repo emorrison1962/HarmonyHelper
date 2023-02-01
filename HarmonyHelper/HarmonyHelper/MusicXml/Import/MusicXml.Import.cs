@@ -87,6 +87,50 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = this.CreateMusicXmlModel(metadata, parts);
             return result;
         }
+        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        {
+            var result = new MusicXmlModel();
+            result.Metadata = metadata;
+            result.Rhythm = this.ParsingContext.Rhythm;
+            foreach (var part in parts)
+            {
+                result.Add(part);
+            }
+
+            this.CreateSections(result);
+            
+            return result;
+        }
+
+        void CreateSections(MusicXmlModel model)
+        {
+            foreach (var part in model.Parts)
+            {
+                var measures = (from m in part.Sections.First().Measures
+                                from bc in m.BarlineContexts
+                                where bc.IsDoubleBarline
+                                select m)
+                           .OrderBy(m => m.MeasureNumber)
+                           .ToList();
+
+                var pairs = measures.GetPairs();
+                var ndxStart = int.MinValue;
+                foreach (var pair in pairs)
+                {
+                    if (ndxStart == int.MinValue)
+                        ndxStart = pair.First.MeasureNumber - 1;
+                    var ndxEnd = pair.Second.MeasureNumber - ndxStart;
+
+                    var selected = part.Sections.First().Measures
+                        .Skip(ndxStart)
+                        .Take(ndxEnd)
+                        .ToList();
+                    ndxStart = ndxEnd;
+                    part.Sections.Add(new MusicXmlSection(part, selected));
+                }
+                part.Sections.Remove(part.Sections.First());
+            }
+        }
 
         MusicXmlScoreMetadata ParseScoreMetadata()
         {
@@ -381,7 +425,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         TimedEventRest ParseRest(XElement xnote)
         {
             TimedEventRest result = null;
-            var duration = ParseDuration(xnote, out var durationEnum, 
+            var duration = ParseDuration(xnote, out var durationEnum,
                 out var timeModification, out var isDotted);
             if (xnote.Elements(XmlConstants.rest).Any())
             {
@@ -414,7 +458,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             TimedEventForward result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
-            var duration = ParseDuration(xelement, out var durationEnum, 
+            var duration = ParseDuration(xelement, out var durationEnum,
                 out var timeModification, out var isDotted);
 
             if (xelement.Name == XmlConstants.forward)
@@ -435,7 +479,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             TimedEventBackup result = null;
             //var duration = Int32.Parse(xelement.Element(XmlConstants.duration).Value);
-            var duration = ParseDuration(xelement, out var durationEnum, 
+            var duration = ParseDuration(xelement, out var durationEnum,
                 out var timeModification, out var isDotted);
 
             if (xelement.Name == XmlConstants.backup)
@@ -455,7 +499,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
 
-        int ParseDuration(XElement xnote, out DurationEnum durationEnum, 
+        int ParseDuration(XElement xnote, out DurationEnum durationEnum,
             out MusicXmlTimeModification timeModification, out bool isDotted)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
             isDotted = false;
@@ -493,20 +537,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         MusicXmlTimeModification ParseTimeModification(XElement xtime_modification)
         {
             return new MusicXmlTimeModification(xtime_modification);
-        }
-
-
-
-        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
-        {
-            var result = new MusicXmlModel();
-            result.Metadata = metadata;
-            result.Rhythm = this.ParsingContext.Rhythm;
-            foreach (var part in parts)
-            {
-                result.Add(part);
-            }
-            return result;
         }
 
         XDocument Transform()

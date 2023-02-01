@@ -13,9 +13,11 @@ namespace HarmonyHelper.Tests.Console
     {
         static void Main(string[] args)
         {
-            TestUtilities.DisableAssertionDialogs();
-            new Program().MainImpl();
-            Debug.WriteLine("Finito!!!");
+            using (new TestUtilities.DisableAssertionDialogs())
+            {
+                new Program().MainImpl();
+                Debug.WriteLine("Finito!!!");
+            }
         }
 
         private void MainImpl()

@@ -35,7 +35,7 @@ namespace Eric.Morrison.Harmony
 			}
 		}
 
-		public static IEnumerable<Pair<T>> GetPairs<T>(this IEnumerable<T> sequence) where T: class
+        public static IEnumerable<Pair<T>> GetPairs<T>(this IEnumerable<T> sequence) where T: class
 		{
 			if (sequence == null)
 				throw new ArgumentNullException();

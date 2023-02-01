@@ -43,7 +43,6 @@ namespace Eric.Morrison.Harmony.Tests
 
             var result = parser.Import(path);
             var sctx = new SectionContext(0, 16, 4);
-            var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
             //result.InitSections(cctx.SectionContext);
 
             Assert.IsNotNull(result);

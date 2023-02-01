@@ -178,6 +178,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     }//class
 
+    [Obsolete("", true)]
     public class MusicXmlModelCreationContext
     {
         public string Path { get; set; }

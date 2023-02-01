@@ -60,7 +60,6 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
 
             var result = parser.Import(path);
             var sctx = new SectionContext(2, 16, 4);
-            var cctx = new MusicXmlModelCreationContext(path, sctx, "P1", "P2");
 
             return result;
         }
