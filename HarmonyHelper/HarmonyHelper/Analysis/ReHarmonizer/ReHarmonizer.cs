@@ -117,19 +117,28 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             }
 
             var multiQueue = new CircularMultiQueue
-                <List<MusicXmlSection>, MusicXmlSection>();
-            foreach (var newSection  in newSections)
+                <string, MelodyHarmonyPair<MusicXmlSection>>();
+            foreach (var newSection in newSections)
             {
-                multiQueue.Add(newSection, newSection.Harmony);
+                var key = newSection.Melody.Part.Sections.IndexOf(newSection.Melody).ToString();
+                multiQueue.Add(key, newSections);
             }
 
+            //var xmultiQueue = new CircularMultiQueue
+            //    <List<MusicXmlSection>, MusicXmlSection>();
+            //foreach (var newSection  in newSections)
+            //{
+            //    multiQueue.Add(newSection, newSection.Harmony);
+            //}
+
             Debug.WriteLine(multiQueue.Count);
-            foreach (var sections in multiQueue)
+            foreach (var pairs in multiQueue)
             {
-                foreach (var section in sections)
+                foreach (var pair in pairs)
                 {
                     //throw new NotImplementedException();
-                    section.Part.AddRange(section.Measures);
+                    pair.Melody.Part.AddRange(pair.Melody.Measures);
+                    pair.Harmony.Part.AddRange(pair.Harmony.Measures);
                     //model.Add(section);
                     new object();
                 }
@@ -242,10 +251,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
             formulas = formulas.Except(formulas, new FilterSubsumersComparer())
                 .ToList();
-
+            formulas = formulas.Where(x => x.NoteNames.Count >= 4).ToList();
 
             var result = new Queue<ChordSubstitution>();
-            foreach (var formula in formulas.Where(x => x.NoteNames.Count >= 4))
+            foreach (var formula in formulas)
             {
                 if (formula.Contains(pairing.Melody,
                     out var contained,

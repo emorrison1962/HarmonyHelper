@@ -235,7 +235,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 if (xelement.Name == XmlConstants.harmony)
                 {
-                    var chord = this.ParseChord(xelement, chords);
+                    var chord = this.ParseHarmony(xelement, chords);
                     Debug.Assert(chord != null);
                     chords.Add(chord);
                 }

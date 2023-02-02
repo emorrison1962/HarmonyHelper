@@ -47,7 +47,8 @@
     <Compile Include="Analysis\ReHarmonizer\ChordMelodyPairing.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordSubstitution.cs" />
     <Compile Include="Analysis\ReHarmonizer\ChordSubstitutionResults.cs" />
-    <Compile Include="Analysis\ReHarmonizer\CircularMultiQueue.cs" />
+    <Compile Include="Eric.Morrison.Collections.Generic\CircularQueue.cs" />
+    <Compile Include="Eric.Morrison.Collections.Generic\CircularMultiQueue.cs" />
     <Compile Include="Analysis\ReHarmonizer\MelodyHarmonyPair of T.cs" />
     <Compile Include="Interfaces\IChordFormula.cs" />
     <Compile Include="Interfaces\IChordType.cs" />

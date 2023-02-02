@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony
             {
                 await this.SetChordsAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }        
