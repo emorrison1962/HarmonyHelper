@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -107,19 +110,40 @@ namespace Eric.Morrison.Harmony.MusicXml
   <offset>4</offset>
 </harmony>
 #endif
-            var xkind = xharmony.Element(XmlConstants.kind);
-            var chordType = xkind.Attribute(XmlConstants.text)?.Value;
+            var chordType = xharmony.Element(XmlConstants.kind).Value.ToHarmonyHelperString();
+            //var chordType = xkind.Attribute(XmlConstants.text)?.Value;
 
+            var xdegrees = new List<XElement>();
             if (xharmony.Elements(XmlConstants.degree).Any())
-                this.ParseAlteration(xharmony);
-
+            {
+                xdegrees = xharmony.Elements(XmlConstants.degree).ToList();
+                this.ParseAlterations(xharmony, out var adds, out var alters, out var subtracts);
+                foreach (var interval in adds)
+                {
+                    chordType += interval;
+                }
+                foreach (var interval in alters)
+                {
+                    chordType += interval.ToString();
+                }
+                foreach (var interval in subtracts)
+                {
+                    chordType += interval;
+                }
+            }
 
             var chord = root + chordType;
+            Debug.WriteLine(chord);
+
             var result = ChordFormulaParser.Parse(chord).First();
+
             return result;
         }
 
-        void ParseAlteration(XElement xharmony)
+        void ParseAlterations(XElement xharmony,
+            out List<string> adds,
+            out List<string> alters,
+            out List<string> subtracts)
         {
 #if false
   <degree>
@@ -128,53 +152,66 @@ namespace Eric.Morrison.Harmony.MusicXml
     <degree-type>alter</degree-type>
   </degree>
 #endif
-            var xalteration = xharmony.Element(XmlConstants.degree);
+            adds = new List<string>();
+            alters = new List<string>();
+            subtracts = new List<string>();
 
-            var strVal = xalteration.Element(XmlConstants.degree_value).Value;
+            var xalterations = xharmony.Elements(XmlConstants.degree).ToList();
+            foreach (var xalteration in xalterations)
+            {
+                var strVal = xalteration.Element(XmlConstants.degree_value).Value;
+                var alter = xalteration.Element(XmlConstants.degree_alter).Value;
+                var type = xalteration.Element(XmlConstants.degree_type).Value;
+                if (type == XmlConstants.degree_type_add)
+                {
+                    adds.Add(this.GetIntervalAlteration(xalteration));
+                }
+                else if (type == XmlConstants.degree_type_alter)
+                {
+                    alters.Add(this.GetIntervalAlteration(xalteration));
+                }
+                else if (type == XmlConstants.degree_type_subtract)
+                {
+                    subtracts.Add(this.GetIntervalAlteration(xalteration));
+                }
+            }
+        }
+
+
+
+        const string MINUS = "-";
+
+        string GetIntervalAlteration(XElement xalteration)
+        {
+            var result = string.Empty;
+            var strChordTone = xalteration.Element(XmlConstants.degree_value).Value;
             var alter = xalteration.Element(XmlConstants.degree_alter).Value;
-            var type = xalteration.Element(XmlConstants.degree_type).Value;
 
-            var irt = this.GetInterval(strVal);
-            
-            const string MINUS = "-";
+
+            var count = 0;
+
             if (alter.StartsWith(MINUS))
             {
-                var intervals = Interval.Catalog.Where(x => x.Value < irt.Value)
-                    .OrderByDescending(x => x.Value)
-                    .Where(x => x.Name.Contains(strVal))
-                    .ToList();
-                alter = alter.Remove(0, 1);
-                var count = int.Parse(alter);
-                for (int i = 0; i < count;  ++i)
-                    irt -= Interval.Minor2nd;
+                var flats = new List<string> { "b", "b" };
+                count = int.Parse(alter.Substring(1, alter.Length - 1));
+                var seq = flats.Take(count).ToList();
+                foreach (var str in seq)
+                { result += str; }
+                result += strChordTone;
             }
             else 
-            { 
-            }
-
-            //var i = Interval.Catalog.Where(x => x.IntervalRoleType == irt);
-            new object();
-        }
-
-        Interval GetInterval(string strVal)
-        {
-            Interval result= null;
-            switch (int.Parse(strVal))
             {
-                case 1: result = ChordToneInterval.Unison; break;
-                case 2: result = ChordToneInterval.Major2nd; break;
-                case 3: result = ChordToneInterval.Major3rd; break;
-                case 4: result = ChordToneInterval.Perfect4th; break;
-                case 5: result = ChordToneInterval.Perfect5th; break;
-                case 6: result = ChordToneInterval.Major6th; break;
-                case 7: result = ChordToneInterval.Major7th; break;
-                case 9: result = ChordToneInterval.Ninth; break;
-                case 11: result = ChordToneInterval.Eleventh; break;
-                case 13: result = ChordToneInterval.Thirteenth; break;
-                default: { throw new NotImplementedException(); }
+                var sharps = new List<string> { "#", "#" };
+                count = int.Parse(alter);
+                var seq = sharps.Take(count).ToList();
+                foreach (var str in seq)
+                { result += str; }
+                result += strChordTone;
             }
+
             return result;
         }
+
 
     }//class
 }//ns

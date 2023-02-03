@@ -12,6 +12,8 @@ using System.Net.NetworkInformation;
 using System.Security.Policy;
 using System.Xml.Linq;
 using System;
+using System.Runtime.Remoting.Messaging;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -23,7 +25,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string alter = "alter";
         public const string attack = "attack";
         public const string backup = "backup";
-        
+
         public const string barline = "barline";
         public const string barline_location = "location";
         public const string barline_location_left = "left";
@@ -61,6 +63,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string degree_value = "degree-value";
         public const string degree_alter = "degree-alter";
         public const string degree_type = "degree-type";
+        public const string degree_type_add = "add";
+        public const string degree_type_alter = "alter";
+        public const string degree_type_subtract = "subtract";
         public const string divisions = "divisions";
         public const string dot = "dot";
         public const string duration = "duration";
@@ -162,4 +167,152 @@ namespace Eric.Morrison.Harmony.MusicXml
         public const string Tristan = "Tristan"; //Augmented fourth, augmented sixth, augmented ninth.
 
     }
+
+    static public class HarmonyKindExtensions
+    {
+        public static string ToHarmonyHelperString(this string src)
+        {
+            var result = string.Empty;
+            switch (src)
+            {
+                case MusicXml_HarmonyKind_Constants.augmented: // "augmented"; //Triad: major third, augmented fifth.
+                    result = "aug";
+                    break;
+                case MusicXml_HarmonyKind_Constants.augmented_seventh: // "augmented-seventh"; //Seventh: augmented triad, minor seventh.
+                    result = "+7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.diminished: // "diminished"; //Triad: minor third, diminished fifth.
+                    result = "dim";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.diminished_seventh: // "diminished-seventh"; //Seventh: diminished triad, diminished seventh.
+                    result = "dim7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.dominant: // "dominant"; //Seventh: major triad, minor seventh.
+                    result = "7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.dominant_11th: // "dominant-11th";    //11th: dominant-ninth, perfect 11th.
+                    result = "11";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.dominant_13th: // "dominant-13th";    //13th: dominant-11th, major 13th.
+                    result = "13";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.dominant_ninth: // "dominant-ninth"; //Ninth: dominant, major ninth.
+                    result = "9";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.French: // "French";  //Functional French sixth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.German: // "German"; //Functional German sixth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.half_diminished: // "half-diminished"; //Seventh: diminished triad, minor seventh.
+                    result = "m7b5";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.Italian: // "Italian"; //Functional Italian sixth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major: // "major"; //Triad: major third, perfect fifth.
+                    result = "Maj";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_11th: // "major-11th";  //11th: major-ninth, perfect 11th.
+                    result = "Maj11";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_13th: // "major-13th";  //13th: major-11th, major 13th.
+                    result = "Maj13";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_minor: // "major-minor"; //Seventh: minor triad, major seventh.
+                    result = "mMaj7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_ninth: // "major-ninth"; //Ninth: major-seventh, major ninth.
+                    result = "Maj9";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_seventh: // "major-seventh"; //Seventh: major triad, major seventh.
+                    result = "Maj7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.major_sixth: // "major-sixth"; //Sixth: major triad, added sixth.
+                    result = "Maj6";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor: // "minor"; //Triad: minor third, perfect fifth.
+                    result = "-";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor_11th: // "minor-11th";  //11th: minor-ninth, perfect 11th.
+                    result = "m11";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor_13th: // "minor-13th";  //13th: minor-11th, major 13th.
+                    result = "m13";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor_ninth: // "minor-ninth"; //Ninth: minor-seventh, major ninth.
+                    result = "m9";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor_seventh: // "minor-seventh"; //Seventh: minor triad, minor seventh.
+                    result = "m7";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.minor_sixth: // "minor-sixth"; //Sixth: minor triad, added sixth.
+                    result = "m6";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.Neapolitan: // "Neapolitan"; //Functional Neapolitan sixth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.none: // "none"; //Used to explicitly encode the absence of chords or functional harmony. In this case, the<root> <numeral>, or<function> element has no meaning.When using the <root> or<numeral> element, the <root-step> or<numeral-step> text attribute should be set to the empty string to keep the root or numeral from being displayed.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.other: // "other";   //Used when the harmony is entirely composed of add elements.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.pedal: // "pedal"; //Pedal-point bass
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.power: // "power"; //Perfect fifth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.suspended_fourth: // "suspended-fourth"; //Suspended: perfect fourth, perfect fifth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.suspended_second: // "suspended-second"; //Suspended: major second, perfect fifth.
+                    result = "";
+                    break;
+
+                case MusicXml_HarmonyKind_Constants.Tristan: // "Tristan"; //Augmented fourth, augmented sixth, augmented ninth.
+                    result = "";
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+
+            Debug.Assert(result != string.Empty);
+            return result;
+        }
+    }
+
 }//ns
