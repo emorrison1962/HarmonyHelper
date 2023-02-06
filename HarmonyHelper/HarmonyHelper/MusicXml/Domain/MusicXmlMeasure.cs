@@ -12,11 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-using static System.Collections.Specialized.BitVector32;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlMeasure : ClassBase, IDisposable
+    public class MusicXmlMeasure : ClassBase, IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
@@ -192,6 +191,48 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .ToList();
             var notes = string.Join(",", nns);
             return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
+        }
+
+        public bool IsValid()
+        {
+            var result = true;
+
+            if (_MeasureNumber == 0)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && !_Chords.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            
+            if (result && !_Notes.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            
+            if (result && !_Rests.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            
+            if (result && !_Forwards.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            
+            if (result && !_Backups.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+
+            return result;
         }
 
         public XElement ToXElement()

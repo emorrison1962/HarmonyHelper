@@ -138,7 +138,7 @@ namespace Eric.Morrison.Harmony.Chords
 
             if (0 == notContained.Count)
                 result = ChordFormulaContainsEnum.Yes;
-            else if (notContained.Count < contained.Count)
+            else if (notContained.Count <= contained.Count)
                 result = ChordFormulaContainsEnum.Partially;
             else
                 result = ChordFormulaContainsEnum.No;

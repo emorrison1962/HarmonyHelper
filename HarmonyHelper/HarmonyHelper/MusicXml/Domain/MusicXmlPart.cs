@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         Melody = 1,
         Harmony = 2
     };
-    public class MusicXmlPart : IDisposable
+    public class MusicXmlPart : IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
@@ -103,6 +103,39 @@ namespace Eric.Morrison.Harmony.MusicXml
             return $"{nameof(MusicXmlPart)}: {Identifier}";
         }
 
+        public bool IsValid()
+        {
+            var result = true;
+            if (!this.Staves.Any())
+            { 
+                result = false ;
+                Debug.Assert(result);
+            }
+            if (result && !Identifier.IsValid())
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && !_Measures.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && this.KeySignature == null)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && !Sections.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
+
+
+
         #region IDisposable
         protected virtual void Dispose(bool disposing)
         {
@@ -130,7 +163,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         [Obsolete("", true)]
         internal void ClearMeasures()
         {
-            this._Measures.Clear(); 
+            this._Measures.Clear();
         }
 
         #endregion

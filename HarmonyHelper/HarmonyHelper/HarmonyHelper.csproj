@@ -52,6 +52,7 @@
     <Compile Include="Analysis\ReHarmonizer\MelodyHarmonyPair of T.cs" />
     <Compile Include="Interfaces\IChordFormula.cs" />
     <Compile Include="Interfaces\IChordType.cs" />
+    <Compile Include="Interfaces\IHasIsValid.cs" />
     <Compile Include="Interfaces\IImplementCopy.cs" />
     <Compile Include="Interfaces\IKeySignature.cs" />
     <Compile Include="Interfaces\INoteName.cs" />
@@ -65,7 +66,9 @@
     <Compile Include="MusicXml\Domain\MusicXmlScoreMetadata.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlSection.cs" />
     <Compile Include="MusicXml\Domain\MusicXmlTimeModification.cs" />
+    <Compile Include="MusicXml\Domain\RhythmicContext.cs" />
     <Compile Include="MusicXml\Domain\TimeContext.cs" />
+    <Compile Include="MusicXml\Domain\TimeContextEx.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventBackup.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventFactory.cs" />
     <Compile Include="MusicXml\Domain\TimedEvents\TimedEventForward.cs" />

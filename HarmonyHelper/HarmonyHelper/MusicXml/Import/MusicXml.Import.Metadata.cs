@@ -44,10 +44,10 @@ namespace Eric.Morrison.Harmony.MusicXml
         {//<sound tempo="160"/>
             tempo = int.MinValue;
             var result = false;
-            if (xmeasure.Elements(XmlConstants.sound).Any())
+            if (xmeasure.Descendants(XmlConstants.sound).Any())
             {
                 if (Int32.TryParse(
-                    xmeasure.Elements(XmlConstants.sound)
+                    xmeasure.Descendants(XmlConstants.sound)
                         .First()
                         .Attribute(XmlConstants.tempo)
                         .Value, out tempo))

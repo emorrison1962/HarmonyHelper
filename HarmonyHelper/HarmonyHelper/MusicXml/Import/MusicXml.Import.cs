@@ -85,8 +85,10 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
             }
             var result = this.CreateMusicXmlModel(metadata, parts);
+            Debug.Assert(result.IsValid());
             return result;
         }
+
         MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
         {
             var result = new MusicXmlModel();

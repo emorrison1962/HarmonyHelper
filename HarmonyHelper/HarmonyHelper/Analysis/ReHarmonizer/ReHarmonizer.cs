@@ -137,8 +137,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 foreach (var pair in pairs)
                 {
                     //throw new NotImplementedException();
-                    pair.Melody.Part.AddRange(pair.Melody.Measures);
-                    pair.Harmony.Part.AddRange(pair.Harmony.Measures);
+                    pair.Melody.Part.Add(pair.Melody);
+                    pair.Harmony.Part.Add(pair.Harmony);
                     //model.Add(section);
                     new object();
                 }

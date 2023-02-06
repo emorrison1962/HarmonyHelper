@@ -50,6 +50,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public XDocument Export(MusicXmlModel model)
         {
+            Debug.Assert(model.IsValid());
             this.ExportImpl(model);
             return this.Document;
         }

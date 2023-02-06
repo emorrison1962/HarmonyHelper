@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class TimedEventNote : TimedEventBase, IHasTimeContext, IEquatable<TimedEventNote>, IComparable<TimedEventNote>
+    public class TimedEventNote : TimedEventBase, IHasTimeContext, IEquatable<TimedEventNote>, IComparable<TimedEventNote>, IHasIsValid
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
@@ -34,6 +34,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventNote(TimedEventNote src)
             : base(src)
         {
+            this.Event = src.Event.Copy();
             this.TimeContext = new TimeContextEx(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
@@ -41,6 +42,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventNote(Note note, TimeContextEx ctx)
             : base(ctx)
         {
+            if (null == note)
+                throw new ArgumentNullException(nameof(note));
             this.Event = note;
             this.TimeContext = ctx;
         }
@@ -103,11 +106,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 xnote.Add(xpitch);
                 {
-                    this.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
-                    xnote.Add(xduration);
-                    xnote.Add(new XElement(XmlConstants.voice, this.Serialization.Voice));
-                    xnote.Add(xnoteTypeName);
-                    xnote.Add(xdot);
+                    var xvoice = new XElement(XmlConstants.voice, this.Serialization.Voice);
+
+                    var xparent = this.TimeContext.ToXElement(xvoice);
+                    foreach (var xchild in xparent.Elements())
+                        xnote.Add(xchild);
 
                     if (!string.IsNullOrEmpty(this.Serialization.Staff))
                         xnote.Add(new XElement(XmlConstants.staff, this.Serialization.Staff));
@@ -200,6 +203,18 @@ namespace Eric.Morrison.Harmony.MusicXml
                 ^ this.TimeContext.ToString().GetHashCode();
             return result;
         }
+
+        new public bool IsValid()
+        {
+            var result = base.IsValid();
+            if (result && Event == null)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
+
         public static bool operator ==(TimedEventNote a, TimedEventNote b)
         {
             var result = Compare(a, b) == 0;

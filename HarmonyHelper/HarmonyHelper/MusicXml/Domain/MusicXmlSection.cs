@@ -9,11 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static System.Collections.Specialized.BitVector32;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MultiPartSection : IDisposable
+    public class MultiPartSection : IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
@@ -52,11 +51,16 @@ namespace Eric.Morrison.Harmony.MusicXml
             GC.SuppressFinalize(this);
         }
 
+        public bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
 
     }//class
-    public class MusicXmlSection : IDisposable
+    public class MusicXmlSection : IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
@@ -104,6 +108,18 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Measures.Add(measure);
         }
 
+        public bool IsValid()
+        {
+            var result = true;
+            if (!this.Measures.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
+
+
         #region IDisposable
         protected virtual void Dispose(bool disposing)
         {
@@ -128,7 +144,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #endregion
-
 
     }//class
 }//ns

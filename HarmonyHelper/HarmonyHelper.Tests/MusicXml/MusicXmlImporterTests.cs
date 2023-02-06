@@ -32,7 +32,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ImportTest()
         {
-            var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
+            var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 020523.xml");
             //var path = Path.Combine(TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.musicxml");
 
             Debug.WriteLine(path);
@@ -42,8 +42,6 @@ namespace Eric.Morrison.Harmony.Tests
             var parser = new MusicXmlImporter();
 
             var result = parser.Import(path);
-            var sctx = new SectionContext(0, 16, 4);
-            //result.InitSections(cctx.SectionContext);
 
             Assert.IsNotNull(result);
             foreach (var part in result.Parts)

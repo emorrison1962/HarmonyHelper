@@ -9,8 +9,8 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class Identification
-    { 
+    public class Identification : IHasIsValid
+    {
         public List<Creator> Creators { get; set; } = new List<Creator>();
 
         public XElement ToXElement()
@@ -52,27 +52,39 @@ Arr. 6EQUJ5</creator>
             return result;
 
         }
+
         public string GetNow()
-        {  
-            return DateTime.Now.ToString("yyyy-MM-dd"); 
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+        public bool IsValid()
+        {
+            bool result = true;
+            if (!this.Creators.Any())
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
         }
 
     }//class
 
-    public class Credits
+    public class Credits : IHasIsValid
     {
-#region Properties
+        #region Properties
         public string WorkNumber { get; set; }
         public string WorkTitle { get; set; }
         public string MovementNumber { get; set; }
         public string MovementTitle { get; set; }
 
-#endregion
+        #endregion
 
-#region Construction
-        public Credits() {  }
+        #region Construction
+        public Credits() { }
 
-#endregion
+        #endregion
 
         public List<XElement> ToXElements()
         {
@@ -99,6 +111,20 @@ Arr. 6EQUJ5</creator>
             if (!string.IsNullOrEmpty(this.MovementTitle))
                 result.Add(new XElement(XmlConstants.movement_title, this.MovementTitle));
 
+            return result;
+        }
+
+        public bool IsValid()
+        {
+            var result = true;
+            if (string.IsNullOrEmpty(this.WorkNumber)
+                && string.IsNullOrEmpty(this.WorkTitle)
+                && string.IsNullOrEmpty(this.MovementNumber)
+                && string.IsNullOrEmpty(this.MovementTitle))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
             return result;
         }
     }//class

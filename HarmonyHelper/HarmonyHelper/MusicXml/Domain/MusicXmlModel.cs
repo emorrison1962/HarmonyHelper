@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlModel : IDisposable
+    public class MusicXmlModel : IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
@@ -20,6 +21,31 @@ namespace Eric.Morrison.Harmony.MusicXml
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
         public RhythmicContext Rhythm { get; set; }
+        public bool IsValid()
+        {
+            bool result = true;
+            if (null == this.Rhythm)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && this.Rhythm.Tempo == 0)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && this.Parts.Count == 0)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && !this.Parts.All(x => x.IsValid()))
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
 
         #endregion
 
@@ -42,15 +68,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #region Sections
-        public void InitSections(SectionContext ctx)
-        {
-            this.TrimStart(ctx.Offset);
-            ctx.Offset = 0;
-            this.SetLength(ctx.MeasureCount.Sum());
-            this.CreateSections(ctx);
-            //this.Parts.ForEach(x => x.ClearMeasures());
-        }
-
         void TrimStart(int count)
         {
             foreach (var part in this.Parts)
@@ -72,36 +89,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        public void CreateSections(SectionContext ctx)
-        {
-            this.TrimStart(ctx.Offset);
-            this.SetLength(ctx.MeasureCount.Sum());
-
-            int start = 0;
-            int end = 0;
-
-            foreach (var count in ctx.MeasureCount)
-            {
-                end = count;
-                var lastCount = count;
-                var parts = (from p in this.Parts
-                             select new { Part = p, Measures = p.Measures })
-                           .ToList();
-                
-                foreach (var part in this.Parts)
-                {
-                    var measures = part.Measures
-                        .Skip(start)
-                        .Take(end)
-                        .ToList();
-                    var section = new MusicXmlSection(part, measures);
-                    part.Add(section);
-                }
-
-                start = end;
-            }
-        }
-
         [Obsolete("", true)]
         public void MergeSections()
         {
@@ -120,7 +107,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             //}
         }
 
-	    #endregion        
+        #endregion
 
         public void Add(MusicXmlPart part)
         {
@@ -144,6 +131,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             this._Sections.Add(section);
         }
 
+        public void RenderSections()
+        {
+            new object();
+        }
+
+        #region IDisposable
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -162,19 +155,15 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~MusicXmlModel()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
-
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+
+        #endregion    
 
     }//class
 
@@ -194,9 +183,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Path = path;
             this.SectionContext = sectionContext;
             this.PartIdMelody = melodyPart;
-            this.PartIdHarmony = harmonyPart;  
+            this.PartIdHarmony = harmonyPart;
         }
     }
+    [Obsolete("", true)]
     public class SectionContext
     {
         public int Offset { get; set; }

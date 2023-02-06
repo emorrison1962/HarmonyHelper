@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class TimedEventChordFormula : TimedEventBase, IHasTimeContext, IEquatable<TimedEventChordFormula>, IComparable<TimedEventChordFormula>
+    public class TimedEventChordFormula : TimedEventBase, IHasTimeContext, IEquatable<TimedEventChordFormula>, IComparable<TimedEventChordFormula>, IHasIsValid
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
@@ -22,8 +22,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventChordFormula(TimedEventChordFormula src)
             : base(src)
         {
-            var dst = src.Event.Copy();
-            this.Event = dst;
+            this.Event = src.Event.Copy();
             this.TimeContext = new TimeContext(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
@@ -99,6 +98,17 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #endregion
+
+        new public bool IsValid()
+        {
+            var result = base.IsValid();
+            if (result && Event == null)
+            { 
+                result= false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
 
         public override string ToString()
         {

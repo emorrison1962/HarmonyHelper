@@ -41,7 +41,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
 
 
             var path = TEST_FILES_PATH;
-            path = Path.Combine(path, "Superstition_Stevie_Wonder 121922.XML");
+            path = Path.Combine(path, "Superstition_Stevie_Wonder 020523.xml");
             var model = Parse(path);
             var doc = new MusicXmlExporter().Export(model);
 
@@ -59,7 +59,6 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
             var parser = new MusicXmlImporter();
 
             var result = parser.Import(path);
-            var sctx = new SectionContext(2, 16, 4);
 
             return result;
         }

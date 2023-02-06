@@ -60,6 +60,8 @@
 		public const int COUNT_DIATONIC_SCALE_DEGREES = 7;
 
 		public const string EMPTY = "Empty";
+		public const string XELEMENT_DO_NOT_RENDER = "XELEMENT_DO_NOT_RENDER";
+        public const string XELEMENT_CHILD_CONTAINER = XELEMENT_DO_NOT_RENDER;
 
 	}
 }

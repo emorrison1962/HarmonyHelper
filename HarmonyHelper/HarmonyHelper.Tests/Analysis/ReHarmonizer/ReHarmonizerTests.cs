@@ -26,14 +26,15 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
             {
                 //TestUtilities.DisableAssertionDialogs();
                 
-                var srcPath = Path.Combine(MusicXmlExporterTests.TEST_FILES_PATH, "Superstition_Stevie_Wonder 121922.XML");
+                var srcPath = Path.Combine(MusicXmlExporterTests.TEST_FILES_PATH, 
+                    "Superstition_Stevie_Wonder 020523.xml");
                 Debug.WriteLine(srcPath);
+
                 var parser = new MusicXmlImporter();
 
-                var sctx = new SectionContext(0, 16, 4);
                 using (var model = parser.Import(srcPath))
                 {
-                    //model.CreateSections(new SectionContext(0, 16, 4));
+                    Assert.IsTrue(model.IsValid());
 
                     var sw = Stopwatch.StartNew();
                     new ReHarmonizer().ReHarmonize(model, "P1", "P1");
@@ -57,6 +58,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                         }
                     }
 
+                    model.RenderSections();
                     var doc = new MusicXmlExporter()
                         .Export(model);
 

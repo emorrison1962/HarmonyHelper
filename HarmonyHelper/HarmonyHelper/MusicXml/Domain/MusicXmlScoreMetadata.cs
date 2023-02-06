@@ -10,7 +10,7 @@ using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlScoreMetadata
+    public class MusicXmlScoreMetadata : IHasIsValid
     {
         #region Properties
         public string Now { get { return DateTime.Now.ToString("yyyy-MM-dd"); } }
@@ -26,7 +26,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public List<XElement> ToXElements ()
+        public List<XElement> ToXElements()
         {
             var result = new List<XElement>();
             result.AddRange(this.Credits.ToXElements());
@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             return result;
         }
-        
+
         XElement GetPartsList(MusicXmlModel model)
         {
 #if false
@@ -56,6 +56,20 @@ namespace Eric.Morrison.Harmony.MusicXml
                     part.Identifier.Name);
                 xscore_part.Add(xpart_name);
                 result.Add(xscore_part);
+            }
+            return result;
+        }
+
+        public bool IsValid()
+        {
+            var result = true;
+            if (!this.Identification.IsValid())
+            {
+                result = false;
+            }
+            if (result && !this.Credits.IsValid())
+            {
+                result = false;
             }
             return result;
         }

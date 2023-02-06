@@ -10,19 +10,32 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class TimedEventRest : TimedEventBase, IHasTimeContext, IEquatable<TimedEventRest>, IComparable<TimedEventRest>
+    public class TimedEventRest : TimedEventBase, IHasTimeContext, IEquatable<TimedEventRest>, IComparable<TimedEventRest>, IHasIsValid
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
         public Rest Event { get; set; }
 
+        protected TimeContextEx _TimeContext { get; set; }
+        new public TimeContextEx TimeContext
+        {
+            get { return this._TimeContext; }
+            set
+            {
+                if (value is TimeContextEx)
+                    this._TimeContext = (TimeContextEx)value;
+                else
+                    Debug.Assert(false);
+            }
+        }
         #endregion
 
         #region Construction
         public TimedEventRest(TimedEventRest src)
             : base(src)
         {
-            this.TimeContext = new TimeContext(src.TimeContext);
+            this.Event = src.Event.Copy();
+            this.TimeContext = new TimeContextEx(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
@@ -55,12 +68,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             var xrest = new XElement(XmlConstants.rest);
             xnote.Add(xrest);
 
-            var time = this.TimeContext as TimeContextEx;
-            base.ToXElements(time, out var xnoteTypeName, out var xduration, out var xdot);
-            xnote.Add(xduration);
-            xnote.Add(new XElement(XmlConstants.voice, this.Serialization.Voice));
-            xnote.Add(xnoteTypeName);
-            xnote.Add(xdot);
+            var xvoice = new XElement(XmlConstants.voice, this.Serialization.Voice);
+
+            var xparent = this.TimeContext.ToXElement(xvoice);
+            foreach (var xchild in xparent.Elements())
+                xnote.Add(xchild);
 
             if (!string.IsNullOrEmpty(this.Serialization.Staff))
                 xnote.Add(new XElement(XmlConstants.staff, this.Serialization.Staff));
@@ -68,7 +80,19 @@ namespace Eric.Morrison.Harmony.MusicXml
             return xnote;
         }
 
+
         #endregion
+
+        new public bool IsValid()
+        {
+            var result = base.IsValid();
+            if (result && Event == null)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
 
         public override string ToString()
         {
@@ -119,6 +143,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 ^ this.TimeContext.ToString().GetHashCode();
             return result;
         }
+
         public static bool operator ==(TimedEventRest a, TimedEventRest b)
         {
             var result = Compare(a, b) == 0;

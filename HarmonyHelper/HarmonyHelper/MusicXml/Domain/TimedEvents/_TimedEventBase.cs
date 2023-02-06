@@ -41,24 +41,24 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         abstract public XElement ToXElement();
 
-        [Obsolete("", false)]
-        protected void ToXElements(TimeContextEx time, out XElement xnoteTypeName, out XElement xduration, out XElement xdot)
-        {
-            time.TryGetName(time.DurationEnum, out var name, out var isDotted);
-            xnoteTypeName = null; xduration = null; xdot = null;
-#if true
-            xnoteTypeName = new XElement(XmlConstants.type, name);
-
-            xduration = new XElement(XmlConstants.duration, time.Duration);
-            xdot = null;
-            if (isDotted)
-            {
-                xdot = new XElement(XmlConstants.dot);
-            }
-#endif
-        }
 
         #endregion
+
+        protected bool IsValid()
+        {
+            var result = true;
+            if (null == this.TimeContext) 
+            { 
+                result = false;
+                Debug.Assert(result);
+            }
+            if (result && !this.TimeContext.IsValid())
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
 
         public override string ToString()
         {
@@ -82,7 +82,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
     }//class
-
 
     public class XmlSerializationProperties
     {

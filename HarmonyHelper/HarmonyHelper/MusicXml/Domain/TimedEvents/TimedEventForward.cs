@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class TimedEventForward : TimedEventBase, IHasTimeContext, IEquatable<TimedEventForward>, IComparable<TimedEventForward>
+    public class TimedEventForward : TimedEventBase, IHasTimeContext, IEquatable<TimedEventForward>, IComparable<TimedEventForward>, IHasIsValid
     {
         #region Properties
         override public int SortOrder { get { return this.Event.SortOrder; } }
@@ -22,6 +22,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventForward(TimedEventForward src)
             : base(src)
         {
+            this.Event = src.Event.Copy();
             this.TimeContext = new TimeContext(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
@@ -100,6 +101,18 @@ namespace Eric.Morrison.Harmony.MusicXml
                 ^ this.TimeContext.ToString().GetHashCode();
             return result;
         }
+
+        new public bool IsValid()
+        {
+            var result = base.IsValid();
+            if (result && Event == null)
+            {
+                result = false;
+                Debug.Assert(result);
+            }
+            return result;
+        }
+
         public static bool operator ==(TimedEventForward a, TimedEventForward b)
         {
             var result = Compare(a, b) == 0;
