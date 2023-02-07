@@ -134,6 +134,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             Debug.WriteLine(multiQueue.Count);
             foreach (var pairs in multiQueue)
             {
+                "Need to GroupBy Section.Name"
                 foreach (var pair in pairs)
                 {
                     //throw new NotImplementedException();
@@ -189,10 +190,12 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 if (newMelodyMeasures.Any() && newHarmonyMeasures.Any())
                 {
                     var newMelodySection = new MusicXmlSection(
+                        sectionPairing.Melody.Name,
                         newMelodyMeasures.Select(x => x.Part)
                         .First(),
                         newMelodyMeasures);
                     var newHarmonySection = new MusicXmlSection(
+                        sectionPairing.Harmony.Name,
                         newHarmonyMeasures.Select(x => x.Part)
                         .First(),
                         newHarmonyMeasures);

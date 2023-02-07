@@ -29,6 +29,10 @@
     </part-list>
   <part id="P1">
     <measure number="1">
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward"/>
+        </barline>
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -221,10 +225,6 @@
       </measure>
     <measure number="5">
       <print new-system="yes"/>
-      <barline location="left">
-        <bar-style>heavy-light</bar-style>
-        <repeat direction="forward"/>
-        </barline>
       <harmony print-frame="no">
         <root>
           <root-step>E</root-step>
@@ -1808,165 +1808,6 @@
         <stem>down</stem>
         <staff>1</staff>
         <beam number="1">end</beam>
-        </note>
-      <backup>
-        <duration>16</duration>
-        </backup>
-      <note print-object="no">
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      <barline location="right">
-        <bar-style>light-light</bar-style>
-        </barline>
-      </measure>
-    <measure number="25">
-      <print new-page="yes"/>
-      <harmony print-frame="no">
-        <root>
-          <root-step>E</root-step>
-          </root>
-        <kind text="m7">minor-seventh</kind>
-        </harmony>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>1</voice>
-        <staff>1</staff>
-        </note>
-      <backup>
-        <duration>16</duration>
-        </backup>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      </measure>
-    <measure number="26">
-      <harmony print-frame="no">
-        <root>
-          <root-step>E</root-step>
-          </root>
-        <kind text="m7">minor-seventh</kind>
-        </harmony>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>1</voice>
-        <staff>1</staff>
-        </note>
-      <backup>
-        <duration>16</duration>
-        </backup>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      </measure>
-    <measure number="27">
-      <harmony print-frame="no">
-        <root>
-          <root-step>E</root-step>
-          </root>
-        <kind text="m7">minor-seventh</kind>
-        </harmony>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>1</voice>
-        <staff>1</staff>
-        </note>
-      <backup>
-        <duration>16</duration>
-        </backup>
-      <note>
-        <rest measure="yes"/>
-        <duration>16</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      </measure>
-    <measure number="28">
-      <harmony print-frame="no">
-        <root>
-          <root-step>E</root-step>
-          </root>
-        <kind text="m7">minor-seventh</kind>
-        </harmony>
-      <note>
-        <rest/>
-        <duration>8</duration>
-        <voice>1</voice>
-        <type>half</type>
-        <staff>1</staff>
-        </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">begin</beam>
-        </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">end</beam>
-        </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>eighth</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">begin</beam>
-        </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>16th</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">continue</beam>
-        <beam number="2">begin</beam>
-        </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>5</octave>
-          </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>16th</type>
-        <stem>down</stem>
-        <staff>1</staff>
-        <beam number="1">end</beam>
-        <beam number="2">end</beam>
         </note>
       <backup>
         <duration>16</duration>

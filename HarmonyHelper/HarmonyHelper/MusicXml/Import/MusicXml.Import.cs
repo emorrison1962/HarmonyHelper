@@ -115,22 +115,33 @@ namespace Eric.Morrison.Harmony.MusicXml
                            .ToList();
 
                 var pairs = measures.GetPairs().ToList();
-                var ndxStart = int.MinValue;
-                
+
+                //foreach (var pair in pairs)
+                //{
+                //    var first =
+                //        (pair.First.IsSectionStart ? "Start" : null) ??
+                //        (pair.First.IsSectionEnd ? "End" : null);
+                //    var second =
+                //        (pair.Second.IsSectionStart ? "Start" : null) ??
+                //        (pair.Second.IsSectionEnd ? "End" : null);
+
+                //    Debug.WriteLine($"{pair.First.MeasureNumber}:{first}, {pair.Second.MeasureNumber}:{second}");
+                //}
+
+                var sectionName = 'A';
                 for (int i = 0; i < pairs.Count(); i += 2)
                 {
                     var pair = pairs[i];
-                    if (ndxStart == int.MinValue)
-                        ndxStart = pair.First.MeasureNumber - 1;
-                    var ndxEnd = pair.Second.MeasureNumber - ndxStart;
+                    var ndxStart = pair.First.MeasureNumber - 1;
+                    var count = pair.Second.MeasureNumber - ndxStart;
 
                     var selected = part.Sections.First().Measures
                         .Skip(ndxStart)
-                        .Take(ndxEnd)
+                        .Take(count)
                         .ToList();
-                    ndxStart = ndxEnd;
 
-                    var section = new MusicXmlSection(part, selected);
+                    var section = new MusicXmlSection(sectionName++.ToString(),
+                        part, selected);
                     part.Sections.Add(section);
                 }
                 part.Sections.Remove(part.Sections.First());

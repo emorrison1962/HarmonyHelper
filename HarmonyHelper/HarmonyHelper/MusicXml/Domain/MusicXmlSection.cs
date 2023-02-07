@@ -64,6 +64,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
+        public string Name { get; protected set; }
         public MusicXmlPart Part { get; protected set; }
         public MeasureList Measures { get; set; } = new MeasureList();
         public MusicXmlRepeatContext RepeatContext { get; set; }
@@ -72,15 +73,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         #region Construction
-        public MusicXmlSection(MusicXmlPart Part, 
+        public MusicXmlSection(string name, MusicXmlPart Part, 
             IEnumerable<MusicXmlMeasure> measures)
         {
             if (null == Part)
                 throw new ArgumentNullException(nameof(Part));
             if (!measures.Any())
                 throw new ArgumentException(nameof(measures));
-            this.Part = Part;
 
+            this.Name = name;            
+            this.Part = Part;
             this.Measures = new MeasureList(measures);
         }
 
