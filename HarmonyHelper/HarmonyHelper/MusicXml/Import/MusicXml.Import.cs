@@ -109,16 +109,17 @@ namespace Eric.Morrison.Harmony.MusicXml
             foreach (var part in model.Parts)
             {
                 var measures = (from m in part.Sections.First().Measures
-                                from bc in m.BarlineContexts
-                                where bc.IsDoubleBarline
+                                where m.IsSectionStart || m.IsSectionEnd
                                 select m)
                            .OrderBy(m => m.MeasureNumber)
                            .ToList();
 
-                var pairs = measures.GetPairs();
+                var pairs = measures.GetPairs().ToList();
                 var ndxStart = int.MinValue;
-                foreach (var pair in pairs)
+                
+                for (int i = 0; i < pairs.Count(); i += 2)
                 {
+                    var pair = pairs[i];
                     if (ndxStart == int.MinValue)
                         ndxStart = pair.First.MeasureNumber - 1;
                     var ndxEnd = pair.Second.MeasureNumber - ndxStart;
@@ -128,7 +129,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                         .Take(ndxEnd)
                         .ToList();
                     ndxStart = ndxEnd;
-                    part.Sections.Add(new MusicXmlSection(part, selected));
+
+                    var section = new MusicXmlSection(part, selected);
+                    part.Sections.Add(section);
                 }
                 part.Sections.Remove(part.Sections.First());
             }
@@ -217,7 +220,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var barlineCtxs = this.ParseBarlineContexts(xmeasure);
                 foreach (var barlineCtx in barlineCtxs)
                 {
-                    result.BarlineContexts.Add(barlineCtx);
+                    result.Add(barlineCtx);
                 }
             }
             part.Sections.Last().Add(result);

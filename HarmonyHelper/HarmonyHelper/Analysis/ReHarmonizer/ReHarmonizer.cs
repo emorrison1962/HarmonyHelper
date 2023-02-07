@@ -161,8 +161,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
             for (int i = 0; i < newSectionCount; ++i)
             {
-                var newMelodyMeasures = new List<MusicXmlMeasure>();
-                var newHarmonyMeasures = new List<MusicXmlMeasure>();
+                var newMelodyMeasures = new MeasureList();
+                var newHarmonyMeasures = new MeasureList();
                 foreach (var cmmPairing in cmmPairings)
                 {
                     var newMelodyMeasure = new MusicXmlMeasure(cmmPairing.Melody);

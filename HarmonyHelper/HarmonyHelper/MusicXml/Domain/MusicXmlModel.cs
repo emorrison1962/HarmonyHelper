@@ -15,9 +15,6 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
-        [Obsolete("", true)]
-        public SectionContext SectionContext { get; set; }
-        List<MultiPartSection> _Sections { get; set; } = new List<MultiPartSection>();
         public MusicXmlScoreMetadata Metadata { get; set; }
         public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
         public RhythmicContext Rhythm { get; set; }
@@ -123,12 +120,6 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
             }
             this.Parts.Add(part);
-        }
-
-        [Obsolete("Get rid of this.", true)]
-        public void Add(MultiPartSection section)
-        {
-            this._Sections.Add(section);
         }
 
         public void RenderSections()

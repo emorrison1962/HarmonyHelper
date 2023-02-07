@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>();
         public MusicXmlPartIdentifier Identifier { get; set; }
-        List<MusicXmlMeasure> _Measures { get; set; } = new List<MusicXmlMeasure>();
+        MeasureList _Measures { get; set; } = new MeasureList();
         public ReadOnlyCollection<MusicXmlMeasure> Measures
         {
             get

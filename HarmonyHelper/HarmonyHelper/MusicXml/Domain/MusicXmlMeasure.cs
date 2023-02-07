@@ -33,7 +33,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
         bool HasMetadata { get; set; }
-        public List<MusicXmlBarlineContext> BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
+        List<MusicXmlBarlineContext> _BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
+        public IEnumerable<MusicXmlBarlineContext> BarlineContexts { get { return _BarlineContexts; } }
 
         List<TimedEventChordFormula> _Chords { get; set; } = new List<TimedEventChordFormula>();
         List<TimedEventNote> _Notes { get; set; } = new List<TimedEventNote>();
@@ -54,6 +55,9 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public bool HasForwards { get { return this.Forwards.Count > 0; } }
         public bool HasBackups { get { return this.Backups.Count > 0; } }
+
+        public bool IsSectionEnd { get; set; }
+        public bool IsSectionStart { get; set; }
 
         #endregion
 
@@ -139,7 +143,21 @@ namespace Eric.Morrison.Harmony.MusicXml
             this._Backups.AddRange(Backups);
         }
 
-
+        public void Add(MusicXmlBarlineContext barline)
+        {
+            this._BarlineContexts.Add(barline);
+            if (barline.IsDoubleBarline)
+            {
+                if (barline.IsLeft)
+                {
+                    this.IsSectionStart = true;
+                }
+                if (barline.IsRight)
+                {
+                    this.IsSectionEnd = true;
+                }
+            }
+        }
 
         public class Envelope
         {
@@ -190,7 +208,16 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .OrderBy(x => x)
                 .ToList();
             var notes = string.Join(",", nns);
-            return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
+            //return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}, Chords={chords}, Notes={notes}, Rests={Rests.Count}, HasMetadata={this.HasMetadata}";
+
+            var append = string.Empty;
+            if (this.IsSectionStart)
+                append = $", IsSectionStart ={this.IsSectionStart}";
+            if (this.IsSectionEnd)
+                append = $", IsSectionEnd ={this.IsSectionEnd}";
+
+            return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}{append}";
+
         }
 
         public bool IsValid()
@@ -207,25 +234,25 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result = false;
                 Debug.Assert(result);
             }
-            
+
             if (result && !_Notes.All(x => x.IsValid()))
             {
                 result = false;
                 Debug.Assert(result);
             }
-            
+
             if (result && !_Rests.All(x => x.IsValid()))
             {
                 result = false;
                 Debug.Assert(result);
             }
-            
+
             if (result && !_Forwards.All(x => x.IsValid()))
             {
                 result = false;
                 Debug.Assert(result);
             }
-            
+
             if (result && !_Backups.All(x => x.IsValid()))
             {
                 result = false;

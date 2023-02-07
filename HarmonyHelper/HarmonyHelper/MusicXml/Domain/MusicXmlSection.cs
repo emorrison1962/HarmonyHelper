@@ -65,8 +65,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         private bool disposedValue;
         #region Properties
         public MusicXmlPart Part { get; protected set; }
-        public List<MusicXmlMeasure> Measures { get; set; } = new List<MusicXmlMeasure>();
+        public MeasureList Measures { get; set; } = new MeasureList();
         public MusicXmlRepeatContext RepeatContext { get; set; }
+        public int Length { get { return this.Measures.Count; } }
 
         #endregion
 
@@ -79,7 +80,8 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (!measures.Any())
                 throw new ArgumentException(nameof(measures));
             this.Part = Part;
-            this.Measures = measures.ToList();
+
+            this.Measures = new MeasureList(measures);
         }
 
         public MusicXmlSection(MusicXmlPart Part,
@@ -105,6 +107,26 @@ namespace Eric.Morrison.Harmony.MusicXml
         { 
             if (null == measure)
                 throw new ArgumentNullException(nameof(measure));
+            
+            if (this.Measures.Count == 0)
+                measure.IsSectionStart = true;
+
+            if (this.Measures.Any())
+            {
+                if (measure.IsSectionStart)
+                {
+                    Debug.Assert(this.Measures.Last().IsSectionEnd);
+                }
+            }
+
+            if (this.Measures.Any())
+            {
+                if (this.Measures.Last().IsSectionEnd)
+                {
+                    measure.IsSectionStart = true;
+                }
+            }
+
             this.Measures.Add(measure);
         }
 
@@ -119,6 +141,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
+        public override string ToString()
+        {
+            return $"{nameof(MusicXmlSection)}: Measures.Count={Measures.Count}";
+        }
 
         #region IDisposable
         protected virtual void Dispose(bool disposing)
