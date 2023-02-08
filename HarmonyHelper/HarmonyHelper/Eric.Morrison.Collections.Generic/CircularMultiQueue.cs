@@ -5,12 +5,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Eric.Morrison.Collections.Generic
 {
-    public class CircularMultiQueue<K, V> : IEnumerable<List<V>>
+    public class CircularMultiQueue<K, V> : IEnumerable<V>
     {
         #region Properties
         Dictionary<K, Queue<V>> _DictionaryOfQueues { get; set; }
@@ -87,29 +88,30 @@ namespace Eric.Morrison.Collections.Generic
             this._DictionaryOfQueues[key] = queue;
         }
 
-        IEnumerator<List<V>> IEnumerable<List<V>>.GetEnumerator()
+        IEnumerator<V> IEnumerable<V>.GetEnumerator()
         {
             var count = this._DictionaryOfQueues
                 .OrderByDescending(x => x.Value.Count)
                 .Select(x => x.Value.Count)
                 .First();
 
-            var result = new List<V>();
             for (var i = 0; i < count; ++i)
             {
-                result.Clear();
+                V result = default(V);
                 var reQueues = new Dictionary<Queue<V>, V>();
-                foreach (var q in this._DictionaryOfQueues.Values)
+                foreach (var kvp in this._DictionaryOfQueues)
                 {
-                    var val = q.Dequeue();
-                    reQueues.Add(q, val);
-                    result.Add(val);
+                    Debug.WriteLine(kvp.Key);
+                    var val = kvp.Value.Dequeue();
+                    reQueues.Add(kvp.Value, val);
+                    result = val;
+                    yield return result;
                 }
+                new object();
                 foreach (var item in reQueues)
                 {//For circular queue functionality, re-queue the items.
                     item.Key.Enqueue(item.Value);
                 }
-                yield return result;
             }
         }
 

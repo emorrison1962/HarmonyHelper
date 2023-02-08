@@ -124,6 +124,13 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public void RenderSections()
         {
+            foreach (var part in this.Parts)
+            {
+                foreach (var section in part.Sections)
+                {
+                    part.AddRange(section.Measures);
+                }
+            }
             new object();
         }
 

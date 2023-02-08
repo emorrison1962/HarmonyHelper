@@ -43,7 +43,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         }
 
         #endregion
-        
+
         void Init(MusicXmlModel model, string PartIdMelody, string PartIdHarmony)
         {
             this.MelodyPart = model.Parts.Where(x => x.Identifier.ID == PartIdMelody)
@@ -52,10 +52,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 .First();
         }
 
-        
+
         class SectionPairings : IEnumerable<MelodyHarmonyPair<MusicXmlSection>>
-        { 
-            public List<MusicXmlSection> MelodySections 
+        {
+            public List<MusicXmlSection> MelodySections
             { get { return this.MelodyPart.Sections; } }
             public List<MusicXmlSection> HarmonySections
             { get { return this.HarmonyPart.Sections; } }
@@ -85,20 +85,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             {
                 throw new NotImplementedException();
             }
-
-
-            //public IEnumerable<MelodyHarmonyPair<MusicXmlSection>> GetEnumerator()
-            //{
-            //    MelodyHarmonyPair<MusicXmlSection> result = null;
-            //    for (var i = 0; i < this.MelodySections.Count; ++i)
-            //    {
-            //        var mSect = this.MelodySections[i];
-            //        var hSect = this.HarmonySections[i];
-            //        result = new MelodyHarmonyPair<MusicXmlSection>(mSect, hSect);
-            //        yield return result;
-            //    }
-            //}
-
         }//class
 
         public void ReHarmonize(MusicXmlModel model, string PartIdMelody, string PartIdHarmony)
@@ -108,41 +94,30 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var sectionPairs = new SectionPairings(
                 this.MelodyPart, this.HarmonyPart);
 
-            var newSections = new List<MelodyHarmonyPair<MusicXmlSection>>();
-            
+            var multiQueue = new CircularMultiQueue
+                <string, MelodyHarmonyPair<MusicXmlSection>>();
             foreach (var sectionPair in sectionPairs)
             {
                 var reharmonizedSections = this.GetReharmonizedSections(sectionPair);
-                newSections.AddRange(reharmonizedSections);
+                multiQueue.Add(sectionPair.Melody.Name, reharmonizedSections);
             }
 
-            var multiQueue = new CircularMultiQueue
-                <string, MelodyHarmonyPair<MusicXmlSection>>();
-            foreach (var newSection in newSections)
-            {
-                var key = newSection.Melody.Part.Sections.IndexOf(newSection.Melody).ToString();
-                multiQueue.Add(key, newSections);
-            }
-
-            //var xmultiQueue = new CircularMultiQueue
-            //    <List<MusicXmlSection>, MusicXmlSection>();
-            //foreach (var newSection  in newSections)
-            //{
-            //    multiQueue.Add(newSection, newSection.Harmony);
-            //}
 
             Debug.WriteLine(multiQueue.Count);
-            foreach (var pairs in multiQueue)
+            var list = multiQueue.ToList();
+            var grouping = list.GroupBy(x => x.Harmony.Name);
+            var groupings = grouping.ToList();
+
+            foreach (var mhPairing in multiQueue)
             {
-                "Need to GroupBy Section.Name"
-                foreach (var pair in pairs)
+                //throw new NotImplementedException();
+                mhPairing.Melody.Part.Add(mhPairing.Melody);
+                if (mhPairing.Melody.Part != mhPairing.Harmony.Part)
                 {
-                    //throw new NotImplementedException();
-                    pair.Melody.Part.Add(pair.Melody);
-                    pair.Harmony.Part.Add(pair.Harmony);
-                    //model.Add(section);
-                    new object();
+                    mhPairing.Harmony.Part.Add(mhPairing.Harmony);
                 }
+                //model.Add(section);
+                new object();
             }
 
             new object();
@@ -152,7 +127,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var result = new List<MelodyHarmonyPair<MusicXmlSection>>();
 
-            var sectionCmmPairings = this.GetChordMelodyPairings(sectionPairing); 
+            var sectionCmmPairings = this.GetChordMelodyPairings(sectionPairing);
             var substitutionResults = this.GetChordSubstitutionsAsync(sectionCmmPairings).Result;
             var cmmPairings = this.GetChordMelodyMeasurePairings(sectionPairing);
 
@@ -166,8 +141,18 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                 var newHarmonyMeasures = new MeasureList();
                 foreach (var cmmPairing in cmmPairings)
                 {
-                    var newMelodyMeasure = new MusicXmlMeasure(cmmPairing.Melody);
-                    var newHarmonyMeasure = new MusicXmlMeasure(cmmPairing.Harmony);
+                    MusicXmlMeasure newMelodyMeasure = null;
+                    MusicXmlMeasure newHarmonyMeasure = null;
+                    if (cmmPairing.Melody != cmmPairing.Harmony)
+                    {
+                        newMelodyMeasure = new MusicXmlMeasure(cmmPairing.Melody);
+                        newHarmonyMeasure = new MusicXmlMeasure(cmmPairing.Harmony);
+                    }
+                    else
+                    {
+                        newMelodyMeasure = new MusicXmlMeasure(cmmPairing.Melody);
+                        newHarmonyMeasure = newMelodyMeasure;
+                    }
 
                     var cmPairings = MusicXmlMeasure.
                         GetChordMelodyPairings(cmmPairing);
@@ -189,17 +174,26 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
                 if (newMelodyMeasures.Any() && newHarmonyMeasures.Any())
                 {
+                    var cmmPairing = cmmPairings[0];
+
                     var newMelodySection = new MusicXmlSection(
                         sectionPairing.Melody.Name,
                         newMelodyMeasures.Select(x => x.Part)
-                        .First(),
+                            .First(),
                         newMelodyMeasures);
-                    var newHarmonySection = new MusicXmlSection(
-                        sectionPairing.Harmony.Name,
-                        newHarmonyMeasures.Select(x => x.Part)
-                        .First(),
-                        newHarmonyMeasures);
-
+                    MusicXmlSection newHarmonySection = null;
+                    if (cmmPairing.Melody != cmmPairing.Harmony)
+                    {
+                        newHarmonySection = new MusicXmlSection(
+                            sectionPairing.Harmony.Name,
+                            newHarmonyMeasures.Select(x => x.Part)
+                                .First(),   
+                            newHarmonyMeasures);
+                    }
+                    else
+                    {
+                        newHarmonySection = newMelodySection;
+                    }
                     result.Add(new MelodyHarmonyPair<MusicXmlSection>(
                         newMelodySection, newHarmonySection));
                 }
@@ -230,8 +224,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         async Task<Queue<ChordSubstitution>> GetChordSubstitutionsAsync(ChordMelodyPairing pairing)
         {
-            List<KeySignature> pertinentKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
-            //Debug.WriteLine($"cf2ksMap {pairing.Chord.Event} contains:");
+            //List<KeySignature> pertinentKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
             foreach (var key in pertinentKeys)
             {
                 //Debug.WriteLine($"\t{key}");
@@ -243,7 +236,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             await Task.Run(() =>
             {
                 keys = KeySignature.Catalog
-                .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) >= IsDiatonicEnum.Partially)
+                .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) == IsDiatonicEnum.Partially)
                 .Distinct()
                 .OrderBy(x => x.NoteName)
                 .ToList();
@@ -309,8 +302,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             return result;
         }
 
-        class Pairings 
-        { 
+        class Pairings
+        {
             MusicXmlPart MelodyPart { get; set; }
             MusicXmlPart HarmonyPart { get; set; }
         }
