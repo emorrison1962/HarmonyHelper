@@ -15,6 +15,15 @@ namespace Eric.Morrison.Harmony.Chords
 
         #region Properties
 
+        public int Value
+        {
+            get
+            {
+                var result = 0;
+                this.NoteNames.ForEach(note => result |= note.Value);
+                return result;
+            }
+        }
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
@@ -30,6 +39,8 @@ namespace Eric.Morrison.Harmony.Chords
         virtual public bool IsDiminished { get { return this.ChordType.IsDiminished; } }
         virtual public bool IsDominant { get { return this.ChordType.IsDominant; } }
 
+        virtual public bool UsesSharps { get; private set; }
+        virtual public bool UsesFlats { get; private set; }
 
         #endregion
 
@@ -52,6 +63,14 @@ namespace Eric.Morrison.Harmony.Chords
                 var nn = root + interval;
                 Debug.Assert(nn != null);
                 this.NoteNames.Add(nn);
+                if (nn.IsFlatted)
+                {
+                    this.UsesFlats = true;
+                }
+                else if (nn.IsSharped)
+                {
+                    this.UsesSharps = true;
+                }
             }
             this.Key = this.DetermineKey();
         }
@@ -605,7 +624,7 @@ namespace Eric.Morrison.Harmony.Chords
         {
             Instance = new NullChordFormula();
         }
-        private NullChordFormula() : base() {  }
+        private NullChordFormula() : base() { }
 
 
     }//class

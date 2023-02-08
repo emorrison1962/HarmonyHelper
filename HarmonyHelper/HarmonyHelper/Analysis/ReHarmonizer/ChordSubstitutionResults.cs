@@ -37,7 +37,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         #endregion
 
-        public ChordSubstitutionResults() {  }
+        public ChordSubstitutionResults() 
+        {  
+            throw new NotImplementedException("FIXME");
+        }
 
         public ChordSubstitution this[ChordMelodyPairing cmp] 
         { 

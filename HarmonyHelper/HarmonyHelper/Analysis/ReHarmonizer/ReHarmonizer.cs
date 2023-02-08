@@ -131,6 +131,14 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             var substitutionResults = this.GetChordSubstitutionsAsync(sectionCmmPairings).Result;
             var cmmPairings = this.GetChordMelodyMeasurePairings(sectionPairing);
 
+            for (int i = 0; i < substitutionResults.Count; i++)
+            {
+                var substitutions = substitutionResults.Substitutions;
+                foreach (var substitution in substitutions)
+                {
+                    new object();
+                }
+            }
 
             var newSectionCount = substitutionResults.Count / cmmPairings.Count;
             newSectionCount += (substitutionResults.Count % cmmPairings.Count) > 0 ? 1 : 0;
@@ -226,6 +234,21 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var notesStr = string.Join(",", pairing.Melody);
 
+            var melodyBitMask = 0;
+            pairing.Melody.ForEach(x => melodyBitMask |= x.Value);
+            var formulas = new List<ChordFormula>();
+            foreach (var cf in ChordFormula.Catalog.Where(x => !x.UsesSharps))
+            {
+                if (melodyBitMask == (cf.Value & melodyBitMask))
+                {
+                    formulas.Add(cf);
+                }
+            }
+            formulas = formulas.Except(formulas, new FilterSubsumersComparer())
+                .ToList();
+            formulas = formulas.Where(x => x.NoteNames.Count >= 4).ToList();
+
+#if false
             var keys = new List<KeySignature>();
             await Task.Run(() =>
             {
@@ -259,6 +282,18 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
                     }
                 }
             }
+#endif
+
+            var result = new Queue<ChordSubstitution>();
+            foreach (var formula in formulas)
+            {
+                result.Enqueue(
+                    new ChordSubstitution(pairing.Chord.Event,
+                    formula,
+                    pairing.TimeContext));
+            }
+
+
 
             foreach (var substitution in result)
             {
@@ -266,7 +301,8 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             }
 
             //Debug.WriteLine($"====================================");
-            Debug.Assert(result.Any());
+            if (pairing.Melody.Count > 0)
+                Debug.Assert(result.Any());
             return result;
         }
 
