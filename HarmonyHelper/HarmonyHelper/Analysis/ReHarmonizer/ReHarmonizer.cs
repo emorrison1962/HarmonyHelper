@@ -224,22 +224,16 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         async Task<Queue<ChordSubstitution>> GetChordSubstitutionsAsync(ChordMelodyPairing pairing)
         {
-            //List<KeySignature> pertinentKeys = ChordFormula2KeySignatureMap.GetKeys(pairing.Chord);
-            foreach (var key in pertinentKeys)
-            {
-                //Debug.WriteLine($"\t{key}");
-            }
-
             var notesStr = string.Join(",", pairing.Melody);
 
             var keys = new List<KeySignature>();
             await Task.Run(() =>
             {
                 keys = KeySignature.Catalog
-                .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) == IsDiatonicEnum.Partially)
-                .Distinct()
-                .OrderBy(x => x.NoteName)
-                .ToList();
+                    .Where(x => x.IsDiatonic(pairing.Melody, out var blueNotes) == IsDiatonicEnum.Partially)
+                    .Distinct()
+                    .OrderBy(x => x.NoteName)
+                    .ToList();
             });
 
             var matchesSet = new HashSet<ChordFormula>();
