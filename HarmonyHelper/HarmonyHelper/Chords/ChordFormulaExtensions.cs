@@ -93,7 +93,7 @@ namespace Eric.Morrison.Harmony.Chords
                     }
 
                     var knn = ii.Root - Interval.Major2nd;
-                    key = KeySignature.Catalog
+                    key = KeySignature.InternalCatalog
                         .FirstOrDefault(x => x.NoteName == knn
                             && x.IsMinor == isMinor);
                     result = true;
@@ -126,7 +126,7 @@ namespace Eric.Morrison.Harmony.Chords
                         }
                         
 						var knn = chord0.Root - Interval.Major2nd;
-						key = KeySignature.Catalog
+						key = KeySignature.InternalCatalog
 							.FirstOrDefault(x => x.NoteName == knn 
 								&& x.IsMinor == isMinor);
                         result = true;

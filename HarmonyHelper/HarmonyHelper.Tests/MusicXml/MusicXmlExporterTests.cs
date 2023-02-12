@@ -64,22 +64,6 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
         }
 
         [TestMethod()]
-        public void foo()
-        {
-            var path = TEST_FILES_PATH;
-            path = Path.Combine(path, "Untitled score-Piano-Piano 2.xml");
-
-            var model = Parse(path);
-            var doc = new MusicXmlExporter().Export(model);
-
-            var filename = $@"{DateTime.Now.ToString("MMddyy-hhmmss")}.xml";
-            filename = "000000-000003.xml";
-            var dstPath = Path.Combine(TEST_FILES_PATH, filename);
-            doc.Save(dstPath);
-            new object();
-        }
-
-        [TestMethod()]
         public void ExportEffendiMusicXmlFilesTest()
         {
             var srcFolder = Path.Combine(TEST_FILES_PATH, "Effendi MusicXml Files");

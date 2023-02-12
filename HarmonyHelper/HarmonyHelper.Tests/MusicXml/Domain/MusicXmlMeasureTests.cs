@@ -27,10 +27,12 @@ namespace Eric.Morrison.Harmony.MusicXml.Tests
                 new TimedEventChordFormula(ChordFormula.CMaj7, new TimeContext(1, rhythm, 120, 240)) };
             var part = new MusicXmlPart(PartTypeEnum.Harmony);
             var measure = new MusicXmlMeasure(part, 1, chords, null, null, null, null);
-            measure.SetMeasureNumber(2);
+            measure.SetMeasureNumber(3);
 
             var chord = measure.Chords.First();
-            Assert.IsTrue(measure.Chords.First().TimeContext == new TimeContext(3, rhythm, 120, 240));
+            var actual = measure.Chords.First().TimeContext;
+            var expected = new TimeContext(3, rhythm, 120, 240);
+            Assert.IsTrue(actual == expected);
         }
 
         [Ignore]

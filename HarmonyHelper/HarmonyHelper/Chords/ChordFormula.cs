@@ -575,13 +575,13 @@ namespace Eric.Morrison.Harmony.Chords
             KeySignature result = null;
             if (this.IsDominant)
             {
-                result = KeySignature.Catalog
+                result = KeySignature.InternalCatalog
                     .FirstOrDefault(x => x.NoteName ==
                         this.Root + Interval.Perfect4th);
             }
             else if (this.IsHalfDiminished)
             {
-                result = KeySignature.Catalog.Where(x => x.IsMinor)
+                result = KeySignature.InternalCatalog.Where(x => x.IsMinor)
                     .FirstOrDefault(x => x.NoteName ==
                         this.Root + Interval.Major2nd);
             }

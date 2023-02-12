@@ -31,8 +31,8 @@ namespace NeckDiagrams
 		private void Populate()
 		{
 			this._cbNoteName.Items.Clear();
-			var set = KeySignature.Catalog
-				.Select(x => x.NoteName)
+			var set = KeySignature.InternalCatalog
+                .Select(x => x.NoteName)
 				.ToList()
 				.OrderBy(x => x)
 				.ToHashSet(new NoteNameAlphaEqualityComparer());

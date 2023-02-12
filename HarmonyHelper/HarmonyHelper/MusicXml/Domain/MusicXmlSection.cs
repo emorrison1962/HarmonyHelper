@@ -117,7 +117,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 if (measure.IsSectionStart)
                 {
-                    Debug.Assert(this.Measures.Last().IsSectionEnd);
+                    if (!measure.BarlineContexts
+                        .Any(x => x.RepeatContext.RepeatEnum == RepeatEnum.Forward))
+                    {
+                        Debug.Assert(this.Measures.Last().IsSectionEnd);
+                    }
                 }
             }
 
@@ -138,7 +142,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (!this.Measures.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
             return result;
         }

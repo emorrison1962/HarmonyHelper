@@ -26,7 +26,7 @@ namespace Eric.Morrison.Harmony
 
         static async Task Init()
         {
-            foreach (var key in KeySignature.Catalog)
+            foreach (var key in KeySignature.InternalCatalog)
             {
                 foreach (var formula in ChordFormula.Catalog)
                 {

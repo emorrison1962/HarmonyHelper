@@ -232,31 +232,26 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !_Chords.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
 
             if (result && !_Notes.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
 
             if (result && !_Rests.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
 
             if (result && !_Forwards.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
 
             if (result && !_Backups.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
 
             return result;

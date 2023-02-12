@@ -57,8 +57,11 @@ namespace Eric.Morrison.Harmony.Analysis
                 var nns = NoteName.Catalog.Where(x => x.AccidentalCount < 2);
                 foreach (var nn in nns)
                 {
-                    var formula = new ChordFormula(nn, ct, KeySignature.CMajor);
-                    result.Add(formula);
+                    if (ChordType.Dominant7Sharp9 != ct && NoteName.BSharp != nn)
+                    {
+                        var formula = new ChordFormula(nn, ct, KeySignature.CMajor);
+                        result.Add(formula);
+                    }
                 }
             }
             this.FormulaCatalog = result;

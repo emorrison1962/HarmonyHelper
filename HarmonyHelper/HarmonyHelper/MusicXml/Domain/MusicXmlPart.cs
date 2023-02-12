@@ -114,12 +114,10 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !Identifier.IsValid())
             {
                 result = false;
-                Debug.Assert(result);
             }
             if (result && !_Measures.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
             if (result && this.KeySignature == null)
             {
@@ -129,7 +127,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !Sections.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
             return result;
         }

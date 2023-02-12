@@ -646,7 +646,7 @@ namespace Eric.Morrison.Harmony.Tests
                     var nn = NoteName.GetEnharmonicEquivalents(chordFormula.Root).First();
 
 
-                    var key = KeySignature.Catalog
+                    var key = KeySignature.InternalCatalog
                         .First(x => x.NoteName == nn + ChordToneInterval.Eleventh && x.IsMajor);
 
 

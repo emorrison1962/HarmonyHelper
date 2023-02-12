@@ -109,6 +109,7 @@ namespace Eric.Morrison.Harmony.Chords
 					{
 						var ctStr = match.Groups[NDX_CHORD_TYPE].ToString();
 						chordType = ParseChordType(ctStr, out string error);
+						Debug.Assert(ChordType.None != chordType);
 						if (ChordType.None == chordType)
 							message = error;
 					}
@@ -144,7 +145,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (success)
 			{
 				if (null == key)
-					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
+					key = KeySignature.InternalCatalog.First(x => x.NoteName.Name == root.Name);
 				chordFormula = new ChordFormula(root, chordType, key);
 				if (null != bass)
 					chordFormula.SetBassNote(bass);
@@ -284,7 +285,8 @@ namespace Eric.Morrison.Harmony.Chords
 				case "maj9#11":
 					break;
 				case "maj13#11":
-					break;
+					result = ChordType.Major13Aug11th;
+                    break;
 				case "add9":
 					result = ChordType.MajorAdd9;
 					break;
@@ -366,7 +368,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 
                 case "7#5":
-                    throw new NotImplementedException();
+					result = ChordType.Dominant7Aug;
                     break;
 				case "7b9":
 					result = ChordType.Dominant7b9;
@@ -601,7 +603,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (success)
 			{
 				if (null == key)
-					key = KeySignature.Catalog.First(x => x.NoteName.Name == root.Name);
+					key = KeySignature.InternalCatalog.First(x => x.NoteName.Name == root.Name);
 				chordFormula = new ChordFormula(root, chordType, key);
 				if (null != bass)
 					chordFormula.SetBassNote(bass);

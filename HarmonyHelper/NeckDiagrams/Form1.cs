@@ -26,7 +26,7 @@ namespace NeckDiagrams
 		{
 			if (!DesignMode)
 			{
-				foreach (var key in KeySignature.Catalog.OrderBy(x => x.NoteName))
+				foreach (var key in KeySignature.InternalCatalog.OrderBy(x => x.NoteName))
 				{
 					_cbKey.Items.Add(key);
 				}

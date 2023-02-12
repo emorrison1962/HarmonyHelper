@@ -173,7 +173,7 @@ In another blog post I discuss a different progression in which a ii-V sequence 
                 {
                     if (triplet[2].Root - triplet[1].Root == Interval.Major2nd)
                     {
-                        var backdoorKey = KeySignature.Catalog
+                        var backdoorKey = KeySignature.InternalCatalog
                             .Where(x => x.NoteName == triplet[2].Root
                                 && x.IsMinor == key.IsMinor)
                             .First();

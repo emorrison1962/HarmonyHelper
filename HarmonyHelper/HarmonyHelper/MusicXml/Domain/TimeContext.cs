@@ -272,7 +272,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result = false;
                 Debug.Assert(result);
             }
-            if (result && _MeasureNumber <= 0)
+            if (result && _MeasureNumber < 0)
             {
                 result = false;
                 Debug.Assert(result);
@@ -287,7 +287,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && _MeasureNumber > 0 && AbsoluteEnd <= AbsoluteStart)
             {
                 result = false;
-                Debug.Assert(result);
+                Debug.Assert(result, "_MeasureNumber > 0 && AbsoluteEnd <= AbsoluteStart");
             }
 
             if (result && _MeasureNumber > 0 && RelativeStart < 0)

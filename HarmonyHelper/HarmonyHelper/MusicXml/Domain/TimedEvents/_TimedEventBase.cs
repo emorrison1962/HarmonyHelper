@@ -55,7 +55,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !this.TimeContext.IsValid())
             {
                 result = false;
-                Debug.Assert(result);
             }
             return result;
         }

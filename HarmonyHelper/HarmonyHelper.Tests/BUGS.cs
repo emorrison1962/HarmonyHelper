@@ -233,7 +233,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 		public void Chord_Populate_Notes()
 		{
 			var queue = new Queue<Chord>();
-			foreach (var key in KeySignature.Catalog)
+			foreach (var key in KeySignature.InternalCatalog)
 			{
 				foreach (var chordType in ChordType.Catalog
 					.Where(x => x.Intervals.Count > 2)

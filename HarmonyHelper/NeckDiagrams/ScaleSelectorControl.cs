@@ -51,7 +51,7 @@ namespace NeckDiagrams
 		private void PopulateScaleFormulas(NoteName nn)
 		{
 			_cbScaleType.Items.Clear();
-			var key = KeySignature.Catalog.Where(x => x.NoteName == nn).First();
+			var key = KeySignature.InternalCatalog.Where(x => x.NoteName == nn).First();
 
 			this.ScaleFormulaCatalog = new ScaleFormulaCatalog(key);
 			foreach (var scaleFormula in ScaleFormulaCatalog.Formulas

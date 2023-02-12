@@ -1588,7 +1588,7 @@ namespace Eric.Morrison.Harmony.Chords
         private static void GenerateCodeForStaticChord_Catalog()
         {
             var keySignatures = new List<KeySignature>();
-            foreach (var key in KeySignature.Catalog)
+            foreach (var key in KeySignature.InternalCatalog)
             {
                 keySignatures.Add(key);
             }

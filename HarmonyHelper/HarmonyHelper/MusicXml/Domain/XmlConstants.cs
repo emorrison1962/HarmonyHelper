@@ -295,11 +295,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                     break;
 
                 case MusicXml_HarmonyKind_Constants.suspended_fourth: // "suspended-fourth"; //Suspended: perfect fourth, perfect fifth.
-                    result = "";
+                    result = "sus4";
                     break;
 
                 case MusicXml_HarmonyKind_Constants.suspended_second: // "suspended-second"; //Suspended: major second, perfect fifth.
-                    result = "";
+                    result = "sus2";
                     break;
 
                 case MusicXml_HarmonyKind_Constants.Tristan: // "Tristan"; //Augmented fourth, augmented sixth, augmented ninth.
@@ -310,7 +310,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     throw new NotImplementedException();
             }
 
-            Debug.Assert(result != string.Empty);
+            Debug.Assert(result != string.Empty, $"Unsupported ChordType: \"{src}\"");
             return result;
         }
     }

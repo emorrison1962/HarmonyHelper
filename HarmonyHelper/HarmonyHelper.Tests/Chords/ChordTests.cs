@@ -114,14 +114,19 @@ namespace Eric.Morrison.Harmony.Tests
                     var newChord = chord + Interval.Perfect5th;
 
                 }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Debug.WriteLine(ex);
+                    assert = false;
+                }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(chord);
                     //Debug.WriteLine(ex);
                     assert = true;
                 }
+                Assert.IsFalse(assert);
             }
-            Assert.IsFalse(assert);
             new object();
         }
 

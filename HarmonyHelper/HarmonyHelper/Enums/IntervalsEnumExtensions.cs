@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Eric.Morrison.Harmony
     {
         public static IntervalRoleTypeEnum ToIntervalRoleType(this ChordToneFunctionEnum src)
         {
+            Debug.Assert(ChordToneFunctionEnum.None != src);
             IntervalRoleTypeEnum result = IntervalRoleTypeEnum.Unknown;
             switch (src)
             {

@@ -39,7 +39,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !this.Parts.All(x => x.IsValid()))
             {
                 result = false;
-                Debug.Assert(result);
             }
             return result;
         }

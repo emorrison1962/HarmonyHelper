@@ -160,14 +160,14 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 else if (fifths < 0)
                 {
-                    keySignature = KeySignature.Catalog
+                    keySignature = KeySignature.InternalCatalog
                         .Where(x => x.UsesFlats
                             && x.AccidentalCount == Math.Abs(fifths))
                         .First();
                 }
                 else
                 {
-                    keySignature = KeySignature.Catalog
+                    keySignature = KeySignature.InternalCatalog
                         .Where(x => x.UsesSharps
                             && x.AccidentalCount == fifths)
                         .First();

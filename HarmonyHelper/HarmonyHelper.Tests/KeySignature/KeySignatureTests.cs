@@ -18,7 +18,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 
 			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
-			foreach (var key in KeySignature.Catalog)
+			foreach (var key in KeySignature.InternalCatalog)
 			{
 				Debug.WriteLine($"Key = {key.NoteName.Name}");
 				Debug.Indent();

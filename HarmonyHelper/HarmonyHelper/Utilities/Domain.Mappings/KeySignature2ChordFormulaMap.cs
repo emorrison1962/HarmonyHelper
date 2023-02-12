@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony
 
         static KeySignature2ChordFormulaMap()
         {
-            foreach (var key in KeySignature.Catalog)
+            foreach (var key in KeySignature.InternalCatalog)
             {
                 foreach (var formula in ChordFormula.Catalog)
                 {
