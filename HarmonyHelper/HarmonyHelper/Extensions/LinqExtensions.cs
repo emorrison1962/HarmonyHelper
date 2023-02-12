@@ -18,8 +18,14 @@ namespace Eric.Morrison.Harmony
 				this.Second = pair[1];
 			}
 
+            public Pair(T first, T second)
+            {
+                this.First = first;
+                this.Second = second;
+            }
 
-			public T this[int ndx]
+
+            public T this[int ndx]
 			{
 				get
 				{

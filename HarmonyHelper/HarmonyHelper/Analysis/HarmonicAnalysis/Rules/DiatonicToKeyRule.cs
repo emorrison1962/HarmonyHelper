@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Eric.Morrison.Harmony.Chords;
 
@@ -7,7 +8,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 	public class DiatonicToKeyRule : HarmonicAnalysisRuleBase
 	{
 		public override string Name { get { return "Diatonic to Key"; } }
-		public override string Description { get { return @"Chords built from only the seven notes in each key are called diatonic chords."; } }
+		public override string Description { get { return @"Chords built from only the seven notes in a key are called diatonic chords."; } }
 		public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
 		{
             var result = new List<HarmonicAnalysisResult>();
@@ -49,7 +50,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         string GetChordFunction(ChordFormula chord, int index)
 		{
-			var result = string.Empty;
+            if (index < 0)
+                return string.Empty;
+            var result = string.Empty;
 			if (chord.IsMinor)
 			{
 				var minor = "i,ii,iii,iv,v,vi,vii".Split(',').ToList();

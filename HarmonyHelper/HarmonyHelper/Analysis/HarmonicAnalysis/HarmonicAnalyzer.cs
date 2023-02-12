@@ -3,6 +3,7 @@ using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis
 {
@@ -25,7 +26,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis
             var result = new List<HarmonicAnalysisResult>();
             foreach (var rule in HarmonicAnalysisRuleBase.Catalog)
             {
+                var sw = Stopwatch.StartNew();
                 var har = rule.Analyze(chords);
+                sw.Stop();
+                Debug.WriteLine($"\t{rule.GetType().Name} : {sw.ElapsedMilliseconds}ms, {sw.ElapsedTicks} ticks");
                 result.AddRange(har);
             }
 

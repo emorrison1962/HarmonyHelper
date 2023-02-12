@@ -230,7 +230,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             return result;
         }
 
-        async Task<Queue<ChordSubstitution>> GetChordSubstitutionsAsync(ChordMelodyPairing pairing)
+        async Task<List<ChordSubstitution>> GetChordSubstitutionsAsync(ChordMelodyPairing pairing)
         {
             var notesStr = string.Join(",", pairing.Melody);
 
@@ -284,10 +284,10 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             }
 #endif
 
-            var result = new Queue<ChordSubstitution>();
+            var result = new List<ChordSubstitution>();
             foreach (var formula in formulas)
             {
-                result.Enqueue(
+                result.Add(
                     new ChordSubstitution(pairing.Chord.Event,
                     formula,
                     pairing.TimeContext));

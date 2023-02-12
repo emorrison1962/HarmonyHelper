@@ -287,7 +287,7 @@ namespace Eric.Morrison.Harmony
             var result = new List<ChordFormula>();
             foreach (var chord in chords)
             {
-                if (IsDiatonicEnum.Partially >= IsDiatonic(chord.NoteNames))
+                if (chord.Value != (this.Value & chord.Value))
                     result.Add(chord);
             }
             return result;

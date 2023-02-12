@@ -26,6 +26,15 @@ namespace Eric.Morrison.Harmony
         virtual public bool IsMinor { get; private set; }
         virtual public int AccidentalCount { get; private set; }
         virtual public string Name { get; private set; }
+        public int Value
+        {
+            get
+            {
+                var result = 0;
+                this.NoteNames.ForEach(note => result |= note.Value);
+                return result;
+            }
+        }
 
         virtual public ChordFormula Ionian { get; private set; }
         virtual public ChordFormula Dorian { get; private set; }
@@ -431,9 +440,13 @@ namespace Eric.Morrison.Harmony
         public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
         {
             var result = IsDiatonicEnum.No;
-            var count = noteNames.Except(this.NoteNames).Count();
-            if (0 == count)
+            
+            var val = 0;
+            noteNames.ForEach(nn => val |= nn.Value);
+            if (val == (this.Value & val))
                 result = IsDiatonicEnum.Yes;
+
+
             return result;
         }
 

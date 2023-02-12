@@ -233,6 +233,9 @@ namespace Eric.Morrison.Harmony.Chords
             else if (interval == Interval.Major7th)
                 result = ChordToneFunctionEnum.Major7th;
 
+            else
+                throw new ArgumentOutOfRangeException(nameof(interval));
+
             return result;
         }
 
