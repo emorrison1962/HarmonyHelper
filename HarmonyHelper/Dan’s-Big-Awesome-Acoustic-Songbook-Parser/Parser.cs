@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Web;
 using Eric.Morrison;
 using HtmlAgilityPack;
 
@@ -204,7 +203,7 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 
 		static public string FromHtml(this string innerText)
 		{
-			var result = HttpUtility.HtmlDecode(innerText);
+			var result = System.Net.WebUtility.HtmlDecode(innerText);
 			result = result.Trim();
 			return result;
 		}

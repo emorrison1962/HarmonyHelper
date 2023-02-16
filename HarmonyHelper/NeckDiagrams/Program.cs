@@ -12,6 +12,7 @@ namespace NeckDiagrams
 		static void Main()
 		{
 			Application.EnableVisualStyles();
+			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.SetCompatibleTextRenderingDefault(false);
 			Bootstrap();
 			Application.Run(new Form1());

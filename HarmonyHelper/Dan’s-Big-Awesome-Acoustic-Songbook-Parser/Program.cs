@@ -1,43 +1,32 @@
-﻿using System;
+﻿// This application entry point is based on ASP.NET Core new project templates and is included
+// as a starting point for app host configuration.
+// This file may need updated according to the specific scenario of the application being upgraded.
+// For more information on ASP.NET Core hosting, see https://docs.microsoft.com/aspnet/core/fundamentals/host/web-host
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			new Program().MainImpl(args);
-		}
+    public partial class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+            new Program().MainImpl(args);
+        }
 
-		void MainImpl(string[] args)
-		{
-			var html = this.LoadEmbeddedResourceHtml();
-			new Parser().TryParse(html, out List<Song> songs);
-
-			var chords = songs.SelectMany(x => x.Chords.Distinct()).Distinct();
-
-			var chordsStr = string.Join(", ", chords);
-			var codeStr = $"var chordsStr = @\"{chordsStr}\";";
-			Debug.WriteLine(codeStr);
-		}
-
-		string LoadEmbeddedResourceHtml()
-		{
-			var result = string.Empty;
-			var assembly = Assembly.GetExecutingAssembly();
-			//using (var sr = new StreamReader(assembly.GetManifestResourceStream("Dan_s_Big_Awesome_Acoustic_Songbook_Parser.SingleSongTemplate.html")))
-			using (var sr = new StreamReader(assembly.GetManifestResourceStream("Dan_s_Big_Awesome_Acoustic_Songbook_Parser.DansSongbook.html")))
-			{
-				result = sr.ReadToEnd();
-			}
-			return result;
-		}
-	}
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
