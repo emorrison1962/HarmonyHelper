@@ -9,10 +9,8 @@ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/
 
 using Eric.Morrison.Harmony.Chords;
 using System.Net.NetworkInformation;
-using System.Security.Policy;
 using System.Xml.Linq;
 using System;
-using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
 
 namespace Eric.Morrison.Harmony.MusicXml

@@ -3,29 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32802.462
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dan’s-Big-Awesome-Acoustic-Songbook-Parser", "Dan’s-Big-Awesome-Acoustic-Songbook-Parser\Dan’s-Big-Awesome-Acoustic-Songbook-Parser.csproj", "{D17BBF64-2C4C-4260-9675-261EB4999E67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelper.Tests", "HarmonyHelper.Tests\zHarmonyHelper.Tests.csproj", "{A179EA40-2903-4DC9-8C6A-744694961245}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordProParser", "ChordProParser\ChordProParser.csproj", "{145649E6-FEE6-433D-B9F1-47F1EA513F0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dan’s-Big-Awesome-Acoustic-Songbook-Parser", "Dan’s-Big-Awesome-Acoustic-Songbook-Parser\Dan’s-Big-Awesome-Acoustic-Songbook-Parser.csproj", "{D17BBF64-2C4C-4260-9675-261EB4999E67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeckDiagrams", "NeckDiagrams\NeckDiagrams.csproj", "{5D86781E-86BF-44ED-B1BF-72C208937B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordProParser", "ChordProParser\ChordProParser.csproj", "{145649E6-FEE6-433D-B9F1-47F1EA513F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeckDiagrams", "NeckDiagrams\NeckDiagrams.csproj", "{5D86781E-86BF-44ED-B1BF-72C208937B54}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper_DryWetMidi", "HarmonyHelper_DryWetMidi\HarmonyHelper_DryWetMidi.csproj", "{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper_DryWetMidi", "HarmonyHelper_DryWetMidi\HarmonyHelper_DryWetMidi.csproj", "{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelper_DryWetMidi.Tests", "HarmonyHelper_DryWetMidiTests\zHarmonyHelper_DryWetMidi.Tests.csproj", "{6CADA870-DDBC-4532-844A-DFD3390C1522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Tests.Console", "HarmonyHelper.Tests.Console\HarmonyHelper.Tests.Console.csproj", "{D9B34492-62AE-4825-88AA-E109F4B99171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Tests.Console", "HarmonyHelper.Tests.Console\HarmonyHelper.Tests.Console.csproj", "{D9B34492-62AE-4825-88AA-E109F4B99171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelper.Tests1", "HarmonyHelper.Tests1\zHarmonyHelper.Tests1.csproj", "{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffendiWebCrawler.console", "EffendiWebCrawler.console\EffendiWebCrawler.console.csproj", "{C6CC4EAB-883B-4789-A552-B5F85F473BEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EffendiWebCrawler.console", "EffendiWebCrawler.console\EffendiWebCrawler.console.csproj", "{C6CC4EAB-883B-4789-A552-B5F85F473BEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{2D4A6088-D75B-496F-ABDE-77555E91155A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelperTests", "HarmonyHelperTests\zHarmonyHelperTests.csproj", "{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A179EA40-2903-4DC9-8C6A-744694961245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A179EA40-2903-4DC9-8C6A-744694961245}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A179EA40-2903-4DC9-8C6A-744694961245}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A179EA40-2903-4DC9-8C6A-744694961245}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D17BBF64-2C4C-4260-9675-261EB4999E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,14 +59,18 @@ Global
 		{D9B34492-62AE-4825-88AA-E109F4B99171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9B34492-62AE-4825-88AA-E109F4B99171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9B34492-62AE-4825-88AA-E109F4B99171}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDF3C403-FC57-4689-A8CD-39D7FBBC10B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6CC4EAB-883B-4789-A552-B5F85F473BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

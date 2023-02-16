@@ -1,247 +1,68 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D86781E-86BF-44ED-B1BF-72C208937B54}</ProjectGuid>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NeckDiagrams</RootNamespace>
-    <AssemblyName>NeckDiagrams</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="VMs\ChordFormulaVM.cs" />
-    <Compile Include="Controls\ChordNamesControl_Selection.cs" />
-    <Compile Include="ChordParserDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChordParserDialog.Designer.cs">
-      <DependentUpon>ChordParserDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChordNameControl.cs">
+    <Compile Update="Controls\ChordNameControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ChordNameControl.Designer.cs">
-      <DependentUpon>ChordNameControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChordNamesControl.cs">
+    <Compile Update="Controls\ChordNamesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ChordNamesControl.Designer.cs">
-      <DependentUpon>ChordNamesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChordSelectorControl.cs">
+    <Compile Update="Controls\ChordSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ChordSelectorControl.Designer.cs">
-      <DependentUpon>ChordSelectorControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlExtensions.cs" />
-    <Compile Include="Controls\ChordsControl.cs">
+    <Compile Update="Controls\ChordsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ChordsControl.Designer.cs">
-      <DependentUpon>ChordsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\HarmonicAnalysisControl.cs">
+    <Compile Update="Controls\HarmonicAnalysisControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\HarmonicAnalysisControl.Designer.cs">
-      <DependentUpon>HarmonicAnalysisControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\HarmonicAnalysisTab.cs">
+    <Compile Update="Controls\HarmonicAnalysisTab.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\HarmonicAnalysisTab.Designer.cs">
-      <DependentUpon>HarmonicAnalysisTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\IHarmonyModel1.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\HarmonyModel.cs" />
-    <Compile Include="Domain\HarmonyModelItem.cs" />
-    <Compile Include="Controls\NeckControl.cs">
+    <Compile Update="Controls\NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NeckControl.Designer.cs">
-      <DependentUpon>NeckControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ModelItemControl.cs">
+    <Compile Update="Controls\ModelItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ModelItemControl.Designer.cs">
-      <DependentUpon>ModelItemControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ModelsControl.cs">
+    <Compile Update="Controls\ModelsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ModelsControl.Designer.cs">
-      <DependentUpon>ModelsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NewHarmonyItemDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\NewHarmonyItemDialog.Designer.cs">
-      <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NoteNameComboBox.cs">
+    <Compile Update="Controls\NoteNameComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NoteNameComboBox.Designer.cs">
-      <DependentUpon>NoteNameComboBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\StringControl.cs">
+    <Compile Update="Controls\StringControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\StringControl.Designer.cs">
-      <DependentUpon>StringControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\StringPositionControl.cs">
+    <Compile Update="Controls\StringPositionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\StringPositionControl.Designer.cs">
-      <DependentUpon>StringPositionControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ScaleSelectorControl.cs">
+    <Compile Update="ScaleSelectorControl.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ScaleSelectorControl.Designer.cs">
-      <DependentUpon>ScaleSelectorControl.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="ChordParserDialog.resx">
-      <DependentUpon>ChordParserDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ChordNameControl.resx">
-      <DependentUpon>ChordNameControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ChordNamesControl.resx">
-      <DependentUpon>ChordNamesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ChordSelectorControl.resx">
-      <DependentUpon>ChordSelectorControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ChordsControl.resx">
-      <DependentUpon>ChordsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\HarmonicAnalysisControl.resx">
-      <DependentUpon>HarmonicAnalysisControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\HarmonicAnalysisTab.resx">
-      <DependentUpon>HarmonicAnalysisTab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NoteNameComboBox.resx">
-      <DependentUpon>NoteNameComboBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NeckControl.resx">
-      <DependentUpon>NeckControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ModelItemControl.resx">
-      <DependentUpon>ModelItemControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ModelsControl.resx">
-      <DependentUpon>ModelsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NewHarmonyItemDialog.resx">
-      <DependentUpon>NewHarmonyItemDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Controls\StringControl.resx">
-      <DependentUpon>StringControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\StringPositionControl.resx">
-      <DependentUpon>StringPositionControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ScaleSelectorControl.resx">
-      <DependentUpon>ScaleSelectorControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="RandomValue">
       <Version>1.0.0</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj">
-      <Project>{AC360604-5FA7-4537-8CB2-083B2046DB13}</Project>
-      <Name>HarmonyHelper.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">
-      <Project>{f86ba6d3-823e-4f2b-a602-1817f6a3dc54}</Project>
-      <Name>HarmonyHelper</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj" />
+    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
