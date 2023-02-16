@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordProParser", "ChordProP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeckDiagrams", "NeckDiagrams\NeckDiagrams.csproj", "{5D86781E-86BF-44ED-B1BF-72C208937B54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{AC360604-5FA7-4537-8CB2-083B2046DB13}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper_DryWetMidi", "HarmonyHelper_DryWetMidi\HarmonyHelper_DryWetMidi.csproj", "{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelper_DryWetMidi.Tests", "HarmonyHelper_DryWetMidiTests\zHarmonyHelper_DryWetMidi.Tests.csproj", "{6CADA870-DDBC-4532-844A-DFD3390C1522}"
@@ -25,6 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelperTests", "Harm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dan’s-Big-Awesome-Acoustic-Songbook-Parser", "Dan’s-Big-Awesome-Acoustic-Songbook-Parser\Dan’s-Big-Awesome-Acoustic-Songbook-Parser.csproj", "{1F189A12-D676-4F15-91AE-640F4AC82509}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Scrapers", "Web Scrapers", "{34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zTests", "zTests", "{75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{BE2A446D-7D03-4292-9949-0B0745E4B8BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +43,6 @@ Global
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC360604-5FA7-4537-8CB2-083B2046DB13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,9 +71,21 @@ Global
 		{1F189A12-D676-4F15-91AE-640F4AC82509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F189A12-D676-4F15-91AE-640F4AC82509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F189A12-D676-4F15-91AE-640F4AC82509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{145649E6-FEE6-433D-B9F1-47F1EA513F0A} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
+		{6CADA870-DDBC-4532-844A-DFD3390C1522} = {75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}
+		{D9B34492-62AE-4825-88AA-E109F4B99171} = {75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}
+		{C6CC4EAB-883B-4789-A552-B5F85F473BEC} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
+		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A} = {75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}
+		{1F189A12-D676-4F15-91AE-640F4AC82509} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00888077-AB00-4165-92B2-7E9015599ADC}
