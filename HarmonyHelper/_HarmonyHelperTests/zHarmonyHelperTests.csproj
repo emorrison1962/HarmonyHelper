@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<None Remove="C:\Users\Eric\.nuget\packages\mstest.testadapter\3.0.2\build\netstandard2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" />
+		<None Remove="C:\Users\Eric\.nuget\packages\mstest.testadapter\3.0.2\build\netstandard2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" />
+		<None Remove="C:\Users\Eric\.nuget\packages\mstest.testadapter\3.0.2\build\netstandard2.0\\Microsoft.TestPlatform.AdapterUtilities.dll" />
+		<None Remove="MusicXML_TEMPLATE.xml" />
+		<None Remove="MusicXML_TEMPLATE_02.xml" />
+		<None Remove="TEST_FILES\(All Of A Sudden) My Heart Sings.XML" />
+		<None Remove="TEST_FILES\000000-000002.xml" />
+		<None Remove="TEST_FILES\BUG and Triplet example.xml" />
+		<None Remove="TEST_FILES\Straight, No Chaser - Thelonious Monk.XML" />
+		<None Remove="TEST_FILES\Superstition_Stevie_Wonder 121922.XML" />
+		<None Remove="TEST_FILES\Superstition_Stevie_Wonder 122022.XML" />
+		<None Remove="TEST_FILES\Untitled score-Piano.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="MusicXML_TEMPLATE.xml" />
+		<Content Include="MusicXML_TEMPLATE_02.xml" />
+		<Content Include="TEST_FILES\(All Of A Sudden) My Heart Sings.XML" />
+		<Content Include="TEST_FILES\000000-000002.xml" />
+		<Content Include="TEST_FILES\BUG and Triplet example.xml" />
+		<Content Include="TEST_FILES\Straight, No Chaser - Thelonious Monk.XML" />
+		<Content Include="TEST_FILES\Superstition_Stevie_Wonder 121922.XML" />
+		<Content Include="TEST_FILES\Superstition_Stevie_Wonder 122022.XML" />
+		<Content Include="TEST_FILES\Untitled score-Piano.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+		<PackageReference Include="coverlet.collector" Version="3.2.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Arpeggiator\Arpeggiator_UseCases.cs">
+			<DependentUpon>ArpeggiatorTests.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Resource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

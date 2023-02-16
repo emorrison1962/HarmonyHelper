@@ -6,6 +6,7 @@ using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
+using Newtonsoft.Json;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
@@ -137,6 +138,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 //Debug.WriteLine("");
                 #endregion
             }
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(result, Formatting.Indented,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
+            Debug.WriteLine(json);
             return result;
         }
 

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<measure number="20">
+    <!--12.0-->
+    <note attack="12" release="-41"> 
+        <pitch>
+            <step>C</step>
+            <octave>5</octave>
+        </pitch>
+        <duration>120</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+    </note>
+    <!--12.120-->
+    <note attack="5" release="-41">
+        <pitch>
+            <step>C</step>
+            <octave>5</octave>
+        </pitch>
+        <duration>120</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+    </note>
+    <!--12.240-->
+    <note attack="3" release="9">
+        <pitch>
+            <step>C</step>
+            <octave>5</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+        <beam number="1">begin</beam>
+    </note>
+    <!--12.300-->
+    <note attack="5" release="12">
+        <chord/> <!--***************-->
+        <pitch>
+            <step>F</step>
+            <alter>1</alter>
+            <octave>4</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <accidental>sharp</accidental>
+        <staff>1</staff>
+        <beam number="1">begin</beam>
+    </note>
+    <!--12.300-->
+    <note attack="32" release="2">
+        <pitch>
+            <step>C</step>
+            <octave>5</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+        <beam number="1">end</beam>
+    </note>
+    <!--12.360-->
+    <note attack="32" release="-1">
+        <chord/> <!--***************-->
+        <pitch>
+            <step>G</step>
+            <octave>4</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+        <beam number="1">end</beam>
+    </note>
+    <!--12.360-->
+    <note>
+        <rest/>
+        <duration>120</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+    </note>
+    <!--12.480-->
+    <backup>
+        <duration>480</duration>
+    </backup>
+    <!--12.0-->
+    <note attack="-18" release="-45">
+        <pitch>
+            <step>G</step>
+            <octave>3</octave>
+        </pitch>
+        <duration>40</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <time-modification>
+            <actual-notes>3</actual-notes>
+            <normal-notes>2</normal-notes>
+            <normal-type>eighth</normal-type>
+        </time-modification>
+        <staff>2</staff>
+        <notations>
+            <tuplet number="1" placement="above" bracket="yes" type="start"/>
+        </notations>
+    </note>
+    <!--12.40-->
+    <note attack="-30" release="-45">
+        <pitch>
+            <step>E</step>
+            <octave>4</octave>
+        </pitch>
+        <duration>80</duration>
+        <voice>2</voice>
+        <type>quarter</type>
+        <accidental>natural</accidental>
+        <time-modification> <!--******************************-->
+            <actual-notes>3</actual-notes>
+            <normal-notes>2</normal-notes>
+            <normal-type>eighth</normal-type>
+        </time-modification>
+        <staff>2</staff>
+        <notations>
+            <tuplet number="1" placement="above" bracket="yes" type="stop"/>
+        </notations>
+    </note>
+    <!--12.120-->
+    <note attack="5" release="16">
+        <pitch>
+            <step>F</step>
+            <octave>4</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <staff>2</staff>
+        <beam number="1">begin</beam>
+    </note>
+    <!--12.180-->
+    <note attack="30" release="-2">
+        <pitch>
+            <step>G</step>
+            <octave>3</octave>
+        </pitch>
+        <duration>60</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <staff>2</staff>
+        <beam number="1">end</beam>
+    </note>
+    <!--12.240-->
+    <note>
+        <rest/>
+        <duration>240</duration>
+        <voice>2</voice>
+        <type>half</type>
+        <staff>2</staff>
+    </note>
+    <!--12.480-->
+</measure>
+

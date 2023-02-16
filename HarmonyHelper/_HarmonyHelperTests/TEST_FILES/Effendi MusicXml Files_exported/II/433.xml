@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd"[]>
+<score-partwise version="4.0">
+  <work>
+    <work-title></work-title>
+  </work>
+  <identification>
+    <encoding>
+      <encoding-date>2023-01-28</encoding-date>
+      <software>Harmony Helper, Version 1.0.0.0</software>
+    </encoding>
+  </identification>
+  <part-list>
+    <score-part id="P1">
+      <part-name>C Instruments 1</part-name>
+    </score-part>
+    <score-part id="P2">
+      <part-name>Bass 2</part-name>
+    </score-part>
+    <score-part id="P3">
+      <part-name>Eb Instruments</part-name>
+    </score-part>
+    <score-part id="P4">
+      <part-name>Bb Instruments</part-name>
+    </score-part>
+    <score-part id="P5">
+      <part-name>Percussion</part-name>
+    </score-part>
+  </part-list>
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <key>
+          <fifths>0</fifths>
+        </key>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <sound tempo="0" />
+      <note>
+        <rest />
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+    </measure>
+  </part>
+  <part id="P2">
+    <measure number="1">
+      <attributes>
+        <key>
+          <fifths>0</fifths>
+        </key>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
+      <sound tempo="0" />
+      <note>
+        <rest />
+        <duration>8</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+    </measure>
+  </part>
+  <part id="P3">
+    <measure number="1">
+      <attributes>
+        <key>
+          <fifths>3</fifths>
+        </key>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <sound tempo="0" />
+      <note>
+        <rest />
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+    </measure>
+  </part>
+  <part id="P4">
+    <measure number="1">
+      <attributes>
+        <key>
+          <fifths>2</fifths>
+        </key>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <sound tempo="0" />
+      <note>
+        <rest />
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+    </measure>
+  </part>
+  <part id="P5">
+    <measure number="1">
+      <attributes>
+        <key>
+          <fifths>0</fifths>
+        </key>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>percussion</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <sound tempo="0" />
+      <note>
+        <rest />
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+    </measure>
+  </part>
+</score-partwise>

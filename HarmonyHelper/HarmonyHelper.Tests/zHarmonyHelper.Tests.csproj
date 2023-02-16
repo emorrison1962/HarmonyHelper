@@ -1,46 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A179EA40-2903-4DC9-8C6A-744694961245}</ProjectGuid>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Eric.Morrison.Harmony</RootNamespace>
     <AssemblyName>HarmonyHelper.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>
@@ -56,63 +21,25 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackCyclingRuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\BackDoor_ii_V_RuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\BorrowedChordHarmonicAnalysisRuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\DiatonicToKeyRuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\Dim7ForDom7SubstitutionRuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_I_RuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\ii_V_RuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\SecondaryDominantRuleTests.cs" />
-    <Compile Include="Analysis\HarmonicAnalysis\Rules\TritoneSubstitutionRuleTests.cs" />
-    <Compile Include="Analysis\MelodyToHarmonyAnalyzer\MelodyToHarmonyAnalyzerTests.cs" />
-    <Compile Include="Analysis\ReHarmonizer\CircularMultiQueueTests.cs" />
-    <Compile Include="MusicXml\Domain\MusicXmlMeasureTests.cs" />
-    <Compile Include="MusicXml\Domain\MusicXmlPartTests.cs" />
-    <Compile Include="MusicXml\Domain\MusicXmlSectionTests.cs" />
-    <Compile Include="MusicXml\Domain\TimeContextTests.cs" />
-    <Compile Include="MusicXml\MusicXmlImporterTests.cs" />
-    <Compile Include="Analysis\ReHarmonizer\ReHarmonizerTests.cs" />
-    <Compile Include="Arpeggiator\ArpeggiatorTests.cs" />
-    <Compile Include="Arpeggiator\Arpeggiator_EventHandlers.cs" />
-    <Compile Include="Arpeggiator\Arpeggiator_UseCases.cs">
+    <Compile Update="Arpeggiator\Arpeggiator_UseCases.cs">
       <DependentUpon>ArpeggiatorTests.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chords\ChordFormulaTests.cs" />
-    <Compile Include="Chords\ChordParserTests.cs" />
-    <Compile Include="Chords\ChordTests.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="HarmonicAnalyzer\HarmonicAnalyzerTests.cs" />
-    <Compile Include="KeySignature\KeySignatureTests.cs" />
-    <Compile Include="MusicXml\MusicXmlExporterTests.cs" />
-    <Compile Include="Notes\NoteNameParserTests.cs" />
-    <Compile Include="Scales\ModeTests.cs" />
-    <Compile Include="Notes\NoteNameTests.cs" />
-    <Compile Include="Notes\NoteTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Arpeggiator\MusicXmlTest.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Scales\HarmonicMinorScaleFormulaTests.cs" />
-    <Compile Include="Scales\ModalScaleFormulaBaseTests.cs" />
-    <Compile Include="Scales\ScaleTests_UseCases.cs" />
-    <Compile Include="BUGS.cs" />
-    <Compile Include="Scales\ScaleFormulaTests.cs" />
-    <Compile Include="TestUtilities.cs" />
-    <Compile Include="VoiceLeading\VoiceLeadingAnalyzerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj">
-      <Project>{F86BA6D3-823E-4F2B-A602-1817F6A3DC54}</Project>
-      <Name>HarmonyHelper</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MusicXML_TEMPLATE.xml" />
-    <Content Include="MusicXML_TEMPLATE_02.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE_02.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE_03.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE_04.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE_05.xml" />
+    <EmbeddedResource Include="MusicXML_TEMPLATE_06.xml" />
     <Content Include="TEST_FILES\%28All Of A Sudden%29 My Heart Sings.XML" />
     <Content Include="TEST_FILES\000000-000002.xml" />
     <Content Include="TEST_FILES\BUG and Triplet example.xml" />
@@ -120,22 +47,31 @@
     <Content Include="TEST_FILES\Superstition_Stevie_Wonder 121922.XML" />
     <Content Include="TEST_FILES\Superstition_Stevie_Wonder 122022.XML" />
     <Content Include="TEST_FILES\Untitled score-Piano.xml" />
-    <None Include="TEST_FILES\All Of Me-timewise.xml" />
-    <None Include="TEST_FILES\All Of Me.XML" />
-    <None Include="TEST_FILES\Superstition_Stevie_Wonder.mscz" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Remove="Interval\IntervalBaseTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="MusicXML_TEMPLATE_03.xml" />
+    <None Remove="MusicXML_TEMPLATE_04.xml" />
+    <None Remove="MusicXML_TEMPLATE_05.xml" />
+    <None Remove="MusicXML_TEMPLATE_06.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
@@ -154,13 +90,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
