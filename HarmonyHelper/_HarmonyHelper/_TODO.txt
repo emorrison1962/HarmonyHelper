@@ -1,0 +1,36 @@
+﻿http://www.vexflow.com/
+https://github.com/0xfe/vexflow/wiki/The-VexFlow-Tutorial
+
+Re-Harmonize songs
+
+Import of BiaB copy song cipboard format:
+[Song] [Title A Child Is Born] 
+[File A Child Is Born.MGU]
+[Key Bb ] [Tempo 95] [Form 9-38*3] 
+[.Sty ZZJAZWAL.STY] [Style Jazz Waltz Style] 
+[Chords] 
+| EbMaj7| Ab9 / Ab9| Bb/F| Gb6| Gm7| C9| F7sus| F7|
+|: BbMaj7| Ebm/Bb| BbMaj7| Ebm6/Bb| BbMaj9| Ebm/Bb / Bb| Am7b5| D7#9|
+| Gm7| D7+| Gm7| D7+| Gm7| C9| F7sus| F13|
+| BbMaj7| Ebm/Bb| BbMaj7| Ebm/Bb| BbMaj9| D7alt| EbMaj7| Ab9 / Ab9|
+| Bb/F| Gb6| Gm7| C9| F7sus| F13:3X|end) F7sus|
+[ChordsEnd] 
+[SongEnd] 
+
+Read/ write MusicXml
+
+Recognize repeated sections in MusicXmlParser.
+
+View Chord chart in NeckDiagrams.
+View Staff in NeckDiagrams.
+
+ChordFormula/ Key mapping.
+
+Create Harmonic Minor Key subclass.
+
+ChordFormula: 
+	Extensions, 
+	Altered chords, 
+	EqualityComparer that includes extensions,
+	Chord substitutions
+

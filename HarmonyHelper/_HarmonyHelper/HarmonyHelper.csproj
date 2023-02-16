@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Eric.Morrison.Harmony</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Arpeggiator\ArpeggiationContext.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Arpeggiator\Arpeggiator_Snapshot.cs">
+      <DependentUpon>Arpeggiator.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Chords\ChordFormulaExtensions.cs">
+      <DependentUpon>ChordFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Chords\ChordFormula_Comparers.cs">
+      <DependentUpon>ChordFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Update="KeySignature\KeySignature_Static.cs">
+      <DependentUpon>KeySignature.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Notes\Comparers.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Notes\EnharmonicEquivalent.cs">
+      <DependentUpon>NoteName.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Analysis\HarmonicAnalysis\Rules\References.txt" />
+    <EmbeddedResource Include="Resources\parttime.xsl" />
+    <EmbeddedResource Include="MusicXml\MusicXmlExportTemplate.xml" />
+    <Content Include="Sunny Resolutions MusicXML Test.xml" />
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\musicxml.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\xlink.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicXml\MusicXml v4 Xsd\xml.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="_TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Enums\Enumeration.cs" />
+  </ItemGroup>
+</Project>
