@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using Melanchall.DryWetMidi.Multimedia;
 
 namespace HarmonyHelper_DryWetMidi
 {
@@ -52,9 +53,20 @@ namespace HarmonyHelper_DryWetMidi
 
         public MidiFileConverter(string filename)
         {
+            this.Foo();
             this.Filename = filename;
             this.Open();
         }
+
+        void Foo()
+        {
+            foreach (var outputDevice in OutputDevice.GetAll())
+            {
+                Debug.WriteLine(outputDevice.Name);
+            }
+            new object();
+        }
+
         public void Open()
         {
             if (!File.Exists(this.Filename))
@@ -62,6 +74,8 @@ namespace HarmonyHelper_DryWetMidi
 
             this.MidiFile = MidiFile.Read(this.Filename);
             this.Init();
+
+            this.MidiFile.Play(OutputDevice.GetAll().First());
         }
 
         void Init()

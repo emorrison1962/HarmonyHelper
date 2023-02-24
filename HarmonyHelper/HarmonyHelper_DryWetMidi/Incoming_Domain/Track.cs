@@ -107,12 +107,14 @@ namespace HarmonyHelper_DryWetMidi.Incoming_Domain
                             LengthedObjectPart.Entire)
                         .Where(x => x.Notes.Count > 1)
                         .ToList();
+                    new object();
 
                     var notes = notesMgr.Objects
                         .AtTime(tsBar,
                             this.TempoMap,
                             LengthedObjectPart.Entire)
                         .ToList();
+                    new object();
 
                     var tsBbf = TimeConverter
                         .ConvertTo<BarBeatFractionTimeSpan>(
