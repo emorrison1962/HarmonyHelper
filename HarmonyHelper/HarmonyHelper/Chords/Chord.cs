@@ -162,7 +162,7 @@ namespace Eric.Morrison.Harmony.Chords
 				Debug.Assert(null != result);
 			}
 
-			Debug.Assert(ctx.LastNote.NoteName.Value != result.NoteName.Value);
+			Debug.Assert(ctx.LastNote.NoteName.RawValue != result.NoteName.RawValue);
 			ctx.ClosestNote = result;
 		}
 

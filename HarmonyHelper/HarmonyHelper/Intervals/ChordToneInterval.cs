@@ -62,6 +62,8 @@ ChordToneInterval.Thirteenth
 
         override public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
 
+		[Obsolete("For EF.")]
+		private ChordToneInterval() : base(null){ }
         private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
 			if (null == interval)

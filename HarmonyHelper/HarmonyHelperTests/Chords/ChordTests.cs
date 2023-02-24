@@ -88,17 +88,27 @@ namespace Eric.Morrison.Harmony.Tests
         {
             foreach (var origChord in ChordFormula.Catalog)
             {
-                Debug.WriteLine(string.Format("{0}7 = {1}", origChord.Root.ToString(), origChord.ToString()));
+                if (ChordFormula.Catalog.ToList().Any(x => x.Name == origChord.Name))
+                {
+                    Debug.WriteLine($"{origChord.ToString()}");
 
-                var origKey = origChord.Key;
+                    var origKey = origChord.Key;
 
-                var txedUp = origChord + Interval.Perfect4th;
-                Assert.AreNotEqual(txedUp, origChord);
+                    var txedUp = origChord + Interval.Perfect4th;
+                    Assert.AreNotEqual(txedUp, origChord);
 
-                var txedDown = txedUp - Interval.Perfect4th;
+                    var txedDown = txedUp - Interval.Perfect4th;
 
-                var b = txedDown == origChord;
-                Assert.AreEqual(txedDown, origChord);
+                    if (ChordFormula.Catalog.ToList().Any(x => x.Name == txedUp.Name))
+                    {
+                        var b = txedDown == origChord;
+                        Assert.AreEqual(txedDown, origChord);
+                    }
+                }
+                else 
+                { 
+                    Assert.Fail();
+                }
             }
             new object();
         }

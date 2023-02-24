@@ -26,12 +26,13 @@ namespace Eric.Morrison.Harmony
         virtual public bool IsMinor { get; private set; }
         virtual public int AccidentalCount { get; private set; }
         virtual public string Name { get; private set; }
-        public int Value
+        [Obsolete("", false)]
+        public int RawValue
         {
             get
             {
                 var result = 0;
-                this.NoteNames.ForEach(note => result |= note.Value);
+                this.NoteNames.ForEach(note => result |= note.RawValue);
                 return result;
             }
         }
@@ -205,7 +206,7 @@ namespace Eric.Morrison.Harmony
             public bool Equals(NoteName x, NoteName y)
             {
                 bool result = false;
-                if (x.Value == y.Value
+                if (x.RawValue == y.RawValue
                     && x.Name != y.Name)
                     result = true;
                 return result;
@@ -222,7 +223,7 @@ namespace Eric.Morrison.Harmony
             public bool Equals(NoteName x, NoteName y)
             {
                 bool result = false;
-                if (x.Value == y.Value
+                if (x.RawValue == y.RawValue
                     && x.Name == y.Name)
                     result = true;
                 return result;
@@ -346,7 +347,7 @@ namespace Eric.Morrison.Harmony
                 throw new ArgumentOutOfRangeException($"{MethodBase.GetCurrentMethod().Name}");
             }
 
-            var seq = catalog.Where(x => x.NoteName.Value == txposedNote.Value);
+            var seq = catalog.Where(x => x.NoteName.RawValue == txposedNote.RawValue);
             if (null == seq)
             {
                 throw new ArgumentOutOfRangeException($"{MethodBase.GetCurrentMethod().Name}: Major key with NoteName{{{txposedNote.Name}}} does not exist");
@@ -443,8 +444,8 @@ namespace Eric.Morrison.Harmony
             var result = IsDiatonicEnum.No;
             
             var val = 0;
-            noteNames.ForEach(nn => val |= nn.Value);
-            if (val == (this.Value & val))
+            noteNames.ForEach(nn => val |= nn.RawValue);
+            if (val == (this.RawValue & val))
                 result = IsDiatonicEnum.Yes;
 
 
@@ -570,7 +571,7 @@ namespace Eric.Morrison.Harmony
         {
             var nns = NoteName.GetEnharmonicEquivalents(this.NoteName);
             var keys = Catalog
-                .Where(x => x.NoteName.Value == this.NoteName.Value
+                .Where(x => x.NoteName.RawValue == this.NoteName.RawValue
                     && x.IsMajor == this.IsMajor).ToList();
             var result = keys.OrderBy(x => x.AccidentalCount)
                 .First();

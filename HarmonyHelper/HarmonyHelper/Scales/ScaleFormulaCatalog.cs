@@ -120,7 +120,7 @@ namespace Eric.Morrison.Harmony
 				where key.UsesSharps == scaleFormula.Key.UsesSharps
 					&& key.UsesFlats == scaleFormula.Key.UsesFlats
 				select (scaleFormula))
-					   .GroupBy(x => x.NoteNames.Sum(y => y.Value), x => x)
+					   .GroupBy(x => x.NoteNames.Sum(y => y.RawValue), x => x)
 					   .ToList();
 
             foreach (var group in groups)

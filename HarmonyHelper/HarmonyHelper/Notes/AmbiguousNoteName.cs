@@ -94,7 +94,7 @@ namespace Eric.Morrison.Harmony
 			else if (b is null)
 				return 1;
 
-			var result = a.Value.CompareTo(b.Value);
+			var result = a.RawValue.CompareTo(b.RawValue);
 
 			return result;
 		}
@@ -103,7 +103,7 @@ namespace Eric.Morrison.Harmony
 		{
 			var result = false;
 			if (this.Name == other.Name
-				&& this.Value == other.Value)
+				&& this.RawValue == other.RawValue)
 				result = true;
 			return result;
 		}
@@ -125,7 +125,7 @@ namespace Eric.Morrison.Harmony
 
 		public override int GetHashCode()
 		{
-			var result = this.Value.GetHashCode();
+			var result = this.RawValue.GetHashCode();
 			return result;
 		}
 

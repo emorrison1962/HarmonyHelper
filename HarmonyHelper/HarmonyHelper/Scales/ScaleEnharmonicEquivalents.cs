@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.Scales
 
 		static public int CreateKey(this ScaleFormulaBase src)
 		{
-			var result = src.NoteNames.Sum(x => x.Value);
+			var result = src.NoteNames.Sum(x => x.RawValue);
 			return result;
 		}
 	}

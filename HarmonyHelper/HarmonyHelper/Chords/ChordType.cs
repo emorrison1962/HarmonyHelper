@@ -5,7 +5,7 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-    public class ChordType : IChordType
+    public class ChordType : ClassBase, IChordType
     {
         static public readonly NullChordType Empty = NullChordType.Instance;
 

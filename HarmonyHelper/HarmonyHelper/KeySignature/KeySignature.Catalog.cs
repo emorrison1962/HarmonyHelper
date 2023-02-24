@@ -287,7 +287,7 @@ namespace Eric.Morrison.Harmony
             var result = new List<ChordFormula>();
             foreach (var chord in chords)
             {
-                if (chord.Value != (this.Value & chord.Value))
+                if (chord.RawValue != (this.RawValue & chord.RawValue))
                     result.Add(chord);
             }
             return result;

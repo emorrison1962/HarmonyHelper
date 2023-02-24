@@ -106,7 +106,8 @@ namespace Eric.Morrison.Harmony
         #region Properties
         static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
         virtual public string Name { get; protected set; }
-        virtual public int Value { get; protected set; }
+        [Obsolete("", false)]
+        virtual public int RawValue { get; protected set; }
         virtual public bool IsSharped { get; protected set; }
         virtual public bool IsFlatted { get; protected set; }
         virtual public bool IsNatural { get; protected set; }
@@ -145,7 +146,7 @@ namespace Eric.Morrison.Harmony
         protected NoteName(string name, int val, bool addToCatalog = true)
         {
             this.Name = name;
-            this.Value = val;
+            this.RawValue = val;
 
             if (this.Name.EndsWith(Constants.SHARP))
                 this.IsSharped = true;
@@ -170,7 +171,7 @@ namespace Eric.Morrison.Harmony
                 _catalog.Add(this);
         }
 
-        NoteName(NoteName src) : this(src.Name, src.Value, false)
+        NoteName(NoteName src) : this(src.Name, src.RawValue, false)
         {
         }
 
@@ -220,7 +221,7 @@ namespace Eric.Morrison.Harmony
         }
         public static implicit operator int(NoteName nn)
         {
-            return nn.Value;
+            return nn.RawValue;
         }
         public static explicit operator NoteName(int i)
         {
@@ -276,8 +277,8 @@ namespace Eric.Morrison.Harmony
 
             Interval result = null;
 
-            var logA = Math.Log(a.Value, 2);
-            var logB = Math.Log(b.Value, 2);
+            var logA = Math.Log(a.RawValue, 2);
+            var logB = Math.Log(b.RawValue, 2);
             var pow = (logA - logB);
 
             var invert = false;
@@ -287,6 +288,7 @@ namespace Eric.Morrison.Harmony
                 pow = Math.Abs(pow);
             }
 
+            //throw new NotImplementedException("Well. I broke this.");
             var intervalValue = (int)Math.Pow(2, pow);
             result = (Interval)intervalValue;
             result = NoteName.ResolveInterval(result, a, b, invert);
@@ -419,7 +421,7 @@ namespace Eric.Morrison.Harmony
             else if (b is null)
                 return 1;
 
-            var result = a.Value.CompareTo(b.Value);
+            var result = a.RawValue.CompareTo(b.RawValue);
             if (0 == result)
             {
                 result = a.Name[0].CompareTo(b.Name[0]);
@@ -436,7 +438,7 @@ namespace Eric.Morrison.Harmony
         virtual public bool Equals(NoteName other)
         {
             var result = false;
-            if (this.Value == other.Value
+            if (this.RawValue == other.RawValue
                 && this.Name == other.Name)
                 result = true;
             return result;
@@ -459,7 +461,7 @@ namespace Eric.Morrison.Harmony
 
         public override int GetHashCode()
         {
-            var result = this.Value.GetHashCode();
+            var result = this.RawValue.GetHashCode();
             return result;
         }
 
@@ -554,7 +556,7 @@ namespace Eric.Morrison.Harmony
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
-            var result = src.Value << interval.SemiTones;
+            var result = src.RawValue << interval.SemiTones;
             if (result > VALUE_B)
             {
                 result = result >> 12;
@@ -572,9 +574,9 @@ namespace Eric.Morrison.Harmony
             var intervalRole = interval.IntervalRoleType;
 
             var notenames = NoteName.InternalCatalog
-                .OrderBy(x => x.Value)
+                .OrderBy(x => x.RawValue)
                 .ToList();
-            var resultCandidates = notenames.Where(x => x.Value == noteVal).ToList();
+            var resultCandidates = notenames.Where(x => x.RawValue == noteVal).ToList();
             Debug.Assert(resultCandidates.Count > 0);
 
             var srcAscii = (int)src.Name[0];
@@ -814,7 +816,7 @@ namespace Eric.Morrison.Harmony
 
         override public bool IsSharped => false;
 
-        override public int Value => int.MinValue;
+        override public int RawValue => int.MinValue;
     }
 
 	[Obsolete("", true)]

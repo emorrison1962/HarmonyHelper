@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
             this.TimeContext = TimeContext;
 
             this.Formula = Chord.Event;
-            Notes.ForEach(x => this.MelodyBitMask |= x.Event.NoteName.Value);
+            Notes.ForEach(x => this.MelodyBitMask |= x.Event.NoteName.RawValue);
             this.Melody = Notes.Select(x => x.Event.NoteName)
                .Distinct(new NoteNameValueEqualityComparer())
                .OrderBy(x => x.AsciiSortValue)

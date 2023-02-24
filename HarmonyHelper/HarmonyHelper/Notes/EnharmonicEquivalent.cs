@@ -13,7 +13,7 @@ namespace Eric.Morrison.Harmony
 			this.Key = key;
 			this.Others = others.OrderBy(x => x, new AccidentalCountComparer()).ToList();
 
-			if (!this.Others.All(x => x.Value == this.Key.Value))
+			if (!this.Others.All(x => x.RawValue == this.Key.RawValue))
 				throw new ArgumentException();
 		}
 

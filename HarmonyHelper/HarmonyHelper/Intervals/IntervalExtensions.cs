@@ -138,111 +138,111 @@ ChordToneInterval.Thirteenth
             {
                 case ChordToneFunctionEnum.Root:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_UNISON;
+                        result = IntervalValuesEnum.Unison;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Sus2:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_2ND;
+                        result = IntervalValuesEnum.Major2nd;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Minor3rd:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MINOR_3RD;
+                        result = IntervalValuesEnum.Minor3rd;
                         break;
                     }
                 case ChordToneFunctionEnum.Major3rd:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_3RD;
+                        result = IntervalValuesEnum.Major3rd;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Sus4:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_PERFECT_4TH;
+                        result = IntervalValuesEnum.Perfect4th;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Diminished5th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_5TH;
+                        result = IntervalValuesEnum.Diminished5th;
                         break;
                     }
                 case ChordToneFunctionEnum.Perfect5th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_PERFECT_5TH;
+                        result = IntervalValuesEnum.Perfect5th;
                         break;
                     }
                 case ChordToneFunctionEnum.Augmented5th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_AUGMENTED_5TH;
+                        result = IntervalValuesEnum.Augmented5th;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Major6th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_6TH;
+                        result = IntervalValuesEnum.Major6th;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Diminished7th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_7TH;
+                        result = IntervalValuesEnum.Diminished7th;
                         break;
                     }
                 case ChordToneFunctionEnum.Minor7th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MINOR_7TH;
+                        result = IntervalValuesEnum.Minor7th;
                         break;
                     }
                 case ChordToneFunctionEnum.Major7th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_7TH;
+                        result = IntervalValuesEnum.Major7th;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Flat9th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MINOR_2ND;
+                        result = IntervalValuesEnum.Minor2nd;
                         break;
                     }
                 case ChordToneFunctionEnum.Ninth:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_2ND;
+                        result = IntervalValuesEnum.Major2nd;
                         break;
                     }
                 case ChordToneFunctionEnum.Sharp9th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MINOR_3RD;
+                        result = IntervalValuesEnum.Minor3rd;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Flat11th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_4TH;
+                        result = IntervalValuesEnum.Diminished4th;
                         break;
                     }
                 case ChordToneFunctionEnum.Eleventh:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_PERFECT_4TH;
+                        result = IntervalValuesEnum.Perfect4th;
                         break;
                     }
                 case ChordToneFunctionEnum.Augmented11th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_AUGMENTED_4TH;
+                        result = IntervalValuesEnum.Augmented4th;
                         break;
                     }
 
                 case ChordToneFunctionEnum.Flat13th:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MINOR_6TH;
+                        result = IntervalValuesEnum.Minor6th;
                         break;
                     }
                 case ChordToneFunctionEnum.Thirteenth:
                     {
-                        result = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_6TH;
+                        result = IntervalValuesEnum.Major6th;
                         break;
                     }
                 default:

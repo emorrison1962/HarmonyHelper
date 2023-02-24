@@ -11,14 +11,14 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(NoteName x, NoteName y)
 		{
 			var result = false;
-			if (x.Value == y.Value)
+			if (x.RawValue == y.RawValue)
 				result = true;
 			return result;
 		}
 
 		public int GetHashCode(NoteName obj)
 		{
-			return obj.Value.GetHashCode();
+			return obj.RawValue.GetHashCode();
 		}
 	}
 
@@ -27,14 +27,14 @@ namespace Eric.Morrison.Harmony
 		public bool Equals(NoteName x, NoteName y)
 		{
 			var result = false;
-			if (x.Name == y.Name && x.Value == y.Value)
+			if (x.Name == y.Name && x.RawValue == y.RawValue)
 				result = true;
 			return result;
 		}
 
 		public int GetHashCode(NoteName obj)
 		{
-			return obj.Name.GetHashCode() ^ obj.Value.GetHashCode();
+			return obj.Name.GetHashCode() ^ obj.RawValue.GetHashCode();
 		}
 	}
 
@@ -81,14 +81,14 @@ namespace Eric.Morrison.Harmony
 			var result = 0;
 			foreach (var nn in obj)
 			{
-				result ^= nn.Value.GetHashCode();
+				result ^= nn.RawValue.GetHashCode();
 			}
 			return result;
 		}
 
 		public int GetHashCode(NoteName obj)
 		{
-			return obj.Value.GetHashCode();
+			return obj.RawValue.GetHashCode();
 		}
 	}
 
@@ -115,14 +115,14 @@ namespace Eric.Morrison.Harmony
 			var result = 0;
 			foreach (var nn in obj)
 			{
-				result ^= nn.Value.GetHashCode();
+				result ^= nn.RawValue.GetHashCode();
 			}
 			return result;
 		}
 
 		public int GetHashCode(NoteName obj)
 		{
-			return obj.Value.GetHashCode();
+			return obj.RawValue.GetHashCode();
 		}
 	}
 

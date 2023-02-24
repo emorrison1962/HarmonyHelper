@@ -15,12 +15,13 @@ namespace Eric.Morrison.Harmony.Chords
 
         #region Properties
 
-        public int Value
+        [Obsolete("", false)]
+        public int RawValue
         {
             get
             {
                 var result = 0;
-                this.NoteNames.ForEach(note => result |= note.Value);
+                this.NoteNames.ForEach(note => result |= note.RawValue);
                 return result;
             }
         }

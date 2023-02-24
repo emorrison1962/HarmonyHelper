@@ -64,7 +64,7 @@ namespace Eric.Morrison.Harmony.Tests
 						Assert.IsTrue(success);
 
 						var actual = txposed - interval;
-						if (actual.Value != note.Value)
+						if (actual.RawValue != note.RawValue)
 							Assert.Fail();
 					}
 				}
@@ -121,7 +121,7 @@ namespace Eric.Morrison.Harmony.Tests
 					Debug.WriteLine($"{nn2} - {nn1} = {interval}");
 					if (interval == Interval.Unison)
 					{
-						Assert.IsTrue(nn1.Value == nn2.Value);
+						Assert.IsTrue(nn1.RawValue == nn2.RawValue);
 					}
 					else
 					{
@@ -194,7 +194,7 @@ namespace Eric.Morrison.Harmony.Tests
 			foreach (var nn in NoteName.Catalog)
 			{
 				var ee = NoteName.GetEnharmonicEquivalents(nn);
-				Assert.IsTrue(ee.All(x => x.Value == nn.Value));
+				Assert.IsTrue(ee.All(x => x.RawValue == nn.RawValue));
 			}
 			new object();
 		}
@@ -227,7 +227,7 @@ namespace Eric.Morrison.Harmony.Tests
 					if (0 == compare)
 					{
 						var equivalents = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.IsTrue(equivalents.All(x => x.Value == nn2.Value));
+						Assert.IsTrue(equivalents.All(x => x.RawValue == nn2.RawValue));
 					}
 					if (compare < 0)
 						++lessThan;
@@ -253,7 +253,7 @@ namespace Eric.Morrison.Harmony.Tests
 					if (0 == compare)
 					{
 						var ee = NoteName.GetEnharmonicEquivalents(nn1);
-						Assert.IsTrue(ee.All(x => x.Value == nn1.Value));
+						Assert.IsTrue(ee.All(x => x.RawValue == nn1.RawValue));
 					}
 					if (compare < 0)
 						++lessThan;

@@ -11,6 +11,8 @@ namespace Eric.Morrison.Harmony
     {
         static int _instances = 0;
         protected int _instanceID = 0;
+
+        public int Id { get; set; }
         public ClassBase()
         {
             this._instanceID = ++_instances;

@@ -107,7 +107,7 @@ namespace Eric.Morrison.Harmony.Scales
 			var result = this.Name.CompareTo(other.Name);
 			if (0 == result)
 			{
-				result = -(this.NoteNames.Sum(x => x.Value).CompareTo(other.NoteNames.Sum(x => x.Value)));
+				result = -(this.NoteNames.Sum(x => x.RawValue).CompareTo(other.NoteNames.Sum(x => x.RawValue)));
 			}
 			return result;
 		}
@@ -119,7 +119,7 @@ namespace Eric.Morrison.Harmony.Scales
 				new object();
 			if (!result)
 			{
-				result = this.NoteNames.Sum(x => x.Value) == other.NoteNames.Sum(x => x.Value);
+				result = this.NoteNames.Sum(x => x.RawValue) == other.NoteNames.Sum(x => x.RawValue);
 				if (result)
 					new object();
 			}
@@ -270,8 +270,8 @@ namespace Eric.Morrison.Harmony.Scales
 		public int Compare(ScaleFormulaBase a, ScaleFormulaBase b)
 		{
 			var result = 0;
-			result = -(a.NoteNames.Sum(x => x.Value)
-				.CompareTo(b.NoteNames.Sum(x => x.Value)));
+			result = -(a.NoteNames.Sum(x => x.RawValue)
+				.CompareTo(b.NoteNames.Sum(x => x.RawValue)));
 			return result;
 		}
 	}

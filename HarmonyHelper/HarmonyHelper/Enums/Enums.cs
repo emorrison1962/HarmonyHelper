@@ -8,24 +8,69 @@ namespace Eric.Morrison.Harmony
 
     public enum IntervalValuesEnum
     {
-        INTERVAL_VALUE_UNISON = 1,
-        INTERVAL_VALUE_MINOR_2ND = 1 << 1,
-        INTERVAL_VALUE_MAJOR_2ND = 1 << 2,
-        INTERVAL_VALUE_MINOR_3RD = 1 << 3,
-        INTERVAL_VALUE_MAJOR_3RD = 1 << 4,
-        INTERVAL_VALUE_DIMINISHED_4TH = INTERVAL_VALUE_MAJOR_3RD,
-        INTERVAL_VALUE_PERFECT_4TH = 1 << 5,
-        INTERVAL_VALUE_AUGMENTED_4TH = 1 << 6,
-        INTERVAL_VALUE_DIMINISHED_5TH = INTERVAL_VALUE_AUGMENTED_4TH,
-        INTERVAL_VALUE_PERFECT_5TH = 1 << 7,
-        INTERVAL_VALUE_AUGMENTED_5TH = 1 << 8,
-        INTERVAL_VALUE_MINOR_6TH = INTERVAL_VALUE_AUGMENTED_5TH,
-        INTERVAL_VALUE_MAJOR_6TH = 1 << 9,
-        INTERVAL_VALUE_DIMINISHED_7TH = INTERVAL_VALUE_MAJOR_6TH,
-        INTERVAL_VALUE_MINOR_7TH = 1 << 10,
-        INTERVAL_VALUE_MAJOR_7TH = 1 << 11,
-        INTERVAL_VALUE_PERFECT_OCTAVE = 1 << 12,
+        Unison = 1,
+		Minor2nd = 1 << 1,
+		Major2nd = 1 << 2,
+		Minor3rd = 1 << 3,
+		Major3rd = 1 << 4,
+		Diminished4th = Major3rd,
+		Perfect4th = 1 << 5,
+		Augmented4th = 1 << 6,
+		Diminished5th = Augmented4th,
+		Perfect5th = 1 << 7,
+		Augmented5th = 1 << 8,
+		Minor6th = Augmented5th,
+		Major6th = 1 << 9,
+		Diminished7th = Major6th,
+		Minor7th = 1 << 10,
+		Major7th = 1 << 11,
+		PerfectOctave = 1 << 12,
+	};
+
+    public enum IntervalFunctionalValuesEnum
+    {
+        Unison = 1,
+        AugmentedUnison = Unison | Augmented,
+
+        Second = 1 << 1,
+        Minor2nd = Second | Minor,
+        Major2nd = Second | Major,
+
+        Third = 1 << 2,
+        Minor3rd = Third | Minor,
+        Major3rd = Third | Major,
+
+        Fourth = 1 << 3,
+        Diminished4th = Fourth | Diminished,
+        Perfect4th = Fourth | Perfect,
+        Augmented4th = Fourth | Augmented,
+
+        Fifth = 1 << 4,
+        Diminished5th = Fifth | Diminished,
+        Perfect5th = Fifth | Perfect,
+        Augmented5th = Fifth | Augmented,
+
+        Sixth = 1 << 5,
+        Minor6th = Sixth | Minor,
+        Major6th = Sixth | Major,
+
+        Seventh = 1 << 6,
+        Diminished7th = Seventh | Diminished,
+        Minor7th = Seventh | Minor,
+        Major7th = Seventh | Major,
+
+        Octave = 1 << 7,
+        PerfectOctave = Octave | Perfect,
+        DiminishedOctave = Octave | Diminished,
+
+        Major = 1 << 31,
+        Minor = 1 << 30,
+        Perfect = 1 << 29,
+        Augmented = 1 << 28,
+        Diminished = 1 << 27,
+
     };
+
 
     [Flags]
 	public enum OctaveEnum
@@ -45,15 +90,15 @@ namespace Eric.Morrison.Harmony
 	public enum ChordTypesEnum
 	{
 		None = 0,
-		Major = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_3RD | IntervalValuesEnum.INTERVAL_VALUE_PERFECT_5TH,
-		Minor = IntervalValuesEnum.INTERVAL_VALUE_MINOR_3RD | IntervalValuesEnum.INTERVAL_VALUE_PERFECT_5TH,
-		Augmented = IntervalValuesEnum.INTERVAL_VALUE_MAJOR_3RD | IntervalValuesEnum.INTERVAL_VALUE_AUGMENTED_5TH,
-		Diminished = IntervalValuesEnum.INTERVAL_VALUE_MINOR_3RD | IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_5TH,
-		Major7th = Major | IntervalValuesEnum.INTERVAL_VALUE_MAJOR_7TH,
-		Minor7th = Minor | IntervalValuesEnum.INTERVAL_VALUE_MINOR_7TH,
-		Dominant7th = Major | IntervalValuesEnum.INTERVAL_VALUE_MINOR_7TH,
-		HalfDiminished = Diminished | IntervalValuesEnum.INTERVAL_VALUE_MINOR_7TH,
-		Diminished7 = Diminished | IntervalValuesEnum.INTERVAL_VALUE_MAJOR_6TH,
+		Major = IntervalValuesEnum.Major3rd | IntervalValuesEnum.Perfect5th,
+		Minor = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Perfect5th,
+		Augmented = IntervalValuesEnum.Major3rd | IntervalValuesEnum.Augmented5th,
+		Diminished = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Diminished5th,
+		Major7th = Major | IntervalValuesEnum.Major7th,
+		Minor7th = Minor | IntervalValuesEnum.Minor7th,
+		Dominant7th = Major | IntervalValuesEnum.Minor7th,
+		HalfDiminished = Diminished | IntervalValuesEnum.Minor7th,
+		Diminished7 = Diminished | IntervalValuesEnum.Major6th,
 		//Suspended,....
 	}
 
@@ -61,9 +106,9 @@ namespace Eric.Morrison.Harmony
 	[Flags]
 	public enum ChordTonesBitmaskEnum
 	{
-		Third = IntervalValuesEnum.INTERVAL_VALUE_MINOR_3RD | IntervalValuesEnum.INTERVAL_VALUE_MAJOR_3RD,
-		Fifth = IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_5TH | IntervalValuesEnum.INTERVAL_VALUE_PERFECT_5TH | IntervalValuesEnum.INTERVAL_VALUE_DIMINISHED_5TH,
-		Seventh = IntervalValuesEnum.INTERVAL_VALUE_MINOR_7TH | IntervalValuesEnum.INTERVAL_VALUE_MAJOR_7TH
+		Third = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Major3rd,
+		Fifth = IntervalValuesEnum.Diminished5th | IntervalValuesEnum.Perfect5th | IntervalValuesEnum.Diminished5th,
+		Seventh = IntervalValuesEnum.Minor7th | IntervalValuesEnum.Major7th
 	}
 
 	[Flags]

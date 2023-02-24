@@ -133,8 +133,8 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 			var nn = NoteName.C;
 			foreach (var nnTuple in bugs)
 			{
-				var logA = Math.Log(nn.Value, 2);
-				var logB = Math.Log(nnTuple.Item1.Value, 2);
+				var logA = Math.Log(nn.RawValue, 2);
+				var logB = Math.Log(nnTuple.Item1.RawValue, 2);
 
 				var interval = Interval.Unison;
 
@@ -171,8 +171,8 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 			var nn = NoteName.C;
 			foreach (var noteName in NoteName.Catalog)
 			{
-				var logA = Math.Log(nn.Value, 2);
-				var logB = Math.Log(noteName.Value, 2);
+				var logA = Math.Log(nn.RawValue, 2);
+				var logB = Math.Log(noteName.RawValue, 2);
 
 				var interval = Interval.Unison;
 
