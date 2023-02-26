@@ -20,9 +20,13 @@ namespace HarmonyHelper_DryWetMidi.Tests
             path = Path.GetDirectoryName(path);
             path = Path.GetDirectoryName(path);
             path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
 
             path = Path.Combine(path, "TEST_FILES");
             path = Path.Combine(path, "Superstition.mid");
+            if (!File.Exists(path))
+                throw new FileNotFoundException(path);
+
 
             var reader = new MidiFileConverter(path);
 
