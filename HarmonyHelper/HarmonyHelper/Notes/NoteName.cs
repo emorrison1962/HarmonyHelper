@@ -12,25 +12,82 @@ namespace Eric.Morrison.Harmony
     {
         #region Constants
 
-        public const int MIN_LOWER_SHIFT = 1;
-        const int VALUE_C = 1 << MIN_LOWER_SHIFT;
-        const int VALUE_Db = 1 << 2;
-        const int VALUE_D = 1 << 3;
-        const int VALUE_Eb = 1 << 4;
-        const int VALUE_E = 1 << 5;
-        const int VALUE_F = 1 << 6;
-        const int VALUE_Gb = 1 << 7;
-        const int VALUE_G = 1 << 8;
-        const int VALUE_Ab = 1 << 9;
-        const int VALUE_A = 1 << 10;
-        const int VALUE_Bb = 1 << 11;
-        public const int MAX_UPPER_SHIFT = 12;
-        const int VALUE_B = 1 << MAX_UPPER_SHIFT;
+        public enum NoteValuesEnum
+        {
+            C = 1 << 1,
+            Db = 1 << 2,
+            D = 1 << 3,
+            Eb = 1 << 4,
+            E = 1 << 5,
+            F = 1 << 6,
+            Gb = 1 << 7,
+            G = 1 << 8,
+            Ab = 1 << 9,
+            A = 1 << 10,
+            Bb = 1 << 11,
+            B = 1 << 12,
+        };
+
+        [Flags]
+        public enum ExplicitNoteValuesEnum
+        {
+            BSharp = 1 << 1 | Sharp,
+            C = 1 << 1 | Natural,
+            Dbb = 1 << 1 | DoubleFlat,
+
+            BSharpSharp = 1 << 2 | DoubleSharp,
+            CSharp = 1 << 2 | Sharp,
+            Db = 1 << 2 | Flat,
+            
+            CSharpSharp = 1 << 3 | DoubleSharp, 
+            D = 1 << 3 | Natural,
+            Ebb = 1 << 3 | DoubleFlat,
+
+            DSharp = 1 << 4 | Sharp,
+            Eb = 1 << 4 | Flat,
+            Fbb = 1 << 4 | DoubleFlat,
+
+            DSharpSharp = 1 << 5 | DoubleSharp,
+            E = 1 << 5 | Natural,
+            Fb = 1 << 5 | Flat,
+
+            ESharp = 1 << 6 | Sharp,
+            F = 1 << 6 | Natural,
+            Gbb = 1 << 6 | DoubleFlat,
+
+            ESharpSharp = 1 << 7 | DoubleSharp,
+            FSharp = 1 << 7 | Sharp,
+            Gb = 1 << 7 | Flat,
+
+            FSharpSharp = 1 << 8 | DoubleSharp,
+            G = 1 << 8 | Natural,
+            Abb = 1 << 8 | DoubleFlat,
+
+            GSharp = 1 << 9 | Sharp,
+            Ab = 1 << 9 | Flat,
+
+            GSharpSharp = 1 << 10 | DoubleSharp,
+            A = 1 << 10 | Natural,
+            Bbb = 1 << 10 | DoubleFlat,
+
+            ASharp = 1 << 11 | Sharp,
+            Bb = 1 << 11 | Flat,
+            Cbb = 1 << 11 | DoubleFlat,
+
+            ASharpSharp = 1 << 12 | DoubleSharp,
+            B = 1 << 12 | Natural,
+            Cb = 1 << 12 | Flat,
+
+            Natural = 1 << 31,
+            Sharp = 1 << 30,
+            Flat = 1 << 29,
+            DoubleSharp = 1 << 28,
+            DoubleFlat = 1 << 27,
+        };
+
+
         const char ASCII_C = 'C';
         const int OFFSET_TO_ASCII_G = 7;
-
-        static public int MinValue { get { return VALUE_C; } }
-        static public int MaxValue { get { return VALUE_B; } }
 
         #endregion Constants
 
@@ -43,62 +100,144 @@ namespace Eric.Morrison.Harmony
         static IEnumerable<NoteName> InternalCatalog { get { return _internalCatalog; } }
 
 
-        static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}", VALUE_C);
-        static public readonly NoteName C = new NoteName("C", VALUE_C);
-        static readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}", VALUE_C, false);
+        static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}", 
+            NoteValuesEnum.C, ExplicitNoteValuesEnum.BSharp);
+        static public readonly NoteName C = new NoteName("C", 
+            NoteValuesEnum.C, ExplicitNoteValuesEnum.C);
+        static readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}", 
+            NoteValuesEnum.C,
+            ExplicitNoteValuesEnum.Dbb, 
+            false);
 
 
-        static readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}", VALUE_Db, false);
-        static public readonly NoteName CSharp = new NoteName($"C{Constants.SHARP}", VALUE_Db);
-        static public readonly NoteName Db = new NoteName($"D{Constants.FLAT}", VALUE_Db);
+        static readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}", 
+            NoteValuesEnum.Db,
+            ExplicitNoteValuesEnum.BSharpSharp,
+            false);
+        static public readonly NoteName CSharp = new NoteName($"C{Constants.SHARP}", 
+            NoteValuesEnum.Db,
+            ExplicitNoteValuesEnum.CSharp);
+        static public readonly NoteName Db = new NoteName($"D{Constants.FLAT}", 
+            NoteValuesEnum.Db,
+            ExplicitNoteValuesEnum.Db);
 
 
-        static readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}", VALUE_D, false);
-        static public readonly NoteName D = new NoteName("D", VALUE_D);
-        static readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}", VALUE_D, false);
+        static readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}", 
+            NoteValuesEnum.D,
+            ExplicitNoteValuesEnum.CSharpSharp,
+            false);
+        static public readonly NoteName D = new NoteName("D", 
+            NoteValuesEnum.D,
+            ExplicitNoteValuesEnum.D);
+        static readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}", 
+            NoteValuesEnum.D,
+            ExplicitNoteValuesEnum.Eb,
+            false);
 
 
-        static public readonly NoteName DSharp = new NoteName($"D{Constants.SHARP}", VALUE_Eb);
-        static public readonly NoteName Eb = new NoteName($"E{Constants.FLAT}", VALUE_Eb);
-        static readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}", VALUE_Eb, false);
+        static public readonly NoteName DSharp = new NoteName($"D{Constants.SHARP}", 
+            NoteValuesEnum.Eb,
+            ExplicitNoteValuesEnum.DSharp);
+        static public readonly NoteName Eb = new NoteName($"E{Constants.FLAT}", 
+            NoteValuesEnum.Eb,
+            ExplicitNoteValuesEnum.Eb);
+        static readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}", 
+            NoteValuesEnum.Eb,
+            ExplicitNoteValuesEnum.Fbb,
+            false);
 
 
-        static readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}", VALUE_E, false);
-        static public readonly NoteName E = new NoteName("E", VALUE_E);
-        static public readonly NoteName Fb = new NoteName($"F{Constants.FLAT}", VALUE_E);
+        static readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}", 
+            NoteValuesEnum.E,
+            ExplicitNoteValuesEnum.DSharpSharp,
+            false);
+        static public readonly NoteName E = new NoteName("E", 
+            NoteValuesEnum.E,
+            ExplicitNoteValuesEnum.E);
+        static public readonly NoteName Fb = new NoteName($"F{Constants.FLAT}", 
+            NoteValuesEnum.E,
+            ExplicitNoteValuesEnum.Fb);
 
 
-        static public readonly NoteName ESharp = new NoteName($"E{Constants.SHARP}", VALUE_F);
-        static public readonly NoteName F = new NoteName("F", VALUE_F);
-        static readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}", VALUE_F, false);
+        static public readonly NoteName ESharp = new NoteName($"E{Constants.SHARP}", 
+            NoteValuesEnum.F,
+            ExplicitNoteValuesEnum.ESharp);
+        static public readonly NoteName F = new NoteName("F", 
+            NoteValuesEnum.F,
+            ExplicitNoteValuesEnum.F);
+        static readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}", 
+            NoteValuesEnum.F,
+            ExplicitNoteValuesEnum.Gbb,
+            false);
 
 
-        static readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}", VALUE_Gb, false);
-        static public readonly NoteName FSharp = new NoteName($"F{Constants.SHARP}", VALUE_Gb);
-        static public readonly NoteName Gb = new NoteName($"G{Constants.FLAT}", VALUE_Gb);
+        static readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}", 
+            NoteValuesEnum.Gb,
+            ExplicitNoteValuesEnum.ESharpSharp,
+            false);
+        static public readonly NoteName FSharp = new NoteName($"F{Constants.SHARP}",
+            NoteValuesEnum.Gb,
+            ExplicitNoteValuesEnum.FSharp);
+        static public readonly NoteName Gb = new NoteName($"G{Constants.FLAT}",
+            NoteValuesEnum.Gb,
+            ExplicitNoteValuesEnum.Gb);
 
 
-        static readonly NoteName FSharpSharp = new NoteName($"F{Constants.DOUBLE_SHARP}", VALUE_G, false);
-        static public readonly NoteName G = new NoteName("G", VALUE_G);
-        static readonly NoteName Abb = new NoteName($"A{Constants.DOUBLE_FLAT}", VALUE_G, false);
+        static readonly NoteName FSharpSharp = new NoteName($"F{Constants.DOUBLE_SHARP}",
+            NoteValuesEnum.G,
+            ExplicitNoteValuesEnum.FSharpSharp,
+            false);
+        static public readonly NoteName G = new NoteName("G",
+            NoteValuesEnum.G,
+            ExplicitNoteValuesEnum.G);
+        static readonly NoteName Abb = new NoteName($"A{Constants.DOUBLE_FLAT}",
+            NoteValuesEnum.G,
+            ExplicitNoteValuesEnum.Abb,
+            false);
 
 
-        static public readonly NoteName GSharp = new NoteName($"G{Constants.SHARP}", VALUE_Ab);
-        static public readonly NoteName Ab = new NoteName($"A{Constants.FLAT}", VALUE_Ab);
+        static public readonly NoteName GSharp = new NoteName($"G{Constants.SHARP}",
+            NoteValuesEnum.Ab,
+            ExplicitNoteValuesEnum.GSharp);
+        static public readonly NoteName Ab = new NoteName($"A{Constants.FLAT}",
+            NoteValuesEnum.Ab,
+            ExplicitNoteValuesEnum.Ab);
 
 
-        static readonly NoteName GSharpSharp = new NoteName($"G{Constants.DOUBLE_SHARP}", VALUE_A, false);
-        static public readonly NoteName A = new NoteName("A", VALUE_A);
-        static readonly NoteName Bbb = new NoteName($"B{Constants.DOUBLE_FLAT}", VALUE_A, false);
+        static readonly NoteName GSharpSharp = new NoteName($"G{Constants.DOUBLE_SHARP}",
+            NoteValuesEnum.A,
+            ExplicitNoteValuesEnum.GSharpSharp,
+            false);
+        static public readonly NoteName A = new NoteName("A",
+            NoteValuesEnum.A,
+            ExplicitNoteValuesEnum.A);
+        static readonly NoteName Bbb = new NoteName($"B{Constants.DOUBLE_FLAT}",
+            NoteValuesEnum.A,
+            ExplicitNoteValuesEnum.Bbb,
+            false);
 
 
-        static public readonly NoteName ASharp = new NoteName($"A{Constants.SHARP}", VALUE_Bb);
-        static public readonly NoteName Bb = new NoteName($"B{Constants.FLAT}", VALUE_Bb);
-        static readonly NoteName Cbb = new NoteName($"C{Constants.DOUBLE_FLAT}", VALUE_Bb, false);
+        static public readonly NoteName ASharp = new NoteName($"A{Constants.SHARP}",
+            NoteValuesEnum.Bb,
+            ExplicitNoteValuesEnum.ASharp);
+        static public readonly NoteName Bb = new NoteName($"B{Constants.FLAT}",
+            NoteValuesEnum.Bb,
+            ExplicitNoteValuesEnum.Bb);
+        static readonly NoteName Cbb = new NoteName($"C{Constants.DOUBLE_FLAT}",
+            NoteValuesEnum.Bb,
+            ExplicitNoteValuesEnum.Cbb,
+            false);
 
-        static readonly NoteName ASharpSharp = new NoteName($"A{Constants.DOUBLE_SHARP}", VALUE_B, false);
-        static public readonly NoteName B = new NoteName("B", VALUE_B);
-        static public readonly NoteName Cb = new NoteName($"C{Constants.FLAT}", VALUE_B);
+        static readonly NoteName ASharpSharp = new NoteName($"A{Constants.DOUBLE_SHARP}",
+            NoteValuesEnum.B,
+            ExplicitNoteValuesEnum.ASharpSharp,
+            false);
+        static public readonly NoteName B = new NoteName("B",
+            NoteValuesEnum.B,
+            ExplicitNoteValuesEnum.B);
+        static public readonly NoteName Cb = new NoteName($"C{Constants.FLAT}",
+            NoteValuesEnum.B,
+            ExplicitNoteValuesEnum.Cb);
 
 
         #endregion Statics
@@ -108,6 +247,7 @@ namespace Eric.Morrison.Harmony
         virtual public string Name { get; protected set; }
         [Obsolete("", false)]
         virtual public int RawValue { get; protected set; }
+        public ExplicitNoteValuesEnum ExplicitNoteValue { get; private set; }
         virtual public bool IsSharped { get; protected set; }
         virtual public bool IsFlatted { get; protected set; }
         virtual public bool IsNatural { get; protected set; }
@@ -143,10 +283,11 @@ namespace Eric.Morrison.Harmony
         }
 
         protected NoteName() { }
-        protected NoteName(string name, int val, bool addToCatalog = true)
+        protected NoteName(string name, NoteValuesEnum val, ExplicitNoteValuesEnum eval, bool addToCatalog = true)
         {
             this.Name = name;
-            this.RawValue = val;
+            this.RawValue = (int)val;
+            this.ExplicitNoteValue = eval;
 
             if (this.Name.EndsWith(Constants.SHARP))
                 this.IsSharped = true;
@@ -171,7 +312,10 @@ namespace Eric.Morrison.Harmony
                 _catalog.Add(this);
         }
 
-        NoteName(NoteName src) : this(src.Name, src.RawValue, false)
+        NoteName(NoteName src) 
+            : this(src.Name, 
+                  (NoteValuesEnum)src.RawValue, 
+                  src.ExplicitNoteValue,  false)
         {
         }
 
@@ -222,10 +366,6 @@ namespace Eric.Morrison.Harmony
         public static implicit operator int(NoteName nn)
         {
             return nn.RawValue;
-        }
-        public static explicit operator NoteName(int i)
-        {
-            return new NoteName("dynamic", i, false);
         }
 
         public static NoteName operator +(NoteName note, Interval interval)
@@ -557,11 +697,11 @@ namespace Eric.Morrison.Harmony
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             var result = src.RawValue << interval.SemiTones;
-            if (result > VALUE_B)
+            if ((NoteValuesEnum)result > NoteValuesEnum.B)
             {
                 result = result >> 12;
             }
-            Debug.Assert(result <= VALUE_B);
+            Debug.Assert((NoteValuesEnum)result <= NoteValuesEnum.B);
 
             return result;
         }
@@ -797,13 +937,13 @@ namespace Eric.Morrison.Harmony
 
 
     public class NullNoteName : NoteName, INoteName
-	{
-		static public NullNoteName Instance;
-		static NullNoteName()
-		{
-			Instance = new NullNoteName();
-		}
-		private NullNoteName() : base() { }
+    {
+        static public NullNoteName Instance;
+        static NullNoteName()
+        {
+            Instance = new NullNoteName();
+        }
+        private NullNoteName() : base() { }
         override public string Name => Constants.EMPTY;
 
         override public int AccidentalCount => throw new NotImplementedException();
@@ -819,24 +959,24 @@ namespace Eric.Morrison.Harmony
         override public int RawValue => int.MinValue;
     }
 
-	[Obsolete("", true)]
-	public static class NoteNameCatalogExtensions
-	{
-		[Obsolete("", true)]
-		static public NoteName Get(this IEnumerable<NoteName> src,
-			NoteName nn, Interval interval,INoteNameNormalizer normalizer)
-		{
-			if (null == interval)
-				throw new ArgumentNullException(nameof(interval));
-			var result = nn;
-			if (Interval.Unison < interval)
-			{
-				var success = NoteName.TryTransposeUp(nn, interval, out result, out var unused);
-				Debug.Assert(success);
-			}
-			Debug.Assert(result != null);
-			return result;
-		}
-	}//class
+    [Obsolete("", true)]
+    public static class NoteNameCatalogExtensions
+    {
+        [Obsolete("", true)]
+        static public NoteName Get(this IEnumerable<NoteName> src,
+            NoteName nn, Interval interval, INoteNameNormalizer normalizer)
+        {
+            if (null == interval)
+                throw new ArgumentNullException(nameof(interval));
+            var result = nn;
+            if (Interval.Unison < interval)
+            {
+                var success = NoteName.TryTransposeUp(nn, interval, out result, out var unused);
+                Debug.Assert(success);
+            }
+            Debug.Assert(result != null);
+            return result;
+        }
+    }//class
 
 }//ns
