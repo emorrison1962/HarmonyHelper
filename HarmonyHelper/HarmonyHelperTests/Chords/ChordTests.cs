@@ -99,7 +99,7 @@ namespace Eric.Morrison.Harmony.Tests
 
                     var txedDown = txedUp - Interval.Perfect4th;
 
-                    if (ChordFormula.Catalog.ToList().Any(x => x.Name == txedUp.Name))
+                    //if (ChordFormula.Catalog.ToList().Any(x => x.Name == txedUp.Name))
                     {
                         var b = txedDown == origChord;
                         Assert.AreEqual(txedDown, origChord);

@@ -290,19 +290,15 @@ namespace Eric.Morrison.Harmony.Chords
                 throw new ArgumentNullException(nameof(interval));
             ChordFormula result = null;
 
-            if (chord.Root.AccidentalCount == 2)
-            {
-                var nn = NoteName.GetEnharmonicEquivalents(chord.Root).First();
-                chord = new ChordFormula(nn, chord.ChordType, null);
-            }
+            //if (chord.Root.AccidentalCount == 2)
+            //{
+            //    var nn = NoteName.GetEnharmonicEquivalents(chord.Root).First();
+            //    chord = new ChordFormula(nn, chord.ChordType, null);
+            //}
 
             var key = ChordFormula2KeySignatureMap
                 .GetKeys(chord)
                 .FirstOrDefault();
-
-            //var key = KeySignature.Catalog
-            //    .First(x => x.NoteName.Value == (chord.Key.NoteName - interval).Value
-            //        && x.IsMajor == chord.Key.IsMajor);
 
             if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelnt))
             {

@@ -75,7 +75,8 @@ namespace HarmonyHelper_DryWetMidi
             this.MidiFile = MidiFile.Read(this.Filename);
             this.Init();
 
-            this.MidiFile.Play(OutputDevice.GetAll().First());
+            //This actually plays the MIDI file!
+            //this.MidiFile.Play(OutputDevice.GetAll().First());
         }
 
         void Init()

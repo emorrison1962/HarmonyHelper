@@ -14,7 +14,7 @@ namespace Eric.Morrison.Harmony
 		class XmlContext
 		{
 			public int MeasureNumber = 0;
-			public XDocument Document;
+			public XDocument Document { get; set; } = new XDocument();
 		}
 
 		class LogContext
