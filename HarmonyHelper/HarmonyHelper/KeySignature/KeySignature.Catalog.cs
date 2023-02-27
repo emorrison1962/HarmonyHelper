@@ -64,7 +64,7 @@ namespace Eric.Morrison.Harmony
 
         static List<KeySignature> _Catalog { get; set; } = new List<KeySignature>();
         static List<KeySignature> _InternalCatalog { get; set; } = new List<KeySignature>();
-        static IEnumerable<KeySignature> Catalog { get { return _Catalog; } }
+        public static IEnumerable<KeySignature> Catalog { get { return _Catalog; } }
         static public IEnumerable<KeySignature> InternalCatalog { get { return _InternalCatalog; } }
 
 

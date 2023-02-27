@@ -751,7 +751,7 @@ namespace Eric.Morrison.Harmony.Chords
         static List<ChordFormula> _Catalog { get; set; } = new List<ChordFormula>();
         static List<ChordFormula> _InternalCatalog { get; set; } = new List<ChordFormula>();
         static public IEnumerable<ChordFormula> Catalog { get { return _Catalog; } }
-        static IEnumerable<ChordFormula> InternalCatalog { get { return _InternalCatalog; } }
+        static public IEnumerable<ChordFormula> InternalCatalog { get { return _InternalCatalog; } }
 
         #endregion
 

@@ -4,8 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
+
+using static Eric.Morrison.Harmony.NoteName;
 
 // reference: https://dictionary.onmusic.org/appendix/topics/key-signatures
 
@@ -44,11 +47,17 @@ namespace Eric.Morrison.Harmony
         virtual public ChordFormula MixoLydian { get; private set; }
         virtual public ChordFormula Aeolian { get; private set; }
         virtual public ChordFormula Locrian { get; private set; }
+        public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
 
         #endregion
 
         #region Construction
-        private KeySignature(NoteName key, IEnumerable<NoteName> notes, bool? usesSharps, bool isMajor, bool isMinor, bool addToCatalog = true)
+        private KeySignature(NoteName key, 
+            IEnumerable<NoteName> notes, 
+            bool? usesSharps, 
+            bool isMajor, 
+            bool isMinor, 
+            bool addToCatalog = true)
         {
             this.NoteName = key;
             this.NoteNames = new List<NoteName>(notes);
@@ -57,10 +66,20 @@ namespace Eric.Morrison.Harmony
 
             if (usesSharps.HasValue)
             {
-                if (0 <= this.AccidentalCount)
+                if (0 < this.AccidentalCount)
+                {
                     this.UsesSharps = usesSharps.Value;
-                if (0 <= this.AccidentalCount)
                     this.UsesFlats = !usesSharps.Value;
+                    if (usesSharps.Value)
+                        this.ExplicitValue = ExplicitNoteValuesEnum.Sharp;
+                    else
+                        this.ExplicitValue = ExplicitNoteValuesEnum.Flat;
+                }
+                else
+                {
+                    this.ExplicitValue = ExplicitNoteValuesEnum.Natural;
+                }
+
             }
             if (0 == this.NoteNames.Count)
                 this.UsesFlats = false;
@@ -100,7 +119,7 @@ namespace Eric.Morrison.Harmony
             catch (Exception ex)
             {
                 throw;
-            }        
+            }
         }
 
         async Task SetChordsAsync()
@@ -442,7 +461,7 @@ namespace Eric.Morrison.Harmony
         public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
         {
             var result = IsDiatonicEnum.No;
-            
+
             var val = 0;
             noteNames.ForEach(nn => val |= nn.RawValue);
             if (val == (this.RawValue & val))
@@ -451,6 +470,55 @@ namespace Eric.Morrison.Harmony
 
             return result;
         }
+
+        public IsDiatonicEnum IsDiatonic(ChordFormula formula)
+        {
+            var result = IsDiatonicEnum.No;
+            var tmpFormula = formula;
+            bool isAltered = false;
+            if (formula.ChordType.IsAlteredDominant)
+            {
+                tmpFormula = ChordFormula.Catalog.First(x => 
+                    x.Root == formula.Root
+                    && x.IsDominant == true);
+                isAltered = true;
+            }
+            if (tmpFormula.RawValue == (tmpFormula.RawValue & this.RawValue))
+            {
+                if (!tmpFormula.NoteNames.Any(x =>
+                    x.ExplicitNoteValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp)
+                    || x.ExplicitNoteValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
+                {
+                    if (tmpFormula.UsesSharps && this.UsesSharps)
+                    {
+                        result = IsDiatonicEnum.Yes;
+                        //if (isAltered)
+                        //    new object();
+                    }
+                    else if (tmpFormula.UsesFlats && this.UsesFlats)
+                    {
+                        result = IsDiatonicEnum.Yes;
+                        //if (isAltered)
+                        //    new object();
+                    }
+                    else if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                    {
+                        result = IsDiatonicEnum.Yes;
+                        //if (isAltered)
+                        //    new object();
+                    }
+                }
+            }
+
+            //var val = 0;
+            //noteNames.ForEach(nn => val |= nn.RawValue);
+            //if (val == (this.RawValue & val))
+            //    result = IsDiatonicEnum.Yes;
+
+
+            return result;
+        }
+
 
         public IsDiatonicEnum IsDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
         {
