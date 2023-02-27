@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.Analysis
     public class MelodyToHarmonyAnalyzer
     {
         public KeySignature KeySignature { get; private set; }
-        public List<ChordFormula> FormulaCatalog { get; private set; }
+        public List<ChordFormula> xFormulaCatalog { get; private set; }
 
         public List<List<ChordFormula>> Analyze(List<List<NoteName>> bars)
         {
@@ -28,7 +28,6 @@ namespace Eric.Morrison.Harmony.Analysis
         void Init(List<List<NoteName>> notes)
         {
             this.KeySignature = this.DetermineKey(notes);
-            this.CreateFormulaCatalog();
         }
 
         KeySignature DetermineKey(List<List<NoteName>> bars)
@@ -49,29 +48,10 @@ namespace Eric.Morrison.Harmony.Analysis
             return this.KeySignature;
         }
 
-        List<ChordFormula> CreateFormulaCatalog()
-        {
-            var result = new List<ChordFormula>();
-            foreach (var ct in ChordType.Catalog)
-            {
-                var nns = NoteName.Catalog.Where(x => x.AccidentalCount < 2);
-                foreach (var nn in nns)
-                {
-                    if (ChordType.Dominant7Sharp9 != ct && NoteName.BSharp != nn)
-                    {
-                        var formula = new ChordFormula(nn, ct, KeySignature.CMajor);
-                        result.Add(formula);
-                    }
-                }
-            }
-            this.FormulaCatalog = result;
-            return result;
-        }
-
         List<ChordFormula> Analyze(List<NoteName> notes)
         {
             var result = new List<ChordFormula>();
-            foreach (var formula in this.FormulaCatalog)
+            foreach (var formula in ChordFormula.Catalog)
             {
                 var successCount = 0;
                 foreach (var note in notes)

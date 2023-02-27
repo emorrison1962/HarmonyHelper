@@ -5,11 +5,12 @@ using System.Linq;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony;
 using System.Reflection;
+using HarmonyHelper.Chords;
 
 namespace Eric.Morrison.Harmony.Chords
 {
     [Serializable]
-    public partial class ChordFormula : ClassBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameNormalizer, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
+    public partial class ChordFormula : ChordEntityBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
     {
         static public readonly NullChordFormula Empty = NullChordFormula.Instance;
 
@@ -28,8 +29,6 @@ namespace Eric.Morrison.Harmony.Chords
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
-        [Obsolete("", false)]
-        virtual public KeySignature Key { get; private set; }
         virtual public ChordType ChordType { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
@@ -50,14 +49,15 @@ namespace Eric.Morrison.Harmony.Chords
         public ChordFormula()
         {
         }
+
         public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
+            : base(key)
         {
             if (null == root)
                 throw new NullReferenceException();
 
             this.NoteNames.Add(this.Root = root);
             this.ChordType = chordType;
-            this.Key = key;
 
             foreach (var interval in this.ChordType.Intervals)
             {
@@ -73,14 +73,13 @@ namespace Eric.Morrison.Harmony.Chords
                     this.UsesSharps = true;
                 }
             }
-            this.Key = this.DetermineKey();
         }
 
         public ChordFormula(ChordFormula src)
         {
             this.Root = src.Root;
             this.Bass = src.Bass;
-            this.Key = src.Key;
+            this.Keys = src.Keys;
             this.ChordType = src.ChordType;
             this.NoteNames = src.NoteNames;
         }
@@ -90,6 +89,7 @@ namespace Eric.Morrison.Harmony.Chords
             var result = new ChordFormula(this);
             return result;
         }
+        [Obsolete("", true)]
         public static ChordFormula Copy(ChordFormula src)
         {
             var result = new ChordFormula(src);
@@ -320,7 +320,6 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-#if true
         public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool respectKey = false)
         {
             KeySignature txedKey = null;
@@ -345,21 +344,11 @@ namespace Eric.Morrison.Harmony.Chords
 			}
 #endif
             var txedRoot = src.Root + interval;
-            var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, src.Key);
+            var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, src.Keys);
 
             return result;
 
         }
-
-        public static ChordFormula TransposeDown(ChordFormula src, ChordToneInterval interval, bool respectKey = false)
-        {
-            if (null == interval)
-                throw new ArgumentNullException(nameof(interval));
-            var inversion = interval.GetInversion();
-            var result = TransposeUp(src, inversion, respectKey);
-            return result;
-        }
-#endif
 
         public override string ToString()
         {
@@ -487,86 +476,6 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        public NoteName GetNormalized(NoteName nn, Interval baseInterval)
-        {
-            var result = nn;
-            if (null == baseInterval)
-                throw new ArgumentNullException(nameof(baseInterval));
-
-            ChordToneInterval interval = null;
-            if (baseInterval is ChordToneInterval)
-                interval = baseInterval as ChordToneInterval;
-            else
-                interval = baseInterval.ToChordToneInterval();
-
-            int rootAscii = this.Root.Name[0];
-            int wantedAscii = 0;
-
-            switch (interval.ChordToneFunction)
-            {
-                case ChordToneFunctionEnum.None:
-                case ChordToneFunctionEnum.Root:
-                    wantedAscii = nn.Name[0];
-                    break;
-                case ChordToneFunctionEnum.Sus2:
-                case ChordToneFunctionEnum.Flat9th:
-                case ChordToneFunctionEnum.Ninth:
-                case ChordToneFunctionEnum.Sharp9th:
-                    wantedAscii = rootAscii + 1;
-                    break;
-                case ChordToneFunctionEnum.Minor3rd:
-                case ChordToneFunctionEnum.Major3rd:
-                    wantedAscii = rootAscii + 2;
-                    break;
-                case ChordToneFunctionEnum.Sus4:
-                case ChordToneFunctionEnum.Flat11th:
-                case ChordToneFunctionEnum.Eleventh:
-                case ChordToneFunctionEnum.Augmented11th:
-                    wantedAscii = rootAscii + 3;
-                    break;
-                case ChordToneFunctionEnum.Diminished5th:
-                case ChordToneFunctionEnum.Perfect5th:
-                case ChordToneFunctionEnum.Augmented5th:
-                    wantedAscii = rootAscii + 4;
-                    break;
-                case ChordToneFunctionEnum.Major6th:
-                case ChordToneFunctionEnum.Flat13th:
-                case ChordToneFunctionEnum.Thirteenth:
-                    wantedAscii = rootAscii + 5;
-                    break;
-                case ChordToneFunctionEnum.Diminished7th:
-                case ChordToneFunctionEnum.Minor7th:
-                case ChordToneFunctionEnum.Major7th:
-                    wantedAscii = rootAscii + 6;
-                    break;
-            }
-
-            if (wantedAscii > 'G')
-                wantedAscii -= 7;
-#if DEBUG
-            char readableWanted = (char)wantedAscii;
-            char readableRoot = (char)rootAscii;
-#endif
-            if (nn.Name[0] != wantedAscii)
-            {
-                result = NoteName.GetEnharmonicEquivalents(nn)
-                    .Where(x => x.Name[0] == wantedAscii)
-                    .FirstOrDefault();
-            }
-
-            return result;
-        }
-
-        public void Normalize(ref List<NoteName> noteNames)
-        {
-            var result = new List<NoteName>();
-            foreach (var nn in noteNames)
-            {
-                result.Add(this.GetNormalized(nn, Interval.Unison));
-            }
-            noteNames = result;
-        }
-
         KeySignature DetermineKey()
         {
             KeySignature result = null;
@@ -610,7 +519,7 @@ namespace Eric.Morrison.Harmony.Chords
 
         override public bool IsMinor => false;
 
-        override public KeySignature Key => KeySignature.Empty;
+        //override public KeySignature Key => KeySignature.Empty;
 
         override public string Name => Constants.EMPTY;
 

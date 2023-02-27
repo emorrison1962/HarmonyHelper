@@ -73,7 +73,7 @@ namespace Eric.Morrison.Harmony.Tests
         {
             var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordType.Dominant7th);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
-            var origKey = chord.Key;
+            var origKey = chord.Keys.First();
             var txedUp = chord + Interval.Perfect4th;
             Assert.AreNotEqual(txedUp, chord);
             var txedDown = txedUp - Interval.Perfect4th;
@@ -92,7 +92,7 @@ namespace Eric.Morrison.Harmony.Tests
                 {
                     Debug.WriteLine($"{origChord.ToString()}");
 
-                    var origKey = origChord.Key;
+                    var origKey = origChord.Keys.First();
 
                     var txedUp = origChord + Interval.Perfect4th;
                     Assert.AreNotEqual(txedUp, origChord);
@@ -150,20 +150,6 @@ namespace Eric.Morrison.Harmony.Tests
             new object();
         }
 
-        [TestMethod()]
-        public void KeySignatureTransposeTest()
-        {
-            var key = KeySignature.CMajor;
-            for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
-            {
-                var a = key.NoteName.ToString();
-                var b = key.GetNormalized(key.NoteName, Interval.Unison).ToString();
-                Assert.AreEqual(a, b);
-                //key.Notes.ForEach(x => Debug.Write(x + ","));
-                //Debug.WriteLine("");
-                key = key + Interval.Perfect4th;
-            }
-        }
 
 
         [TestMethod()]

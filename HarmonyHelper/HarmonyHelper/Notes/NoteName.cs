@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
+using HarmonyHelper.Chords;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Reflection;
 namespace Eric.Morrison.Harmony
 {
     [Serializable]
-    public class NoteName : HarmonyEntityBase, IComparable<NoteName>, INoteName
+    public class NoteName : ChordEntityBase, IComparable<NoteName>, INoteName
     {
         #region Constants
 

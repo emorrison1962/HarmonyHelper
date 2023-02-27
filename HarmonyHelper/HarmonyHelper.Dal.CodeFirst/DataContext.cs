@@ -19,9 +19,6 @@ namespace HarmonyHelper.Dal.CodeFirst
 
             #region NoteName
             {
-                modelBuilder.Entity<NoteName>()
-            .Ignore(e => e.Key);
-
                 var count = NoteName.Catalog.Count();
                 var nns = NoteName.Catalog.ToList();
                 for (int i = 1; i < count; ++i)
@@ -33,6 +30,24 @@ namespace HarmonyHelper.Dal.CodeFirst
                 }
             }
             #endregion
+
+            //#region KeySignatures
+            //{
+            //    //modelBuilder.Entity<KeySignature>()
+            //    //    .Ignore(c => c.Keys);
+
+            //    var count = KeySignature.Catalog.Count();
+            //    var list = KeySignature.Catalog.ToList();
+            //    for (int i = 1; i < count; ++i)
+            //    {
+            //        var item = list[i];
+            //        item.Id = i;
+            //        modelBuilder
+            //            .Entity<KeySignature>()
+            //            .HasData(item);
+            //    }
+            //}
+            //#endregion
 
             #region Interval
             {
@@ -72,7 +87,7 @@ namespace HarmonyHelper.Dal.CodeFirst
             #region ChordFormula
             {
                 modelBuilder.Entity<ChordFormula>()
-                    .Ignore(c => c.Key);
+                    .Ignore(c => c.Keys);
 
                 var count = ChordFormula.Catalog.Count();
                 var list = ChordFormula.Catalog.ToList();
@@ -86,12 +101,14 @@ namespace HarmonyHelper.Dal.CodeFirst
                 }
             }
             #endregion
+
         }
 
         public DbSet<NoteName> NoteNames { get; set; }
         public DbSet<Interval> Intervals { get; set; }
         public DbSet<ChordType> ChordTypes { get; set; }
         public DbSet<ChordFormula> ChordFormulas { get; set; }
+        //public DbSet<KeySignature> KeySignatures { get; set; }
     }//class
 
 

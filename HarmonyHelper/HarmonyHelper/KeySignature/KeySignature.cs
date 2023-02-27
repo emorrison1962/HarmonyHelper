@@ -15,7 +15,7 @@ using static Eric.Morrison.Harmony.NoteName;
 namespace Eric.Morrison.Harmony
 {
     [Serializable]
-    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, INoteNameNormalizer, IKeySignature
+    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, IKeySignature
     {
         static public NullKeySignature Empty = NullKeySignature.Instance;
 
@@ -384,26 +384,6 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public NoteName GetNormalized(NoteName nn, Interval interval)
-        {
-            if (null == interval)
-                throw new ArgumentNullException(nameof(interval));
-            var result = nn.Copy();
-            if (!this.Contains(result, out NoteName suggested))
-            {
-                if (null != suggested)
-                {
-                    result = suggested;
-                }
-                else
-                {
-#warning  **** What's the fix? I don't know which Ascii name is optimal. ****
-                    result = NoteName.GetEnharmonicEquivalents(result)[0];
-                }
-            }
-            return result;
-        }
-
         public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
         {
             inKeyEnharmonic = null;
@@ -623,16 +603,6 @@ namespace Eric.Morrison.Harmony
                 result = KeySignature.MinorKeys.First(x => x.NoteName == txposed);
             }
             return result;
-        }
-
-        public void Normalize(ref List<NoteName> noteNames)
-        {
-            var result = new List<NoteName>();
-            foreach (var nn in noteNames)
-            {
-                result.Add(this.GetNormalized(nn, Interval.Unison));
-            }
-            noteNames = result;
         }
 
         public KeySignature GetEnharmonicEquivalent()

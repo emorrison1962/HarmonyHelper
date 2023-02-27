@@ -23,14 +23,12 @@ namespace Eric.Morrison.Harmony.Tests
 			var chordFormula = ChordFormula.C7;
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 
-			var key = chordFormula.Key;
 			for (int i = 0; i <= 11; ++i)
 			{
 				var chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, notesPerMeasure));
 
 				
-				key += Interval.Perfect4th;
 				chordFormula = chordFormula + Interval.Perfect4th;
 			}
 

@@ -29,8 +29,6 @@ namespace NeckDiagrams
 			set
 			{
 				this._KeySignature = value;
-				Container.Register<INoteNameNormalizer>(this._KeySignature);
-				//this.NormalizeNoteNames();
 				this.OnModelChanged();
 			}
 		}
@@ -71,7 +69,7 @@ namespace NeckDiagrams
 
 		List<NoteName> NormalizeNoteNames()
 		{
-			//throw new NotImplementedException();
+			throw new NotImplementedException();
 			var nns = new HashSet<NoteName>();
 			foreach (var item in this.Items)
 			{
@@ -81,7 +79,7 @@ namespace NeckDiagrams
 			var result = nns.ToList();
 			if (null != result && null != this.KeySignature)
 			{
-				this.KeySignature.Normalize(ref result);
+				//this.KeySignature.Normalize(ref result);
 			}
 			return result;
 		}

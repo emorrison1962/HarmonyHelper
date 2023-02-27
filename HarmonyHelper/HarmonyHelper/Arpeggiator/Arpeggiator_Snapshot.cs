@@ -77,27 +77,6 @@ namespace Eric.Morrison.Harmony
 				{
 					result = true;
 				}
-#if DEBUG
-#warning FIXME: debug logic start.
-				else
-				{
-					var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
-					var key = KeySignature.GMajor;
-					var chord = new Chord(
-						ChordFormulaFactory.Create(NoteName.A,
-							ChordType.Minor7th,
-							key),
-						noteRange);
-
-
-					if (chord.ToString() == this.StartingChord.ToString()
-						&& chord.ToString() == arp.CurrentChord.ToString())
-					{
-						new object();
-					}
-				}
-#warning FIXME: debug logic end.
-#endif
 				return result;
 			}
 

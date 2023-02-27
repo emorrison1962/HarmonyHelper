@@ -59,7 +59,10 @@ Ex. 57
                     {
                         var txposedDim = dim - ChordToneInterval.AugmentedUnison;
                         var root = ChordFormula.EnsureValidRoot(txposedDim);
-                        var chord = new ChordFormula(root, ChordType.Dominant7th, firstChord.Key);
+                        var chord = ChordFormula.Catalog
+                            .Where(x=> x.Root == root 
+                                && x.ChordType == ChordType.Dominant7th)
+                            .First();
                         dominants.Add(chord);
                     }
 

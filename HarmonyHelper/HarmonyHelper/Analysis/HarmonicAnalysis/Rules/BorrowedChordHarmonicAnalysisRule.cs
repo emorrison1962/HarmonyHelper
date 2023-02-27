@@ -118,7 +118,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     foreach (var scaleDegreeNdx in _scaleDegreeNdxs)
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
-                        var formula = new ChordFormula(scale.NoteNames[scaleDegreeNdx], chordType, key);
+                        var formula = ChordFormula.Catalog
+                            .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
+                                && x.ChordType == chordType)
+                            .First();
                         gridRow.Chords.Add(new ChordFormula(formula));
                     }
 
@@ -188,7 +191,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     foreach (var scaleDegreeNdx in _scaleDegreeNdxs)
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
-                        var formula = new ChordFormula(scale.NoteNames[(int)scaleDegreeNdx], chordType, key);
+                        var formula = ChordFormula.Catalog
+                            .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
+                                && x.ChordType == chordType)
+                            .First();
+
                         gridRow.Chords.Add(formula);
                     }
 
@@ -252,7 +259,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
                         //Debug.WriteLine(scale);
-                        var chord = new ChordFormula(scale.NoteNames[(int)scaleDegreeNdx], chordType, key);
+                        var chord = ChordFormula.Catalog.Where(x => x.Root == scale.NoteNames[scaleDegreeNdx] && x.ChordType == chordType).First();
                         gridRow.Chords.Add(chord);
                     }
 

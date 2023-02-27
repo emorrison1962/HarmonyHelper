@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
+using HarmonyHelper.Chords;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-	public class Chord : HarmonyEntityBase, IEquatable<Chord>, IComparable<Chord>, INoteNameNormalizer
+    public class Chord : ChordEntityBase, IEquatable<Chord>, IComparable<Chord>
 	{
 		#region Properties
 
@@ -38,37 +39,22 @@ namespace Eric.Morrison.Harmony.Chords
 
 		#region Construction
 
-
-		protected Chord(ChordFormula formula) : base(formula.Key)
-		{
-			if (null == formula)
-				throw new ArgumentNullException();
-			if (null == formula.Key)
-				throw new ArgumentNullException();
-
-			this.Key = formula.Key;
-			this.Formula = formula;
-			this.NoteNames = formula.NoteNames;
-		}
-
 		public Chord SetNoteRange(NoteRange noteRange)
 		{
 			if (null == noteRange)
 				throw new ArgumentNullException();
-			this.Root = noteRange.First(this.Formula.Root, this.Formula);
+			this.Root = noteRange.First(this.Formula.Root);
 			this.PopulateNotes(noteRange);
 			return this;
 		}
 
-		public Chord(ChordFormula formula, NoteRange noteRange) : base(formula.Key)
+		public Chord(ChordFormula formula, NoteRange noteRange) : base(formula.Keys)
 		{
 			if (null == formula)
 				throw new ArgumentNullException();
 			if (null == noteRange)
 				throw new ArgumentNullException();
 
-
-			this.Key = formula.Key;
 			this.Formula = formula;
 			this.NoteNames = formula.NoteNames;
 
@@ -102,19 +88,22 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool IsValid()
 		{
 			var result = false;
-			if (this.Key.UsesFlats)
+			foreach (var key in this.Keys)
 			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlatted)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsFlatted))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlatted))
-							result = true;
-			}
-			else if (this.Key.UsesSharps)
-			{
-				if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharped)
-					if (this.NoteNames.All(x => x.IsNatural || x.IsSharped))
-						if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharped))
-							result = true;
+				if (key.UsesFlats)
+				{
+					if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsFlatted)
+						if (this.NoteNames.All(x => x.IsNatural || x.IsFlatted))
+							if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsFlatted))
+								result = true;
+				}
+				else if (key.UsesSharps)
+				{
+					if (this.Root.NoteName.IsNatural || this.Root.NoteName.IsSharped)
+						if (this.NoteNames.All(x => x.IsNatural || x.IsSharped))
+							if (this.Notes.All(x => x.NoteName.IsNatural || x.NoteName.IsSharped))
+								result = true;
+				}
 			}
 			Debug.Assert(result);
 			return result;
@@ -222,17 +211,5 @@ namespace Eric.Morrison.Harmony.Chords
 			this.Notes.ForEach(x => result ^= x.GetHashCode());
 			return result;
 		}
-
-        public NoteName GetNormalized(NoteName nn, Interval interval)
-        {
-			if (null == interval)
-				throw new ArgumentNullException(nameof(interval));
-			throw new NotImplementedException();
-        }
-
-        public void Normalize(ref List<NoteName> noteNames)
-        {
-            throw new NotImplementedException();
-        }
     }//class
 }//ns

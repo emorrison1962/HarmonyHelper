@@ -2,6 +2,7 @@
 using System.Linq;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.Scales;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
@@ -21,7 +22,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 {
                     var tonic = pair[1].Root;
                     var subbedRoot = tonic + ChordToneInterval.Perfect5th;
-                    var subbedFor = new ChordFormula(subbedRoot, ChordType.Dominant7th, pair[1].Key);
+                    var subbedFor = ChordFormula.Catalog
+                        .Where(x => x.Root == subbedRoot
+                            && x.ChordType == ChordType.Dominant7th)
+                        .First();
+
                     result.Add(new HarmonicAnalysisResult(this, true,
                         $"{pair[0].Name} could be considered a tritone substitution for {subbedFor.Name}.",
                                                                 new List<ChordFormula> { pair[0], subbedFor }));

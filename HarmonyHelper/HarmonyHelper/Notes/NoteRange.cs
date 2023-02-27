@@ -78,7 +78,7 @@ namespace Eric.Morrison.Harmony
 			this.Notes = notes;
 		}
 
-		public Note First(NoteName nn, INoteNameNormalizer normalizer)
+		public Note First(NoteName nn)
 		{
 			Note result = null;
 			if (null != nn)

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony.Scales
 {
-	public abstract class ScaleBase : HarmonyEntityBase
+	public abstract class ScaleBase 
 	{
 		#region Fields
 
@@ -15,6 +15,7 @@ namespace Eric.Morrison.Harmony.Scales
 		#endregion Fields
 
 		#region Properties
+		protected KeySignature Key { get; set; }
 		public List<Note> Notes { get; protected set; } = new List<Note>();
 		public List<NoteName> NoteNames
 		{
@@ -62,13 +63,14 @@ namespace Eric.Morrison.Harmony.Scales
 		#endregion Properties
 
 		#region Construction
-		protected ScaleBase(KeySignature key, NoteRange noteRange, bool runInit = true) : base(key)
+		protected ScaleBase(KeySignature key, NoteRange noteRange, bool runInit = true)
 		{
 			if (null == key)
 				throw new ArgumentNullException();
 			if (null == noteRange)
 				throw new ArgumentNullException();
 			this.NoteRange = noteRange;
+			this.Key = key;
 			if (runInit)
 				this.Init();
 		}
