@@ -447,7 +447,6 @@ namespace Eric.Morrison.Harmony
             if (val == (this.RawValue & val))
                 result = IsDiatonicEnum.Yes;
 
-
             return result;
         }
 
@@ -472,29 +471,17 @@ namespace Eric.Morrison.Harmony
                     if (tmpFormula.UsesSharps && this.UsesSharps)
                     {
                         result = IsDiatonicEnum.Yes;
-                        //if (isAltered)
-                        //    new object();
                     }
                     else if (tmpFormula.UsesFlats && this.UsesFlats)
                     {
                         result = IsDiatonicEnum.Yes;
-                        //if (isAltered)
-                        //    new object();
                     }
                     else if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
                     {
                         result = IsDiatonicEnum.Yes;
-                        //if (isAltered)
-                        //    new object();
                     }
                 }
             }
-
-            //var val = 0;
-            //noteNames.ForEach(nn => val |= nn.RawValue);
-            //if (val == (this.RawValue & val))
-            //    result = IsDiatonicEnum.Yes;
-
 
             return result;
         }

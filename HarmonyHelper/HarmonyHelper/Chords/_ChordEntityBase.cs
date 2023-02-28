@@ -19,7 +19,8 @@ namespace HarmonyHelper.Chords
         }
         public ChordEntityBase(KeySignature key)
         {
-            this.Keys.Add(key);
+            if (null != key)
+                this.Keys.Add(key);
         }
 
         public ChordEntityBase()

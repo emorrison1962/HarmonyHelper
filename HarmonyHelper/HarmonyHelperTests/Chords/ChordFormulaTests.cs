@@ -58,6 +58,22 @@ namespace HarmonyHelperTests.Chords
                 }
             }
 
+
+            foreach (var formula in dict.Keys)
+            {
+                Debug.WriteLine($"{formula.Name}");
+
+                var keys = dict[formula];
+                foreach (var key in keys)
+                {
+                    if (null != key)
+                    {
+                        formula.Keys.Add(key);
+                        Debug.WriteLine($"\t{key.Name}");
+                    }
+                }
+            }
+
             new object();
         }
 
