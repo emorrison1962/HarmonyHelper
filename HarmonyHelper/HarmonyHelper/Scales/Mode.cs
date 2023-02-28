@@ -5,18 +5,6 @@ using System.Collections.Generic;
 
 namespace Eric.Morrison.Harmony
 {
-	[Flags]
-	public enum ModeEnum
-	{
-		Ionian = 1,
-		Dorian,
-		Phrygian,
-		Lydian,
-		Mixolydian,
-		Aeolian,
-		Locrian
-	}
-
 	public class Mode : ScaleBase
 	{
 		public NoteName Tonic { get; private set; }

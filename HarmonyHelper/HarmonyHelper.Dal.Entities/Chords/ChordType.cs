@@ -5,19 +5,8 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-    public static partial class Extensions
+    public class ChordType : ClassBase
     {
-        public static IEnumerable<T> UnionEx<T>(this List<T> src, 
-            params T[] addl)
-        {
-            var result = src.Union(addl);
-            return result;
-        }
-    }
-    public class ChordType : ClassBase, IChordType
-    {
-        static public readonly NullChordType Empty = NullChordType.Instance;
-
         #region Statics
         static public List<ChordType> Catalog { get; set; } = new List<ChordType>();
         static public ChordType None = new ChordType("None", 
@@ -148,8 +137,11 @@ namespace Eric.Morrison.Harmony.Chords
 
         #endregion
 
-        #region Construction
-        protected ChordType() { }
+        [Obsolete("Used by EF.", true)]
+        public ChordType()
+        {
+            
+        }
         private ChordType(string name, params ChordToneInterval[] intervals)
         {
             if (string.IsNullOrEmpty(name))
@@ -159,10 +151,10 @@ namespace Eric.Morrison.Harmony.Chords
             this.Intervals.ForEach(x => this.Value |= x.Value);
             if (!this.Intervals.Contains(ChordToneInterval.None))
                 Catalog.Add(this);
-            this.Init();
+            //this.Init();
         }
 
-        private ChordType(string name, 
+        private ChordType(string name,
             IEnumerable<ChordToneInterval> intervals,
             bool isAlteredDominant = false)
         {
@@ -175,155 +167,9 @@ namespace Eric.Morrison.Harmony.Chords
                 this.IsAlteredDominant = true;
             if (!this.Intervals.Contains(ChordToneInterval.None))
                 Catalog.Add(this);
-            this.Init();
+            //this.Init();
         }
 
-        void Init()
-        {
-            if (!this.Intervals.Contains(ChordToneInterval.None))
-            {
-                if (this.Intervals.Contains(ChordToneInterval.Major3rd)
-                    //&& this.Intervals.Contains(ChordToneInterval.Perfect5th)
-                    && !this.Intervals.Contains(ChordToneInterval.Minor7th))
-                {
-                    this.IsMajor = true;
-                }
-                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-                    && this.Intervals.Contains(ChordToneInterval.Perfect5th))
-                {
-                    this.IsMinor = true;
-                }
-
-                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-                    && (this.Intervals.Contains(ChordToneInterval.Diminished5th)
-                        && this.Intervals.Contains(ChordToneInterval.Minor7th)))
-                {
-                    this.IsHalfDiminished = true;
-                }
-
-                if (this.Intervals.Contains(ChordToneInterval.Minor3rd)
-                    && (this.Intervals.Contains(ChordToneInterval.Diminished5th)
-                        && this.Intervals.Contains(ChordToneInterval.Diminished7th)))
-                {
-                    this.IsDiminished = true;
-                }
-
-                if (this.Intervals.Contains(ChordToneInterval.Major3rd)
-                    && this.Intervals.Contains(ChordToneInterval.Minor7th))
-                {
-                    this.IsDominant = true;
-                }
-            }
-        }
-
-        #endregion
-
-        #region Operators
-        public static int operator |(ChordType a, ChordType b)
-        {
-            var result = a.Value | b.Value;
-            return result;
-        }
-
-        public static explicit operator int(ChordType ct)
-        {
-            return ct.Value;
-        }
-
-        #endregion
-
-        #region Used to be IntervalsEnumExtensions
-        public Interval GetInterval(ChordFunctionEnum cfe)
-        {
-            if (0 == this.Intervals.Count)
-                throw new Exception("this.Intervals not initialized.");
-            var result = ChordToneInterval.None;
-
-            Predicate<ChordToneInterval> predicate = null;
-
-            switch (cfe)
-            {
-                case ChordFunctionEnum.Root:
-                case ChordFunctionEnum.None:
-                    break;
-
-                case ChordFunctionEnum.Sus2:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd;
-                    break;
-
-                case ChordFunctionEnum.Third:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor3rd || x == ChordToneInterval.Major3rd;
-                    break;
-
-                case ChordFunctionEnum.Sus4:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th;
-                    break;
-
-                case ChordFunctionEnum.Fifth:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect5th || x == ChordToneInterval.Diminished5th || x == ChordToneInterval.Augmented5th;
-                    break;
-
-                case ChordFunctionEnum.Seventh:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor7th || x == ChordToneInterval.Major7th || x == ChordToneInterval.Diminished7th;
-                    break;
-
-                case ChordFunctionEnum.Ninth:
-                    //throw new NotImplementedException("#9 ???");
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd || x == ChordToneInterval.Minor2nd;
-                    break;
-
-                case ChordFunctionEnum.Eleventh:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th || x == ChordToneInterval.Augmented4th;
-                    break;
-
-                case ChordFunctionEnum.Thirteenth:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major6th || x == ChordToneInterval.Minor6th;
-                    break;
-            }
-
-            if (null != predicate)
-            {
-                var found = this.Intervals.FirstOrDefault(x => predicate(x));
-                if (null != found)
-                    result = found;
-            }
-
-            return result;
-        }
-        #endregion
-
-        public override string ToString()
-        {
-            return this.Name;
-            return $"{this.GetType().Name}: Name={this.Name}";
-        }
-    }//class
-
-    public class NullChordType : ChordType, IChordType
-    {
-        static public readonly NullChordType Instance;
-        #region Properties
-        public List<ChordToneInterval> Intervals => new List<ChordToneInterval>();
-
-        override public bool IsDiminished => false;
-
-        override public bool IsDominant => false;
-
-        override public bool IsHalfDiminished => false;
-
-        override public bool IsMajor => false;
-
-        override public bool IsMinor => false;
-
-        override public string Name => Constants.EMPTY;
-
-        override public int Value => int.MinValue;
-        #endregion
-        static NullChordType()
-        {
-            Instance = new NullChordType();
-        }
 
     }//class
-
 }//ns

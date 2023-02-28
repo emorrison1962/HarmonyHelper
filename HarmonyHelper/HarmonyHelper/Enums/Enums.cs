@@ -5,6 +5,18 @@ using static Eric.Morrison.Harmony.Constants;
 
 namespace Eric.Morrison.Harmony
 {
+    [Flags]
+    public enum ModeEnum
+    {
+        Ionian = 1,
+        Dorian,
+        Phrygian,
+        Lydian,
+        Mixolydian,
+        Aeolian,
+        Locrian
+    }
+
 
     public enum IntervalValuesEnum
     {

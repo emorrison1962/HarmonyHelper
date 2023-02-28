@@ -7,6 +7,7 @@ namespace Eric.Morrison.Harmony.Intervals
 {
     public class ChordToneInterval : Interval
 	{
+		#region Statics
 		static new public List<ChordToneInterval> Catalog { get; set; } = new List<ChordToneInterval>();
 
 		static public new ChordToneInterval None = new ChordToneInterval("None", Interval.Unison, ChordToneFunctionEnum.None);
@@ -31,40 +32,19 @@ namespace Eric.Morrison.Harmony.Intervals
 		static public ChordToneInterval Flat13th = new ChordToneInterval("Flat13th", Interval.Minor6th, ChordToneFunctionEnum.Flat13th);
 		static public ChordToneInterval Thirteenth = new ChordToneInterval("Thirteenth", Interval.Major6th, ChordToneFunctionEnum.Thirteenth);
 
-		#region COPY_AND_PASTE_NAMES
-#if false
-ChordToneInterval.None
-ChordToneInterval.Root
-ChordToneInterval.Sus2
-ChordToneInterval.Minor3rd
-ChordToneInterval.Major3rd
-ChordToneInterval.Sus4
-ChordToneInterval.Diminished5th
-ChordToneInterval.Perfect5th
-ChordToneInterval.Augmented5th
-ChordToneInterval.Major6th
-ChordToneInterval.Diminished7th
-ChordToneInterval.Minor7th
-ChordToneInterval.Major7th
-ChordToneInterval.Flat9th
-ChordToneInterval.Ninth
-ChordToneInterval.Sharp9th
-ChordToneInterval.Flat11th
-ChordToneInterval.Eleventh
-ChordToneInterval.Augmented11th
-ChordToneInterval.Flat13th
-ChordToneInterval.Thirteenth
-#endif
 		#endregion
 
+		#region Properties
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
+		override public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
 
-        override public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
+		#endregion
 
+		#region Construction
 		[Obsolete("For EF.")]
-		private ChordToneInterval() : base(null){ }
-        private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
+		private ChordToneInterval() : base(null) { }
+		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
@@ -73,6 +53,8 @@ ChordToneInterval.Thirteenth
 			Catalog.Add(this);
 		}
 
+		#endregion
+		
 		class ChordToneIntervalComparer : IEqualityComparer<ChordToneInterval>
 		{
 			public bool Equals(ChordToneInterval x, ChordToneInterval y)
@@ -104,61 +86,6 @@ ChordToneInterval.Thirteenth
 		{ 
 			throw new NotImplementedException();
 		}
-
-		//public ChordToneInterval GetInversion()
-		//{
-		//	ChordToneInterval result = ChordToneInterval.Unison;
-		//	if (this == ChordToneInterval.Unison)
-		//		result = ChordToneInterval.PerfectOctave;
-		//	else if (this == ChordToneInterval.AugmentedUnison)
-		//		result = ChordToneInterval.DiminishedOctave;
-		//	else if (this == ChordToneInterval.Minor2nd)
-		//		result = ChordToneInterval.Major7th;
-		//	else if (this == ChordToneInterval.Major2nd)
-		//		result = ChordToneInterval.Minor7th;
-		//	else if (this == ChordToneInterval.Augmented2nd)
-		//		result = ChordToneInterval.Diminished7th;
-		//	else if (this == ChordToneInterval.Diminished3rd)
-		//		result = ChordToneInterval.Augmented6th;
-		//	else if (this == ChordToneInterval.Augmented2nd)
-		//		result = ChordToneInterval.Diminished7th;
-		//	else if (this == ChordToneInterval.Minor3rd)
-		//		result = ChordToneInterval.Major6th;
-		//	else if (this == ChordToneInterval.Major3rd)
-		//		result = ChordToneInterval.Minor6th;
-		//	else if (this == ChordToneInterval.Diminished4th)
-		//		result = ChordToneInterval.Augmented5th;
-		//	else if (this == ChordToneInterval.Perfect4th)
-		//		result = ChordToneInterval.Perfect5th;
-		//	else if (this == ChordToneInterval.Augmented4th)
-		//		result = ChordToneInterval.Diminished5th;
-		//	else if (this == ChordToneInterval.Diminished5th)
-		//		result = ChordToneInterval.Augmented4th;
-		//	else if (this == ChordToneInterval.Perfect5th)
-		//		result = ChordToneInterval.Perfect4th;
-		//	else if (this == ChordToneInterval.Augmented5th)
-		//		result = ChordToneInterval.Diminished4th;
-		//	else if (this == ChordToneInterval.Minor6th)
-		//		result = ChordToneInterval.Major3rd;
-		//	else if (this == ChordToneInterval.Major6th)
-		//		result = ChordToneInterval.Minor3rd;
-		//	else if (this == ChordToneInterval.Augmented6th)
-		//		result = ChordToneInterval.Diminished3rd;
-		//	else if (this == ChordToneInterval.Diminished7th)
-		//		result = ChordToneInterval.Augmented2nd;
-		//	else if (this == ChordToneInterval.Minor7th)
-		//		result = ChordToneInterval.Major2nd;
-		//	else if (this == ChordToneInterval.Major7th)
-		//		result = ChordToneInterval.Minor2nd;
-		//	else if (this == ChordToneInterval.DiminishedOctave)
-		//		result = ChordToneInterval.AugmentedUnison;
-		//	else if (this == ChordToneInterval.PerfectOctave)
-		//		result = ChordToneInterval.Unison;
-		//	else
-		//		throw new ArgumentOutOfRangeException();
-
-		//	return result;
-		//}
 
 	}//class
 }//ns

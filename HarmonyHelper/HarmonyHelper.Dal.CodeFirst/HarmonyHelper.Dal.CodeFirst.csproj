@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
+    <ProjectReference Include="..\HarmonyHelper.Dal.Entities\HarmonyHelper.Dal.Entities.csproj" />
   </ItemGroup>
 
 </Project>
