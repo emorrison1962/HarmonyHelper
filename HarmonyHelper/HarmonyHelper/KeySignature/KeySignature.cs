@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
+using Newtonsoft.Json;
+
 using static Eric.Morrison.Harmony.NoteName;
 
 // reference: https://dictionary.onmusic.org/appendix/topics/key-signatures
@@ -22,7 +24,7 @@ namespace Eric.Morrison.Harmony
         #region Properties
         virtual public NoteName NoteName { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; }
-        virtual public List<NoteName> Accidentals { get { return this.NoteNames.Where(x => x.IsFlatted || x.IsSharped).ToList(); } }
+        virtual public List<NoteName> Accidentals { get { return this.NoteNames?.Where(x => x.IsFlatted || x.IsSharped).ToList(); } }
         virtual public bool UsesSharps { get; private set; }
         virtual public bool UsesFlats { get; private set; }
         virtual public bool IsMajor { get; private set; }
@@ -40,13 +42,21 @@ namespace Eric.Morrison.Harmony
             }
         }
 
+        [JsonIgnore]
         virtual public ChordFormula Ionian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula Dorian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula Phrygian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula Lydian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula MixoLydian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula Aeolian { get; private set; }
+        [JsonIgnore]
         virtual public ChordFormula Locrian { get; private set; }
+
         public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
 
         #endregion

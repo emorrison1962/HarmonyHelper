@@ -9,6 +9,12 @@ using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Text.Json.Nodes;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace HarmonyHelperTests.Chords
 {
@@ -59,6 +65,7 @@ namespace HarmonyHelperTests.Chords
             }
 
 
+            var pairedFormuas = new List<ChordFormula>();
             foreach (var formula in dict.Keys)
             {
                 Debug.WriteLine($"{formula.Name}");
@@ -72,6 +79,27 @@ namespace HarmonyHelperTests.Chords
                         Debug.WriteLine($"\t{key.Name}");
                     }
                 }
+                pairedFormuas.Add(formula);
+
+            }
+
+            foreach (var formula in pairedFormuas)
+            {
+                //Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: 
+                //var options = new JsonSerializerOptions();
+                //options.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                //var json = System.Text.Json.JsonSerializer.Serialize(formula, options);
+                //var x = System.Text.Json.JsonSerializer.Deserialize<ChordFormula>(json);
+
+                var settings = new JsonSerializerSettings();
+                settings.Formatting = Formatting.Indented;
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                var json = JsonConvert.SerializeObject(formula, settings);
+                var x = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+                new object();
+
+
+                new object();
             }
 
             new object();
