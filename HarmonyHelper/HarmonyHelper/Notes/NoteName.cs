@@ -1,5 +1,9 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
+
 using HarmonyHelper.Chords;
+
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,8 +12,7 @@ using System.Reflection;
 
 namespace Eric.Morrison.Harmony
 {
-    [Serializable]
-    public class NoteName : ChordEntityBase, IComparable<NoteName>, INoteName
+    public class NoteName : ClassBase, IComparable<NoteName>, INoteName
     {
         #region Constants
 
@@ -39,8 +42,8 @@ namespace Eric.Morrison.Harmony
             BSharpSharp = 1 << 2 | DoubleSharp,
             CSharp = 1 << 2 | Sharp,
             Db = 1 << 2 | Flat,
-            
-            CSharpSharp = 1 << 3 | DoubleSharp, 
+
+            CSharpSharp = 1 << 3 | DoubleSharp,
             D = 1 << 3 | Natural,
             Ebb = 1 << 3 | DoubleFlat,
 
@@ -94,85 +97,84 @@ namespace Eric.Morrison.Harmony
 
         #region Statics
 
-        static public readonly NullNoteName Empty = NullNoteName.Instance;
         static List<NoteName> _catalog { get; set; } = new List<NoteName>();
         static List<NoteName> _internalCatalog { get; set; } = new List<NoteName>();
         static public IEnumerable<NoteName> Catalog { get { return _catalog; } }
         static IEnumerable<NoteName> InternalCatalog { get { return _internalCatalog; } }
 
 
-        static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}", 
+        static public readonly NoteName BSharp = new NoteName($"B{Constants.SHARP}",
             NoteValuesEnum.C, ExplicitNoteValuesEnum.BSharp);
-        static public readonly NoteName C = new NoteName("C", 
+        static public readonly NoteName C = new NoteName("C",
             NoteValuesEnum.C, ExplicitNoteValuesEnum.C);
-        static readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}", 
+        static readonly NoteName Dbb = new NoteName($"D{Constants.DOUBLE_FLAT}",
             NoteValuesEnum.C,
-            ExplicitNoteValuesEnum.Dbb, 
+            ExplicitNoteValuesEnum.Dbb,
             false);
 
 
-        static readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}", 
+        static readonly NoteName BSharpSharp = new NoteName($"B{Constants.DOUBLE_SHARP}",
             NoteValuesEnum.Db,
             ExplicitNoteValuesEnum.BSharpSharp,
             false);
-        static public readonly NoteName CSharp = new NoteName($"C{Constants.SHARP}", 
+        static public readonly NoteName CSharp = new NoteName($"C{Constants.SHARP}",
             NoteValuesEnum.Db,
             ExplicitNoteValuesEnum.CSharp);
-        static public readonly NoteName Db = new NoteName($"D{Constants.FLAT}", 
+        static public readonly NoteName Db = new NoteName($"D{Constants.FLAT}",
             NoteValuesEnum.Db,
             ExplicitNoteValuesEnum.Db);
 
 
-        static readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}", 
+        static readonly NoteName CSharpSharp = new NoteName($"C{Constants.DOUBLE_SHARP}",
             NoteValuesEnum.D,
             ExplicitNoteValuesEnum.CSharpSharp,
             false);
-        static public readonly NoteName D = new NoteName("D", 
+        static public readonly NoteName D = new NoteName("D",
             NoteValuesEnum.D,
             ExplicitNoteValuesEnum.D);
-        static readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}", 
+        static readonly NoteName Ebb = new NoteName($"E{Constants.DOUBLE_FLAT}",
             NoteValuesEnum.D,
             ExplicitNoteValuesEnum.Eb,
             false);
 
 
-        static public readonly NoteName DSharp = new NoteName($"D{Constants.SHARP}", 
+        static public readonly NoteName DSharp = new NoteName($"D{Constants.SHARP}",
             NoteValuesEnum.Eb,
             ExplicitNoteValuesEnum.DSharp);
-        static public readonly NoteName Eb = new NoteName($"E{Constants.FLAT}", 
+        static public readonly NoteName Eb = new NoteName($"E{Constants.FLAT}",
             NoteValuesEnum.Eb,
             ExplicitNoteValuesEnum.Eb);
-        static readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}", 
+        static readonly NoteName Fbb = new NoteName($"F{Constants.DOUBLE_FLAT}",
             NoteValuesEnum.Eb,
             ExplicitNoteValuesEnum.Fbb,
             false);
 
 
-        static readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}", 
+        static readonly NoteName DSharpSharp = new NoteName($"D{Constants.DOUBLE_SHARP}",
             NoteValuesEnum.E,
             ExplicitNoteValuesEnum.DSharpSharp,
             false);
-        static public readonly NoteName E = new NoteName("E", 
+        static public readonly NoteName E = new NoteName("E",
             NoteValuesEnum.E,
             ExplicitNoteValuesEnum.E);
-        static public readonly NoteName Fb = new NoteName($"F{Constants.FLAT}", 
+        static public readonly NoteName Fb = new NoteName($"F{Constants.FLAT}",
             NoteValuesEnum.E,
             ExplicitNoteValuesEnum.Fb);
 
 
-        static public readonly NoteName ESharp = new NoteName($"E{Constants.SHARP}", 
+        static public readonly NoteName ESharp = new NoteName($"E{Constants.SHARP}",
             NoteValuesEnum.F,
             ExplicitNoteValuesEnum.ESharp);
-        static public readonly NoteName F = new NoteName("F", 
+        static public readonly NoteName F = new NoteName("F",
             NoteValuesEnum.F,
             ExplicitNoteValuesEnum.F);
-        static readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}", 
+        static readonly NoteName Gbb = new NoteName($"G{Constants.DOUBLE_FLAT}",
             NoteValuesEnum.F,
             ExplicitNoteValuesEnum.Gbb,
             false);
 
 
-        static readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}", 
+        static readonly NoteName ESharpSharp = new NoteName($"E{Constants.DOUBLE_SHARP}",
             NoteValuesEnum.Gb,
             ExplicitNoteValuesEnum.ESharpSharp,
             false);
@@ -244,16 +246,46 @@ namespace Eric.Morrison.Harmony
         #endregion Statics
 
         #region Properties
+        [JsonIgnore]
         static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
         virtual public string Name { get; protected set; }
-        [Obsolete("", false)]
         virtual public int RawValue { get; protected set; }
-        public ExplicitNoteValuesEnum ExplicitNoteValue { get; private set; }
-        virtual public bool IsSharped { get; protected set; }
-        virtual public bool IsFlatted { get; protected set; }
-        virtual public bool IsNatural { get; protected set; }
+        public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
+        virtual public bool IsSharped
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                    || this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
+                    result = true;
+                return result;
+            }
+        }
+        virtual public bool IsFlatted
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
+                    || this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat))
+                    result = true;
+                return result;
+            }
+        }
+        virtual public bool IsNatural
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                    result = true;
+                return result;
+            }
+        }
         virtual public int AsciiSortValue { get; protected set; }
 
+        [JsonIgnore]
         virtual public int AccidentalCount
         {
             get
@@ -283,19 +315,22 @@ namespace Eric.Morrison.Harmony
             EnharmonicEquivalents.AddRange(EnharmonicEquivalent.Create(ASharpSharp, B, Cb));
         }
 
-        protected NoteName() { }
+        [JsonConstructor]
+        protected NoteName(string Name, int RawValue,
+            ExplicitNoteValuesEnum ExplicitNoteValue,
+            int AsciiSortValue)
+        {
+            this.Name = Name;
+            this.RawValue = RawValue;
+            this.ExplicitValue = ExplicitNoteValue;
+            this.AsciiSortValue = AsciiSortValue;
+        }
+
         protected NoteName(string name, NoteValuesEnum val, ExplicitNoteValuesEnum eval, bool addToCatalog = true)
         {
             this.Name = name;
             this.RawValue = (int)val;
-            this.ExplicitNoteValue = eval;
-
-            if (this.Name.EndsWith(Constants.SHARP))
-                this.IsSharped = true;
-            else if (this.Name.EndsWith(Constants.FLAT))
-                this.IsFlatted = true;
-            else
-                this.IsNatural = true;
+            this.ExplicitValue = eval;
 
             if (this.Name[0] - ASCII_C >= 0)
             {
@@ -313,10 +348,10 @@ namespace Eric.Morrison.Harmony
                 _catalog.Add(this);
         }
 
-        NoteName(NoteName src) 
-            : this(src.Name, 
-                  (NoteValuesEnum)src.RawValue, 
-                  src.ExplicitNoteValue,  false)
+        NoteName(NoteName src)
+            : this(src.Name,
+                  (NoteValuesEnum)src.RawValue,
+                  src.ExplicitValue, false)
         {
         }
 
@@ -912,16 +947,6 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        [Obsolete("", true)]
-        public static NoteName TransposeDown(NoteName src, Interval interval)
-        {
-            if (null == interval)
-                throw new ArgumentNullException(nameof(interval));
-            var inversion = interval.GetInversion();
-            var result = TransposeUp(src, (dynamic)inversion);
-            return result;
-        }
-
         static public List<NoteName> GetEnharmonicEquivalents(NoteName nn)
         {
             var ee = NoteName.EnharmonicEquivalents.Where(x => x.Key.Name == nn.Name).First();
@@ -934,50 +959,6 @@ namespace Eric.Morrison.Harmony
             return this.Name;
         }
 
-    }//class
-
-
-    public class NullNoteName : NoteName, INoteName
-    {
-        static public NullNoteName Instance;
-        static NullNoteName()
-        {
-            Instance = new NullNoteName();
-        }
-        private NullNoteName() : base() { }
-        override public string Name => Constants.EMPTY;
-
-        override public int AccidentalCount => throw new NotImplementedException();
-
-        override public int AsciiSortValue => int.MinValue;
-
-        override public bool IsFlatted => false;
-
-        override public bool IsNatural => false;
-
-        override public bool IsSharped => false;
-
-        override public int RawValue => int.MinValue;
-    }
-
-    [Obsolete("", true)]
-    public static class NoteNameCatalogExtensions
-    {
-        [Obsolete("", true)]
-        static public NoteName Get(this IEnumerable<NoteName> src,
-            NoteName nn, Interval interval, INoteNameNormalizer normalizer)
-        {
-            if (null == interval)
-                throw new ArgumentNullException(nameof(interval));
-            var result = nn;
-            if (Interval.Unison < interval)
-            {
-                var success = NoteName.TryTransposeUp(nn, interval, out result, out var unused);
-                Debug.Assert(success);
-            }
-            Debug.Assert(result != null);
-            return result;
-        }
     }//class
 
 }//ns

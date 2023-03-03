@@ -17,20 +17,51 @@ using static Eric.Morrison.Harmony.NoteName;
 namespace Eric.Morrison.Harmony
 {
     [Serializable]
-    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>, IKeySignature
+    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
     {
-        static public NullKeySignature Empty = NullKeySignature.Instance;
 
         #region Properties
-        virtual public NoteName NoteName { get; private set; }
-        virtual public List<NoteName> NoteNames { get; private set; }
+        virtual public NoteName NoteName { get; set; }
+        virtual public List<NoteName> NoteNames { get; set; }
         virtual public List<NoteName> Accidentals { get { return this.NoteNames?.Where(x => x.IsFlatted || x.IsSharped).ToList(); } }
-        virtual public bool UsesSharps { get; private set; }
-        virtual public bool UsesFlats { get; private set; }
-        virtual public bool IsMajor { get; private set; }
-        virtual public bool IsMinor { get; private set; }
-        virtual public int AccidentalCount { get; private set; }
-        virtual public string Name { get; private set; }
+        virtual public bool UsesSharps
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                    || this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
+                    result = true;
+                return result;
+            }
+        }
+        virtual public bool UsesFlats
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
+                    || this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat))
+                    result = true;
+                return result;
+            }
+        }
+        virtual public bool IsNatural
+        {
+            get
+            {
+                var result = false;
+                if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                    result = true;
+                return result;
+            }
+        }
+
+
+        virtual public bool IsMajor { get; set; }
+        virtual public bool IsMinor { get; set; }
+        virtual public int AccidentalCount { get; set; }
+        virtual public string Name { get; set; }
         [Obsolete("", false)]
         public int RawValue
         {
@@ -64,7 +95,6 @@ namespace Eric.Morrison.Harmony
         #region Construction
         private KeySignature(NoteName key, 
             IEnumerable<NoteName> notes, 
-            bool? usesSharps, 
             bool isMajor, 
             bool isMinor, 
             bool addToCatalog = true)
@@ -74,25 +104,13 @@ namespace Eric.Morrison.Harmony
             this.AccidentalCount = this.NoteNames.Where(x => x.Name.EndsWith(Constants.SHARP)
                 || x.Name.EndsWith(Constants.FLAT)).Count();
 
-            if (usesSharps.HasValue)
-            {
-                if (0 < this.AccidentalCount)
-                {
-                    this.UsesSharps = usesSharps.Value;
-                    this.UsesFlats = !usesSharps.Value;
-                    if (usesSharps.Value)
-                        this.ExplicitValue = ExplicitNoteValuesEnum.Sharp;
-                    else
-                        this.ExplicitValue = ExplicitNoteValuesEnum.Flat;
-                }
-                else
-                {
-                    this.ExplicitValue = ExplicitNoteValuesEnum.Natural;
-                }
+            if (this.NoteNames.Any(x => x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)))
+                this.ExplicitValue = ExplicitNoteValuesEnum.Sharp;
+            else if (this.NoteNames.Any(x => x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)))
+                this.ExplicitValue = ExplicitNoteValuesEnum.Flat;
+            else
+                this.ExplicitValue = ExplicitNoteValuesEnum.Natural;
 
-            }
-            if (0 == this.NoteNames.Count)
-                this.UsesFlats = false;
 
             this.IsMajor = isMajor;
             this.IsMinor = isMinor;
@@ -297,13 +315,11 @@ namespace Eric.Morrison.Harmony
 
             var result = a.NoteName.CompareTo(b.NoteName);
             if (0 == result)
+                result = a.ExplicitValue.CompareTo(b.ExplicitValue);
+            if (0 == result)
             {
                 result = a.NoteNames.GetHashCode().CompareTo(b.NoteNames.GetHashCode());
             }
-            if (0 == result)
-                result = a.UsesSharps.CompareTo(b.UsesSharps);
-            if (0 == result)
-                result = a.UsesFlats.CompareTo(b.UsesFlats);
             return result;
         }
 
@@ -328,8 +344,7 @@ namespace Eric.Morrison.Harmony
         {
             var result = this.NoteName.GetHashCode()
                 ^ this.NoteNames.GetHashCode()
-                ^ this.UsesSharps.GetHashCode()
-                ^ this.UsesFlats.GetHashCode();
+                ^ this.ExplicitValue.GetHashCode();
             return result;
         }
 
@@ -475,14 +490,16 @@ namespace Eric.Morrison.Harmony
             if (tmpFormula.RawValue == (tmpFormula.RawValue & this.RawValue))
             {
                 if (!tmpFormula.NoteNames.Any(x =>
-                    x.ExplicitNoteValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp)
-                    || x.ExplicitNoteValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
+                    x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp)
+                    || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
                 {
-                    if (tmpFormula.UsesSharps && this.UsesSharps)
+                    if (tmpFormula.UsesSharps 
+                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
-                    else if (tmpFormula.UsesFlats && this.UsesFlats)
+                    else if (tmpFormula.UsesFlats 
+                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
@@ -614,98 +631,4 @@ namespace Eric.Morrison.Harmony
         }
 
     }//class
-
-    public class NullKeySignature : KeySignature, IKeySignature
-    {
-        static public NullKeySignature Instance;
-
-        #region Properties
-        public int AccidentalCount => 0;
-        public List<NoteName> Accidentals => new List<NoteName>();
-        public bool IsMajor => false;
-        public bool IsMinor => false;
-        public string Name => "Empty";
-        public NoteName NoteName => NoteName.Empty;
-        public List<NoteName> NoteNames => new List<NoteName>();
-        public bool UsesFlats => false;
-        public bool UsesSharps => false;
-
-        public ChordFormula Aeolian => ChordFormula.Empty;
-        public ChordFormula Dorian => ChordFormula.Empty;
-        public ChordFormula Ionian => ChordFormula.Empty;
-        public ChordFormula Locrian => ChordFormula.Empty;
-        public ChordFormula Lydian => ChordFormula.Empty;
-        public ChordFormula MixoLydian => ChordFormula.Empty;
-        public ChordFormula Phrygian => ChordFormula.Empty;
-
-        #endregion
-
-        static NullKeySignature()
-        {
-            Instance = new NullKeySignature();
-        }
-        NullKeySignature() : base() { }
-
-
-        new public int CompareTo(KeySignature other)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public bool Contains(List<NoteName> notes, out List<NoteName> blueNotes)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public bool Contains(NoteName note, out NoteName inKeyEnharmonic)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public bool Equals(KeySignature other)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public KeySignature GetEnharmonicEquivalent()
-        {
-            throw new NotImplementedException();
-        }
-
-        new public List<ChordFormula> GetNonDiatonic(List<ChordFormula> chords)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public NoteName GetNormalized(NoteName nn, Interval interval)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public KeySignature GetRelativeMajor()
-        {
-            throw new NotImplementedException();
-        }
-
-        new public KeySignature GetRelativeMinor()
-        {
-            throw new NotImplementedException();
-        }
-
-        new public IsDiatonicEnum IsDiatonic(List<NoteName> noteNames)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public IsDiatonicEnum IsDiatonic(List<NoteName> nns, out List<NoteName> blueNotes)
-        {
-            throw new NotImplementedException();
-        }
-
-        new public void Normalize(ref List<NoteName> noteNames)
-        {
-            throw new NotImplementedException();
-        }
-    }//class
-
 }//ns

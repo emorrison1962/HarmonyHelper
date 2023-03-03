@@ -79,7 +79,7 @@ namespace Eric.Morrison.Harmony
                 NoteName.G,
                 NoteName.A,
                 NoteName.B
-                }, null, false, false);
+                }, false, false);
             CMajor = KeySignature.Clone(NoAccidentals, true);
             AMinor = KeySignature.Clone(NoAccidentals, false, NoteName.A);
 
@@ -278,7 +278,7 @@ namespace Eric.Morrison.Harmony
                     throw new ArgumentNullException();
                 nn = noteName;
             }
-            var result = new KeySignature(nn, src.NoteNames, src.UsesSharps, isMajor, !isMajor, addToCatalog);
+            var result = new KeySignature(nn, src.NoteNames, isMajor, !isMajor, addToCatalog);
             return result;
         }
 

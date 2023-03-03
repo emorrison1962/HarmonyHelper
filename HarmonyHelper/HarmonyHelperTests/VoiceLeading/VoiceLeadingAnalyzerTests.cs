@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace HarmonyHelperTests.VoiceLeadingAnalyzer
 {
 	[TestClass()]
 	public class VoiceLeadingAnalyzerTests
@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void UseCaseOne()
 		{
-			var analyzer = new VoiceLeadingAnalyzer();
+			var analyzer = new Eric.Morrison.Harmony.VoiceLeadingAnalyzer();
 
 			var I = ChordFormula.A7;
 			var IV = ChordFormula.D7;

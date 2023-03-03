@@ -6,17 +6,17 @@ using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony;
 using System.Reflection;
 using HarmonyHelper.Chords;
+using Newtonsoft.Json;
 
 namespace Eric.Morrison.Harmony.Chords
 {
     [Serializable]
     public partial class ChordFormula : ChordEntityBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
     {
-        static public readonly NullChordFormula Empty = NullChordFormula.Instance;
-
         #region Properties
 
         [Obsolete("", false)]
+        [JsonIgnore]
         public int RawValue
         {
             get
@@ -26,17 +26,24 @@ namespace Eric.Morrison.Harmony.Chords
                 return result;
             }
         }
+        [JsonIgnore]
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
         virtual public ChordType ChordType { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
+        [JsonIgnore]
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
+        [JsonIgnore]
         virtual public bool IsMajor { get { return this.ChordType.IsMajor; } }
+        [JsonIgnore]
         virtual public bool IsMinor { get { return this.ChordType.IsMinor; } }
+        [JsonIgnore]
         virtual public bool IsHalfDiminished { get { return this.ChordType.IsHalfDiminished; } }
+        [JsonIgnore]
         virtual public bool IsDiminished { get { return this.ChordType.IsDiminished; } }
+        [JsonIgnore]
         virtual public bool IsDominant { get { return this.ChordType.IsDominant; } }
 
         virtual public bool UsesSharps { get; private set; }
@@ -45,7 +52,14 @@ namespace Eric.Morrison.Harmony.Chords
         #endregion
 
         #region Construction
-
+        [JsonConstructor]
+        public ChordFormula(NoteName Root, NoteName Bass,
+            ChordType ChordType)
+        {
+            this.Root = Root;
+            this.Bass = Bass;
+            this.ChordType = ChordType;
+        }
         public ChordFormula()
         {
         }
@@ -497,44 +511,6 @@ namespace Eric.Morrison.Harmony.Chords
             }
             return result;
         }
-
-    }//class
-
-    public class NullChordFormula : ChordFormula, IChordFormula
-    {
-        static public readonly NullChordFormula Instance;
-
-        #region Properties
-        override public NoteName Bass => NoteName.Empty;
-
-        override public ChordType ChordType => ChordType.Empty;
-
-        override public bool IsDiminished => false;
-
-        override public bool IsDominant => false;
-
-        override public bool IsHalfDiminished => false;
-
-        override public bool IsMajor => false;
-
-        override public bool IsMinor => false;
-
-        //override public KeySignature Key => KeySignature.Empty;
-
-        override public string Name => Constants.EMPTY;
-
-        override public List<NoteName> NoteNames => new List<NoteName>();
-
-        override public NoteName Root => NoteName.Empty;
-
-        #endregion
-
-        static NullChordFormula()
-        {
-            Instance = new NullChordFormula();
-        }
-        private NullChordFormula() : base() { }
-
 
     }//class
 }//ns

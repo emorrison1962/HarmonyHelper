@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
+using Newtonsoft.Json;
+
 namespace Eric.Morrison.Harmony.Intervals
 {
     public class ChordToneInterval : Interval
@@ -37,11 +39,21 @@ namespace Eric.Morrison.Harmony.Intervals
 		#region Properties
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
-		override public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
+		public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
 
 		#endregion
 
 		#region Construction
+		[JsonConstructor]
+		public ChordToneInterval(string Name, ChordToneFunctionEnum ChordToneFunction,
+            IntervalRoleTypeEnum IntervalRoleType, int Value, 
+			int SemiTones, IntervalFunctionalValuesEnum FunctionalValue, int Id)
+			: base (Name, Value, SemiTones, IntervalRoleType, FunctionalValue)
+		{
+			this.Id = Id;
+			this.ChordToneFunction = ChordToneFunction;
+		}
+
 		[Obsolete("For EF.")]
 		private ChordToneInterval() : base(null) { }
 		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)

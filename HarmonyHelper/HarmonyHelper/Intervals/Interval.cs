@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
+
 using static Eric.Morrison.Harmony.Constants;
 
 namespace Eric.Morrison.Harmony.Intervals
@@ -139,6 +142,16 @@ namespace Eric.Morrison.Harmony.Intervals
         public IntervalFunctionalValuesEnum FunctionalValue { get; private set; }
 
         #region Construction
+        [JsonConstructor]
+        public Interval(string Name, int Value, int SemiTones,
+            IntervalRoleTypeEnum IntervalRoleType, IntervalFunctionalValuesEnum FunctionalValue)
+        {
+            this.Name= Name;
+            this.Value= Value;
+            this.SemiTones= SemiTones;
+            this.IntervalRoleType = IntervalRoleType;
+            this.FunctionalValue = FunctionalValue;
+        }
         static Interval() { }
         private Interval() { }
         private Interval(string name, IntervalValuesEnum value, int semitones, IntervalRoleTypeEnum it, IntervalFunctionalValuesEnum ifve)
