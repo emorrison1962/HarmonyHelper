@@ -6,6 +6,7 @@ using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
+
 using Newtonsoft.Json;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
@@ -20,22 +21,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public BorrowedChordHarmonicAnalysisRule()
         {
 
-        }
-
-        public class Grid
-        {
-            public List<GridRow> Rows { get; private set; } = new List<GridRow>();
-        }
-        public class GridRow
-        {
-            public KeySignature Key { get; private set; }
-            public string ModeName { get; private set; }
-            public List<ChordFormula> Chords { get; private set; } = new List<ChordFormula>();
-            public GridRow(KeySignature key, string modeName)
-            {
-                this.Key = key;
-                this.ModeName = modeName;
-            }
         }
 
         public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)

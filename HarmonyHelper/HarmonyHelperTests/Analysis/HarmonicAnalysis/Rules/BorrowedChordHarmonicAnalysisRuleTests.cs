@@ -37,23 +37,5 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
             new object();
         }
 
-        [TestMethod()]
-        public void SerializationTest()
-        {
-            foreach (var key in KeySignature.Catalog)
-            {
-                var rule = new BorrowedChordHarmonicAnalysisRule();
-                var result = rule.CreateGrids(key);
-                Assert.IsNotNull(result);
-
-                var json = JsonConvert.SerializeObject(result, Formatting.Indented);
-                var serialized = JsonConvert.DeserializeObject<List<Grid>>(json);
-
-                Assert.AreEqual(result, serialized);
-                new object();
-            }
-            new object();
-        }
-
     }
 }

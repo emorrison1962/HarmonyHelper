@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Newtonsoft.Json;
+
+using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
 
 namespace Eric.Morrison.Harmony.Tests.Serialization
 {
@@ -141,6 +143,25 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
         public void SerializeClassBase()
         {
             Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void BorrowedChordGridsTest()
+        {
+            foreach (var key in KeySignature.Catalog)
+            {
+                var rule = new BorrowedChordHarmonicAnalysisRule();
+                var result = rule.CreateGrids(key);
+                Assert.IsNotNull(result);
+
+                var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+                var serialized = JsonConvert.DeserializeObject<List<Grid>>(json);
+
+                var b = result.Equals(serialized);
+                Assert.AreEqual(result, serialized);
+                new object();
+            }
+            new object();
         }
 
 

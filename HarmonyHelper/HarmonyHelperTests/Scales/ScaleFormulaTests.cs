@@ -17,5 +17,5 @@ namespace Eric.Morrison.Harmony.Scales
 			}
 			new object();
 		}
-	}
-}
+	}//class
+}//ns
