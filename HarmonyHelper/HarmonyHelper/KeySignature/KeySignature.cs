@@ -343,8 +343,9 @@ namespace Eric.Morrison.Harmony
         public override int GetHashCode()
         {
             var result = this.NoteName.GetHashCode()
-                ^ this.NoteNames.GetHashCode()
                 ^ this.ExplicitValue.GetHashCode();
+            this.NoteNames.ForEach(x => result ^= x.GetHashCode());
+
             return result;
         }
 

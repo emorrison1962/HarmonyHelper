@@ -11,11 +11,11 @@ namespace HarmonyHelper.Chords
     [Serializable]
     public abstract class ChordEntityBase : ClassBase
     {
-        virtual public List<KeySignature> Keys { get; protected set; } = new List<KeySignature>();  
+        virtual public HashSet<KeySignature> Keys { get; protected set; } = new HashSet<KeySignature>();  
 
         public ChordEntityBase(IEnumerable<KeySignature> keys)
         {
-            this.Keys = keys.ToList();
+            this.Keys = keys.ToHashSet();
         }
         public ChordEntityBase(KeySignature key)
         {

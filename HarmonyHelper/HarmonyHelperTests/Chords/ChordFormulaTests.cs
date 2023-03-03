@@ -95,7 +95,9 @@ namespace HarmonyHelperTests.Chords
                 settings.Formatting = Formatting.Indented;
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 var json = JsonConvert.SerializeObject(formula, settings);
-                var x = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+                var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+
+                Assert.AreEqual(formula, serialized);
                 new object();
 
 
