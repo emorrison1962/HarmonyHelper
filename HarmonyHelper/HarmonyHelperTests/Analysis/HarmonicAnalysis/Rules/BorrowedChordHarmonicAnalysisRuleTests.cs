@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
 {
@@ -34,5 +36,24 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
             Assert.IsTrue(results.Count() == 2);
             new object();
         }
+
+        [TestMethod()]
+        public void SerializationTest()
+        {
+            foreach (var key in KeySignature.Catalog)
+            {
+                var rule = new BorrowedChordHarmonicAnalysisRule();
+                var result = rule.CreateGrids(key);
+                Assert.IsNotNull(result);
+
+                var json = JsonConvert.SerializeObject(result, Formatting.Indented);
+                var serialized = JsonConvert.DeserializeObject<List<Grid>>(json);
+
+                Assert.AreEqual(result, serialized);
+                new object();
+            }
+            new object();
+        }
+
     }
 }

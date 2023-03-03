@@ -22,11 +22,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         }
 
-        class Grid
+        public class Grid
         {
             public List<GridRow> Rows { get; private set; } = new List<GridRow>();
         }
-        class GridRow
+        public class GridRow
         {
             public KeySignature Key { get; private set; }
             public string ModeName { get; private set; }
@@ -67,7 +67,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        private List<Grid> CreateGrids(KeySignature key)
+        public List<Grid> CreateGrids(KeySignature key)
         {
             var grids = new List<Grid>();
             using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
