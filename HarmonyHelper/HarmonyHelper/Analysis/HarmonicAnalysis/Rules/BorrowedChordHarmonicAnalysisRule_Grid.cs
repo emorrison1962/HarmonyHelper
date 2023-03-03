@@ -96,6 +96,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         }
 
+        static public bool Equals(Grid a, Grid b)
+        {
+            throw new NotImplementedException();
+        }
         static public bool Equals(List<Grid> a, List<Grid> b)
         {
             throw new NotImplementedException();
