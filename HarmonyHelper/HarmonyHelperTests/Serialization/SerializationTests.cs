@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -148,20 +149,39 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
         [TestMethod()]
         public void BorrowedChordGridsTest()
         {
+            var path = Assembly.GetExecutingAssembly().Location;
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            path = Path.GetDirectoryName(path);
+            //path = Path.GetDirectoryName(path);
+            path = Path.Combine(path, @"HarmonyHelper\Resources");
+            Debug.WriteLine(path);
+            if (!Directory.Exists(path))
+                Assert.Fail();
+
+
             foreach (var key in KeySignature.Catalog)
             {
                 var rule = new BorrowedChordHarmonicAnalysisRule();
                 var result = rule.CreateGrids(key);
+                Debug.WriteLine(key.Name);
                 Assert.IsNotNull(result);
 
                 var json = JsonConvert.SerializeObject(result, Formatting.Indented);
-                var serialized = JsonConvert.DeserializeObject<List<Grid>>(json);
 
-                for (int i = 0; i < result.Count; ++i)
+                File.WriteAllText(
+                    Path.Combine(path, $"ModalInterchangeGrid {key.Name}"),
+                    json);
+
+                var serialized = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
+
+                for (int ndx = 0; ndx < result.Count; ++ndx)
                 {
-                    var a = result[i];
-                    var b = serialized[i];
-                    Assert.AreEqual(a, b);
+                    var gridA = result[ndx];
+                    var gridB = serialized[ndx];
+                    Assert.AreEqual(gridA, gridB);
                 }
                 new object();
             }

@@ -11,6 +11,72 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ModalInterchangeGrid A Major" />
+    <None Remove="Resources\ModalInterchangeGrid A Minor" />
+    <None Remove="Resources\ModalInterchangeGrid A♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid A♭ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid A♯ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid B Major" />
+    <None Remove="Resources\ModalInterchangeGrid B Minor" />
+    <None Remove="Resources\ModalInterchangeGrid B♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid B♭ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid C Major" />
+    <None Remove="Resources\ModalInterchangeGrid C Minor" />
+    <None Remove="Resources\ModalInterchangeGrid C♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid C♯ Major" />
+    <None Remove="Resources\ModalInterchangeGrid C♯ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid D Major" />
+    <None Remove="Resources\ModalInterchangeGrid D Minor" />
+    <None Remove="Resources\ModalInterchangeGrid D♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid D♯ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid E Major" />
+    <None Remove="Resources\ModalInterchangeGrid E Minor" />
+    <None Remove="Resources\ModalInterchangeGrid E♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid E♭ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid F Major" />
+    <None Remove="Resources\ModalInterchangeGrid F Minor" />
+    <None Remove="Resources\ModalInterchangeGrid F♯ Major" />
+    <None Remove="Resources\ModalInterchangeGrid F♯ Minor" />
+    <None Remove="Resources\ModalInterchangeGrid G Major" />
+    <None Remove="Resources\ModalInterchangeGrid G Minor" />
+    <None Remove="Resources\ModalInterchangeGrid G♭ Major" />
+    <None Remove="Resources\ModalInterchangeGrid G♯ Minor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid A Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid A Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid A♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid A♭ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid A♯ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid B Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid B Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid B♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid B♭ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid C Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid C Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid C♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid C♯ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid C♯ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid D Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid D Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid D♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid D♯ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid E Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid E Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid E♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid E♭ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid F Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid F Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid F♯ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid F♯ Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid G Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid G Minor" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid G♭ Major" />
+    <EmbeddedResource Include="Resources\ModalInterchangeGrid G♯ Minor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 

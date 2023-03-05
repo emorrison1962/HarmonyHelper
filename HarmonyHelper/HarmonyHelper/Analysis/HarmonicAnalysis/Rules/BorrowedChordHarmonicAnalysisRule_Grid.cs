@@ -10,9 +10,9 @@ using Eric.Morrison.Harmony.Chords;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
-    public class Grid : IEquatable<Grid>
+    public class ModalInterchangeGrid : IEquatable<ModalInterchangeGrid>
     {
-        public List<GridRow> Rows { get; private set; } = new List<GridRow>();
+        public List<ModalInterchangeGridRow> Rows { get; private set; } = new List<ModalInterchangeGridRow>();
 
         #region Operators
         //public static bool operator ==(IEnumerable<Grid> a, IEnumerable<Grid> b)
@@ -27,12 +27,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         //}
 
 
-        public static bool operator ==(Grid a, Grid b)
+        public static bool operator ==(ModalInterchangeGrid a, ModalInterchangeGrid b)
         {
             var result = Compare(a, b) == 0;
             return result;
         }
-        public static bool operator !=(Grid a, Grid b)
+        public static bool operator !=(ModalInterchangeGrid a, ModalInterchangeGrid b)
         {
             var result = Compare(a, b) != 0;
             return result;
@@ -42,12 +42,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         #region IComparable
 
-        public int CompareTo(Grid other)
+        public int CompareTo(ModalInterchangeGrid other)
         {
             var result = Compare(this, other);
             return result;
         }
-        public static int Compare(Grid a, Grid b)
+        public static int Compare(ModalInterchangeGrid a, ModalInterchangeGrid b)
         {
             if (a is null && b is null)
                 return 0;
@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        virtual public bool Equals(Grid other)
+        virtual public bool Equals(ModalInterchangeGrid other)
         {
             var result = false;
             if (0 == Compare(this, other))
@@ -85,9 +85,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public override bool Equals(object obj)
         {
             var result = false;
-            if (obj is Grid)
+            if (obj is ModalInterchangeGrid)
             {
-                result = this.Equals(obj as Grid);
+                result = this.Equals(obj as ModalInterchangeGrid);
             }
             else
             {
@@ -97,11 +97,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         }
 
-        static public bool Equals(Grid a, Grid b)
+        static public bool Equals(ModalInterchangeGrid a, ModalInterchangeGrid b)
         {
             throw new NotImplementedException();
         }
-        static public bool Equals(List<Grid> a, List<Grid> b)
+        static public bool Equals(List<ModalInterchangeGrid> a, List<ModalInterchangeGrid> b)
         {
             throw new NotImplementedException();
         }
@@ -116,7 +116,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         #endregion
 
     }
-    public class GridRow : IEquatable<GridRow>
+    public class ModalInterchangeGridRow : IEquatable<ModalInterchangeGridRow>
     {
         #region Properties
         public KeySignature Key { get; private set; }
@@ -126,7 +126,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         #endregion
 
         #region Construction
-        public GridRow(KeySignature key, string modeName)
+        public ModalInterchangeGridRow(KeySignature key, string modeName)
         {
             this.Key = key;
             this.ModeName = modeName;
@@ -135,12 +135,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         #endregion
 
         #region Operators
-        public static bool operator ==(GridRow a, GridRow b)
+        public static bool operator ==(ModalInterchangeGridRow a, ModalInterchangeGridRow b)
         {
             var result = Compare(a, b) == 0;
             return result;
         }
-        public static bool operator !=(GridRow a, GridRow b)
+        public static bool operator !=(ModalInterchangeGridRow a, ModalInterchangeGridRow b)
         {
             var result = Compare(a, b) != 0;
             return result;
@@ -150,12 +150,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         #region IComparable
 
-        public int CompareTo(GridRow other)
+        public int CompareTo(ModalInterchangeGridRow other)
         {
             var result = Compare(this, other);
             return result;
         }
-        public static int Compare(GridRow a, GridRow b)
+        public static int Compare(ModalInterchangeGridRow a, ModalInterchangeGridRow b)
         {
             if (a is null && b is null)
                 return 0;
@@ -193,9 +193,9 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public override bool Equals(object obj)
         {
             var result = false;
-            if (obj is GridRow)
+            if (obj is ModalInterchangeGridRow)
             {
-                result = this.Equals(obj as GridRow);
+                result = this.Equals(obj as ModalInterchangeGridRow);
             }
             else
             {
@@ -205,7 +205,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         }
 
-        public bool Equals(GridRow other)
+        public bool Equals(ModalInterchangeGridRow other)
         {
             var result = false;
             if (0 == Compare(this, other))
@@ -213,7 +213,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        static public bool Equals(List<GridRow> a, List<GridRow> b)
+        static public bool Equals(List<ModalInterchangeGridRow> a, List<ModalInterchangeGridRow> b)
         {
             var result = false;
             throw new NotImplementedException();
@@ -235,7 +235,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         public override string ToString()
         {
-            return $"{nameof(GridRow)}: {ModeName} {string.Join(", ", Chords.Select(x => x.Name))}";
+            return $"{nameof(ModalInterchangeGridRow)}: {ModeName} {string.Join(", ", Chords.Select(x => x.Name))}";
         }
     }//class
 }//ns

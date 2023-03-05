@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
@@ -26,7 +27,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public override List<HarmonicAnalysisResult> Analyze(List<ChordFormula> chords)
         {
             var result = new List<HarmonicAnalysisResult>();
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
                 var key = KeySignature.DetermineKey(chords);
                 var grids = this.CreateGrids(key);
@@ -52,23 +53,31 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        public List<Grid> CreateGrids(KeySignature key)
+        public List<ModalInterchangeGrid> CreateGrids(KeySignature key)
         {
-            var grids = new List<Grid>();
+            //var grids = new List<ModalInterchangeGrid>();
+            List<ModalInterchangeGrid> grids = null;
+
+            var json = Helpers.LoadEmbeddedResource($"{nameof(ModalInterchangeGrid)} {key.Name}");
             using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
-                grids.Add(this.CreateMajorBorrowedChordGrid(key));
-                grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
-                grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
+                grids = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
             }
+
+            ////using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //{
+            //    grids.Add(this.CreateMajorBorrowedChordGrid(key));
+            //    grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
+            //    grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
+            //}
             return grids;
         }
 
-        Grid CreateMajorBorrowedChordGrid(KeySignature inputKey)
+        ModalInterchangeGrid CreateMajorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new Grid();
+            var result = new ModalInterchangeGrid();
 
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
                 var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -98,7 +107,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 {
                     var mode = _modes[modeNdx++];
                     var scale = new MajorModalScaleFormula(key, mode);
-                    var gridRow = new GridRow(key, scale.ModeName);
+                    var gridRow = new ModalInterchangeGridRow(key, scale.ModeName);
 
                     foreach (var scaleDegreeNdx in _scaleDegreeNdxs)
                     {
@@ -128,20 +137,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 #endregion
             }
 
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(result, Formatting.Indented,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        });
-            Debug.WriteLine(json);
             return result;
         }
 
-        Grid CreateMelodicMinorBorrowedChordGrid(KeySignature inputKey)
+        ModalInterchangeGrid CreateMelodicMinorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new Grid();
+            var result = new ModalInterchangeGrid();
 
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
                 var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -172,7 +175,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 {
                     var mode = _modes[modeNdx++];
                     var scale = new MelodicMinorModalScaleFormula(key, mode);
-                    var gridRow = new GridRow(key, scale.ModeName);
+                    var gridRow = new ModalInterchangeGridRow(key, scale.ModeName);
 
                     foreach (var scaleDegreeNdx in _scaleDegreeNdxs)
                     {
@@ -204,11 +207,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        Grid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
+        ModalInterchangeGrid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new Grid();
+            var result = new ModalInterchangeGrid();
 
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
                 var keys = new List<KeySignature> { 
 				// These keys represent the transposed key for each row.
@@ -239,14 +242,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 {
                     var mode = _modes[modeNdx++];
                     var scale = new HarmonicMinorModalScaleFormula(key, mode);
-                    var gridRow = new GridRow(key, scale.ModeName);
+                    var gridRow = new ModalInterchangeGridRow(key, scale.ModeName);
 
                     foreach (var scaleDegreeNdx in _scaleDegreeNdxs)
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
                         //Debug.WriteLine(scale);
                         var chord = ChordFormula.Catalog
-                            .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx] 
+                            .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
                         gridRow.Chords.Add(chord);
@@ -271,10 +274,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             return result;
         }
 
-        Dictionary<ChordFormula, List<string>> PopulateGrids(KeySignature key, List<Grid> grids, IEnumerable<ChordFormula> nonDiatonic)
+        Dictionary<ChordFormula, List<string>> PopulateGrids(KeySignature key, List<ModalInterchangeGrid> grids, IEnumerable<ChordFormula> nonDiatonic)
         {
             var result = new Dictionary<ChordFormula, List<string>>();
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
                 foreach (var chord in nonDiatonic)
                 {
@@ -302,7 +305,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
     }//class
 
-    class TimedLogger : IDisposable
+    public class TimedLogger : IDisposable
     {
         private bool disposedValue;
 

@@ -11,6 +11,7 @@ using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
+using System.Reflection;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
 {
@@ -23,8 +24,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
             var txt = "Bb6 Gm7 Cm7 F7 Bb6 Gm7 Cm7 F7 Bb6 Bb7 Eb6 Ebm7 Bb6 Gm7 Cm7 F7";
             var chords = ChordFormulaParser.Parse(txt);
 
-            var rule = new BorrowedChordHarmonicAnalysisRule();
-            var results = rule.Analyze(chords);
+            List<HarmonicAnalysisResult> results = null;
+            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            {
+                var rule = new BorrowedChordHarmonicAnalysisRule();
+                results = rule.Analyze(chords);
+            }
 
             Assert.IsNotNull(results);
 #if false
