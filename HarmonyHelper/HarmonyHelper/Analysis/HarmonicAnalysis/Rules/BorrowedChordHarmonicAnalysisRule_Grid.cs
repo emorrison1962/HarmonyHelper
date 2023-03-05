@@ -173,14 +173,17 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             {
                 var cfA = a.Chords[i];
                 var cfB = b.Chords[i];
-                if (0 == cfA.CompareTo(cfB))
+                if (null != cfA && null != cfB)
                 {
-                    continue;
-                }
-                else
-                {
-                    result = cfA.CompareTo(cfB);
-                    break;
+                    if (0 == cfA.CompareTo(cfB))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        result = cfA.CompareTo(cfB);
+                        break;
+                    }
                 }
             }
 
