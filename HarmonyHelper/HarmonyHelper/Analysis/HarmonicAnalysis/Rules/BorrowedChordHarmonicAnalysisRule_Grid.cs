@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -76,7 +77,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         virtual public bool Equals(Grid other)
         {
             var result = false;
-            if (this.Rows == other.Rows)
+            if (0 == Compare(this, other))
                 result = true;
             return result;
         }
@@ -163,7 +164,26 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             else if (b is null)
                 return 1;
 
-            var result = a.CompareTo(b);
+            var result = 0;
+            result = a.Key.CompareTo(b.Key);
+            if (result == 0)
+                result = a.ModeName.CompareTo(b.ModeName);
+            Debug.Assert(a.Chords.Count == b.Chords.Count);
+            for (int i = 0; i < a.Chords.Count; ++i)
+            {
+                var cfA = a.Chords[i];
+                var cfB = b.Chords[i];
+                if (0 == cfA.CompareTo(cfB))
+                {
+                    continue;
+                }
+                else
+                {
+                    result = cfA.CompareTo(cfB);
+                    break;
+                }
+            }
+
             return result;
         }
 
@@ -185,12 +205,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public bool Equals(GridRow other)
         {
             var result = false;
-            if (this.Key == other.Key)
-                if (this.ModeName == other.ModeName)
-                    if (this.Chords == other.Chords)
-                    {
-                        result = true;
-                    }
+            if (0 == Compare(this, other))
+                result = true;
             return result;
         }
 
@@ -213,5 +229,10 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return $"{nameof(GridRow)}: {ModeName} {string.Join(", ", Chords.Select(x => x.Name))}";
+        }
     }//class
 }//ns

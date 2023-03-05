@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
@@ -21,9 +22,11 @@ namespace Eric.Morrison.Harmony
     {
 
         #region Properties
-        virtual public NoteName NoteName { get; set; }
-        virtual public List<NoteName> NoteNames { get; set; }
+        virtual public NoteName NoteName { get; private set; }
+        virtual public List<NoteName> NoteNames { get; private set; }
+        [JsonIgnore]
         virtual public List<NoteName> Accidentals { get { return this.NoteNames?.Where(x => x.IsFlatted || x.IsSharped).ToList(); } }
+        [JsonIgnore]
         virtual public bool UsesSharps
         {
             get
@@ -35,6 +38,7 @@ namespace Eric.Morrison.Harmony
                 return result;
             }
         }
+        [JsonIgnore]
         virtual public bool UsesFlats
         {
             get
@@ -46,6 +50,7 @@ namespace Eric.Morrison.Harmony
                 return result;
             }
         }
+        [JsonIgnore]
         virtual public bool IsNatural
         {
             get
@@ -58,11 +63,12 @@ namespace Eric.Morrison.Harmony
         }
 
 
-        virtual public bool IsMajor { get; set; }
-        virtual public bool IsMinor { get; set; }
-        virtual public int AccidentalCount { get; set; }
-        virtual public string Name { get; set; }
+        virtual public bool IsMajor { get; private set; }
+        virtual public bool IsMinor { get; private set; }
+        virtual public int AccidentalCount { get; private set; }
+        virtual public string Name { get; private set; }
         [Obsolete("", false)]
+        [JsonIgnore]
         public int RawValue
         {
             get
@@ -72,6 +78,8 @@ namespace Eric.Morrison.Harmony
                 return result;
             }
         }
+        public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
+
 
         [JsonIgnore]
         virtual public ChordFormula Ionian { get; private set; }
@@ -88,16 +96,25 @@ namespace Eric.Morrison.Harmony
         [JsonIgnore]
         virtual public ChordFormula Locrian { get; private set; }
 
-        public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
-
         #endregion
 
         #region Construction
-        private KeySignature(NoteName key, 
-            IEnumerable<NoteName> notes, 
-            bool isMajor, 
-            bool isMinor, 
-            bool addToCatalog = true)
+        [JsonConstructor]
+        public KeySignature(NoteName NoteName, List<NoteName> NoteNames,
+            bool IsMajor, bool IsMinor, int AccidentalCount, ExplicitNoteValuesEnum ExplicitValue)
+        {
+            this.NoteName= NoteName;
+            this.NoteNames= NoteNames;
+            this.IsMajor = IsMajor;
+            this.IsMinor = IsMinor;
+            this.AccidentalCount= AccidentalCount;
+            this.ExplicitValue=ExplicitValue;
+        }
+        private KeySignature(NoteName key,
+                IEnumerable<NoteName> notes,
+                bool isMajor,
+                bool isMinor,
+                bool addToCatalog = true)
         {
             this.NoteName = key;
             this.NoteNames = new List<NoteName>(notes);
@@ -136,7 +153,7 @@ namespace Eric.Morrison.Harmony
             Task.Run(() => this.InitAsync());
         }
 
-        protected KeySignature() { }
+        private KeySignature() { }
 
         async Task InitAsync()
         {
@@ -317,9 +334,7 @@ namespace Eric.Morrison.Harmony
             if (0 == result)
                 result = a.ExplicitValue.CompareTo(b.ExplicitValue);
             if (0 == result)
-            {
-                result = a.NoteNames.GetHashCode().CompareTo(b.NoteNames.GetHashCode());
-            }
+                result = a.IsMajor.CompareTo(b.IsMajor);
             return result;
         }
 
@@ -483,7 +498,7 @@ namespace Eric.Morrison.Harmony
             bool isAltered = false;
             if (formula.ChordType.IsAlteredDominant)
             {
-                tmpFormula = ChordFormula.Catalog.First(x => 
+                tmpFormula = ChordFormula.Catalog.First(x =>
                     x.Root == formula.Root
                     && x.IsDominant == true);
                 isAltered = true;
@@ -494,12 +509,12 @@ namespace Eric.Morrison.Harmony
                     x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp)
                     || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
                 {
-                    if (tmpFormula.UsesSharps 
+                    if (tmpFormula.UsesSharps
                         && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
-                    else if (tmpFormula.UsesFlats 
+                    else if (tmpFormula.UsesFlats
                         && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                     {
                         result = IsDiatonicEnum.Yes;

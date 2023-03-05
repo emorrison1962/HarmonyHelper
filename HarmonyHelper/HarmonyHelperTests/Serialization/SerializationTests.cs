@@ -157,8 +157,12 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
                 var json = JsonConvert.SerializeObject(result, Formatting.Indented);
                 var serialized = JsonConvert.DeserializeObject<List<Grid>>(json);
 
-                var b = result.Equals(serialized);
-                Assert.AreEqual(result, serialized);
+                for (int i = 0; i < result.Count; ++i)
+                {
+                    var a = result[i];
+                    var b = serialized[i];
+                    Assert.AreEqual(a, b);
+                }
                 new object();
             }
             new object();
