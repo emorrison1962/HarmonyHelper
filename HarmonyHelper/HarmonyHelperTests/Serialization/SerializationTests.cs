@@ -171,9 +171,9 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
 
                 var json = JsonConvert.SerializeObject(result, Formatting.Indented);
 
-                File.WriteAllText(
-                    Path.Combine(path, $"ModalInterchangeGrid {key.Name}"),
-                    json);
+                //File.WriteAllText(
+                //    Path.Combine(path, $"ModalInterchangeGrid {key.Name}"),
+                //    json);
 
                 var serialized = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
 
