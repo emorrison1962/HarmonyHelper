@@ -92,7 +92,7 @@ namespace Eric.Morrison.Harmony.Chords
         ChordFormula(ChordFormula src)
         {
             this.Root = src.Root.Copy();
-            this.Bass = src.Bass.Copy();
+            this.Bass = src.Bass?.Copy();
             foreach (var key in src.Keys)
                 this.Keys.Add(key);
             this.ChordType = src.ChordType;
@@ -324,9 +324,7 @@ namespace Eric.Morrison.Harmony.Chords
             //    chord = new ChordFormula(nn, chord.ChordType, null);
             //}
 
-            var key = ChordFormula2KeySignatureMap
-                .GetKeys(chord)
-                .FirstOrDefault();
+            var key = chord.Keys.First();
 
             if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelent))
             {

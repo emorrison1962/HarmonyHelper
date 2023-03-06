@@ -11,6 +11,7 @@ using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony
 {
+    [Obsolete("", true)]
     static public class ChordFormula2KeySignatureMap
     {
         static public Dictionary<ChordFormula, List<KeySignature>>
