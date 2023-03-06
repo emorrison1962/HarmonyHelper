@@ -505,6 +505,7 @@ namespace Eric.Morrison.Harmony
                     && x.IsDominant == true);
                 isAltered = true;
             }
+
             if (tmpFormula.RawValue == (tmpFormula.RawValue & this.RawValue))
             {
                 if (!tmpFormula.NoteNames.Any(x =>
@@ -512,16 +513,16 @@ namespace Eric.Morrison.Harmony
                     || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
                 {
                     if (tmpFormula.UsesSharps
-                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
+                        && !this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
                     else if (tmpFormula.UsesFlats
-                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
+                        && !this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
-                    else if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                    else 
                     {
                         result = IsDiatonicEnum.Yes;
                     }

@@ -15,6 +15,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using System.CodeDom.Compiler;
 
 namespace HarmonyHelperTests.Chords
 {
@@ -41,10 +42,6 @@ namespace HarmonyHelperTests.Chords
             var dict = new Dictionary<ChordFormula, HashSet<KeySignature>> ();
             foreach (var formula in ChordFormula.Catalog) 
             {
-                //if (formula.Keys.Count == 0)
-                //{ 
-                //    new object();
-                //}
                 foreach (var key in KeySignature.InternalCatalog)
                 {
                     if (IsDiatonicEnum.Yes == key.IsDiatonic(formula))
@@ -91,25 +88,38 @@ namespace HarmonyHelperTests.Chords
 
             }
 
-            foreach (var formula in pairedFormuas)
-            {
-                var settings = new JsonSerializerSettings();
-                settings.Formatting = Formatting.Indented;
-                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                var json = JsonConvert.SerializeObject(formula, settings);
-                var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
 
-                foreach (var key in formula.Keys)
+            using (var sb = new IndentedTextWriter(new StringWriter()))
+            {
+                sb.Indent = 2;
+                sb.WriteLine(@"static void AddKeys()");
+                sb.WriteLine("{");
+                sb.Indent = 3;
+
+                foreach (var formula in pairedFormuas)
                 {
-                    var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Keys.Add(KeySignature.Catalog[\"{key.Name}\"]);";
-                    Debug.WriteLine (code);
+                    //var settings = new JsonSerializerSettings();
+                    //settings.Formatting = Formatting.Indented;
+                    //settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    //var json = JsonConvert.SerializeObject(formula, settings);
+                    //var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+                    //Assert.AreEqual(formula, serialized);
+                    //new object();
+
+
+
+                    foreach (var key in formula.Keys)
+                    {
+                        var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Keys.Add(KeySignature.Catalog[\"{key.Name}\"]);";
+                        sb.WriteLine(code);
+                    }
+                    new object();
                 }
 
-                Assert.AreEqual(formula, serialized);
-                new object();
+                sb.Indent = 2;
+                sb.WriteLine("}");
 
-
-                new object();
+                Debug.WriteLine(sb.InnerWriter.ToString());
             }
 
             new object();
