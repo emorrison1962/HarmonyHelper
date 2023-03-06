@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
+using HarmonyHelper.Interfaces;
+
 using Newtonsoft.Json;
 
 using static Eric.Morrison.Harmony.NoteName;
@@ -18,7 +20,7 @@ using static Eric.Morrison.Harmony.NoteName;
 namespace Eric.Morrison.Harmony
 {
     [Serializable]
-    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
+    public partial class KeySignature : ClassBase, IHasName, IEquatable<KeySignature>, IComparable<KeySignature>
     {
 
         #region Properties

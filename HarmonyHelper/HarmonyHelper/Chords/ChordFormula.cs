@@ -7,11 +7,12 @@ using Eric.Morrison.Harmony;
 using System.Reflection;
 using HarmonyHelper.Chords;
 using Newtonsoft.Json;
+using HarmonyHelper.Interfaces;
 
 namespace Eric.Morrison.Harmony.Chords
 {
     [Serializable]
-    public partial class ChordFormula : ChordEntityBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula
+    public partial class ChordFormula : ChordEntityBase, IEquatable<ChordFormula>, IComparable<ChordFormula>, INoteNameContainer, IHasRootNoteName, IMusicalEvent<ChordFormula>, IChordFormula, IHasName
     {
         #region Properties
 
