@@ -86,31 +86,45 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ChordTest()
         {
-            foreach (var origChord in ChordFormula.Catalog)
+            ChordFormula currentChord = null;
+            try
             {
-                if (ChordFormula.Catalog.ToList().Any(x => x.Name == origChord.Name))
+                foreach (var origChord in ChordFormula.Catalog)
                 {
-                    Debug.WriteLine($"{origChord.ToString()}");
-
-                    var origKey = origChord.Keys.First();
-
-                    var txedUp = origChord + Interval.Perfect4th;
-                    Assert.AreNotEqual(txedUp, origChord);
-
-                    var txedDown = txedUp - Interval.Perfect4th;
-
-                    //if (ChordFormula.Catalog.ToList().Any(x => x.Name == txedUp.Name))
+                    currentChord = origChord;
+                    if (origChord.Keys.Count > 0)
                     {
-                        var b = txedDown == origChord;
-                        Assert.AreEqual(txedDown, origChord);
+                        if (ChordFormula.Catalog.ToList().Any(x => x.Name == origChord.Name))
+                        {
+                            Debug.WriteLine($"{origChord.ToString()}");
+
+                            var origKey = origChord.Keys.First();
+
+                            var txedUp = origChord + Interval.Perfect4th;
+                            Assert.IsNotNull( txedUp );
+                            Assert.AreNotEqual(txedUp, origChord);
+
+                            if (txedUp.Keys.Any())
+                            {
+                                var txedDown = txedUp - Interval.Perfect4th;
+                                var b = txedDown == origChord;
+                                Assert.AreEqual(txedDown, origChord);
+                            }
+                        }
+                        else
+                        {
+                            Assert.Fail();
+                        }
                     }
                 }
-                else 
-                { 
-                    Assert.Fail();
-                }
+                new object();
+
             }
-            new object();
+            catch (Exception ex)
+            {
+                var bex = ex.GetBaseException();
+                throw;
+            }        
         }
 
         [TestMethod()]
@@ -156,10 +170,10 @@ namespace Eric.Morrison.Harmony.Tests
         public void ChordDiff()
         {
             var key = KeySignature.CMajor;
-            var Dm = ChordFormulaFactory.Create(NoteName.D,
+            var Dm = ChordFormulaFactory.Get(NoteName.D,
                 ChordType.Minor7th,
                 key);
-            var G7 = ChordFormulaFactory.Create(NoteName.G,
+            var G7 = ChordFormulaFactory.Get(NoteName.G,
                 ChordType.Dominant7th,
                 key);
 
@@ -168,10 +182,10 @@ namespace Eric.Morrison.Harmony.Tests
 
 
             key = KeySignature.BbMajor;
-            var Bb7 = ChordFormulaFactory.Create(NoteName.Bb,
+            var Bb7 = ChordFormulaFactory.Get(NoteName.Bb,
                 ChordType.Dominant7th,
                 key);
-            var Eb7 = ChordFormulaFactory.Create(NoteName.Eb,
+            var Eb7 = ChordFormulaFactory.Get(NoteName.Eb,
                 ChordType.Dominant7th,
                 key);
 

@@ -87,23 +87,23 @@ namespace Eric.Morrison.Harmony.Tests
 
 			for (int i = 0; i < 4; ++i)
 			{
-				var chordFormula = ChordFormulaFactory.Create(NoteName.A, ChordType.Minor7th, KeySignature.GMajor);
+				var chordFormula = ChordFormulaFactory.Get(NoteName.A, ChordType.Minor7th, KeySignature.GMajor);
 				var chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, TWO));
 
-				chordFormula = ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant7th, KeySignature.GMajor);
+				chordFormula = ChordFormulaFactory.Get(NoteName.D, ChordType.Dominant7th, KeySignature.GMajor);
 				chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, TWO));
 
-				chordFormula = ChordFormulaFactory.Create(NoteName.G, ChordType.Minor7th, KeySignature.FMajor);
+				chordFormula = ChordFormulaFactory.Get(NoteName.G, ChordType.Minor7th, KeySignature.FMajor);
 				chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, FOUR));
 
-				chordFormula = ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor);
+				chordFormula = ChordFormulaFactory.Get(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor);
 				chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, FOUR));
 
-				chordFormula = ChordFormulaFactory.Create(NoteName.F, ChordType.Dominant7th, KeySignature.BbMajor);
+				chordFormula = ChordFormulaFactory.Get(NoteName.F, ChordType.Dominant7th, KeySignature.BbMajor);
 				chord = new Chord(chordFormula, noteRange);
 				contexts.Add(new ArpeggiationContext(chord, FOUR));
 			}
@@ -164,7 +164,7 @@ namespace Eric.Morrison.Harmony.Tests
 					}
 				}
 
-				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var formula = ChordFormulaFactory.Get(root, chordType, key);
 				var chord = new Chord(formula, noteRange);
 				chords.Add(chord);
 
@@ -238,7 +238,7 @@ namespace Eric.Morrison.Harmony.Tests
 					root = root + ChordToneInterval.Eleventh;
 				}
 
-				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var formula = ChordFormulaFactory.Get(root, chordType, key);
 				var chord = new Chord(formula, noteRange);
 				chords.Add(chord);
 
@@ -297,7 +297,7 @@ namespace Eric.Morrison.Harmony.Tests
 					root += ChordToneInterval.Eleventh;
 				}
 
-				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var formula = ChordFormulaFactory.Get(root, chordType, key);
 				var chord = new Chord(formula, noteRange);
 				chords.Add(chord);
 			}
@@ -350,7 +350,7 @@ namespace Eric.Morrison.Harmony.Tests
 					root += ChordToneInterval.Eleventh;
 				}
 
-				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var formula = ChordFormulaFactory.Get(root, chordType, key);
 				var chord = new Chord(formula, noteRange);
 				chords.Add(chord);
 			}
@@ -393,18 +393,18 @@ namespace Eric.Morrison.Harmony.Tests
 			KeySignature key = KeySignature.AMajor;
 			ChordType chordType = ChordType.Dominant7th;
 
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.E, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.D, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.A, chordType, key), noteRange));
-			chords.Add(new Chord(ChordFormulaFactory.Create(NoteName.E, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.E, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.D, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
+			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.E, chordType, key), noteRange));
 
 
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave1);
@@ -456,7 +456,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void TheChickenTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SixthPosition);
-			var Bb7 = new Chord(ChordFormulaFactory.Create(NoteName.Bb, ChordType.Dominant7th, KeySignature.EbMajor), noteRange);
+			var Bb7 = new Chord(ChordFormulaFactory.Get(NoteName.Bb, ChordType.Dominant7th, KeySignature.EbMajor), noteRange);
 			var startingNote = new Note(Bb7.Root.NoteName, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
@@ -467,14 +467,14 @@ namespace Eric.Morrison.Harmony.Tests
 				chords.Add(Bb7);
 				chords.Add(Bb7);
 				chords.Add(Bb7);
-				var Eb7 = new Chord(ChordFormulaFactory.Create(NoteName.Eb, ChordType.Dominant7th, KeySignature.AbMajor), noteRange);
+				var Eb7 = new Chord(ChordFormulaFactory.Get(NoteName.Eb, ChordType.Dominant7th, KeySignature.AbMajor), noteRange);
 				chords.Add(Eb7);
 				chords.Add(Eb7);
-				var D7 = new Chord(ChordFormulaFactory.Create(NoteName.D, ChordType.Dominant7th, KeySignature.GMajor), noteRange);
+				var D7 = new Chord(ChordFormulaFactory.Get(NoteName.D, ChordType.Dominant7th, KeySignature.GMajor), noteRange);
 				chords.Add(D7);
-				var G7 = new Chord(ChordFormulaFactory.Create(NoteName.G, ChordType.Dominant7th, KeySignature.CMajor), noteRange);
+				var G7 = new Chord(ChordFormulaFactory.Get(NoteName.G, ChordType.Dominant7th, KeySignature.CMajor), noteRange);
 				chords.Add(G7);
-				var C7 = new Chord(ChordFormulaFactory.Create(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor), noteRange);
+				var C7 = new Chord(ChordFormulaFactory.Get(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor), noteRange);
 				chords.Add(C7);
 				chords.Add(C7);
 				chords.Add(C7);
@@ -514,56 +514,56 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			{
 				var chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.A,
+                    ChordFormulaFactory.Get(NoteName.A,
 						ChordType.Minor7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.D,
+                    ChordFormulaFactory.Get(NoteName.D,
 						ChordType.Dominant7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.G,
+                    ChordFormulaFactory.Get(NoteName.G,
 						ChordType.Major7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.C,
+                    ChordFormulaFactory.Get(NoteName.C,
 						ChordType.Major7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.FSharp,
+                    ChordFormulaFactory.Get(NoteName.FSharp,
 						ChordType.HalfDiminished,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.B,
+                    ChordFormulaFactory.Get(NoteName.B,
 						ChordType.Dominant7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.E,
+                    ChordFormulaFactory.Get(NoteName.E,
 						ChordType.Minor7th,
 						key),
 					noteRange);
 				chords.Add(chord);
 
 				chord = new Chord(
-					ChordFormulaFactory.Create(NoteName.E,
+                    ChordFormulaFactory.Get(NoteName.E,
 						ChordType.Minor7th,
 						key),
 					noteRange);
@@ -648,8 +648,8 @@ namespace Eric.Morrison.Harmony.Tests
                         .First(x => x.NoteName == nn + ChordToneInterval.Eleventh && x.IsMajor);
 
 
-                    chordFormula = new ChordFormula(nn,
-                    chordFormula.ChordType, key);
+                    chordFormula = ChordFormulaFactory
+						.Get(nn, chordFormula.ChordType, key);
                 }
 
                 chordFormula -= Interval.Major3rd;

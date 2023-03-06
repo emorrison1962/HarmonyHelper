@@ -144,10 +144,10 @@ namespace Eric.Morrison.Harmony.Chords
 
 			if (success)
 			{
-				if (null == key)
-					key = KeySignature.InternalCatalog.First(x => x.NoteName.Name == root.Name);
-				chordFormula = new ChordFormula(root, chordType, key);
-				if (null != bass)
+				chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
+                chordFormula = chordFormula.Copy();
+
+                if (null != bass)
 					chordFormula.SetBassNote(bass);
 			}
 
@@ -602,10 +602,9 @@ namespace Eric.Morrison.Harmony.Chords
 
 			if (success)
 			{
-				if (null == key)
-					key = KeySignature.InternalCatalog.First(x => x.NoteName.Name == root.Name);
-				chordFormula = new ChordFormula(root, chordType, key);
-				if (null != bass)
+                chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
+                chordFormula = chordFormula.Copy();
+                if (null != bass)
 					chordFormula.SetBassNote(bass);
 			}
 

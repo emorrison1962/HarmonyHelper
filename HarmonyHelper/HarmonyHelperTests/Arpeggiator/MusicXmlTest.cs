@@ -93,7 +93,7 @@ namespace Eric.Morrison.Harmony
 					root += ChordToneInterval.Eleventh;
 				}
 
-				var formula = ChordFormulaFactory.Create(root, chordType, key);
+				var formula = ChordFormulaFactory.Get(root, chordType, key);
 				var chord = new Chord(formula, noteRange);
 				chords.Add(chord);
 			}

@@ -255,7 +255,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 							{
 								try
 								{
-									var chordFormula = new ChordFormula(nn, chordType, key);
+									var chordFormula = ChordFormulaFactory.Get(nn, chordType, key);
 									var ul = new Note(nn, ascOctave);
 									var ll = new Note(nn, descOctave);
 

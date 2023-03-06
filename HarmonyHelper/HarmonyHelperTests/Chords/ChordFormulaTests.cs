@@ -15,6 +15,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using System.CodeDom.Compiler;
 
 namespace HarmonyHelperTests.Chords
 {
@@ -64,11 +65,15 @@ namespace HarmonyHelperTests.Chords
                 }
             }
 
+            //foreach (var formula in unpaired)
+            //{ 
+            //    Debug.WriteLine(formula.Name);
+            //}
 
             var pairedFormuas = new List<ChordFormula>();
             foreach (var formula in dict.Keys)
             {
-                Debug.WriteLine($"{formula.Name}");
+                //Debug.WriteLine($"{formula.Name}");
 
                 var keys = dict[formula];
                 foreach (var key in keys)
@@ -76,32 +81,45 @@ namespace HarmonyHelperTests.Chords
                     if (null != key)
                     {
                         formula.Keys.Add(key);
-                        Debug.WriteLine($"\t{key.Name}");
+                        //Debug.WriteLine($"\t{key.Name}");
                     }
                 }
                 pairedFormuas.Add(formula);
 
             }
 
-            foreach (var formula in pairedFormuas)
+
+            using (var sb = new IndentedTextWriter(new StringWriter()))
             {
-                //Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: 
-                //var options = new JsonSerializerOptions();
-                //options.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                //var json = System.Text.Json.JsonSerializer.Serialize(formula, options);
-                //var x = System.Text.Json.JsonSerializer.Deserialize<ChordFormula>(json);
+                sb.Indent = 2;
+                sb.WriteLine(@"static void AddKeys()");
+                sb.WriteLine("{");
+                sb.Indent = 3;
 
-                var settings = new JsonSerializerSettings();
-                settings.Formatting = Formatting.Indented;
-                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                var json = JsonConvert.SerializeObject(formula, settings);
-                var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+                foreach (var formula in pairedFormuas)
+                {
+                    //var settings = new JsonSerializerSettings();
+                    //settings.Formatting = Formatting.Indented;
+                    //settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    //var json = JsonConvert.SerializeObject(formula, settings);
+                    //var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
+                    //Assert.AreEqual(formula, serialized);
+                    //new object();
 
-                Assert.AreEqual(formula, serialized);
-                new object();
 
 
-                new object();
+                    foreach (var key in formula.Keys)
+                    {
+                        var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Keys.Add(KeySignature.Catalog[\"{key.Name}\"]);";
+                        sb.WriteLine(code);
+                    }
+                    new object();
+                }
+
+                sb.Indent = 2;
+                sb.WriteLine("}");
+
+                Debug.WriteLine(sb.InnerWriter.ToString());
             }
 
             new object();

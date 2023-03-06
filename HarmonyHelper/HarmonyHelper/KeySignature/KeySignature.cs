@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
+using HarmonyHelper.Interfaces;
+
 using Newtonsoft.Json;
 
 using static Eric.Morrison.Harmony.NoteName;
@@ -18,7 +20,7 @@ using static Eric.Morrison.Harmony.NoteName;
 namespace Eric.Morrison.Harmony
 {
     [Serializable]
-    public partial class KeySignature : ClassBase, IEquatable<KeySignature>, IComparable<KeySignature>
+    public partial class KeySignature : ClassBase, IHasName, IEquatable<KeySignature>, IComparable<KeySignature>
     {
 
         #region Properties
@@ -503,6 +505,7 @@ namespace Eric.Morrison.Harmony
                     && x.IsDominant == true);
                 isAltered = true;
             }
+
             if (tmpFormula.RawValue == (tmpFormula.RawValue & this.RawValue))
             {
                 if (!tmpFormula.NoteNames.Any(x =>
@@ -510,16 +513,16 @@ namespace Eric.Morrison.Harmony
                     || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
                 {
                     if (tmpFormula.UsesSharps
-                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
+                        && !this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
                     else if (tmpFormula.UsesFlats
-                        && this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
+                        && !this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
                     {
                         result = IsDiatonicEnum.Yes;
                     }
-                    else if (this.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                    else 
                     {
                         result = IsDiatonicEnum.Yes;
                     }
