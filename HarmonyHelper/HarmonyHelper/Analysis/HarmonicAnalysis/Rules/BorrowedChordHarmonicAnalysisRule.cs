@@ -55,20 +55,19 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         public List<ModalInterchangeGrid> CreateGrids(KeySignature key)
         {
-            //var grids = new List<ModalInterchangeGrid>();
-            List<ModalInterchangeGrid> grids = null;
+            var grids = new List<ModalInterchangeGrid>();
 
-            var json = Helpers.LoadEmbeddedResource($"{nameof(ModalInterchangeGrid)} {key.Name}");
             using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
-                grids = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
+                grids.Add(this.CreateMajorBorrowedChordGrid(key));
+                grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
+                grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
             }
 
-            ////using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             //{
-            //    grids.Add(this.CreateMajorBorrowedChordGrid(key));
-            //    grids.Add(this.CreateMelodicMinorBorrowedChordGrid(key));
-            //    grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
+            //    var json = Helpers.LoadEmbeddedResource($"{nameof(ModalInterchangeGrid)} {key.Name}");
+            //    grids = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
             //}
             return grids;
         }
