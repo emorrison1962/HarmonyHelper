@@ -80,7 +80,7 @@ namespace NeckDiagrams
 					var root = _chordNoteNameCombo.SelectedNoteName;
 					var chordType = _cbChordType.SelectedItem as ChordType;
 					var model = HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>();
-					var result = new ChordFormula(root, chordType, model.KeySignature);
+					var result = ChordFormulaFactory.Get(root, chordType, model.KeySignature);
 					this.SelectedChordChanged(this, result);
 				}
 			}

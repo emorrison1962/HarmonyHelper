@@ -156,10 +156,10 @@ namespace Eric.Morrison.Harmony.Tests
         public void ChordDiff()
         {
             var key = KeySignature.CMajor;
-            var Dm = ChordFormulaFactory.Create(NoteName.D,
+            var Dm = ChordFormulaFactory.Get(NoteName.D,
                 ChordType.Minor7th,
                 key);
-            var G7 = ChordFormulaFactory.Create(NoteName.G,
+            var G7 = ChordFormulaFactory.Get(NoteName.G,
                 ChordType.Dominant7th,
                 key);
 
@@ -168,10 +168,10 @@ namespace Eric.Morrison.Harmony.Tests
 
 
             key = KeySignature.BbMajor;
-            var Bb7 = ChordFormulaFactory.Create(NoteName.Bb,
+            var Bb7 = ChordFormulaFactory.Get(NoteName.Bb,
                 ChordType.Dominant7th,
                 key);
-            var Eb7 = ChordFormulaFactory.Create(NoteName.Eb,
+            var Eb7 = ChordFormulaFactory.Get(NoteName.Eb,
                 ChordType.Dominant7th,
                 key);
 

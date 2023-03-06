@@ -61,12 +61,11 @@ namespace Eric.Morrison.Harmony.Chords
             this.Bass = Bass;
             this.ChordType = ChordType;
         }
-        public ChordFormula()
+        ChordFormula()
         {
         }
 
-        public ChordFormula(NoteName root, ChordType chordType, KeySignature key)
-            : base(key)
+        ChordFormula(NoteName root, ChordType chordType)
         {
             if (null == root)
                 throw new NullReferenceException();
@@ -90,13 +89,26 @@ namespace Eric.Morrison.Harmony.Chords
             }
         }
 
-        public ChordFormula(ChordFormula src)
+        ChordFormula(ChordFormula src)
         {
-            this.Root = src.Root;
-            this.Bass = src.Bass;
-            this.Keys = src.Keys;
+            this.Root = src.Root.Copy();
+            this.Bass = src.Bass.Copy();
+            foreach (var key in src.Keys)
+                this.Keys.Add(key);
             this.ChordType = src.ChordType;
-            this.NoteNames = src.NoteNames;
+            foreach (var nn in src.NoteNames)
+                this.NoteNames.Add(nn);
+        }
+
+        static public ChordFormula Create(NoteName root, ChordType chordType)
+        {
+            if (null == root)
+                throw new ArgumentNullException();
+            if (null == chordType)
+                throw new ArgumentNullException();
+
+            var result = new ChordFormula(root, chordType);
+            return result;
         }
 
         public ChordFormula Copy()
@@ -104,6 +116,7 @@ namespace Eric.Morrison.Harmony.Chords
             var result = new ChordFormula(this);
             return result;
         }
+
         [Obsolete("", true)]
         public static ChordFormula Copy(ChordFormula src)
         {
@@ -315,13 +328,17 @@ namespace Eric.Morrison.Harmony.Chords
                 .GetKeys(chord)
                 .FirstOrDefault();
 
-            if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelnt))
+            if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelent))
             {
-                result = new ChordFormula(txposed, chord.ChordType, key);
+                result = ChordFormula.Catalog
+                    .FirstOrDefault(x => x.Root == txposed
+                        && x.ChordType == chord.ChordType);
             }
             else
             {
-                result = new ChordFormula(enharmonicEquivelnt, chord.ChordType, key);
+                result = ChordFormula.Catalog
+                    .FirstOrDefault(x => x.Root == enharmonicEquivelent
+                        && x.ChordType == chord.ChordType);
             }
             return result;
         }
@@ -359,7 +376,7 @@ namespace Eric.Morrison.Harmony.Chords
 			}
 #endif
             var txedRoot = src.Root + interval;
-            var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, src.Keys);
+            var result = ChordFormulaFactory.Create(txedRoot, src.ChordType);
 
             return result;
 
