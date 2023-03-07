@@ -76,7 +76,7 @@ namespace Eric.Morrison.Harmony
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = ChordType.None;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.None;
 			const int CYCLE_MAX = 11;
 			for (int i = 0 ; i <= CYCLE_MAX ; ++i)
 			{
@@ -84,11 +84,11 @@ namespace Eric.Morrison.Harmony
 				{
 					root = NoteName.G;
 					key = KeySignature.CMajor;
-					chordType = ChordType.Dominant7th;
+					chordType = ChordIntervalsEnum.Dominant7th;
 				}
 				else
 				{
-					chordType = ChordType.Dominant7th;
+					chordType = ChordIntervalsEnum.Dominant7th;
 					key += Interval.Perfect4th;
 					root += ChordToneInterval.Eleventh;
 				}

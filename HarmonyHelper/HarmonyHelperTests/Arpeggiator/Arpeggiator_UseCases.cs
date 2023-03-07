@@ -132,7 +132,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = null;
+            ChordIntervalsEnum chordType = null;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -214,7 +214,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = ChordIntervalsEnum.Augmented;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.Augmented;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -280,7 +280,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = ChordIntervalsEnum.None;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.None;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -333,7 +333,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-			ChordType chordType = ChordIntervalsEnum.None;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.None;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -391,7 +391,7 @@ namespace Eric.Morrison.Harmony.Tests
 
 			var chords = new List<Chord>();
 			KeySignature key = KeySignature.AMajor;
-			ChordType chordType = ChordIntervalsEnum.Dominant7th;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.Dominant7th;
 
 			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));
 			chords.Add(new Chord(ChordFormulaFactory.Get(NoteName.A, chordType, key), noteRange));

@@ -17,7 +17,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void GetThirdTest()
         {
-            var cte = ChordType.Minor;
+            var cte = ChordIntervalsEnum.Minor;
 
             var ict = (int)cte;
             var mask = (int)(ChordTonesBitmaskEnum.Third);
@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Tests
             var which = (ict & mask);
             var result = (Interval)which;
 
-            var interval = ChordType.Major.GetInterval(ChordFunctionEnum.Third);
+            var interval = ChordIntervalsEnum.Major.GetInterval(ChordFunctionEnum.Third);
             //Interval GetThird(this ChordType e)
             //interval.ToStringEx();
         }
@@ -71,7 +71,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void Gb7ModulationTest()
         {
-            var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordType.Dominant7th);
+            var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordIntervalsEnum.Dominant7th);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
             var origKey = chord.Keys.First();
             var txedUp = chord + Interval.Perfect4th;
@@ -171,10 +171,10 @@ namespace Eric.Morrison.Harmony.Tests
         {
             var key = KeySignature.CMajor;
             var Dm = ChordFormulaFactory.Get(NoteName.D,
-                ChordType.Minor7th,
+                ChordIntervalsEnum.Minor7th,
                 key);
             var G7 = ChordFormulaFactory.Get(NoteName.G,
-                ChordType.Dominant7th,
+                ChordIntervalsEnum.Dominant7th,
                 key);
 
             //var result = Dm.CompareTo(G7, true);
@@ -183,10 +183,10 @@ namespace Eric.Morrison.Harmony.Tests
 
             key = KeySignature.BbMajor;
             var Bb7 = ChordFormulaFactory.Get(NoteName.Bb,
-                ChordType.Dominant7th,
+                ChordIntervalsEnum.Dominant7th,
                 key);
             var Eb7 = ChordFormulaFactory.Get(NoteName.Eb,
-                ChordType.Dominant7th,
+                ChordIntervalsEnum.Dominant7th,
                 key);
 
             var result = Bb7.CompareTo(Eb7, true);

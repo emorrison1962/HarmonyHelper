@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var s = "bbm7";
 			var success = ChordFormulaParser.TryParse(s, out var key, out List<ChordFormula> result, out string message);
 			Assert.IsTrue(success);
-			Assert.IsTrue(ChordType.Minor7th == result.First().ChordType);
+			Assert.IsTrue(ChordIntervalsEnum.Minor7th == result.First().ChordType);
 			Debug.WriteLine(result[0]);
 			Assert.IsTrue(NoteName.Bb == result.First().Root);
 

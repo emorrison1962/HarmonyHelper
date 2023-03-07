@@ -31,7 +31,7 @@ namespace Eric.Morrison.Harmony.Chords
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
-        virtual public ChordType xChordType { get; private set; }
+        virtual public ChordIntervalsEnum xChordType { get; private set; }
         virtual public ChordIntervalsEnum ChordType { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
         [JsonIgnore]

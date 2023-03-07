@@ -50,9 +50,9 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : class
+		public static T NextOrFirst<T>(this List<T> list, ref int currentNdx) where T : struct
 		{
-			T result = null;
+			T result = default;
 			var maxNdx = list.Count - 1;
 			if (currentNdx < maxNdx)
 			{
@@ -67,6 +67,7 @@ namespace Eric.Morrison.Harmony
 
 			return result;
 		}
+
 
 
         public static int GetDistance<T>(this List<T> list, T startingAt, T criteria) where T: IEquatable<T>, IComparable<T>

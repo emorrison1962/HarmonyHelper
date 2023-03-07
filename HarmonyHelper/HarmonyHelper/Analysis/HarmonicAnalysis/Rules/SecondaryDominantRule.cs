@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 {
                     if (!pair[0].IsDominantOfKey(key))
                     {
-                        if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.IsDominant)
+                        if (nonDiatonic.Contains(pair[0]) && pair[0].ChordType.HasFlag(ChordIntervalsEnum.IsDominant))
                         {
                             var interval = pair[0].Root - pair[1].Root;
                             if (pair[0].Root - pair[1].Root == Interval.Perfect5th)
