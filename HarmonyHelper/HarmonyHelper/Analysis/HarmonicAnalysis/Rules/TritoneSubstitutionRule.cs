@@ -18,13 +18,13 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             var pairs = chords.GetPairs().Where(x => (x[0].Root - x[1].Root) == Interval.Minor2nd);
             foreach (var pair in pairs)
             {
-                if (pair[0].ChordType.IsDominant)
+                if (pair[0].ChordType.HasFlag(ChordIntervalsEnum.IsDominant))
                 {
                     var tonic = pair[1].Root;
                     var subbedRoot = tonic + ChordToneInterval.Perfect5th;
                     var subbedFor = ChordFormula.Catalog
                         .Where(x => x.Root == subbedRoot
-                            && x.ChordType == ChordType.Dominant7th)
+                            && x.ChordType == ChordIntervalsEnum.Dominant7)
                         .First();
 
                     result.Add(new HarmonicAnalysisResult(this, true,

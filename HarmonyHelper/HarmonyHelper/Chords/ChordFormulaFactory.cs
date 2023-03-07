@@ -8,7 +8,7 @@ namespace Eric.Morrison.Harmony.Chords
 {
     public static class ChordFormulaFactory
     {
-        static public ChordFormula Create(NoteName root, ChordType chordType)
+        static public ChordFormula Create(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
                 throw new ArgumentNullException();
@@ -19,11 +19,11 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        static public ChordFormula Get(NoteName root, ChordType chordType, KeySignature unused)
+        static public ChordFormula Get(NoteName root, ChordIntervalsEnum chordType, KeySignature unused)
         {
             var result = ChordFormula.Catalog
-                        .First(x => x.Root == NoteName.A
-                        && x.ChordType == ChordType.Minor7th);
+                        .First(x => x.Root == root
+                            && x.ChordType == chordType);
             return result;
         }
 

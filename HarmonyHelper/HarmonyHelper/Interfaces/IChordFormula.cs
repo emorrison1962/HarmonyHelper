@@ -8,7 +8,7 @@ namespace Eric.Morrison.Harmony.Chords
     public interface IChordFormula
     {
         NoteName Bass { get; }
-        ChordType ChordType { get; }
+        ChordIntervalsEnum ChordType { get; }
         bool IsDiminished { get; }
         bool IsDominant { get; }
         bool IsHalfDiminished { get; }

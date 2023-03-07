@@ -61,7 +61,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             var pairs = chords.GetPairs().Where(x => (x.First.Root - x.Second.Root) == Interval.Minor2nd).ToList();
             foreach (var pair in pairs)
             {
-                if (pair.First.ChordType.IsDominant)
+                if (pair.First.ChordType.HasFlag(ChordIntervalsEnum.IsDominant))
                 {
                     var subbedFor = this.GetTritoneSubstitution(pair.First);
                     var seq = chords.FindAll(x => x == pair.First);
@@ -140,7 +140,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 		ChordFormula GetTritoneSubstitution(ChordFormula orig)
 		{
 			ChordFormula result = null;
-			if (orig.IsDominant)
+			if (orig.ChordType.HasFlag(ChordIntervalsEnum.IsDominant))
 			{
 				result = orig.Copy() + ChordToneInterval.Augmented4th;
 			}

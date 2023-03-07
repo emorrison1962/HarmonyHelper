@@ -181,37 +181,37 @@ namespace Eric.Morrison.Harmony
                 var vii = this.NoteName + Interval.Major7th;
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Major7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Major7
                         && x.Root == this.NoteName)
                     .First();
 
                 this.Dorian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == ii)
                     .First();
 
                 this.Phrygian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == iii)
                     .First();
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Major7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Major7
                         && x.Root == IV)
                     .First();
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Dominant7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Dominant7
                         && x.Root == V)
                     .First();
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == vi)
                     .First();
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.HalfDiminished
+                    .Where(x => x.ChordType == ChordIntervalsEnum.HalfDiminished
                         && x.Root == vii)
                     .First();
 
@@ -227,37 +227,37 @@ namespace Eric.Morrison.Harmony
                 var vii = this.NoteName + Interval.Minor7th;
 
                 this.Ionian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == this.NoteName)
                     .FirstOrDefault();
 
                 this.Dorian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.HalfDiminished
+                    .Where(x => x.ChordType == ChordIntervalsEnum.HalfDiminished
                         && x.Root == ii)
                     .FirstOrDefault();
 
                 this.Phrygian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Major7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Major7
                         && x.Root == iii)
                     .FirstOrDefault();
 
                 this.Lydian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == IV)
                     .FirstOrDefault();
 
                 this.MixoLydian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Minor7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Minor7
                         && x.Root == V)
                     .FirstOrDefault();
 
                 this.Aeolian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Major7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Major7
                         && x.Root == vi)
                     .FirstOrDefault();
 
                 this.Locrian = ChordFormula.Catalog
-                    .Where(x => x.ChordType == ChordType.Dominant7th
+                    .Where(x => x.ChordType == ChordIntervalsEnum.Dominant7
                         && x.Root == vii)
                     .FirstOrDefault();
             }

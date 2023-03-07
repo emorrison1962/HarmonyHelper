@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 			NoteName root = null;
 			NoteName bass = null;
-			var chordType = ChordType.None;
+			var chordType = ChordIntervalsEnum.None;
 			bool success = false;
 			// Debug.WriteLine(input);
 			var match = Regex.Match(input, REGEX);
@@ -109,8 +109,8 @@ namespace Eric.Morrison.Harmony.Chords
 					{
 						var ctStr = match.Groups[NDX_CHORD_TYPE].ToString();
 						chordType = ParseChordType(ctStr, out string error);
-						Debug.Assert(ChordType.None != chordType);
-						if (ChordType.None == chordType)
+						Debug.Assert(ChordIntervalsEnum.None != chordType);
+						if (ChordIntervalsEnum.None == chordType)
 							message = error;
 					}
 
@@ -251,10 +251,10 @@ namespace Eric.Morrison.Harmony.Chords
 
 		}
 
-		static ChordType ParseChordType(string input, out string message)
+		static ChordIntervalsEnum ParseChordType(string input, out string message)
 		{
 			message = null;
-			var result = ChordType.None;
+			var result = ChordIntervalsEnum.None;
 
 			#region switch (input)
 			switch (input)
@@ -262,22 +262,22 @@ namespace Eric.Morrison.Harmony.Chords
 				#region Major chords
 				case "":
 				case "maj":
-					result = ChordType.Major;
+					result = ChordIntervalsEnum.Major;
 					break;
 				case "6":
-					result = ChordType.Major6th;
+					result = ChordIntervalsEnum.Major6;
 					break;
 				case "maj7":
-					result = ChordType.Major7th;
+					result = ChordIntervalsEnum.Major7;
 					break;
 				case "maj9":
-					result = ChordType.Major9th;
+					result = ChordIntervalsEnum.Major9;
 					break;
 				case "maj11":
-					result = ChordType.Major11th;
+					result = ChordIntervalsEnum.Major11;
 					break;
 				case "maj13":
-					result = ChordType.Major13th;
+					result = ChordIntervalsEnum.Major13;
 					break;
 				#endregion
 
@@ -285,16 +285,16 @@ namespace Eric.Morrison.Harmony.Chords
 				case "maj9#11":
 					break;
 				case "maj13#11":
-					result = ChordType.Major13Aug11th;
+					result = ChordIntervalsEnum.Major13Aug11;
                     break;
 				case "add9":
-					result = ChordType.MajorAdd9;
+					result = ChordIntervalsEnum.MajorMu;
 					break;
 				case "maj7b5":
-					result = ChordType.Major7b5;
+					result = ChordIntervalsEnum.Major7b5;
 					break;
 				case "maj7#5":
-                    result = ChordType.Major7Aug5;
+                    result = ChordIntervalsEnum.Major7Aug;
                     break;
 
 
@@ -302,34 +302,34 @@ namespace Eric.Morrison.Harmony.Chords
 				case "min":
 				case "m":
 				case "-":
-					result = ChordType.Minor;
+					result = ChordIntervalsEnum.Minor;
 					break;
 				case "m6":
-					result = ChordType.Minor6th;
+					result = ChordIntervalsEnum.Minor6;
 					break;
 				case "m7":
 				case "-7":
-					result = ChordType.Minor7th;
+					result = ChordIntervalsEnum.Minor7;
 					break;
 				case "m9":
-					result = ChordType.Minor9th;
+					result = ChordIntervalsEnum.Minor9;
 					break;
 				case "m11":
-					result = ChordType.Minor11th;
+					result = ChordIntervalsEnum.Minor11;
 					break;
 				case "m13":
-					result = ChordType.Minor13th;
+					result = ChordIntervalsEnum.Minor13;
 					break;
 				#endregion
 
 
 				case "madd9":
-					result = ChordType.MinorAdd9;
+					result = ChordIntervalsEnum.MinorAdd9;
 					break;
 				case "m6add9":
 					break;
 				case "mmaj7":
-					result = ChordType.MinorMaj7th;
+					result = ChordIntervalsEnum.MinorMajor7;
 					break;
 				case "mmaj9":
                     throw new NotImplementedException();
@@ -338,7 +338,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 				case "-7b5":
 				case "m7b5":
-					result = ChordType.HalfDiminished;
+					result = ChordIntervalsEnum.HalfDiminished;
 					break;
 				case "m7#5":
                     throw new NotImplementedException();
@@ -348,33 +348,33 @@ namespace Eric.Morrison.Harmony.Chords
                 #region Diatonic Dominant chords
                 case "dominant":
                 case "7":
-					result = ChordType.Dominant7th;
+					result = ChordIntervalsEnum.Dominant7;
 					break;
 				case "9":
-					result = ChordType.Dominant9th;
+					result = ChordIntervalsEnum.Dominant9;
 					break;
 				case "11":
-					result = ChordType.Dominant11th;
+					result = ChordIntervalsEnum.Dominant11;
 					break;
 				case "13":
-					result = ChordType.Dominant13th;
+					result = ChordIntervalsEnum.Dominant13;
 					break;
 
                 #endregion
 
                 case "7b5":
-					result = ChordType.Dominant7b5;
+					result = ChordIntervalsEnum.Dominant7b5;
                     break;
 
 
                 case "7#5":
-					result = ChordType.Dominant7Aug;
+					result = ChordIntervalsEnum.Dominant7Sharp5;
                     break;
 				case "7b9":
-					result = ChordType.Dominant7b9;
+					result = ChordIntervalsEnum.Dominant7b9;
 					break;
 				case "7#9":
-					result = ChordType.Dominant7Sharp9;
+					result = ChordIntervalsEnum.Dominant7Sharp9;
 					break;
 				case "7b5b9":
                     throw new NotImplementedException();
@@ -390,27 +390,27 @@ namespace Eric.Morrison.Harmony.Chords
                     throw new NotImplementedException();
                 case "aug":
 				case "+":
-					result = ChordType.Augmented;
+					result = ChordIntervalsEnum.Augmented;
 					break;
 				case "dim":
-					result = ChordType.Diminished;
+					result = ChordIntervalsEnum.Diminished;
 					break;
 				case "dim7":
-					result = ChordType.Diminished7;
+					result = ChordIntervalsEnum.Diminished7;
 					break;
 
                 case "sus":
                 case "sus4":
-					result = ChordType.Sus4;
+					result = ChordIntervalsEnum.Sus4;
 					break;
 				case "sus2":
-					result = ChordType.Sus2;
+					result = ChordIntervalsEnum.Sus2;
 					break;
 				case "sus2sus4":
-					result = ChordType.Sus2Sus4;
+					result = ChordIntervalsEnum.Sus2Sus4;
 					break;
 				case "7sus4":
-					result = ChordType.SevenSus4;
+					result = ChordIntervalsEnum.Dominant7Sus4;
 					break;
 
 
@@ -423,7 +423,7 @@ namespace Eric.Morrison.Harmony.Chords
 
 			#endregion
 
-			if (result == ChordType.None)
+			if (result == ChordIntervalsEnum.None)
 			{
 				message = $"Unsupported chord type ({input})";
 				Debug.WriteLine($"{input}");

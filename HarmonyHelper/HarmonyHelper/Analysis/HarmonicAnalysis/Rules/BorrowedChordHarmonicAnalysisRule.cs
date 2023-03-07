@@ -89,14 +89,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 inputKey - Interval.Major6th,
                 inputKey - Interval.Major7th,
             };
-                var chordTypes = new List<ChordType>() { //harmonized major scale
-				ChordType.Major7th,
-                ChordType.Minor7th,
-                ChordType.Minor7th,
-                ChordType.Major7th,
-                ChordType.Dominant7th,
-                ChordType.Minor7th,
-                ChordType.HalfDiminished
+                var chordTypes = new List<ChordIntervalsEnum>() { //harmonized major scale
+				ChordIntervalsEnum.Major7,
+                ChordIntervalsEnum.Minor7,
+                ChordIntervalsEnum.Minor7,
+                ChordIntervalsEnum.Major7,
+                ChordIntervalsEnum.Dominant7,
+                ChordIntervalsEnum.Minor7,
+                ChordIntervalsEnum.HalfDiminished
             };
 
                 var chordTypeNdx = 0;
@@ -157,14 +157,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 inputKey - Interval.Minor7th,
             };
 
-                var chordTypes = new List<ChordType>() { //harmonized melodic minor scale
-				ChordType.MinorMaj7th,
-                ChordType.Minor7th,
-                ChordType.Major7Aug5,
-                ChordType.Dominant7th,
-                ChordType.Dominant7th,
-                ChordType.HalfDiminished,
-                ChordType.HalfDiminished
+                var chordTypes = new List<ChordIntervalsEnum>() { //harmonized melodic minor scale
+				ChordIntervalsEnum.MinorMajor7,
+                ChordIntervalsEnum.Minor7,
+                ChordIntervalsEnum.Major7Aug,
+                ChordIntervalsEnum.Dominant7,
+                ChordIntervalsEnum.Dominant7,
+                ChordIntervalsEnum.HalfDiminished,
+                ChordIntervalsEnum.HalfDiminished
             };
 
                 var chordTypeNdx = 0;
@@ -223,14 +223,14 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 inputKey - Interval.Minor6th,
                 inputKey - Interval.Minor7th,
             };
-                var chordTypes = new List<ChordType>() { //harmonized melodic minor scale
-				ChordType.MinorMaj7th,
-                ChordType.HalfDiminished,
-                ChordType.Major7Aug5,
-                ChordType.Minor7th,
-                ChordType.Dominant7th,
-                ChordType.Major7th,
-                ChordType.Diminished7
+                var chordTypes = new List<ChordIntervalsEnum>() { //harmonized melodic minor scale
+				ChordIntervalsEnum.MinorMajor7,
+                ChordIntervalsEnum.HalfDiminished,
+                ChordIntervalsEnum.Major7Aug,
+                ChordIntervalsEnum.Minor7,
+                ChordIntervalsEnum.Dominant7,
+                ChordIntervalsEnum.Major7,
+                ChordIntervalsEnum.Diminished7
             };
 
                 var chordTypeNdx = 0;
