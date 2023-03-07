@@ -13,7 +13,7 @@ namespace Eric.Morrison.Harmony.Enums
         [TestMethod]
         public void EnumTests()
         {
-            ChordIntervalsEnum chordTypeEnum = ChordIntervalsEnum.ChordTypeDominant11Flat9;
+            ChordIntervalsEnum chordTypeEnum = ChordIntervalsEnum.ChordTypeDominant11thFlat9;
 
             var isDominant = false;
             var isAltered = false;

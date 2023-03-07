@@ -760,7 +760,7 @@ namespace Eric.Morrison.Harmony.Chords
         #endregion
 
 
-        static void AddToCatalog(NoteName nn, ChordType ct)
+        static void AddToCatalog(NoteName nn, ChordIntervalsEnum ct)
         {
             try
             {
@@ -6208,7 +6208,7 @@ namespace Eric.Morrison.Harmony.Chords
                 keySignatures.Add(key);
             }
 
-            var chordTypes = new List<ChordType>();
+            var chordTypes = new List<ChordIntervalsEnum>();
             foreach (var ct in ChordType.Catalog)
             {
                 chordTypes.Add(ct);
@@ -6229,7 +6229,7 @@ namespace Eric.Morrison.Harmony.Chords
         }
 
         private static void GenerateCodeForFieldDeclarations(List<KeySignature> keySignatures,
-            List<ChordType> chordTypes,
+            List<ChordIntervalsEnum> chordTypes,
             List<NoteName> noteNames)
         {//static public readonly ChordFormula C7;
             Debug.WriteLine($"#region static Chords{Environment.NewLine}");
@@ -6241,8 +6241,8 @@ namespace Eric.Morrison.Harmony.Chords
 
                 foreach (var ct in chordTypes)
                 {
-                    if ((nn == NoteName.BSharp && ct == ChordType.Dominant7Sharp9)
-                        || (nn == NoteName.ESharp && ct == ChordType.Dominant7Sharp9))
+                    if ((nn == NoteName.BSharp && ct == ChordIntervalsEnum.ChordTypeDominant7thSharp9)
+                        || (nn == NoteName.ESharp && ct == ChordIntervalsEnum.ChordTypeDominant7thSharp9))
                     {// Don't generate chords with triple #s.
                     }
                     else
@@ -6257,7 +6257,7 @@ namespace Eric.Morrison.Harmony.Chords
         }
 
         private static void GenerateCode_ForPopulatingCatalog(List<KeySignature> keySignatures,
-            List<ChordType> chordTypes,
+            List<ChordIntervalsEnum> chordTypes,
             List<NoteName> noteNames)
         {//ChordFormula.AddToCatalog(NoteName.BSharp, ChordType.Augmented, null);
             Debug.WriteLine("#region Instantiate static chord _Catalog.");
@@ -6296,9 +6296,9 @@ namespace Eric.Morrison.Harmony.Chords
 
 
                     #region get ct.FieldName
-                    var ctfis = typeof(ChordType).GetFields();
+                    var ctfis = typeof(ChordIntervalsEnum).GetFields();
                     var ctfi = ctfis
-                        .Where(x => (x.GetValue(null) as ChordType).Name == ct.Name)
+                        .Where(x => (x.GetValue(null) as ChordIntervalsEnum).Name == ct.Name)
                         .First();
 
                     ctFieldName = ctfi.Name;

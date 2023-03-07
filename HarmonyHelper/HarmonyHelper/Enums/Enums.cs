@@ -319,33 +319,33 @@ namespace Eric.Morrison.Harmony
 
 
         ChordTypeMajor = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalPerfect5th,
-        ChordTypeMajor6 = ChordTypeMajor | ChordIntervalsEnum.IntervalMajor6th,
-        ChordTypeMajor7 = ChordTypeMajor | ChordIntervalsEnum.IntervalMajor7th,
-        ChordTypeMajor9 = ChordTypeMajor7 | ChordIntervalsEnum.IntervalNinth,
-        ChordTypeMajor11 = ChordTypeMajor9 | ChordIntervalsEnum.IntervalEleventh,
-        ChordTypeMajor13 = ChordTypeMajor11 | ChordIntervalsEnum.IntervalThirteenth,
+        ChordTypeMajor6th = ChordTypeMajor | ChordIntervalsEnum.IntervalMajor6th,
+        ChordTypeMajor7th = ChordTypeMajor | ChordIntervalsEnum.IntervalMajor7th,
+        ChordTypeMajor9th = ChordTypeMajor7th | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeMajor11th = ChordTypeMajor9th | ChordIntervalsEnum.IntervalEleventh,
+        ChordTypeMajor13th = ChordTypeMajor11th | ChordIntervalsEnum.IntervalThirteenth,
         ChordTypeMajorMu = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalPerfect5th | ChordIntervalsEnum.IntervalNinth,
 
 
-        ChordTypeDominant7 = ChordTypeMajor | ChordIntervalsEnum.IntervalMinor7th,
-        ChordTypeDominant7Flat9 = ChordTypeDominant7 | ChordIntervalsEnum.IntervalFlat9th,
-        ChordTypeDominant7Sharp9 = ChordTypeDominant7 | ChordIntervalsEnum.IntervalSharp9th,
+        ChordTypeDominant7th = ChordTypeMajor | ChordIntervalsEnum.IntervalMinor7th,
+        ChordTypeDominant7thFlat9 = ChordTypeDominant7th | ChordIntervalsEnum.IntervalFlat9th,
+        ChordTypeDominant7thSharp9 = ChordTypeDominant7th | ChordIntervalsEnum.IntervalSharp9th,
 
-        ChordTypeDominant7Flat5 = ChordTypeDiminished | ChordIntervalsEnum.IntervalMinor7th,
-        ChordTypeDominant7Flat5Flat9 = ChordTypeDominant7Flat5 | ChordIntervalsEnum.IntervalFlat9th,
-        ChordTypeDominant7Flat5Sharp9 = ChordTypeDominant7Flat5 | ChordIntervalsEnum.IntervalSharp9th,
+        ChordTypeDominant7thFlat5 = ChordTypeDiminished | ChordIntervalsEnum.IntervalMinor7th,
+        ChordTypeDominant7thFlat5Flat9 = ChordTypeDominant7thFlat5 | ChordIntervalsEnum.IntervalFlat9th,
+        ChordTypeDominant7thFlat5Sharp9 = ChordTypeDominant7thFlat5 | ChordIntervalsEnum.IntervalSharp9th,
 
-        ChordTypeDominant7Sharp5 = ChordTypeAugmented | ChordIntervalsEnum.IntervalMinor7th,
-        ChordTypeDominant7Sharp5Flat9 = ChordTypeDominant7Sharp5 | ChordIntervalsEnum.IntervalFlat9th,
-        ChordTypeDominant7Sharp5Nine = ChordTypeDominant7Sharp5 | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeDominant7thSharp5 = ChordTypeAugmented | ChordIntervalsEnum.IntervalMinor7th,
+        ChordTypeDominant7thSharp5Flat9 = ChordTypeDominant7thSharp5 | ChordIntervalsEnum.IntervalFlat9th,
+        ChordTypeDominant7thSharp5Nine = ChordTypeDominant7thSharp5 | ChordIntervalsEnum.IntervalNinth,
 
 
-        ChordTypeDominant9 = ChordTypeDominant7 | ChordIntervalsEnum.IntervalNinth,
-        ChordTypeDominant11 = ChordTypeDominant9 | ChordIntervalsEnum.IntervalEleventh,
-        ChordTypeDominant11Flat9 = ChordTypeDominant11 | ChordIntervalsEnum.IntervalFlat9th,
-        ChordTypeDominant13 = ChordTypeDominant11 | ChordIntervalsEnum.IntervalThirteenth,
-        Dominant13Augmented11 = ChordTypeDominant13 | ChordIntervalsEnum.IntervalAugmented11th,
-        ChordTypeDominant13Flat9 = ChordTypeDominant13 | ChordIntervalsEnum.IntervalFlat9th,
+        ChordTypeDominant9th = ChordTypeDominant7th | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeDominant11th = ChordTypeDominant9th | ChordIntervalsEnum.IntervalEleventh,
+        ChordTypeDominant11thFlat9 = ChordTypeDominant11th | ChordIntervalsEnum.IntervalFlat9th,
+        ChordTypeDominant13th = ChordTypeDominant11th | ChordIntervalsEnum.IntervalThirteenth,
+        Dominant13Augmented11th = ChordTypeDominant13th | ChordIntervalsEnum.IntervalAugmented11th,
+        ChordTypeDominant13thFlat9 = ChordTypeDominant13th | ChordIntervalsEnum.IntervalFlat9th,
 
         ChordTypeSus4 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalSus4 | ChordIntervalsEnum.IntervalPerfect5th,
         ChordTypeSus2 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalSus2 | ChordIntervalsEnum.IntervalPerfect5th,
@@ -356,25 +356,25 @@ namespace Eric.Morrison.Harmony
         ChordTypeDiminished = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalDiminished5th,
 
         ChordTypeHalfDiminished = ChordTypeDiminished | ChordIntervalsEnum.IntervalMinor7th,
-        ChordTypeDiminished7 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalDiminished5th | ChordIntervalsEnum.IntervalDiminished7th,
+        ChordTypeDiminished7th = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalDiminished5th | ChordIntervalsEnum.IntervalDiminished7th,
 
         ChordTypeMinor = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalPerfect5th,
-        ChordTypeMinor7 = ChordTypeMinor | ChordIntervalsEnum.IntervalMinor7th,
-        ChordTypeMinor9 = ChordTypeMinor7 | ChordIntervalsEnum.IntervalNinth,
-        ChordTypeMinor11 = ChordTypeMinor9 | ChordIntervalsEnum.IntervalEleventh,
-        ChordTypeMinor13 = ChordTypeMinor11 | ChordIntervalsEnum.IntervalThirteenth,
+        ChordTypeMinor7th = ChordTypeMinor | ChordIntervalsEnum.IntervalMinor7th,
+        ChordTypeMinor9th = ChordTypeMinor7th | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeMinor11th = ChordTypeMinor9th | ChordIntervalsEnum.IntervalEleventh,
+        ChordTypeMinor13th = ChordTypeMinor11th | ChordIntervalsEnum.IntervalThirteenth,
 
-        ChordTypeMinor6 = ChordTypeMinor | ChordIntervalsEnum.IntervalMajor6th,
-        ChordTypeMinor6Add9 = ChordTypeMinor6 | ChordIntervalsEnum.IntervalNinth,
-        ChordTypeMinor7Sharp5 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalAugmented5th | ChordIntervalsEnum.IntervalMinor7th,
+        ChordTypeMinor6th = ChordTypeMinor | ChordIntervalsEnum.IntervalMajor6th,
+        ChordTypeMinor6thAdd9 = ChordTypeMinor6th | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeMinor7thSharp5 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalAugmented5th | ChordIntervalsEnum.IntervalMinor7th,
         ChordTypeMinorAdd9 = ChordTypeMinor | ChordIntervalsEnum.IntervalNinth,
-        ChordTypeMinorMajor7 = ChordTypeMinor | ChordIntervalsEnum.IntervalMajor7th,
-        ChordTypeMinorMajor9 = ChordTypeMinorMajor7 | ChordIntervalsEnum.IntervalNinth,
+        ChordTypeMinorMajor7th = ChordTypeMinor | ChordIntervalsEnum.IntervalMajor7th,
+        ChordTypeMinorMajor9th = ChordTypeMinorMajor7th | ChordIntervalsEnum.IntervalNinth,
 
-        ChordTypeMajor13Sharp11 = ChordTypeMajor7 | ChordIntervalsEnum.IntervalAugmented11th | ChordIntervalsEnum.IntervalThirteenth,
-        ChordTypeMajor7Sharp5 = ChordTypeAugmented | ChordIntervalsEnum.IntervalMajor7th,
-        ChordTypeMajor7b5 = ChordTypeDiminished | ChordIntervalsEnum.IntervalMajor7th,
-        ChordTypeMajor9Sharp11 = ChordTypeMajor7 | ChordIntervalsEnum.IntervalNinth | ChordIntervalsEnum.IntervalAugmented11th
+        ChordTypeMajor13thSharp11 = ChordTypeMajor7th | ChordIntervalsEnum.IntervalAugmented11th | ChordIntervalsEnum.IntervalThirteenth,
+        ChordTypeMajor7thAug5 = ChordTypeAugmented | ChordIntervalsEnum.IntervalMajor7th,
+        ChordTypeMajor7thb5 = ChordTypeDiminished | ChordIntervalsEnum.IntervalMajor7th,
+        ChordTypeMajor9thSharp11 = ChordTypeMajor7th | ChordIntervalsEnum.IntervalNinth | ChordIntervalsEnum.IntervalAugmented11th
 
 
 

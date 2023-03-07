@@ -31,7 +31,8 @@ namespace Eric.Morrison.Harmony.Chords
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
         virtual public NoteName Bass { get; private set; }
-        virtual public ChordType ChordType { get; private set; }
+        virtual public ChordType xChordType { get; private set; }
+        virtual public ChordIntervalsEnum ChordType { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
         [JsonIgnore]
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
@@ -55,7 +56,7 @@ namespace Eric.Morrison.Harmony.Chords
         #region Construction
         [JsonConstructor]
         public ChordFormula(NoteName Root, NoteName Bass,
-            ChordType ChordType)
+            ChordIntervalsEnum ChordType)
         {
             this.Root = Root;
             this.Bass = Bass;
@@ -65,7 +66,7 @@ namespace Eric.Morrison.Harmony.Chords
         {
         }
 
-        ChordFormula(NoteName root, ChordType chordType)
+        ChordFormula(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
                 throw new NullReferenceException();
@@ -100,7 +101,7 @@ namespace Eric.Morrison.Harmony.Chords
                 this.NoteNames.Add(nn);
         }
 
-        static public ChordFormula Create(NoteName root, ChordType chordType)
+        static public ChordFormula Create(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
                 throw new ArgumentNullException();

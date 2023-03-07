@@ -47,7 +47,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     }
     public static class Extensions
     {
-        static public List<XElement> ToXElements(this ChordType ct)
+        static public List<XElement> ToXElements(this ChordIntervalsEnum ct)
         {
             var result = new List<XElement>();
 
