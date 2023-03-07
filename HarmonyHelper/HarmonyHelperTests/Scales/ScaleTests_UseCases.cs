@@ -15,15 +15,15 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void GetScalesForChordsTest()
 		{
-			//var key = KeySignature.AMinor;
-			var chords = new List<ChordFormula>();
+			var txt = "am7 gm7 c7 fMaj7 bm7b5 e7";
+			var chords = ChordFormulaParser.Parse(txt);
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordType.Minor7th, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordType.Minor7th, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordType.Major7th, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordType.HalfDiminished, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordType.Dominant7th, KeySignature.AMinor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordType.Minor7th, KeySignature.AMinor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordType.Minor7th, KeySignature.FMajor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordType.Dominant7th, KeySignature.FMajor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordType.Major7th, KeySignature.FMajor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordType.HalfDiminished, KeySignature.AMinor));
+			//chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordType.Dominant7th, KeySignature.AMinor));
 
 			var mappings = new List<ChordFormula2ScalesMap>();
 			foreach (var chord in chords)
@@ -33,7 +33,7 @@ namespace Eric.Morrison.Harmony.Tests
 			}
 
 
-			Debug.WriteLine("SUNNY: For these chords, these scales contain these chords, verbatim.");
+			Debug.WriteLine("SUNNY: For these chords, these scales contain the chords, verbatim.");
 			foreach (var mapping in mappings)
 			{
 				Debug.WriteLine(mapping.ChordFormula.Name);

@@ -117,13 +117,6 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        [Obsolete("", true)]
-        public static ChordFormula Copy(ChordFormula src)
-        {
-            var result = new ChordFormula(src);
-            return result;
-        }
-
         internal static NoteName EnsureValidRoot(NoteName nn)
         {
             var result = nn;

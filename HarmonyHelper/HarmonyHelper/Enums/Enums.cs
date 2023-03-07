@@ -97,24 +97,6 @@ namespace Eric.Morrison.Harmony
 		Octave6 = 6,
 	}
 
-	[Obsolete("", true)]
-	[Flags]
-	public enum ChordTypesEnum
-	{
-		None = 0,
-		Major = IntervalValuesEnum.Major3rd | IntervalValuesEnum.Perfect5th,
-		Minor = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Perfect5th,
-		Augmented = IntervalValuesEnum.Major3rd | IntervalValuesEnum.Augmented5th,
-		Diminished = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Diminished5th,
-		Major7th = Major | IntervalValuesEnum.Major7th,
-		Minor7th = Minor | IntervalValuesEnum.Minor7th,
-		Dominant7th = Major | IntervalValuesEnum.Minor7th,
-		HalfDiminished = Diminished | IntervalValuesEnum.Minor7th,
-		Diminished7 = Diminished | IntervalValuesEnum.Major6th,
-		//Suspended,....
-	}
-
-
 	[Flags]
 	public enum ChordTonesBitmaskEnum
 	{

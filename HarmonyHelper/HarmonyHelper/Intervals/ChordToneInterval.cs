@@ -81,19 +81,6 @@ namespace Eric.Morrison.Harmony.Intervals
 			}
 		}
 
-        [Obsolete("")]
-		override public int ToIndex()
-		{
-			var intervals = ChordToneInterval.Catalog
-				.Distinct(new ChordToneIntervalComparer())
-				.OrderBy(x => x.Value)
-				.ToList();
-			var found = intervals.First(x => x == this);
-			var result = intervals.IndexOf(found);
-
-			return result;
-		}
-
 		public ChordToneInterval GetInversion()
 		{ 
 			throw new NotImplementedException();

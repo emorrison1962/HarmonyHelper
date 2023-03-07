@@ -36,7 +36,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
 • B♭7 could be considered a borrowed chord from the parallel B♭ Mixolydian mode in E♭ Major.
 • B♭7 could be considered a borrowed chord from the parallel B♭ Melodic Minor Overtone Scale mode in F Major.
 • E♭m7 could be considered a borrowed chord from the parallel B♭ Aeolian mode in D♭ Major.
-• E♭m7 could be considered a borrowed chord from the parallel B♭ Hermonic Minor Harmonic Minor mode in B♭ Major.
+• E♭m7 could be considered a borrowed chord from the parallel B♭ Harmonic Minor Harmonic Minor mode in B♭ Major.
 #endif
             Assert.IsTrue(results.Count() == 2);
             new object();

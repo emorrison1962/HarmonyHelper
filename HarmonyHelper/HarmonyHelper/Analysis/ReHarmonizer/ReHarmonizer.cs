@@ -373,13 +373,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         }
     }
 
-    [Obsolete("", true)]
-    public class ReHarmonizerContext
-    {
-
-
-
-    }//class
 }//ns
 
 

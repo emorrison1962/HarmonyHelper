@@ -384,19 +384,6 @@ namespace Eric.Morrison.Harmony.Intervals
 			}
 		}
 
-		[Obsolete("", true)]
-		virtual public int ToIndex()
-		{
-			var intervals = Interval.Catalog
-				.Distinct(new IntervalValueComparer())
-				.OrderBy(x => x.Value)
-				.ToList();
-			var found = intervals.First(x => x.Value == this.Value);
-			var result = intervals.IndexOf(found);
-
-			return result;
-		}
-
 		public Interval Abs()
 		{
 			var result = this;

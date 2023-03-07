@@ -9,7 +9,7 @@ using Eric.Morrison.Harmony.Scales;
 
 namespace Eric.Morrison.Harmony
 {
-	public class ChordFormula2ScalesMap
+    public class ChordFormula2ScalesMap
 	{
 		public ChordFormula ChordFormula { get; set; }
 		public List<ScaleFormulaBase> ScaleFormulas { get; set; } = new List<ScaleFormulaBase>();

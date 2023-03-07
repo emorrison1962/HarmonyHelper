@@ -43,7 +43,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
 
         public ChordSubstitutionResults()
         {
-            Debug.Assert(false, "FIXME");
         }
 
         public ChordSubstitution this[ChordMelodyPairing cmp]

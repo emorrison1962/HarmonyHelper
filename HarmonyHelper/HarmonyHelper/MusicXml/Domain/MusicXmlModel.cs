@@ -85,24 +85,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        [Obsolete("", true)]
-        public void MergeSections()
-        {
-            foreach (var part in this.Parts)
-            {
-                foreach (var section in part.Sections)
-                {
-                    part.AddRange(section.Measures);
-                }
-            }
-
-            //foreach (var item in seq)
-            //{
-            //    var part = this.Parts.First(x => x.Identifier.ID == item.Part.Identifier.ID);
-            //    new object();
-            //}
-        }
-
         #endregion
 
         public void Add(MusicXmlPart part)
@@ -162,38 +144,6 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion    
 
-    }//class
-
-    [Obsolete("", true)]
-    public class MusicXmlModelCreationContext
-    {
-        public string Path { get; set; }
-        public SectionContext SectionContext { get; set; }
-        public string PartIdMelody { get; set; }
-        public string PartIdHarmony { get; set; }
-
-        public MusicXmlModelCreationContext(string path, SectionContext sectionContext, string melodyPart, string harmonyPart)
-        {
-            if (!File.Exists(path))
-                throw new FileNotFoundException(path);
-
-            this.Path = path;
-            this.SectionContext = sectionContext;
-            this.PartIdMelody = melodyPart;
-            this.PartIdHarmony = harmonyPart;
-        }
-    }
-    [Obsolete("", true)]
-    public class SectionContext
-    {
-        public int Offset { get; set; }
-        public List<int> MeasureCount { get; set; }
-
-        public SectionContext(int offest, params int[] parms)
-        {
-            this.Offset = offest;
-            this.MeasureCount = parms.ToList();
-        }
     }//class
 
 }//ns

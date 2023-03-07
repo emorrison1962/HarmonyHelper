@@ -20,7 +20,6 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
     public class ReHarmonizerTests
     {
         [TestMethod()]
-        [Ignore()]//Taking a break. Revisit in the future.
         public void ReHarmonizeTest()
         {
             try

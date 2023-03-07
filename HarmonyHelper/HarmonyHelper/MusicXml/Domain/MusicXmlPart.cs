@@ -43,12 +43,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         #region Construction
-        [Obsolete("", true)]
-        MusicXmlPart(MusicXmlPart part)
-        {
-            this.PartType = part.PartType;
-            this.Identifier = part.Identifier;
-        }
         public MusicXmlPart(PartTypeEnum PartType)
         {
             this.PartType = PartType;
@@ -157,11 +151,6 @@ namespace Eric.Morrison.Harmony.MusicXml
             GC.SuppressFinalize(this);
         }
 
-        [Obsolete("", true)]
-        internal void ClearMeasures()
-        {
-            this._Measures.Clear();
-        }
 
         #endregion
     }//class

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
+    [Obsolete("", true)]
     static public class KeySignature2ChordFormulaMap
     {
         static public Dictionary<KeySignature, List<ChordFormula>> 
