@@ -84,11 +84,11 @@ namespace Eric.Morrison.Harmony
 				{
 					root = NoteName.G;
 					key = KeySignature.CMajor;
-					chordType = ChordIntervalsEnum.Dominant7th;
+					chordType = ChordIntervalsEnum.Dominant7;
 				}
 				else
 				{
-					chordType = ChordIntervalsEnum.Dominant7th;
+					chordType = ChordIntervalsEnum.Dominant7;
 					key += Interval.Perfect4th;
 					root += ChordToneInterval.Eleventh;
 				}

@@ -107,7 +107,7 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
         [TestMethod()]
         public void SerializeChordType()
         {
-            var ct = ChordIntervalsEnum.Dominant7thSharp9;
+            var ct = ChordIntervalsEnum.Dominant7Sharp9;
 
             var json = JsonConvert.SerializeObject(ct, Formatting.Indented);
             Debug.WriteLine(json);

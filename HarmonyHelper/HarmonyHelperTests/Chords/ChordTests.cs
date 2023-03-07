@@ -71,7 +71,7 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void Gb7ModulationTest()
         {
-            var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordIntervalsEnum.Dominant7th);
+            var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordIntervalsEnum.Dominant7);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
             var origKey = chord.Keys.First();
             var txedUp = chord + Interval.Perfect4th;
@@ -171,10 +171,10 @@ namespace Eric.Morrison.Harmony.Tests
         {
             var key = KeySignature.CMajor;
             var Dm = ChordFormulaFactory.Get(NoteName.D,
-                ChordIntervalsEnum.Minor7th,
+                ChordIntervalsEnum.Minor7,
                 key);
             var G7 = ChordFormulaFactory.Get(NoteName.G,
-                ChordIntervalsEnum.Dominant7th,
+                ChordIntervalsEnum.Dominant7,
                 key);
 
             //var result = Dm.CompareTo(G7, true);
@@ -183,10 +183,10 @@ namespace Eric.Morrison.Harmony.Tests
 
             key = KeySignature.BbMajor;
             var Bb7 = ChordFormulaFactory.Get(NoteName.Bb,
-                ChordIntervalsEnum.Dominant7th,
+                ChordIntervalsEnum.Dominant7,
                 key);
             var Eb7 = ChordFormulaFactory.Get(NoteName.Eb,
-                ChordIntervalsEnum.Dominant7th,
+                ChordIntervalsEnum.Dominant7,
                 key);
 
             var result = Bb7.CompareTo(Eb7, true);

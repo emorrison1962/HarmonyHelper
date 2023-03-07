@@ -61,7 +61,7 @@ Ex. 57
                         var root = ChordFormula.EnsureValidRoot(txposedDim);
                         var chord = ChordFormula.Catalog
                             .Where(x=> x.Root == root 
-                                && x.ChordType == ChordIntervalsEnum.Dominant7th)
+                                && x.ChordType == ChordIntervalsEnum.Dominant7)
                             .First();
                         dominants.Add(chord);
                     }

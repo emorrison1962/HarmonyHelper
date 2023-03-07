@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     var subbedRoot = tonic + ChordToneInterval.Perfect5th;
                     var subbedFor = ChordFormula.Catalog
                         .Where(x => x.Root == subbedRoot
-                            && x.ChordType == ChordIntervalsEnum.Dominant7th)
+                            && x.ChordType == ChordIntervalsEnum.Dominant7)
                         .First();
 
                     result.Add(new HarmonicAnalysisResult(this, true,

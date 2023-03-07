@@ -330,7 +330,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 				{
 					foreach (var nn in NoteName.Catalog)
 					{
-						var chordType = ChordIntervalsEnum.Minor7th;
+						var chordType = ChordIntervalsEnum.Minor7;
 						/*foreach (var chordType in ChordType.Catalog
 							.Where(x => x.Intervals.Count > 2)
 							.Except(new[] { ChordType.None }))*/
