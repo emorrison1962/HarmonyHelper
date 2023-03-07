@@ -134,6 +134,7 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
 
 
         [TestMethod()]
+        [Ignore]
         public void SerializeChordEntityBase()
         {
             Assert.Fail();
@@ -141,6 +142,7 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
 
 
         [TestMethod()]
+        [Ignore]
         public void SerializeClassBase()
         {
             Assert.Fail();

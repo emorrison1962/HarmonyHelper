@@ -29,7 +29,9 @@ namespace HarmonyHelperTests.Chords
 
             for (int i = 0; i <= 10; ++i)
             {
-                chordFormula -= Interval.Major3rd;
+                Debug.WriteLine(chordFormula);
+                var txposed = chordFormula - Interval.Major3rd;
+                chordFormula = txposed;
                 Debug.WriteLine(chordFormula.Name);
             }
 
@@ -80,7 +82,7 @@ namespace HarmonyHelperTests.Chords
                 {
                     if (null != key)
                     {
-                        formula.Keys.Add(key);
+                        formula.Add(key);
                         //Debug.WriteLine($"\t{key.Name}");
                     }
                 }
@@ -110,7 +112,7 @@ namespace HarmonyHelperTests.Chords
 
                     foreach (var key in formula.Keys)
                     {
-                        var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Keys.Add(KeySignature.Catalog[\"{key.Name}\"]);";
+                        var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Add(KeySignature.Catalog[\"{key.Name}\"]);";
                         sb.WriteLine(code);
                     }
                     new object();

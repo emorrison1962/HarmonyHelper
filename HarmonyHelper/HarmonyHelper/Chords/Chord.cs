@@ -88,7 +88,7 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool IsValid()
 		{
 			var result = false;
-			foreach (var key in this.Keys)
+			foreach (var key in this._Keys)
 			{
 				if (key.UsesFlats)
 				{

@@ -92,7 +92,7 @@ namespace Eric.Morrison.Harmony.Tests
                 foreach (var origChord in ChordFormula.Catalog)
                 {
                     currentChord = origChord;
-                    if (origChord.Keys.Count > 0)
+                    if (origChord.Keys.Count() > 0)
                     {
                         if (ChordFormula.Catalog.ToList().Any(x => x.Name == origChord.Name))
                         {

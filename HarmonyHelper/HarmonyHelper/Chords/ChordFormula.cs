@@ -93,8 +93,8 @@ namespace Eric.Morrison.Harmony.Chords
         {
             this.Root = src.Root.Copy();
             this.Bass = src.Bass?.Copy();
-            foreach (var key in src.Keys)
-                this.Keys.Add(key);
+            foreach (var key in src._Keys)
+                this._Keys.Add(key);
             this.ChordType = src.ChordType;
             foreach (var nn in src.NoteNames)
                 this.NoteNames.Add(nn);
@@ -145,6 +145,13 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
+        public void Add(KeySignature key)
+        {
+            if (null != key)
+            {
+                this._Keys.Add(key);
+            }
+        }
         public bool Contains(List<NoteName> notes)
         {
             bool result = false;
@@ -324,13 +331,26 @@ namespace Eric.Morrison.Harmony.Chords
             //    chord = new ChordFormula(nn, chord.ChordType, null);
             //}
 
-            var key = chord.Keys.First();
+            //var key = chord._Keys.First();
 
             if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelent))
             {
                 result = ChordFormula.Catalog
                     .FirstOrDefault(x => x.Root == txposed
                         && x.ChordType == chord.ChordType);
+                if (null == result)
+                {
+                    var ee = NoteName
+                            .GetEnharmonicEquivalents(txposed)
+                            .Where(x => x.AccidentalCount == 
+                                NoteName.GetEnharmonicEquivalents(txposed)
+                                    .Min(x => x.AccidentalCount))
+                            .First();
+
+                    result = ChordFormula.Catalog
+                        .FirstOrDefault(x => x.Root == ee
+                            && x.ChordType == chord.ChordType);
+                }
             }
             else
             {
