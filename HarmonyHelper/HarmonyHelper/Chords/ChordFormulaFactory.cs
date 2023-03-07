@@ -22,8 +22,8 @@ namespace Eric.Morrison.Harmony.Chords
         static public ChordFormula Get(NoteName root, ChordType chordType, KeySignature unused)
         {
             var result = ChordFormula.Catalog
-                        .First(x => x.Root == NoteName.A
-                        && x.ChordType == ChordType.Minor7th);
+                        .First(x => x.Root == root
+                            && x.ChordType == chordType);
             return result;
         }
 

@@ -18,6 +18,8 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
     }
+
+    [Obsolete("", true)]
     public class ChordType : ClassBase, IEquatable<ChordType>, IChordType
     {
         #region Statics
