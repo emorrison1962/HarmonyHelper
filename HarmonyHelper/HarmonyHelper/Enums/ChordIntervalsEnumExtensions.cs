@@ -252,6 +252,11 @@ namespace Eric.Morrison.Harmony
                         result = "sus4";
                         break;
                     }
+                case ChordIntervalsEnum.HalfDiminished:
+                    {
+                        result = "m7b5";
+                        break;
+                    }
 
                 default:
                     throw new NotSupportedException(nameof(src));

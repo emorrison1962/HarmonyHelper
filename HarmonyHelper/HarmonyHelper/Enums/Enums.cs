@@ -98,14 +98,6 @@ namespace Eric.Morrison.Harmony
         Octave6 = 6,
     }
 
-	[Flags]
-	public enum ChordTonesBitmaskEnum
-	{
-		Third = IntervalValuesEnum.Minor3rd | IntervalValuesEnum.Major3rd,
-		Fifth = IntervalValuesEnum.Diminished5th | IntervalValuesEnum.Perfect5th | IntervalValuesEnum.Diminished5th,
-		Seventh = IntervalValuesEnum.Minor7th | IntervalValuesEnum.Major7th
-	}
-
     [Flags]
     public enum DirectionEnum
     {
@@ -265,6 +257,15 @@ namespace Eric.Morrison.Harmony
     };
 
     [Flags]
+    public enum ChordTonesBitmaskEnum : uint
+    {
+        Third = ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalMajor3rd,
+        Fifth = ChordIntervalsEnum.IntervalDiminished5th | ChordIntervalsEnum.IntervalPerfect5th | ChordIntervalsEnum.IntervalAugmented5th,
+        Seventh = ChordIntervalsEnum.IntervalMinor7th | ChordIntervalsEnum.IntervalMajor7th
+    }
+
+
+    [Flags]
     public enum ChordIntervalsEnum : uint
     {
         None = 0,
@@ -313,7 +314,7 @@ namespace Eric.Morrison.Harmony
         Dominant7b9 = Dominant7 | IntervalFlat9th,
         Dominant7Sharp9 = Dominant7 | IntervalSharp9th,
 
-        Dominant7b5 = Diminished | IntervalMinor7th,
+        Dominant7b5 = IsChord | IntervalRoot | IntervalMajor3rd | IntervalDiminished5th | IntervalMinor7th,
         Dominant7b5b9 = Dominant7b5 | IntervalFlat9th,
         Dominant7b5Sharp9 = Dominant7b5 | IntervalSharp9th,
 
@@ -336,7 +337,7 @@ namespace Eric.Morrison.Harmony
         Dominant7Sus4 = Sus4 | IntervalMinor7th,
 
         Augmented = IsChord | IntervalRoot | IntervalMajor3rd | IntervalAugmented5th,
-        Diminished = IsChord | IntervalRoot | IntervalMajor3rd | IntervalDiminished5th,
+        Diminished = IsChord | IntervalRoot | IntervalMinor3rd | IntervalDiminished5th,
 
         HalfDiminished = Diminished | IntervalMinor7th,
         Diminished7 = IsChord | IntervalRoot | IntervalMinor3rd | IntervalDiminished5th | IntervalDiminished7th,
@@ -358,11 +359,11 @@ namespace Eric.Morrison.Harmony
 
         Major13Aug11 = Major7 | IntervalAugmented11th | IntervalThirteenth,
         Major7Aug = Augmented | IntervalMajor7th,
-        Major7b5 = Diminished | IntervalMajor7th,
+        Major7b5 = IsChord | IntervalRoot | IntervalMajor3rd | IntervalDiminished5th | IntervalMajor7th,
         Major9thSharp11 = Major7 | IntervalNinth | IntervalAugmented11th,
 
         IsDominant = IntervalMajor3rd | IntervalMinor7th,
-        IsMajor = IntervalMajor3rd,
+        IsMajor = IntervalMajor3rd ^ IntervalMinor7th,
         IsMinor = IntervalMinor3rd,
         IsDiminished = IntervalDiminished5th,
         IsHalfDiminished = IntervalDiminished5th  | IntervalMinor7th,

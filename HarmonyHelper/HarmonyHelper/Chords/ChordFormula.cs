@@ -37,7 +37,14 @@ namespace Eric.Morrison.Harmony.Chords
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.Name(); } }
 
         [JsonIgnore]
-        virtual public bool IsMajor { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsMajor); } }
+        virtual public bool IsMajor 
+        { 
+            get 
+            { 
+                return this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMajor3rd) 
+                    && !this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMinor7th); 
+            } 
+        }
         [JsonIgnore]
         virtual public bool IsMinor { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsMinor); } }
         [JsonIgnore]
