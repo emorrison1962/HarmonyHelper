@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony
 		public static string ToStringEx(this ChordIntervalsEnum cte)
 		{
 			var result = string.Empty;
-			result = cte.Name;
+			result = cte.Name();
 			//switch (cte)
 			//{
 			//	case ChordType.None:

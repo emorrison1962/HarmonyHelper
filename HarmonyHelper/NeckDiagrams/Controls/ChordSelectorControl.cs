@@ -22,7 +22,7 @@ namespace NeckDiagrams
 			{
 				var items = this._cbChordType.Items.Cast<ChordType>();
 				var item = items.ToList()
-					.Where(x => x.Name == value.ChordType.Name)
+					.Where(x => x.Name() == value.ChordType.Name)
 					.First();
 				this._cbChordType.SelectedItem = item;
 			}

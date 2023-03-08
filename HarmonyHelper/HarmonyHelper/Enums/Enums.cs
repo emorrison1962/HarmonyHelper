@@ -298,6 +298,26 @@ namespace Eric.Morrison.Harmony
         IntervalFlat13th = 1 << 18,
         IntervalThirteenth = 1 << 19,
 
+        IntervalMax = IntervalRoot 
+            | IntervalSus2 
+            | IntervalMinor3rd 
+            | IntervalMajor3rd
+            | IntervalSus4 
+            | IntervalDiminished5th 
+            | IntervalPerfect5th 
+            | IntervalAugmented5th 
+            | IntervalMajor6th 
+            | IntervalDiminished7th 
+            | IntervalMinor7th 
+            | IntervalMajor7th 
+            | IntervalFlat9th 
+            | IntervalNinth 
+            | IntervalSharp9th 
+            | IntervalFlat11th 
+            | IntervalEleventh 
+            | IntervalAugmented11th 
+            | IntervalFlat13th 
+            | IntervalThirteenth ,
 
 
         Major = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalPerfect5th,
@@ -362,6 +382,10 @@ namespace Eric.Morrison.Harmony
         Major9thSharp11 = Major7 | ChordIntervalsEnum.IntervalNinth | ChordIntervalsEnum.IntervalAugmented11th,
 
         IsDominant = ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalMinor7th,
+        IsMajor = ChordIntervalsEnum.IntervalMajor3rd,
+        IsMinor = ChordIntervalsEnum.IntervalMinor3rd,
+        IsDiminished = ChordIntervalsEnum.IntervalDiminished5th,
+        IsHalfDiminished = ChordIntervalsEnum.IntervalDiminished5th  | ChordIntervalsEnum.IntervalMinor7th,
 
     };
 }//ns

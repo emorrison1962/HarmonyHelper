@@ -6209,8 +6209,12 @@ namespace Eric.Morrison.Harmony.Chords
             }
 
             var chordTypes = new List<ChordIntervalsEnum>();
-            foreach (var ct in ChordIntervalsEnum.Catalog)
+            foreach (var ct in Enum.GetValues(typeof(ChordIntervalsEnum))
+                .Cast<ChordIntervalsEnum>()
+                .ToList()
+                .Where(x => x > ChordIntervalsEnum.None && x < ChordIntervalsEnum.IntervalMax))
             {
+                throw new NotImplementedException("The above code is not correct.");
                 chordTypes.Add(ct);
             }
             var noteNames = new List<NoteName>();
@@ -6270,9 +6274,9 @@ namespace Eric.Morrison.Harmony.Chords
 
                 foreach (var ct in chordTypes)
                 {
-                    var ctFieldName = string.Empty;
-                    KeySignature key = null;
-                    var ksName = "null";
+                    //var ctFieldName = string.Empty;
+                    //KeySignature key = null;
+                    //var ksName = "null";
 
                     //if (ct.IsDominant)
                     //{
@@ -6295,15 +6299,15 @@ namespace Eric.Morrison.Harmony.Chords
                     //}
 
 
-                    #region get ct.FieldName
-                    var ctfis = typeof(ChordIntervalsEnum).GetFields();
-                    var ctfi = ctfis
-                        .Where(x => (x.GetValue(null) as ChordIntervalsEnum).Name == ct.Name)
-                        .First();
+                    //#region get ct.FieldName
+                    //var ctfis = typeof(ChordIntervalsEnum).GetFields();
+                    //var ctfi = ctfis
+                    //    .Where(x => (x.GetValue(null) as ChordIntervalsEnum).Name == ct.Name())
+                    //    .First();
 
-                    ctFieldName = ctfi.Name;
+                    //ctFieldName = ctfi.Name;
 
-                    #endregion
+                    //#endregion
 
                     //XXXX _Catalog.Add(C7 = ChordFormula.Create(NoteName.C, ChordIntervalsEnum.Dominant7th, KeySignature.FMajor));
                     //ChordFormula.AddToCatalog(NoteName.BSharp, ChordIntervalsEnum.Augmented, null);
@@ -6313,7 +6317,7 @@ namespace Eric.Morrison.Harmony.Chords
                     }
                     else
                     {
-                        var code = $"_Catalog.Add({nnName}{ct} = ChordFormula.Create(NoteName.{nnName}, ChordIntervalsEnum.{ctFieldName}, {ksName}));";
+                        var code = $"_Catalog.Add({nnName}{ct} = ChordFormula.Create(NoteName.{nnName}, ChordIntervalsEnum.{ct.Name()}));";
 
                         Debug.WriteLine(code);
                     }

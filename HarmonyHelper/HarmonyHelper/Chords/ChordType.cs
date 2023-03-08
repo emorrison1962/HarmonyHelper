@@ -359,65 +359,6 @@ namespace Eric.Morrison.Harmony.Chords
 
         #endregion
 
-        #region Used to be IntervalsEnumExtensions
-        public Interval GetInterval(ChordFunctionEnum cfe)
-        {
-            if (0 == this.Intervals.Count)
-                throw new Exception("this.Intervals not initialized.");
-            var result = ChordToneInterval.None;
-
-            Predicate<ChordToneInterval> predicate = null;
-
-            switch (cfe)
-            {
-                case ChordFunctionEnum.Root:
-                case ChordFunctionEnum.None:
-                    break;
-
-                case ChordFunctionEnum.Sus2:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd;
-                    break;
-
-                case ChordFunctionEnum.Third:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor3rd || x == ChordToneInterval.Major3rd;
-                    break;
-
-                case ChordFunctionEnum.Sus4:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th;
-                    break;
-
-                case ChordFunctionEnum.Fifth:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect5th || x == ChordToneInterval.Diminished5th || x == ChordToneInterval.Augmented5th;
-                    break;
-
-                case ChordFunctionEnum.Seventh:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor7th || x == ChordToneInterval.Major7th || x == ChordToneInterval.Diminished7th;
-                    break;
-
-                case ChordFunctionEnum.Ninth:
-                    //throw new NotImplementedException("#9 ???");
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd || x == ChordToneInterval.Minor2nd;
-                    break;
-
-                case ChordFunctionEnum.Eleventh:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th || x == ChordToneInterval.Augmented4th;
-                    break;
-
-                case ChordFunctionEnum.Thirteenth:
-                    predicate = (ChordToneInterval x) => x == ChordToneInterval.Major6th || x == ChordToneInterval.Minor6th;
-                    break;
-            }
-
-            if (null != predicate)
-            {
-                var found = this.Intervals.FirstOrDefault(x => predicate(x));
-                if (null != found)
-                    result = found;
-            }
-
-            return result;
-        }
-        #endregion
 
         public override string ToString()
         {

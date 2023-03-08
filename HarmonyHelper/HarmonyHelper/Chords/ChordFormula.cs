@@ -38,15 +38,15 @@ namespace Eric.Morrison.Harmony.Chords
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.ToStringEx(); } }
 
         [JsonIgnore]
-        virtual public bool IsMajor { get { return this.ChordType.IsMajor; } }
+        virtual public bool IsMajor { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsMajor); } }
         [JsonIgnore]
-        virtual public bool IsMinor { get { return this.ChordType.IsMinor; } }
+        virtual public bool IsMinor { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsMinor); } }
         [JsonIgnore]
-        virtual public bool IsHalfDiminished { get { return this.ChordType.IsHalfDiminished; } }
+        virtual public bool IsHalfDiminished { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsHalfDiminished); } }
         [JsonIgnore]
-        virtual public bool IsDiminished { get { return this.ChordType.IsDiminished; } }
+        virtual public bool IsDiminished { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsDiminished); } }
         [JsonIgnore]
-        virtual public bool IsDominant { get { return this.ChordType.IsDominant; } }
+        virtual public bool IsDominant { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsDominant); } }
 
         virtual public bool UsesSharps { get; private set; }
         virtual public bool UsesFlats { get; private set; }
@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony.Chords
             this.NoteNames.Add(this.Root = root);
             this.ChordType = chordType;
 
-            foreach (var interval in this.ChordType.Intervals)
+            foreach (var interval in this.ChordType.Intervals())
             {
                 var nn = root + interval;
                 Debug.Assert(nn != null);

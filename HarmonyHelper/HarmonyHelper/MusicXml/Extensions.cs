@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 </degree>
 #endif
-            switch (ct.Name)
+            switch (ct.Name())
             {
                 case "aug":
                     {

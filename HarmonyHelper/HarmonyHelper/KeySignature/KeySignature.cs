@@ -498,7 +498,7 @@ namespace Eric.Morrison.Harmony
             var result = IsDiatonicEnum.No;
             var tmpFormula = formula;
             bool isAltered = false;
-            if (formula.ChordType.IsAlteredDominant)
+            if (formula.ChordType.IsAlteredDominant())
             {
                 tmpFormula = ChordFormula.Catalog.First(x =>
                     x.Root == formula.Root
