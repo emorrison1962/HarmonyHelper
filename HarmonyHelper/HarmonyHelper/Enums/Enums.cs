@@ -298,94 +298,74 @@ namespace Eric.Morrison.Harmony
         IntervalFlat13th = 1 << 18,
         IntervalThirteenth = 1 << 19,
 
-        IntervalMax = IntervalRoot 
-            | IntervalSus2 
-            | IntervalMinor3rd 
-            | IntervalMajor3rd
-            | IntervalSus4 
-            | IntervalDiminished5th 
-            | IntervalPerfect5th 
-            | IntervalAugmented5th 
-            | IntervalMajor6th 
-            | IntervalDiminished7th 
-            | IntervalMinor7th 
-            | IntervalMajor7th 
-            | IntervalFlat9th 
-            | IntervalNinth 
-            | IntervalSharp9th 
-            | IntervalFlat11th 
-            | IntervalEleventh 
-            | IntervalAugmented11th 
-            | IntervalFlat13th 
-            | IntervalThirteenth ,
+        IsChord = 1 << 30,
+
+        Major = IsChord | IntervalRoot | IntervalMajor3rd | IntervalPerfect5th,
+        Major6 = Major | IntervalMajor6th,
+        Major7 = Major | IntervalMajor7th,
+        Major9 = Major7 | IntervalNinth,
+        Major11 = Major9 | IntervalEleventh,
+        Major13 = Major11 | IntervalThirteenth,
+        MajorMu = IsChord | IntervalRoot | IntervalMajor3rd | IntervalPerfect5th | IntervalNinth,
 
 
-        Major = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalPerfect5th,
-        Major6 = Major | ChordIntervalsEnum.IntervalMajor6th,
-        Major7 = Major | ChordIntervalsEnum.IntervalMajor7th,
-        Major9 = Major7 | ChordIntervalsEnum.IntervalNinth,
-        Major11 = Major9 | ChordIntervalsEnum.IntervalEleventh,
-        Major13 = Major11 | ChordIntervalsEnum.IntervalThirteenth,
-        MajorMu = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalPerfect5th | ChordIntervalsEnum.IntervalNinth,
+        Dominant7 = Major | IntervalMinor7th,
+        Dominant7b9 = Dominant7 | IntervalFlat9th,
+        Dominant7Sharp9 = Dominant7 | IntervalSharp9th,
+
+        Dominant7b5 = Diminished | IntervalMinor7th,
+        Dominant7b5b9 = Dominant7b5 | IntervalFlat9th,
+        Dominant7b5Sharp9 = Dominant7b5 | IntervalSharp9th,
+
+        Dominant7Sharp5 = Augmented | IntervalMinor7th,
+        Dominant7Sharp5b9 = Dominant7Sharp5 | IntervalFlat9th,
+        Dominant7Sharp5Nine = Dominant7Sharp5 | IntervalNinth,
 
 
-        Dominant7 = Major | ChordIntervalsEnum.IntervalMinor7th,
-        Dominant7b9 = Dominant7 | ChordIntervalsEnum.IntervalFlat9th,
-        Dominant7Sharp9 = Dominant7 | ChordIntervalsEnum.IntervalSharp9th,
+        Dominant9 = Dominant7 | IntervalNinth,
+        Dominant11 = Dominant9 | IntervalEleventh,
+        Dominant11b9 = Dominant11 | IntervalFlat9th,
+        Dominant13 = Dominant11 | IntervalThirteenth,
+        Dominant13Aug11 = Dominant13 | IntervalAugmented11th,
+        Dominant13b9 = Dominant13 | IntervalFlat9th,
 
-        Dominant7b5 = Diminished | ChordIntervalsEnum.IntervalMinor7th,
-        Dominant7b5b9 = Dominant7b5 | ChordIntervalsEnum.IntervalFlat9th,
-        Dominant7b5Sharp9 = Dominant7b5 | ChordIntervalsEnum.IntervalSharp9th,
-
-        Dominant7Sharp5 = Augmented | ChordIntervalsEnum.IntervalMinor7th,
-        Dominant7Sharp5b9 = Dominant7Sharp5 | ChordIntervalsEnum.IntervalFlat9th,
-        Dominant7Sharp5Nine = Dominant7Sharp5 | ChordIntervalsEnum.IntervalNinth,
-
-
-        Dominant9 = Dominant7 | ChordIntervalsEnum.IntervalNinth,
-        Dominant11 = Dominant9 | ChordIntervalsEnum.IntervalEleventh,
-        Dominant11b9 = Dominant11 | ChordIntervalsEnum.IntervalFlat9th,
-        Dominant13 = Dominant11 | ChordIntervalsEnum.IntervalThirteenth,
-        Dominant13Aug11 = Dominant13 | ChordIntervalsEnum.IntervalAugmented11th,
-        Dominant13b9 = Dominant13 | ChordIntervalsEnum.IntervalFlat9th,
-
-        Sus4 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalSus4 | ChordIntervalsEnum.IntervalPerfect5th,
-        Sus2 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalSus2 | ChordIntervalsEnum.IntervalPerfect5th,
+        Sus4 = IsChord | IntervalRoot | IntervalSus4 | IntervalPerfect5th,
+        Sus2 = IsChord | IntervalRoot | IntervalSus2 | IntervalPerfect5th,
         Sus2Sus4 = Sus2 | Sus4,
-        Dominant7Sus2 = Sus2 | ChordIntervalsEnum.IntervalMinor7th,
-        Dominant7Sus4 = Sus4 | ChordIntervalsEnum.IntervalMinor7th,
+        Dominant7Sus2 = Sus2 | IntervalMinor7th,
+        Dominant7Sus4 = Sus4 | IntervalMinor7th,
 
-        Augmented = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalAugmented5th,
-        Diminished = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalDiminished5th,
+        Augmented = IsChord | IntervalRoot | IntervalMajor3rd | IntervalAugmented5th,
+        Diminished = IsChord | IntervalRoot | IntervalMajor3rd | IntervalDiminished5th,
 
-        HalfDiminished = Diminished | ChordIntervalsEnum.IntervalMinor7th,
-        Diminished7 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalDiminished5th | ChordIntervalsEnum.IntervalDiminished7th,
+        HalfDiminished = Diminished | IntervalMinor7th,
+        Diminished7 = IsChord | IntervalRoot | IntervalMinor3rd | IntervalDiminished5th | IntervalDiminished7th,
 
-        Minor = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalPerfect5th,
-        Minor7 = Minor | ChordIntervalsEnum.IntervalMinor7th,
-        Minor9 = Minor7 | ChordIntervalsEnum.IntervalNinth,
-        Minor11 = Minor9 | ChordIntervalsEnum.IntervalEleventh,
-        Minor13 = Minor11 | ChordIntervalsEnum.IntervalThirteenth,
+        Minor = IsChord | IntervalRoot | IntervalMinor3rd | IntervalPerfect5th,
+        Minor7 = Minor | IntervalMinor7th,
+        Minor9 = Minor7 | IntervalNinth,
+        Minor11 = Minor9 | IntervalEleventh,
+        Minor13 = Minor11 | IntervalThirteenth,
 
-        Minor6 = Minor | ChordIntervalsEnum.IntervalMajor6th,
-        Minor6Add9 = Minor6 | ChordIntervalsEnum.IntervalNinth,
-        Minor7Sharp5 = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalAugmented5th | ChordIntervalsEnum.IntervalMinor7th,
-        MinorAdd9 = Minor | ChordIntervalsEnum.IntervalNinth,
-        MinorMajor7 = Minor | ChordIntervalsEnum.IntervalMajor7th,
-        MinorAugmented = ChordIntervalsEnum.IntervalRoot | ChordIntervalsEnum.IntervalMinor3rd | ChordIntervalsEnum.IntervalAugmented5th,
-        MinorMajor7Aug = MinorAugmented | ChordIntervalsEnum.IntervalMajor7th,
-        MinorMajor9 = MinorMajor7 | ChordIntervalsEnum.IntervalNinth,
+        Minor6 = Minor | IntervalMajor6th,
+        Minor6Add9 = Minor6 | IntervalNinth,
+        Minor7Sharp5 = IsChord | IntervalRoot | IntervalMinor3rd | IntervalAugmented5th | IntervalMinor7th,
+        MinorAdd9 = Minor | IntervalNinth,
+        MinorMajor7 = Minor | IntervalMajor7th,
+        MinorAugmented = IsChord | IntervalRoot | IntervalMinor3rd | IntervalAugmented5th,
+        MinorMajor7Aug = MinorAugmented | IntervalMajor7th,
+        MinorMajor9 = MinorMajor7 | IntervalNinth,
 
-        Major13Aug11 = Major7 | ChordIntervalsEnum.IntervalAugmented11th | ChordIntervalsEnum.IntervalThirteenth,
-        Major7Aug = Augmented | ChordIntervalsEnum.IntervalMajor7th,
-        Major7b5 = Diminished | ChordIntervalsEnum.IntervalMajor7th,
-        Major9thSharp11 = Major7 | ChordIntervalsEnum.IntervalNinth | ChordIntervalsEnum.IntervalAugmented11th,
+        Major13Aug11 = Major7 | IntervalAugmented11th | IntervalThirteenth,
+        Major7Aug = Augmented | IntervalMajor7th,
+        Major7b5 = Diminished | IntervalMajor7th,
+        Major9thSharp11 = Major7 | IntervalNinth | IntervalAugmented11th,
 
-        IsDominant = ChordIntervalsEnum.IntervalMajor3rd | ChordIntervalsEnum.IntervalMinor7th,
-        IsMajor = ChordIntervalsEnum.IntervalMajor3rd,
-        IsMinor = ChordIntervalsEnum.IntervalMinor3rd,
-        IsDiminished = ChordIntervalsEnum.IntervalDiminished5th,
-        IsHalfDiminished = ChordIntervalsEnum.IntervalDiminished5th  | ChordIntervalsEnum.IntervalMinor7th,
+        IsDominant = IntervalMajor3rd | IntervalMinor7th,
+        IsMajor = IntervalMajor3rd,
+        IsMinor = IntervalMinor3rd,
+        IsDiminished = IntervalDiminished5th,
+        IsHalfDiminished = IntervalDiminished5th  | IntervalMinor7th,
 
     };
 }//ns

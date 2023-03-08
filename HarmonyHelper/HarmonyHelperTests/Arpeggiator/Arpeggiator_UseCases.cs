@@ -21,7 +21,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var contexts = new List<ArpeggiationContext>();
 
 			var notesPerMeasure = 4;
-			var chordFormula = ChordFormula.C7;
+			var chordFormula = ChordFormula.CDominant7;
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 
 			for (int i = 0; i <= 11; ++i)
@@ -52,7 +52,7 @@ namespace Eric.Morrison.Harmony.Tests
 		[TestMethod()]
 		public void TheCycleTest_Fluent()
 		{
-			var chordFormula = ChordFormula.C7;
+			var chordFormula = ChordFormula.CDominant7;
 
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
 			var notesPerMeasure = 4;
@@ -133,7 +133,7 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<Chord>();
 			NoteName root = null;
 			KeySignature key = null;
-            ChordIntervalsEnum chordType = null;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.None;
 
 			for (int i = 0; i <= TestConstants.CYCLE_MAX; ++i)
 			{
@@ -596,7 +596,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void CycleOfMinor3rdsTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.FifthPosition);
-			var chordFormula = ChordFormula.Eb7;
+			var chordFormula = ChordFormula.EbDominant7;
 			var chord = new Chord(chordFormula, noteRange);
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var notesToPlay = 4;
@@ -632,7 +632,7 @@ namespace Eric.Morrison.Harmony.Tests
 		public void ColtraneChangesTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.NinthPosition);
-			var chordFormula = ChordFormula.Bb7;
+			var chordFormula = ChordFormula.BbDominant7;
 			var chord = new Chord(chordFormula, noteRange);
 			var startingNote = new Note(chordFormula.Root, OctaveEnum.Octave2);
 			var notesToPlay = 4;
@@ -688,8 +688,8 @@ namespace Eric.Morrison.Harmony.Tests
 			var beatsPerBar = 6;
 
 			var chords = new List<Chord>();
-			chords.Add(new Chord(ChordFormula.A7, noteRange));
-			chords.Add(new Chord(ChordFormula.D7, noteRange));
+			chords.Add(new Chord(ChordFormula.ADominant7, noteRange));
+			chords.Add(new Chord(ChordFormula.DDominant7, noteRange));
 
 			var contexts = new List<ArpeggiationContext>();
 			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, beatsPerBar)));

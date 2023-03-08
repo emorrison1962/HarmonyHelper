@@ -236,7 +236,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 			foreach (var key in KeySignature.InternalCatalog)
 			{
 				foreach (var chordType in ChordType.Catalog
-					.Where(x => x.Intervals.Count > 2)
+					.Where(x => x.Intervals().Count > 2)
 					.Except(new[] { ChordIntervalsEnum.None }))
 				{
 					foreach (var nn in NoteName.Catalog)

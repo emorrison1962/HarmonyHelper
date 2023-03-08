@@ -23,7 +23,7 @@ namespace Eric.Morrison.Harmony.Chords
 			get
 			{
 				var root = this.Root.NoteName.ToString();
-				var chordType = this.Formula.ChordType.ToStringEx();
+				var chordType = this.Formula.ChordType.Name();
 
 				var result = string.Format("{0}{1}",
 					root,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 
 using Eric.Morrison.Harmony.MusicXml;
 
@@ -43,5 +44,30 @@ namespace Eric.Morrison.Harmony.Enums
 
             new object();
         }
+
+        [TestMethod]
+        public void GenerateChordTypeCatalogTest() 
+        {
+            var catalog = Enum.GetValues(typeof(ChordIntervalsEnum))
+                .Cast<ChordIntervalsEnum>()
+                .ToList()
+                .Where(x => x != ChordIntervalsEnum.IsChord 
+                    && x.HasFlag(ChordIntervalsEnum.IsChord))
+                .OrderBy(x => x.Name())
+                .ToList();
+
+            foreach (var e in catalog) 
+            {
+                var code = @$"case ChordIntervalsEnum.{e}: 
+{{
+result = """";
+break;
+}}";
+                Debug.WriteLine(code);
+            }
+
+            new object();
+        }
+
     }//class
 }//ns

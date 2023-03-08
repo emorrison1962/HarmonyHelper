@@ -19,8 +19,8 @@ namespace HarmonyHelperTests.VoiceLeadingAnalyzer
 		{
 			var analyzer = new Eric.Morrison.Harmony.VoiceLeadingAnalyzer();
 
-			var I = ChordFormula.A7;
-			var IV = ChordFormula.D7;
+			var I = ChordFormula.ADominant7;
+			var IV = ChordFormula.DDominant7;
 
 			var results = analyzer.Analyze(I, IV);
 			foreach (var result in results.Results)

@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.CodeFirst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.DbFirst", "HarmonyHelper.Dal.DbFirst\HarmonyHelper.Dal.DbFirst.csproj", "{5DEF336C-6AD9-4FCD-91B0-09D1901C0286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelper.Dal.Entities", "HarmonyHelper.Dal.Entities\HarmonyHelper.Dal.Entities.csproj", "{CF5E70DB-B20D-46CE-9000-97A42B16F605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.Entities", "HarmonyHelper.Dal.Entities\HarmonyHelper.Dal.Entities.csproj", "{CF5E70DB-B20D-46CE-9000-97A42B16F605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,7 +48,6 @@ Global
 		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{145649E6-FEE6-433D-B9F1-47F1EA513F0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D86781E-86BF-44ED-B1BF-72C208937B54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEA15C21-0090-4FEF-BEE8-2A1737A46A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

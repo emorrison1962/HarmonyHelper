@@ -50,7 +50,7 @@ namespace Eric.Morrison.Harmony.Tests
 				//Assert.IsTrue(success);
 			}
 
-			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name);
+			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name());
 			foreach (var chord in ordered.Distinct().Where(x => !x.ToString().Contains("/")))
 			{
 				Debug.WriteLine($"{chord}");
@@ -208,7 +208,7 @@ Maj9
 				//Assert.IsTrue(success);
 			}
 
-			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name);
+			var ordered = parsedChords.OrderBy(x => x.Root).OrderBy(x => x.ChordType.Name());
 			foreach (var chord in ordered.Distinct().Where(x => !x.ToString().Contains("/")))
 			{
 				Debug.WriteLine($"{chord}");

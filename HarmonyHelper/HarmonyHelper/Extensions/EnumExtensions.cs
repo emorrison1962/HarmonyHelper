@@ -8,10 +8,12 @@ namespace Eric.Morrison.Harmony
 
 	public static class ChordTypesEnumExtensions
 	{
+		[Obsolete("", true)]
 		public static string ToStringEx(this ChordIntervalsEnum cte)
 		{
 			var result = string.Empty;
-			result = cte.Name();
+			throw new NotImplementedException();
+			//result = cte.Name();
 			//switch (cte)
 			//{
 			//	case ChordType.None:

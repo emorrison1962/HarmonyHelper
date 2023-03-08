@@ -14,11 +14,258 @@ namespace Eric.Morrison.Harmony
     {
         static public string Name(this ChordIntervalsEnum src)
         {
-            var result = Enum.GetName(typeof(ChordIntervalsEnum), src);
+            var result = string.Empty;
+            switch (src)
+            {
+                case ChordIntervalsEnum.Augmented:
+                    {
+                        result = "+";
+                        break;
+                    }
+                case ChordIntervalsEnum.Diminished:
+                    {
+                        result = "dim";
+                        break;
+                    }
+                case ChordIntervalsEnum.Diminished7:
+                    {
+                        result = "dim7";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant11:
+                    {
+                        result = "11";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant11b9:
+                    {
+                        result = "11b9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant13:
+                    {
+                        result = "13";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant13Aug11:
+                    {
+                        result = "13#11";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant13b9:
+                    {
+                        result = "13b9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7:
+                    {
+                        result = "7";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7b5:
+                    {
+                        result = "7b5";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7b5b9:
+                    {
+                        result = "7b5b9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7b5Sharp9:
+                    {
+                        result = "7b5#9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7b9:
+                    {
+                        result = "7b9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sharp5:
+                    {
+                        result = "7+";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sharp5b9:
+                    {
+                        result = "7+5b9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sharp5Nine:
+                    {
+                        result = "7+9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sharp9:
+                    {
+                        result = "7#9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sus2:
+                    {
+                        result = "7sus2";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant7Sus4:
+                    {
+                        result = "7sus4";
+                        break;
+                    }
+                case ChordIntervalsEnum.Dominant9:
+                    {
+                        result = "9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major:
+                    {
+                        result = "Maj";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major11:
+                    {
+                        result = "Maj11";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major13:
+                    {
+                        result = "Maj13";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major13Aug11:
+                    {
+                        result = "Maj13#11";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major6:
+                    {
+                        result = "6";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major7:
+                    {
+                        result = "Maj7";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major7Aug:
+                    {
+                        result = "Maj7+";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major7b5:
+                    {
+                        result = "Maj7b5";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major9:
+                    {
+                        result = "Maj9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Major9thSharp11:
+                    {
+                        result = "Maj9#11";
+                        break;
+                    }
+                case ChordIntervalsEnum.MajorMu:
+                    {
+                        result = "MajAdd9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor:
+                    {
+                        result = "m";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor11:
+                    {
+                        result = "m11";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor13:
+                    {
+                        result = "m13";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor6:
+                    {
+                        result = "m6";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor6Add9:
+                    {
+                        result = "m6Add9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor7:
+                    {
+                        result = "m7";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor7Sharp5:
+                    {
+                        result = "m7+";
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor9:
+                    {
+                        result = "m9";
+                        break;
+                    }
+                case ChordIntervalsEnum.MinorAdd9:
+                    {
+                        result = "mAdd9";
+                        break;
+                    }
+                case ChordIntervalsEnum.MinorAugmented:
+                    {
+                        result = "m+";
+                        break;
+                    }
+                case ChordIntervalsEnum.MinorMajor7:
+                    {
+                        result = "mMaj7";
+                        break;
+                    }
+                case ChordIntervalsEnum.MinorMajor7Aug:
+                    {
+                        result = "mMaj7+";
+                        break;
+                    }
+                case ChordIntervalsEnum.MinorMajor9:
+                    {
+                        result = "mMaj9";
+                        break;
+                    }
+                case ChordIntervalsEnum.Sus2:
+                    {
+                        result = "sus2";
+                        break;
+                    }
+                case ChordIntervalsEnum.Sus2Sus4:
+                    {
+                        result = "sus";
+                        break;
+                    }
+                case ChordIntervalsEnum.Sus4:
+                    {
+                        result = "sus4";
+                        break;
+                    }
+
+                default:
+                    throw new NotSupportedException(nameof(src));
+            }
+
             Debug.Assert(null != result);
             return result;
         }
 
+        [Obsolete("")]
+        static public string xName(this ChordIntervalsEnum src)
+        {
+            return Enum.GetName(typeof(ChordIntervalsEnum), src);
+        }
         static public Interval GetInterval(this ChordIntervalsEnum src, ChordFunctionEnum cfe)
         {
             if (src == ChordIntervalsEnum.None)

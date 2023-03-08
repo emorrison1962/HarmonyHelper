@@ -121,7 +121,7 @@ namespace Eric.Morrison.Harmony.Tests.Serialization
         [TestMethod()]
         public void SerializeChordFormula()
         {
-            var formula = ChordFormula.A7sharp9;
+            var formula = ChordFormula.ADominant7Sharp9;
 
             var json = JsonConvert.SerializeObject(formula, Formatting.Indented);
             Debug.WriteLine(json);
