@@ -63,6 +63,9 @@ namespace Eric.Morrison.Harmony
 		public event EventHandler<Arpeggiator> Starting;
 		public event EventHandler<Arpeggiator> Started;
 
+        public event EventHandler<Arpeggiator> MeasureChanging;
+		public event EventHandler<Arpeggiator> MeasureChanged;
+        
 		public event EventHandler<ChordChangingEventArgs> ChordChanging;
 		public event EventHandler<Arpeggiator> ChordChanged;
 

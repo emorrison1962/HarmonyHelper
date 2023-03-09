@@ -76,8 +76,7 @@ namespace Eric.Morrison.Harmony.Scales
 			result.Add(root);
 			foreach (var interval in this.Intervals)
 			{
-				var success = NoteName.TryTransposeUp(this.Root, interval, out var txposed, out var unused);
-				Debug.Assert(success);
+                var txposed = NoteName.TransposeUp(this.Root, interval, true);
 				result.Add(txposed);
 			}
 

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.MusicXml;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Eric.Morrison.Harmony
@@ -59,14 +62,34 @@ namespace Eric.Morrison.Harmony
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			this.RegisterMusicXmlObservers(arpeggiator);
+
+            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
+                new MusicXmlPartIdentifier("P1", "Bass"));
+
+            this.RegisterMusicXmlObservers(arpeggiator);
 
 			arpeggiator.Arpeggiate();
 
 			new object();
 		}
+        MusicXmlPart Part { get; set; }
+        MusicXmlModel CreateModel(MusicXmlScoreMetadata metadata, RhythmicContext rhythm, List<MusicXmlPart> parts)
+        {
+            var result = new MusicXmlModel();
+            result.Metadata = metadata;
+            result.Rhythm = rhythm;
+            foreach (var part in parts)
+            {
+                result.Add(part);
+            }
 
-		[TestMethod()]
+            //this.CreateSections(result);
+
+            return result;
+        }
+
+
+        [TestMethod()]
 		public void TheCycle_12Frets_Test()
 		{
 			var noteRange = new NoteRange(
@@ -110,18 +133,181 @@ namespace Eric.Morrison.Harmony
 				//DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			this.RegisterMusicXmlObservers(arpeggiator);
+            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
+                new MusicXmlPartIdentifier("P1", "Bass"));
+
+            this.RegisterMusicXmlObservers(arpeggiator);
 
 			arpeggiator.Arpeggiate();
 
 			new object();
 		}
 
-		[TestMethod()]
+		MusicXmlModel Model { get; set; }
+
+        private void XML_Starting(object sender, Arpeggiator e)
+        {
+            //string fileContent = Resources.MusicXML_TEMPLATE_02;
+            //XmlCtx.Document = XDocument.Parse(fileContent);
+            new object();
+        }
+        private void XML_ChordChanged(object sender, Arpeggiator ctx)
+        {
+            ++XmlCtx.MeasureNumber;
+            this.CreateMeasure(ctx);
+        }
+        private void XML_Ending(object sender, Arpeggiator e)
+        {
+            //XmlCtx.Document.Save(@"c:\temp\_xml.xml");
+            new object();
+        }
+        private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
+        {
+            #region FORMAT
+            const string FORMAT = @"
+	  <note>
+		<pitch>
+		  <step>{0}</step>
+		  {1}
+		  <octave>{2}</octave>
+		</pitch>
+		<duration>1</duration>
+		<voice>1</voice>
+		<type>quarter</type>
+		<staff>{3}</staff>
+	  </note>";
+            #endregion
+
+#if false
+			var octave = (int)ctx.CurrentNote.Octave;
+			var note = ctx.CurrentNote.NoteName.ToString();
+			//if (ctx.CurrentNote.NoteName == NoteName.Cb)
+			//	++octave;
+
+
+			var alter = string.Empty;
+			if (note.EndsWith(FLAT))
+			{
+				alter = "<alter>-1</alter>";
+			}
+			else if (note.EndsWith(SHARP))
+			{
+				alter = "<alter>1</alter>";
+			}
+			note = note.Replace(FLAT, string.Empty);
+			note = note.Replace(SHARP, string.Empty);
+
+			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave4);
+			int staff = 1;
+			if (splitPoint > ctx.CurrentNote)
+			{
+				staff = 2;
+			}
+
+			var xml = string.Format(FORMAT, note, alter, octave, staff);
+			var elem = XElement.Parse(xml);
+
+			var measure = XmlCtx.Document.Root.Descendants("measure").Last();
+			//XElement part = null;
+			//var measure = part.Descendants("measure").Last();
+			measure.Add(elem);
+
+#endif
+            new object();
+        }
+
+        const string FLAT = "♭";
+        const string SHARP = "♯";
+
+        private void CreateMeasure(Arpeggiator ctx)
+        {
+			var measure = new MusicXmlMeasure(this.Part, XmlCtx.MeasureNumber);
+            this.Part.Add(measure);
+#if false
+			var rootAlter = string.Empty;
+			if (chordRoot.EndsWith(FLAT))
+				rootAlter = "<root-alter>-1</root-alter>";
+			if (chordRoot.EndsWith(SHARP))
+				rootAlter = "<root-alter>1</root-alter>";
+
+			chordRoot = chordRoot.Replace(FLAT, string.Empty);
+			chordRoot = chordRoot.Replace(SHARP, string.Empty);
+
+			var print = string.Empty;
+			if (1 == XmlCtx.MeasureNumber)
+			{
+
+				print = @"
+<print>
+  <system-layout>
+	<system-margins>
+	  <left-margin>21.00</left-margin>
+	  <right-margin>0.00</right-margin>
+	</system-margins>
+	<top-system-distance>195.00</top-system-distance>
+  </system-layout>
+  <staff-layout number=""2"">
+	<staff-distance>65.00</staff-distance>
+  </staff-layout>
+</print>
+<attributes>
+  <divisions>1</divisions>
+  <key>
+	<fifths>0</fifths>
+  </key>
+  <staves>2</staves>
+  <clef number = ""1"">
+	 <sign>G</sign>
+	 <line>2</line>
+   </clef>
+   <clef number = ""2"">
+	  <sign>F</sign>
+	  <line>4</line>
+	</clef>
+  </attributes>
+  ";
+
+
+			}
+
+            #region MEASURE_XML
+			const string MEASURE_XML = @"
+	<measure number=""{0}"">
+{3}
+		<harmony print-frame=""no"">
+		<root>
+		  <root-step>{1}</root-step>
+		  {2}
+		</root>
+		<kind text = ""7"" >dominant</kind>
+	  </harmony>
+	</measure>";
+            #endregion
+			var xml = string.Format(MEASURE_XML, XmlCtx.MeasureNumber, chordRoot, rootAlter, print);
+
+			//Debug.WriteLine(xml);
+			var measureElem = XElement.Parse(xml);
+
+
+			var elems = XmlCtx.Document.Root.Descendants("part");
+			foreach (var part in elems)
+			{
+				part.Add(measureElem);
+			}
+
+#endif
+            new object();
+        }
+
+
+
+        [TestMethod()]
 		public void Parser_Test()
 		{
-			//var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
-			var chordTxt = "eb7 abm7 db7";
+            this.Model = new MusicXmlModel();
+
+            //var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
 			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
@@ -245,153 +431,6 @@ namespace Eric.Morrison.Harmony
 
 
 
-		private void XML_Starting(object sender, Arpeggiator e)
-		{
-			//string fileContent = Resources.MusicXML_TEMPLATE_02;
-			//XmlCtx.Document = XDocument.Parse(fileContent);
-			new object();
-		}
-		private void XML_ChordChanged(object sender, Arpeggiator ctx)
-		{
-			++XmlCtx.MeasureNumber;
-			this.CreateMeasure(ctx.CurrentChord.Root.NoteName.ToString());
-		}
-		private void XML_Ending(object sender, Arpeggiator e)
-		{
-			XmlCtx.Document.Save(@"c:\temp\_xml.xml");
-			new object();
-		}
-		private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
-		{
-#region FORMAT
-			const string FORMAT = @"
-	  <note>
-		<pitch>
-		  <step>{0}</step>
-		  {1}
-		  <octave>{2}</octave>
-		</pitch>
-		<duration>1</duration>
-		<voice>1</voice>
-		<type>quarter</type>
-		<staff>{3}</staff>
-	  </note>";
-#endregion
-
-			var octave = (int)ctx.CurrentNote.Octave;
-			var note = ctx.CurrentNote.NoteName.ToString();
-			//if (ctx.CurrentNote.NoteName == NoteName.Cb)
-			//	++octave;
-
-
-			var alter = string.Empty;
-			if (note.EndsWith(FLAT))
-			{
-				alter = "<alter>-1</alter>";
-			}
-			else if (note.EndsWith(SHARP))
-			{
-				alter = "<alter>1</alter>";
-			}
-			note = note.Replace(FLAT, string.Empty);
-			note = note.Replace(SHARP, string.Empty);
-
-			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave4);
-			int staff = 1;
-			if (splitPoint > ctx.CurrentNote)
-			{
-				staff = 2;
-			}
-
-			var xml = string.Format(FORMAT, note, alter, octave, staff);
-			var elem = XElement.Parse(xml);
-
-			var measure = XmlCtx.Document.Root.Descendants("measure").Last();
-			//XElement part = null;
-			//var measure = part.Descendants("measure").Last();
-			measure.Add(elem);
-			new object();
-		}
-
-
-		const string FLAT = "♭";
-		const string SHARP = "♯";
-
-
-		private void CreateMeasure(string chordRoot)
-		{
-			var rootAlter = string.Empty;
-			if (chordRoot.EndsWith(FLAT))
-				rootAlter = "<root-alter>-1</root-alter>";
-			if (chordRoot.EndsWith(SHARP))
-				rootAlter = "<root-alter>1</root-alter>";
-
-			chordRoot = chordRoot.Replace(FLAT, string.Empty);
-			chordRoot = chordRoot.Replace(SHARP, string.Empty);
-
-			var print = string.Empty;
-			if (1 == XmlCtx.MeasureNumber)
-			{
-
-				print = @"
-<print>
-  <system-layout>
-	<system-margins>
-	  <left-margin>21.00</left-margin>
-	  <right-margin>0.00</right-margin>
-	</system-margins>
-	<top-system-distance>195.00</top-system-distance>
-  </system-layout>
-  <staff-layout number=""2"">
-	<staff-distance>65.00</staff-distance>
-  </staff-layout>
-</print>
-<attributes>
-  <divisions>1</divisions>
-  <key>
-	<fifths>0</fifths>
-  </key>
-  <staves>2</staves>
-  <clef number = ""1"">
-	 <sign>G</sign>
-	 <line>2</line>
-   </clef>
-   <clef number = ""2"">
-	  <sign>F</sign>
-	  <line>4</line>
-	</clef>
-  </attributes>
-  ";
-
-
-			}
-
-#region MEASURE_XML
-			const string MEASURE_XML = @"
-	<measure number=""{0}"">
-{3}
-		<harmony print-frame=""no"">
-		<root>
-		  <root-step>{1}</root-step>
-		  {2}
-		</root>
-		<kind text = ""7"" >dominant</kind>
-	  </harmony>
-	</measure>";
-#endregion
-			var xml = string.Format(MEASURE_XML, XmlCtx.MeasureNumber, chordRoot, rootAlter, print);
-
-			//Debug.WriteLine(xml);
-			var measureElem = XElement.Parse(xml);
-
-
-			var elems = XmlCtx.Document.Root.Descendants("part");
-			foreach (var part in elems)
-			{
-				part.Add(measureElem);
-			}
-			new object();
-		}
 
 
 	}//class

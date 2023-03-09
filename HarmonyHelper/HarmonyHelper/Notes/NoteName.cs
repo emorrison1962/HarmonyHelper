@@ -411,15 +411,7 @@ namespace Eric.Morrison.Harmony
             var result = note;
             if (null != note)
             {
-                //result = TransposeUp(note, interval);
-                if (TryTransposeUp(note, interval, out var txposed, out var enharmonic))
-                {
-                    result = txposed;
-                }
-                else
-                {
-                    result = enharmonic;
-                }
+                result = NoteName.TransposeUp(note, interval);
             }
             return result;
         }
@@ -431,15 +423,7 @@ namespace Eric.Morrison.Harmony
             NoteName result = null;
             if (null != note)
             {
-                var success = NoteName.TryTransposeUp(note, interval.GetInversion(), out var txposed, out var enharmonicEquivelent);
-                if (success)
-                {
-                    result = txposed;
-                }
-                else
-                {
-                    result = enharmonicEquivelent;
-                }
+                result = NoteName.TransposeUp(note, interval.GetInversion());
             }
             return result;
         }
@@ -570,24 +554,28 @@ namespace Eric.Morrison.Harmony
         }
 
 
-        public static bool TryTransposeUp(NoteName src, Interval interval, out NoteName txposed, out NoteName enharmonicEquivelent)
+        [Obsolete("", true)]
+        static bool TryTransposeUp(NoteName src, Interval interval, out NoteName txposed, out NoteName enharmonicEquivelent, bool @explicit)
         {
+            
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             var result = false;
             txposed = null;
             enharmonicEquivelent = null;
+#if false      
 
             var success = IsValidTransposition(src, interval);
             if (success)
             {
-                txposed = TransposeUp(src, interval);
+                txposed = TransposeUp(src, interval, @explicit);
                 result = true;
             }
             else
             {
                 var enharmonicEquivalents = NoteName.GetEnharmonicEquivalents(src);
                 var enharmonicEquivalent = enharmonicEquivalents.OrderBy(e => e.AccidentalCount).First();
+                
                 success = TryTransposeUp(enharmonicEquivalent, interval, out txposed, out var unused);
                 Debug.Assert(success);
                 if (success)
@@ -596,13 +584,12 @@ namespace Eric.Morrison.Harmony
                     txposed = null;
                 }
             }
+#endif
             return result;
         }
 
-        protected static NoteName TransposeUp(NoteName src, Interval interval)
+        public static NoteName TransposeUp(NoteName src, Interval interval, bool @explicit = false)
         {
-            //if (src == NoteName.BSharp && interval == ChordToneInterval.Sharp9th)
-            //    new object();
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             NoteName result = null;
@@ -620,7 +607,7 @@ namespace Eric.Morrison.Harmony
             if (success)
             {
                 var val = TransposeValue(src, interval);
-                result = ResolveNoteName(src, interval, val);
+                result = ResolveNoteName(src, interval, val, @explicit);
                 Debug.Assert(null != result);
             }
             Debug.Assert(null != result);
@@ -641,7 +628,19 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        public static NoteName ResolveNoteName(NoteName src, Interval interval, int noteVal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="interval"></param>
+        /// <param name="noteVal"></param>
+        /// <param name="@explicit">
+        ///     If @explicit == true, enhormonic equilalents are not returned. 
+        ///     This means that you may receive a double or triple sharp or flat.
+        ///     If @explicit == false, an enharmoic equivalent is returned.
+        /// </param>
+        /// <returns></returns>
+        public static NoteName ResolveNoteName(NoteName src, Interval interval, int noteVal, bool @explicit)
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
@@ -654,17 +653,39 @@ namespace Eric.Morrison.Harmony
             var resultCandidates = notenames.Where(x => x.RawValue == noteVal).ToList();
             Debug.Assert(resultCandidates.Count > 0);
 
-            var srcAscii = (int)src.Name[0];
-            var readableSrcAscii = (char)srcAscii;
-            var lettersAway = (int)intervalRole;
-            srcAscii += lettersAway;
-            if (srcAscii > ASCII_G)
+            NoteName result = null;
+            if (!@explicit)
             {
-                srcAscii -= OFFSET_TO_ASCII_G;
+                var srcAscii = (int)src.Name[0];
+                var readableSrcAscii = (char)srcAscii;
+                var lettersAway = (int)intervalRole;
+                srcAscii += lettersAway;
+                if (srcAscii > ASCII_G)
+                {
+                    srcAscii -= OFFSET_TO_ASCII_G;
+                }
+                var criteria = new String((char)srcAscii, 1);
+                result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(criteria));
+            }
+            else
+            {
+                var accidentalCount = resultCandidates.Min(x => x.AccidentalCount);
+                resultCandidates = resultCandidates
+                    .Where(x => x.AccidentalCount == accidentalCount)
+                    .ToList();
+                var x = (from nn in resultCandidates
+                         where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
+                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                                || nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                                || src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat) ==
+                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
+                                || nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                         select nn).ToList();
+                Debug.Assert(x.Count == 1);
+                result = x.First();
+                new object();
             }
 
-            var criteria = new String((char)srcAscii, 1);
-            var result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(criteria));
             if (null == result) //This can happen when transposing B# up an augmented fifth, expecting F###
             {
                 throw new ArgumentOutOfRangeException(nameof(result), $"HarmonyHelper does not support triple flatted or triple sharped NoteNames.");

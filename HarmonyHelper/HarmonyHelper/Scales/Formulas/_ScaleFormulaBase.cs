@@ -81,9 +81,7 @@ namespace Eric.Morrison.Harmony.Scales
 			result.Add(this.Key.NoteName);
 			foreach (var interval in this.Intervals)
 			{
-				var success = NoteName.TryTransposeUp(this.Root, interval, out var nn, out var unused);
-				Debug.Assert(success);
-
+                var nn = NoteName.TransposeUp(this.Root, interval, true);
 				Debug.Assert(nn != this.Key.NoteName);
 				result.Add(nn);
 			}

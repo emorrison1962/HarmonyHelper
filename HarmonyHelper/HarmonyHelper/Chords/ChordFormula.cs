@@ -39,13 +39,13 @@ namespace Eric.Morrison.Harmony.Chords
 
 
         [JsonIgnore]
-        virtual public bool IsMajor 
-        { 
-            get 
-            { 
-                return this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMajor3rd) 
-                    && !this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMinor7th); 
-            } 
+        virtual public bool IsMajor
+        {
+            get
+            {
+                return this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMajor3rd)
+                    && !this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMinor7th);
+            }
         }
         [JsonIgnore]
         virtual public bool IsMinor { get { return this.ChordType.HasFlag(ChordIntervalsEnum.IsMinor); } }
@@ -85,7 +85,7 @@ namespace Eric.Morrison.Harmony.Chords
 
             foreach (var interval in this.ChordType.Intervals())
             {
-                var nn = root + interval;
+                var nn = NoteName.TransposeUp(root, interval, true);
                 Debug.Assert(nn != null);
                 this.NoteNames.Add(nn);
                 if (nn.IsFlatted)
@@ -336,31 +336,24 @@ namespace Eric.Morrison.Harmony.Chords
 
             //var key = chord._Keys.First();
 
-            if (NoteName.TryTransposeUp(chord.Root, interval, out var txposed, out var enharmonicEquivelent))
+            var txposed = NoteName.TransposeUp(chord.Root, interval);
+            result = ChordFormula.Catalog
+                .FirstOrDefault(x => x.Root == txposed
+                    && x.ChordType == chord.ChordType);
+            if (null == result)
             {
-                result = ChordFormula.Catalog
-                    .FirstOrDefault(x => x.Root == txposed
-                        && x.ChordType == chord.ChordType);
-                if (null == result)
-                {
-                    var ee = NoteName
-                            .GetEnharmonicEquivalents(txposed)
-                            .Where(x => x.AccidentalCount == 
-                                NoteName.GetEnharmonicEquivalents(txposed)
-                                    .Min(x => x.AccidentalCount))
-                            .First();
+                var ee = NoteName
+                        .GetEnharmonicEquivalents(txposed)
+                        .Where(x => x.AccidentalCount ==
+                            NoteName.GetEnharmonicEquivalents(txposed)
+                                .Min(x => x.AccidentalCount))
+                        .First();
 
-                    result = ChordFormula.Catalog
-                        .FirstOrDefault(x => x.Root == ee
-                            && x.ChordType == chord.ChordType);
-                }
-            }
-            else
-            {
                 result = ChordFormula.Catalog
-                    .FirstOrDefault(x => x.Root == enharmonicEquivelent
+                    .FirstOrDefault(x => x.Root == ee
                         && x.ChordType == chord.ChordType);
             }
+
             return result;
         }
 
@@ -396,7 +389,7 @@ namespace Eric.Morrison.Harmony.Chords
 				txedKey = src.Key + interval;
 			}
 #endif
-            var txedRoot = src.Root + interval;
+            var txedRoot = NoteName.TransposeUp(src.Root, interval, respectKey);
             var result = ChordFormulaFactory.Create(txedRoot, src.ChordType);
 
             return result;

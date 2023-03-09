@@ -108,12 +108,12 @@ namespace Eric.Morrison.Harmony
         public KeySignature(NoteName NoteName, List<NoteName> NoteNames,
             bool IsMajor, bool IsMinor, int AccidentalCount, ExplicitNoteValuesEnum ExplicitValue)
         {
-            this.NoteName= NoteName;
-            this.NoteNames= NoteNames;
+            this.NoteName = NoteName;
+            this.NoteNames = NoteNames;
             this.IsMajor = IsMajor;
             this.IsMinor = IsMinor;
-            this.AccidentalCount= AccidentalCount;
-            this.ExplicitValue=ExplicitValue;
+            this.AccidentalCount = AccidentalCount;
+            this.ExplicitValue = ExplicitValue;
         }
         private KeySignature(NoteName key,
                 IEnumerable<NoteName> notes,
@@ -393,10 +393,7 @@ namespace Eric.Morrison.Harmony
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             KeySignature result = null;
-            if (!NoteName.TryTransposeUp(key.NoteName, interval, out var txposedNote, out var enharmonicEquivalent))
-            {
-                txposedNote = enharmonicEquivalent;
-            }
+            var txposedNote = NoteName.TransposeUp(key.NoteName, interval);
 
             IEnumerable<KeySignature> catalog = null;
 
@@ -511,9 +508,9 @@ namespace Eric.Morrison.Harmony
             }
 
             var formulaEVs = (from nn in tmpFormula.NoteNames
-                       select (nn.ExplicitValue)).ToList();
+                              select (nn.ExplicitValue)).ToList();
             var keyEVs = (from nn in this.NoteNames
-                       select (nn.ExplicitValue)).ToList();
+                          select (nn.ExplicitValue)).ToList();
 
             var intersection = keyEVs.Intersect(formulaEVs).ToList();
 
@@ -635,10 +632,11 @@ namespace Eric.Morrison.Harmony
         {
             if (this.IsMajor)
                 throw new ArgumentOutOfRangeException();
-            var success = NoteName.TryTransposeUp(this.NoteName, Interval.Minor3rd, out var txposedNote, out var unused);
-            Debug.Assert(success);
 
+            var txposedNote = NoteName.TransposeUp(this.NoteName, Interval.Minor3rd, true);
             var result = KeySignature.MajorKeys.First(x => x.NoteName == txposedNote);
+
+            Debug.Assert(null != result);
             return result;
         }
         public KeySignature GetRelativeMinor()
@@ -646,10 +644,10 @@ namespace Eric.Morrison.Harmony
             KeySignature result = null;
             if (this.IsMinor)
                 throw new ArgumentOutOfRangeException();
-            if (NoteName.TryTransposeUp(this.NoteName, Interval.Minor3rd.GetInversion(), out var txposed, out var unused))
-            {
-                result = KeySignature.MinorKeys.First(x => x.NoteName == txposed);
-            }
+            var txposedNote = NoteName.TransposeUp(this.NoteName, Interval.Minor3rd.GetInversion(), true);
+            result = KeySignature.MinorKeys.First(x => x.NoteName == txposedNote);
+            Debug.Assert(null != result);
+
             return result;
         }
 

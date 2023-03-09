@@ -359,7 +359,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                         break;
 
                     }
-                case "7sharp9":
+                case "7#9":
                     {
                         var kind = new XElement(XmlConstants.kind,
                             MusicXml_HarmonyKind_Constants.dominant);

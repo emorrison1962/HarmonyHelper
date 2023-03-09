@@ -101,5 +101,48 @@ namespace HarmonyHelperTests.Chords
             new object();
         }
 
+        [TestMethod()]
+        public void TheCycleTest()
+        {
+            var formulas = new List<ChordFormula>();
+            NoteName root = null;
+            ChordIntervalsEnum chordType = ChordIntervalsEnum.None;
+            const int CYCLE_MAX = 12 - 1;
+            for (int i = 0; i <= CYCLE_MAX; ++i)
+            {
+                if (null == root)
+                {
+                    root = NoteName.G;
+                    chordType = ChordIntervalsEnum.Dominant7;
+                }
+                else
+                {
+                    chordType = ChordIntervalsEnum.Dominant7;
+                    var copy = root.Copy();
+
+                    //before: G♭
+                    // after: C♭
+
+                    Debug.WriteLine($"before: {root}");
+                    if (root.Name == "G♭")
+                        new object();
+                    root += Interval.Perfect4th;
+                    Debug.WriteLine($" after: {root}");
+                    if (root.ExplicitValue.HasFlag(NoteName.ExplicitNoteValuesEnum.DoubleFlat)
+                        || root.ExplicitValue.HasFlag(NoteName.ExplicitNoteValuesEnum.DoubleSharp))
+                    {
+                        new object();
+                        var xx = copy + Interval.Perfect4th;
+                    }
+                }
+
+                var formula = ChordFormulaFactory.Get(root, chordType);
+                formulas.Add(formula);
+            }
+
+            Debug.WriteLine(string.Join(" | ", formulas));
+            new object();
+        }
+
     }//class
 }//ns

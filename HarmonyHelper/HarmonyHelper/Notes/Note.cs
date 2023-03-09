@@ -141,8 +141,7 @@ namespace Eric.Morrison.Harmony
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
-			var success = NoteName.TryTransposeUp(n.NoteName, interval, out var txposed, out var unused);
-			Debug.Assert(success);
+            var txposed = NoteName.TransposeUp(n.NoteName, interval);
 			n.NoteName = txposed;
 			n.Octave += (int)interval;
 			return n;
