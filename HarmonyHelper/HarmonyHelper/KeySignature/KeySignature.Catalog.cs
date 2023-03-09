@@ -263,9 +263,12 @@ namespace Eric.Morrison.Harmony
             foreach (var key in MinorKeys)
             {// To easier deal with the fact that minor keys could be built on Aeolean or Harmonic minor, add both the minor 7th and Major 7th.
                 var maj7th = key.NoteName - Interval.Minor2nd;
+                var min7th = key.NoteName - Interval.Major2nd;
                 var modifiedMinorKey = KeySignature.Clone(key, false, key.NoteName, false);
+
+                modifiedMinorKey.NoteNames.Remove(min7th);
                 modifiedMinorKey.NoteNames.Add(maj7th);
-                modifiedMinorKey.Name = $"{modifiedMinorKey.Name} with Major and minor 7ths";
+                modifiedMinorKey.Name = modifiedMinorKey.Name.Replace("Minor", "Harmonic Minor");
 
                 _InternalCatalog.Add(modifiedMinorKey);
             }

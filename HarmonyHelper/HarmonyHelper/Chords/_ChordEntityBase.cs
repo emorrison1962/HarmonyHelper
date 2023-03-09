@@ -11,7 +11,7 @@ namespace HarmonyHelper.Chords
     [Serializable]
     public abstract class ChordEntityBase : ClassBase
     {
-        virtual protected HashSet<KeySignature> _Keys { get; set; } = new HashSet<KeySignature>();  
+        virtual protected HashSet<KeySignature> _Keys { get; set; } = new HashSet<KeySignature>();
         virtual public IEnumerable<KeySignature> Keys { get { return _Keys.ToList().AsReadOnly(); } }
 
         public ChordEntityBase(IEnumerable<KeySignature> keys)

@@ -534,7 +534,9 @@ namespace Eric.Morrison.Harmony
 
         public override int GetHashCode()
         {
-            var result = this.RawValue.GetHashCode();
+            var result = this.ExplicitValue.GetHashCode()
+                ^ this.RawValue.GetHashCode()
+                ^ this.Name.GetHashCode();
             return result;
         }
 

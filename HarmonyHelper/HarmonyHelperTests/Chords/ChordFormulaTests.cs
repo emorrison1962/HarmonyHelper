@@ -41,58 +41,38 @@ namespace HarmonyHelperTests.Chords
         [TestMethod()]
         public void GetRelatedKeySignaturesTest()
         {
-            //ChordFormula.Catalog["Cdim"].Add(KeySignature.Catalog["C♯ Major"]);
-            var dict = new Dictionary<ChordFormula, HashSet<KeySignature>> ();
-            foreach (var formula in ChordFormula.Catalog) 
+            var dict = new Dictionary<ChordFormula, HashSet<KeySignature>>();
+            foreach (var formula in ChordFormula.Catalog)
             {
                 foreach (var key in KeySignature.InternalCatalog)
                 {
-                    if (formula.NameAscii == "Cdim" && key.NameAscii == "C# Major")
-                        new object();
                     if (IsDiatonicEnum.Yes == key.IsDiatonic(formula))
                     {
                         if (!dict.ContainsKey(formula))
-                        {
                             dict[formula] = new HashSet<KeySignature>();
-                        }
                         dict[formula].Add(key);
                     }
                 }
             }
 
-            var unpaired = new HashSet<ChordFormula> ();
-            var formulas = ChordFormula.Catalog.ToList();
-            foreach (var formula in formulas)
             {
-                if (!dict.Keys.Contains(formula))
-                { 
-                    unpaired.Add(formula);
+                var keys = new HashSet<ChordFormula>();
+                foreach (var key in dict.Keys)
+                {
+                    keys.Add(key);
                 }
             }
-
-            //foreach (var formula in unpaired)
-            //{ 
-            //    Debug.WriteLine(formula.Name);
-            //}
 
             var pairedFormuas = new List<ChordFormula>();
             foreach (var formula in dict.Keys)
             {
-                //Debug.WriteLine($"{formula.Name}");
-
-                var keys = dict[formula];
-                foreach (var key in keys)
+                formula.ClearKeys();
+                var keySignatures = dict[formula];
+                foreach (var keySignature in keySignatures)
                 {
-                    if (formula.NameAscii == "Cdim" && key.NameAscii == "C# Major")
-                        new object();
-                    if (null != key)
-                    {
-                        formula.Add(key);
-                        //Debug.WriteLine($"\t{key.Name}");
-                    }
+                    formula.Add(keySignature);
                 }
                 pairedFormuas.Add(formula);
-
             }
 
 
@@ -105,22 +85,11 @@ namespace HarmonyHelperTests.Chords
 
                 foreach (var formula in pairedFormuas)
                 {
-                    //var settings = new JsonSerializerSettings();
-                    //settings.Formatting = Formatting.Indented;
-                    //settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    //var json = JsonConvert.SerializeObject(formula, settings);
-                    //var serialized = JsonConvert.DeserializeObject<ChordFormula>(json, settings);
-                    //Assert.AreEqual(formula, serialized);
-                    //new object();
-
-
-
                     foreach (var key in formula.Keys)
                     {
                         var code = $"ChordFormula.Catalog[\"{formula.Name}\"].Add(KeySignature.Catalog[\"{key.Name}\"]);";
                         sb.WriteLine(code);
                     }
-                    new object();
                 }
 
                 sb.Indent = 2;

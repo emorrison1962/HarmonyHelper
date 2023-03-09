@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Eric.Morrison;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HarmonyHelper.Tests.Console
@@ -31,7 +33,7 @@ namespace HarmonyHelper.Tests.Console
         {
             var tasks = new List<Task>();
             //var tests = this.GetTestMethods();
-            var tests = this.GetTestMethod("ReHarmonizeTest");
+            var tests = this.GetTestMethod("GetRelatedKeySignaturesTest");
 
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
@@ -63,7 +65,7 @@ namespace HarmonyHelper.Tests.Console
         List<MethodInfo> GetTestMethods()
         {
             var result = new List<MethodInfo>();
-            var assembly = Assembly.LoadFrom(ASSEMBLY_PATH);
+            var assembly = Assembly.GetAssembly(typeof(TestUtilities));
 
             var testClassTypes = assembly.GetTypes()
                 .Where(x => null != x.GetCustomAttribute<TestClassAttribute>())

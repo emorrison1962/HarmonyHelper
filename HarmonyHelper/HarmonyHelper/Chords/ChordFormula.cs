@@ -467,10 +467,10 @@ namespace Eric.Morrison.Harmony.Chords
         }
         public override int GetHashCode()
         {
-            var result = this.Root.GetHashCode();
+            var result = this.Name.GetHashCode();
             this.NoteNames
-                .OrderBy(x => x.AsciiSortValue)
-                .ToList()
+                //.OrderBy(x => x.AsciiSortValue)
+                //.ToList()
                 .ForEach(x => result ^= x.GetHashCode());
             //result ^= this.Key.GetHashCode();
             return result;
@@ -549,6 +549,12 @@ namespace Eric.Morrison.Harmony.Chords
                 //Debug.WriteLine($"Unable to determine key for: {this.ToString()}");
             }
             return result;
+        }
+
+        [Conditional("DEBUG")]
+        public void ClearKeys()
+        {
+            this._Keys = new HashSet<KeySignature>();
         }
 
     }//class
