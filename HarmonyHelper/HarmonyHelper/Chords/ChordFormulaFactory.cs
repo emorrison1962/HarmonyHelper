@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        static public ChordFormula Get(NoteName root, ChordIntervalsEnum chordType, KeySignature unused)
+        static public ChordFormula Get(NoteName root, ChordIntervalsEnum chordType)
         {
             var result = ChordFormula.Catalog
                         .First(x => x.Root == root

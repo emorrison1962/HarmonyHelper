@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
@@ -69,6 +70,8 @@ namespace Eric.Morrison.Harmony
         virtual public bool IsMinor { get; private set; }
         virtual public int AccidentalCount { get; private set; }
         virtual public string Name { get; private set; }
+        virtual public string NameAscii { get; private set; }
+
         [Obsolete("", false)]
         [JsonIgnore]
         public int RawValue
@@ -151,6 +154,7 @@ namespace Eric.Morrison.Harmony
             }
             var majMin = this.IsMajor ? "Major" : "Minor";
             this.Name = $"{this.NoteName} {majMin}";
+            this.NameAscii = this.Name.Replace("♭", "b").Replace("♯", "#");
 
             Task.Run(() => this.InitAsync());
         }
@@ -502,12 +506,23 @@ namespace Eric.Morrison.Harmony
             {
                 tmpFormula = ChordFormula.Catalog.First(x =>
                     x.Root == formula.Root
-                    && x.IsDominant == true);
+                    && x.ChordType == ChordIntervalsEnum.Dominant7);
                 isAltered = true;
             }
 
+            var formulaEVs = (from nn in tmpFormula.NoteNames
+                       select (nn.ExplicitValue)).ToList();
+            var keyEVs = (from nn in this.NoteNames
+                       select (nn.ExplicitValue)).ToList();
+
+            var intersection = keyEVs.Intersect(formulaEVs).ToList();
+
+            if (formulaEVs.Count == intersection.Count)
+                result = IsDiatonicEnum.Yes;
+#if false
             if (tmpFormula.RawValue == (tmpFormula.RawValue & this.RawValue))
             {
+#warning throw new NotImplementedException("WE CAN'T JUST USE TH RAW_VALUE!");
                 if (!tmpFormula.NoteNames.Any(x =>
                     x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp)
                     || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)))
@@ -528,7 +543,7 @@ namespace Eric.Morrison.Harmony
                     }
                 }
             }
-
+#endif
             return result;
         }
 

@@ -35,6 +35,8 @@ namespace Eric.Morrison.Harmony.Chords
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
         [JsonIgnore]
         virtual public string Name { get { return this.Root.ToString() + this.ChordType.Name(); } }
+        public string NameAscii { get { return this.Name.Replace("♭", "b").Replace("♯", "#"); } }
+
 
         [JsonIgnore]
         virtual public bool IsMajor 
@@ -77,7 +79,8 @@ namespace Eric.Morrison.Harmony.Chords
             if (null == root)
                 throw new NullReferenceException();
 
-            this.NoteNames.Add(this.Root = root);
+            this.Root = root;
+            //this.NoteNames.Add(this.Root = root);
             this.ChordType = chordType;
 
             foreach (var interval in this.ChordType.Intervals())

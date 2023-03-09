@@ -171,11 +171,9 @@ namespace Eric.Morrison.Harmony.Tests
         {
             var key = KeySignature.CMajor;
             var Dm = ChordFormulaFactory.Get(NoteName.D,
-                ChordIntervalsEnum.Minor7,
-                key);
+                ChordIntervalsEnum.Minor7);
             var G7 = ChordFormulaFactory.Get(NoteName.G,
-                ChordIntervalsEnum.Dominant7,
-                key);
+                ChordIntervalsEnum.Dominant7);
 
             //var result = Dm.CompareTo(G7, true);
             //Debug.WriteLine(result.ToString());
@@ -183,11 +181,9 @@ namespace Eric.Morrison.Harmony.Tests
 
             key = KeySignature.BbMajor;
             var Bb7 = ChordFormulaFactory.Get(NoteName.Bb,
-                ChordIntervalsEnum.Dominant7,
-                key);
+                ChordIntervalsEnum.Dominant7);
             var Eb7 = ChordFormulaFactory.Get(NoteName.Eb,
-                ChordIntervalsEnum.Dominant7,
-                key);
+                ChordIntervalsEnum.Dominant7);
 
             var result = Bb7.CompareTo(Eb7, true);
             Debug.WriteLine(result.ToString());

@@ -18,12 +18,12 @@ namespace Eric.Morrison.Harmony.Tests
 			var txt = "am7 gm7 c7 fMaj7 bm7b5 e7";
 			var chords = ChordFormulaParser.Parse(txt);
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7, KeySignature.AMinor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished));
+			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7));
 
 			var mappings = new List<ChordFormula2ScalesMap>();
 			foreach (var chord in chords)
@@ -54,12 +54,12 @@ namespace Eric.Morrison.Harmony.Tests
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7, KeySignature.AMinor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished));
+			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7));
 
 			var mappings = new List<ChordFormula2ScalesMap>();
 			foreach (var chord in chords)
@@ -103,9 +103,9 @@ namespace Eric.Morrison.Harmony.Tests
 		public void CantaloupeIslandTest()
 		{
 			var chords = new List<ChordFormula>() {
-				 ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Minor7, KeySignature.EbMajor),
-				 ChordFormulaFactory.Get(NoteName.Db, ChordIntervalsEnum.Dominant7, KeySignature.GbMajor),
-				 ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7, KeySignature.CMajor)
+				 ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Minor7),
+				 ChordFormulaFactory.Get(NoteName.Db, ChordIntervalsEnum.Dominant7),
+				 ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7)
 			};
 
 			var catalog = new ScaleFormulaCatalog();
@@ -136,9 +136,9 @@ namespace Eric.Morrison.Harmony.Tests
 		{
 			Assert.Fail("throw new NotImplementedException();");
 			var chords = new List<ChordFormula>() {
-				 ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Minor7, KeySignature.EbMajor),
-				 ChordFormulaFactory.Get(NoteName.Db, ChordIntervalsEnum.Dominant7, KeySignature.GbMajor),
-				 ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7, KeySignature.CMajor)
+				 ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Minor7),
+				 ChordFormulaFactory.Get(NoteName.Db, ChordIntervalsEnum.Dominant7),
+				 ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7)
 			};
 
 			var catalog = new ScaleFormulaCatalog();
@@ -170,9 +170,9 @@ namespace Eric.Morrison.Harmony.Tests
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7));
 
 			var mappings = new List<ChordFormula2ScalesMap>();
 
@@ -197,50 +197,42 @@ namespace Eric.Morrison.Harmony.Tests
 			{
 				var chord =
 					ChordFormulaFactory.Get(NoteName.A,
-						ChordIntervalsEnum.Minor7,
-						key);
+						ChordIntervalsEnum.Minor7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.D,
-						ChordIntervalsEnum.Dominant7,
-						key);
+						ChordIntervalsEnum.Dominant7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.G,
-						ChordIntervalsEnum.Major7,
-						key);
+						ChordIntervalsEnum.Major7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.C,
-						ChordIntervalsEnum.Major7,
-						key);
+						ChordIntervalsEnum.Major7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.FSharp,
-						ChordIntervalsEnum.HalfDiminished,
-						key);
+						ChordIntervalsEnum.HalfDiminished);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.B,
-						ChordIntervalsEnum.Dominant7,
-						key);
+						ChordIntervalsEnum.Dominant7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.E,
-						ChordIntervalsEnum.Minor7,
-						key);
+						ChordIntervalsEnum.Minor7);
 				chords.Add(chord);
 
 				chord =
 					ChordFormulaFactory.Get(NoteName.E,
-						ChordIntervalsEnum.Minor7,
-						key);
+						ChordIntervalsEnum.Minor7);
 				chords.Add(chord);
 
 			}
@@ -266,12 +258,12 @@ namespace Eric.Morrison.Harmony.Tests
 		public void GetCommonScalesFor_Sunny_Test()
 		{
 			var chords = new List<ChordFormula>();
-			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7, KeySignature.AMinor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished));
+			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7));
 
 			var pairs = chords.GetPairs().ToList();
 
@@ -294,10 +286,10 @@ namespace Eric.Morrison.Harmony.Tests
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
 
 			var chordPairs = chords.GetPairs().ToList();
 
@@ -352,10 +344,10 @@ namespace Eric.Morrison.Harmony.Tests
 			//var key = KeySignature.AMinor;
 			var chords = new List<ChordFormula>();
 
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C,	ChordIntervalsEnum.Dominant7, KeySignature.CMajor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C,	ChordIntervalsEnum.Dominant7));
 
 			var chordPairs = chords.GetPairs().ToList();
 
@@ -412,12 +404,12 @@ namespace Eric.Morrison.Harmony.Tests
 			var chords = new List<ChordFormula>();
 
 			var key = KeySignature.BbMajor;
-			chords.Add(ChordFormulaFactory.Get(NoteName.Bb, ChordIntervalsEnum.Dominant7, key));
-			chords.Add(ChordFormulaFactory.Get(NoteName.Eb, ChordIntervalsEnum.Dominant7, key));
-			chords.Add(ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Dominant7, key));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7, key));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, key));
-			chords.Add(ChordFormulaFactory.Get(NoteName.Bb, ChordIntervalsEnum.Dominant7, key));
+			chords.Add(ChordFormulaFactory.Get(NoteName.Bb, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.Eb, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.Bb, ChordIntervalsEnum.Dominant7));
 
 			var chordPairs = chords.GetPairs().ToList();
 
@@ -471,12 +463,12 @@ namespace Eric.Morrison.Harmony.Tests
 		public void GetResolutionsFor_Sunny_Test()
 		{
 			var chords = new List<ChordFormula>();
-			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7, KeySignature.FMajor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished, KeySignature.AMinor));
-			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7, KeySignature.AMinor));
+			chords.Add(ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Major7));
+			chords.Add(ChordFormulaFactory.Get(NoteName.B, ChordIntervalsEnum.HalfDiminished));
+			chords.Add(ChordFormulaFactory.Get(NoteName.E, ChordIntervalsEnum.Dominant7));
 
 			var chordPairs = chords.GetPairs().ToList();
 

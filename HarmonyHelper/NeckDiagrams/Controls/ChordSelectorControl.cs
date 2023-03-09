@@ -20,9 +20,9 @@ namespace NeckDiagrams
 			get { return this._cbChordType .SelectedItem as ChordFormula; }
 			set
 			{
-				var items = this._cbChordType.Items.Cast<ChordType>();
+				var items = this._cbChordType.Items.Cast<ChordIntervalsEnum>();
 				var item = items.ToList()
-					.Where(x => x.Name() == value.ChordType.Name)
+					.Where(x => x.Name() == value.ChordType.Name())
 					.First();
 				this._cbChordType.SelectedItem = item;
 			}
@@ -52,7 +52,7 @@ namespace NeckDiagrams
 		void PopulateChordFormulas()
 		{
 			this._cbChordType.Items.Clear();
-			foreach (var chordType in ChordType.Catalog.OrderBy(x => x.Name))
+			foreach (var chordType in ChordType.Catalog.OrderBy(x => x.Name()))
 			{
 				this._cbChordType.Items.Add(chordType);
 			}
@@ -67,7 +67,7 @@ namespace NeckDiagrams
 
 		private void _cbChordType_SelectedValueChanged(object sender, EventArgs e)
 		{
-			var chordType = _cbChordType.SelectedItem as ChordType;
+			var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
 			this.OnSelectedChordChanged();
 		}
 		void OnSelectedChordChanged()
@@ -78,9 +78,9 @@ namespace NeckDiagrams
 					&& null != _cbChordType.SelectedItem)
 				{
 					var root = _chordNoteNameCombo.SelectedNoteName;
-					var chordType = _cbChordType.SelectedItem as ChordType;
+					var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
 					var model = HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>();
-					var result = ChordFormulaFactory.Get(root, chordType, model.KeySignature);
+					var result = ChordFormulaFactory.Get(root, chordType);
 					this.SelectedChordChanged(this, result);
 				}
 			}

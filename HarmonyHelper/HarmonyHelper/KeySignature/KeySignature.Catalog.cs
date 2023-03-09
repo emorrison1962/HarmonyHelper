@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 
+using HarmonyHelper.Eric.Morrison.Collections.Generic;
+
 namespace Eric.Morrison.Harmony
 {
     public partial class KeySignature
@@ -63,9 +65,9 @@ namespace Eric.Morrison.Harmony
         public static List<KeySignature> MinorKeys { get; protected set; } = new List<KeySignature>();
         public static List<KeySignature> MajorKeys { get; protected set; } = new List<KeySignature>();
 
-        static KeySignatureCatalog _Catalog { get; set; } = new KeySignatureCatalog();
-        static List<KeySignature> _InternalCatalog { get; set; } = new List<KeySignature>();
-        public static KeySignatureCatalog Catalog { get { return _Catalog; } }
+        static CatalogBase<KeySignature> _Catalog { get; set; } = new CatalogBase<KeySignature>();
+        static CatalogBase<KeySignature> _InternalCatalog { get; set; } = new CatalogBase<KeySignature>();
+        public static CatalogBase<KeySignature> Catalog { get { return _Catalog; } }
         static public IEnumerable<KeySignature> InternalCatalog { get { return _InternalCatalog; } }
 
 
@@ -296,70 +298,4 @@ namespace Eric.Morrison.Harmony
 
     }//class
 
-    public class KeySignatureCatalog : IEnumerable<KeySignature>, IList<KeySignature> 
-    {
-        List<KeySignature> Keys = new List<KeySignature>();
-
-        public IEnumerator<KeySignature> GetEnumerator()
-        {
-            return Keys.GetEnumerator();    
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Keys.GetEnumerator();
-        }
-
-        public KeySignature this[string name]
-        {
-            get { return this.Keys.FirstOrDefault(x => x.Name == name); }
-            set {  }
-        }
-
-        public int IndexOf(KeySignature item)
-        {
-            return ((IList<KeySignature>)this.Keys).IndexOf(item);
-        }
-
-        public void Insert(int index, KeySignature item)
-        {
-            ((IList<KeySignature>)this.Keys).Insert(index, item);
-        }
-
-        public void RemoveAt(int index)
-        {
-            ((IList<KeySignature>)this.Keys).RemoveAt(index);
-        }
-
-        public KeySignature this[int index] { get => ((IList<KeySignature>)this.Keys)[index]; set => ((IList<KeySignature>)this.Keys)[index] = value; }
-
-        public void Add(KeySignature item)
-        {
-            ((ICollection<KeySignature>)this.Keys).Add(item);
-        }
-
-        public void Clear()
-        {
-            ((ICollection<KeySignature>)this.Keys).Clear();
-        }
-
-        public bool Contains(KeySignature item)
-        {
-            return ((ICollection<KeySignature>)this.Keys).Contains(item);
-        }
-
-        public void CopyTo(KeySignature[] array, int arrayIndex)
-        {
-            ((ICollection<KeySignature>)this.Keys).CopyTo(array, arrayIndex);
-        }
-
-        public bool Remove(KeySignature item)
-        {
-            return ((ICollection<KeySignature>)this.Keys).Remove(item);
-        }
-
-        public int Count => ((ICollection<KeySignature>)this.Keys).Count;
-
-        public bool IsReadOnly => ((ICollection<KeySignature>)this.Keys).IsReadOnly;
-    }//class
 }//ns

@@ -41,11 +41,14 @@ namespace HarmonyHelperTests.Chords
         [TestMethod()]
         public void GetRelatedKeySignaturesTest()
         {
+            //ChordFormula.Catalog["Cdim"].Add(KeySignature.Catalog["C♯ Major"]);
             var dict = new Dictionary<ChordFormula, HashSet<KeySignature>> ();
             foreach (var formula in ChordFormula.Catalog) 
             {
                 foreach (var key in KeySignature.InternalCatalog)
                 {
+                    if (formula.NameAscii == "Cdim" && key.NameAscii == "C# Major")
+                        new object();
                     if (IsDiatonicEnum.Yes == key.IsDiatonic(formula))
                     {
                         if (!dict.ContainsKey(formula))
@@ -80,6 +83,8 @@ namespace HarmonyHelperTests.Chords
                 var keys = dict[formula];
                 foreach (var key in keys)
                 {
+                    if (formula.NameAscii == "Cdim" && key.NameAscii == "C# Major")
+                        new object();
                     if (null != key)
                     {
                         formula.Add(key);
