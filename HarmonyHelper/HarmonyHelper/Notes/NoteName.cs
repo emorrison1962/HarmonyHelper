@@ -659,24 +659,47 @@ namespace Eric.Morrison.Harmony
             if (!@explicit)
             {//return an enharmonic equivalent, if ## or bb.
 
-                if (src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                if (null == result)
+                {
+                    new object();
+                    if (src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
+                    {
+                        result = resultCandidates.FirstOrDefault(x =>
+                            x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural)
+                            || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                        );
+                    }
+                }
+
+                else if (
+                    (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                    || result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
+                    && resultCandidates.Any(x => x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural)))
+                {
+                    result = resultCandidates.First(x => x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural));
+                    Debug.Assert(null != result);
+                }
+
+                else if (src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
                     && result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                 {
                     new object();
                 }
-                if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
+                else if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
                 {
                     result = resultCandidates.FirstOrDefault(x =>
-                        x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
-                        && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp));
+                        (x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                            && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
+                        || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural));
                     Debug.Assert(null != result);
                     new object();
                 }
-                if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat))
+                else if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat))
                 {
                     result = resultCandidates.FirstOrDefault(x =>
-                        x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
-                        && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat));
+                        (x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
+                        && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat)
+                        || x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural)));
                     Debug.Assert(null != result);
                     new object();
                 }
