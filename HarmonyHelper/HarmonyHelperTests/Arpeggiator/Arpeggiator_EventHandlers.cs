@@ -4,9 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Eric.Morrison.Harmony;
+
 using static Eric.Morrison.Harmony.Arpeggiator;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Tests
 {
     public partial class CsvEventHandlers
     {

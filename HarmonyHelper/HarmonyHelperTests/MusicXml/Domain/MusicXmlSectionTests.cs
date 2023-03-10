@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony.MusicXml.Tests
+namespace MusicXml.Tests
 {
     [TestClass()]
     public class MusicXmlSectionTests

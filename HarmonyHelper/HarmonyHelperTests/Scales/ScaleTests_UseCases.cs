@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace ScaleTests_UseCases
 {
 	[TestClass()]
 	public class ScaleTests_UseCases

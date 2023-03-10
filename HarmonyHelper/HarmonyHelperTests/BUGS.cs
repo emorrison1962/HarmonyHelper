@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace z_Tests
 {
 	[TestClass]
 	public class BUGS

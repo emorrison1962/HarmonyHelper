@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Notes;
 using System.Diagnostics;
+using Eric.Morrison.Harmony;
 
-namespace Eric.Morrison.Harmony.Analysis.Tests
+namespace Analysis.Tests
 {
     [TestClass()]
     public class MelodyToHarmonyAnalyzerTests

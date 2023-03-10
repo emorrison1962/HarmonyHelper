@@ -10,7 +10,7 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using System.IO;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Tests
 {
 	public partial class Arpeggiator_UseCases
 	{

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Rhythm;
 
-namespace Eric.Morrison.Harmony.MusicXml.Tests
+namespace MusicXml.Tests
 {
     [TestClass()]
     public class TimeContextTests

@@ -1,4 +1,5 @@
-﻿using Eric.Morrison.Harmony.Chords;
+﻿using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Intervals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,7 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace KeySignature_Tests
 {
 	[TestClass()]
 	public class KeySignatureTests

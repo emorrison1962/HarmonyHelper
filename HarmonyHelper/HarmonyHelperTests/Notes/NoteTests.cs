@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Intervals;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Note_Tests
 {
 	[TestClass()]
 	public class NoteTests

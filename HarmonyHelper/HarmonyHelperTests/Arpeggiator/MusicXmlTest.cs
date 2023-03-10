@@ -3,16 +3,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony
+namespace Arpeggiator_Tests
 {
 	[TestClass]
-	public class MusicXmlTest
+	public class ArpeggiatorMusicXmlTest
 	{
 		class XmlContext
 		{

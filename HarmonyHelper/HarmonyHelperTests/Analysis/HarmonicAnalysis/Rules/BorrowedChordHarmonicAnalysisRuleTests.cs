@@ -12,8 +12,9 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
 using System.Reflection;
+using Eric.Morrison.Harmony.HarmonicAnalysis;
 
-namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
+namespace HarmonicAnalysis.Rules.Tests
 {
     [TestClass()]
     public class BorrowedChordHarmonicAnalysisRuleTests

@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony;
 
-namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
+namespace HarmonicAnalysis.Rules.Tests
 {
     [TestClass()]
     public class DiatonicToKeyRuleTests

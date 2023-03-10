@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Collections.Generic.Tests
+namespace Collections.Generic.Tests
 {
     [TestClass()]
     public class CircularMultiQueueTests

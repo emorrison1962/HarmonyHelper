@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Mode_Tests
 {
 	[TestClass()]
 	public class ModeTests

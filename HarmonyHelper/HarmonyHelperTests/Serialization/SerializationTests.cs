@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Intervals;
@@ -15,7 +16,7 @@ using Newtonsoft.Json;
 
 using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
 
-namespace Eric.Morrison.Harmony.Tests.Serialization
+namespace Tests.Serialization
 {
     [TestClass()]
     public class SerializationTests

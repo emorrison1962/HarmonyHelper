@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony.Notes.Tests
+namespace Notes.Tests
 {
     [TestClass()]
     public class NoteNameParserTests

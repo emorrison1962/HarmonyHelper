@@ -11,9 +11,8 @@ using System.IO;
 using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
-using Eric.Morrison.Harmony.Tests;
 
-namespace Eric.Morrison.Harmony.MusicXml.Tests
+namespace MusicXml.Tests
 {
     [TestClass()]
     public class MusicXmlExporterTests

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 
-namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules.Tests
+namespace Analysis.HarmonicAnalysis.Rules.Tests
 {
     [TestClass()]
     public class BackDoor_ii_V_RuleTests

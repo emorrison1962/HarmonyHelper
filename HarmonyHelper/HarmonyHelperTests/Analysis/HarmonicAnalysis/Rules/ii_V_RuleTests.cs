@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
 
-namespace Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules.Tests
+namespace Analysis.HarmonicAnalysis.Rules.Tests
 {
     [TestClass()]
     public class ii_V_RuleTests

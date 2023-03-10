@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.Intervals;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Chord_Tests
 {
     [TestClass()]
     public class ChordTests

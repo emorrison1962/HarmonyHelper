@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Tests
 {
 	static public class TestConstants
 	{

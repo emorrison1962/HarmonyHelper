@@ -2,13 +2,15 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace HarmonicAnalyzer_Tests
 {
 	[TestClass()]
 	public class HarmonicAnalyzerTests

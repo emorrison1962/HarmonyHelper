@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony.Analysis.HarmonicAnalysis.Rules;
 using Eric.Morrison.Harmony.Chords;
 
-namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules.Tests
+namespace HarmonicAnalysis.Rules.Tests
 {
     [TestClass()]
     public class BackCyclingRuleTests

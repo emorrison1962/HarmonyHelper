@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace Arpeggiator_Tests
 {
 	[TestClass()]
 	public partial class Arpeggiator_UseCases

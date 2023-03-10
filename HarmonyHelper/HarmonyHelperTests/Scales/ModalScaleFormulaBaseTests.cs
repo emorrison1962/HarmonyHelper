@@ -9,7 +9,7 @@ using System.Diagnostics;
 using Eric.Morrison.Harmony.Scales;
 using System.Reflection;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace ModalScaleFormulaBase_Tests
 {
 	[TestClass()]
 	public class ModalScaleFormulaBaseTests

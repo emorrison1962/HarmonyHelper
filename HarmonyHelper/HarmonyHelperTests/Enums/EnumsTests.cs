@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using System.Linq;
 
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Eric.Morrison.Harmony.Enums
+namespace Enums
 {
     [TestClass]
     public class EnumsTests

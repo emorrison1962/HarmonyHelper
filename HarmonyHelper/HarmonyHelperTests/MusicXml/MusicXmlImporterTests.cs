@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using Eric.Morrison.Harmony.MusicXml;
 
-namespace Eric.Morrison.Harmony.Tests
+namespace MusicXmlImporter_Tests
 {
     [TestClass()]
     public class MusicXmlImporterTests

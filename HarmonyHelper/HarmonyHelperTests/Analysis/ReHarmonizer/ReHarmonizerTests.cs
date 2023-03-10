@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
+using HH = Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,11 @@ using System.Reflection;
 using Eric.Morrison.Harmony.Rhythm;
 using Eric.Morrison.Harmony.Chords;
 using System.Diagnostics;
-using Eric.Morrison.Harmony.MusicXml.Tests;
+using Tests;
+using MusicXml.Tests;
+using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 
-namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
+namespace Analysis.ReHarmonizer.Tests
 {
     [TestClass()]
     public class ReHarmonizerTests
@@ -37,7 +39,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer.Tests
                     Assert.IsTrue(model.IsValid());
 
                     var sw = Stopwatch.StartNew();
-                    new ReHarmonizer().ReHarmonize(model, "P1", "P1");
+                    new HH.ReHarmonizer().ReHarmonize(model, "P1", "P1");
                     //model.MergeSections();
                     sw.Stop();
                     Debug.WriteLine(sw.Elapsed.ToString());
