@@ -678,7 +678,7 @@ namespace Eric.Morrison.Harmony
                     new object();
 
 
-
+                throw new NotImplementedException("This is the problem. Create a unit test.");
                 var hopefulCandidates = (from nn in resultCandidates
                          where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
                              (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
