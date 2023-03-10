@@ -11,18 +11,22 @@ namespace Eric.Morrison.Harmony
     {
         public static IntervalRoleTypeEnum ToIntervalRoleType(this ChordToneFunctionEnum src)
         {
-            Debug.Assert(ChordToneFunctionEnum.None != src);
             IntervalRoleTypeEnum result = IntervalRoleTypeEnum.Unknown;
             switch (src)
             {
+                case ChordToneFunctionEnum.None:
+                    { result = IntervalRoleTypeEnum.Unknown; break; }
                 case ChordToneFunctionEnum.Root:
                     { result = IntervalRoleTypeEnum.Unison; break; }
 
-                case ChordToneFunctionEnum.Flat9th:
                 case ChordToneFunctionEnum.Sus2:
+                    { result = IntervalRoleTypeEnum.Second; break; }
+
+                case ChordToneFunctionEnum.Flat9th:
                 case ChordToneFunctionEnum.Ninth:
                 case ChordToneFunctionEnum.Sharp9th:
                     { result = IntervalRoleTypeEnum.Second; break; }
+
 
                 case ChordToneFunctionEnum.Minor3rd:
                 case ChordToneFunctionEnum.Major3rd:

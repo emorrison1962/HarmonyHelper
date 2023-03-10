@@ -177,12 +177,12 @@ namespace Eric.Morrison.Harmony
         {
             if (this.IsMajor)
             {
-                var ii = this.NoteName + Interval.Major2nd;
-                var iii = this.NoteName + Interval.Major3rd;
-                var IV = this.NoteName + Interval.Perfect4th;
-                var V = this.NoteName + Interval.Perfect5th;
-                var vi = this.NoteName + Interval.Major6th;
-                var vii = this.NoteName + Interval.Major7th;
+                var ii = NoteName.TransposeUp(this.NoteName, Interval.Major2nd, true);
+                var iii = NoteName.TransposeUp(this.NoteName, Interval.Major3rd, true);
+                var IV = NoteName.TransposeUp(this.NoteName, Interval.Perfect4th, true);
+                var V = NoteName.TransposeUp(this.NoteName, Interval.Perfect5th, true);
+                var vi = NoteName.TransposeUp(this.NoteName, Interval.Major6th, true);
+                var vii = NoteName.TransposeUp(this.NoteName, Interval.Major7th, true);
 
                 this.Ionian = ChordFormula.Catalog
                     .Where(x => x.ChordType == ChordIntervalsEnum.Major7

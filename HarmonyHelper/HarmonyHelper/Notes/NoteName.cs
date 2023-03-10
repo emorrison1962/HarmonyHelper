@@ -85,8 +85,8 @@ namespace Eric.Morrison.Harmony
             Natural = 1 << 31,
             Sharp = 1 << 30,
             Flat = 1 << 29,
-            DoubleSharp = 1 << 28,
-            DoubleFlat = 1 << 27,
+            DoubleSharp = Sharp | 1 << 28,
+            DoubleFlat = Flat | 1 << 27,
         };
 
 
@@ -646,6 +646,11 @@ namespace Eric.Morrison.Harmony
                 throw new ArgumentNullException(nameof(interval));
             const char ASCII_G = 'G';
             var intervalRole = interval.IntervalRoleType;
+            if (intervalRole == IntervalRoleTypeEnum.Unison
+                || intervalRole == IntervalRoleTypeEnum.Octave)
+            {
+                return src;
+            }
 
             var notenames = NoteName.InternalCatalog
                 .OrderBy(x => x.RawValue)
@@ -654,7 +659,7 @@ namespace Eric.Morrison.Harmony
             Debug.Assert(resultCandidates.Count > 0);
 
             NoteName result = null;
-            if (!@explicit)
+            if (@explicit)
             {
                 var srcAscii = (int)src.Name[0];
                 var readableSrcAscii = (char)srcAscii;
@@ -669,26 +674,31 @@ namespace Eric.Morrison.Harmony
             }
             else
             {
-                var accidentalCount = resultCandidates.Min(x => x.AccidentalCount);
-                resultCandidates = resultCandidates
-                    .Where(x => x.AccidentalCount == accidentalCount)
-                    .ToList();
+                //var accidentalCount = resultCandidates.Min(x => x.AccidentalCount);
+                //resultCandidates = resultCandidates
+                //    .Where(x => x.AccidentalCount == accidentalCount)
+                //    .ToList();
+
+                if ((resultCandidates.Count == 2))
+                    new object();
+
+
+
                 var x = (from nn in resultCandidates
                          where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
-                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
-                                || nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
-                                || src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat) ==
-                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
-                                || nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Natural))
+                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
+                                && src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat) ==
+                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                          select nn).ToList();
-                Debug.Assert(x.Count == 1);
-                result = x.First();
+                if (!(x?.Count == 1))
+                    new object();
+                result = resultCandidates.First();
                 new object();
             }
 
             if (null == result) //This can happen when transposing B# up an augmented fifth, expecting F###
             {
-                throw new ArgumentOutOfRangeException(nameof(result), $"HarmonyHelper does not support triple flatted or triple sharped NoteNames.");
+                throw new ArgumentOutOfRangeException(nameof(result), $"HarmonyHelper does not support triple sharped or triple flatted NoteNames.");
             }
             return result;
         }

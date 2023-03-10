@@ -22,8 +22,7 @@ namespace Eric.Morrison.Harmony.Tests
 				{
 					if (NoteName.IsValidTransposition(noteName, interval))
 					{
-						var success = NoteName.TryTransposeUp(noteName, interval, out var txposedUp, out var unused);
-						Assert.IsTrue(success);
+                        var txposedUp = NoteName.TransposeUp(noteName, interval);
 
 						var expectedInterval = txposedUp - noteName;
 
@@ -36,9 +35,9 @@ namespace Eric.Morrison.Harmony.Tests
 						var inversion = interval.GetInversion();
 						if (NoteName.IsValidTransposition(txposedUp, inversion))
 						{
-							NoteName.TryTransposeUp(txposedUp, inversion, out var txposedDown, out var enharmonicEquivalent);
+                            var txposedDown = NoteName.TransposeUp(txposedUp, inversion);
 
-							expectedInterval = (txposedDown ?? enharmonicEquivalent) - noteName;
+							expectedInterval = (txposedDown) - noteName;
 
 							//Assert.IsTrue(expectedInterval == Interval.Unison);
 							Assert.IsFalse(txposedDown == txposedUp);
@@ -60,8 +59,7 @@ namespace Eric.Morrison.Harmony.Tests
 				{
 					if (NoteName.IsValidTransposition(note, interval))
 					{
-                        var success = NoteName.TryTransposeUp(note, interval, out var txposed, out var unused);
-						Assert.IsTrue(success);
+                        var txposed = NoteName.TransposeUp(note, interval);
 
 						var actual = txposed - interval;
 						if (actual.RawValue != note.RawValue)
@@ -85,8 +83,7 @@ namespace Eric.Morrison.Harmony.Tests
                     if (NoteName.IsValidTransposition(note, inversion))
                     {
                         var success = false;
-                        success = NoteName.TryTransposeUp(note, inversion, out var txposed, out var unused);
-                        Assert.IsTrue(success);
+                        var txposed = NoteName.TransposeUp(note, inversion);
 
 						if (NoteName.IsValidTransposition(txposed, inversion))
 						{

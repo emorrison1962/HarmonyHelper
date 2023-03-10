@@ -238,6 +238,9 @@ namespace Eric.Morrison.Harmony
         Sixth = 5,
         Seventh = 6,
         Octave = 7,
+        Ninth,
+        Eleventh,
+        Thirteenth,
     };
 
     public enum IsDiatonicEnum

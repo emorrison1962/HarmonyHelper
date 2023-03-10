@@ -39,7 +39,6 @@ namespace Eric.Morrison.Harmony.Intervals
 		#region Properties
 		override public string Name { get; protected set; }
 		public ChordToneFunctionEnum ChordToneFunction { get; private set; }
-		public IntervalRoleTypeEnum IntervalRoleType => this.ChordToneFunction.ToIntervalRoleType();
 
 		#endregion
 
@@ -52,17 +51,20 @@ namespace Eric.Morrison.Harmony.Intervals
 		{
 			this.Id = Id;
 			this.ChordToneFunction = ChordToneFunction;
-		}
+            this.IntervalRoleType = ChordToneFunction.ToIntervalRoleType();
+        }
 
-		[Obsolete("For EF.")]
+        [Obsolete("For EF.")]
 		private ChordToneInterval() : base(null) { }
 		private ChordToneInterval(string name, Interval interval, ChordToneFunctionEnum chordToneFunction) : base(interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
-			this.Name = name;
+			
+            this.Name = name;
 			this.ChordToneFunction = chordToneFunction;
-			Catalog.Add(this);
+            this.IntervalRoleType = chordToneFunction.ToIntervalRoleType();
+            Catalog.Add(this);
 		}
 
 		#endregion

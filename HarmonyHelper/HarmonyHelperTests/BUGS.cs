@@ -208,18 +208,15 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 			var originalNoteName = NoteName.BSharp;
 			var interval = Interval.Major2nd;
 
-			var success = NoteName.TryTransposeUp(originalNoteName, interval, out var txposedUp, out var unused);
-			Assert.IsTrue(success);
+            var txposedUp = NoteName.TransposeUp(originalNoteName, interval);
 
 			var expectedInterval = txposedUp - originalNoteName;
 
 			Assert.IsTrue(expectedInterval.Value == interval.Value);
 			Assert.IsFalse(txposedUp == originalNoteName);
 
-			if (NoteName.TryTransposeUp(txposedUp, interval.GetInversion(), out var txposedDown, out var unused2))
-			{
-				expectedInterval = txposedDown - originalNoteName;
-			}
+			var txposedDown = NoteName.TransposeUp(txposedUp, interval.GetInversion());
+			expectedInterval = txposedDown - originalNoteName;
 
 			Assert.IsTrue(expectedInterval.Value == Interval.Unison.Value);
 			Assert.IsFalse(txposedDown == txposedUp);
