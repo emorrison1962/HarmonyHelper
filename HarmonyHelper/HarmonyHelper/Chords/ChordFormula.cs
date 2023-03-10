@@ -321,39 +321,23 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-
-        public static ChordFormula operator +(ChordFormula chord, Interval interval)
+        public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool @explicit = false)
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             ChordFormula result = null;
 
-            //if (chord.Root.AccidentalCount == 2)
-            //{
-            //    var nn = NoteName.GetEnharmonicEquivalents(chord.Root).First();
-            //    chord = new ChordFormula(nn, chord.ChordType, null);
-            //}
-
-            //var key = chord._Keys.First();
-
-            var txposed = NoteName.TransposeUp(chord.Root, interval);
+            var txposed = NoteName.TransposeUp(src.Root, interval, @explicit);
             result = ChordFormula.Catalog
                 .FirstOrDefault(x => x.Root == txposed
-                    && x.ChordType == chord.ChordType);
-            if (null == result)
-            {
-                var ee = NoteName
-                        .GetEnharmonicEquivalents(txposed)
-                        .Where(x => x.AccidentalCount ==
-                            NoteName.GetEnharmonicEquivalents(txposed)
-                                .Min(x => x.AccidentalCount))
-                        .First();
+                    && x.ChordType == src.ChordType);
+            
+            return result;
+        }
 
-                result = ChordFormula.Catalog
-                    .FirstOrDefault(x => x.Root == ee
-                        && x.ChordType == chord.ChordType);
-            }
-
+        public static ChordFormula operator +(ChordFormula chord, Interval interval)
+        {
+            var result = ChordFormula.TransposeUp(chord, interval);
             return result;
         }
 
@@ -362,38 +346,8 @@ namespace Eric.Morrison.Harmony.Chords
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             var inversion = interval.GetInversion();
-            var result = chord += inversion;
+            var result = ChordFormula.TransposeUp(chord, inversion);
             return result;
-        }
-
-        public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool respectKey = false)
-        {
-            KeySignature txedKey = null;
-#if false
-			if (!respectKey)
-			{
-				//var key = src.Key.GetEnharmonicEquivalent();
-				//var result = ChordFormulaFactory.Create(txedRoot, src.ChordType, key);
-
-				var txposedList = new List<NoteName>();	
-				foreach (var nn in src.NoteNames)
-				{
-					var success = NoteName.TryTransposeUp(nn, interval, out var txposed, out var ee);
-					Debug.Assert(success);
-					txposedList.Add(txposed);
-				}
-			}
-			else
-			{
-				src += interval;
-				txedKey = src.Key + interval;
-			}
-#endif
-            var txedRoot = NoteName.TransposeUp(src.Root, interval, respectKey);
-            var result = ChordFormulaFactory.Create(txedRoot, src.ChordType);
-
-            return result;
-
         }
 
         public override string ToString()

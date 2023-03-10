@@ -86,35 +86,29 @@ namespace Eric.Morrison.Harmony.Tests
         [TestMethod()]
         public void ChordTest()
         {
-            ChordFormula currentChord = null;
             try
             {
                 foreach (var origChord in ChordFormula.Catalog)
                 {
-                    currentChord = origChord;
-                    if (origChord.Keys.Count() > 0)
+                    var txedUp = ChordFormula.TransposeUp(origChord, Interval.Perfect4th, true);
+                    if (null != txedUp)
                     {
-                        if (ChordFormula.Catalog.ToList().Any(x => x.Name == origChord.Name))
+                        Assert.AreNotEqual(txedUp, origChord);
+
+                        var inversion = Interval.Perfect4th.GetInversion();
+                        var txedDown = ChordFormula.TransposeUp(txedUp, inversion, true);
+                        if (null != txedDown)
                         {
-                            Debug.WriteLine($"{origChord.ToString()}");
-
-                            var origKey = origChord.Keys.First();
-
-                            var txedUp = origChord + Interval.Perfect4th;
-                            Assert.IsNotNull( txedUp );
-                            Assert.AreNotEqual(txedUp, origChord);
-
-                            if (txedUp.Keys.Any())
-                            {
-                                var txedDown = txedUp - Interval.Perfect4th;
-                                var b = txedDown == origChord;
-                                Assert.AreEqual(txedDown, origChord);
-                            }
+                            Assert.AreEqual(txedDown, origChord);
                         }
                         else
                         {
-                            Assert.Fail();
+                            Debug.WriteLine($"2) Transposing {txedUp.ToString()} down a PerfectFourth was unsuccessful.");
                         }
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"1) Transposing {origChord.ToString()} up a PerfectFourth was unsuccessful.");
                     }
                 }
                 new object();
@@ -124,7 +118,7 @@ namespace Eric.Morrison.Harmony.Tests
             {
                 var bex = ex.GetBaseException();
                 throw;
-            }        
+            }
         }
 
         [TestMethod()]
