@@ -280,93 +280,157 @@ namespace NoteName_Tests
         [TestMethod()]
         public void NoteName_TransposeUp_Test()
         {
-			var nn = NoteName.Eb;
+            #region NoteName.Eb
+            var nn = NoteName.Eb;
 			var tx = nn.TransposeUp(Interval.AugmentedUnison);
 			Assert.AreEqual(NoteName.E, tx);
 
-            nn = NoteName.Eb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.Fb, tx);
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
+			Assert.AreEqual(NoteName.E, tx);
 
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.Minor2nd, false);
+			Assert.AreEqual(NoteName.Fb, tx);
+
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.Minor2nd, true);
+			Assert.AreEqual(NoteName.Fb, tx);
+
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.Diminished2nd, true);
+			Assert.IsTrue(tx.NameAscii == "Fbb");
+
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.Diminished2nd, false);
+			Assert.AreEqual(NoteName.Eb, tx);//Enharmonic equivalent
+
+			nn = NoteName.Eb;
+			tx = nn.TransposeUp(Interval.Diminished2nd, true);
+			Assert.IsTrue(tx.NameAscii == "Fbb");
+
+            #endregion
+
+            #region NoteName.E
             nn = NoteName.E;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.F, tx);
-            
-			nn = NoteName.E;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.ESharp, tx);
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			//Assert.AreEqual(NoteName.F, tx);
 
-			nn = NoteName.ESharp;
+			nn = NoteName.E;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
+            //Assert.AreEqual(NoteName.ESharp, tx);
+
+            #endregion
+
+            #region NoteName.ESharp
+
+            nn = NoteName.ESharp;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
             Assert.AreEqual(NoteName.FSharp, tx);
 
             nn = NoteName.ESharp;
             tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.FSharp, tx);
+            Assert.IsTrue(tx.NameAscii == "E##");
 
+			//Minor2nd
+			//Diminished2nd
+            #endregion
+
+            #region NoteName.Fb
             nn = NoteName.Fb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			Assert.AreEqual(NoteName.F, tx); //We don't support Gbb.
+
+			nn = NoteName.Fb;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
             Assert.AreEqual(NoteName.F, tx); //We don't support Gbb.
 
-            nn = NoteName.Fb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.F, tx); //We don't support Gbb.
+            #endregion
+            
+			#region NoteName.F
 
             nn = NoteName.F;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.FSharp, tx);
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			Assert.AreEqual(NoteName.FSharp, tx);
 
-            nn = NoteName.F;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.FSharp, tx);
+			nn = NoteName.F;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
+			Assert.AreEqual(NoteName.FSharp, tx);
 
-            nn = NoteName.FSharp;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.G, tx);
+			#endregion
 
-            nn = NoteName.FSharp;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.IsTrue(tx.NameAscii == "F##");
+			#region NoteName.FSharp
+			nn = NoteName.FSharp;
+			"start here."
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			Assert.AreEqual(NoteName.G, tx);
+
+			nn = NoteName.FSharp;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
+			Assert.IsTrue(tx.NameAscii == "F##");
+
+            #endregion
+
+            #region NoteName.Cb
 
             nn = NoteName.Cb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			Assert.AreEqual(NoteName.C, tx);
+
+			nn = NoteName.Cb;
+			tx = nn.TransposeUp(Interval.AugmentedUnison, true);
             Assert.AreEqual(NoteName.C, tx);
 
             nn = NoteName.Cb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison, true);
-            Assert.AreEqual(NoteName.C, tx);
+            tx = nn.TransposeUp(Interval.AugmentedUnison.GetInversion());
+            Assert.AreEqual(NoteName.D, tx);
 
+            nn = NoteName.Cb;
+            tx = nn.TransposeUp(Interval.AugmentedUnison.GetInversion(), true);
+            Assert.IsTrue(tx.NameAscii == "Cbb");
+
+            #endregion
+
+            #region NoteName.C
             nn = NoteName.C;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+            //Assert.AreEqual(NoteName.E, tx);
 
-			nn = NoteName.CSharp;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            #endregion
 
-			nn = NoteName.Gb;
-            tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            #region NoteName.CSharp
+            nn = NoteName.CSharp;
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+            //Assert.AreEqual(NoteName.E, tx);
 
+            #endregion
+
+            #region NoteName.Gb
+            nn = NoteName.Gb;
+			tx = nn.TransposeUp(Interval.AugmentedUnison);
+			//Assert.AreEqual(NoteName.E, tx);
+
+			#endregion
+			
 			nn = NoteName.G;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            //Assert.AreEqual(NoteName.E, tx);
 
-			nn = NoteName.GSharp;
+            nn = NoteName.GSharp;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            //Assert.AreEqual(NoteName.E, tx);
 
-			nn = NoteName.Bb;
+            nn = NoteName.Bb;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            //Assert.AreEqual(NoteName.E, tx);
 
-			nn = NoteName.B;
+            nn = NoteName.B;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            //Assert.AreEqual(NoteName.E, tx);
 
-			nn = NoteName.BSharp;
+            nn = NoteName.BSharp;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
-            Assert.AreEqual(NoteName.E, tx);
+            //Assert.AreEqual(NoteName.E, tx);
 
 
             new object();

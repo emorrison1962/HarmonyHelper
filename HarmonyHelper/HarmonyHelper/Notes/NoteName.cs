@@ -652,49 +652,39 @@ namespace Eric.Morrison.Harmony
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
-            const char ASCII_G = 'G';
             var intervalRole = interval.IntervalRoleType;
 
-            var notenames = NoteName.InternalCatalog
-                .OrderBy(x => x.RawValue)
-                .ToList();
-            var resultCandidates = notenames.Where(x => x.RawValue == noteVal).ToList();
-            Debug.Assert(resultCandidates.Count > 0);
+            var result = ResolveNoteNameExplicit(src, noteVal, intervalRole, out var resultCandidates);
+            Debug.Assert(null != result);
+            if (!@explicit)
+            {//return an enharmonic equivalent, if ## or bb.
 
-            NoteName result = null;
-            if (@explicit)
-            {
-                var srcAscii = (int)src.Name[0];
-                var readableSrcAscii = (char)srcAscii;
-                var lettersAway = (int)intervalRole;
-                srcAscii += lettersAway;
-                if (srcAscii > ASCII_G)
+                if (src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                    && result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                 {
-                    srcAscii -= OFFSET_TO_ASCII_G;
+                    new object();
                 }
-                var criteria = new String((char)srcAscii, 1);
-                result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(criteria));
-            }
-            else
-            {
+                if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp))
+                {
+                    result = resultCandidates.FirstOrDefault(x =>
+                        x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp)
+                        && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleSharp));
+                    Debug.Assert(null != result);
+                    new object();
+                }
+                if (result.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat))
+                {
+                    result = resultCandidates.FirstOrDefault(x =>
+                        x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat)
+                        && !x.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.DoubleFlat));
+                    Debug.Assert(null != result);
+                    new object();
+                }
                 //var accidentalCount = resultCandidates.Min(x => x.AccidentalCount);
                 //resultCandidates = resultCandidates
                 //    .Where(x => x.AccidentalCount == accidentalCount)
                 //    .ToList();
 
-                if ((resultCandidates.Count == 2))
-                    new object();
-
-
-                var hopefulCandidates = (from nn in resultCandidates
-                         where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
-                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
-                                && src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat) ==
-                             (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
-                         select nn).ToList();
-
-                Debug.Assert(!(hopefulCandidates?.Count == 1));
-                result = Enumerable.First<NoteName>(hopefulCandidates);
                 new object();
             }
 
@@ -702,6 +692,35 @@ namespace Eric.Morrison.Harmony
             {
                 throw new ArgumentOutOfRangeException(nameof(result), $"HarmonyHelper does not support triple sharped or triple flatted NoteNames.");
             }
+
+            return result;
+        }
+
+        private static NoteName ResolveNoteNameExplicit(NoteName src, int txposedVal, IntervalRoleTypeEnum intervalRole, out List<NoteName> resultCandidates)
+        {
+            const char ASCII_G = 'G';
+            NoteName result = null;
+
+            var notenames = NoteName.InternalCatalog
+                .OrderBy(x => x.RawValue)
+                .ToList();
+            resultCandidates = notenames.Where(x => x.RawValue == txposedVal).ToList();
+            Debug.Assert(resultCandidates.Count > 0);
+
+            
+            {
+                var srcAscii = (int)src.Name[0];
+                var readableSrcAscii = (char)srcAscii;
+                var asciiGap = (int)intervalRole;
+                srcAscii += asciiGap;
+                if (srcAscii > ASCII_G)
+                {
+                    srcAscii -= OFFSET_TO_ASCII_G;
+                }
+                var asciiCriteria = new String((char)srcAscii, 1);
+                result = resultCandidates.FirstOrDefault(x => x.Name.StartsWith(asciiCriteria));
+            }
+
             return result;
         }
 
