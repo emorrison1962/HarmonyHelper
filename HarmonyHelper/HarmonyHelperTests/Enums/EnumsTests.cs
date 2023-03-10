@@ -7,6 +7,8 @@ using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using static Eric.Morrison.Harmony.NoteName;
+
 namespace Enums
 {
     [TestClass]
@@ -47,17 +49,17 @@ namespace Enums
         }
 
         [TestMethod]
-        public void GenerateChordTypeCatalogTest() 
+        public void GenerateChordTypeCatalogTest()
         {
             var catalog = Enum.GetValues(typeof(ChordIntervalsEnum))
                 .Cast<ChordIntervalsEnum>()
                 .ToList()
-                .Where(x => x != ChordIntervalsEnum.IsChord 
+                .Where(x => x != ChordIntervalsEnum.IsChord
                     && x.HasFlag(ChordIntervalsEnum.IsChord))
                 .OrderBy(x => x.Name())
                 .ToList();
 
-            foreach (var e in catalog) 
+            foreach (var e in catalog)
             {
                 var code = @$"case ChordIntervalsEnum.{e}: 
 {{
@@ -69,6 +71,51 @@ break;
 
             new object();
         }
+
+        [TestMethod]
+        public void ExplicitNoteValuesEnum_Bitmask_Test()
+        {
+            var nn1 = NoteName.C;
+            var nn2 = NoteName.CSharp;
+
+            var ev1 = nn1.ExplicitValue;
+            var bits = ToBitsString(ev1);
+            Debug.WriteLine(bits);
+
+            var ev2 = nn2.ExplicitValue;
+            bits = ToBitsString(ev2);
+            Debug.WriteLine(bits);
+
+            Debug.WriteLine(ToBitsString(nn1.ExplicitValue & ExplicitNoteValuesEnum.NoteNameBitwiseMask));
+            Debug.WriteLine(ToBitsString(nn2.ExplicitValue & ExplicitNoteValuesEnum.NoteNameBitwiseMask));
+
+            new object();
+            //ChordIntervalsEnum
+            //ExplicitNoteValuesEnum
+        }
+
+        string ToBitsString(ExplicitNoteValuesEnum src)
+        {
+            var bytes = BitConverter.GetBytes((uint)src);
+            //var result = Convert.ToString(bytes[0], 2).PadLeft(8, '0');
+            //result += Convert.ToString(bytes[1], 2).PadLeft(8, '0');
+            //result += Convert.ToString(bytes[2], 2).PadLeft(8, '0');
+            //result += Convert.ToString(bytes[3], 2).PadLeft(8, '0');
+
+            var result = string.Join(" : ",
+                bytes.Reverse().ToList()
+                    .Select(x => Convert.ToString(x, 2)
+                    .PadLeft(8, '0')));
+
+
+            //var result = string.Format(" : ExplicitNoteValuesEnum={0}:{1}:{2}:{3}",
+            //    bytes[0].ToString("X2"),
+            //    bytes[1].ToString("X2"),
+            //    bytes[2].ToString("X2"),
+            //    bytes[3].ToString("X2"));
+            return result;
+        }
+
 
     }//class
 }//ns

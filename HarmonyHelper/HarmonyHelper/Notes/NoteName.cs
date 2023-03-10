@@ -39,9 +39,9 @@ namespace Eric.Morrison.Harmony
             C = 1 << 1 | Natural,
             Dbb = 1 << 1 | DoubleFlat,
 
-            BSharpSharp = 1 << 2 | DoubleSharp,
-            CSharp = 1 << 2 | Sharp,
-            Db = 1 << 2 | Flat,
+            BSharpSharp = 1 << 1 | DoubleSharp,
+            CSharp = 1 << 1 | Sharp,
+            Db = 1 << 1 | Flat,
 
             CSharpSharp = 1 << 3 | DoubleSharp,
             D = 1 << 3 | Natural,
@@ -82,11 +82,13 @@ namespace Eric.Morrison.Harmony
             B = 1 << 12 | Natural,
             Cb = 1 << 12 | Flat,
 
-            Natural = 1 << 31,
+            NoteNameBitwiseMask = 0b111111111111,
+
+            Flat = 1 << 27,
+            DoubleFlat = Flat | 1 << 28,
+            Natural = 1 << 29,
             Sharp = 1 << 30,
-            Flat = 1 << 29,
-            DoubleSharp = Sharp | 1 << 28,
-            DoubleFlat = Flat | 1 << 27,
+            DoubleSharp = Sharp | 1 << 31,
         };
 
 
@@ -249,6 +251,7 @@ namespace Eric.Morrison.Harmony
         [JsonIgnore]
         static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
         virtual public string Name { get; protected set; }
+        public string NameAscii { get { return this.Name.Replace("♭", "b").Replace("♯", "#"); } }
         virtual public int RawValue { get; protected set; }
         public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
         virtual public bool IsSharped
@@ -588,6 +591,11 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
+        public NoteName TransposeUp(Interval interval, bool @explicit = false)
+        {
+            return NoteName.TransposeUp(this, interval, @explicit);
+        }
+
         public static NoteName TransposeUp(NoteName src, Interval interval, bool @explicit = false)
         {
             if (null == interval)
@@ -678,7 +686,6 @@ namespace Eric.Morrison.Harmony
                     new object();
 
 
-                throw new NotImplementedException("This is the problem. Create a unit test.");
                 var hopefulCandidates = (from nn in resultCandidates
                          where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
                              (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
