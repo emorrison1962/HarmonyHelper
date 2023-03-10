@@ -22,7 +22,7 @@ namespace Eric.Morrison.Harmony.Tests
 				{
 					if (NoteName.IsValidTransposition(noteName, interval))
 					{
-                        var txposedUp = NoteName.TransposeUp(noteName, interval);
+                        var txposedUp = NoteName.TransposeUp(noteName, interval, true);
 
 						var expectedInterval = txposedUp - noteName;
 
@@ -35,7 +35,7 @@ namespace Eric.Morrison.Harmony.Tests
 						var inversion = interval.GetInversion();
 						if (NoteName.IsValidTransposition(txposedUp, inversion))
 						{
-                            var txposedDown = NoteName.TransposeUp(txposedUp, inversion);
+                            var txposedDown = NoteName.TransposeUp(txposedUp, inversion, true);
 
 							expectedInterval = (txposedDown) - noteName;
 
@@ -83,11 +83,11 @@ namespace Eric.Morrison.Harmony.Tests
                     if (NoteName.IsValidTransposition(note, inversion))
                     {
                         var success = false;
-                        var txposed = NoteName.TransposeUp(note, inversion);
+                        var txposed = NoteName.TransposeUp(note, inversion, true);
 
 						if (NoteName.IsValidTransposition(txposed, inversion))
 						{
-							var actual = txposed - inversion;
+							var actual = NoteName.TransposeUp(txposed, interval, true);
 							if (actual != note)
 							{
 								var msg = $"note= {note.Name}, inversion={inversion}, txposed= {txposed.Name}, actual={actual.Name}, expected {note.Name}";

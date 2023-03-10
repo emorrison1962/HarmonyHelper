@@ -63,6 +63,8 @@ namespace Eric.Morrison.Harmony
             IntervalRoleTypeEnum result = IntervalRoleTypeEnum.Unknown;
             switch (src)
             {
+                case ScaleToneFunctionEnum.None: { break; }
+                
                 case ScaleToneFunctionEnum.Root:
                 case ScaleToneFunctionEnum.AugmentedUnison:
                     { result = IntervalRoleTypeEnum.Unison; break; }

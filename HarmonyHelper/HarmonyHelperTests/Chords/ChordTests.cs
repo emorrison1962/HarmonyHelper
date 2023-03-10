@@ -74,9 +74,9 @@ namespace Eric.Morrison.Harmony.Tests
             var chord = ChordFormula.Catalog.First(x => x.Root == NoteName.Gb && x.ChordType == ChordIntervalsEnum.Dominant7);
             Debug.WriteLine(string.Format("{0}7 = {1}", chord.Root.ToString(), chord.ToString()));
             var origKey = chord.Keys.First();
-            var txedUp = chord + Interval.Perfect4th;
+            var txedUp = ChordFormula.TransposeUp(chord, Interval.Perfect4th, true);
             Assert.AreNotEqual(txedUp, chord);
-            var txedDown = txedUp - Interval.Perfect4th;
+            var txedDown = ChordFormula.TransposeUp(txedUp, Interval.Perfect4th.GetInversion(), true);
             var b = txedDown == chord;
             Assert.AreEqual(txedDown, chord);
             new object();

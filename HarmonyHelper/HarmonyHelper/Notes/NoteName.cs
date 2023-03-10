@@ -646,11 +646,6 @@ namespace Eric.Morrison.Harmony
                 throw new ArgumentNullException(nameof(interval));
             const char ASCII_G = 'G';
             var intervalRole = interval.IntervalRoleType;
-            if (intervalRole == IntervalRoleTypeEnum.Unison
-                || intervalRole == IntervalRoleTypeEnum.Octave)
-            {
-                return src;
-            }
 
             var notenames = NoteName.InternalCatalog
                 .OrderBy(x => x.RawValue)
@@ -684,15 +679,15 @@ namespace Eric.Morrison.Harmony
 
 
 
-                var x = (from nn in resultCandidates
+                var hopefulCandidates = (from nn in resultCandidates
                          where src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp) ==
                              (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Sharp))
                                 && src.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat) ==
                              (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Flat))
                          select nn).ToList();
-                if (!(x?.Count == 1))
-                    new object();
-                result = resultCandidates.First();
+
+                Debug.Assert(!(hopefulCandidates?.Count == 1));
+                result = Enumerable.First<NoteName>(hopefulCandidates);
                 new object();
             }
 

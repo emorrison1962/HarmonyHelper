@@ -68,7 +68,7 @@ namespace Eric.Morrison.Harmony.Scales
 		{
 			var offsetFromKeyRoot = GetDistanceFromKeyRoot(this.Mode);
 
-			var root = this.Key.NoteName + offsetFromKeyRoot;
+			var root = NoteName.TransposeUp(this.Key.NoteName, offsetFromKeyRoot, true);
 			this.Name = root.Name + " " + this.Mode.ToString("G");
 			this.Root = root;
 
