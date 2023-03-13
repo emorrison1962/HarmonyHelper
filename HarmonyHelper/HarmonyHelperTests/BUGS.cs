@@ -363,8 +363,8 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 											OctaveEnum.Octave2);
 
 											var notesToPlay = 4;
-											var contexts = new List<ArpeggiationContext>();
-											chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, noteRange, notesToPlay)));
+											var contexts = new List<ArpeggiationChordContext>();
+											chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, noteRange, notesToPlay)));
 
 											const int BEATS_PER_BAR = 4;
 											var arpeggiator = new Arpeggiator(contexts,
@@ -399,8 +399,8 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 			OctaveEnum.Octave2);
 
 			var notesToPlay = 4;
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			const int BEATS_PER_BAR = 4;
 			var arpeggiator = new Arpeggiator(contexts,

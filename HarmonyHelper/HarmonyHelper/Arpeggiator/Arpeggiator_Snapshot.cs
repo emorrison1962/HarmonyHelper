@@ -9,7 +9,7 @@ namespace Eric.Morrison.Harmony
 	{
 		class StateSnapshot : IEquatable<StateSnapshot>
 		{
-			ArpeggiationContext ArpeggiationContext { get; set; }
+			ArpeggiationChordContext ArpeggiationContext { get; set; }
 			Chord StartingChord { get; set; }
 			DirectionEnum StartingDirection { get; set; }
 			Note StartingNote { get; set; }
@@ -17,16 +17,7 @@ namespace Eric.Morrison.Harmony
 
 			public StateSnapshot(Arpeggiator arp)
 			{
-				if (null == arp.CurrentContext)
-					throw new ArgumentNullException(nameof(arp.CurrentContext));
-				if (null == arp.CurrentChord)
-                    throw new ArgumentNullException(nameof(arp.CurrentChord));
-				if (null == arp.CurrentNote)
-                    throw new ArgumentNullException(nameof(arp.CurrentNote));
-				if (null == arp.Direction)
-                    throw new ArgumentNullException(nameof(arp.Direction));
-
-                this.ArpeggiationContext = arp.CurrentContext;
+				this.ArpeggiationContext = arp.CurrentContext;
 				this.StartingChord = arp.CurrentChord;
 				this.StartingNote = arp.CurrentNote;
 				this.StartingDirection = arp.Direction;

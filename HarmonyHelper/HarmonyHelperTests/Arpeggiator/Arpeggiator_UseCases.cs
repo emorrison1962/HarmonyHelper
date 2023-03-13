@@ -18,7 +18,7 @@ namespace Tests
 		public void TheCycleTest()
 		{
 			var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.SeventhPosition);
-			var contexts = new List<ArpeggiationContext>();
+			var contexts = new List<ArpeggiationChordContext>();
 
 			var notesPerMeasure = 4;
 			var chordFormula = ChordFormula.CDominant7;
@@ -27,7 +27,7 @@ namespace Tests
 			for (int i = 0; i <= 11; ++i)
 			{
 				var chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, notesPerMeasure));
+				contexts.Add(new ArpeggiationChordContext(chord, notesPerMeasure));
 
 				
 				chordFormula = chordFormula + Interval.Perfect4th;
@@ -58,18 +58,18 @@ namespace Tests
 			var notesPerMeasure = 4;
 			var arpeggiator = new Arpeggiator(DirectionEnum.Ascending,
 				noteRange, notesPerMeasure)
-					.Add(new ArpeggiationContext(new Chord(chordFormula, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
-					.Add(new ArpeggiationContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure));
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure))
+					.Add(new ArpeggiationChordContext(new Chord(chordFormula += Interval.Perfect4th, noteRange), notesPerMeasure));
 
 			this.RegisterEventHandlersForPrinting(arpeggiator);
 			arpeggiator.Arpeggiate();
@@ -84,29 +84,29 @@ namespace Tests
 			var FOUR = 4;
 			var TWO = 2;
 
-			var contexts = new List<ArpeggiationContext>();
+			var contexts = new List<ArpeggiationChordContext>();
 
 			for (int i = 0; i < 4; ++i)
 			{
 				var chordFormula = ChordFormulaFactory.Get(NoteName.A, ChordIntervalsEnum.Minor7);
 				var chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, TWO));
+				contexts.Add(new ArpeggiationChordContext(chord, TWO));
 
 				chordFormula = ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Dominant7);
 				chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, TWO));
+				contexts.Add(new ArpeggiationChordContext(chord, TWO));
 
 				chordFormula = ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Minor7);
 				chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, FOUR));
+				contexts.Add(new ArpeggiationChordContext(chord, FOUR));
 
 				chordFormula = ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Dominant7);
 				chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, FOUR));
+				contexts.Add(new ArpeggiationChordContext(chord, FOUR));
 
 				chordFormula = ChordFormulaFactory.Get(NoteName.F, ChordIntervalsEnum.Dominant7);
 				chord = new Chord(chordFormula, noteRange);
-				contexts.Add(new ArpeggiationContext(chord, FOUR));
+				contexts.Add(new ArpeggiationChordContext(chord, FOUR));
 			}
 
 			var arpeggiator = new Arpeggiator(contexts,
@@ -182,8 +182,8 @@ namespace Tests
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -256,8 +256,8 @@ namespace Tests
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -307,8 +307,8 @@ namespace Tests
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
 			var arpeggiator = new Arpeggiator(contexts,
@@ -360,8 +360,8 @@ namespace Tests
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave2);
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
 			var arpeggiator = new Arpeggiator(contexts,
@@ -411,8 +411,8 @@ namespace Tests
 			var startingNote = new Note(chords[0].Root.NoteName, OctaveEnum.Octave1);
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			this.noteRangeUsageStatistics = new NoteRangeUsageStatistics(noteRange);
 			var arpeggiator = new Arpeggiator(contexts,
@@ -483,8 +483,8 @@ namespace Tests
 			}
 
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -565,8 +565,8 @@ namespace Tests
 			}
 
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -601,8 +601,8 @@ namespace Tests
 				chords.Add(chord);
 			}
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -652,8 +652,8 @@ namespace Tests
 			}
 
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -683,8 +683,8 @@ namespace Tests
 			chords.Add(new Chord(ChordFormula.ADominant7, noteRange));
 			chords.Add(new Chord(ChordFormula.DDominant7, noteRange));
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, beatsPerBar)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, beatsPerBar)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,

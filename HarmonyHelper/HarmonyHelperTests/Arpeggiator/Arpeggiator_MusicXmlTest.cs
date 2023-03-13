@@ -59,8 +59,8 @@ namespace Arpeggiator_Tests
 			}
 
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending,
@@ -125,8 +125,8 @@ namespace Arpeggiator_Tests
 			var startingNote = chords[0].Root;
 			var notesToPlay = 4;
 
-			var contexts = new List<ArpeggiationContext>();
-			chords.ForEach(x => contexts.Add(new ArpeggiationContext(x, notesToPlay)));
+			var contexts = new List<ArpeggiationChordContext>();
+			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
 				DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
@@ -176,14 +176,14 @@ namespace Arpeggiator_Tests
 				OctaveEnum.Octave2);
 				var notesToPlay = 4;
 
-				var contexts = new List<ArpeggiationContext>();
-				formulas.ForEach(x => contexts.Add(new ArpeggiationContext(x, noteRange, notesToPlay)));
+				var contexts = new List<ArpeggiationChordContext>();
+				formulas.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, noteRange, notesToPlay)));
 
 				var arpeggiator = new Arpeggiator(contexts,
 					DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
 					noteRange, 4, startingNote, true);
 
-                this.RegisterTraceObservers(arpeggiator);
+                //this.RegisterTraceObservers(arpeggiator);
                 var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
                 arpeggiator.Arpeggiate();

@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Eric.Morrison.Harmony
 {
-	public class ArpeggiationContext : IEquatable<ArpeggiationContext>, IComparable<ArpeggiationContext>
+	public class ArpeggiationChordContext : IEquatable<ArpeggiationChordContext>, IComparable<ArpeggiationChordContext>
 	{
 		public Chord Chord { get; set; }
 		public int NotesToPlay { get; set; }
 
-		public ArpeggiationContext(Chord chord, int notesToPlay)
+		public ArpeggiationChordContext(Chord chord, int notesToPlay)
 		{
 			this.Chord = chord;
 			this.NotesToPlay = notesToPlay;
 		}
-		public ArpeggiationContext(ChordFormula formula, NoteRange nr, int notesToPlay)
+		public ArpeggiationChordContext(ChordFormula formula, NoteRange nr, int notesToPlay)
 		{
 			this.Chord = new Chord(formula, nr);
 			this.NotesToPlay = notesToPlay;
@@ -27,13 +27,13 @@ namespace Eric.Morrison.Harmony
 			return $"{this.GetType().Name}: Chord={this.Chord.ToString()}, NotesToPlay={this.NotesToPlay}";
 		}
 
-		public bool Equals(ArpeggiationContext other)
+		public bool Equals(ArpeggiationChordContext other)
 		{
 			var result = this.Chord.CompareTo(other.Chord) == 0;
 			return result;
 		}
 
-		public int CompareTo(ArpeggiationContext other)
+		public int CompareTo(ArpeggiationChordContext other)
 		{
 			return this.Chord.CompareTo(other.Chord);
 		}
@@ -41,12 +41,12 @@ namespace Eric.Morrison.Harmony
 		public override bool Equals(object obj)
 		{
 			var result = false;
-			if (obj is ArpeggiationContext)
+			if (obj is ArpeggiationChordContext)
 				result = this.Equals(obj as Note);
 			return result;
 		}
 
-		public static bool operator ==(ArpeggiationContext a, ArpeggiationContext b)
+		public static bool operator ==(ArpeggiationChordContext a, ArpeggiationChordContext b)
 		{
 			bool result = true;
 			if (a is null && b is null)
@@ -59,7 +59,7 @@ namespace Eric.Morrison.Harmony
 				result = a.CompareTo(b) == 0;
 			return result;
 		}
-		public static bool operator !=(ArpeggiationContext a, ArpeggiationContext b)
+		public static bool operator !=(ArpeggiationChordContext a, ArpeggiationChordContext b)
 		{
 			var result = a.CompareTo(b) != 0;
 			return result;

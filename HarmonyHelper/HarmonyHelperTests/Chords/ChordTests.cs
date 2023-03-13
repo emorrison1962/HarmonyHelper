@@ -49,8 +49,8 @@ namespace Chord_Tests
 
             const int MAX_NOTES_PER_CHORD = 8;
 
-            var ctx = new ArpeggiationContext(chord, MAX_NOTES_PER_CHORD);
-            var arpeggiator = new Arpeggiator(new ArpeggiationContext[] { ctx },
+            var ctx = new ArpeggiationChordContext(chord, MAX_NOTES_PER_CHORD);
+            var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { ctx },
                 DirectionEnum.Ascending,
                 noteRange, 4,
                 root);
