@@ -17,7 +17,16 @@ namespace Eric.Morrison.Harmony
 
 			public StateSnapshot(Arpeggiator arp)
 			{
-				this.ArpeggiationContext = arp.CurrentContext;
+				if (null == arp.CurrentContext)
+					throw new ArgumentNullException(nameof(arp.CurrentContext));
+				if (null == arp.CurrentChord)
+                    throw new ArgumentNullException(nameof(arp.CurrentChord));
+				if (null == arp.CurrentNote)
+                    throw new ArgumentNullException(nameof(arp.CurrentNote));
+				if (null == arp.Direction)
+                    throw new ArgumentNullException(nameof(arp.Direction));
+
+                this.ArpeggiationContext = arp.CurrentContext;
 				this.StartingChord = arp.CurrentChord;
 				this.StartingNote = arp.CurrentNote;
 				this.StartingDirection = arp.Direction;

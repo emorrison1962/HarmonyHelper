@@ -4388,6 +4388,10 @@ namespace Eric.Morrison.Harmony.Chords
                 {
                     _Catalog.Add(formula);
                 }
+                else
+                {
+                    Debug.WriteLine($"Couldn't create {nn}{ct}");
+                }
             }
             catch (Exception)
             {

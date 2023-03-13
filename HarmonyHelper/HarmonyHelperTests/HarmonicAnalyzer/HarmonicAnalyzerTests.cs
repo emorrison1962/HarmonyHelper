@@ -227,7 +227,7 @@ namespace HarmonicAnalyzer_Tests
 				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));
 			}
 			{//positive test - inversion
-				var chords = this.GetChords("dm7 cbdim7 cmaj7");
+				var chords = this.GetChords("dm7 bdim7 cmaj7");//we don't support Cbdim7, Cb, Ebb, Gbb, *Bbbb*
 				var results = rule.Analyze(chords);
 				var expected = results.First(x => x.Rule is Dim7ForDom7SubstitutionRule);
 				Assert.IsInstanceOfType(expected.Rule, typeof(Dim7ForDom7SubstitutionRule));

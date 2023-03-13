@@ -22,8 +22,15 @@ namespace Eric.Morrison.Harmony.Chords
 		public bool Equals(ChordFormula x, ChordFormula y)
 		{//Don't compare keys, due to BorrowedChordHarmonicAnalysisRule dependence.
 			var result = false;
+            if (x is null && y is null)
+                return result;
+            else if (x is null)
+                return result;
+            else if (y is null)
+                return result;
 
-			if (x.Root == y.Root)
+
+            if (x.Root == y.Root)
 			{
 				if (x.IsDiminished && y.IsDiminished)
 					result = true;

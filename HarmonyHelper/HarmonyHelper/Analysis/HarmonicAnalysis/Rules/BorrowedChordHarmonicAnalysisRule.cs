@@ -116,7 +116,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
                         if (null != formula)
-                            gridRow.Chords.Add(formula.Copy());
+                            gridRow.Add(formula.Copy());
                     }
 
                     result.Rows.Add(gridRow);
@@ -184,7 +184,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
 
-                        gridRow.Chords.Add(formula);
+                        gridRow.Add(formula);
                     }
 
                     result.Rows.Add(gridRow);
@@ -247,11 +247,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
                         //Debug.WriteLine(scale);
-                        var chord = ChordFormula.Catalog
+                        var chord = ChordFormula.InternalCatalog
                             .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
-                        gridRow.Chords.Add(chord);
+                        gridRow.Add(chord);
                     }
 
                     result.Rows.Add(gridRow);

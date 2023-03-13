@@ -393,7 +393,7 @@ namespace Eric.Morrison.Harmony
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             KeySignature result = null;
-            var txposedNote = NoteName.TransposeUp(key.NoteName, interval);
+            var txposedNote = NoteName.TransposeUp(key.NoteName, interval, true);
 
             IEnumerable<KeySignature> catalog = null;
 
@@ -425,6 +425,7 @@ namespace Eric.Morrison.Harmony
                 new object();
             }
 
+            Debug.Assert(null != result);
             return result;
         }
 

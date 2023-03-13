@@ -11,6 +11,8 @@ using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using zHarmonyHelperTests_Arpeggiator;
+
 namespace Arpeggiator_Tests
 {
 	[TestClass]
@@ -64,17 +66,13 @@ namespace Arpeggiator_Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
+            this.RegisterTraceObservers(arpeggiator);
+            new MusicXmlObservers(arpeggiator);
 
-            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
-                new MusicXmlPartIdentifier("P1", "Bass"));
-
-            this.RegisterMusicXmlObservers(arpeggiator);
-
-			arpeggiator.Arpeggiate();
+            arpeggiator.Arpeggiate();
 
 			new object();
 		}
-        MusicXmlPart Part { get; set; }
         MusicXmlModel CreateModel(MusicXmlScoreMetadata metadata, RhythmicContext rhythm, List<MusicXmlPart> parts)
         {
             var result = new MusicXmlModel();
@@ -135,171 +133,18 @@ namespace Arpeggiator_Tests
 				//DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
-                new MusicXmlPartIdentifier("P1", "Bass"));
+            this.RegisterTraceObservers(arpeggiator);
+            var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
-            this.RegisterMusicXmlObservers(arpeggiator);
+            arpeggiator.Arpeggiate();
+			var part = musicXmlObservers.Part;
 
-			arpeggiator.Arpeggiate();
 
-			new object();
+            new object();
 		}
 
 		MusicXmlModel Model { get; set; }
 
-        private void XML_Starting(object sender, Arpeggiator e)
-        {
-            //string fileContent = Resources.MusicXML_TEMPLATE_02;
-            //XmlCtx.Document = XDocument.Parse(fileContent);
-            new object();
-        }
-        private void XML_ChordChanged(object sender, Arpeggiator ctx)
-        {
-            ++XmlCtx.MeasureNumber;
-            this.CreateMeasure(ctx);
-        }
-        private void XML_Ending(object sender, Arpeggiator e)
-        {
-            //XmlCtx.Document.Save(@"c:\temp\_xml.xml");
-            new object();
-        }
-        private void XML_CurrentNoteChanged(object sender, Arpeggiator ctx)
-        {
-            #region FORMAT
-            const string FORMAT = @"
-	  <note>
-		<pitch>
-		  <step>{0}</step>
-		  {1}
-		  <octave>{2}</octave>
-		</pitch>
-		<duration>1</duration>
-		<voice>1</voice>
-		<type>quarter</type>
-		<staff>{3}</staff>
-	  </note>";
-            #endregion
-
-#if false
-			var octave = (int)ctx.CurrentNote.Octave;
-			var note = ctx.CurrentNote.NoteName.ToString();
-			//if (ctx.CurrentNote.NoteName == NoteName.Cb)
-			//	++octave;
-
-
-			var alter = string.Empty;
-			if (note.EndsWith(FLAT))
-			{
-				alter = "<alter>-1</alter>";
-			}
-			else if (note.EndsWith(SHARP))
-			{
-				alter = "<alter>1</alter>";
-			}
-			note = note.Replace(FLAT, string.Empty);
-			note = note.Replace(SHARP, string.Empty);
-
-			var splitPoint = new Note(NoteName.C, OctaveEnum.Octave4);
-			int staff = 1;
-			if (splitPoint > ctx.CurrentNote)
-			{
-				staff = 2;
-			}
-
-			var xml = string.Format(FORMAT, note, alter, octave, staff);
-			var elem = XElement.Parse(xml);
-
-			var measure = XmlCtx.Document.Root.Descendants("measure").Last();
-			//XElement part = null;
-			//var measure = part.Descendants("measure").Last();
-			measure.Add(elem);
-
-#endif
-            new object();
-        }
-
-        const string FLAT = "♭";
-        const string SHARP = "♯";
-
-        private void CreateMeasure(Arpeggiator ctx)
-        {
-			var measure = new MusicXmlMeasure(this.Part, XmlCtx.MeasureNumber);
-            this.Part.Add(measure);
-#if false
-			var rootAlter = string.Empty;
-			if (chordRoot.EndsWith(FLAT))
-				rootAlter = "<root-alter>-1</root-alter>";
-			if (chordRoot.EndsWith(SHARP))
-				rootAlter = "<root-alter>1</root-alter>";
-
-			chordRoot = chordRoot.Replace(FLAT, string.Empty);
-			chordRoot = chordRoot.Replace(SHARP, string.Empty);
-
-			var print = string.Empty;
-			if (1 == XmlCtx.MeasureNumber)
-			{
-
-				print = @"
-<print>
-  <system-layout>
-	<system-margins>
-	  <left-margin>21.00</left-margin>
-	  <right-margin>0.00</right-margin>
-	</system-margins>
-	<top-system-distance>195.00</top-system-distance>
-  </system-layout>
-  <staff-layout number=""2"">
-	<staff-distance>65.00</staff-distance>
-  </staff-layout>
-</print>
-<attributes>
-  <divisions>1</divisions>
-  <key>
-	<fifths>0</fifths>
-  </key>
-  <staves>2</staves>
-  <clef number = ""1"">
-	 <sign>G</sign>
-	 <line>2</line>
-   </clef>
-   <clef number = ""2"">
-	  <sign>F</sign>
-	  <line>4</line>
-	</clef>
-  </attributes>
-  ";
-
-
-			}
-
-            #region MEASURE_XML
-			const string MEASURE_XML = @"
-	<measure number=""{0}"">
-{3}
-		<harmony print-frame=""no"">
-		<root>
-		  <root-step>{1}</root-step>
-		  {2}
-		</root>
-		<kind text = ""7"" >dominant</kind>
-	  </harmony>
-	</measure>";
-            #endregion
-			var xml = string.Format(MEASURE_XML, XmlCtx.MeasureNumber, chordRoot, rootAlter, print);
-
-			//Debug.WriteLine(xml);
-			var measureElem = XElement.Parse(xml);
-
-
-			var elems = XmlCtx.Document.Root.Descendants("part");
-			foreach (var part in elems)
-			{
-				part.Add(measureElem);
-			}
-
-#endif
-            new object();
-        }
 
 
 
@@ -314,7 +159,7 @@ namespace Arpeggiator_Tests
 
 			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
 			{
-				formulas.ForEach(x => Debug.WriteLine(x));
+				//formulas.ForEach(x => Debug.WriteLine(x));
 				success = true;
 			}
 
@@ -335,37 +180,28 @@ namespace Arpeggiator_Tests
 				formulas.ForEach(x => contexts.Add(new ArpeggiationContext(x, noteRange, notesToPlay)));
 
 				var arpeggiator = new Arpeggiator(contexts,
-					//DirectionEnum.Ascending,
 					DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
 					noteRange, 4, startingNote, true);
 
-				this.RegisterMusicXmlObservers(arpeggiator);
+                this.RegisterTraceObservers(arpeggiator);
+                var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
-				arpeggiator.Arpeggiate();
-			}
-			new object();
+                arpeggiator.Arpeggiate();
+                var part = musicXmlObservers.Part;
+                new object();
+
+            }
+            new object();
 		}
 
-		void RegisterMusicXmlObservers(Arpeggiator arpeggiator)
+		void RegisterTraceObservers(Arpeggiator arpeggiator)
 		{
-			arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
-
-			arpeggiator.ChordChanged += this.Log_ChordChanged;
-			arpeggiator.ChordChanged += this.XML_ChordChanged;
-
-
-			arpeggiator.DirectionChanged += Log_DirectionChanged;
-
-
-			arpeggiator.CurrentNoteChanged += this.Log_CurrentNoteChanged;
-			arpeggiator.CurrentNoteChanged += this.XML_CurrentNoteChanged;
-
-			//arpeggiator.Starting += Log_Starting;
-			arpeggiator.Starting += XML_Starting;
-
-
+            arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
+            arpeggiator.Starting += Log_Starting;
+            arpeggiator.NoteChanged += this.Log_CurrentNoteChanged;
+            arpeggiator.DirectionChanged += Log_DirectionChanged;
+            arpeggiator.ChordChanged += this.Log_ChordChanged;
 			arpeggiator.Ending += this.Log_Ending;
-			arpeggiator.Ending += this.XML_Ending;
 		}
 
 

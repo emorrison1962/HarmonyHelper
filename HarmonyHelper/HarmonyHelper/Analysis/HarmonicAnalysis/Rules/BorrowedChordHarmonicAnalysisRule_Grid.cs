@@ -121,8 +121,16 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         #region Properties
         public KeySignature Key { get; private set; }
         public string ModeName { get; private set; }
-        public List<ChordFormula> Chords { get; private set; } = new List<ChordFormula>();
+        List<ChordFormula> _Chords { get; set; } = new List<ChordFormula>();
+        public IList<ChordFormula> Chords { get { return _Chords; } }
 
+        public void Add(ChordFormula formula)
+        {
+            //Allow adding nulls.
+            //if (null == formula)
+            //    throw new ArgumentNullException(nameof(formula));
+            _Chords.Add(formula);
+        }
         #endregion
 
         #region Construction
@@ -168,8 +176,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
             result = a.Key.CompareTo(b.Key);
             if (result == 0)
                 result = a.ModeName.CompareTo(b.ModeName);
-            Debug.Assert(a.Chords.Count == b.Chords.Count);
-            for (int i = 0; i < a.Chords.Count; ++i)
+            Debug.Assert(a.Chords.Count() == b.Chords.Count());
+            for (int i = 0; i < a.Chords.Count(); ++i)
             {
                 var cfA = a.Chords[i];
                 var cfB = b.Chords[i];
@@ -226,7 +234,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         {
             var result = this.Key.GetHashCode()
                 ^ this.ModeName.GetHashCode();
-            this.Chords.ForEach(x => result ^= x.GetHashCode());
+            this._Chords.ForEach(x => result ^= x.GetHashCode());
 
             return result;
         }

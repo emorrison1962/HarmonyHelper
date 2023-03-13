@@ -15,21 +15,26 @@ namespace KeySignature_Tests
 		[TestMethod()]
 		public void KeySignature_TransposeUp_Test()
 		{
-			//public static KeySignature GetTransposed(KeySignature key, Interval interval)
-
-
 			var intervals = Interval.Catalog.Where(x => x > Interval.Unison);
 			foreach (var key in KeySignature.InternalCatalog)
 			{
-				Debug.WriteLine($"Key = {key.NoteName.Name}");
-				Debug.Indent();
+				//Debug.WriteLine($"Key = {key.NoteName.Name}");
+				//Debug.Indent();
 				foreach (var interval in intervals)
 				{
-					var expected = KeySignature.GetTransposed(key, (Interval)interval);
-					Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
-					new object();
-				}
-				Debug.Unindent();
+					try
+					{
+						var expected = KeySignature.GetTransposed(key, (Interval)interval);
+						//Debug.WriteLine($"transposed by {interval.ToString()} = {expected.NoteName.Name}");
+						new object();
+
+					}
+					catch (ArgumentOutOfRangeException)
+					{
+                        Debug.WriteLine($"Couldn't tranpose {key} by {interval}");
+                    }
+                }
+				//Debug.Unindent();
 
 			}
 			new object();

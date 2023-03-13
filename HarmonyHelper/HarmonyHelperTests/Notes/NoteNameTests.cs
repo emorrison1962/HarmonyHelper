@@ -464,11 +464,27 @@ namespace NoteName_Tests
             tx = nn.TransposeUp(Interval.Minor2nd, true);
             Assert.IsTrue(tx.NameAscii == "Abb");
 
-			"Transpose downs...."
+			# region Transpose downs....
+            nn = NoteName.Gb;
+            tx = nn.TransposeUp(Interval.AugmentedUnison.GetInversion());
+            Assert.AreEqual(NoteName.F, tx);//Gbb
 
-            #endregion
+            nn = NoteName.Gb;
+            tx = nn.TransposeUp(Interval.AugmentedUnison.GetInversion(), true);
+            Assert.IsTrue(tx.NameAscii == "Gbb");
 
-            nn = NoteName.G;
+            nn = NoteName.Gb;
+            tx = nn.TransposeUp(Interval.Minor2nd.GetInversion());
+            Assert.IsTrue(tx.NameAscii == "F");
+
+            nn = NoteName.Gb;
+            tx = nn.TransposeUp(Interval.Minor2nd.GetInversion(), true);
+            Assert.IsTrue(tx.NameAscii == "F");
+			#endregion
+
+			#endregion
+
+			nn = NoteName.G;
             tx = nn.TransposeUp(Interval.AugmentedUnison);
             //Assert.AreEqual(NoteName.E, tx);
 

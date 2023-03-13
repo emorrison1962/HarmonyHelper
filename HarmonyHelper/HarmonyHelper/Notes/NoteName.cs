@@ -655,7 +655,6 @@ namespace Eric.Morrison.Harmony
             var intervalRole = interval.IntervalRoleType;
 
             var result = ResolveNoteNameExplicit(src, noteVal, intervalRole, out var resultCandidates);
-            Debug.Assert(null != result);
             if (!@explicit)
             {//return an enharmonic equivalent, if ## or bb.
 

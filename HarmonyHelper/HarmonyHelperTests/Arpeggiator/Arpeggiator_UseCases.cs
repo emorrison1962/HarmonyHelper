@@ -40,7 +40,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -116,7 +116,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -371,7 +371,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -422,7 +422,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -493,7 +493,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -575,7 +575,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -611,7 +611,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -662,7 +662,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 
@@ -693,7 +693,7 @@ namespace Tests
 			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
-			arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
 			arpeggiator.Starting += Arpeggiator_Starting;
 			arpeggiator.Ending += Arpeggiator_Ending;
 

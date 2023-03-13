@@ -36,7 +36,7 @@ namespace Tests
                 Arpeggiator.Starting += this.Arpeggiator_Starting;
                 Arpeggiator.ChordChanging += this.Arpeggiator_ChordChanging;
                 Arpeggiator.ChordChanged += this.Arpeggiator_ChordChanged;
-                Arpeggiator.CurrentNoteChanged += this.Arpeggiator_CurrentNoteChanged;
+                Arpeggiator.NoteChanged += this.Arpeggiator_CurrentNoteChanged;
                 Arpeggiator.DirectionChanged += this.Arpeggiator_DirectionChanged;
                 Arpeggiator.Ending += this.Arpeggiator_Ending;
             }
@@ -45,7 +45,7 @@ namespace Tests
                 Arpeggiator.Starting -= this.Arpeggiator_Starting;
                 Arpeggiator.ChordChanging -= this.Arpeggiator_ChordChanging;
                 Arpeggiator.ChordChanged -= this.Arpeggiator_ChordChanged;
-                Arpeggiator.CurrentNoteChanged -= this.Arpeggiator_CurrentNoteChanged;
+                Arpeggiator.NoteChanged -= this.Arpeggiator_CurrentNoteChanged;
                 Arpeggiator.DirectionChanged -= this.Arpeggiator_DirectionChanged;
                 Arpeggiator.Ending -= this.Arpeggiator_Ending;
             }
@@ -108,8 +108,8 @@ namespace Tests
             arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
             arpeggiator.ArpeggiationContextChanging += Arpeggiator_ArpeggiationContextChanging;
             arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
-            arpeggiator.CurrentNoteChanging += Arpeggiator_CurrentNoteChanging;
-            arpeggiator.CurrentNoteChanged += Arpeggiator_CurrentNoteChanged;
+            arpeggiator.NoteChanging += Arpeggiator_CurrentNoteChanging;
+            arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
             arpeggiator.DirectionChanging += Arpeggiator_DirectionChanging;
             arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
             arpeggiator.Ending += Arpeggiator_Ending;
