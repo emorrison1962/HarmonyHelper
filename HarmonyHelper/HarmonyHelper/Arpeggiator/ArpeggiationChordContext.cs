@@ -61,6 +61,8 @@ namespace Eric.Morrison.Harmony
 		}
 		public static bool operator !=(ArpeggiationChordContext a, ArpeggiationChordContext b)
 		{
+			if (null == a || null == b || null == a && null == b)
+				return true;
 			var result = a.CompareTo(b) != 0;
 			return result;
 		}
