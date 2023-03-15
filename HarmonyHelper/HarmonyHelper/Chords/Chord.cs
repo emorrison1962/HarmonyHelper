@@ -191,8 +191,8 @@ namespace Eric.Morrison.Harmony.Chords
 
 		public static bool operator ==(Chord a, Chord b)
 		{
-			if (a is null)
-				return b is null;
+			if (a is null || b is null || a is null && b is null)
+				return false;
 			var result = a.CompareTo(b) == 0;
 			return result;
 		}

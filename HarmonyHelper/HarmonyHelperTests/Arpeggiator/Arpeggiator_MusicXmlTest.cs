@@ -184,9 +184,11 @@ namespace Arpeggiator_Tests
 					noteRange, 4, startingNote, true);
 
                 //this.RegisterTraceObservers(arpeggiator);
-                //var musicXmlObservers = new MusicXmlObservers(arpeggiator);
+                var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
                 arpeggiator.Arpeggiate();
+
+
                 var part = musicXmlObservers.Part;
                 new object();
 

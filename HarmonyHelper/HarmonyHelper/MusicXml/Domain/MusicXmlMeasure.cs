@@ -122,9 +122,17 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
+        public void Add(TimedEventChordFormula Chord)
+        {
+            this._Chords.Add(Chord);
+        }
         public void AddRange(List<TimedEventChordFormula> Chords)
         {
             this._Chords.AddRange(Chords);
+        }
+        public void Add(TimedEventNote Note)
+        {
+            this._Notes.Add(Note);
         }
         public void AddRange(List<TimedEventNote> Notes)
         {

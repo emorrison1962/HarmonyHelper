@@ -6,7 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
+using Eric.Morrison.Harmony.Rhythm;
+
+using DurationEnum = Eric.Morrison.Harmony.MusicXml.DurationEnum;
 
 namespace zHarmonyHelperTests_Arpeggiator
 {
@@ -35,6 +39,8 @@ namespace zHarmonyHelperTests_Arpeggiator
             arpeggiator.Ending += this.Arpeggiator_Ending;
         }
 
+        RhythmicContext Rhythm = new RhythmicContext(new TimeSignature(4, 4), 480);
+
         private void Arpeggiator_Starting(object sender, Arpeggiator args)
         {
             Debug.WriteLine("Arpeggiator_Starting");
@@ -49,8 +55,21 @@ namespace zHarmonyHelperTests_Arpeggiator
         private void Arpeggiator_MeasureChanged(object? sender, Arpeggiator args)
         {
             Debug.WriteLine($"\tArpeggiator_MeasureChanged: {args.CurrentMeasure}");
+            this.CreateMeasure(args);
             new object();
         }
+        private void CreateMeasure(Arpeggiator args)
+        {
+            if (args.CurrentMeasure > 0)
+            {
+                var measureNumber = args.CurrentMeasure;
+                var measure = new MusicXmlMeasure(this.Part, measureNumber);
+                this.Part.Add(measure);
+            }
+            new object();
+
+        }
+
         private void Arpeggiator_ChordChanging(object? sender, Arpeggiator.ChordChangingEventArgs args)
         {
             //Debug.WriteLine("Arpeggiator_ChordChanging");
@@ -60,8 +79,21 @@ namespace zHarmonyHelperTests_Arpeggiator
         private void Arpeggiator_ChordChanged(object sender, Arpeggiator args)
         {
             Debug.WriteLine($"\t\tArpeggiator_ChordChanged: {args.CurrentChord}");
+            this.CreateHarmony(args);
             new object();
         }
+
+        private void CreateHarmony(Arpeggiator args)
+        {
+            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            cctx.Duration = Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter;
+            cctx.MeasureNumber = args.CurrentMeasure;
+            var tctx = new TimeContextEx(cctx);
+
+            var tecf = new TimedEventChordFormula(args.CurrentChord.Formula, tctx);
+            this.Part.CurrentMeasure.Add(tecf);
+        }
+
         private void Arpeggiator_CurrentNoteChanging(object sender, Arpeggiator.NoteChangingEventArgs args)
         {
             Debug.WriteLine("Arpeggiator_CurrentNoteChanging");
@@ -70,8 +102,20 @@ namespace zHarmonyHelperTests_Arpeggiator
         private void Arpeggiator_CurrentNoteChanged(object sender, Arpeggiator args)
         {
             Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
+            this.CreateNote(args);
             new object();
         }
+        private void CreateNote(Arpeggiator args)
+        {
+            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            cctx.Duration = DurationEnum.Duration_Quarter;
+            cctx.MeasureNumber = args.CurrentMeasure;
+            var tctx = new TimeContextEx(cctx);
+
+            var tecf = new TimedEventNote(args.CurrentNote, tctx);
+            this.Part.CurrentMeasure.Add(tecf);
+        }
+
         private void Arpeggiator_Ending(object sender, Arpeggiator args)
         {
             //throw new NotImplementedException();
@@ -80,14 +124,6 @@ namespace zHarmonyHelperTests_Arpeggiator
         }
 
 
-        private void CreateMeasure(Arpeggiator args)
-        {
-			var measureNumber = args.CurrentMeasure + 2;
-            var measure = new MusicXmlMeasure(this.Part, args.CurrentMeasure + 2);
-            this.Part.Add(measure);
-			new object();
 
-        }
-
-    }
-}
+    }//class
+}//ns

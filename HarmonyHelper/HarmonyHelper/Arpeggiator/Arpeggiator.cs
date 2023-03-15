@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Eric.Morrison.Harmony
 {
@@ -140,7 +141,10 @@ namespace Eric.Morrison.Harmony
             get { return _CurrentChord; }
             set
             {
-                if (_CurrentChord != value)
+                if (value is null)
+                    _CurrentChord = value;
+
+                else if (_CurrentChord != value)
                 {
                     this.OnChordChanging(_CurrentChord, value);
                     _CurrentChord = value;
@@ -158,7 +162,7 @@ namespace Eric.Morrison.Harmony
                     //Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
                     _CurrentBeat = value;
                     Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
-                    if (_CurrentBeat % this.BeatsPerMeasure == 0)
+                    if (_CurrentBeat % this.BeatsPerMeasure == 1)
                     {
                         //Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
                         this.CurrentMeasure++;
@@ -189,7 +193,7 @@ namespace Eric.Morrison.Harmony
                     this.OnArpeggiationContextChanging(this._CurrentContext, value);
                     this._CurrentContext = value;
                     this.OnArpeggiationContextChanged();
-                    this.CurrentChord = value.Chord;
+                    //this.CurrentChord = value.Chord;
                 }
             }
         }
@@ -210,7 +214,8 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             this.CurrentContext = this.ChordContexts[0];
             if (null == startingNote)
                 startingNote = this.CurrentChord.Root;
-            this.CurrentChord = this.CurrentContext.Chord;
+            this.CurrentMeasure = 0;
+            this._CurrentChord = this.CurrentContext.Chord;
             this.CurrentNote = startingNote;
             this.NoteRange = noteRange;
         }
@@ -270,19 +275,20 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             {
                 this.OnStarting();
                 this.OnDirectionChanged();
-                this.OnArpeggiationContextChanging(null, this._CurrentContext);
-                this.OnArpeggiationContextChanged();
+                //this.OnArpeggiationContextChanging(null, this._CurrentContext);
+                //this.OnArpeggiationContextChanged();
                 this.OnStarted();
-                this.OnMeasureChanging(0, 1);
-                this.OnMeasureChanged();
-
+                //this.OnMeasureChanging(0, 1);
+                //this.OnMeasureChanged();
+                this.CurrentChord = null;
             }
 
 
             foreach (var item in seq)
             {
-                //Debug.WriteLine(item);
+                this.CurrentBeat = item.Beat;
                 this.CurrentContext = item.ChordContext;
+                this.CurrentChord = item.ChordContext.Chord;
 
                 if (allowTemporayReversal)
                 {
@@ -317,7 +323,6 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 }
 
                 Debug.Assert(null != nextNote);
-                this.CurrentBeat = item.Beat;
                 this.CurrentNote = nextNote;
 
                 if (closestNoteCtx.TemporaryDirectionReversal)
@@ -431,7 +436,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
 
         void OnStarting()
-        { "add function logging."
+        {
             if (null != Starting)
             {
                 Starting?.Invoke(this, this);
@@ -440,7 +445,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnStarted()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             Started?.Invoke(this, this);
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnMeasureChanging(int measure, int value)
@@ -449,7 +456,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnMeasureChanged()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             MeasureChanged?.Invoke(this, this);
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnArpeggiationContextChanging(ArpeggiationChordContext current, ArpeggiationChordContext next)
@@ -458,7 +467,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnArpeggiationContextChanged()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             ArpeggiationContextChanged?.Invoke(this, this);
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnChordChanging(Chord current, Chord next)
@@ -467,8 +478,12 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnChordChanged()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             if (null != ChordChanged)
+            {
                 ChordChanged.Invoke(this, this);
+            }
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnNoteChanging(Note current, Note next)
@@ -480,8 +495,10 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnNoteChanged()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             if (null != NoteChanged)
                 NoteChanged.Invoke(this, this);
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnEnding()
@@ -491,7 +508,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnEnded()
         {
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             Ended?.Invoke(this, this);
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnDirectionChanging(DirectionEnum current, DirectionEnum next)

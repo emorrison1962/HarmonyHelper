@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicAnalysisRule;
 using System.Reflection;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
+using HarmonyHelper.Utilities;
 
 namespace HarmonicAnalysis.Rules.Tests
 {
