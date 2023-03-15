@@ -263,7 +263,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public bool IsValid()
+        virtual public bool IsValid()
         {
             var result = true;
 

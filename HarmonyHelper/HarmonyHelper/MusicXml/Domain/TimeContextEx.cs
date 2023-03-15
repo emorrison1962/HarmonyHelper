@@ -149,7 +149,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        new public bool IsValid()
+        override public bool IsValid()
         {
             var result = base.IsValid();
             if (result && _DurationEnum == DurationEnum.Unknown)

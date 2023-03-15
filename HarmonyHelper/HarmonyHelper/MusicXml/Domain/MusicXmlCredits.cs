@@ -13,6 +13,20 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         public List<Creator> Creators { get; set; } = new List<Creator>();
 
+        public Identification()
+        {
+        }
+
+        public Identification(List<Creator> Creators)
+        {
+            this.Creators = Creators;
+        }
+
+        public Identification(Creator Creator)
+        {
+            this.Creators.Add(Creator);
+        }
+
         public XElement ToXElement()
         {
 #if false
@@ -74,15 +88,20 @@ Arr. 6EQUJ5</creator>
     public class Credits : IHasIsValid
     {
         #region Properties
-        public string WorkNumber { get; set; }
-        public string WorkTitle { get; set; }
-        public string MovementNumber { get; set; }
-        public string MovementTitle { get; set; }
+        public string? WorkNumber { get; set; }
+        public string? WorkTitle { get; set; }
+        public string? MovementNumber { get; set; }
+        public string? MovementTitle { get; set; }
 
         #endregion
 
         #region Construction
+        //[Obsolete]
         public Credits() { }
+        public Credits(string WorkTitle) 
+        { 
+            this.WorkTitle = WorkTitle;
+        }
 
         #endregion
 

@@ -190,6 +190,29 @@ namespace Arpeggiator_Tests
 
 
                 var part = musicXmlObservers.Part;
+				part.Staves.Add(new MusicXmlStaff(new MusicXmlClef(ClefEnum.Bass, 1)));
+				part.KeySignature = KeySignature.CMajor;
+				var isValid = part.IsValid();
+                Debug.Assert(isValid);
+
+
+                var parts = new List<MusicXmlPart> { part };
+
+                var rhythm = part.CurrentMeasure.Notes.First().TimeContext.Rhythm;
+
+				var metadata = new MusicXmlScoreMetadata();
+
+                metadata.Identification = new Identification(new Creator("creatorType", "creatorName"));
+				var credits = new Credits(MethodBase.GetCurrentMethod().Name);
+				metadata.Credits = credits;
+
+                isValid = metadata.IsValid();
+				Debug.Assert(isValid);
+
+				var model = this.CreateModel(metadata, rhythm, parts);
+				isValid = model.IsValid();
+                Debug.Assert(isValid);
+
                 new object();
 
             }

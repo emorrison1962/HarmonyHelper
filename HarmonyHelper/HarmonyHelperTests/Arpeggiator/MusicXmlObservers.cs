@@ -39,7 +39,7 @@ namespace zHarmonyHelperTests_Arpeggiator
             arpeggiator.Ending += this.Arpeggiator_Ending;
         }
 
-        RhythmicContext Rhythm = new RhythmicContext(new TimeSignature(4, 4), 480);
+        RhythmicContext Rhythm = new RhythmicContext(new TimeSignature(4, 4), 480).SetTempo(100);
 
         private void Arpeggiator_Starting(object sender, Arpeggiator args)
         {
@@ -88,6 +88,8 @@ namespace zHarmonyHelperTests_Arpeggiator
             var cctx = new TimeContextEx.CreationContext(this.Rhythm);
             cctx.Duration = Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter;
             cctx.MeasureNumber = args.CurrentMeasure;
+            cctx.RelativeStart = 0;
+            cctx.RelativeEnd = 1;
             var tctx = new TimeContextEx(cctx);
 
             var tecf = new TimedEventChordFormula(args.CurrentChord.Formula, tctx);
@@ -110,6 +112,8 @@ namespace zHarmonyHelperTests_Arpeggiator
             var cctx = new TimeContextEx.CreationContext(this.Rhythm);
             cctx.Duration = DurationEnum.Duration_Quarter;
             cctx.MeasureNumber = args.CurrentMeasure;
+            cctx.RelativeStart = 0;
+            cctx.RelativeEnd = 1;
             var tctx = new TimeContextEx(cctx);
 
             var tecf = new TimedEventNote(args.CurrentNote, tctx);

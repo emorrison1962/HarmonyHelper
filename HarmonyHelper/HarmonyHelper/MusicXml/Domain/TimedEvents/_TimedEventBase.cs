@@ -52,7 +52,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result = false;
                 Debug.Assert(result);
             }
-            if (result && !this.TimeContext.IsValid())
+            if (result && !(dynamic)(this.TimeContext).IsValid())
             {
                 result = false;
             }
