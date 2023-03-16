@@ -32,19 +32,17 @@ namespace Chord_Tests
         }
 
         [TestMethod()]
-        public void FindClosestNoteTest()
+        public void FindClosestNoteAscendingTest()
         {
-            //var chordFormula = ChordFormula.A7;
-            //var startingNote = chordFormula.Root;
             var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave0);
             var upperLimit = new Note(NoteName.B, OctaveEnum.Octave6);
             var noteRange = new NoteRange(lowerLimit, upperLimit);
 
-            //var chord = new Chord(chordFormula, noteRange);
             var root = new Note(NoteName.A, OctaveEnum.Octave0);
             var third = new Note(NoteName.B, OctaveEnum.Octave0);
             var fifth = new Note(NoteName.C, OctaveEnum.Octave0);
             var seventh = new Note(NoteName.D, OctaveEnum.Octave0);
+
             var chord = new Chord(noteRange, root, third, fifth, seventh);
 
             const int MAX_NOTES_PER_CHORD = 8;
@@ -52,6 +50,42 @@ namespace Chord_Tests
             var ctx = new ArpeggiationChordContext(chord, MAX_NOTES_PER_CHORD);
             var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { ctx },
                 DirectionEnum.Ascending,
+                noteRange, 4,
+                root);
+
+            const int MAX_ITERATIONS = 100;
+            Debug.WriteLine(root);
+            for (int i = 0; i < MAX_ITERATIONS; ++i)
+            {
+                var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
+                chord.GetClosestNote(closestNoteCtx);
+                var next = closestNoteCtx.ClosestNote;
+                Debug.WriteLine(next.NameAscii);
+                arpeggiator.CurrentNote = next;
+            }
+            new object();
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void FindClosestNoteDescendingTest()
+        {
+            var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave0);
+            var upperLimit = new Note(NoteName.B, OctaveEnum.Octave6);
+            var noteRange = new NoteRange(lowerLimit, upperLimit);
+
+            var root = new Note(NoteName.A, OctaveEnum.Octave6);
+            var third = new Note(NoteName.B, OctaveEnum.Octave6);
+            var fifth = new Note(NoteName.C, OctaveEnum.Octave6);
+            var seventh = new Note(NoteName.D, OctaveEnum.Octave6);
+
+            var chord = new Chord(noteRange, root, third, fifth, seventh);
+
+            const int MAX_NOTES_PER_CHORD = 8;
+
+            var ctx = new ArpeggiationChordContext(chord, MAX_NOTES_PER_CHORD);
+            var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { ctx },
+                DirectionEnum.Descending,
                 noteRange, 4,
                 root);
 

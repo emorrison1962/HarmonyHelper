@@ -32,8 +32,8 @@ namespace Eric.Morrison.Harmony
 		public uint RawValue 
 		{ 
 			get 
-			{ 
-				var result = this.NoteName.RawValue | (uint)this.Octave << 12;
+			{
+				var result = this.NoteName.RawValue;
 				return result;
 			} 
 		}
