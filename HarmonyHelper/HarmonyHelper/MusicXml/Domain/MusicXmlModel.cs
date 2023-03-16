@@ -1,4 +1,6 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Rhythm;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,9 +17,10 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
-        public MusicXmlScoreMetadata Metadata { get; set; }
+        public MusicXmlScoreMetadata Metadata { get; set; } = new MusicXmlScoreMetadata();
         public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
-        public RhythmicContext Rhythm { get; set; }
+        public RhythmicContext Rhythm { get; set; } = new RhythmicContext(new TimeSignature(4, 4), 480).SetTempo(100);
+
         public bool IsValid()
         {
             bool result = true;
@@ -39,6 +42,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (result && !this.Parts.All(x => x.IsValid()))
             {
                 result = false;
+            }
+            if (result && !this.Metadata.IsValid())
+            {
+                result = false;
+                Debug.Assert(result);
             }
             return result;
         }
@@ -100,6 +108,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     this.Rhythm = rhythm;
                 }
             }
+            part.Rhythm = this.Rhythm;
             this.Parts.Add(part);
         }
 

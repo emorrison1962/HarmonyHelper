@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +11,8 @@ using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using MusicXml.Tests;
 
 using zHarmonyHelperTests_Arpeggiator;
 
@@ -63,30 +66,22 @@ namespace Arpeggiator_Tests
 			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
-				DirectionEnum.Ascending,
-				noteRange, 4, startingNote);
+                DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+				noteRange, 4, startingNote, true);
 
-            this.RegisterTraceObservers(arpeggiator);
-            new MusicXmlObservers(arpeggiator);
+            var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
             arpeggiator.Arpeggiate();
+            var part = musicXmlObservers.Part;
+			var staff = part.Staves.First();
+			staff.Clef = new MusicXmlClef(ClefEnum.Bass, 1);
 
-			new object();
+            var model = this.CreateModel(part);
+            new object();
+
+            MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
+            new object();
 		}
-        MusicXmlModel CreateModel(MusicXmlScoreMetadata metadata, RhythmicContext rhythm, List<MusicXmlPart> parts)
-        {
-            var result = new MusicXmlModel();
-            result.Metadata = metadata;
-            result.Rhythm = rhythm;
-            foreach (var part in parts)
-            {
-                result.Add(part);
-            }
-
-            //this.CreateSections(result);
-
-            return result;
-        }
 
 
         [TestMethod()]
@@ -133,11 +128,14 @@ namespace Arpeggiator_Tests
 				//DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-            this.RegisterTraceObservers(arpeggiator);
             var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
             arpeggiator.Arpeggiate();
-			var part = musicXmlObservers.Part;
+            var part = musicXmlObservers.Part;
+            var model = this.CreateModel(part);
+            new object();
+
+            MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
 
 
             new object();
@@ -187,39 +185,40 @@ namespace Arpeggiator_Tests
                 var musicXmlObservers = new MusicXmlObservers(arpeggiator);
 
                 arpeggiator.Arpeggiate();
-
-
                 var part = musicXmlObservers.Part;
-				part.Staves.Add(new MusicXmlStaff(new MusicXmlClef(ClefEnum.Bass, 1)));
-				part.KeySignature = KeySignature.CMajor;
-				var isValid = part.IsValid();
-                Debug.Assert(isValid);
-
-
-                var parts = new List<MusicXmlPart> { part };
-
-                var rhythm = part.CurrentMeasure.Notes.First().TimeContext.Rhythm;
-
-				var metadata = new MusicXmlScoreMetadata();
-
-                metadata.Identification = new Identification(new Creator("creatorType", "creatorName"));
-				var credits = new Credits(MethodBase.GetCurrentMethod().Name);
-				metadata.Credits = credits;
-
-                isValid = metadata.IsValid();
-				Debug.Assert(isValid);
-
-				var model = this.CreateModel(metadata, rhythm, parts);
-				isValid = model.IsValid();
-                Debug.Assert(isValid);
-
+				var model = this.CreateModel(part);
                 new object();
+
+				MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
 
             }
             new object();
 		}
 
-		void RegisterTraceObservers(Arpeggiator arpeggiator)
+        MusicXmlModel CreateModel(MusicXmlPart part)
+        {
+            var isValid = part.IsValid();
+            Debug.Assert(isValid);
+
+            var result = new MusicXmlModel();
+            result.Add(part);
+
+            isValid = result.IsValid();
+            Debug.Assert(isValid);
+
+            return result;
+        }
+        MusicXmlModel CreateModel(List<MusicXmlPart> parts)
+        {
+            var result = new MusicXmlModel();
+            foreach (var part in parts)
+            {
+                result.Add(part);
+            }
+            return result;
+        }
+
+        void RegisterTraceObservers(Arpeggiator arpeggiator)
 		{
             arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
             arpeggiator.Starting += Log_Starting;

@@ -75,11 +75,11 @@ Arr. 6EQUJ5</creator>
         public bool IsValid()
         {
             bool result = true;
-            if (!this.Creators.Any())
-            {
-                result = false;
-                Debug.Assert(result);
-            }
+            //if (!this.Creators.Any())
+            //{
+            //    result = false;
+            //    Debug.Assert(result);
+            //}
             return result;
         }
 
@@ -150,8 +150,20 @@ Arr. 6EQUJ5</creator>
 
     public class Creator
     {
+        public enum CreatorTypeEnum
+        {
+            composer, 
+            lyricist, 
+            arranger
+        }
+
         public string CreatorType { get; set; }
         public string CreatorName { get; set; }
+        public Creator(CreatorTypeEnum creatorType, string creatorName)
+        {
+            this.CreatorType = Enum.GetName(creatorType);
+            this.CreatorName = creatorName;
+        }
         public Creator(string creatorType, string creatorName)
         {
             this.CreatorType = creatorType;

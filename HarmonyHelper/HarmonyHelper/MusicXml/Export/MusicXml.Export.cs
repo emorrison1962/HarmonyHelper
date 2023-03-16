@@ -18,6 +18,8 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
 
+using static System.Collections.Specialized.BitVector32;
+
 #region MusicXml reference
 #if false
 
@@ -69,22 +71,31 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             foreach (var part in model.Parts)
             {
-                var xpart = new XElement(XmlConstants.part);
-                xpart.Add(new XAttribute(XmlConstants.id, part.Identifier.ID));
+                var xpart = part.ToXElement();
+                //foreach (var measure in part.Measures)
+                //{
+                //    var xmeasure = measure.ToXElement();
+                //    if (measure == part.Measures.First())
+                //    {
+                //        this.GetPartMetadata(part, xmeasure);
+                //    }
 
-                foreach (var section in part.Sections)
-                {
-                    foreach (var measure in section.Measures)
-                    {
-                        var xmeasure = measure.ToXElement();
-                        if (measure == part.Sections.First().Measures.First())
-                        {
-                            this.GetPartMetadata(part, xmeasure);
-                        }
+                //    xpart.Add(xmeasure);
+                //}
 
-                        xpart.Add(xmeasure);
-                    }
-                }
+                //foreach (var section in part.Sections)
+                //{
+                //    foreach (var measure in section.Measures)
+                //    {
+                //        var xmeasure = measure.ToXElement();
+                //        if (measure == part.Sections.First().Measures.First())
+                //        {
+                //            this.GetPartMetadata(part, xmeasure);
+                //        }
+
+                //        xpart.Add(xmeasure);
+                //    }
+                //}
 
                 this.Document.Element(XmlConstants.score_partwise)
                     .Add(xpart);

@@ -22,8 +22,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         private bool disposedValue;
         #region Properties
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
-        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>();
-        public MusicXmlPartIdentifier Identifier { get; set; }
+        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>() 
+            { new MusicXmlStaff(new MusicXmlClef(ClefEnum.Treble, 1))};
+        public MusicXmlPartIdentifier Identifier { get; set; } = new MusicXmlPartIdentifier("P1", "Part 01");
         MeasureList _Measures { get; set; } = new MeasureList();
         public ReadOnlyCollection<MusicXmlMeasure> Measures
         {
@@ -37,9 +38,9 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XElement XElement { get; set; }
         public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
-        public KeySignature KeySignature { get; set; }
+        public KeySignature KeySignature { get; set; } = KeySignature.CMajor;
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
-
+        public RhythmicContext Rhythm { get; set; }
         #endregion
 
         #region Construction
@@ -63,12 +64,30 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public void AddRange(IEnumerable<MusicXmlMeasure> measures, bool renumberMeasures = true)
         {
+            if (null == this.Rhythm)
+            {
+                var rhythm = measures.Select(x => x.TimedEvents
+                        .Select(y => y.TimeContext.Rhythm)
+                        .FirstOrDefault(x => x != null))
+                    .FirstOrDefault();
+                if (null != rhythm)
+                    this.Rhythm = rhythm;
+            }
             this._Measures.AddRange(measures);
             this.ResetMeasureNumbers();
         }
 
         public void Add(MusicXmlMeasure measure)
         {
+            if (null == this.Rhythm)
+            {
+                var rhythm = measure.TimedEvents
+                        .Select(y => y.TimeContext.Rhythm)
+                        .FirstOrDefault(x => x != null);
+                if (null != rhythm)
+                    this.Rhythm = rhythm;
+            }
+
             this._Measures.Add(measure);
             this.ResetMeasureNumbers();
         }
@@ -105,11 +124,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result = false ;
                 Debug.Assert(result);
             }
-            if (result && !Identifier.IsValid())
+            if (result && !this.Identifier.IsValid())
             {
                 result = false;
             }
-            if (result && !_Measures.All(x => x.IsValid()))
+            if (result && !this._Measures.All(x => x.IsValid()))
             {
                 result = false;
             }
@@ -118,13 +137,148 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result = false;
                 Debug.Assert(result);
             }
-            if (result && !Sections.All(x => x.IsValid()))
+            if (result && !this.Sections.All(x => x.IsValid()))
             {
                 result = false;
             }
             return result;
         }
 
+        public XElement ToXElement() 
+        {
+            var result = new XElement(XmlConstants.part);
+            result.Add(new XAttribute(XmlConstants.id, this.Identifier.ID));
+
+            foreach (var measure in this.Measures)
+            {
+                var xmeasure = measure.ToXElement();
+                if (measure == this.Measures.First())
+                {
+                    this.GetPartMetadata(xmeasure);
+                }
+
+                result.Add(xmeasure);
+            }
+
+            foreach (var section in this.Sections)
+            {
+                foreach (var measure in section.Measures)
+                {
+                    var xmeasure = measure.ToXElement();
+                    if (measure == this.Sections.First().Measures.First())
+                    {
+                        this.GetPartMetadata(xmeasure);
+                    }
+
+                    result.Add(xmeasure);
+                }
+            }
+            return result;
+        }
+
+        void GetPartMetadata(XElement xmeasure)
+        {
+#if false
+   <measure number="1">
+      <attributes>
+        <divisions>120</divisions>
+        <key>
+           <fifths>2</fifths>
+        </key>
+        <time>
+           <beats>4</beats>
+           <beat-type>4</beat-type>
+        </time>
+        <staves>2</staves>
+        <clef number="1">
+           <sign>G</sign>
+           <line>2</line>
+        </clef>
+        <clef number="2">
+           <sign>F</sign>
+           <line>4</line>
+        </clef>
+      </attributes>
+      <sound tempo="120"/>
+      <forward>
+         <duration>480</duration>
+      </forward>
+   </measure>
+#endif
+            var xattributes = new XElement(XmlConstants.attributes);
+
+            if (null != this.Rhythm)
+            {
+                #region divisions
+                var xdivisions = new XElement(XmlConstants.divisions,
+                    this.Rhythm.PulsesPerMeasure /
+                    this.Rhythm.TimeSignature.BeatCount);
+                xattributes.Add(xdivisions);
+
+                #endregion
+
+                #region key
+                var xkey = new XElement(XmlConstants.key);
+                var fifths = 0;
+                if (this.KeySignature.UsesFlats)
+                {
+                    fifths = -this.KeySignature.AccidentalCount;
+                }
+                else
+                {
+                    fifths = this.KeySignature.AccidentalCount;
+                }
+                xkey.Add(new XElement(XmlConstants.fifths, fifths));
+                xattributes.Add(xkey);
+
+                #endregion
+
+                #region time
+
+                var xtime = new XElement(XmlConstants.time);
+
+                var xbeats = new XElement(XmlConstants.beats,
+                    this.Rhythm.TimeSignature.BeatCount);
+                xtime.Add(xbeats);
+                var xbeat_type = new XElement(XmlConstants.beat_type,
+                    this.Rhythm.TimeSignature.BeatUnit);
+                xtime.Add(xbeat_type);
+                xattributes.Add(xtime);
+
+                #endregion
+            }
+
+            #region staves
+            var xstaves = new XElement(XmlConstants.staves, this.Staves.Count);
+            xattributes.Add(xstaves);
+
+            #endregion
+
+            #region clefs
+            foreach (var staff in this.Staves)
+            {
+                xattributes.Add(staff.Clef.ToXml());
+            }
+
+            #endregion
+
+            xmeasure.AddFirst(this.GetTempo());
+            xmeasure.AddFirst(xattributes);
+
+        }
+
+        XElement GetTempo()
+        {
+            #region tempo
+            var result = new XElement(XmlConstants.sound);
+            var xtempo = new XAttribute(XmlConstants.tempo,
+                this.Rhythm.Tempo);
+            result.Add(xtempo);
+
+            return result;
+
+            #endregion
+        }
 
 
         #region IDisposable

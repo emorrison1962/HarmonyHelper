@@ -49,6 +49,14 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Rhythm = rhythm;
         }
 
+        public TimeContextEx(int measureNumber, RhythmicContext rhythm, DurationEnum duration)
+            : this(measureNumber, rhythm)
+        {
+            this.DurationEnum = duration;
+            this.RelativeStart = 0;
+            this.RelativeEnd = this.Rhythm.PulsesPerMeasure * this.MeasureNumber | (int)duration;
+        }
+
         public TimeContextEx(CreationContext ctx)
             : this(ctx.MeasureNumber, ctx.Rhythm)
         {
@@ -262,7 +270,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new XElement(Constants.XELEMENT_CHILD_CONTAINER, new object());
 
             result.Add(new XElement(XmlConstants.duration, this.Duration));
-            result.Add(xvoice);
+            
+            if (null != xvoice)
+                result.Add(xvoice);
 
             var noteTypeName = this.GetNoteLengthName();
             Debug.Assert(noteTypeName != null);
