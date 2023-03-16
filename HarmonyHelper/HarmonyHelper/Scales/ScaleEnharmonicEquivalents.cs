@@ -5,7 +5,7 @@ namespace Eric.Morrison.Harmony.Scales
 {
 	public class ScaleEnharmonicEquivalents
 	{
-		public Dictionary<int, List<ScaleFormulaBase>> Equivalents { get; set; } = new Dictionary<int, List<ScaleFormulaBase>>();
+		public Dictionary<uint, List<ScaleFormulaBase>> Equivalents { get; set; } = new Dictionary<uint, List<ScaleFormulaBase>>();
 		public void Add(ScaleFormulaBase scale)
 		{
 			var key = scale.CreateKey();
@@ -34,9 +34,9 @@ namespace Eric.Morrison.Harmony.Scales
 			return result;
 		}
 
-		static public int CreateKey(this ScaleFormulaBase src)
+		static public uint CreateKey(this ScaleFormulaBase src)
 		{
-			var result = src.NoteNames.Sum(x => x.RawValue);
+			var result = (uint)src.NoteNames.Sum(x => x.RawValue);
 			return result;
 		}
 	}

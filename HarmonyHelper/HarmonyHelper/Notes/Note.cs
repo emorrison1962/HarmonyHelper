@@ -29,6 +29,8 @@ namespace Eric.Morrison.Harmony
 
 		public OctaveEnum Octave { get; set; }
 
+		public uint RawValue { get; private set; }
+
 		#endregion
 
 		#region Construction

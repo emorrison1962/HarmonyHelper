@@ -74,11 +74,11 @@ namespace Eric.Morrison.Harmony
 
         [Obsolete("", false)]
         [JsonIgnore]
-        public int RawValue
+        public uint RawValue
         {
             get
             {
-                var result = 0;
+                uint result = 0;
                 this.NoteNames.ForEach(note => result |= note.RawValue);
                 return result;
             }
@@ -487,7 +487,7 @@ namespace Eric.Morrison.Harmony
         {
             var result = IsDiatonicEnum.No;
 
-            var val = 0;
+            uint val = 0;
             noteNames.ForEach(nn => val |= nn.RawValue);
             if (val == (this.RawValue & val))
                 result = IsDiatonicEnum.Yes;

@@ -14,7 +14,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         public List<TimedEventNote> Notes { get; set; } = new List<TimedEventNote>();
         public ChordFormula Formula { get; set; }
         public List<NoteName> Melody { get; set; } = new List<NoteName>();
-        public int MelodyBitMask { get; set; } 
+        public uint MelodyBitMask { get; set; } 
         public TimeContext TimeContext { get; set; }
 
         public ChordMelodyPairing(TimedEventChordFormula Chord,

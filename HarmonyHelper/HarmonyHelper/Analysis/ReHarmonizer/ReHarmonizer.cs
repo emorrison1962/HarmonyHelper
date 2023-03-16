@@ -234,7 +234,7 @@ namespace Eric.Morrison.Harmony.Analysis.ReHarmonizer
         {
             var notesStr = string.Join(",", pairing.Melody);
 
-            var melodyBitMask = 0;
+            uint melodyBitMask = 0;
             pairing.Melody.ForEach(x => melodyBitMask |= x.RawValue);
             var formulas = new List<ChordFormula>();
             foreach (var cf in ChordFormula.Catalog.Where(x => !x.UsesSharps))

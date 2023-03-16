@@ -252,7 +252,7 @@ namespace Eric.Morrison.Harmony
         static List<EnharmonicEquivalent> EnharmonicEquivalents { get; set; } = new List<EnharmonicEquivalent>();
         virtual public string Name { get; protected set; }
         public string NameAscii { get { return this.Name.Replace("♭", "b").Replace("♯", "#"); } }
-        virtual public int RawValue { get; protected set; }
+        virtual public uint RawValue { get; protected set; }
         public ExplicitNoteValuesEnum ExplicitValue { get; private set; }
         virtual public bool IsSharped
         {
@@ -319,7 +319,7 @@ namespace Eric.Morrison.Harmony
         }
 
         [JsonConstructor]
-        protected NoteName(string Name, int RawValue,
+        protected NoteName(string Name, uint RawValue,
             ExplicitNoteValuesEnum ExplicitNoteValue,
             int AsciiSortValue)
         {
@@ -332,7 +332,7 @@ namespace Eric.Morrison.Harmony
         protected NoteName(string name, RawNoteValuesEnum val, ExplicitNoteValuesEnum eval, bool addToCatalog = true)
         {
             this.Name = name;
-            this.RawValue = (int)val;
+            this.RawValue = (uint)val;
             this.ExplicitValue = eval;
 
             if (this.Name[0] - ASCII_C >= 0)
@@ -402,7 +402,7 @@ namespace Eric.Morrison.Harmony
             var result = Compare(a, b) != 0;
             return result;
         }
-        public static implicit operator int(NoteName nn)
+        public static implicit operator uint(NoteName nn)
         {
             return nn.RawValue;
         }
@@ -622,11 +622,11 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private static int TransposeValue(NoteName src, Interval interval)
+        private static uint TransposeValue(NoteName src, Interval interval)
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
-            var result = src.RawValue << interval.SemiTones;
+            uint result = src.RawValue << interval.SemiTones;
             if ((RawNoteValuesEnum)result > RawNoteValuesEnum.B)
             {
                 result = result >> 12;
@@ -648,7 +648,7 @@ namespace Eric.Morrison.Harmony
         ///     If @explicit == false, an enharmoic equivalent is returned.
         /// </param>
         /// <returns></returns>
-        public static NoteName ResolveNoteName(NoteName src, Interval interval, int noteVal, bool @explicit)
+        public static NoteName ResolveNoteName(NoteName src, Interval interval, uint noteVal, bool @explicit)
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
@@ -718,7 +718,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private static NoteName ResolveNoteNameExplicit(NoteName src, int txposedVal, IntervalRoleTypeEnum intervalRole, out List<NoteName> resultCandidates)
+        private static NoteName ResolveNoteNameExplicit(NoteName src, uint txposedVal, IntervalRoleTypeEnum intervalRole, out List<NoteName> resultCandidates)
         {
             const char ASCII_G = 'G';
             NoteName result = null;
@@ -732,7 +732,7 @@ namespace Eric.Morrison.Harmony
             
             {
                 var srcAscii = (int)src.Name[0];
-                var readableSrcAscii = (char)srcAscii;
+                uint readableSrcAscii = (char)srcAscii;
                 var asciiGap = (int)intervalRole;
                 srcAscii += asciiGap;
                 if (srcAscii > ASCII_G)

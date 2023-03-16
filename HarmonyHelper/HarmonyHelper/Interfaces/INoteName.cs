@@ -8,7 +8,7 @@
         bool IsNatural { get; }
         bool IsSharped { get; }
         string Name { get; }
-        int RawValue { get; }
+        uint RawValue { get; }
         string ToString();
     }
 }

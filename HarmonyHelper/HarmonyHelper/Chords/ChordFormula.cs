@@ -18,11 +18,11 @@ namespace Eric.Morrison.Harmony.Chords
 
         [Obsolete("", false)]
         [JsonIgnore]
-        public int RawValue
+        public uint RawValue
         {
             get
             {
-                var result = 0;
+                uint result = 0;
                 this.NoteNames.ForEach(note => result |= note.RawValue);
                 return result;
             }
