@@ -62,10 +62,11 @@ namespace Chord_Tests
                 var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
                 chord.GetClosestNote(closestNoteCtx);
                 var next = closestNoteCtx.ClosestNote;
-                Debug.WriteLine(string.Format("{0}", next.ToString()));
+                Debug.WriteLine(next.NameAscii);
                 arpeggiator.CurrentNote = next;
             }
             new object();
+            Assert.Fail();
         }
 
 

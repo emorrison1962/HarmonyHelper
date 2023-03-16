@@ -89,13 +89,13 @@ namespace Eric.Morrison.Harmony
     public enum OctaveEnum
     {
         Unknown = int.MinValue,
-        Octave0 = 0,
-        Octave1 = 1,
-        Octave2 = 2,
-        Octave3 = 3,
-        Octave4 = 4,
-        Octave5 = 5,
-        Octave6 = 6,
+        Octave0 = 1,
+        Octave1 = 2,
+        Octave2 = 3,
+        Octave3 = 4,
+        Octave4 = 5,
+        Octave5 = 6,
+        Octave6 = 7,
     }
 
     [Flags]

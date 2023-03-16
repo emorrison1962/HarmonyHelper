@@ -106,15 +106,15 @@ namespace Eric.Morrison.Harmony
 
 		public static Note FindClosest(this List<Note> list, Note lastNote, DirectionEnum direction)
 		{
-			Note result;
-
+			Note result = null;
+			list = list.OrderBy(x => x.RawValue).ToList();
 			if (DirectionEnum.Ascending == direction)
 			{
-				result = list.Where(x => x.NoteName.RawValue > lastNote.NoteName.RawValue).FirstOrDefault();
+				result = list.Where(x => x.RawValue > lastNote.RawValue).FirstOrDefault();
 			}
 			else
 			{
-				result = list.Where(x => x.NoteName.RawValue < lastNote.NoteName.RawValue).LastOrDefault();
+				result = list.Where(x => x.RawValue < lastNote.RawValue).LastOrDefault();
 			}
 			return result;
 		}

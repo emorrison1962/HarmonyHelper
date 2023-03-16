@@ -13,13 +13,20 @@ namespace Eric.Morrison.Harmony
         static public string LoadEmbeddedResource(string partialName)
         {
             var result = string.Empty;
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceNames()
-                .Where(x => x.Contains(partialName)).FirstOrDefault();
-            using (var sr = new StreamReader(assembly
-                .GetManifestResourceStream(resource)))
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
             {
-                result = sr.ReadToEnd();
+                var resource = assembly.GetManifestResourceNames()
+                    .Where(x => x.Contains(partialName)).FirstOrDefault();
+                if (resource != null)
+                {
+                    using (var sr = new StreamReader(assembly
+                        .GetManifestResourceStream(resource)))
+                    {
+                        result = sr.ReadToEnd();
+                    }
+                    break;
+                }
             }
             return result;
         }

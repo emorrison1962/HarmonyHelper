@@ -161,12 +161,12 @@ namespace Eric.Morrison.Harmony
                 {
                     //Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
                     _CurrentBeat = value;
-                    Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
+                    //Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
                     if (_CurrentBeat % this.BeatsPerMeasure == 1)
                     {
                         //Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
                         this.CurrentMeasure++;
-                        Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
+                        //Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
                     }
                 }
             }
@@ -447,9 +447,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnStarted()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             Started?.Invoke(this, this);
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnMeasureChanging(int measure, int value)
@@ -458,9 +458,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnMeasureChanged()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             MeasureChanged?.Invoke(this, this);
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnArpeggiationContextChanging(ArpeggiationChordContext current, ArpeggiationChordContext next)
@@ -469,9 +469,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnArpeggiationContextChanged()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             ArpeggiationContextChanged?.Invoke(this, this);
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnChordChanging(Chord current, Chord next)
@@ -480,12 +480,12 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnChordChanged()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             if (null != ChordChanged)
             {
                 ChordChanged.Invoke(this, this);
             }
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnNoteChanging(Note current, Note next)
@@ -497,10 +497,10 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnNoteChanged()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             if (null != NoteChanged)
                 NoteChanged.Invoke(this, this);
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnEnding()
@@ -510,9 +510,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         }
         void OnEnded()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             Ended?.Invoke(this, this);
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void OnDirectionChanging(DirectionEnum current, DirectionEnum next)

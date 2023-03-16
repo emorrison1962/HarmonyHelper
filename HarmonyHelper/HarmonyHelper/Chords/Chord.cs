@@ -64,7 +64,8 @@ namespace Eric.Morrison.Harmony.Chords
 			if (null == root)
 				throw new ArgumentNullException();
 			this.Root = root;
-			this.NoteNames = notes.Select(x => x.NoteName).ToList();
+			this.NoteNames.Add(root.NoteName);
+            this.NoteNames.AddRange(notes.Select(x => x.NoteName).ToList());
 
 			this.PopulateNotes(noteRange);
 		}

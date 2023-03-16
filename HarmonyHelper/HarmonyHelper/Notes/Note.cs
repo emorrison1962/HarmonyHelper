@@ -29,13 +29,21 @@ namespace Eric.Morrison.Harmony
 
 		public OctaveEnum Octave { get; set; }
 
-		public uint RawValue { get; private set; }
+		public uint RawValue 
+		{ 
+			get 
+			{ 
+				var result = this.NoteName.RawValue | (uint)this.Octave << 12;
+				return result;
+			} 
+		}
+        public string? NameAscii { get { return $"{this.NoteName.NameAscii} {this.Octave}"; } }
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		public Note() {  }
+        public Note() {  }
 		public Note(Note src)
 		{
 			if (null == src)
@@ -65,18 +73,18 @@ namespace Eric.Morrison.Harmony
 		{
 			//var result = this.NoteName.ToString();
 			string octaveNum = string.Empty;
-			switch ((int)this.Octave)
+			switch (this.Octave)
 			{
-				case 0: { octaveNum = SuperScript.ZERO; break; }
-				case 1: { octaveNum = SuperScript.ONE; break; }
-				case 2: { octaveNum = SuperScript.TWO; break; }
-				case 3: { octaveNum = SuperScript.THREE; break; }
-				case 4: { octaveNum = SuperScript.FOUR; break; }
-				case 5: { octaveNum = SuperScript.FIVE; break; }
-				case 6: { octaveNum = SuperScript.SIX; break; }
-				case 7: { octaveNum = SuperScript.SEVEN; break; }
-				case 8: { octaveNum = SuperScript.EIGHT; break; }
-				case 9: { octaveNum = SuperScript.NINE; break; }
+				case OctaveEnum.Octave0: { octaveNum = SuperScript.ZERO; break; }
+				case OctaveEnum.Octave1: { octaveNum = SuperScript.ONE; break; }
+				case OctaveEnum.Octave2: { octaveNum = SuperScript.TWO; break; }
+				case OctaveEnum.Octave3: { octaveNum = SuperScript.THREE; break; }
+				case OctaveEnum.Octave4: { octaveNum = SuperScript.FOUR; break; }
+				case OctaveEnum.Octave5: { octaveNum = SuperScript.FIVE; break; }
+				case OctaveEnum.Octave6: { octaveNum = SuperScript.SIX; break; }
+				//case OctaveEnum.Octave7: { octaveNum = SuperScript.SEVEN; break; }
+				//case OctaveEnum.Octave8: { octaveNum = SuperScript.EIGHT; break; }
+				//case OctaveEnum.Octave9: { octaveNum = SuperScript.NINE; break; }
 				default: 
 					{
 						throw new NotImplementedException();

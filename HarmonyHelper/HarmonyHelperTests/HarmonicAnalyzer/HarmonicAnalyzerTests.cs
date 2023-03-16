@@ -88,12 +88,7 @@ namespace HarmonicAnalyzer_Tests
 
 		List<Song> LoadSongs()
 		{
-			var path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-			path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(path))));
-			path = Path.Combine(path, "songs.json");
-
-			var json = File.OpenText(path).ReadToEnd();
-
+			var json = Helpers.LoadEmbeddedResource("songs.json");
 			var result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Song>>(json);
 			return result;
 		}
