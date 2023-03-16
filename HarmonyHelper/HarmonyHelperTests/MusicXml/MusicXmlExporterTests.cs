@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Rhythm;
+using Eric.Morrison.Harmony;
 
 namespace MusicXml.Tests
 {
@@ -107,6 +108,90 @@ namespace MusicXml.Tests
         }
 
 
-    }//class
+        static public void Export(string dstPath, MusicXmlModel model)
+        {
+            Debug.WriteLine(dstPath);
+            try
+            {
+                if (null != model)
+                {
+                    var doc = new MusicXmlExporter().Export(model);
+                    if (!Directory.Exists(Path.GetDirectoryName(dstPath)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(dstPath));
+                    Debug.WriteLine(dstPath);
 
+                    doc.Save(dstPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            new object();
+        }
+
+        [TestMethod()]
+        public void CreateModelAndExportTest()
+        {
+            var model = new MusicXmlModel();
+
+            var part = new MusicXmlPart(PartTypeEnum.Melody);
+            var isValid = part.IsValid();
+            Assert.IsTrue(isValid);
+
+            model.Add(part);
+
+            isValid = model.IsValid();
+            Assert.IsTrue(isValid);
+
+
+            const int MEASURES_MAX = 20;
+            for (int m = 1; m < MEASURES_MAX; ++m)
+            {
+                var measure = new MusicXmlMeasure(part, m);
+                isValid = measure.IsValid();
+                Assert.IsTrue(isValid);
+
+                part.Add(measure);
+                isValid = part.IsValid();
+                Assert.IsTrue(isValid);
+
+                var tctx = new TimeContextEx(part.CurrentMeasure.MeasureNumber,
+                    model.Rhythm,
+                    Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter);
+
+                isValid = tctx.IsValid();
+                Assert.IsTrue(isValid);
+
+                var tecf = new TimedEventChordFormula(ChordFormula.DMinor7, tctx);
+                part.CurrentMeasure.Add(tecf);
+
+                var notes = new List<Note>()
+                    {
+                        new Note(NoteName.C, OctaveEnum.Octave4),
+                        new Note(NoteName.D, OctaveEnum.Octave4),
+                        new Note(NoteName.E, OctaveEnum.Octave4),
+                        new Note(NoteName.F, OctaveEnum.Octave4),
+                    };
+
+                foreach (var note in notes)
+                {
+                    var ten = new TimedEventNote(note, tctx);
+                    part.CurrentMeasure.Add(ten);
+                }
+            }
+
+            //Debug.WriteLine(part.ToXElement());
+
+            isValid = model.IsValid();
+            Assert.IsTrue(isValid);
+
+            var dstPath = $@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml";
+            MusicXmlExporterTests.Export(dstPath, model);
+            
+            new object();
+        }
+
+
+    }//class
 }//ns

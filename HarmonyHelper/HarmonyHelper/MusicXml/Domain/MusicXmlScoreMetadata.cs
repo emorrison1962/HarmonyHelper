@@ -14,7 +14,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         #region Properties
         public string Now { get { return DateTime.Now.ToString("yyyy-MM-dd"); } }
-        public Identification Identification { get; set; }
+        public Identification Identification { get; set; } = new Identification();
         public Credits Credits { get; set; }
 
         #endregion
@@ -29,7 +29,11 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<XElement> ToXElements()
         {
             var result = new List<XElement>();
-            result.AddRange(this.Credits.ToXElements());
+            var xcredits = this.Credits?.ToXElements();
+            if (xcredits != null)
+            {
+                result.AddRange(xcredits);
+            }
             result.Add(this.Identification.ToXElement());
 
             return result;
@@ -67,9 +71,12 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 result = false;
             }
-            if (result && !this.Credits.IsValid())
+            if (result && this.Credits is not null)
             {
-                result = false;
+                if (!this.Credits.IsValid())
+                {
+                    result = false;
+                }
             }
             return result;
         }

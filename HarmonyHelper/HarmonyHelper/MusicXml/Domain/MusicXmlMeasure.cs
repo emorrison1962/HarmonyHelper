@@ -176,6 +176,26 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
+        public List<TimedEventBase> TimedEvents 
+        { 
+            get 
+            {
+                var result = new List<TimedEventBase>();
+
+                result.AddRange(this.Chords);
+                result.AddRange(this.Notes);
+                result.AddRange(this.Rests);
+                result.AddRange(this.Forwards);
+                result.AddRange(this.Backups);
+
+                result = result.OrderBy(x => x.TimeContext.RelativeStart)
+                    .ThenBy(x => x.SortOrder)
+                    .ToList();
+
+                return result;
+            }
+        }
+
         public List<TimedEventBase> GetMergedEvents()
         {
             var result = new List<TimedEventBase>();

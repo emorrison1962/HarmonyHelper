@@ -106,7 +106,11 @@ namespace Eric.Morrison.Harmony.MusicXml
                 }
                 xnote.Add(xpitch);
                 {
-                    var xvoice = new XElement(XmlConstants.voice, this.Serialization.Voice);
+                    XElement xvoice = null;
+                    if (!string.IsNullOrEmpty(this.Serialization.Voice))
+                    {
+                        xvoice = new XElement(XmlConstants.voice, this.Serialization.Voice);
+                    }
 
                     var xparent = this.TimeContext.ToXElement(xvoice);
                     foreach (var xchild in xparent.Elements())

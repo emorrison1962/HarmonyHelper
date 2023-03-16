@@ -311,7 +311,9 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                     closestNoteCtx.Direction = direction;
                 }
 
+                throw new NotImplementedException("This is no longer working. UGH.");
                 this.CurrentChord.GetClosestNote(closestNoteCtx);
+
                 var nextNote = closestNoteCtx.ClosestNote;
                 if (direction != closestNoteCtx.Direction)
                 {
