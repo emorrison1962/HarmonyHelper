@@ -118,7 +118,6 @@ namespace Eric.Morrison.Harmony.Chords
                 if (result is not null && option is not null)
                 {
                     new object();
-                    throw new NotImplementedException();
                     var optionalInterval = option - this.LastNote;
                     optionalInterval = (Interval)Math.Min(
                         (uint)optionalInterval, 
@@ -132,6 +131,7 @@ namespace Eric.Morrison.Harmony.Chords
                         (uint)currentInterval, 
                         (uint)currentInterval.GetInversion());
 
+                    throw new NotImplementedException();
                     if (optionalInterval.SemiTones < currentInterval.SemiTones)
                     {
                         result = option;
