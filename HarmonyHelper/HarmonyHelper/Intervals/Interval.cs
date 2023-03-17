@@ -136,14 +136,14 @@ namespace Eric.Morrison.Harmony.Intervals
         #endregion
 
         virtual public string Name { get; protected set; }
-		public int Value { get; private set; }
+		public uint Value { get; private set; }
 		public int SemiTones { get; private set; }
 		virtual public IntervalRoleTypeEnum IntervalRoleType { get; protected set; }
         public IntervalFunctionalValuesEnum FunctionalValue { get; private set; }
 
         #region Construction
         [JsonConstructor]
-        public Interval(string Name, int Value, int SemiTones,
+        public Interval(string Name, uint Value, int SemiTones,
             IntervalRoleTypeEnum IntervalRoleType, IntervalFunctionalValuesEnum FunctionalValue)
         {
             this.Name= Name;
@@ -157,7 +157,7 @@ namespace Eric.Morrison.Harmony.Intervals
         private Interval(string name, IntervalValuesEnum value, int semitones, IntervalRoleTypeEnum it, IntervalFunctionalValuesEnum ifve)
         {
             this.Name = name;
-            this.Value = (int)value;
+            this.Value = (uint)value;
             this.SemiTones = semitones;
             this.IntervalRoleType = it;
             this.FunctionalValue = ifve;
@@ -344,18 +344,18 @@ namespace Eric.Morrison.Harmony.Intervals
             var result = Compare(a, b) != 0;
             return result;
         }
-        public static int operator |(Interval a, Interval b)
+        public static uint operator |(Interval a, Interval b)
         {
             var result = a.Value | b.Value;
             return result;
         }
         [Obsolete("", false)]
-		public static explicit operator int(Interval ct)
+		public static explicit operator uint(Interval ct)
         {
             return ct.Value;
         }
 		[Obsolete("", false)]
-		public static explicit operator Interval(int i)
+		public static explicit operator Interval(uint i)
         {
             return Interval.Catalog.First(x => x.Value == i);
         }

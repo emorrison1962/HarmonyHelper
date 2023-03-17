@@ -45,7 +45,7 @@ namespace Eric.Morrison.Harmony.Intervals
 		#region Construction
 		[JsonConstructor]
 		public ChordToneInterval(string Name, ChordToneFunctionEnum ChordToneFunction,
-            IntervalRoleTypeEnum IntervalRoleType, int Value, 
+            IntervalRoleTypeEnum IntervalRoleType, uint Value, 
 			int SemiTones, IntervalFunctionalValuesEnum FunctionalValue, int Id)
 			: base (Name, Value, SemiTones, IntervalRoleType, FunctionalValue)
 		{

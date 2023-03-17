@@ -277,8 +277,8 @@ namespace Eric.Morrison.Harmony
 			//	.Where(x => x == (int)position)
 			//	.First();
 
-			openUpperLimit += (Interval)(int)position;
-			openLowerLimit += (Interval)(int)position;
+			openUpperLimit += (Interval)(uint)position;
+			openLowerLimit += (Interval)(uint)position;
 			this.UpperLimit = openUpperLimit;
 			this.LowerLimit = openLowerLimit;
 

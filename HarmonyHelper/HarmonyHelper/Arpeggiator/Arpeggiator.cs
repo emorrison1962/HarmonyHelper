@@ -246,6 +246,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             return this;
         }
 
+        public ClosestNoteContext ClosestNoteContext { get; set; }
         public void Arpeggiate()
         {
             var snapshots = new List<StateSnapshot>();
@@ -259,7 +260,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             bool firstTime = true;
             var direction = this.Direction;
             var allowTemporayReversal = false;
-            if (direction.HasFlag(DirectionEnum.AllowTemporayReversal))
+            if (direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
             {
                 allowTemporayReversal = true;
             }
@@ -294,7 +295,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 {
                     if (0 == item.Beat)
                     {
-                        direction |= DirectionEnum.AllowTemporayReversal;
+                        direction |= DirectionEnum.AllowTemporayReversalForCloserNote;
                     }
                     else
                     {
@@ -302,32 +303,29 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                     }
                 }
 
-                var closestNoteCtx = new Chord.ClosestNoteContext(
-                    this.CurrentChord,
-                    this.CurrentNote,
-                    this.Direction);
-                if (closestNoteCtx.Direction != direction)
+                this.ClosestNoteContext.SetChord(this.CurrentChord);
+                if (this.ClosestNoteContext.Direction != direction)
                 {
-                    closestNoteCtx.Direction = direction;
+                    this.ClosestNoteContext.Direction = direction;
                 }
 
                 throw new NotImplementedException("This is no longer working. UGH.");
-                this.CurrentChord.GetClosestNote(closestNoteCtx);
+                this.ClosestNoteContext.GetClosestNote();
 
-                var nextNote = closestNoteCtx.ClosestNote;
-                if (direction != closestNoteCtx.Direction)
+                var nextNote = this.ClosestNoteContext.ClosestNote;
+                if (direction != this.ClosestNoteContext.Direction)
                 {
-                    this.Direction = closestNoteCtx.Direction;
-                    if (!closestNoteCtx.Direction.HasFlag(DirectionEnum.AllowTemporayReversal))
+                    this.Direction = this.ClosestNoteContext.Direction;
+                    if (!this.ClosestNoteContext.Direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
                     {
-                        direction = closestNoteCtx.Direction;
+                        direction = this.ClosestNoteContext.Direction;
                     }
                 }
 
                 Debug.Assert(null != nextNote);
                 this.CurrentNote = nextNote;
 
-                if (closestNoteCtx.TemporaryDirectionReversal)
+                if (this.ClosestNoteContext.TemporaryDirectionReversal)
                     this.Direction = direction;
             }
             if (this.UntilPatternRepeats)

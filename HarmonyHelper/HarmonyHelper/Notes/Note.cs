@@ -153,7 +153,7 @@ namespace Eric.Morrison.Harmony
 				throw new ArgumentNullException(nameof(interval));
             var txposed = NoteName.TransposeUp(n.NoteName, interval);
 			n.NoteName = txposed;
-			n.Octave += (int)interval;
+			n.Octave += (uint)interval;
 			return n;
 		}
 

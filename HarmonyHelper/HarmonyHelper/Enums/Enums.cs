@@ -19,7 +19,7 @@ namespace Eric.Morrison.Harmony
     }
 
 
-    public enum IntervalValuesEnum
+    public enum IntervalValuesEnum : uint
     {
         Unison = 1,
         Minor2nd = 1 << 1,
@@ -86,9 +86,9 @@ namespace Eric.Morrison.Harmony
 
 
     [Flags]
-    public enum OctaveEnum
+    public enum OctaveEnum : uint
     {
-        Unknown = int.MinValue,
+        Unknown = uint.MaxValue,
         Octave0 = 1,
         Octave1 = 2,
         Octave2 = 3,
@@ -104,7 +104,7 @@ namespace Eric.Morrison.Harmony
         None = 0,
         Ascending = 1 << 1,
         Descending = 1 << 2,
-        AllowTemporayReversal = 1 << 3,
+        AllowTemporayReversalForCloserNote = 1 << 3,
     }
 
     public enum FiveStringBassPositionEnum

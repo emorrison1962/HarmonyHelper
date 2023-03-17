@@ -151,7 +151,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 					interval = Interval.Unison;
 				}
 
-				var ival = (int)Math.Pow(2, pow);
+				var ival = (uint)Math.Pow(2, pow);
 				interval = (Interval)ival;
 				if (invert)
 				{
@@ -189,7 +189,7 @@ C - C♭ = Interval: Name=Minor2nd Value=0x00000002
 					interval = Interval.Unison;
 				}
 
-				var ival = (int)Math.Pow(2, pow);
+				var ival = (uint)Math.Pow(2, pow);
 				interval = (Interval)ival;
 				if (invert)
 				{

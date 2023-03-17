@@ -452,7 +452,7 @@ namespace Eric.Morrison.Harmony
             }
 
             //throw new NotImplementedException("Well. I broke this.");
-            var intervalValue = (int)Math.Pow(2, pow);
+            var intervalValue = (uint)Math.Pow(2, pow);
             result = (Interval)intervalValue;
             result = NoteName.ResolveInterval(result, a, b, invert);
 

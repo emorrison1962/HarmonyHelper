@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Eric.Morrison.Harmony.Chords
 {
-    public class Chord : ChordEntityBase, IEquatable<Chord>, IComparable<Chord>
+    public partial class Chord : ChordEntityBase, IEquatable<Chord>, IComparable<Chord>
 	{
 		#region Properties
 
@@ -107,55 +107,7 @@ namespace Eric.Morrison.Harmony.Chords
 			return result;
 		}
 
-		public class ClosestNoteContext
-		{
-			public DirectionEnum Direction { get; set; }
-			public Note LastNote { get; private set; }
-			public Note ClosestNote { get; set; }
-			public List<Note> Notes { get; set; }
-			public bool TemporaryDirectionReversal { get; set; }
-			public bool ExceededRangeLimit { get; set; }
-
-			[Obsolete("", false)]
-			public ClosestNoteContext(Arpeggiator arpeggiator)
-			{
-				this.LastNote = arpeggiator.CurrentNote;
-				this.Direction = arpeggiator.Direction;
-				this.Notes = arpeggiator.CurrentChord.Notes;
-			}
-			public ClosestNoteContext(Chord chord, Note lastNote, DirectionEnum direction)
-			{
-				this.Notes = chord.Notes;
-				this.LastNote = lastNote;
-				this.Direction = direction;
-			}
-
-
-			public override string ToString()
-			{
-				var result = $"Direction={this.Direction}, LastNote={this.LastNote}, ClosestNote={this.ClosestNote}"; 
-				if (this.TemporaryDirectionReversal)
-					result = $"Direction={this.Direction}, TemporaryDirectionReversal={TemporaryDirectionReversal} LastNote={this.LastNote}, ClosestNote={this.ClosestNote}";
-				return result;
-			}
-		}
-		public void GetClosestNote(ClosestNoteContext ctx)
-		{
-			var result = ctx.FindClosest();
-			if (null == result)
-			{
-				ctx.Direction = ctx.Direction.Reverse();
-				result = ctx.FindClosest();
-				Debug.Assert(null != result);
-			}
-
-			Debug.Assert(ctx.LastNote.NoteName.RawValue != result.NoteName.RawValue);
-			ctx.ClosestNote = result;
-		}
-
-
-
-		public override string ToString()
+        public override string ToString()
 		{
 			return $"{this.Formula}";
 		}
@@ -209,5 +161,7 @@ namespace Eric.Morrison.Harmony.Chords
 			this.Notes.ForEach(x => result ^= x.GetHashCode());
 			return result;
 		}
+
+
     }//class
 }//ns

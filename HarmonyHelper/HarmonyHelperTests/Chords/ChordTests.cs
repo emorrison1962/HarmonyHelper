@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
@@ -9,6 +11,9 @@ using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.Intervals;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using static Eric.Morrison.Harmony.Chords.Chord;
+using static Eric.Morrison.Harmony.Chords.ClosestNoteContext;
 
 namespace Chord_Tests
 {
@@ -20,8 +25,8 @@ namespace Chord_Tests
         {
             var cte = ChordIntervalsEnum.Minor;
 
-            var ict = (int)cte;
-            var mask = (int)(ChordTonesBitmaskEnum.Third);
+            var ict = (uint)cte;
+            var mask = (uint)(ChordTonesBitmaskEnum.Third);
 
             var which = (ict & mask);
             var result = (Interval)which;
@@ -31,76 +36,129 @@ namespace Chord_Tests
             //interval.ToStringEx();
         }
 
-        [TestMethod()]
-        public void FindClosestNoteAscendingTest()
+
+        public void FindClosestNoteTest(DirectionEnum direction)
         {
-            var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave0);
+            var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave4);
             var upperLimit = new Note(NoteName.B, OctaveEnum.Octave6);
             var noteRange = new NoteRange(lowerLimit, upperLimit);
 
-            var root = new Note(NoteName.A, OctaveEnum.Octave0);
-            var third = new Note(NoteName.B, OctaveEnum.Octave0);
-            var fifth = new Note(NoteName.C, OctaveEnum.Octave0);
-            var seventh = new Note(NoteName.D, OctaveEnum.Octave0);
+            var dm7Formula = ChordFormula.CDominant7;
+            var g7Formula = ChordFormula.FDominant7;
 
-            var chord = new Chord(noteRange, root, third, fifth, seventh);
+            var dm7 = new Chord(dm7Formula, noteRange);
+            var g7 = new Chord(g7Formula, noteRange);
 
-            const int MAX_NOTES_PER_CHORD = 8;
+            const int MAX_NOTES_PER_CHORD = 4;
 
-            var ctx = new ArpeggiationChordContext(chord, MAX_NOTES_PER_CHORD);
-            var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { ctx },
-                DirectionEnum.Ascending,
-                noteRange, 4,
-                root);
+            var dm7Ctx = new ArpeggiationChordContext(dm7, MAX_NOTES_PER_CHORD);
+            var g7Ctx = new ArpeggiationChordContext(g7, MAX_NOTES_PER_CHORD);
+            //var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { dm7Ctx, g7Ctx },
+            //    direction,
+            //    noteRange, 4,
+            //    dm7.Root);
+
+            var sb = new StringBuilder();
+            EventHandler<DirectionChangedEventArgs> handler =
+                (sender, args) => 
+                {
+                    const string ASC = "˄";
+                    const string DESC = "˅";
+                    if (args.Current.HasFlag(DirectionEnum.Ascending)) 
+                    {
+                        sb.Append(ASC);
+                    }
+                    else 
+                    {
+                        sb.Append(DESC);
+                    }
+                };
 
             const int MAX_ITERATIONS = 100;
-            Debug.WriteLine(root);
+            Debug.WriteLine(dm7.Root);
+
+            var note = dm7.Notes.FirstOrDefault(x => x.NoteName == NoteName.Bb);
+            var closestNoteCtx = new ClosestNoteContext(note, dm7, direction);
+            closestNoteCtx.DirectionChanged += handler;
+            var isDm7 = true;
+
             for (int i = 0; i < MAX_ITERATIONS; ++i)
             {
-                var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
-                chord.GetClosestNote(closestNoteCtx);
+                if (i % 4 == 0)
+                {
+                    if (isDm7)
+                    {
+                        sb.Append($"{dm7.Formula}: ");
+                    }
+                    else
+                    {
+                        sb.Append($" {g7.Formula}: ");
+                    }
+                }
+
+                var prev = closestNoteCtx.LastNote;
+                closestNoteCtx.GetClosestNote();
                 var next = closestNoteCtx.ClosestNote;
-                Debug.WriteLine(next.NameAscii);
-                arpeggiator.CurrentNote = next;
+                sb.Append($"{next.NameAscii}, ");
+                closestNoteCtx.LastNote = next;
+
+                Assert.IsNotNull(prev);
+                Assert.IsNotNull(next);
+                if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Ascending))
+                {
+                    Assert.IsTrue(next > prev);
+                }
+                else if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Descending))
+                {
+                    Assert.IsTrue(next < prev);
+                }
+
+                if (i % 4 == 3)
+                {
+                    Debug.WriteLine(sb.ToString());
+                    sb.Clear();
+                    if (isDm7)
+                    {
+                        closestNoteCtx.SetChord(g7);
+                        isDm7 = false;
+                    }
+                    else
+                    {
+                        closestNoteCtx.SetChord(dm7);
+                        isDm7 = true;
+                    }
+                }
             }
+
             new object();
-            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void FindClosestNoteAscendingTest()
+        {
+            Debug.WriteLine($"==== +{MethodBase.GetCurrentMethod().Name} =======================");
+            this.FindClosestNoteTest(DirectionEnum.Ascending);
+            new object();
+            Debug.WriteLine($"==== -{MethodBase.GetCurrentMethod().Name} =======================");
         }
 
         [TestMethod()]
         public void FindClosestNoteDescendingTest()
         {
-            var lowerLimit = new Note(NoteName.C, OctaveEnum.Octave0);
-            var upperLimit = new Note(NoteName.B, OctaveEnum.Octave6);
-            var noteRange = new NoteRange(lowerLimit, upperLimit);
+            Debug.WriteLine($"==== +{MethodBase.GetCurrentMethod().Name} =======================");
+            this.FindClosestNoteTest(DirectionEnum.Descending);
+            new object();
+            Debug.WriteLine($"==== -{MethodBase.GetCurrentMethod().Name} =======================");
+        }
 
-            var root = new Note(NoteName.A, OctaveEnum.Octave6);
-            var third = new Note(NoteName.B, OctaveEnum.Octave6);
-            var fifth = new Note(NoteName.C, OctaveEnum.Octave6);
-            var seventh = new Note(NoteName.D, OctaveEnum.Octave6);
-
-            var chord = new Chord(noteRange, root, third, fifth, seventh);
-
-            const int MAX_NOTES_PER_CHORD = 8;
-
-            var ctx = new ArpeggiationChordContext(chord, MAX_NOTES_PER_CHORD);
-            var arpeggiator = new Arpeggiator(new ArpeggiationChordContext[] { ctx },
-                DirectionEnum.Descending,
-                noteRange, 4,
-                root);
-
-            const int MAX_ITERATIONS = 100;
-            Debug.WriteLine(root);
-            for (int i = 0; i < MAX_ITERATIONS; ++i)
-            {
-                var closestNoteCtx = new Chord.ClosestNoteContext(arpeggiator);
-                chord.GetClosestNote(closestNoteCtx);
-                var next = closestNoteCtx.ClosestNote;
-                Debug.WriteLine(next.NameAscii);
-                arpeggiator.CurrentNote = next;
-            }
+        [TestMethod()]
+        public void FindClosestNoteAscendig_AllowTemporayReversalTest()
+        {
+            Debug.WriteLine($"==== +{MethodBase.GetCurrentMethod().Name} =======================");
+            this.FindClosestNoteTest(DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote);
             new object();
             Assert.Fail();
+            Debug.WriteLine($"==== -{MethodBase.GetCurrentMethod().Name} =======================");
         }
 
 

@@ -66,7 +66,7 @@ namespace Arpeggiator_Tests
 			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
-                DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+                DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote,
 				noteRange, 4, startingNote, true);
 
             var musicXmlObservers = new MusicXmlObservers(arpeggiator);
@@ -124,7 +124,7 @@ namespace Arpeggiator_Tests
 			chords.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, notesToPlay)));
 
 			var arpeggiator = new Arpeggiator(contexts,
-				DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+				DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote,
 				//DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
@@ -178,7 +178,7 @@ namespace Arpeggiator_Tests
 				formulas.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, noteRange, notesToPlay)));
 
 				var arpeggiator = new Arpeggiator(contexts,
-					DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversal,
+					DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote,
 					noteRange, 4, startingNote, true);
 
                 //this.RegisterTraceObservers(arpeggiator);
