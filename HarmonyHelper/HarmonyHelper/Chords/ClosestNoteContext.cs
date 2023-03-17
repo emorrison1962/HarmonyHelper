@@ -28,7 +28,7 @@ namespace Eric.Morrison.Harmony.Chords
         public DirectionEnum Direction
         {
             get { return _Direction; }
-            set
+            private set
             {
                 _Direction = value;
                 this.OnDirectionChanged();
@@ -131,8 +131,7 @@ namespace Eric.Morrison.Harmony.Chords
                         (uint)currentInterval, 
                         (uint)currentInterval.GetInversion());
 
-                    throw new NotImplementedException();
-                    if (optionalInterval.SemiTones < currentInterval.SemiTones)
+                    if (optionalInterval.SemiTones == 1)
                     {
                         result = option;
                         this.TemporaryDirectionReversal = true;

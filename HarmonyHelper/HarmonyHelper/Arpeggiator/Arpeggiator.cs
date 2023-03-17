@@ -87,7 +87,7 @@ namespace Eric.Morrison.Harmony
         #endregion
 
         #region Fields
-        Note _CurrentNote;
+        Note _CurrentNote { get; set; }
         DirectionEnum _Direction;
         Chord _CurrentChord;
         ArpeggiationChordContext _CurrentContext;
@@ -112,7 +112,7 @@ namespace Eric.Morrison.Harmony
             }
             set
             {
-                if (_CurrentNote != value)
+                //if (_CurrentNote != value)
                 {
                     OnNoteChanging(this._CurrentNote, value);
                     this._CurrentNote = value;
@@ -150,6 +150,10 @@ namespace Eric.Morrison.Harmony
                     _CurrentChord = value;
                     this.OnChordChanged();
                 }
+                else
+                {
+                    new object();
+                }
             }
         }
         public int CurrentBeat
@@ -159,14 +163,18 @@ namespace Eric.Morrison.Harmony
             {
                 if (_CurrentBeat != value)
                 {
-                    //Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
+
+                    Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
                     _CurrentBeat = value;
-                    //Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
+                    Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
                     if (_CurrentBeat % this.BeatsPerMeasure == 1)
                     {
-                        //Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
+                        Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
                         this.CurrentMeasure++;
-                        //Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
+                        Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
+                    }
+                    else
+                    { 
                     }
                 }
             }
@@ -249,6 +257,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         public ClosestNoteContext ClosestNoteContext { get; set; }
         public void Arpeggiate()
         {
+            this.ClosestNoteContext = new ClosestNoteContext(this);
             var snapshots = new List<StateSnapshot>();
             var snapshot = new StateSnapshot(this);
             snapshots.Add(snapshot);
@@ -267,10 +276,20 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
 
 
             var beat = 0;
-            var seq = (from ctx in this.ChordContexts
-                       from notes in ctx.Chord.Notes
-                       select new { ChordContext = ctx, Chord = ctx.Chord, Notes = ctx.Chord.Notes, Beat = ++beat, NotesToPlay = ctx.NotesToPlay }).OrderBy(x => x.Beat).ToList();
+            //var seq2 = (from ctx in this.ChordContexts
+            //           from notes in ctx.Chord.Notes
+            //           select new { ChordContext = ctx, Chord = ctx.Chord, Notes = ctx.Chord.Notes, Beat = ++beat, NotesToPlay = ctx.NotesToPlay }).OrderBy(x => x.Beat).ToList();
 
+            var seq = this.ChordContexts.Select(ctx =>
+                new
+                {
+                    ChordContext = ctx,
+                    Chord = ctx.Chord,
+                    Notes = ctx.Chord.Notes,
+                    Beat = ++beat,
+                    NotesToPlay = ctx.NotesToPlay
+                }).ToList();
+            new object();
             //this.CurrentNote = seq.First().Notes[0];
 
             {
@@ -281,52 +300,55 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 this.OnStarted();
                 //this.OnMeasureChanging(0, 1);
                 //this.OnMeasureChanged();
+                this.CurrentMeasure = 1;
                 this.CurrentChord = null;
             }
 
-
+            int currentBeat = 0;
             foreach (var item in seq)
             {
-                this.CurrentBeat = item.Beat;
-                this.CurrentContext = item.ChordContext;
                 this.CurrentChord = item.ChordContext.Chord;
-
-                if (allowTemporayReversal)
+                for (int i = 0; i < item.NotesToPlay; ++i, ++currentBeat)
                 {
-                    if (0 == item.Beat)
+                    this.CurrentBeat = currentBeat;
+                    this.CurrentContext = item.ChordContext;
+
+                    if (allowTemporayReversal)
                     {
-                        direction |= DirectionEnum.AllowTemporayReversalForCloserNote;
+                        if (0 == item.Beat)
+                        {
+                            direction |= DirectionEnum.AllowTemporayReversalForCloserNote;
+                        }
+                        //else
+                        //{
+                        //    direction = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
+                        //}
                     }
-                    else
+
+                    this.ClosestNoteContext.SetChord(this.CurrentChord);
+                    //if (this.ClosestNoteContext.Direction != direction)
+                    //{
+                    //    this.ClosestNoteContext.Direction = direction;
+                    //}
+
+                    this.ClosestNoteContext.GetClosestNote();
+
+                    var nextNote = this.ClosestNoteContext.ClosestNote;
+                    if (direction != this.ClosestNoteContext.Direction)
                     {
-                        direction = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
+                        this.Direction = this.ClosestNoteContext.Direction;
+                        if (!this.ClosestNoteContext.Direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
+                        {
+                            direction = this.ClosestNoteContext.Direction;
+                        }
                     }
+
+                    Debug.Assert(null != nextNote);
+                    this.CurrentNote = nextNote;
+
+                    if (this.ClosestNoteContext.TemporaryDirectionReversal)
+                        this.Direction = direction;
                 }
-
-                this.ClosestNoteContext.SetChord(this.CurrentChord);
-                if (this.ClosestNoteContext.Direction != direction)
-                {
-                    this.ClosestNoteContext.Direction = direction;
-                }
-
-                throw new NotImplementedException("This is no longer working. UGH.");
-                this.ClosestNoteContext.GetClosestNote();
-
-                var nextNote = this.ClosestNoteContext.ClosestNote;
-                if (direction != this.ClosestNoteContext.Direction)
-                {
-                    this.Direction = this.ClosestNoteContext.Direction;
-                    if (!this.ClosestNoteContext.Direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
-                    {
-                        direction = this.ClosestNoteContext.Direction;
-                    }
-                }
-
-                Debug.Assert(null != nextNote);
-                this.CurrentNote = nextNote;
-
-                if (this.ClosestNoteContext.TemporaryDirectionReversal)
-                    this.Direction = direction;
             }
             if (this.UntilPatternRepeats)
             {

@@ -58,6 +58,8 @@ namespace Chord_Tests
             //    noteRange, 4,
             //    dm7.Root);
 
+            var reportedDirection = DirectionEnum.None;
+
             var sb = new StringBuilder();
             EventHandler<DirectionChangedEventArgs> handler =
                 (sender, args) => 
@@ -72,6 +74,7 @@ namespace Chord_Tests
                     {
                         sb.Append(DESC);
                     }
+                    reportedDirection = args.Current;
                 };
 
             const int MAX_ITERATIONS = 100;
@@ -104,8 +107,10 @@ namespace Chord_Tests
 
                 Assert.IsNotNull(prev);
                 Assert.IsNotNull(next);
+                throw new NotImplementedException("Fix these asserts. How do I tell the temporary direction?");
                 if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Ascending))
                 {
+                    //Debug.WriteLine(reportedDirection);
                     Assert.IsTrue(next > prev);
                 }
                 else if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Descending))

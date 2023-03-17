@@ -151,14 +151,18 @@ namespace Arpeggiator_Tests
 		{
             this.Model = new MusicXmlModel();
 
-            //var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
-            var chordTxt = "eb7 abm7 db7";
+            var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            //var chordTxt = "eb7 abm7 db7";
 			var success = false;
 
 			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
 			{
 				//formulas.ForEach(x => Debug.WriteLine(x));
 				success = true;
+			}
+			else 
+			{ 
+				Assert.Fail("Couldn't parse chords.");
 			}
 
 			if (success)
@@ -193,7 +197,8 @@ namespace Arpeggiator_Tests
 
             }
             new object();
-		}
+            throw new NotImplementedException();
+        }
 
         MusicXmlModel CreateModel(MusicXmlPart part)
         {
