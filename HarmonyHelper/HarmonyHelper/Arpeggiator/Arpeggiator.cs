@@ -149,6 +149,7 @@ namespace Eric.Morrison.Harmony
                     this.OnChordChanging(_CurrentChord, value);
                     _CurrentChord = value;
                     this.OnChordChanged();
+                    this.ClosestNoteContext.SetChord(this.CurrentChord);
                 }
                 else
                 {
@@ -312,42 +313,11 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 {
                     this.CurrentBeat = currentBeat;
                     this.CurrentContext = item.ChordContext;
-
-                    if (allowTemporayReversal)
-                    {
-                        if (0 == item.Beat)
-                        {
-                            direction |= DirectionEnum.AllowTemporayReversalForCloserNote;
-                        }
-                        //else
-                        //{
-                        //    direction = direction.GetMasked(DirectionEnum.Ascending | DirectionEnum.Descending);
-                        //}
-                    }
-
-                    this.ClosestNoteContext.SetChord(this.CurrentChord);
-                    //if (this.ClosestNoteContext.Direction != direction)
-                    //{
-                    //    this.ClosestNoteContext.Direction = direction;
-                    //}
-
                     this.ClosestNoteContext.GetClosestNote();
 
                     var nextNote = this.ClosestNoteContext.ClosestNote;
-                    if (direction != this.ClosestNoteContext.Direction)
-                    {
-                        this.Direction = this.ClosestNoteContext.Direction;
-                        if (!this.ClosestNoteContext.Direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
-                        {
-                            direction = this.ClosestNoteContext.Direction;
-                        }
-                    }
-
                     Debug.Assert(null != nextNote);
                     this.CurrentNote = nextNote;
-
-                    if (this.ClosestNoteContext.TemporaryDirectionReversal)
-                        this.Direction = direction;
                 }
             }
             if (this.UntilPatternRepeats)

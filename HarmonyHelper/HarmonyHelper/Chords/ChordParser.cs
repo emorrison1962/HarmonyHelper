@@ -145,7 +145,7 @@ namespace Eric.Morrison.Harmony.Chords
 			if (success)
 			{
 				chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
-                chordFormula = chordFormula.Copy();
+                //chordFormula = chordFormula.Copy();
 
                 if (null != bass)
 					chordFormula.SetBassNote(bass);

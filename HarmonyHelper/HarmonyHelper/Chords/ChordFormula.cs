@@ -30,6 +30,15 @@ namespace Eric.Morrison.Harmony.Chords
         [JsonIgnore]
         public int SortOrder { get { return 3; } }
         virtual public NoteName Root { get; private set; }
+        public NoteName Second { get; set; }
+        public NoteName Third { get; set; }
+        public NoteName Fourth { get; set; }
+        public NoteName Fifth { get; set; }
+        public NoteName Sixth { get; set; }
+        public NoteName Seventh { get; set; }
+        public NoteName Ninth { get; set; }
+        public NoteName Eleventh { get; set; }
+        public NoteName Thirteenth { get; set; }
         virtual public NoteName Bass { get; private set; }
         virtual public ChordIntervalsEnum ChordType { get; private set; }
         virtual public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();
@@ -62,18 +71,6 @@ namespace Eric.Morrison.Harmony.Chords
         #endregion
 
         #region Construction
-        [JsonConstructor]
-        public ChordFormula(NoteName Root, NoteName Bass,
-            ChordIntervalsEnum ChordType)
-        {
-            this.Root = Root;
-            this.Bass = Bass;
-            this.ChordType = ChordType;
-        }
-        ChordFormula()
-        {
-        }
-
         ChordFormula(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
@@ -86,6 +83,8 @@ namespace Eric.Morrison.Harmony.Chords
             foreach (var interval in this.ChordType.Intervals())
             {
                 var nn = NoteName.TransposeUp(root, interval, true);
+                this.SetChordTone(interval, nn);
+
                 Debug.Assert(nn != null);
                 this.NoteNames.Add(nn);
                 if (nn.IsFlatted)
@@ -99,6 +98,72 @@ namespace Eric.Morrison.Harmony.Chords
             }
         }
 
+        void SetChordTone(ChordToneInterval interval, NoteName nn)
+        {
+            switch (interval.IntervalRoleType)
+            {
+                case IntervalRoleTypeEnum.Unison:
+                    {
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Second:
+                    {
+                        this.Second = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Third:
+                    {
+                        this.Third = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Fourth:
+                    {
+                        this.Fourth = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Fifth:
+                    {
+                        this.Fifth = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Sixth:
+                    {
+                        this.Sixth = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Seventh:
+                    {
+                        this.Seventh = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Octave:
+                    {
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Ninth:
+                    {
+                        this.Ninth = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Eleventh:
+                    {
+                        this.Eleventh = nn;
+                        break;
+                    }
+                case IntervalRoleTypeEnum.Thirteenth:
+                    {
+                        this.Thirteenth = nn;
+                        break;
+                    }
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(interval.IntervalRoleType));
+                        break;
+                    }
+            }
+        }
+
+        [Obsolete("")]
         ChordFormula(ChordFormula src)
         {
             this.Root = src.Root.Copy();
@@ -107,7 +172,9 @@ namespace Eric.Morrison.Harmony.Chords
                 this._Keys.Add(key);
             this.ChordType = src.ChordType;
             foreach (var nn in src.NoteNames)
+            {
                 this.NoteNames.Add(nn);
+            }
         }
 
         static public ChordFormula Create(NoteName root, ChordIntervalsEnum chordType)

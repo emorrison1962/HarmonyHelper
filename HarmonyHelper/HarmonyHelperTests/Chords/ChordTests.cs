@@ -9,8 +9,13 @@ using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.Intervals;
+using Eric.Morrison.Harmony.MusicXml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using MusicXml.Tests;
+
+using zHarmonyHelperTests_Arpeggiator;
 
 using static Eric.Morrison.Harmony.Chords.Chord;
 using static Eric.Morrison.Harmony.Chords.ClosestNoteContext;
@@ -62,15 +67,15 @@ namespace Chord_Tests
 
             var sb = new StringBuilder();
             EventHandler<DirectionChangedEventArgs> handler =
-                (sender, args) => 
+                (sender, args) =>
                 {
                     const string ASC = "˄";
                     const string DESC = "˅";
-                    if (args.Current.HasFlag(DirectionEnum.Ascending)) 
+                    if (args.Current.HasFlag(DirectionEnum.Ascending))
                     {
                         sb.Append(ASC);
                     }
-                    else 
+                    else
                     {
                         sb.Append(DESC);
                     }
@@ -164,6 +169,81 @@ namespace Chord_Tests
             new object();
             Assert.Fail();
             Debug.WriteLine($"==== -{MethodBase.GetCurrentMethod().Name} =======================");
+        }
+
+        [TestMethod()]
+        public void FindClosestNoteAscendig_Arpeggiator()
+        {
+            var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            var success = false;
+
+            if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
+            {
+                success = true;
+            }
+            else
+            {
+                Assert.Fail("Couldn't parse chords.");
+            }
+
+            var chords = new List<Chord>();
+            var noteRange = new NoteRange(
+                new Note(NoteName.B, OctaveEnum.Octave1),
+                new Note(NoteName.B, OctaveEnum.Octave4));
+            foreach (var formula in formulas)
+            {
+                chords.Add(new Chord(formula, noteRange));
+            }
+            var notesToPlay = 4;
+            var contexts = new List<ArpeggiationChordContext>();
+            formulas.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, noteRange, notesToPlay)));
+
+
+            var direction = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
+            var closestNoteCtx = new ClosestNoteContext(chords[0].Seventh, chords[0], direction);
+            var sb = new StringBuilder();
+            var pairs = contexts.GetPairs();
+            foreach (var pair in pairs)
+            {
+                var context_0 = pair[0];
+                var context_1 = pair[1];
+                var chord = chords.First(x => x.Formula == context_0.Chord.Formula);
+                for (int i = 0; i < context_0.NotesToPlay; ++i)
+                {
+                    if (i % 4 == 0)
+                    {
+                        sb.Append($"{chord.Formula}: ");
+                    }
+
+                    var prev = closestNoteCtx.LastNote;
+                    closestNoteCtx.GetClosestNote();
+                    var next = closestNoteCtx.ClosestNote;
+                    sb.Append($"{next.NameAscii}, ");
+                    closestNoteCtx.LastNote = next;
+
+                    Assert.IsNotNull(prev);
+                    Assert.IsNotNull(next);
+                    if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Ascending))
+                    {
+                        //Debug.WriteLine(reportedDirection);
+                        //Assert.IsTrue(next > prev);
+                    }
+                    else if (closestNoteCtx.Direction.HasFlag(DirectionEnum.Descending))
+                    {
+                        //Assert.IsTrue(next < prev);
+                    }
+
+                    if (i % 4 == 3)
+                    {
+                        Debug.WriteLine(sb.ToString());
+                        sb.Clear();
+                        closestNoteCtx.SetChord(context_1.Chord);
+                    }
+
+                }
+            }
+            new object();
+            throw new NotImplementedException("This is working. Why isn't Arpeggiator???");
         }
 
 
