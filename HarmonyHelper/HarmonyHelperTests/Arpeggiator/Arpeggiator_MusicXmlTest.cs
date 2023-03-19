@@ -195,7 +195,6 @@ namespace Arpeggiator_Tests
 
             }
             new object();
-            throw new NotImplementedException();
         }
 
         MusicXmlModel CreateModel(MusicXmlPart part)

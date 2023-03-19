@@ -158,6 +158,23 @@ namespace Eric.Morrison.Harmony.Chords
         public Note? FindClosest_Impl()
         {
             Note? result = null;
+
+#if DEBUG
+            Debug.WriteLine($"{LastNote}, {LastNote.RawValue}, {LastNote.Octave}");
+            var sb = new StringBuilder();
+            for (int i = 0; i < this.Notes.Count; ++i)
+            {
+                var n = this.Notes[i];
+                sb.Append($"{n}, {n.RawValue}, {n.Octave} | ");
+                if (i % 4 == 3)
+                {
+                    Debug.Indent();
+                    Debug.WriteLine(sb.ToString());
+                    Debug.Unindent();
+                    sb.Clear();
+                }
+            }
+#endif
             if (this.Direction.HasFlag(DirectionEnum.Ascending))
             {
                 result = this.Notes
