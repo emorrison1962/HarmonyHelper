@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.Chords
         bool Contains(List<NoteName> notes);
         ChordFormulaContainsEnum Contains(List<NoteName> criteria, out List<NoteName> contained, out List<NoteName> notContained);
         bool Contains(NoteName note);
-        ChordFormula Copy();
+        ChordFormula CopyEx();
         bool Equals(ChordFormula other);
         bool Equals(object obj);
         int GetHashCode();

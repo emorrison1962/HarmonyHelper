@@ -22,7 +22,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventBackup(TimedEventBackup src)
             : base(src)
         {
-            this.Event = src.Event.Copy();
+            this.Event = src.Event.CopyEx();
             this.TimeContext = new TimeContext(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }

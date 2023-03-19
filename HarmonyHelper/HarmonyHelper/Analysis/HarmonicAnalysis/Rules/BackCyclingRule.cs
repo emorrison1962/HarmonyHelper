@@ -142,7 +142,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 			ChordFormula result = null;
 			if (orig.ChordType.HasFlag(ChordIntervalsEnum.IsDominant))
 			{
-				result = orig.Copy() + ChordToneInterval.Augmented4th;
+				result = orig.CopyEx() + ChordToneInterval.Augmented4th;
 			}
 			return result;
 		}

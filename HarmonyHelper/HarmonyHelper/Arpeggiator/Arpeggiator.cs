@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Eric.Morrison.Harmony
 {
@@ -223,7 +224,6 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             this.CurrentContext = this.ChordContexts[0];
             if (null == startingNote)
                 startingNote = this.CurrentChord.Root;
-            this.CurrentMeasure = 0;
             this._CurrentChord = this.CurrentContext.Chord;
             this.CurrentNote = startingNote;
             this.NoteRange = noteRange;
@@ -299,26 +299,31 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 //this.OnArpeggiationContextChanging(null, this._CurrentContext);
                 //this.OnArpeggiationContextChanged();
                 this.OnStarted();
-                //this.OnMeasureChanging(0, 1);
-                //this.OnMeasureChanged();
-                this.CurrentMeasure = 1;
+                //this.CurrentMeasure = 1;
                 this.CurrentChord = null;
             }
 
-            int currentBeat = 0;
             foreach (var item in seq)
             {
-                this.CurrentChord = item.ChordContext.Chord;
-                for (int i = 0; i < item.NotesToPlay; ++i, ++currentBeat)
-                {
-                    this.CurrentBeat = currentBeat;
-                    this.CurrentContext = item.ChordContext;
-                    this.ClosestNoteContext.GetClosestNote();
+                var sb = new StringBuilder();
+                this.ClosestNoteContext.SetChord(item.Chord);
 
+                sb.Append($"****{item.ChordContext.Chord}: ");
+                for (int i = 0; i < item.NotesToPlay; ++i)
+                {
+                    this.CurrentBeat++;
+                    this.CurrentContext = item.ChordContext;
+                    this.CurrentChord = item.ChordContext.Chord;
+
+                    this.ClosestNoteContext.GetClosestNote();
                     var nextNote = this.ClosestNoteContext.ClosestNote;
+
                     Debug.Assert(null != nextNote);
                     this.CurrentNote = nextNote;
+                    sb.Append($"{nextNote} ");
                 }
+                Debug.WriteLine( sb.ToString() );
+                new object();
             }
             if (this.UntilPatternRepeats)
             {

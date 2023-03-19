@@ -369,14 +369,14 @@ namespace Eric.Morrison.Harmony.MusicXml
                             eBarlineStyle = BarlineStyleEnum.Light_Light;
                     }
 
-                    var ctx = new MusicXmlBarlineContext(eBarlineStyle);
+                    var ctx = new MusicXmlBarlineContext(eBarlineStyle, BarlineSideEnum.None);
                     if (xbarline.Attributes(XmlConstants.barline_location).Any())
                     {
                         if (xbarline.Attribute(XmlConstants.barline_location)
                             .Value == XmlConstants.barline_location_left)
-                            ctx.IsLeft = true;
+                            ctx.BarlineSide = BarlineSideEnum.Left;
                         else
-                            ctx.IsRight = true;
+                            ctx.BarlineSide = BarlineSideEnum.Right;
                     }
 
                     if (xbarline.Elements(XmlConstants.ending).Any())

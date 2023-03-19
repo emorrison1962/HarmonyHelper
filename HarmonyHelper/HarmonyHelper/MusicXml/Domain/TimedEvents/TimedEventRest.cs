@@ -34,7 +34,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimedEventRest(TimedEventRest src)
             : base(src)
         {
-            this.Event = src.Event.Copy();
+            this.Event = src.Event.CopyEx();
             this.TimeContext = new TimeContextEx(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }

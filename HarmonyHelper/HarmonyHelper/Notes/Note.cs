@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony
 			this.Octave = octave;
 		}
 
-		public Note Copy()
+		public Note CopyEx()
 		{
 			var result = new Note(this);
 			return result;

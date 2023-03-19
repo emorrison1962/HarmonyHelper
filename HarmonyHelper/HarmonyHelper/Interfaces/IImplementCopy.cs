@@ -8,6 +8,6 @@ namespace Eric.Morrison.Harmony.Interfaces
 {
     public interface IImplementCopy<T>
     {
-        T Copy();   
+        T CopyEx();   
     }
 }

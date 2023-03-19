@@ -22,8 +22,8 @@ namespace Eric.Morrison.Harmony
 
 		public VoiceLeadingAnalysisResult Analyze(Chords.ChordFormula formula01, Chords.ChordFormula formula02)
 		{
-			var f1 = formula01.Copy(); // Don't modify the input.
-			var f2 = formula02.Copy(); // Don't modify the input.
+			var f1 = formula01.CopyEx(); // Don't modify the input.
+			var f2 = formula02.CopyEx(); // Don't modify the input.
 			var vlrs = new List<VoiceLeadingResult>();
 
 

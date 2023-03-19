@@ -27,7 +27,7 @@ namespace Eric.Morrison.Harmony
 		public NoteRange(Note lowerLimit, int numberOfOctaves)
 		{
 			this.LowerLimit = lowerLimit;
-			var upperLimit = this.LowerLimit.Copy();
+			var upperLimit = this.LowerLimit.CopyEx();
 			var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
 
 			for (int i = 0 ; i < numberOfOctaves ; ++i)
@@ -53,7 +53,7 @@ namespace Eric.Morrison.Harmony
 				throw new InvalidOperationException();
 
 			var notes = new List<Note>();
-			var note = this.LowerLimit.Copy();
+			var note = this.LowerLimit.CopyEx();
 			notes.Add(note);
 
 			var chromatic = new ChromaticScaleFormula(KeySignature.CMajor);
@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony
 			if (null != nn)
 			{
 				var tmp = this.Notes.Where(x => x.NoteName.RawValue == nn.RawValue).FirstOrDefault();
-				result = tmp.Copy();
+				result = tmp.CopyEx();
 				var normalized = nn;// normalizer.GetNormalized(nn, null);
 				result.SetNoteName(normalized);
 			}

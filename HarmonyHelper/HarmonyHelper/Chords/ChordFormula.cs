@@ -71,6 +71,7 @@ namespace Eric.Morrison.Harmony.Chords
         #endregion
 
         #region Construction
+        ChordFormula() { }
         ChordFormula(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
@@ -96,6 +97,12 @@ namespace Eric.Morrison.Harmony.Chords
                     this.UsesSharps = true;
                 }
             }
+        }
+        [Obsolete("", true)]
+        public ChordFormula(ChordFormula src)
+        {
+            ChordFormula dst = new ChordFormula();
+            dst.Copy(src);
         }
 
         void SetChordTone(ChordToneInterval interval, NoteName nn)
@@ -163,20 +170,6 @@ namespace Eric.Morrison.Harmony.Chords
             }
         }
 
-        [Obsolete("")]
-        ChordFormula(ChordFormula src)
-        {
-            this.Root = src.Root.Copy();
-            this.Bass = src.Bass?.Copy();
-            foreach (var key in src._Keys)
-                this._Keys.Add(key);
-            this.ChordType = src.ChordType;
-            foreach (var nn in src.NoteNames)
-            {
-                this.NoteNames.Add(nn);
-            }
-        }
-
         static public ChordFormula Create(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
@@ -188,7 +181,8 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
-        public ChordFormula Copy()
+        [Obsolete("")]
+        public ChordFormula CopyEx()
         {
             var result = new ChordFormula(this);
             return result;

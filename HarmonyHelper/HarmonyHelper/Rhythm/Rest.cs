@@ -10,7 +10,7 @@ namespace Eric.Morrison.Harmony
     {
         public int SortOrder { get { return 5; } }
 
-        public Rest Copy()
+        public Rest CopyEx()
         {
             return new Rest();
         }
@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony
 
         }
         public int SortOrder { get { return 1; } }
-        public Forward Copy()
+        public Forward CopyEx()
         {
             return new Forward();
         }
@@ -71,7 +71,7 @@ namespace Eric.Morrison.Harmony
     {
         public int SortOrder { get { return 4; } }
 
-        public Backup Copy()
+        public Backup CopyEx()
         {
             return new Backup();
         }

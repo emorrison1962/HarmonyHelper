@@ -60,7 +60,7 @@ namespace Note_Tests
 				foreach (var octave in octaves)
 				{
 					var n1 = new Note(nn, octave);
-					var n2 = n1.Copy();
+					var n2 = n1.CopyEx();
 					Assert.AreEqual(n1, n2);
 				}
 			}

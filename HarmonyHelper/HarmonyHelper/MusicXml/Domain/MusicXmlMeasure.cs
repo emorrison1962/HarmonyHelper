@@ -156,11 +156,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             this._BarlineContexts.Add(barline);
             if (barline.IsDoubleBarline)
             {
-                if (barline.IsLeft)
+                if (barline.BarlineSide == BarlineSideEnum.Left)
                 {
                     this.IsSectionStart = true;
                 }
-                if (barline.IsRight)
+                if (barline.BarlineSide == BarlineSideEnum.Right)
                 {
                     this.IsSectionEnd = true;
                 }
@@ -176,9 +176,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        public List<TimedEventBase> TimedEvents 
-        { 
-            get 
+        public List<TimedEventBase> TimedEvents
+        {
+            get
             {
                 var result = new List<TimedEventBase>();
 
@@ -290,6 +290,24 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new XElement(XmlConstants.measure);
             result.Add(new XAttribute(XmlConstants.number, this.MeasureNumber));
 
+            if (this.BarlineContexts.Any(x => x.BarlineSide == BarlineSideEnum.Left))
+            {
+                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left));
+                foreach (var ctx in ctxs)
+                {
+                    XElement xbarline = ctx.ToXElement();
+                    if (null != ctx.RepeatContext)
+                    {
+                        xbarline.Add(ctx.RepeatContext.ToXElement());
+                        if (ctx.RepeatContext.RepeatCount > 1)
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+                    result.Add(xbarline);
+                }
+            }
+
             var events = this.GetMergedEvents();
             foreach (var @event in events)
             {
@@ -298,9 +316,9 @@ namespace Eric.Morrison.Harmony.MusicXml
                 result.Add(xevent);
             }
 
-            if (this.BarlineContexts.Any())
+            if (this.BarlineContexts.Any(x => x.BarlineSide == BarlineSideEnum.Right))
             {
-                var ctxs = this.BarlineContexts;
+                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left));
                 foreach (var ctx in ctxs)
                 {
                     XElement xbarline = ctx.ToXElement();

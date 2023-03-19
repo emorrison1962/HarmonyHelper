@@ -118,7 +118,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
                         if (null != formula)
-                            gridRow.Add(formula.Copy());
+                            gridRow.Add(formula.CopyEx());
                     }
 
                     result.Rows.Add(gridRow);

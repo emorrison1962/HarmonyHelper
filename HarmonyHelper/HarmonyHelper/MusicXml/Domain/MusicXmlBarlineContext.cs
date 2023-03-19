@@ -22,12 +22,18 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         Short,
         Tick,
     };
+    public enum BarlineSideEnum
+    {
+        None = 0,
+        Left, 
+        Right,
+    };
+
     public class MusicXmlBarlineContext
     {
         #region Properties
         public BarlineStyleEnum BarlineStyle { get; set; }
-        public bool IsLeft { get; set; }
-        public bool IsRight { get; set; }
+        public BarlineSideEnum BarlineSide { get; set; }
         public bool IsDoubleBarline
         {
             get
@@ -50,9 +56,10 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         #endregion
 
         #region Construction
-        public MusicXmlBarlineContext(BarlineStyleEnum style)
+        public MusicXmlBarlineContext(BarlineStyleEnum style, BarlineSideEnum side)
         {
             this.BarlineStyle = style;
+            this.BarlineSide = side;
         }
 
         public void Add(MusicXmlEnding ending)
@@ -64,7 +71,11 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         {
             var result = new XElement(XmlConstants.barline);
             result.Add(this.ToXElement(this.BarlineStyle));
-
+            if (this.BarlineSide != BarlineSideEnum.None)
+            {
+                var xlocation = new XAttribute("location", this.BarlineSide.ToString().ToLower());
+                result.Add(xlocation);
+            }
             if (null != this.RepeatContext)
             {
                 XElement xrepeat = this.RepeatContext.ToXElement();

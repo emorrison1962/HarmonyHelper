@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
+using Eric.Morrison.Harmony.MusicXml.Domain;
 using Eric.Morrison.Harmony.Rhythm;
 
 using DurationEnum = Eric.Morrison.Harmony.MusicXml.DurationEnum;
@@ -64,6 +65,8 @@ namespace zHarmonyHelperTests_Arpeggiator
             {
                 var measureNumber = args.CurrentMeasure;
                 var measure = new MusicXmlMeasure(this.Part, measureNumber);
+                if (args.CurrentMeasure == 1)
+                    measure.Add(new MusicXmlBarlineContext(BarlineStyleEnum.Light_Light, BarlineSideEnum.Left));
                 this.Part.Add(measure);
             }
             new object();

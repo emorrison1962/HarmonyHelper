@@ -43,7 +43,17 @@ namespace Eric.Morrison.Harmony.Chords
 
         public Chord Chord { get; set; }
         public Note LastNote { get; set; }
-        public Note ClosestNote { get; set; }
+        Note _ClosestNote;
+        public Note ClosestNote 
+        {
+            get 
+            {
+                var result = _ClosestNote;
+                LastNote = _ClosestNote;
+                return result;
+            }
+            private set { _ClosestNote = value; } 
+        }
         public List<Note> Notes { get; set; }
         public bool TemporaryDirectionReversal { get; set; }
         public bool ExceededRangeLimit { get; set; }
