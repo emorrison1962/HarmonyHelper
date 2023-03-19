@@ -176,7 +176,7 @@ namespace Eric.Morrison.Harmony
                         Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
                     }
                     else
-                    { 
+                    {
                     }
                 }
             }
@@ -302,43 +302,44 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                 //this.CurrentMeasure = 1;
                 this.CurrentChord = null;
             }
-
-            foreach (var item in seq)
+            do
             {
-                var sb = new StringBuilder();
-                this.ClosestNoteContext.SetChord(item.Chord);
-
-                sb.Append($"****{item.ChordContext.Chord}: ");
-                for (int i = 0; i < item.NotesToPlay; ++i)
+                foreach (var item in seq)
                 {
-                    this.CurrentBeat++;
-                    this.CurrentContext = item.ChordContext;
-                    this.CurrentChord = item.ChordContext.Chord;
+                    var sb = new StringBuilder();
+                    this.ClosestNoteContext.SetChord(item.Chord);
 
-                    this.ClosestNoteContext.GetClosestNote();
-                    var nextNote = this.ClosestNoteContext.ClosestNote;
+                    sb.Append($"****{item.ChordContext.Chord}: ");
+                    for (int i = 0; i < item.NotesToPlay; ++i)
+                    {
+                        this.CurrentBeat++;
+                        this.CurrentContext = item.ChordContext;
+                        this.CurrentChord = item.ChordContext.Chord;
 
-                    Debug.Assert(null != nextNote);
-                    this.CurrentNote = nextNote;
-                    sb.Append($"{nextNote} ");
+                        this.ClosestNoteContext.GetClosestNote();
+                        var nextNote = this.ClosestNoteContext.ClosestNote;
+
+                        Debug.Assert(null != nextNote);
+                        this.CurrentNote = nextNote;
+                        sb.Append($"{nextNote} ");
+                    }
+                    Debug.WriteLine(sb.ToString());
+                    new object();
                 }
-                Debug.WriteLine( sb.ToString() );
-                new object();
+                if (this.UntilPatternRepeats)
+                {
+                    if (snapshots.Any(x => x.Equals(this)))
+                    {
+                        repeat = false;
+                    }
+                    else
+                    {
+                        snapshots.Add(new StateSnapshot(this));
+                        this.NoteHistory.Clear();
+                    }
+                }
             }
-            if (this.UntilPatternRepeats)
-            {
-                if (snapshots.Any(x => x.Equals(this)))
-                {
-                    repeat = false;
-                }
-                else
-                {
-                    snapshots.Add(new StateSnapshot(this));
-                    this.NoteHistory.Clear();
-                }
-            }
-
-
+            while (repeat);
 
             new object();
 #if false

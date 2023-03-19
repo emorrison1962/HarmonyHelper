@@ -292,7 +292,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             if (this.BarlineContexts.Any(x => x.BarlineSide == BarlineSideEnum.Left))
             {
-                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left));
+                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left);
                 foreach (var ctx in ctxs)
                 {
                     XElement xbarline = ctx.ToXElement();
@@ -318,7 +318,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
             if (this.BarlineContexts.Any(x => x.BarlineSide == BarlineSideEnum.Right))
             {
-                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left));
+                var ctxs = this.BarlineContexts.Where(x => x.BarlineSide == BarlineSideEnum.Left);
                 foreach (var ctx in ctxs)
                 {
                     XElement xbarline = ctx.ToXElement();

@@ -151,8 +151,8 @@ namespace Arpeggiator_Tests
 		{
             this.Model = new MusicXmlModel();
 
-            var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
-            //var chordTxt = "eb7 abm7 db7";
+            //var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            var chordTxt = "c7 f7 bb7 eb7 ab7 db7 gb7 b7 e7 a7 d7 g7";
 			var success = false;
 
 			if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
@@ -167,11 +167,9 @@ namespace Arpeggiator_Tests
 
 			if (success)
 			{
-				var noteRange = new NoteRange(
-					new Note(NoteName.B, OctaveEnum.Octave1),
-					new Note(NoteName.B, OctaveEnum.Octave4));
+                var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.EigthPosition);
 
-				new object();
+                new object();
 
 				var startingNote = new Note(formulas[0].Root,
 				//OctaveEnum.Octave1);

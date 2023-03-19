@@ -22,7 +22,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         private bool disposedValue;
         #region Properties
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
-        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>() 
+        public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>()
             { new MusicXmlStaff(new MusicXmlClef(ClefEnum.Treble, 1))};
         public MusicXmlPartIdentifier Identifier { get; set; } = new MusicXmlPartIdentifier("P1", "Part 01");
         MeasureList _Measures { get; set; } = new MeasureList();
@@ -58,6 +58,13 @@ namespace Eric.Morrison.Harmony.MusicXml
             : this(PartType, PartIdentifier)
         {
             this.XElement = xelement;
+        }
+        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, ClefEnum clef)
+    : this(PartType, PartIdentifier)
+        {
+            this.Staves.Clear();
+            this.Staves = new List<MusicXmlStaff>() { new MusicXmlStaff(new MusicXmlClef(clef, 1)) };
+
         }
 
         #endregion
@@ -120,8 +127,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = true;
             if (!this.Staves.Any())
-            { 
-                result = false ;
+            {
+                result = false;
                 Debug.Assert(result);
             }
             if (result && !this.Identifier.IsValid())
@@ -144,7 +151,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public XElement ToXElement() 
+        public XElement ToXElement()
         {
             var result = new XElement(XmlConstants.part);
             result.Add(new XAttribute(XmlConstants.id, this.Identifier.ID));
