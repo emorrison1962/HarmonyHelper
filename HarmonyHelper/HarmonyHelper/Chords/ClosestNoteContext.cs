@@ -178,29 +178,22 @@ namespace Eric.Morrison.Harmony.Chords
             if (this.Direction.HasFlag(DirectionEnum.Ascending))
             {
                 result = this.Notes
-                    .Where(x => x.RawValue > this.LastNote.RawValue && x.Octave >= this.LastNote.Octave)
+                    .Where(x => x > this.LastNote)
                     .FirstOrDefault();
+                new object();
                 if (result is null)
                 {
-                    var minValue = this.Notes.Min(x => x.RawValue);
-                    var lastOctave = this.LastNote.Octave;
-                    result = this.Notes.Where(x => x.RawValue == minValue && x.Octave > lastOctave)
-                        .FirstOrDefault();
+                    new object();
                 }
             }
             else
             {
                 result = this.Notes
-                    .Where(x => x.RawValue < this.LastNote.RawValue && x.Octave <= this.LastNote.Octave)
+                    .Where(x => x < this.LastNote)
                     .LastOrDefault();
                 new object();
                 if (result is null)
                 {
-                    var maxValue = this.Notes.Max(x => x.RawValue);
-                    var lastOctave = this.LastNote.Octave;
-                    result = this.Notes
-                        .Where(x => x.RawValue == maxValue && x.Octave < lastOctave)
-                        .LastOrDefault();
                     new object();
                 }
             }

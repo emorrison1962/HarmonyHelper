@@ -175,7 +175,8 @@ namespace Chord_Tests
         [TestMethod()]
         public void FindClosestNoteAscendig_Arpeggiator()
         {
-            var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            //var chordTxt = "dm7 g7 cm7 f7 bbm7 eb7 abm7 db7";
+            var chordTxt = "c7 f7 bb7 eb7 ab7 db7 gb7 b7 e7 a7 d7 g7";
             var success = false;
 
             if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
@@ -236,7 +237,9 @@ namespace Chord_Tests
 
                     if (i % 4 == 3)
                     {
+                        Debug.Indent();
                         Debug.WriteLine(sb.ToString());
+                        Debug.Unindent();
                         sb.Clear();
                         closestNoteCtx.SetChord(context_1.Chord);
                     }
