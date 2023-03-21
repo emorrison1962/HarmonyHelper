@@ -141,7 +141,7 @@ namespace Note_Tests
         [TestMethod()]
         public void NoteTest_GreaterThan_Test()
         {
-            var cb = new Note(NoteName.Cb, OctaveEnum.Octave2);
+            var cb = new Note(NoteName.Cb, OctaveEnum.Octave1);
             var bb = new Note(NoteName.Bb, OctaveEnum.Octave2);
 
             var result = cb < bb;

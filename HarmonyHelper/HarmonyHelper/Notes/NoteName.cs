@@ -598,7 +598,9 @@ namespace Eric.Morrison.Harmony
 
         public static NoteName TransposeUp(NoteName src, Interval interval, bool @explicit = false)
         {
-            if (null == interval)
+            if (src is null)
+                throw new ArgumentNullException(nameof(src));
+            if (interval is null)
                 throw new ArgumentNullException(nameof(interval));
             NoteName result = null;
             var success = false;
@@ -624,7 +626,9 @@ namespace Eric.Morrison.Harmony
 
         private static uint TransposeValue(NoteName src, Interval interval)
         {
-            if (null == interval)
+            if (src is null)
+                throw new ArgumentNullException(nameof(src));
+            if (interval is null)
                 throw new ArgumentNullException(nameof(interval));
             uint result = src.RawValue << interval.SemiTones;
             if ((RawNoteValuesEnum)result > RawNoteValuesEnum.B)

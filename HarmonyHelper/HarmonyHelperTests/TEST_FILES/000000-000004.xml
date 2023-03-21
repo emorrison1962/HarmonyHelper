@@ -3,7 +3,7 @@
   <work />
   <identification>
     <encoding>
-      <encoding-date>2023-03-14</encoding-date>
+      <encoding-date>2023-03-21</encoding-date>
       <software>HarmonyHelper, Version 1.0.0</software>
     </encoding>
   </identification>
@@ -34,6 +34,10 @@
         </clef>
       </attributes>
       <sound tempo="95" />
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward" />
+      </barline>
       <harmony>
         <root>
           <root-step>E</root-step>
@@ -57,10 +61,6 @@
         <type>whole</type>
         <staff>2</staff>
       </note>
-      <barline>
-        <bar-style>heavy-light</bar-style>
-        <repeat direction="forward" />
-      </barline>
     </measure>
     <measure number="2">
       <harmony>
@@ -189,9 +189,6 @@
         <type>whole</type>
         <staff>2</staff>
       </note>
-      <barline>
-        <bar-style>light-light</bar-style>
-      </barline>
     </measure>
     <measure number="1">
       <harmony>
@@ -1240,9 +1237,6 @@
         <type>whole</type>
         <staff>2</staff>
       </note>
-      <barline>
-        <bar-style>light-light</bar-style>
-      </barline>
     </measure>
     <measure number="1">
       <harmony>
@@ -1632,10 +1626,6 @@
         <type>whole</type>
         <staff>2</staff>
       </note>
-      <barline>
-        <bar-style>light-heavy</bar-style>
-        <repeat direction="backward" />
-      </barline>
     </measure>
   </part>
 </score-partwise>

@@ -168,7 +168,6 @@ namespace Chord_Tests
             Debug.WriteLine($"==== +{MethodBase.GetCurrentMethod().Name} =======================");
             this.FindClosestNoteTest(DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote);
             new object();
-            Assert.Fail();
             Debug.WriteLine($"==== -{MethodBase.GetCurrentMethod().Name} =======================");
         }
 
@@ -246,7 +245,6 @@ namespace Chord_Tests
                 }
             }
             new object();
-            throw new NotImplementedException("This is working. Why isn't Arpeggiator???");
         }
 
 

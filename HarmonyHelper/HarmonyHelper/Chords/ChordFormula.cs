@@ -101,8 +101,7 @@ namespace Eric.Morrison.Harmony.Chords
         [Obsolete("", true)]
         public ChordFormula(ChordFormula src)
         {
-            ChordFormula dst = new ChordFormula();
-            dst.Copy(src);
+            this.Copy(src);
         }
 
         void SetChordTone(ChordToneInterval interval, NoteName nn)
@@ -384,7 +383,9 @@ namespace Eric.Morrison.Harmony.Chords
 
         public static ChordFormula TransposeUp(ChordFormula src, Interval interval, bool @explicit = false)
         {
-            if (null == interval)
+            if (src is null)
+                throw new ArgumentNullException(nameof(src));
+            if (interval is null)
                 throw new ArgumentNullException(nameof(interval));
             ChordFormula result = null;
 

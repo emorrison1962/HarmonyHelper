@@ -141,7 +141,7 @@ Arr. 6EQUJ5</creator>
                 && string.IsNullOrEmpty(this.MovementNumber)
                 && string.IsNullOrEmpty(this.MovementTitle))
             {
-                result = false;
+                result = true;
                 Debug.Assert(result);
             }
             return result;

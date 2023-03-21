@@ -6,7 +6,7 @@
     <creator type="composer">Ivan "Boogaloo" Joe Jones
 Arr. 6EQUJ5</creator>
     <encoding>
-      <encoding-date>2023-03-17</encoding-date>
+      <encoding-date>2023-03-21</encoding-date>
       <software>HarmonyHelper, Version 1.0.0</software>
     </encoding>
   </identification>
@@ -94,6 +94,10 @@ Arr. 6EQUJ5</creator>
       </note>
     </measure>
     <measure number="2">
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward" />
+      </barline>
       <harmony>
         <root>
           <root-step>A</root-step>
@@ -177,12 +181,11 @@ Arr. 6EQUJ5</creator>
           <tied type="start" />
         </notations>
       </note>
-      <barline>
-        <bar-style>heavy-light</bar-style>
-        <repeat direction="forward" />
-      </barline>
     </measure>
     <measure number="1">
+      <barline location="left">
+        <ending number="1" type="start" />
+      </barline>
       <harmony>
         <root>
           <root-step>A</root-step>
@@ -266,16 +269,14 @@ Arr. 6EQUJ5</creator>
           <tied type="start" />
         </notations>
       </note>
-      <barline>
+      <barline location="left">
         <ending number="1" type="start" />
-      </barline>
-      <barline>
-        <bar-style>light-heavy</bar-style>
-        <ending number="1" type="stop" />
-        <repeat direction="backward" />
       </barline>
     </measure>
     <measure number="2">
+      <barline location="left">
+        <ending number="2" type="start" />
+      </barline>
       <harmony>
         <root>
           <root-step>A</root-step>
@@ -315,12 +316,8 @@ Arr. 6EQUJ5</creator>
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <barline>
+      <barline location="left">
         <ending number="2" type="start" />
-      </barline>
-      <barline>
-        <bar-style>light-heavy</bar-style>
-        <ending number="2" type="discontinue" />
       </barline>
     </measure>
   </part>
