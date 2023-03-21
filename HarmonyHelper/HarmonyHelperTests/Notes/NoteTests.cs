@@ -138,5 +138,16 @@ namespace Note_Tests
 			Assert.IsFalse(aFlat.NoteName.RawValue > gSharp.NoteName.RawValue);
 		}
 
-	}//class
+        [TestMethod()]
+        public void NoteTest_GreaterThan_Test()
+        {
+            var cb = new Note(NoteName.Cb, OctaveEnum.Octave2);
+            var bb = new Note(NoteName.Bb, OctaveEnum.Octave2);
+
+            var result = cb < bb;
+			Assert.IsTrue(result);
+			new object();
+        }
+
+    }//class
 }//ns

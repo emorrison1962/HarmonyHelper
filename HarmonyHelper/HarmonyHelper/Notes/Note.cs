@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
+using static Eric.Morrison.Harmony.NoteName;
+
 namespace Eric.Morrison.Harmony
 {
 	public static class SuperScript
@@ -55,6 +57,10 @@ namespace Eric.Morrison.Harmony
 		{
 			this.NoteName = nn;
 			this.Octave = octave;
+			if (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Cb))
+			{
+                this.Octave = (octave - 1);
+            }
 		}
 
 		public Note CopyEx()
