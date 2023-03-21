@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+using static Eric.Morrison.Harmony.NoteName;
+
 namespace Eric.Morrison.Harmony.MusicXml
 {
     public class TimedEventNote : TimedEventBase, IHasTimeContext, IEquatable<TimedEventNote>, IComparable<TimedEventNote>, IHasIsValid
@@ -87,6 +89,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     var xstep = new XElement(XmlConstants.step, nn.Name[0]);
                     xpitch.Add(xstep);
 
+
                     if (!nn.IsNatural)
                     {
                         XElement xalter = null;
@@ -99,6 +102,10 @@ namespace Eric.Morrison.Harmony.MusicXml
 
                     var xoctave = new XElement(XmlConstants.octave, (int)note.Octave);
                     xpitch.Add(xoctave);
+                    if (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Cb))
+                    {
+                        xoctave.Value = ((int)note.Octave - 1).ToString();
+                    }
                 }
                 if (this.Serialization.HasChord)
                 {

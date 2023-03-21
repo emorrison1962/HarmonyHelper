@@ -57,10 +57,10 @@ namespace Eric.Morrison.Harmony
 		{
 			this.NoteName = nn;
 			this.Octave = octave;
-			if (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Cb))
-			{
-                this.Octave = (octave - 1);
-            }
+			//if (nn.ExplicitValue.HasFlag(ExplicitNoteValuesEnum.Cb))
+			//{
+   //             this.Octave = (octave - 1);
+   //         }
 		}
 
 		public Note CopyEx()
