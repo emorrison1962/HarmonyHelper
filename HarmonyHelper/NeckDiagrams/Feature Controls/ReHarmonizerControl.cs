@@ -28,6 +28,10 @@ namespace NeckDiagrams.Controls
 
         #endregion
 
+        "get chords"
+        "populate part"
+        "re-harmonize"
+
         MusicXmlPart Part { get; set; }
         MusicXmlModel Model { get; set; }
         void CreatePart() 
