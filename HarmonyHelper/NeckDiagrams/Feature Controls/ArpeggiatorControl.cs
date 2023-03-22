@@ -35,14 +35,6 @@ namespace NeckDiagrams.Controls
         }
 
         #endregion
-        private void _bnChords_Click(object sender, EventArgs e)
-        {
-            var dlg = new ChordParserDialog();
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                this.ChordFormulaVMs = dlg.ChordFormulaVMs;
-            }
-        }
 
         void CreateArpeggiator()
         {
@@ -50,6 +42,16 @@ namespace NeckDiagrams.Controls
             {
                 this.Arpeggiator = arpeggiator;
                 new object();
+            }
+        }
+
+        #region EventHandlers
+        private void _bnChords_Click(object sender, EventArgs e)
+        {
+            var dlg = new ChordParserDialog();
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                this.ChordFormulaVMs = dlg.ChordFormulaVMs;
             }
         }
 
@@ -93,6 +95,8 @@ namespace NeckDiagrams.Controls
         {
             this.CreationContext.BeatsPerMeasure = (int)_numericNotesPerMeasure.Value;
         }
+
+        #endregion
 
     }//class
 
