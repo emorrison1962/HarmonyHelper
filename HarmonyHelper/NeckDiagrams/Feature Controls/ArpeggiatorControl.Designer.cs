@@ -70,16 +70,16 @@
             this.pnlSettings.Controls.Add(this._comboNeckPosition);
             this.pnlSettings.Controls.Add(this._comboNoteRange);
             this.pnlSettings.Controls.Add(this._bnChords);
-            this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSettings.Location = new System.Drawing.Point(0, 0);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(1454, 172);
+            this.pnlSettings.Size = new System.Drawing.Size(1454, 686);
             this.pnlSettings.TabIndex = 2;
             // 
             // _cbUntilPatternRepeats
             // 
             this._cbUntilPatternRepeats.AutoSize = true;
-            this._cbUntilPatternRepeats.Location = new System.Drawing.Point(442, 122);
+            this._cbUntilPatternRepeats.Location = new System.Drawing.Point(8, 218);
             this._cbUntilPatternRepeats.Name = "_cbUntilPatternRepeats";
             this._cbUntilPatternRepeats.Size = new System.Drawing.Size(290, 29);
             this._cbUntilPatternRepeats.TabIndex = 9;
@@ -91,7 +91,7 @@
             this.groupDirection.Controls.Add(this._cbTemporaryReversal);
             this.groupDirection.Controls.Add(this._rbDescending);
             this.groupDirection.Controls.Add(this._rbAscending);
-            this.groupDirection.Location = new System.Drawing.Point(1082, 0);
+            this.groupDirection.Location = new System.Drawing.Point(8, 270);
             this.groupDirection.Name = "groupDirection";
             this.groupDirection.Size = new System.Drawing.Size(369, 150);
             this.groupDirection.TabIndex = 8;
@@ -133,7 +133,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(681, 69);
+            this.label4.Location = new System.Drawing.Point(247, 165);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(142, 25);
             this.label4.TabIndex = 7;
@@ -142,7 +142,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(560, 71);
+            this.label3.Location = new System.Drawing.Point(126, 167);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 25);
             this.label3.TabIndex = 6;
@@ -151,7 +151,7 @@
             // _numericNotesPerChord
             // 
             this._numericNotesPerChord.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this._numericNotesPerChord.Location = new System.Drawing.Point(615, 69);
+            this._numericNotesPerChord.Location = new System.Drawing.Point(181, 165);
             this._numericNotesPerChord.Name = "_numericNotesPerChord";
             this._numericNotesPerChord.Size = new System.Drawing.Size(60, 27);
             this._numericNotesPerChord.TabIndex = 5;
@@ -159,7 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(447, 31);
+            this.label2.Location = new System.Drawing.Point(13, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(162, 25);
             this.label2.TabIndex = 4;
@@ -168,7 +168,7 @@
             // _numericNotesPerMeasure
             // 
             this._numericNotesPerMeasure.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this._numericNotesPerMeasure.Location = new System.Drawing.Point(615, 32);
+            this._numericNotesPerMeasure.Location = new System.Drawing.Point(181, 128);
             this._numericNotesPerMeasure.Name = "_numericNotesPerMeasure";
             this._numericNotesPerMeasure.Size = new System.Drawing.Size(60, 27);
             this._numericNotesPerMeasure.TabIndex = 3;
