@@ -42,7 +42,7 @@ namespace zHarmonyHelperTests_Arpeggiator
 
         RhythmicContext Rhythm = new RhythmicContext(new TimeSignature(4, 4), 480).SetTempo(100);
 
-        private void Arpeggiator_Starting(object sender, Arpeggiator args)
+        private void Arpeggiator_Starting(object? sender, Arpeggiator args)
         {
             Debug.WriteLine("Arpeggiator_Starting");
             new object();
@@ -79,7 +79,7 @@ namespace zHarmonyHelperTests_Arpeggiator
             new object();
         }
 
-        private void Arpeggiator_ChordChanged(object sender, Arpeggiator args)
+        private void Arpeggiator_ChordChanged(object? sender, Arpeggiator args)
         {
             Debug.WriteLine($"\t\tArpeggiator_ChordChanged: {args.CurrentChord}");
             this.CreateHarmony(args);
@@ -104,14 +104,13 @@ namespace zHarmonyHelperTests_Arpeggiator
             Debug.WriteLine("Arpeggiator_CurrentNoteChanging");
             new object();
         }
-        private void Arpeggiator_CurrentNoteChanged(object sender, Arpeggiator args)
+        private void Arpeggiator_CurrentNoteChanged(object? sender, Arpeggiator args)
         {
             Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
             this.CreateNote(args);
             new object();
         }
 
-        Note lastNote = null;
         private void CreateNote(Arpeggiator args)
         {
             var cctx = new TimeContextEx.CreationContext(this.Rhythm);
@@ -120,28 +119,11 @@ namespace zHarmonyHelperTests_Arpeggiator
             cctx.RelativeStart = 0;
             cctx.RelativeEnd = 1;
             var tctx = new TimeContextEx(cctx);
-            if (null != lastNote)
-            {
-                var interval = Math.Min((int)args.CurrentNote.Octave, (int)lastNote.Octave)
-                    - Math.Max((int)args.CurrentNote.Octave, (int)lastNote.Octave);
-                if (interval > 0) 
-                {
-                    new object();
-                }
-                //var interval = args.CurrentNote - lastNote;
-                //if (interval.IntervalRoleType < IntervalRoleTypeEnum.Fifth)
-                //{ }
-                //else 
-                //{ 
-                //    new object();
-                //}
-            }
             var tecf = new TimedEventNote(args.CurrentNote, tctx);
-            lastNote = args.CurrentNote;
             this.Part.CurrentMeasure.Add(tecf);
         }
 
-        private void Arpeggiator_Ending(object sender, Arpeggiator args)
+        private void Arpeggiator_Ending(object? sender, Arpeggiator args)
         {
             //throw new NotImplementedException();
             //XmlCtx.Document.Save(@"c:\temp\_xml.xml");

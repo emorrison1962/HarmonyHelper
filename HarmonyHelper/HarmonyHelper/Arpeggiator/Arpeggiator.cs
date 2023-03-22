@@ -70,9 +70,6 @@ namespace Eric.Morrison.Harmony
         public event EventHandler<Arpeggiator> MeasureChanging;
         public event EventHandler<Arpeggiator> MeasureChanged;
 
-        public event EventHandler<ArpeggiationContextChangingEventArgs> ArpeggiationContextChanging;
-        public event EventHandler<Arpeggiator> ArpeggiationContextChanged;
-
         public event EventHandler<ChordChangingEventArgs> ChordChanging;
         public event EventHandler<Arpeggiator> ChordChanged;
 
@@ -200,10 +197,7 @@ namespace Eric.Morrison.Harmony
             {
                 if (_CurrentContext != value)
                 {
-                    this.OnArpeggiationContextChanging(this._CurrentContext, value);
                     this._CurrentContext = value;
-                    this.OnArpeggiationContextChanged();
-                    //this.CurrentChord = value.Chord;
                 }
             }
         }
@@ -223,7 +217,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             this.ChordContexts = new List<ArpeggiationChordContext>(contexts);
             this.CurrentContext = this.ChordContexts[0];
             if (null == startingNote)
-                startingNote = this.CurrentChord.Root;
+                startingNote = this.CurrentContext.Chord.Root;
             this._CurrentChord = this.CurrentContext.Chord;
             this.CurrentNote = startingNote;
             this.NoteRange = noteRange;
@@ -456,17 +450,6 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         {
             //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             MeasureChanged?.Invoke(this, this);
-            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
-        }
-
-        void OnArpeggiationContextChanging(ArpeggiationChordContext current, ArpeggiationChordContext next)
-        {
-            ArpeggiationContextChanging?.Invoke(this, new ArpeggiationContextChangingEventArgs(this, current, next));
-        }
-        void OnArpeggiationContextChanged()
-        {
-            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
-            ArpeggiationContextChanged?.Invoke(this, this);
             //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 

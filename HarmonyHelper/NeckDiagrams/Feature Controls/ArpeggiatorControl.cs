@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.MusicXml.Domain;
+using Eric.Morrison.Harmony.MusicXml;
 
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NeckDiagrams.Controls
 {
@@ -32,18 +34,43 @@ namespace NeckDiagrams.Controls
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            this.CreationContext.ArpeggiatorCreated += CreationContext_ArpeggiatorCreated;
+            //_errorProviderDirection.SetError(this._rbAscending, "Direction is required.");
+            //_errorProviderDirection.SetError(this._rbDescending, "Direction is required.");
+        }
+
+        private void CreationContext_ArpeggiatorCreated(object sender, Arpeggiator arpeggiator)
+        {
+            var observer = new MusicXmlObservers(arpeggiator);
+            arpeggiator.Arpeggiate();
+            var part = observer.Part;
+            var model = this.CreateModel(part);
+
+            new object();
+
+            //MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
+
+
+            _rtbResults.Text = part.ToXElement().ToString();    
+            new object();
+        }
+
+        MusicXmlModel CreateModel(MusicXmlPart part)
+        {
+            var isValid = part.IsValid();
+            Debug.Assert(isValid);
+
+            var result = new MusicXmlModel();
+            result.Add(part);
+
+            isValid = result.IsValid();
+            Debug.Assert(isValid);
+
+            return result;
         }
 
         #endregion
 
-        void CreateArpeggiator()
-        {
-            if (this.CreationContext.TryCreateArpeggiator(out var arpeggiator))
-            {
-                this.Arpeggiator = arpeggiator;
-                new object();
-            }
-        }
 
         #region EventHandlers
         private void _bnChords_Click(object sender, EventArgs e)
@@ -51,7 +78,7 @@ namespace NeckDiagrams.Controls
             var dlg = new ChordParserDialog();
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                this.ChordFormulaVMs = dlg.ChordFormulaVMs;
+                this.CreationContext.Formulas = dlg.ChordFormulaVMs;
             }
         }
 
@@ -102,19 +129,52 @@ namespace NeckDiagrams.Controls
 
     class ArpeggiatorCreationContext
     {
-        public List<Chord> Chords { get; set; }
-        public List<ArpeggiationChordContext> ChordContexts { get; set; }
+        public event EventHandler<Arpeggiator> ArpeggiatorCreated;
+        #region Properties
+        List<ChordFormulaVM> _Formulas { get; set; } = new List<ChordFormulaVM>();
+        public List<ChordFormulaVM> Formulas
+        {
+            get { return this._Formulas; }
+            set
+            {
+                this._Formulas = value;
+                this.TryCreateArpeggiator();
+            }
+        }
+        List<Chord> Chords { get; set; } = new List<Chord> { };
+        List<ArpeggiationChordContext> ChordContexts { get; set; } = new List<ArpeggiationChordContext> { };
         public NoteRange NoteRange { get; set; } = new FiveStringBassRange(FiveStringBassPositionEnum.FirstPosition);
-        public int BeatsPerMeasure { get; set; }
-        public DirectionEnum Direction { get; set; } = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
+        int _BeatsPerMeasure { get; set; }
+        public int BeatsPerMeasure 
+        {
+            get { return this._BeatsPerMeasure; }
+            set 
+            {
+                this._BeatsPerMeasure = value;
+                this.TryCreateArpeggiator();
+            } 
+        }
+
+        DirectionEnum _Direction = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
+        public DirectionEnum Direction 
+        {
+            get { return this._Direction; }
+            set 
+            {
+                this._Direction = value;
+                this.TryCreateArpeggiator();
+            } 
+        } 
         public bool UntilPatternRepeats { get; set; }
         public bool TemporaryReversal { get; set; }
+
+        #endregion
 
         public bool IsValid()
         {
             var result = false;
-            if (this.Chords.Any()
-                && this.ChordContexts.Any()
+
+            if (this.Formulas.Any()
                 && this.NoteRange.IsValid()
                 && this.BeatsPerMeasure > 0
                 && this.Direction.HasFlag(DirectionEnum.Ascending) || this.Direction.HasFlag(DirectionEnum.Descending)
@@ -125,22 +185,165 @@ namespace NeckDiagrams.Controls
             return result;
         }
 
-        public bool TryCreateArpeggiator(out Arpeggiator arpeggiator)
+        void CreateChords()
         {
-            arpeggiator = null;
+            if (this.IsValid())
+            {
+                foreach (var formula in this.Formulas)
+                {
+                    this.Chords.Add(new Chord(formula.ChordFormula, this.NoteRange));
+                }
+                foreach (var chord in this.Chords)
+                {
+                    this.ChordContexts
+                        .Add(new ArpeggiationChordContext(chord, BeatsPerMeasure));
+                }
+            }
+        }
+
+        public bool TryCreateArpeggiator()
+        {
+            Arpeggiator arpeggiator = null;
             var result = this.IsValid();
             if (result)
             {
+                this.CreateChords();
+
                 arpeggiator = new Arpeggiator(this.ChordContexts,
                     this.Direction,
                     this.NoteRange,
                     this.BeatsPerMeasure,
                     null,
                     this.UntilPatternRepeats);
+
+                if (arpeggiator is not null)
+                    this.OnArpeggiatorCreated(arpeggiator);
             }
+
             return result;
         }
 
+        public void OnArpeggiatorCreated(Arpeggiator arpeggiator)
+        {
+            this.ArpeggiatorCreated?.Invoke(this, arpeggiator);
+        }
+
+    }//class
+
+    public class MusicXmlObservers
+    {
+        const string FLAT = "♭";
+        const string SHARP = "♯";
+
+        public MusicXmlPart Part { get; set; }
+        public MusicXmlObservers(Arpeggiator arpeggiator)
+        {
+            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
+                new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
+
+            this.RegisterMusicXmlObservers(arpeggiator);
+        }
+        void RegisterMusicXmlObservers(Arpeggiator arpeggiator)
+        {
+            arpeggiator.Starting += this.Arpeggiator_Starting;
+            //arpeggiator.MeasureChanging += Arpeggiator_MeasureChanging;
+            arpeggiator.MeasureChanged += this.Arpeggiator_MeasureChanged;
+            //arpeggiator.ChordChanging += Arpeggiator_ChordChanging;
+            arpeggiator.ChordChanged += this.Arpeggiator_ChordChanged;
+            //arpeggiator.NoteChanging += this.Arpeggiator_CurrentNoteChanging;
+            arpeggiator.NoteChanged += this.Arpeggiator_CurrentNoteChanged;
+            arpeggiator.Ending += this.Arpeggiator_Ending;
+        }
+
+        RhythmicContext Rhythm = new RhythmicContext(new Eric.Morrison.Harmony.Rhythm.TimeSignature(4, 4), 480).SetTempo(100);
+
+        private void Arpeggiator_Starting(object? sender, Arpeggiator args)
+        {
+            Debug.WriteLine("Arpeggiator_Starting");
+            new object();
+        }
+        private void Arpeggiator_MeasureChanging(object? sender, Arpeggiator args)
+        {
+            //Debug.WriteLine("Arpeggiator_MeasureChanging");
+            new object();
+            //this.CreateMeasure(ctx);
+        }
+        private void Arpeggiator_MeasureChanged(object? sender, Arpeggiator args)
+        {
+            Debug.WriteLine($"\tArpeggiator_MeasureChanged: {args.CurrentMeasure}");
+            this.CreateMeasure(args);
+            new object();
+        }
+        private void CreateMeasure(Arpeggiator args)
+        {
+            if (args.CurrentMeasure > 0)
+            {
+                var measureNumber = args.CurrentMeasure;
+                var measure = new MusicXmlMeasure(this.Part, measureNumber);
+                if (args.CurrentMeasure == 1)
+                    measure.Add(new MusicXmlBarlineContext(BarlineStyleEnum.Light_Light, BarlineSideEnum.Left));
+                this.Part.Add(measure);
+            }
+            new object();
+
+        }
+
+        private void Arpeggiator_ChordChanging(object? sender, Arpeggiator.ChordChangingEventArgs args)
+        {
+            //Debug.WriteLine("Arpeggiator_ChordChanging");
+            new object();
+        }
+
+        private void Arpeggiator_ChordChanged(object? sender, Arpeggiator args)
+        {
+            Debug.WriteLine($"\t\tArpeggiator_ChordChanged: {args.CurrentChord}");
+            this.CreateHarmony(args);
+            new object();
+        }
+
+        private void CreateHarmony(Arpeggiator args)
+        {
+            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            cctx.Duration = Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter;
+            cctx.MeasureNumber = args.CurrentMeasure;
+            cctx.RelativeStart = 0;
+            cctx.RelativeEnd = 1;
+            var tctx = new TimeContextEx(cctx);
+
+            var tecf = new TimedEventChordFormula(args.CurrentChord.Formula, tctx);
+            this.Part.CurrentMeasure.Add(tecf);
+        }
+
+        private void Arpeggiator_CurrentNoteChanging(object sender, Arpeggiator.NoteChangingEventArgs args)
+        {
+            Debug.WriteLine("Arpeggiator_CurrentNoteChanging");
+            new object();
+        }
+        private void Arpeggiator_CurrentNoteChanged(object? sender, Arpeggiator args)
+        {
+            Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
+            this.CreateNote(args);
+            new object();
+        }
+
+        private void CreateNote(Arpeggiator args)
+        {
+            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            cctx.Duration = DurationEnum.Duration_Quarter;
+            cctx.MeasureNumber = args.CurrentMeasure;
+            cctx.RelativeStart = 0;
+            cctx.RelativeEnd = 1;
+            var tctx = new TimeContextEx(cctx);
+            var tecf = new TimedEventNote(args.CurrentNote, tctx);
+            this.Part.CurrentMeasure.Add(tecf);
+        }
+
+        private void Arpeggiator_Ending(object? sender, Arpeggiator args)
+        {
+            //throw new NotImplementedException();
+            //XmlCtx.Document.Save(@"c:\temp\_xml.xml");
+            new object();
+        }
     }//class
 
 }//ns

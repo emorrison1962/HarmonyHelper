@@ -106,8 +106,6 @@ namespace Tests
             arpeggiator.Starting += Arpeggiator_Starting;
             arpeggiator.ChordChanging += Arpeggiator_ChordChanging;
             arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
-            arpeggiator.ArpeggiationContextChanging += Arpeggiator_ArpeggiationContextChanging;
-            arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
             arpeggiator.NoteChanging += Arpeggiator_CurrentNoteChanging;
             arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
             arpeggiator.DirectionChanging += Arpeggiator_DirectionChanging;
@@ -124,16 +122,6 @@ namespace Tests
 		int _chordCount = 0;
 		const int BARS_PER_LINE = 2;
 
-		private void Arpeggiator_ArpeggiationContextChanging(object sender, ArpeggiationContextChangingEventArgs args)
-		{
-			//Debug.Write("|");
-		}
-		private void Arpeggiator_ArpeggiationContextChanged(object sender, Arpeggiator ctx)
-		{
-			//if (_chordCount > 0 && _chordCount % BARS_PER_LINE == 0)
-			//	Debug.WriteLine(" |");
-			//Debug.Write(string.Format(" | "));
-		}
 
 
 		private void Arpeggiator_ChordChanging(object sender, ChordChangingEventArgs args)

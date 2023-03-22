@@ -37,7 +37,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -113,7 +112,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, null);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -368,7 +366,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -419,7 +416,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -490,7 +486,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -572,7 +567,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 8, null, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -608,7 +602,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -659,7 +652,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, 4, startingNote);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;
@@ -690,7 +682,6 @@ namespace Tests
 				DirectionEnum.Ascending,
 				noteRange, beatsPerBar, startingNote, true);
 
-			arpeggiator.ArpeggiationContextChanged += Arpeggiator_ArpeggiationContextChanged;
 			arpeggiator.ChordChanged += Arpeggiator_ChordChanged;
 			arpeggiator.DirectionChanged += Arpeggiator_DirectionChanged;
 			arpeggiator.NoteChanged += Arpeggiator_CurrentNoteChanged;

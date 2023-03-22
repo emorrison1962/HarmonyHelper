@@ -222,7 +222,6 @@ namespace Arpeggiator_Tests
 
         void RegisterTraceObservers(Arpeggiator arpeggiator)
 		{
-            arpeggiator.ArpeggiationContextChanged += Ctx_NoOpObserver;
             arpeggiator.Starting += Log_Starting;
             arpeggiator.NoteChanged += this.Log_CurrentNoteChanged;
             arpeggiator.DirectionChanged += Log_DirectionChanged;
