@@ -16,5 +16,19 @@ namespace NeckDiagrams.Controls
         {
             InitializeComponent();
         }
-    }
-}
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+        }
+
+        List<ChordFormulaVM> ChordFormulaVMs { get; set; } 
+        private void _bnChords_Click(object sender, EventArgs e)
+        {
+            var dlg = new ChordParserDialog();
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                this.ChordFormulaVMs = dlg.ChordFormulaVMs;
+            }
+        }
+    }//class
+}//ns
