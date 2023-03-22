@@ -8,13 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Feature_Controls
 {
-    public partial class HarmonicAnalysisTab : TabPage
+    public partial class ScalesControl : UserControl
     {
-        public HarmonicAnalysisTab()
+        public ScalesControl()
         {
-
             InitializeComponent();
         }
     }
