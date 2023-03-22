@@ -32,27 +32,21 @@
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this._cbUntilPatternRepeats = new System.Windows.Forms.CheckBox();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this._numericNotesPerChord = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this._bnChords = new System.Windows.Forms.Button();
             this._comboNeckPosition = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this._numericNotesPerMeasure = new System.Windows.Forms.NumericUpDown();
             this._comboNoteRange = new System.Windows.Forms.ComboBox();
             this.groupDirection = new System.Windows.Forms.GroupBox();
             this._cbTemporaryReversal = new System.Windows.Forms.CheckBox();
             this._rbDescending = new System.Windows.Forms.RadioButton();
             this._rbAscending = new System.Windows.Forms.RadioButton();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this._numericNotesPerMeasure = new System.Windows.Forms.NumericUpDown();
             this.pnlSettings.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)this._numericNotesPerChord).BeginInit();
+            this.groupDirection.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this._numericNotesPerMeasure).BeginInit();
-            this.groupDirection.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -87,7 +81,6 @@
             this.tableLayoutPanel1.Controls.Add(this._comboNeckPosition, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this._comboNoteRange, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupDirection, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
@@ -105,55 +98,14 @@
             // 
             this._cbUntilPatternRepeats.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this._cbUntilPatternRepeats, 2);
-            this._cbUntilPatternRepeats.Location = new System.Drawing.Point(2, 99);
+            this._cbUntilPatternRepeats.Location = new System.Drawing.Point(2, 98);
             this._cbUntilPatternRepeats.Margin = new System.Windows.Forms.Padding(2);
             this._cbUntilPatternRepeats.Name = "_cbUntilPatternRepeats";
             this._cbUntilPatternRepeats.Size = new System.Drawing.Size(244, 24);
             this._cbUntilPatternRepeats.TabIndex = 9;
             this._cbUntilPatternRepeats.Text = "Arpeggiate until pattern repeats";
             this._cbUntilPatternRepeats.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.AutoSize = true;
-            this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel2.Controls.Add(this.label3);
-            this.flowLayoutPanel2.Controls.Add(this._numericNotesPerChord);
-            this.flowLayoutPanel2.Controls.Add(this.label4);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(261, 67);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(236, 27);
-            this.flowLayoutPanel2.TabIndex = 11;
-            this.flowLayoutPanel2.WrapContents = false;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(2, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 23);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Play ";
-            // 
-            // _numericNotesPerChord
-            // 
-            this._numericNotesPerChord.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this._numericNotesPerChord.Location = new System.Drawing.Point(66, 2);
-            this._numericNotesPerChord.Margin = new System.Windows.Forms.Padding(20, 2, 2, 2);
-            this._numericNotesPerChord.Name = "_numericNotesPerChord";
-            this._numericNotesPerChord.Size = new System.Drawing.Size(48, 23);
-            this._numericNotesPerChord.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(118, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "notes per chord.";
+            this._cbUntilPatternRepeats.CheckedChanged += this._cbUntilPatternRepeats_CheckedChanged;
             // 
             // _bnChords
             // 
@@ -174,6 +126,75 @@
             this._comboNeckPosition.Name = "_comboNeckPosition";
             this._comboNeckPosition.Size = new System.Drawing.Size(189, 28);
             this._comboNeckPosition.TabIndex = 2;
+            this._comboNeckPosition.SelectedIndexChanged += this._comboNeckPosition_SelectedIndexChanged;
+            // 
+            // _comboNoteRange
+            // 
+            this._comboNoteRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._comboNoteRange.FormattingEnabled = true;
+            this._comboNoteRange.Items.AddRange(new object[] { "Select Note Range", "Guitar", "Bass (4 String)", "Bass (5 String)", "Other..." });
+            this._comboNoteRange.Location = new System.Drawing.Point(2, 33);
+            this._comboNoteRange.Margin = new System.Windows.Forms.Padding(2);
+            this._comboNoteRange.Name = "_comboNoteRange";
+            this._comboNoteRange.Size = new System.Drawing.Size(189, 28);
+            this._comboNoteRange.TabIndex = 1;
+            this._comboNoteRange.SelectedIndexChanged += this._comboNoteRange_SelectedIndexChanged;
+            // 
+            // groupDirection
+            // 
+            this.groupDirection.AutoSize = true;
+            this.groupDirection.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.SetColumnSpan(this.groupDirection, 2);
+            this.groupDirection.Controls.Add(this._cbTemporaryReversal);
+            this.groupDirection.Controls.Add(this._rbDescending);
+            this.groupDirection.Controls.Add(this._rbAscending);
+            this.groupDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupDirection.Location = new System.Drawing.Point(2, 126);
+            this.groupDirection.Margin = new System.Windows.Forms.Padding(2);
+            this.groupDirection.Name = "groupDirection";
+            this.groupDirection.Padding = new System.Windows.Forms.Padding(2);
+            this.groupDirection.Size = new System.Drawing.Size(313, 130);
+            this.groupDirection.TabIndex = 8;
+            this.groupDirection.TabStop = false;
+            this.groupDirection.Text = "Direction";
+            // 
+            // _cbTemporaryReversal
+            // 
+            this._cbTemporaryReversal.AutoSize = true;
+            this._cbTemporaryReversal.Location = new System.Drawing.Point(4, 82);
+            this._cbTemporaryReversal.Margin = new System.Windows.Forms.Padding(2);
+            this._cbTemporaryReversal.Name = "_cbTemporaryReversal";
+            this._cbTemporaryReversal.Size = new System.Drawing.Size(305, 24);
+            this._cbTemporaryReversal.TabIndex = 3;
+            this._cbTemporaryReversal.Text = "Allow Temporay Reversal For Closer Note";
+            this._cbTemporaryReversal.UseVisualStyleBackColor = true;
+            this._cbTemporaryReversal.CheckedChanged += this._cbTemporaryReversal_CheckedChanged;
+            // 
+            // _rbDescending
+            // 
+            this._rbDescending.AutoSize = true;
+            this._rbDescending.Location = new System.Drawing.Point(4, 54);
+            this._rbDescending.Margin = new System.Windows.Forms.Padding(2);
+            this._rbDescending.Name = "_rbDescending";
+            this._rbDescending.Size = new System.Drawing.Size(108, 24);
+            this._rbDescending.TabIndex = 0;
+            this._rbDescending.TabStop = true;
+            this._rbDescending.Text = "Descending";
+            this._rbDescending.UseVisualStyleBackColor = true;
+            this._rbDescending.CheckedChanged += this._rbDescending_CheckedChanged;
+            // 
+            // _rbAscending
+            // 
+            this._rbAscending.AutoSize = true;
+            this._rbAscending.Location = new System.Drawing.Point(4, 28);
+            this._rbAscending.Margin = new System.Windows.Forms.Padding(2);
+            this._rbAscending.Name = "_rbAscending";
+            this._rbAscending.Size = new System.Drawing.Size(99, 24);
+            this._rbAscending.TabIndex = 0;
+            this._rbAscending.TabStop = true;
+            this._rbAscending.Text = "Ascending";
+            this._rbAscending.UseVisualStyleBackColor = true;
+            this._rbAscending.CheckedChanged += this._rbAscending_CheckedChanged;
             // 
             // flowLayoutPanel1
             // 
@@ -204,70 +225,7 @@
             this._numericNotesPerMeasure.Name = "_numericNotesPerMeasure";
             this._numericNotesPerMeasure.Size = new System.Drawing.Size(48, 23);
             this._numericNotesPerMeasure.TabIndex = 3;
-            // 
-            // _comboNoteRange
-            // 
-            this._comboNoteRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboNoteRange.FormattingEnabled = true;
-            this._comboNoteRange.Items.AddRange(new object[] { "Select Note Range", "Guitar", "Bass (4 String)", "Bass (5 String)", "Other..." });
-            this._comboNoteRange.Location = new System.Drawing.Point(2, 33);
-            this._comboNoteRange.Margin = new System.Windows.Forms.Padding(2);
-            this._comboNoteRange.Name = "_comboNoteRange";
-            this._comboNoteRange.Size = new System.Drawing.Size(189, 28);
-            this._comboNoteRange.TabIndex = 1;
-            // 
-            // groupDirection
-            // 
-            this.groupDirection.AutoSize = true;
-            this.groupDirection.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.SetColumnSpan(this.groupDirection, 2);
-            this.groupDirection.Controls.Add(this._cbTemporaryReversal);
-            this.groupDirection.Controls.Add(this._rbDescending);
-            this.groupDirection.Controls.Add(this._rbAscending);
-            this.groupDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupDirection.Location = new System.Drawing.Point(2, 127);
-            this.groupDirection.Margin = new System.Windows.Forms.Padding(2);
-            this.groupDirection.Name = "groupDirection";
-            this.groupDirection.Padding = new System.Windows.Forms.Padding(2);
-            this.groupDirection.Size = new System.Drawing.Size(313, 130);
-            this.groupDirection.TabIndex = 8;
-            this.groupDirection.TabStop = false;
-            this.groupDirection.Text = "Direction";
-            // 
-            // _cbTemporaryReversal
-            // 
-            this._cbTemporaryReversal.AutoSize = true;
-            this._cbTemporaryReversal.Location = new System.Drawing.Point(4, 82);
-            this._cbTemporaryReversal.Margin = new System.Windows.Forms.Padding(2);
-            this._cbTemporaryReversal.Name = "_cbTemporaryReversal";
-            this._cbTemporaryReversal.Size = new System.Drawing.Size(305, 24);
-            this._cbTemporaryReversal.TabIndex = 3;
-            this._cbTemporaryReversal.Text = "Allow Temporay Reversal For Closer Note";
-            this._cbTemporaryReversal.UseVisualStyleBackColor = true;
-            // 
-            // _rbDescending
-            // 
-            this._rbDescending.AutoSize = true;
-            this._rbDescending.Location = new System.Drawing.Point(4, 54);
-            this._rbDescending.Margin = new System.Windows.Forms.Padding(2);
-            this._rbDescending.Name = "_rbDescending";
-            this._rbDescending.Size = new System.Drawing.Size(108, 24);
-            this._rbDescending.TabIndex = 0;
-            this._rbDescending.TabStop = true;
-            this._rbDescending.Text = "Descending";
-            this._rbDescending.UseVisualStyleBackColor = true;
-            // 
-            // _rbAscending
-            // 
-            this._rbAscending.AutoSize = true;
-            this._rbAscending.Location = new System.Drawing.Point(4, 28);
-            this._rbAscending.Margin = new System.Windows.Forms.Padding(2);
-            this._rbAscending.Name = "_rbAscending";
-            this._rbAscending.Size = new System.Drawing.Size(99, 24);
-            this._rbAscending.TabIndex = 0;
-            this._rbAscending.TabStop = true;
-            this._rbAscending.Text = "Ascending";
-            this._rbAscending.UseVisualStyleBackColor = true;
+            this._numericNotesPerMeasure.ValueChanged += this._numericNotesPerMeasure_ValueChanged;
             // 
             // ArpeggiatorControl
             // 
@@ -281,14 +239,11 @@
             this.pnlSettings.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)this._numericNotesPerChord).EndInit();
+            this.groupDirection.ResumeLayout(false);
+            this.groupDirection.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)this._numericNotesPerMeasure).EndInit();
-            this.groupDirection.ResumeLayout(false);
-            this.groupDirection.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -299,10 +254,6 @@
         private System.Windows.Forms.Panel pnlSettings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox _cbUntilPatternRepeats;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown _numericNotesPerChord;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button _bnChords;
         private System.Windows.Forms.ComboBox _comboNeckPosition;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;

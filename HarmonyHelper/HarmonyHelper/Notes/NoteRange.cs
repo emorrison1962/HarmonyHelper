@@ -9,11 +9,15 @@ namespace Eric.Morrison.Harmony
 	public class NoteRange
 	{
 		public static readonly NoteRange Default = new NoteRange(new Note(NoteName.C, OctaveEnum.Octave3), new Note(NoteName.C, OctaveEnum.Octave4));
+		
+		#region Properties
 		public Note LowerLimit { get; set; }
 		public Note UpperLimit { get; set; }
-
 		public List<Note> Notes { get; private set; } = new List<Note>();
 
+		#endregion
+		
+		#region Construction
 		protected NoteRange()
 		{
 		}
@@ -30,7 +34,7 @@ namespace Eric.Morrison.Harmony
 			var upperLimit = this.LowerLimit.CopyEx();
 			var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
 
-			for (int i = 0 ; i < numberOfOctaves ; ++i)
+			for (int i = 0; i < numberOfOctaves; ++i)
 			{
 				var octave = upperLimit.Octave;
 				octave = octaves.FirstOrDefault(x => x > octave);
@@ -77,6 +81,8 @@ namespace Eric.Morrison.Harmony
 			notes.Sort(new NoteComparer());
 			this.Notes = notes;
 		}
+
+		#endregion
 
 		public Note First(NoteName nn)
 		{
@@ -149,7 +155,6 @@ namespace Eric.Morrison.Harmony
 			#endregion
 		}
 
-
 		public List<Note> GetNotes(IEnumerable<NoteName> requestedNames)
 		{
 			var wantedNotes = new List<Note>();
@@ -165,6 +170,17 @@ namespace Eric.Morrison.Harmony
 		public override string ToString()
 		{
 			return $"{this.GetType().Name}: {this.LowerLimit}-{this.UpperLimit}";
+		}
+
+		public bool IsValid()
+		{
+			var result = false;
+			if (this.LowerLimit is not null)
+				if (this.UpperLimit is not null)
+					if (this.LowerLimit < this.UpperLimit)
+						if (this.Notes.Any())
+							result = true;
+			return result;
 		}
 	}//class
 
