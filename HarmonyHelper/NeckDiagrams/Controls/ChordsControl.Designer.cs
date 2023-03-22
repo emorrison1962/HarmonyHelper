@@ -45,8 +45,9 @@
             this.chordsPanel.Controls.Add(this.chordsTablePanel);
             this.chordsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.chordsPanel.Location = new System.Drawing.Point(0, 0);
+            this.chordsPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chordsPanel.Name = "chordsPanel";
-            this.chordsPanel.Size = new System.Drawing.Size(1043, 22);
+            this.chordsPanel.Size = new System.Drawing.Size(1043, 28);
             this.chordsPanel.TabIndex = 5;
             // 
             // chordsEditPanel
@@ -55,18 +56,20 @@
             this.chordsEditPanel.Controls.Add(this.label2);
             this.chordsEditPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chordsEditPanel.Location = new System.Drawing.Point(0, 0);
+            this.chordsEditPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chordsEditPanel.Name = "chordsEditPanel";
-            this.chordsEditPanel.Size = new System.Drawing.Size(1043, 22);
+            this.chordsEditPanel.Size = new System.Drawing.Size(1043, 28);
             this.chordsEditPanel.TabIndex = 2;
             // 
             // _tbChords
             // 
             this._tbChords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tbChords.Location = new System.Drawing.Point(56, 0);
+            this._tbChords.Location = new System.Drawing.Point(62, 0);
+            this._tbChords.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this._tbChords.Name = "_tbChords";
-            this._tbChords.Size = new System.Drawing.Size(987, 22);
+            this._tbChords.Size = new System.Drawing.Size(981, 27);
             this._tbChords.TabIndex = 0;
-            this._tbChords.Click += new System.EventHandler(this._tbChords_Click);
+            this._tbChords.Click += this._tbChords_Click;
             // 
             // label2
             // 
@@ -74,7 +77,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 16);
+            this.label2.Size = new System.Drawing.Size(62, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Chords: ";
             // 
@@ -83,8 +86,9 @@
             this.chordsTablePanel.Controls.Add(this.label3);
             this.chordsTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chordsTablePanel.Location = new System.Drawing.Point(0, 0);
+            this.chordsTablePanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chordsTablePanel.Name = "chordsTablePanel";
-            this.chordsTablePanel.Size = new System.Drawing.Size(1043, 22);
+            this.chordsTablePanel.Size = new System.Drawing.Size(1043, 28);
             this.chordsTablePanel.TabIndex = 3;
             // 
             // label3
@@ -93,24 +97,24 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 16);
+            this.label3.Size = new System.Drawing.Size(62, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Chords: ";
             // 
             // ChordsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.chordsPanel);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ChordsControl";
-            this.Size = new System.Drawing.Size(1043, 22);
+            this.Size = new System.Drawing.Size(1043, 28);
             this.chordsPanel.ResumeLayout(false);
             this.chordsEditPanel.ResumeLayout(false);
             this.chordsEditPanel.PerformLayout();
             this.chordsTablePanel.ResumeLayout(false);
             this.chordsTablePanel.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

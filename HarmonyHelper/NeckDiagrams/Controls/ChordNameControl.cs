@@ -21,17 +21,17 @@ namespace NeckDiagrams.Controls
         public ChordFormulaVM VM { get; set; }
 
         public bool _IsSelected = false;
-        public bool IsSelected 
+        public bool IsSelected
         {
-            get 
+            get
             {
                 return _IsSelected;
             }
-            set 
+            set
             {
                 _IsSelected = value;
                 this.OnSelected();
-            } 
+            }
         }
 
         public ChordNameControl(ChordFormulaVM vm)
@@ -50,7 +50,7 @@ namespace NeckDiagrams.Controls
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.lblChordName.Text = Chord.Name; 
+            this.lblChordName.Text = Chord.Name;
         }
 
         void SubscribeToEvents(HarmonicAnalysisControl parent)
@@ -92,7 +92,7 @@ namespace NeckDiagrams.Controls
 
         private void lblChordName_Click(object sender, EventArgs e)
         {
-            this.IsSelected = !this.IsSelected; 
+            this.IsSelected = !this.IsSelected;
         }
 
         private void OnSelected()

@@ -33,7 +33,7 @@ namespace NeckDiagrams
 			this.colorPanel = new System.Windows.Forms.Panel();
 			this._cbVisible = new System.Windows.Forms.CheckBox();
 			this.scaleSelectorControl = new NeckDiagrams.ScaleSelectorControl();
-			this.chordSelectorControl = new NeckDiagrams.ChordSelectorControl();
+			this.chordSelectorControl = new NeckDiagrams.ChordTypeSelectorControl();
 			this._panelRadioButtons = new System.Windows.Forms.Panel();
 			this._rbArpeggio = new System.Windows.Forms.RadioButton();
 			this._rbScale = new System.Windows.Forms.RadioButton();
@@ -199,7 +199,7 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Panel colorPanel;
 		private System.Windows.Forms.CheckBox _cbVisible;
 		private ScaleSelectorControl scaleSelectorControl;
-		private ChordSelectorControl chordSelectorControl;
+		private ChordTypeSelectorControl chordSelectorControl;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button _bnColor;
 		private System.Windows.Forms.Panel _colorSwatch;

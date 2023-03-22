@@ -7,13 +7,18 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Contracts\**" />
+    <EmbeddedResource Remove="Contracts\**" />
+    <None Remove="Contracts\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Controls\ChordNameControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\ChordNamesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\ChordSelectorControl.cs">
+    <Compile Update="Controls\ChordTypeSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\ChordsControl.cs">
@@ -58,8 +63,5 @@
   <ItemGroup>
     <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Contracts\" />
   </ItemGroup>
 </Project>

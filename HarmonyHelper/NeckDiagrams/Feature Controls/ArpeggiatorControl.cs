@@ -21,7 +21,7 @@ namespace NeckDiagrams.Controls
             base.OnLoad(e);
         }
 
-        List<ChordFormulaVM> ChordFormulaVMs { get; set; } 
+        List<ChordFormulaVM> ChordFormulaVMs { get; set; }
         private void _bnChords_Click(object sender, EventArgs e)
         {
             var dlg = new ChordParserDialog();
