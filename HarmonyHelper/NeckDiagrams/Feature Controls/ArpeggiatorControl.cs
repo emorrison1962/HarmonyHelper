@@ -17,6 +17,14 @@ namespace NeckDiagrams.Controls
 {
     public partial class ArpeggiatorControl : UserControl
     {
+        #region Properties
+        ArpeggiatorCreationContext CreationContext { get; set; } = new ArpeggiatorCreationContext();
+        Arpeggiator Arpeggiator { get; set; }
+        List<ChordFormulaVM> ChordFormulaVMs { get; set; }
+
+        #endregion
+
+        #region Construction
         public ArpeggiatorControl()
         {
             InitializeComponent();
@@ -26,7 +34,7 @@ namespace NeckDiagrams.Controls
             base.OnLoad(e);
         }
 
-        List<ChordFormulaVM> ChordFormulaVMs { get; set; }
+        #endregion
         private void _bnChords_Click(object sender, EventArgs e)
         {
             var dlg = new ChordParserDialog();
@@ -36,51 +44,6 @@ namespace NeckDiagrams.Controls
             }
         }
 
-        class ArpeggiatorCreationContext
-        {
-            public List<Chord> Chords { get; set; }
-            public List<ArpeggiationChordContext> ChordContexts { get; set; }
-            public NoteRange NoteRange { get; set; } = new FiveStringBassRange(FiveStringBassPositionEnum.FirstPosition);
-            public int BeatsPerMeasure { get; set; }
-            public DirectionEnum Direction { get; set; } = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
-            public bool UntilPatternRepeats { get; set; }
-            public bool TemporaryReversal { get; set; }
-
-            public bool IsValid()
-            {
-                var result = false;
-                if (this.Chords.Any()
-                    && this.ChordContexts.Any()
-                    && this.NoteRange.IsValid()
-                    && this.BeatsPerMeasure > 0
-                    && this.Direction.HasFlag(DirectionEnum.Ascending) || this.Direction.HasFlag(DirectionEnum.Descending)
-                    )
-                {
-                    result = true;
-                }
-                return result;
-            }
-
-            public bool TryCreateArpeggiator(out Arpeggiator arpeggiator)
-            {
-                arpeggiator = null;
-                var result = this.IsValid();
-                if (result)
-                {
-                    arpeggiator = new Arpeggiator(this.ChordContexts,
-                        this.Direction,
-                        this.NoteRange,
-                        this.BeatsPerMeasure,
-                        null,
-                        this.UntilPatternRepeats);
-                }
-                return result;
-            }
-
-        }
-
-        ArpeggiatorCreationContext CreationContext { get; set; } = new ArpeggiatorCreationContext();
-        Arpeggiator Arpeggiator { get; set; }
         void CreateArpeggiator()
         {
             if (this.CreationContext.TryCreateArpeggiator(out var arpeggiator))
@@ -132,4 +95,48 @@ namespace NeckDiagrams.Controls
         }
 
     }//class
+
+    class ArpeggiatorCreationContext
+    {
+        public List<Chord> Chords { get; set; }
+        public List<ArpeggiationChordContext> ChordContexts { get; set; }
+        public NoteRange NoteRange { get; set; } = new FiveStringBassRange(FiveStringBassPositionEnum.FirstPosition);
+        public int BeatsPerMeasure { get; set; }
+        public DirectionEnum Direction { get; set; } = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
+        public bool UntilPatternRepeats { get; set; }
+        public bool TemporaryReversal { get; set; }
+
+        public bool IsValid()
+        {
+            var result = false;
+            if (this.Chords.Any()
+                && this.ChordContexts.Any()
+                && this.NoteRange.IsValid()
+                && this.BeatsPerMeasure > 0
+                && this.Direction.HasFlag(DirectionEnum.Ascending) || this.Direction.HasFlag(DirectionEnum.Descending)
+                )
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool TryCreateArpeggiator(out Arpeggiator arpeggiator)
+        {
+            arpeggiator = null;
+            var result = this.IsValid();
+            if (result)
+            {
+                arpeggiator = new Arpeggiator(this.ChordContexts,
+                    this.Direction,
+                    this.NoteRange,
+                    this.BeatsPerMeasure,
+                    null,
+                    this.UntilPatternRepeats);
+            }
+            return result;
+        }
+
+    }//class
+
 }//ns
