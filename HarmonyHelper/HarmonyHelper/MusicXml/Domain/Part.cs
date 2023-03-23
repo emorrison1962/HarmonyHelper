@@ -17,16 +17,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         Melody = 1,
         Harmony = 2
     };
-    public class MusicXmlPart : IDisposable, IHasIsValid
+    public class Part : IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>()
-            { new MusicXmlStaff(new MusicXmlClef(ClefEnum.Treble, 1))};
+            { new MusicXmlStaff(new Clef(ClefEnum.Treble, 1))};
         public MusicXmlPartIdentifier Identifier { get; set; } = new MusicXmlPartIdentifier("P1", "Part 01");
         MeasureList _Measures { get; set; } = new MeasureList();
-        public ReadOnlyCollection<MusicXmlMeasure> Measures
+        public ReadOnlyCollection<Measure> Measures
         {
             get
             {
@@ -37,39 +37,39 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
         public XElement XElement { get; set; }
-        public MusicXmlMeasure CurrentMeasure { get { return Measures.Last(); } }
+        public Measure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; } = KeySignature.CMajor;
         public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
         public RhythmicContext Rhythm { get; set; }
         #endregion
 
         #region Construction
-        public MusicXmlPart(PartTypeEnum PartType)
+        public Part(PartTypeEnum PartType)
         {
             this.PartType = PartType;
             this.Sections.Add(new MusicXmlSection(this));
         }
-        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
+        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
             : this(PartType)
         {
             this.Identifier = PartIdentifier;
         }
-        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, XElement xelement)
+        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, XElement xelement)
             : this(PartType, PartIdentifier)
         {
             this.XElement = xelement;
         }
-        public MusicXmlPart(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, ClefEnum clef)
+        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, ClefEnum clef)
     : this(PartType, PartIdentifier)
         {
             this.Staves.Clear();
-            this.Staves = new List<MusicXmlStaff>() { new MusicXmlStaff(new MusicXmlClef(clef, 1)) };
+            this.Staves = new List<MusicXmlStaff>() { new MusicXmlStaff(new Clef(clef, 1)) };
 
         }
 
         #endregion
 
-        public void AddRange(IEnumerable<MusicXmlMeasure> measures, bool renumberMeasures = true)
+        public void AddRange(IEnumerable<Measure> measures, bool renumberMeasures = true)
         {
             if (null == this.Rhythm)
             {
@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
-        public void Add(MusicXmlMeasure measure)
+        public void Add(Measure measure)
         {
             if (null == this.Rhythm)
             {
@@ -99,7 +99,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
-        public void Remove(MusicXmlMeasure measure)
+        public void Remove(Measure measure)
         {
             this._Measures.Remove(measure);
             this.ResetMeasureNumbers();
@@ -120,7 +120,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"{nameof(MusicXmlPart)}: {Identifier}";
+            return $"{nameof(Part)}: {Identifier}";
         }
 
         public bool IsValid()

@@ -18,7 +18,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         private bool disposedValue;
         #region Properties
         public MusicXmlScoreMetadata Metadata { get; set; } = new MusicXmlScoreMetadata();
-        public List<MusicXmlPart> Parts { get; protected set; } = new List<MusicXmlPart>();
+        public List<Part> Parts { get; protected set; } = new List<Part>();
         public RhythmicContext Rhythm { get; set; } = new RhythmicContext(new TimeSignature(4, 4), 480).SetTempo(100);
 
         public bool IsValid()
@@ -95,7 +95,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public void Add(MusicXmlPart part)
+        public void Add(Part part)
         {
             if (part.Measures.Count > 0)
             {

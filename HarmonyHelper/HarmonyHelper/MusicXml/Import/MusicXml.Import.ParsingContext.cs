@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         #region Properties
         public MusicXmlScoreMetadata Metadata { get; set; }
-        public MusicXmlMeasure CurrentMeasure { get; set; }
+        public Measure CurrentMeasure { get; set; }
         RhythmicContext _Rhythm { get; set; } = new RhythmicContext();
         public RhythmicContext Rhythm
         {
@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //Debug.WriteLine($"set_CurrentOffset: {this._CurrentMeasure}: {this._CurrentOffset}");
             }
         }
-        public List<MusicXmlPart> Parts { get; set; } = new List<MusicXmlPart>();
+        public List<Part> Parts { get; set; } = new List<Part>();
 
         //public ConcurrentDictionary<TiedNoteContext, TiedNoteContext> TiedNotes { get; set; } = new ConcurrentDictionary<TiedNoteContext, TiedNoteContext>();
 

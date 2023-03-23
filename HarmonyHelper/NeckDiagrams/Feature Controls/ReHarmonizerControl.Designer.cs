@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this._bnOpen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -40,10 +41,21 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "ReHarmonizer";
             // 
+            // _bnOpen
+            // 
+            this._bnOpen.Location = new System.Drawing.Point(200, 225);
+            this._bnOpen.Name = "_bnOpen";
+            this._bnOpen.Size = new System.Drawing.Size(112, 34);
+            this._bnOpen.TabIndex = 2;
+            this._bnOpen.Text = "Open...";
+            this._bnOpen.UseVisualStyleBackColor = true;
+            this._bnOpen.Click += new System.EventHandler(this._bnOpen_Click);
+            // 
             // ReHarmonizerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._bnOpen);
             this.Controls.Add(this.label1);
             this.Name = "ReHarmonizerControl";
             this.Size = new System.Drawing.Size(1000, 614);
@@ -55,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button _bnOpen;
     }
 }

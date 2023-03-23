@@ -25,8 +25,8 @@ namespace MusicXml.Tests
 
             var chords = new List<TimedEventChordFormula>() { 
                 new TimedEventChordFormula(ChordFormula.CMajor7, new TimeContext(1, rhythm, 120, 240)) };
-            var part = new MusicXmlPart(PartTypeEnum.Harmony);
-            var measure = new MusicXmlMeasure(part, 1, chords, null, null, null, null);
+            var part = new Part(PartTypeEnum.Harmony);
+            var measure = new Measure(part, 1, chords, null, null, null, null);
             measure.SetMeasureNumber(3);
 
             var chord = measure.Chords.First();

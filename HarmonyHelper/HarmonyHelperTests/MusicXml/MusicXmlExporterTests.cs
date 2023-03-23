@@ -135,7 +135,7 @@ namespace MusicXml.Tests
         {
             var model = new MusicXmlModel();
 
-            var part = new MusicXmlPart(PartTypeEnum.Melody);
+            var part = new Part(PartTypeEnum.Melody);
             var isValid = part.IsValid();
             Assert.IsTrue(isValid);
 
@@ -148,7 +148,7 @@ namespace MusicXml.Tests
             const int MEASURES_MAX = 20;
             for (int m = 1; m < MEASURES_MAX; ++m)
             {
-                var measure = new MusicXmlMeasure(part, m);
+                var measure = new Measure(part, m);
                 isValid = measure.IsValid();
                 Assert.IsTrue(isValid);
 

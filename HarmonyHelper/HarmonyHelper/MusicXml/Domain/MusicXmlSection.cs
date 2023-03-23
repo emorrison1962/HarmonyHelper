@@ -1,5 +1,4 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
-using Eric.Morrison.Harmony.MusicXml.Domain;
 
 using System;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         private bool disposedValue;
         #region Properties
         public string Name { get; protected set; }
-        public MusicXmlPart Part { get; protected set; }
+        public Part Part { get; protected set; }
         public MeasureList Measures { get; set; } = new MeasureList();
         public MusicXmlRepeatContext RepeatContext { get; set; }
         public int Length { get { return this.Measures.Count; } }
@@ -73,8 +72,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         #endregion
 
         #region Construction
-        public MusicXmlSection(string name, MusicXmlPart Part, 
-            IEnumerable<MusicXmlMeasure> measures)
+        public MusicXmlSection(string name, Part Part, 
+            IEnumerable<Measure> measures)
         {
             if (null == Part)
                 throw new ArgumentNullException(nameof(Part));
@@ -86,7 +85,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Measures = new MeasureList(measures);
         }
 
-        public MusicXmlSection(MusicXmlPart Part,
+        public MusicXmlSection(Part Part,
             MusicXmlRepeatContext repeatCtx)
         {
             if (null == Part)
@@ -96,7 +95,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
 
-        public MusicXmlSection(MusicXmlPart Part)
+        public MusicXmlSection(Part Part)
         {
             if (null == Part)
                 throw new ArgumentNullException(nameof(Part));
@@ -105,7 +104,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        public void Add(MusicXmlMeasure measure)
+        public void Add(Measure measure)
         { 
             if (null == measure)
                 throw new ArgumentNullException(nameof(measure));

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
-using Eric.Morrison.Harmony.MusicXml.Domain;
 using Eric.Morrison.Harmony.MusicXml;
 
 
@@ -55,7 +54,7 @@ namespace NeckDiagrams.Controls
             new object();
         }
 
-        MusicXmlModel CreateModel(MusicXmlPart part)
+        MusicXmlModel CreateModel(Part part)
         {
             var isValid = part.IsValid();
             Debug.Assert(isValid);
@@ -235,10 +234,10 @@ namespace NeckDiagrams.Controls
         const string FLAT = "♭";
         const string SHARP = "♯";
 
-        public MusicXmlPart Part { get; set; }
+        public Part Part { get; set; }
         public MusicXmlObservers(Arpeggiator arpeggiator)
         {
-            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
+            this.Part = new Part(PartTypeEnum.Melody,
                 new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
 
             this.RegisterMusicXmlObservers(arpeggiator);
@@ -279,9 +278,9 @@ namespace NeckDiagrams.Controls
             if (args.CurrentMeasure > 0)
             {
                 var measureNumber = args.CurrentMeasure;
-                var measure = new MusicXmlMeasure(this.Part, measureNumber);
+                var measure = new Measure(this.Part, measureNumber);
                 if (args.CurrentMeasure == 1)
-                    measure.Add(new MusicXmlBarlineContext(BarlineStyleEnum.Light_Light, BarlineSideEnum.Left));
+                    measure.Add(new BarlineContext(BarlineStyleEnum.Light_Light, BarlineSideEnum.Left));
                 this.Part.Add(measure);
             }
             new object();

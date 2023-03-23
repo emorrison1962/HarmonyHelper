@@ -1,6 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Analysis.ReHarmonizer;
 using Eric.Morrison.Harmony.Chords;
-using Eric.Morrison.Harmony.MusicXml.Domain;
 
 using System;
 using System.CodeDom;
@@ -15,11 +14,11 @@ using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
-    public class MusicXmlMeasure : ClassBase, IDisposable, IHasIsValid
+    public class Measure : ClassBase, IDisposable, IHasIsValid
     {
         private bool disposedValue;
         #region Properties
-        public MusicXmlPart Part { get; private set; }
+        public Part Part { get; private set; }
         public int _MeasureNumber { get; set; }
         public int MeasureNumber
         {
@@ -33,8 +32,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
         bool HasMetadata { get; set; }
-        List<MusicXmlBarlineContext> _BarlineContexts { get; set; } = new List<MusicXmlBarlineContext>();
-        public IEnumerable<MusicXmlBarlineContext> BarlineContexts { get { return _BarlineContexts; } }
+        List<BarlineContext> _BarlineContexts { get; set; } = new List<BarlineContext>();
+        public IEnumerable<BarlineContext> BarlineContexts { get { return _BarlineContexts; } }
 
         List<TimedEventChordFormula> _Chords { get; set; } = new List<TimedEventChordFormula>();
         List<TimedEventNote> _Notes { get; set; } = new List<TimedEventNote>();
@@ -63,15 +62,15 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Construction
 
-        public MusicXmlMeasure(MusicXmlPart part, int measureNumber)
+        public Measure(Part part, int measureNumber)
         {
             if (part == null)
                 throw new ArgumentNullException(nameof(part));
             this.Part = part;
             this.MeasureNumber = measureNumber;
         }
-        public MusicXmlMeasure(
-            MusicXmlPart part,
+        public Measure(
+            Part part,
             int measureNumber,
             List<TimedEventChordFormula> Chords,
             List<TimedEventNote> Notes,
@@ -91,7 +90,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (null != Backups)
                 this.AddRange(Backups);
         }
-        public MusicXmlMeasure(MusicXmlMeasure src)
+        public Measure(Measure src)
             : this(src.Part, src.MeasureNumber)
         {
             this.MeasureNumber = src.MeasureNumber;
@@ -151,7 +150,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this._Backups.AddRange(Backups);
         }
 
-        public void Add(MusicXmlBarlineContext barline)
+        public void Add(BarlineContext barline)
         {
             this._BarlineContexts.Add(barline);
             if (barline.IsDoubleBarline)
@@ -213,7 +212,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        public static List<ChordMelodyPairing> GetChordMelodyPairings(MelodyHarmonyPair<MusicXmlMeasure> mhPair)
+        public static List<ChordMelodyPairing> GetChordMelodyPairings(MelodyHarmonyPair<Measure> mhPair)
         {
             var result = new List<ChordMelodyPairing>();
             foreach (var chord in mhPair.Harmony.Chords)
@@ -244,7 +243,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             if (this.IsSectionEnd)
                 append = $", IsSectionEnd ={this.IsSectionEnd}";
 
-            return $"{nameof(MusicXmlMeasure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}{append}";
+            return $"{nameof(Measure)}: Part={this.Part.Identifier.ID}, MeasureNumber={this.MeasureNumber}{append}";
 
         }
 

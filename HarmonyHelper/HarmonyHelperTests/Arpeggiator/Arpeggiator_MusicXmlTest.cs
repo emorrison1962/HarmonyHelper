@@ -74,7 +74,7 @@ namespace Arpeggiator_Tests
             arpeggiator.Arpeggiate();
             var part = musicXmlObservers.Part;
 			var staff = part.Staves.First();
-			staff.Clef = new MusicXmlClef(ClefEnum.Bass, 1);
+			staff.Clef = new Clef(ClefEnum.Bass, 1);
 
             var model = this.CreateModel(part);
             new object();
@@ -197,7 +197,7 @@ namespace Arpeggiator_Tests
             new object();
         }
 
-        MusicXmlModel CreateModel(MusicXmlPart part)
+        MusicXmlModel CreateModel(Part part)
         {
             var isValid = part.IsValid();
             Debug.Assert(isValid);
@@ -210,7 +210,7 @@ namespace Arpeggiator_Tests
 
             return result;
         }
-        MusicXmlModel CreateModel(List<MusicXmlPart> parts)
+        MusicXmlModel CreateModel(List<Part> parts)
         {
             var result = new MusicXmlModel();
             foreach (var part in parts)

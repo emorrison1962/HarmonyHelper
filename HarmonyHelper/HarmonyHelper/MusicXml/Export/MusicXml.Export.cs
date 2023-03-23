@@ -18,7 +18,6 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
 
-using static System.Collections.Specialized.BitVector32;
 
 #region MusicXml reference
 #if false
@@ -102,7 +101,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        void GetPartMetadata(MusicXmlPart part, XElement xmeasure)
+        void GetPartMetadata(Part part, XElement xmeasure)
         {
 #if false
    <measure number="1">
@@ -267,7 +266,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return root;
         }
 
-        public XElement ToXElement(List<MusicXmlPart> parts)
+        public XElement ToXElement(List<Part> parts)
         {
             var result = new XElement(XmlConstants.part_list);
             foreach (var part in parts)

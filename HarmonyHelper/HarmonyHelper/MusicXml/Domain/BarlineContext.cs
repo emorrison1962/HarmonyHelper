@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Eric.Morrison.Harmony.MusicXml.Domain
+namespace Eric.Morrison.Harmony.MusicXml
 {
     public enum BarlineStyleEnum
     {
@@ -29,7 +29,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         Right,
     };
 
-    public class MusicXmlBarlineContext
+    public class BarlineContext
     {
         #region Properties
         public BarlineStyleEnum BarlineStyle { get; set; }
@@ -56,7 +56,7 @@ namespace Eric.Morrison.Harmony.MusicXml.Domain
         #endregion
 
         #region Construction
-        public MusicXmlBarlineContext(BarlineStyleEnum style, BarlineSideEnum side)
+        public BarlineContext(BarlineStyleEnum style, BarlineSideEnum side)
         {
             this.BarlineStyle = style;
             this.BarlineSide = side;

@@ -15,7 +15,6 @@ using System.Xml.Schema;
 using System.Xml.Xsl;
 
 using Eric.Morrison.Harmony.Chords;
-using Eric.Morrison.Harmony.MusicXml.Domain;
 using Eric.Morrison.Harmony.Notes;
 using Eric.Morrison.Harmony.Rhythm;
 
@@ -92,7 +91,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<MusicXmlPart> parts)
+        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<Part> parts)
         {
             var result = new MusicXmlModel();
             result.Metadata = metadata;
@@ -160,9 +159,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        List<MusicXmlPart> ParseParts()
+        List<Part> ParseParts()
         {
-            var result = new List<MusicXmlPart>();
+            var result = new List<Part>();
             var xscore_parts = this.Document.Elements(XmlConstants.score_partwise)
                 .Elements(XmlConstants.part_list)
                 .Elements(XmlConstants.score_part)
@@ -187,14 +186,14 @@ namespace Eric.Morrison.Harmony.MusicXml
                 var pid = pids.First(x => x.ID == partName);
 
                 var pte = PartTypeEnum.Unknown;
-                var part = new MusicXmlPart(pte, pid, xpart);
+                var part = new Part(pte, pid, xpart);
 
                 result.Add(part);
             }
             return result;
         }
 
-        void ParsePartMetadata(MusicXmlPart part, XElement xmeasure)
+        void ParsePartMetadata(Part part, XElement xmeasure)
         {
             var xpart = this.Document.Elements(XmlConstants.part)
                 .FirstOrDefault(x => x.Attribute(XmlConstants.id).Value == part.Identifier.ID);
@@ -221,10 +220,10 @@ namespace Eric.Morrison.Harmony.MusicXml
                 this.ParsingContext.Rhythm.PulsesPerMeasure;
         }
 
-        void ParseMeasure(MusicXmlPart part, XElement xmeasure)
+        void ParseMeasure(Part part, XElement xmeasure)
         {
             var measureNumber = Int32.Parse(xmeasure.Attribute(XmlConstants.number).Value);
-            var result = new MusicXmlMeasure(part, measureNumber);
+            var result = new Measure(part, measureNumber);
 
             this.ParsingContext.CurrentMeasure = result;
             this.PopulateMeasure(xmeasure, result);
@@ -240,7 +239,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             part.Sections.Last().Add(result);
         }
 
-        private void PopulateMeasure(XElement xmeasure, MusicXmlMeasure measure)
+        private void PopulateMeasure(XElement xmeasure, Measure measure)
         {
             var xelements = xmeasure.Elements().ToList();
             this.ParsingContext.CurrentOffset = 0;
@@ -345,9 +344,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        private List<MusicXmlBarlineContext> ParseBarlineContexts(XElement xmeasure)
+        private List<BarlineContext> ParseBarlineContexts(XElement xmeasure)
         {
-            var result = new List<MusicXmlBarlineContext>();
+            var result = new List<BarlineContext>();
 
             if (xmeasure.Elements(XmlConstants.barline).Any())
             {
@@ -369,7 +368,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                             eBarlineStyle = BarlineStyleEnum.Light_Light;
                     }
 
-                    var ctx = new MusicXmlBarlineContext(eBarlineStyle, BarlineSideEnum.None);
+                    var ctx = new BarlineContext(eBarlineStyle, BarlineSideEnum.None);
                     if (xbarline.Attributes(XmlConstants.barline_location).Any())
                     {
                         if (xbarline.Attribute(XmlConstants.barline_location)

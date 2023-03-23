@@ -10,8 +10,8 @@ namespace Eric.Morrison.Harmony.MusicXml
 {
     public class MusicXmlStaff
     {
-        public MusicXmlClef Clef { get; set; }
-        public MusicXmlStaff(MusicXmlClef Clef)
+        public Clef Clef { get; set; }
+        public MusicXmlStaff(Clef Clef)
         {
             if (null == Clef)
                 throw new ArgumentNullException(nameof(Clef));
@@ -41,13 +41,13 @@ namespace Eric.Morrison.Harmony.MusicXml
             foreach (var xclef in xmeasure.Element(XmlConstants.attributes)
                 .Elements(XmlConstants.clef))
             {
-                var staff = new MusicXmlStaff(MusicXmlClef.FromXml(xclef));
+                var staff = new MusicXmlStaff(Clef.FromXml(xclef));
                 result.Add(staff);
             }
             return result;
         }
     }
-    public class MusicXmlClef
+    public class Clef
     {
         const string TREBLE_SIGN = "G";
         const string TREBLE_LINE = "2";
@@ -69,7 +69,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public ClefEnum ClefType { get; set; }
         public int ClefNumber { get; set; }
 
-        public MusicXmlClef(ClefEnum clefType, int clefNumber)
+        public Clef(ClefEnum clefType, int clefNumber)
         {
             ClefType = clefType;
             ClefNumber = clefNumber;
@@ -104,9 +104,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             result.Add(new XElement(XmlConstants.line, line));
             return result;
         }
-        static public MusicXmlClef FromXml(XElement xclef)
+        static public Clef FromXml(XElement xclef)
         {
-            MusicXmlClef result = null;
+            Clef result = null;
             int clefNumber = 1;
             if (xclef.Attributes(XmlConstants.number).Any())
             {
@@ -124,21 +124,21 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 if (TREBLE_LINE == line)
                 {
-                    result = new MusicXmlClef(ClefEnum.Treble, clefNumber);
+                    result = new Clef(ClefEnum.Treble, clefNumber);
                 }
             }
             else if (BASS_SIGN == sign)
             {
                 if (BASS_LINE == line)
                 {
-                    result = new MusicXmlClef(ClefEnum.Bass, clefNumber);
+                    result = new Clef(ClefEnum.Bass, clefNumber);
                 }
             }
             else if (PERCUSSION_SIGN == sign)
             {
                 if (line == null || PERCUSSION_LINE == line)
                 {
-                    result = new MusicXmlClef(ClefEnum.Percussion, clefNumber);
+                    result = new Clef(ClefEnum.Percussion, clefNumber);
                 }
             }
             else

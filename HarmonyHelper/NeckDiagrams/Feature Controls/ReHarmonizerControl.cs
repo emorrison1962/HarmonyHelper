@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,15 +29,39 @@ namespace NeckDiagrams.Controls
 
         #endregion
 
-        "get chords"
-        "populate part"
-        "re-harmonize"
-
-        MusicXmlPart Part { get; set; }
+        Part Part { get; set; }
         MusicXmlModel Model { get; set; }
+
+        void LoadMusicXml()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "xml files (*.xml)|*.xml|musicxml files (*.musicxml)|*.musicxml|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+                    throw new NotImplementedException();
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+        }
+
         void CreatePart() 
         {
-            this.Part = new MusicXmlPart(PartTypeEnum.Melody,
+            this.Part = new Part(PartTypeEnum.Melody,
                 new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
         }
 
@@ -52,6 +77,11 @@ namespace NeckDiagrams.Controls
             Debug.Assert(isValid);
 
             this.Model = result;
+        }
+
+        private void _bnOpen_Click(object sender, EventArgs e)
+        {
+            this.LoadMusicXml();
         }
     }//class
 }//ns
