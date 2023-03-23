@@ -36,35 +36,39 @@ namespace NeckDiagrams.Controls
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+
+            try
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "xml files (*.xml)|*.xml|musicxml files (*.musicxml)|*.musicxml|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    //Get the path of specified file
-                    filePath = openFileDialog.FileName;
+                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.Filter = "xml files (*.xml)|*.xml|musicxml files (*.musicxml)|*.musicxml|All files (*.*)|*.*";
+                    openFileDialog.FilterIndex = 1;
+                    openFileDialog.RestoreDirectory = true;
 
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-                    throw new NotImplementedException();
-                    using (StreamReader reader = new StreamReader(fileStream))
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        fileContent = reader.ReadToEnd();
+                        filePath = openFileDialog.FileName;
+                        var importer = new MusicXmlImporter();
+                        this.Model = importer.Import(filePath);
                     }
                 }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.GetBaseException().Message);
+            }        
         }
 
+        [Obsolete("", true)]
         void CreatePart() 
         {
             this.Part = new Part(PartTypeEnum.Melody,
                 new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
         }
 
+        [Obsolete("", true)]
         void CreateModel()
         {
             var isValid = this.Part.IsValid();
