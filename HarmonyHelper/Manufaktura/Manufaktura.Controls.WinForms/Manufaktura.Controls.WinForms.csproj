@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<RootNamespace>Manufaktura.Controls.WinForms</RootNamespace>
+		<AssemblyName>Manufaktura.Controls.WinForms</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Manufaktura.Controls\Manufaktura.Controls.csproj">
+		</ProjectReference>
+		<ProjectReference Include="..\Manufaktura.Music\Manufaktura.Music.csproj">
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>

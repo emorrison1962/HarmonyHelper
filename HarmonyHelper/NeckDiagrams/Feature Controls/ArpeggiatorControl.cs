@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
@@ -40,15 +41,27 @@ namespace NeckDiagrams.Controls
 
         private void CreationContext_ArpeggiatorCreated(object sender, Arpeggiator arpeggiator)
         {
+            _noteViewer.DataSource = null;
             var observer = new MusicXmlObservers(arpeggiator);
             arpeggiator.Arpeggiate();
             var part = observer.Part;
+            var sw = Stopwatch.StartNew();
             var model = this.CreateModel(part);
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
+
+            sw = Stopwatch.StartNew();
+            var doc = model.ToXDocument();
+
+            Debug.WriteLine(doc.ToString());
+
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
+            this.PopulateNoteViwer(doc);
 
             new object();
 
             //MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
-
 
             _rtbResults.Text = part.ToXElement().ToString();    
             new object();
@@ -129,6 +142,7 @@ namespace NeckDiagrams.Controls
     class ArpeggiatorCreationContext
     {
         public event EventHandler<Arpeggiator> ArpeggiatorCreated;
+        
         #region Properties
         List<ChordFormulaVM> _Formulas { get; set; } = new List<ChordFormulaVM>();
         public List<ChordFormulaVM> Formulas
@@ -237,8 +251,8 @@ namespace NeckDiagrams.Controls
         public Part Part { get; set; }
         public MusicXmlObservers(Arpeggiator arpeggiator)
         {
-            this.Part = new Part(PartTypeEnum.Melody,
-                new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
+            this.Part = new Part(PartTypeEnum.Harmony,
+                new PartIdentifier("P1", "Bass"), ClefEnum.Bass);
 
             this.RegisterMusicXmlObservers(arpeggiator);
         }

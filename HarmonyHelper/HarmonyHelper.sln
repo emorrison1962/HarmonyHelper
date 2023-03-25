@@ -37,6 +37,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.DbFirst",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.Entities", "HarmonyHelper.Dal.Entities\HarmonyHelper.Dal.Entities.csproj", "{CF5E70DB-B20D-46CE-9000-97A42B16F605}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manufaktura", "Manufaktura", "{E719A23C-694B-4C9F-8323-10D69A04FFE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Music", "Manufaktura\Manufaktura.Music\Manufaktura.Music.csproj", "{8DA7E516-007E-4606-895D-619A12FE3F1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Core", "Manufaktura\Manufaktura.Core\Manufaktura.Core.csproj", "{59209CC5-15ED-429E-9898-8341D54D4F01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls", "Manufaktura\Manufaktura.Controls\Manufaktura.Controls.csproj", "{A91A11B5-D6A5-45FA-8B48-CF59E7C92699}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls.WinForms", "Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj", "{8599EA24-8373-4890-BFAA-45553184B560}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +105,22 @@ Global
 		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59209CC5-15ED-429E-9898-8341D54D4F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59209CC5-15ED-429E-9898-8341D54D4F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59209CC5-15ED-429E-9898-8341D54D4F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59209CC5-15ED-429E-9898-8341D54D4F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8599EA24-8373-4890-BFAA-45553184B560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8599EA24-8373-4890-BFAA-45553184B560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8599EA24-8373-4890-BFAA-45553184B560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8599EA24-8373-4890-BFAA-45553184B560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +132,10 @@ Global
 		{C6CC4EAB-883B-4789-A552-B5F85F473BEC} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
 		{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A} = {75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}
 		{1F189A12-D676-4F15-91AE-640F4AC82509} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
+		{8DA7E516-007E-4606-895D-619A12FE3F1A} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
+		{59209CC5-15ED-429E-9898-8341D54D4F01} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
+		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
+		{8599EA24-8373-4890-BFAA-45553184B560} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00888077-AB00-4165-92B2-7E9015599ADC}

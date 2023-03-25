@@ -23,7 +23,7 @@ namespace zHarmonyHelperTests_Arpeggiator
         public MusicXmlObservers(Arpeggiator arpeggiator)
         {
             this.Part = new Part(PartTypeEnum.Melody,
-                new MusicXmlPartIdentifier("P1", "Bass"), ClefEnum.Bass);
+                new PartIdentifier("P1", "Bass"), ClefEnum.Bass);
 
             this.RegisterMusicXmlObservers(arpeggiator);
         }

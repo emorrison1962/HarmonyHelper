@@ -45,6 +45,7 @@
             this._numericNotesPerMeasure = new System.Windows.Forms.NumericUpDown();
             this._errorProviderDirection = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlMain = new System.Windows.Forms.Panel();
+            this._noteViewer = new Manufaktura.Controls.WinForms.NoteViewer();
             this._rtbResults = new System.Windows.Forms.RichTextBox();
             this.pnlSettings.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -239,6 +240,11 @@
             this._numericNotesPerMeasure.Name = "_numericNotesPerMeasure";
             this._numericNotesPerMeasure.Size = new System.Drawing.Size(60, 27);
             this._numericNotesPerMeasure.TabIndex = 3;
+            this._numericNotesPerMeasure.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             this._numericNotesPerMeasure.ValueChanged += new System.EventHandler(this._numericNotesPerMeasure_ValueChanged);
             // 
             // _errorProviderDirection
@@ -247,6 +253,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this._noteViewer);
             this.pnlMain.Controls.Add(this._rtbResults);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(658, 0);
@@ -254,12 +261,23 @@
             this.pnlMain.Size = new System.Drawing.Size(796, 686);
             this.pnlMain.TabIndex = 3;
             // 
-            // rtbResults
+            // _noteViewer
             // 
-            this._rtbResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._rtbResults.Location = new System.Drawing.Point(0, 0);
-            this._rtbResults.Name = "rtbResults";
-            this._rtbResults.Size = new System.Drawing.Size(796, 686);
+            this._noteViewer.DataSource = null;
+            this._noteViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._noteViewer.Location = new System.Drawing.Point(0, 0);
+            this._noteViewer.Name = "_noteViewer";
+            this._noteViewer.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.AllPages;
+            this._noteViewer.Size = new System.Drawing.Size(796, 487);
+            this._noteViewer.TabIndex = 1;
+            this._noteViewer.Text = "_noteViewer";
+            // 
+            // _rtbResults
+            // 
+            this._rtbResults.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._rtbResults.Location = new System.Drawing.Point(0, 487);
+            this._rtbResults.Name = "_rtbResults";
+            this._rtbResults.Size = new System.Drawing.Size(796, 199);
             this._rtbResults.TabIndex = 0;
             this._rtbResults.Text = "";
             // 
@@ -307,5 +325,6 @@
         private System.Windows.Forms.ErrorProvider _errorProviderDirection;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.RichTextBox _rtbResults;
+        private Manufaktura.Controls.WinForms.NoteViewer _noteViewer;
     }
 }

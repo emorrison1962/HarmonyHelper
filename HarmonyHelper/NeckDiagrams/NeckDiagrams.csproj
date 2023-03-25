@@ -63,5 +63,6 @@
   <ItemGroup>
     <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
+    <ProjectReference Include="..\Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj" />
   </ItemGroup>
 </Project>

@@ -8,8 +8,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -17,7 +19,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     {
         private bool disposedValue;
         #region Properties
-        public MusicXmlScoreMetadata Metadata { get; set; } = new MusicXmlScoreMetadata();
+        public ScoreMetadata Metadata { get; set; } = new ScoreMetadata();
         public List<Part> Parts { get; protected set; } = new List<Part>();
         public RhythmicContext Rhythm { get; set; } = new RhythmicContext(new TimeSignature(4, 4), 480).SetTempo(100);
 
@@ -155,4 +157,12 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     }//class
 
+    public static class MusicXmlModelExtensions 
+    {
+        static public XDocument ToXDocument(this MusicXmlModel src)
+        { 
+            var result = new MusicXmlExporter().Export(src);
+            return result;
+        }
+    }
 }//ns

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Eric.Morrison.Harmony;
 
 using NeckDiagrams.Controls;
+using NeckDiagrams.Feature_Controls;
 
 namespace NeckDiagrams
 {
@@ -219,6 +220,13 @@ namespace NeckDiagrams
             if ((sender as RadioButton).Checked)
             {
                 this.AddControl(new VoiceLeadingControl());
+            }
+        }
+        private void _rbManufaktura_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                this.AddControl(new ManufakturaSandboxControl());
             }
         }
 

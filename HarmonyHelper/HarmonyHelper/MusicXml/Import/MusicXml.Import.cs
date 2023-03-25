@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlModel CreateMusicXmlModel(MusicXmlScoreMetadata metadata, List<Part> parts)
+        MusicXmlModel CreateMusicXmlModel(ScoreMetadata metadata, List<Part> parts)
         {
             var result = new MusicXmlModel();
             result.Metadata = metadata;
@@ -142,7 +142,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                         .Take(count)
                         .ToList();
 
-                    var section = new MusicXmlSection(sectionName++.ToString(),
+                    var section = new Section(sectionName++.ToString(),
                         part, selected);
                     part.Sections.Add(section);
                 }
@@ -150,9 +150,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        MusicXmlScoreMetadata ParseScoreMetadata()
+        ScoreMetadata ParseScoreMetadata()
         {
-            var result = new MusicXmlScoreMetadata();
+            var result = new ScoreMetadata();
             result.Credits = this.ParseCredits();
             result.Identification = this.ParseIdentification();
 
@@ -167,12 +167,12 @@ namespace Eric.Morrison.Harmony.MusicXml
                 .Elements(XmlConstants.score_part)
                 .ToList();
             Debug.Assert(xscore_parts.Count > 0);
-            var pids = new List<MusicXmlPartIdentifier>();
+            var pids = new List<PartIdentifier>();
             foreach (var xscore_part in xscore_parts)
             {
                 var id = xscore_part.Attribute(XmlConstants.id).Value;
                 var name = xscore_part.Elements(XmlConstants.part_name).First().Value;
-                var pid = new MusicXmlPartIdentifier(id, name);
+                var pid = new PartIdentifier(id, name);
                 pids.Add(pid);
             }
 
@@ -518,7 +518,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
         int ParseDuration(XElement xnote, out DurationEnum durationEnum,
-            out MusicXmlTimeModification timeModification, out bool isDotted)
+            out TimeModification timeModification, out bool isDotted)
         {//The <duration> element moves the musical position when used in <backup> elements, <forward> elements, and <note> elements that do not contain a <chord> child element.
             isDotted = false;
             if (xnote.Elements(XmlConstants.dot).Any())
@@ -552,9 +552,9 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
-        MusicXmlTimeModification ParseTimeModification(XElement xtime_modification)
+        TimeModification ParseTimeModification(XElement xtime_modification)
         {
-            return new MusicXmlTimeModification(xtime_modification);
+            return new TimeModification(xtime_modification);
         }
 
         XDocument Transform()

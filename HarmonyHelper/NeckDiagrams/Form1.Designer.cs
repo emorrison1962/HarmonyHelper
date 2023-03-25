@@ -35,6 +35,7 @@ namespace NeckDiagrams
             this.printDialog = new System.Windows.Forms.PrintDialog();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this._pnlNav = new System.Windows.Forms.Panel();
+            this._rbManufaktura = new System.Windows.Forms.RadioButton();
             this._bnFeatureVoiceLeading = new System.Windows.Forms.RadioButton();
             this._bnFeatureLeadSheets = new System.Windows.Forms.RadioButton();
             this._bnFeatureArpeggiator = new System.Windows.Forms.RadioButton();
@@ -92,6 +93,7 @@ namespace NeckDiagrams
             // _pnlNav
             // 
             this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._pnlNav.Controls.Add(this._rbManufaktura);
             this._pnlNav.Controls.Add(this._bnFeatureVoiceLeading);
             this._pnlNav.Controls.Add(this._bnFeatureLeadSheets);
             this._pnlNav.Controls.Add(this._bnFeatureArpeggiator);
@@ -104,6 +106,20 @@ namespace NeckDiagrams
             this._pnlNav.Name = "_pnlNav";
             this._pnlNav.Size = new System.Drawing.Size(200, 865);
             this._pnlNav.TabIndex = 2;
+            // 
+            // _rbManufaktura
+            // 
+            this._rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
+            this._rbManufaktura.AutoSize = true;
+            this._rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
+            this._rbManufaktura.Location = new System.Drawing.Point(0, 245);
+            this._rbManufaktura.Name = "_rbManufaktura";
+            this._rbManufaktura.Size = new System.Drawing.Size(200, 35);
+            this._rbManufaktura.TabIndex = 7;
+            this._rbManufaktura.TabStop = true;
+            this._rbManufaktura.Text = "Manufaktura";
+            this._rbManufaktura.UseVisualStyleBackColor = true;
+            this._rbManufaktura.CheckedChanged += new System.EventHandler(this._rbManufaktura_CheckedChanged);
             // 
             // _bnFeatureVoiceLeading
             // 
@@ -250,6 +266,7 @@ namespace NeckDiagrams
         private System.Windows.Forms.RadioButton _bnFeatureArpeggios;
         private System.Windows.Forms.RadioButton _bnFeatureScales;
         private System.Windows.Forms.Panel _pnlMain;
+        private System.Windows.Forms.RadioButton _rbManufaktura;
     }
 }
 

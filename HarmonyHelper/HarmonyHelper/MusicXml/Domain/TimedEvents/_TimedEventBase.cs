@@ -18,7 +18,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         abstract public int SortOrder { get; }
         virtual public TimeContext TimeContext { get; set; }
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
-        public MusicXmlTimeModification TimeModification { get; set; }
+        public TimeModification TimeModification { get; set; }
         public bool HasTimeModification { get { return null == this.TimeModification; } }
 
         #endregion

@@ -43,7 +43,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int duration,
             bool isDotted,
             DurationEnum de,
-            MusicXmlTimeModification timeModification,
+            TimeModification timeModification,
             XElement xnote)
         {
             Debug.Assert(de != DurationEnum.Unknown);
@@ -70,7 +70,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int duration,
             bool isDotted,
             DurationEnum de,
-            MusicXmlTimeModification timeModification,
+            TimeModification timeModification,
             XElement xnote)
         {
             //Debug.Assert(de != DurationEnum.None);
@@ -96,7 +96,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
-            MusicXmlTimeModification timeModification)
+            TimeModification timeModification)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
@@ -118,7 +118,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             int measureNumber,
             int start,
             int duration,
-            MusicXmlTimeModification timeModification)
+            TimeModification timeModification)
         {
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()

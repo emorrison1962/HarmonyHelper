@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public PartTypeEnum PartType { get; set; } = PartTypeEnum.Unknown;
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>()
             { new MusicXmlStaff(new Clef(ClefEnum.Treble, 1))};
-        public MusicXmlPartIdentifier Identifier { get; set; } = new MusicXmlPartIdentifier("P1", "Part 01");
+        public PartIdentifier Identifier { get; set; } = new PartIdentifier("P1", "Part 01");
         MeasureList _Measures { get; set; } = new MeasureList();
         public ReadOnlyCollection<Measure> Measures
         {
@@ -39,7 +39,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public XElement XElement { get; set; }
         public Measure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; } = KeySignature.CMajor;
-        public List<MusicXmlSection> Sections { get; set; } = new List<MusicXmlSection>();
+        public List<Section> Sections { get; set; } = new List<Section>();
         public RhythmicContext Rhythm { get; set; }
         #endregion
 
@@ -47,19 +47,19 @@ namespace Eric.Morrison.Harmony.MusicXml
         public Part(PartTypeEnum PartType)
         {
             this.PartType = PartType;
-            this.Sections.Add(new MusicXmlSection(this));
+            this.Sections.Add(new Section(this));
         }
-        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier)
+        public Part(PartTypeEnum PartType, PartIdentifier PartIdentifier)
             : this(PartType)
         {
             this.Identifier = PartIdentifier;
         }
-        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, XElement xelement)
+        public Part(PartTypeEnum PartType, PartIdentifier PartIdentifier, XElement xelement)
             : this(PartType, PartIdentifier)
         {
             this.XElement = xelement;
         }
-        public Part(PartTypeEnum PartType, MusicXmlPartIdentifier PartIdentifier, ClefEnum clef)
+        public Part(PartTypeEnum PartType, PartIdentifier PartIdentifier, ClefEnum clef)
     : this(PartType, PartIdentifier)
         {
             this.Staves.Clear();
@@ -105,7 +105,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
-        public void Add(MusicXmlSection section)
+        public void Add(Section section)
         {
             this.Sections.Add(section);
         }
