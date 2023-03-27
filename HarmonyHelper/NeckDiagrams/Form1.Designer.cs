@@ -95,12 +95,12 @@ namespace NeckDiagrams
             this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
             this._pnlNav.Controls.Add(this._rbManufaktura);
             this._pnlNav.Controls.Add(this._bnFeatureVoiceLeading);
-            this._pnlNav.Controls.Add(this._bnFeatureLeadSheets);
-            this._pnlNav.Controls.Add(this._bnFeatureArpeggiator);
-            this._pnlNav.Controls.Add(this._bnFeatureReHarmonize);
-            this._pnlNav.Controls.Add(this._bnFeatureHarmonicAnalysis);
-            this._pnlNav.Controls.Add(this._bnFeatureArpeggios);
             this._pnlNav.Controls.Add(this._bnFeatureScales);
+            this._pnlNav.Controls.Add(this._bnFeatureReHarmonize);
+            this._pnlNav.Controls.Add(this._bnFeatureLeadSheets);
+            this._pnlNav.Controls.Add(this._bnFeatureHarmonicAnalysis);
+            this._pnlNav.Controls.Add(this._bnFeatureArpeggiator);
+            this._pnlNav.Controls.Add(this._bnFeatureArpeggios);
             this._pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
             this._pnlNav.Location = new System.Drawing.Point(0, 0);
             this._pnlNav.Name = "_pnlNav";
@@ -116,7 +116,6 @@ namespace NeckDiagrams
             this._rbManufaktura.Name = "_rbManufaktura";
             this._rbManufaktura.Size = new System.Drawing.Size(200, 35);
             this._rbManufaktura.TabIndex = 7;
-            this._rbManufaktura.TabStop = true;
             this._rbManufaktura.Text = "Manufaktura";
             this._rbManufaktura.UseVisualStyleBackColor = true;
             this._rbManufaktura.CheckedChanged += new System.EventHandler(this._rbManufaktura_CheckedChanged);
@@ -139,7 +138,7 @@ namespace NeckDiagrams
             this._bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
             this._bnFeatureLeadSheets.AutoSize = true;
             this._bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 175);
+            this._bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 105);
             this._bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
             this._bnFeatureLeadSheets.Size = new System.Drawing.Size(200, 35);
             this._bnFeatureLeadSheets.TabIndex = 5;
@@ -151,11 +150,13 @@ namespace NeckDiagrams
             // 
             this._bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
             this._bnFeatureArpeggiator.AutoSize = true;
+            this._bnFeatureArpeggiator.Checked = true;
             this._bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 140);
+            this._bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 35);
             this._bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
             this._bnFeatureArpeggiator.Size = new System.Drawing.Size(200, 35);
             this._bnFeatureArpeggiator.TabIndex = 4;
+            this._bnFeatureArpeggiator.TabStop = true;
             this._bnFeatureArpeggiator.Text = "Arpeggiator";
             this._bnFeatureArpeggiator.UseVisualStyleBackColor = true;
             this._bnFeatureArpeggiator.CheckedChanged += new System.EventHandler(this._bnFeatureArpeggiator_CheckedChanged);
@@ -165,7 +166,7 @@ namespace NeckDiagrams
             this._bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
             this._bnFeatureReHarmonize.AutoSize = true;
             this._bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 105);
+            this._bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 140);
             this._bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
             this._bnFeatureReHarmonize.Size = new System.Drawing.Size(200, 35);
             this._bnFeatureReHarmonize.TabIndex = 3;
@@ -191,7 +192,7 @@ namespace NeckDiagrams
             this._bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
             this._bnFeatureArpeggios.AutoSize = true;
             this._bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureArpeggios.Location = new System.Drawing.Point(0, 35);
+            this._bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
             this._bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
             this._bnFeatureArpeggios.Size = new System.Drawing.Size(200, 35);
             this._bnFeatureArpeggios.TabIndex = 1;
@@ -204,7 +205,7 @@ namespace NeckDiagrams
             this._bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
             this._bnFeatureScales.AutoSize = true;
             this._bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureScales.Location = new System.Drawing.Point(0, 0);
+            this._bnFeatureScales.Location = new System.Drawing.Point(0, 175);
             this._bnFeatureScales.Name = "_bnFeatureScales";
             this._bnFeatureScales.Size = new System.Drawing.Size(200, 35);
             this._bnFeatureScales.TabIndex = 0;

@@ -23,6 +23,7 @@ namespace Manufaktura.Controls.WinForms
 {
     public class GdiPlusScoreRendererSettings : ScoreRendererSettings
     {
+
         private Dictionary<MusicFontStyles, Font> defaultFonts = new Dictionary<MusicFontStyles, Font>()
             {
                 {MusicFontStyles.MusicFont, new Font("Polihymnia", 27.5f, GraphicsUnit.Pixel)},

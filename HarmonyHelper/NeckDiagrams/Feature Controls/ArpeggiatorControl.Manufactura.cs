@@ -17,9 +17,17 @@ namespace NeckDiagrams.Controls
 	{
 		void PopulateNoteViwer(XDocument doc)
 		{
-			var sw = Stopwatch.StartNew();
+			var settings = _noteViewer.Settings;
+            var sw = Stopwatch.StartNew();
 			var score = doc.ToScore(new MusicXmlNormalizer());
-            _noteViewer.DataSource = score;
+
+			//score.FirstStaff.Height = 400;
+			//foreach (var measure in score.FirstStaff.Measures)
+			//{
+			//	measure.Width = 400;
+			//}
+
+			_noteViewer.DataSource = score;
             _noteViewer.Refresh();
 			sw.Stop();
 			Debug.WriteLine(sw.ElapsedMilliseconds);

@@ -13,9 +13,9 @@ using Manufaktura.Controls.Linq;
 
 namespace NeckDiagrams.Feature_Controls
 {
-    public partial class ManufakturaSandboxControl : UserControl
+    public partial class ManufakturaScratchPadControl : UserControl
     {
-        public ManufakturaSandboxControl()
+        public ManufakturaScratchPadControl()
         {
             InitializeComponent();
         }

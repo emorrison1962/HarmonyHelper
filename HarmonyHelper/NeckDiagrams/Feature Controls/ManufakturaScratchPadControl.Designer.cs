@@ -1,6 +1,8 @@
-﻿namespace NeckDiagrams.Feature_Controls
+﻿using Manufaktura.Controls.Model.Fonts;
+
+namespace NeckDiagrams.Feature_Controls
 {
-    partial class ManufakturaSandboxControl
+    partial class ManufakturaScratchPadControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -41,9 +43,6 @@
             this._noteViewer.Size = new System.Drawing.Size(1172, 596);
             this._noteViewer.TabIndex = 0;
             this._noteViewer.Text = "noteViewer1";
-            // 
-            // ManufakturaSandboxControl
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._noteViewer);

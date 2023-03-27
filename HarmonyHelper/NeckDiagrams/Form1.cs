@@ -226,7 +226,7 @@ namespace NeckDiagrams
         {
             if ((sender as RadioButton).Checked)
             {
-                this.AddControl(new ManufakturaSandboxControl());
+                this.AddControl(new ManufakturaScratchPadControl());
             }
         }
 

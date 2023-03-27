@@ -1,4 +1,6 @@
-﻿namespace NeckDiagrams.Controls
+﻿using System.Drawing;
+
+namespace NeckDiagrams.Controls
 {
     partial class ArpeggiatorControl
     {
@@ -267,10 +269,13 @@
             this._noteViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this._noteViewer.Location = new System.Drawing.Point(0, 0);
             this._noteViewer.Name = "_noteViewer";
-            this._noteViewer.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.AllPages;
             this._noteViewer.Size = new System.Drawing.Size(796, 487);
             this._noteViewer.TabIndex = 1;
             this._noteViewer.Text = "_noteViewer";
+            this._noteViewer.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.AllPages;
+            this._noteViewer.Settings.RenderingMode = Manufaktura.Controls.Rendering.ScoreRenderingModes.SinglePage;
+
+
             // 
             // _rtbResults
             // 

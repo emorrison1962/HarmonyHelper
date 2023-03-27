@@ -35,8 +35,15 @@ namespace NeckDiagrams.Controls
         {
             base.OnLoad(e);
             this.CreationContext.ArpeggiatorCreated += CreationContext_ArpeggiatorCreated;
+            this.CreationContext.BeatsPerMeasure = (int)_numericNotesPerMeasure.Value;
             //_errorProviderDirection.SetError(this._rbAscending, "Direction is required.");
             //_errorProviderDirection.SetError(this._rbDescending, "Direction is required.");
+
+
+            this._noteViewer.Settings.CustomElementPositionRatio = 2;
+            this._noteViewer.Settings.IsMusicPaperMode = true;
+            this._noteViewer.Scale(new SizeF(2, 2));
+
         }
 
         private void CreationContext_ArpeggiatorCreated(object sender, Arpeggiator arpeggiator)
