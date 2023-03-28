@@ -288,3 +288,5 @@ __pycache__/
 *.xsd.cs
 /HarmonyHelper/HarmonyHelper.Tests/TEST_FILES/Effendi MusicXml Files_exported
 /HarmonyHelper.backup
+/HarmonyHelper/InsertReportParmsGenerator/InsertReportParmsGenerator
+/.gitignore

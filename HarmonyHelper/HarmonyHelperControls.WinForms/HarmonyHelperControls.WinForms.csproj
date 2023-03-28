@@ -7,4 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
+  </ItemGroup>
+
 </Project>
