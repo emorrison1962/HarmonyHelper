@@ -39,6 +39,7 @@ namespace NeckDiagrams
                 //var defaultKey = KeySignature.CMajor;
                 //_cbKey.SelectedItem = defaultKey;
                 //this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
+                this._rbScore.Checked = true;
             }
         }
 
@@ -230,6 +231,13 @@ namespace NeckDiagrams
             }
         }
 
+        private void _rbScore_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                this.AddControl(new ScoreControl_Scratchpad());
+            }
+        }
         #endregion
 
     }//class

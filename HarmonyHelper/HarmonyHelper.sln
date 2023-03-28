@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls", "Man
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls.WinForms", "Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj", "{8599EA24-8373-4890-BFAA-45553184B560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelperControls.WinForms", "HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj", "{BE26997A-7B07-4DE9-B467-E8CC2AC28114}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{8599EA24-8373-4890-BFAA-45553184B560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8599EA24-8373-4890-BFAA-45553184B560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8599EA24-8373-4890-BFAA-45553184B560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE26997A-7B07-4DE9-B467-E8CC2AC28114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE26997A-7B07-4DE9-B467-E8CC2AC28114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE26997A-7B07-4DE9-B467-E8CC2AC28114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE26997A-7B07-4DE9-B467-E8CC2AC28114}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
