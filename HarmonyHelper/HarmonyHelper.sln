@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Tests.Console
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EffendiWebCrawler.console", "EffendiWebCrawler.console\EffendiWebCrawler.console.csproj", "{C6CC4EAB-883B-4789-A552-B5F85F473BEC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{2D4A6088-D75B-496F-ABDE-77555E91155A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper", "HarmonyHelper\HarmonyHelper.csproj", "{F45203D0-6ED0-4B5B-B4F9-8C50565727AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelperTests", "HarmonyHelperTests\zHarmonyHelperTests.csproj", "{ABD4AE19-F6FC-49C3-BE13-A1909260FF0A}"
@@ -47,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls", "Man
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls.WinForms", "Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj", "{8599EA24-8373-4890-BFAA-45553184B560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelperControls.WinForms", "HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj", "{BE26997A-7B07-4DE9-B467-E8CC2AC28114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelperControls.WinForms", "HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj", "{BE26997A-7B07-4DE9-B467-E8CC2AC28114}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

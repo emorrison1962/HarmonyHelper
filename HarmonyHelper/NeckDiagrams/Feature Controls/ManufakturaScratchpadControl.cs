@@ -24,15 +24,11 @@ namespace NeckDiagrams.Feature_Controls
         {
             base.OnLoad(e);
 
-            var doc = XDocument.Load(@"C:\temp\Effendi MusicXml Files\I\AllBlues 1.xml");
+            var doc = XDocument.Load(@"D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelperTests\TEST_FILES\Effendi MusicXml Files\I\AllBlues 1.xml");
             var score = doc.ToScore();
 
             _noteViewer.DataSource = score;
-            var size = _noteViewer.Size;
-            _noteViewer.Scale(new SizeF(11000, 11000));
-            _noteViewer.Refresh();
-            var size2 = _noteViewer.Size;
-
+            new object();
             //SizeF shadowSize = listBox1.Size;
             //SizeF addSize = new SizeF(10.5F, 20.8F);
 

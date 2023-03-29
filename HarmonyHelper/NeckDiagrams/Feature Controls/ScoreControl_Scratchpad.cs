@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Manufaktura.Controls.Model.Fonts;
+
 namespace NeckDiagrams.Feature_Controls
 {
     public partial class ScoreControl_Scratchpad : UserControl
@@ -27,17 +29,24 @@ namespace NeckDiagrams.Feature_Controls
             //{
             //    str += $"\\u{i.ToString("X4")} ";
             //}
-            for (int i = 0xE000; i < 0xE0FF; ++i)
-            {
+            //for (int i = 0xE000; i < 0xE0FF; ++i)
+            //{
+            //    str += $"\\u{i.ToString("X4")} ";
+            //}
+
+            //var mf = new PolihymniaFont();
+            for (int i = 0xE010; i < 0xE024; ++i)
+            {//"U+F52C"
                 str += $"\\u{i.ToString("X4")} ";
             }
+
             //for (int i = 0x1D100; i < 0x1D1FF; ++i)
             //{
             //    str += $"\\u{i.ToString("X5")} ";
             //}
 
-            //var font = new Font("Petaluma", 20);
-            var font = new Font("Polihymnia", 20);
+            var font = new Font("Petaluma Script", 20);
+            //var font = new Font("Polihymnia", 40);
             
 
             this._rtb.Font = font; 
