@@ -29,22 +29,36 @@
         private void InitializeComponent()
         {
             this._ctlScore = new HarmonyHelperControls.WinForms.Score();
+            this._rtb = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // score1
+            // _ctlScore
             // 
-            this._ctlScore.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._ctlScore.Location = new System.Drawing.Point(0, 0);
-            this._ctlScore.Name = "score1";
-            this._ctlScore.Size = new System.Drawing.Size(1000, 400);
+            this._ctlScore.Dock = System.Windows.Forms.DockStyle.Top;
+            this._ctlScore.Location = new System.Drawing.Point(40, 40);
+            this._ctlScore.Name = "_ctlScore";
+            this._ctlScore.Size = new System.Drawing.Size(920, 85);
             this._ctlScore.TabIndex = 0;
+            // 
+            // _rtb
+            // 
+            this._rtb.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rtb.Font = new System.Drawing.Font("Polihymnia", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._rtb.Location = new System.Drawing.Point(40, 125);
+            this._rtb.Name = "_rtb";
+            this._rtb.Size = new System.Drawing.Size(920, 275);
+            this._rtb.TabIndex = 1;
+            this._rtb.Text = "";
             // 
             // ScoreControl_Scratchpad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.Controls.Add(this._rtb);
             this.Controls.Add(this._ctlScore);
             this.Name = "ScoreControl_Scratchpad";
+            this.Padding = new System.Windows.Forms.Padding(40, 40, 40, 0);
             this.Size = new System.Drawing.Size(1000, 400);
             this.ResumeLayout(false);
 
@@ -53,5 +67,6 @@
         #endregion
 
         private HarmonyHelperControls.WinForms.Score _ctlScore;
+        private System.Windows.Forms.RichTextBox _rtb;
     }
 }

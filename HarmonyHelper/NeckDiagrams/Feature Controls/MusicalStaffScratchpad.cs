@@ -16,5 +16,11 @@ namespace NeckDiagrams.Feature_Controls
         {
             InitializeComponent();
         }
-    }
-}
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+        }
+
+    }//class
+}//ns
