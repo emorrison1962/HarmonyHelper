@@ -35,10 +35,22 @@ namespace NeckDiagrams.Feature_Controls
             //}
 
             //var mf = new PolihymniaFont();
-            for (int i = 0xE010; i < 0xE024; ++i)
+            for (int i = 0xE010, ndx = 0; i < 0xE024; ++i, ++ndx)
             {//"U+F52C"
                 str += $"\\u{i.ToString("X4")} ";
+
+                var r1 = new Rune(i);
+
+                var array = new char[100];
+                var arraySpan = new Span<char>(array);
+                var count = r1.EncodeToUtf16(arraySpan);
+                if (Rune.TryGetRuneAt(str, ndx, out var r2))
+                {
+                    new object();
+                }
+
             }
+
 
             //for (int i = 0x1D100; i < 0x1D1FF; ++i)
             //{
