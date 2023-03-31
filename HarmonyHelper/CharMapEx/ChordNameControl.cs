@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -102,6 +103,7 @@ namespace NeckDiagrams.Controls
         {
             using (var font = new Font(this.SelectedFont, (float)20.0))
             {
+                Debug.WriteLine(this.Rune.ToString());
                 e.Graphics.DrawString(this.Rune.ToString(),
                     font,
                     Brushes.Black,
