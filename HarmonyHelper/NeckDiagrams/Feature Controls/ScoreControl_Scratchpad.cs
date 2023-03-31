@@ -35,21 +35,6 @@ namespace NeckDiagrams.Feature_Controls
             //}
 
             //var mf = new PolihymniaFont();
-            for (int i = 0xE010, ndx = 0; i < 0xE024; ++i, ++ndx)
-            {//"U+F52C"
-                str += $"\\u{i.ToString("X4")} ";
-
-                var r1 = new Rune(i);
-
-                var array = new char[100];
-                var arraySpan = new Span<char>(array);
-                var count = r1.EncodeToUtf16(arraySpan);
-                if (Rune.TryGetRuneAt(str, ndx, out var r2))
-                {
-                    new object();
-                }
-
-            }
 
 
             //for (int i = 0x1D100; i < 0x1D1FF; ++i)
@@ -57,12 +42,18 @@ namespace NeckDiagrams.Feature_Controls
             //    str += $"\\u{i.ToString("X5")} ";
             //}
 
-            var font = new Font("Petaluma Script", 20);
-            //var font = new Font("Polihymnia", 40);
-            
+            var font = new Font("Bravura", 40);
+            //var font = new Font("Petaluma Script", 20);
+            this._rtb.Font = font;
 
-            this._rtb.Font = font; 
-            this._rtb.Text = str;
+            for (int i = 0xE010, ndx = 0; i < 0xE0FF; ++i, ++ndx)
+            {//"U+F52C"
+                var r1 = new Rune(i);
+                this._rtb.AppendText(r1.ToString());
+            }
+
+
+            //this._rtb.Text = str;
             new object();
         }
 
