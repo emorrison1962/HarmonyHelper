@@ -28,60 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._cbFonts = new ComboBox();
-            this._pnlMain = new Panel();
-            this._grid = new NeckDiagrams.Controls.ChordNamesControl();
+            this._cbFonts = new System.Windows.Forms.ComboBox();
+            this._pnlMain = new System.Windows.Forms.Panel();
+            this._runesControl = new NeckDiagrams.Controls.RunesControl();
             this._pnlMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // _cbFonts
             // 
-            this._cbFonts.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this._cbFonts.AutoCompleteSource = AutoCompleteSource.ListItems;
-            this._cbFonts.Dock = DockStyle.Top;
+            this._cbFonts.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this._cbFonts.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this._cbFonts.Dock = System.Windows.Forms.DockStyle.Top;
             this._cbFonts.FormattingEnabled = true;
-            this._cbFonts.Location = new Point(0, 0);
+            this._cbFonts.Location = new System.Drawing.Point(0, 0);
+            this._cbFonts.Margin = new System.Windows.Forms.Padding(4);
             this._cbFonts.Name = "_cbFonts";
-            this._cbFonts.Size = new Size(800, 28);
+            this._cbFonts.Size = new System.Drawing.Size(1000, 33);
             this._cbFonts.TabIndex = 0;
-            this._cbFonts.SelectedIndexChanged += this._cbFonts_SelectedIndexChanged;
+            this._cbFonts.SelectedIndexChanged += new System.EventHandler(this._cbFonts_SelectedIndexChanged);
             // 
             // _pnlMain
             // 
             this._pnlMain.AutoScroll = true;
-            this._pnlMain.Controls.Add(this._grid);
-            this._pnlMain.Dock = DockStyle.Fill;
-            this._pnlMain.Location = new Point(0, 28);
+            this._pnlMain.Controls.Add(this._runesControl);
+            this._pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._pnlMain.Location = new System.Drawing.Point(0, 33);
+            this._pnlMain.Margin = new System.Windows.Forms.Padding(4);
             this._pnlMain.Name = "_pnlMain";
-            this._pnlMain.Size = new Size(800, 422);
+            this._pnlMain.Size = new System.Drawing.Size(1000, 529);
             this._pnlMain.TabIndex = 1;
             // 
-            // _grid
+            // runesControl1
             // 
-            this._grid.BorderStyle = BorderStyle.FixedSingle;
-            this._grid.Dock = DockStyle.Fill;
-            this._grid.Location = new Point(0, 0);
-            this._grid.Name = "_grid";
-            this._grid.Size = new Size(800, 422);
-            this._grid.TabIndex = 0;
+            this._runesControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this._runesControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._runesControl.FontProvider = null;
+            this._runesControl.Location = new System.Drawing.Point(0, 0);
+            this._runesControl.Margin = new System.Windows.Forms.Padding(4);
+            this._runesControl.Name = "runesControl1";
+            this._runesControl.SelectedFont = null;
+            this._runesControl.Size = new System.Drawing.Size(1000, 529);
+            this._runesControl.TabIndex = 0;
             // 
-            // Form1
+            // CharMapExForm
             // 
-            this.AutoScaleDimensions = new SizeF(8F, 20F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(800, 450);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1000, 562);
             this.Controls.Add(this._pnlMain);
             this.Controls.Add(this._cbFonts);
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "CharMapExForm";
             this.Text = "Form1";
             this._pnlMain.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
         private ComboBox _cbFonts;
         private Panel _pnlMain;
-        private NeckDiagrams.Controls.ChordNamesControl _grid;
+        private NeckDiagrams.Controls.RunesControl _grid;
+        private NeckDiagrams.Controls.RunesControl _runesControl;
     }
 }

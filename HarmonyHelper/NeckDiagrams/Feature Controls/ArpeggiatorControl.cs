@@ -64,7 +64,7 @@ namespace NeckDiagrams.Controls
 
             sw.Stop();
             Debug.WriteLine(sw.ElapsedMilliseconds);
-            this.PopulateNoteViwer(doc);
+            this.PopulateNoteViewer(doc);
 
             new object();
 

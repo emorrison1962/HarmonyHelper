@@ -1,68 +1,74 @@
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Text;
+
+using NeckDiagrams.Controls;
 
 namespace CharMapEx
 {
-    public partial class CharMapExForm : Form
+    public partial class CharMapExForm : Form, IFontProvider
     {
+        public string? SelectedFont { get; private set; }
+
+        public event EventHandler<string> FontChanged;
         public CharMapExForm()
         {
             InitializeComponent();
-            //Task.Run(()=> this.EnumerateFontsAsync());
+            Task.Run(() => this.EnumerateFontsAsync());
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
+            this._runesControl.SetFontProvider(this);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        async Task EnumerateFontsAsync()
         {
-            base.OnPaint(e);
-            this.EnumerateFontsAsync(e);
-        }
+            var installedFonts = new InstalledFontCollection();
 
-        async Task EnumerateFontsAsync(PaintEventArgs e)
-        {
-            FontFamily fontFamily = new FontFamily("Arial");
-            Font font = new Font(
-               fontFamily,
-               20,
-               FontStyle.Regular,
-               GraphicsUnit.Point);
-            RectangleF rectF = new RectangleF(10, 10, 500, 500);
-            SolidBrush solidBrush = new SolidBrush(Color.Black);
-
-            string familyName;
-            string familyList = "";
-            FontFamily[] fontFamilies;
-
-            InstalledFontCollection installedFontCollection = new InstalledFontCollection();
-
-            // Get the array of FontFamily objects.
-            fontFamilies = installedFontCollection.Families;
-
-            // The loop below creates a large string that is a comma-separated
-            // list of all font family names.
+            var fontFamilies = installedFonts.Families;
             int count = fontFamilies.Length;
-            for (int j = 0; j < count; ++j)
+            for (int i = 0; i < count; ++i)
             {
-                familyName = fontFamilies[j].Name;
+                var familyName = fontFamilies[i].Name;
                 this._cbFonts.Items.Add(familyName);
-                familyList = familyList + familyName;
-                familyList = familyList + ",  ";
             }
-
-            // Draw the large string (list of all families) in a rectangle.
-            e.Graphics.DrawString(familyList, font, solidBrush, rectF);
+            await Task.CompletedTask;
         }
 
         private void _cbFonts_SelectedIndexChanged(object sender, EventArgs e)
         {
             Debug.WriteLine(_cbFonts.SelectedItem);
             //this._grid.Populate()
-            this._grid.SelectedFont = this._cbFonts.SelectedItem.ToString();
+            this.SelectedFont = this._cbFonts.SelectedItem.ToString();
+
+            //this.Populate_FlowLayoutPanel();
+            this.OnFontChanged();
+            this.Invalidate(true);
         }
-    }
-}
+
+        private void OnFontChanged()
+        {
+            this.FontChanged?.Invoke(this, this.SelectedFont);
+        }
+
+        [Obsolete("", true)]
+        void Populate_FlowLayoutPanel()
+        {
+            for (int i = 0xE010, ndx = 0; i < 0xE024; ++i, ++ndx)
+            {
+                this.Add(new Rune(i));
+            }
+            this.Update();
+        }
+
+        [Obsolete("", true)]
+        public void Add(Rune rune)
+        {
+            //var ctl = new RuneControl(rune);
+            //this._flowPanel.Controls.Add(ctl);
+        }
+
+    }//class
+}//ns

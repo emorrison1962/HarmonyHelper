@@ -15,7 +15,7 @@ namespace NeckDiagrams.Controls
 {
 	public partial class ArpeggiatorControl 
 	{
-		void PopulateNoteViwer(XDocument doc)
+		void PopulateNoteViewer(XDocument doc)
 		{
 			var settings = _noteViewer.Settings;
             var sw = Stopwatch.StartNew();

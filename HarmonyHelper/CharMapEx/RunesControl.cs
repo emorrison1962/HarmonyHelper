@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams.Controls
 {
-    public partial class ChordNamesControl : UserControl
+    public partial class RunesControl : UserControl
     {
         public class ChordFormulaVMEventArgs : EventArgs
         {
@@ -21,57 +21,71 @@ namespace NeckDiagrams.Controls
                 this.Items = Items;
             }
         }
-        public event EventHandler<ChordFormulaVMEventArgs> SelectedChordNamesChanged;
+        public event EventHandler<ChordFormulaVMEventArgs> SelectedRunesChanged;
 
         public bool MouseIsDragging { get; private set; }
         public Point DragBeginPoint { get; private set; }
         string _SelectedFont;
-        public string SelectedFont 
+        public string SelectedFont
         {
             get { return this._SelectedFont; }
-            set 
+            set
             {
                 this._SelectedFont = value;
-                this.UpdateChildren();
-            } 
+            }
         }
 
-        public ChordNamesControl()
+        public IFontProvider FontProvider { get; set; }
+        public RunesControl()
         {
             InitializeComponent();
-            this.Load += ChordNamesControl_Load;
+            this.Load += RunesControl_Load;
         }
 
-        private void ChordNamesControl_Load(object sender, EventArgs e)
+        private void RunesControl_Load(object sender, EventArgs e)
         {
             for (int i = 0xE010, ndx = 0; i < 0xE024; ++i, ++ndx)
             {
                 this.Add(new Rune(i));
+                Debug.WriteLine(ndx);
             }
-
+            "Add the rest."
         }
 
-
+        int currentColumn = 0;
+        int currentRow = 0; 
         public void Add(Rune rune)
         {
-            var ctl = new ChordNameControl(rune);
-            this._chordNamesTablePanel.Controls.Add(ctl);
+            var ctl = new RuneControl(this.FontProvider, rune);
+            this._runesTablePanel.Controls.Add(ctl, 
+                -1, 
+                -1);
+
+            if (currentColumn == 15)
+            {
+                currentColumn = 0;
+                currentRow++;
+            }
+            ctl.Width= 75;
+            ctl.Height= 75;
+            ctl.Dock= DockStyle.Fill;
         }
 
         public void AddRange(IEnumerable<Rune> vms)
         {
-            
+
             var vmList = vms.ToList();
             vmList.ForEach(x => this.Add(x));
         }
 
-        void UpdateChildren()
+        public void SetFontProvider(IFontProvider provider)
         {
-            foreach (var ctl in this._chordNamesTablePanel.Controls)
+            foreach (var ctl in this._runesTablePanel.Controls)
             {
-                if (ctl is ChordNameControl)
+                if (ctl is RuneControl)
                 {
-                    ((ChordNameControl)ctl).SelectedFont = SelectedFont;
+                    var cnCtl = (RuneControl)ctl;
+                    cnCtl.SetFontProvider(provider);
                 }
             }
         }

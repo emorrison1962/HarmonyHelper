@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="ChordNameControl.cs">
+    <Compile Update="RuneControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="ChordNamesControl.cs">
+    <Compile Update="RunesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

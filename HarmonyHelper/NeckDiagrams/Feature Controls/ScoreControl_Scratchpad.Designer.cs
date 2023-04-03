@@ -37,16 +37,16 @@
             this._ctlScore.Dock = System.Windows.Forms.DockStyle.Top;
             this._ctlScore.Location = new System.Drawing.Point(40, 40);
             this._ctlScore.Name = "_ctlScore";
-            this._ctlScore.Size = new System.Drawing.Size(920, 85);
+            this._ctlScore.Size = new System.Drawing.Size(920, 288);
             this._ctlScore.TabIndex = 0;
             // 
             // _rtb
             // 
             this._rtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this._rtb.Font = new System.Drawing.Font("Polihymnia", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this._rtb.Location = new System.Drawing.Point(40, 125);
+            this._rtb.Location = new System.Drawing.Point(40, 328);
             this._rtb.Name = "_rtb";
-            this._rtb.Size = new System.Drawing.Size(920, 275);
+            this._rtb.Size = new System.Drawing.Size(920, 72);
             this._rtb.TabIndex = 1;
             this._rtb.Text = "";
             // 

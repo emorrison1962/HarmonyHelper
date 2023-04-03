@@ -91,31 +91,27 @@ namespace HarmonyHelperControls.WinForms
 
         private void DrawText(object sender, PaintEventArgs e)
         {
-            using (var font = new Font("Petaluma", 50f, GraphicsUnit.Pixel))
+            //var font = new Font("Bravura", 40)
+            //var font = new Font("Petaluma", 50f, GraphicsUnit.Pixel)
+            using (var font = new Font("Bravura", 40))
             {
                 //string str = TREBLE_CLEF;
                 var brush = Brushes.Black;
-                var pt = new Point(200, 200);
-                //var pt = e.ClipRectangle.Location;
-                //e.ClipRectangle.Width
+                var pt = e.ClipRectangle.Location;
 
 
                 var str = "\u0069";
-                //E000
-                //U+1D100–U+1D1FF
-                for (int i = 0xE000; i < 0xE0FF; ++i)
-                {
-                    str += $"\\u{i.ToString("X")} ";
+                for (int i = 0xE010, ndx = 0; i < 0xE0FF; ++i, ++ndx)
+                {//"U+F52C"
+                    var r1 = new Rune(i);
+                    str += r1.ToString();
                 }
-                //for (int i = 0x1D100; i < 0x1D1FF; ++i)
-                //{
-                //    str += $"\\u{i.ToString("X")}";
-                //}
 
-                new object();
+
 
                 e.Graphics.DrawString(str, font, brush, pt);
 
+                new object();
             }
         }
 
