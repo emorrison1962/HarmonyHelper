@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace EffendiWebCrawler.console
+namespace SMuFLScraper.console
 {
     internal class Crawler
     {

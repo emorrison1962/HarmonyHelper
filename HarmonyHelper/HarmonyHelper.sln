@@ -45,9 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls", "Man
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Controls.WinForms", "Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj", "{8599EA24-8373-4890-BFAA-45553184B560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelperControls.WinForms", "HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj", "{BE26997A-7B07-4DE9-B467-E8CC2AC28114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelperControls.WinForms", "HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj", "{BE26997A-7B07-4DE9-B467-E8CC2AC28114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharMapEx", "CharMapEx\CharMapEx.csproj", "{28E67D6D-F02A-461E-A5A5-564CAAD0DB95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharMapEx", "CharMapEx\CharMapEx.csproj", "{28E67D6D-F02A-461E-A5A5-564CAAD0DB95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMuFLScraper.console.", "SMuFLScraper.console\SMuFLScraper.console..csproj", "{B631CB13-2A50-4E05-8FA0-AE56337F1507}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +133,10 @@ Global
 		{28E67D6D-F02A-461E-A5A5-564CAAD0DB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E67D6D-F02A-461E-A5A5-564CAAD0DB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E67D6D-F02A-461E-A5A5-564CAAD0DB95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B631CB13-2A50-4E05-8FA0-AE56337F1507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B631CB13-2A50-4E05-8FA0-AE56337F1507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B631CB13-2A50-4E05-8FA0-AE56337F1507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B631CB13-2A50-4E05-8FA0-AE56337F1507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{59209CC5-15ED-429E-9898-8341D54D4F01} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
 		{A91A11B5-D6A5-45FA-8B48-CF59E7C92699} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
 		{8599EA24-8373-4890-BFAA-45553184B560} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
+		{B631CB13-2A50-4E05-8FA0-AE56337F1507} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00888077-AB00-4165-92B2-7E9015599ADC}
