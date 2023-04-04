@@ -46,10 +46,50 @@ namespace NeckDiagrams.Controls
         {
             for (int i = 0xE010, ndx = 0; i < 0xE024; ++i, ++ndx)
             {
+                var r = new Rune(i);
                 this.Add(new Rune(i));
                 Debug.WriteLine(ndx);
             }
-            "Add the rest."
+
+#if false
+	U+E000 (and U+1D114)
+brace
+Brace		U+E001
+reversedBrace
+Reversed brace
+	U+E002 (and U+1D115)
+bracket
+Bracket		U+E003
+bracketTop
+Bracket top
+	U+E004
+bracketBottom
+Bracket bottom		U+E005
+reversedBracketTop
+Reversed bracket top
+	U+E006
+reversedBracketBottom
+Reversed bracket bottom		U+E007
+systemDivider
+System divider
+	U+E008
+systemDividerLong
+Long system divider		U+E009
+systemDividerExtraLong
+Extra long system divider
+	U+E00A
+splitBarDivider
+Split bar divider (bar spans a system break)		U+E00B
+staffDivideArrowDown
+Staff divide arrow down
+	U+E00C
+staffDivideArrowUp
+Staff divide arrow up		U+E00D
+staffDivideArrowUpDown
+Staff divide arrows
+#endif
+
+            throw new NotImplementedException("Add the rest.");
         }
 
         int currentColumn = 0;
