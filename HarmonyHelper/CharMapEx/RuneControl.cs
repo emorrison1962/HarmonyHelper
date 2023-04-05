@@ -52,6 +52,10 @@ namespace NeckDiagrams.Controls
         public RuneControl(IFontProvider fp, Rune rune)
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
             this.Rune = rune;
         }
         public void SetFontProvider(IFontProvider provider)
@@ -172,7 +176,7 @@ namespace NeckDiagrams.Controls
                 format1.Alignment = StringAlignment.Center;
 
                 e.Graphics.TextRenderingHint= TextRenderingHint.AntiAlias;
-                e.Graphics.DrawString(str, font, Brushes.Black, pt, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(str, font, Brushes.Black, pt, System.Drawing.StringFormat.GenericTypographic);
                 //TextRenderer.DrawText(e.Graphics, str, font, pt, Color.Black, SystemColors.Control, TextFormatFlags.HorizontalCenter| TextFormatFlags.VerticalCenter);
 
                 new object();
