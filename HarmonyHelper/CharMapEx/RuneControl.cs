@@ -16,14 +16,15 @@ namespace NeckDiagrams.Controls
 {
     public partial class RuneControl : UserControl
     {
+        #region Fields
         Color NORMAL_COLOR = System.Drawing.SystemColors.Control;
         Color SELECTED_COLOR = Color.CornflowerBlue;
+        string? _SelectedFont = null;
+        public bool _IsSelected = false;
 
-        //public ChordFormula Chord { get { return VM.ChordFormula; } }
-        //public ChordFormulaVM VM { get; set; }
+        #endregion
 
-        public Rune Rune { get; set; }
-        string _SelectedFont;
+        #region Properties
         public string SelectedFont
         {
             get { return this._SelectedFont; }
@@ -35,7 +36,6 @@ namespace NeckDiagrams.Controls
             }
         }
 
-        public bool _IsSelected = false;
         public bool IsSelected
         {
             get
@@ -49,7 +49,12 @@ namespace NeckDiagrams.Controls
             }
         }
 
-        public RuneControl(IFontProvider fp, Rune rune)
+        public Rune Rune { get; set; }
+
+        #endregion
+        
+        #region Construction
+        public RuneControl(Rune rune)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.UserPaint, true);
@@ -58,6 +63,9 @@ namespace NeckDiagrams.Controls
 
             this.Rune = rune;
         }
+
+        #endregion
+        
         public void SetFontProvider(IFontProvider provider)
         {
             if (provider is not null)
@@ -82,15 +90,6 @@ namespace NeckDiagrams.Controls
 
             //this.Update();
         }
-
-
-
-        //public RuneControl(ChordFormulaVM vm, HarmonicAnalysisControl parent)
-        //    : this(vm)
-        //{
-        //    if (null != parent)
-        //        this.SubscribeToEvents(parent);
-        //}
 
         protected override void OnLoad(EventArgs e)
         {
@@ -129,7 +128,6 @@ namespace NeckDiagrams.Controls
 
         }
 
-
         private void RuneControl_Paint(object sender, PaintEventArgs e)
         {
             using (var font = new Font(this.SelectedFont, (float)20.0))
@@ -155,7 +153,7 @@ namespace NeckDiagrams.Controls
                 //var descent = font.FontFamily.GetCellDescent(FontStyle.Regular);
                 //var descentPixel =
                 //   font.Size * descent / font.FontFamily.GetEmHeight(FontStyle.Regular);
-                
+
                 result = new Size((int)cyPixel, (int)cyPixel);
             }
             return result;
@@ -175,7 +173,7 @@ namespace NeckDiagrams.Controls
                 format1.LineAlignment = StringAlignment.Near;
                 format1.Alignment = StringAlignment.Center;
 
-                e.Graphics.TextRenderingHint= TextRenderingHint.AntiAlias;
+                e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
                 e.Graphics.DrawString(str, font, Brushes.Black, pt, System.Drawing.StringFormat.GenericTypographic);
                 //TextRenderer.DrawText(e.Graphics, str, font, pt, Color.Black, SystemColors.Control, TextFormatFlags.HorizontalCenter| TextFormatFlags.VerticalCenter);
 
