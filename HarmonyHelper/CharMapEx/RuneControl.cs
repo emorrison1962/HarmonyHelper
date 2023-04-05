@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using static System.Windows.Forms.DataFormats;
 
 namespace NeckDiagrams.Controls
 {
@@ -167,9 +166,10 @@ namespace NeckDiagrams.Controls
 
                 var str = this.Rune.ToString();
 
-                var format1 = new StringFormat();
-                format1.LineAlignment = StringAlignment.Near;
-                format1.Alignment = StringAlignment.Center;
+
+                //var stringFormat = new StringFormat();
+                //stringFormat.LineAlignment = StringAlignment.Center;
+                //stringFormat.Alignment = StringAlignment.Center;
 
                 e.Graphics.TextRenderingHint= TextRenderingHint.AntiAlias;
                 e.Graphics.DrawString(str, font, Brushes.Black, pt, StringFormat.GenericTypographic);
