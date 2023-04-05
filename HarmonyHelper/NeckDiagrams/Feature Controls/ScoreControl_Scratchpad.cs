@@ -17,47 +17,6 @@ namespace NeckDiagrams.Feature_Controls
         public ScoreControl_Scratchpad()
         {
             InitializeComponent();
-            this.foo();
         }
-
-        void foo()
-        {
-            var str = string.Empty;
-            //E000
-            //U+1D100–U+1D1FF
-            //for (int i = 0x0; i < 0x69; ++i)
-            //{
-            //    str += $"\\u{i.ToString("X4")} ";
-            //}
-            //for (int i = 0xE000; i < 0xE0FF; ++i)
-            //{
-            //    str += $"\\u{i.ToString("X4")} ";
-            //}
-
-            //var mf = new PolihymniaFont();
-
-
-            //for (int i = 0x1D100; i < 0x1D1FF; ++i)
-            //{
-            //    str += $"\\u{i.ToString("X5")} ";
-            //}
-
-            var font = new Font("Bravura", 40);
-            //var font = new Font("Petaluma Script", 20);
-            this._rtb.Font = font;
-
-            for (int i = 0xE010, ndx = 0; i < 0xE0FF; ++i, ++ndx)
-            {//"U+F52C"
-                var r1 = new Rune(i);
-                this._rtb.AppendText(r1.ToString());
-            }
-
-
-            //this._rtb.Text = str;
-            new object();
-        }
-
-
-
     }//class
 }//ns

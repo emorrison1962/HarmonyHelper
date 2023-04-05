@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,12 @@ namespace HarmonyHelperControls.WinForms
 {
     public partial class Score : UserControl
     {
-        const string TREBLE_CLEF = "\u0069";
-
-        //E000
-        //U+1D100–U+1D1FF
-
         public Score()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         private void Score_Paint(object sender, PaintEventArgs e)
@@ -83,33 +82,30 @@ namespace HarmonyHelperControls.WinForms
         void DrawStaffGrid(object sender, PaintEventArgs e, StaffGrid staff)
         {
             staff.DrawStaff(sender, e);
-            
+             
+
             //e.Graphics.DrawRectangle(Pens.DarkRed, staff.StaffPrefixRectangle);
             //e.Graphics.DrawRectangles(Pens.DarkOrange, staff.MeasureGrid.Rectangles.ToArray());
-            
+
         }
 
         private void DrawText(object sender, PaintEventArgs e)
         {
-            //var font = new Font("Bravura", 40)
-            //var font = new Font("Petaluma", 50f, GraphicsUnit.Pixel)
             using (var font = new Font("Bravura", 40))
             {
-                //string str = TREBLE_CLEF;
                 var brush = Brushes.Black;
                 var pt = e.ClipRectangle.Location;
 
+                throw new NotImplementedException();
+                var str = Runes.F_clef.ToString();
 
-                var str = "\u0069";
-                for (int i = 0xE010, ndx = 0; i < 0xE0FF; ++i, ++ndx)
-                {//"U+F52C"
-                    var r1 = new Rune(i);
-                    str += r1.ToString();
-                }
+                var sf = new StringFormat();
+                sf.LineAlignment = StringAlignment.Near;
+                sf.Alignment = StringAlignment.Center;
 
+                e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                e.Graphics.DrawString(str, font, Brushes.Black, pt, System.Drawing.StringFormat.GenericTypographic);
 
-
-                e.Graphics.DrawString(str, font, brush, pt);
 
                 new object();
             }
