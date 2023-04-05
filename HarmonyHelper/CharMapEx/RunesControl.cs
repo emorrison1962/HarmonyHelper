@@ -56,7 +56,7 @@ namespace NeckDiagrams.Controls
 
         public void Add(Rune rune)
         {
-            var ctl = new RuneControl(this.FontProvider, rune);
+            var ctl = new RuneControl(rune);
             this._runesTablePanel.Controls.Add(ctl, 
                 -1, 
                 -1);
