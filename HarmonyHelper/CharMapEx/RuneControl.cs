@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using static System.Windows.Forms.DataFormats;
 
 namespace NeckDiagrams.Controls
 {
@@ -57,6 +59,10 @@ namespace NeckDiagrams.Controls
             if (provider is not null)
             {
                 provider.FontChanged += Fp_FontChanged;
+                if (!string.IsNullOrEmpty(provider.SelectedFont))
+                {
+                    Fp_FontChanged(this, provider.SelectedFont);
+                }
             }
         }
 
@@ -66,7 +72,7 @@ namespace NeckDiagrams.Controls
             this.Invalidate(this.Region);
 
             var parent = this.Parent as System.Windows.Forms.TableLayoutPanel;
-            
+
 
             Debug.WriteLine($"row={parent.GetRow(this)}, col={parent.GetColumn(this)}");
 
@@ -119,6 +125,7 @@ namespace NeckDiagrams.Controls
 
         }
 
+
         private void RuneControl_Paint(object sender, PaintEventArgs e)
         {
             using (var font = new Font(this.SelectedFont, (float)20.0))
@@ -127,34 +134,54 @@ namespace NeckDiagrams.Controls
                 var pt = e.ClipRectangle.Location;
                 Debug.WriteLine($"{this.Location}, {this.Size}");
 
-                e.Graphics.DrawString(this.Rune.ToString(), 
-                    font, brush, pt);
+                this.DrawText(sender, e);
                 new object();
             }
+        }
+
+        public override Size GetPreferredSize(Size proposedSize)
+        {
+            Size result = Size.Empty;
+            using (var font = new Font(this.SelectedFont, 40))
+            {
+                var cy = font.FontFamily.GetLineSpacing(FontStyle.Regular);
+                var cyPixel =
+                   font.Size * cy / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                //var descent = font.FontFamily.GetCellDescent(FontStyle.Regular);
+                //var descentPixel =
+                //   font.Size * descent / font.FontFamily.GetEmHeight(FontStyle.Regular);
+                
+                result = new Size((int)cyPixel, (int)cyPixel);
+            }
+            return result;
         }
 
         private void DrawText(object sender, PaintEventArgs e)
         {
             //var font = new Font("Bravura", 40)
             //var font = new Font("Petaluma", 50f, GraphicsUnit.Pixel)
-            using (var font = new Font("Bravura", 40))
+            using (var font = new Font(this.SelectedFont, (float)40, FontStyle.Regular, GraphicsUnit.Pixel))
             {
-                var brush = Brushes.Black;
                 var pt = e.ClipRectangle.Location;
 
-                var str = "\u0069";
-                for (int i = 0xE010, ndx = 0; i < 0xE0FF; ++i, ++ndx)
-                {//"U+F52C"
-                    var r1 = new Rune(i);
-                    str += r1.ToString();
-                }
+                var str = this.Rune.ToString();
 
-                e.Graphics.DrawString(str, font, brush, pt);
+                var format1 = new StringFormat();
+                format1.LineAlignment = StringAlignment.Near;
+                format1.Alignment = StringAlignment.Center;
+
+                e.Graphics.TextRenderingHint= TextRenderingHint.AntiAlias;
+                e.Graphics.DrawString(str, font, Brushes.Black, pt, StringFormat.GenericTypographic);
+                //TextRenderer.DrawText(e.Graphics, str, font, pt, Color.Black, SystemColors.Control, TextFormatFlags.HorizontalCenter| TextFormatFlags.VerticalCenter);
+
                 new object();
             }
         }
 
-
-
+        private void RuneControl_Click(object sender, EventArgs e)
+        {
+            this.IsSelected = !this.IsSelected;
+        }
     }//class
 }//ns

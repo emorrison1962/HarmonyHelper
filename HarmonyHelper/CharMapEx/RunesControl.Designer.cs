@@ -71,6 +71,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RunesControl";
             this.Size = new System.Drawing.Size(824, 581);
+            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.RunesControl_Layout);
             this.ResumeLayout(false);
             this.PerformLayout();
 

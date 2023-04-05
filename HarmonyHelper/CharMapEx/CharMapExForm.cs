@@ -19,8 +19,9 @@ namespace CharMapEx
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
+            this.SelectedFont = "Bravura";
             this._runesControl.SetFontProvider(this);
+            base.OnLoad(e);
         }
 
         async Task EnumerateFontsAsync()
@@ -34,6 +35,7 @@ namespace CharMapEx
                 var familyName = fontFamilies[i].Name;
                 this._cbFonts.Items.Add(familyName);
             }
+            this._cbFonts.SelectedText= "Bravura";
             await Task.CompletedTask;
         }
 

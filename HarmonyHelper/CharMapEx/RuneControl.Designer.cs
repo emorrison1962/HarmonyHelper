@@ -33,10 +33,13 @@
             // RuneControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "RuneControl";
-            this.Size = new System.Drawing.Size(254, 46);
+            this.Size = new System.Drawing.Size(0, 0);
+            this.Click += new System.EventHandler(this.RuneControl_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.RuneControl_Paint);
             this.ResumeLayout(false);
 

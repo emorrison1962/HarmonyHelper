@@ -23,16 +23,24 @@ namespace SMuFLScraper.console
             cli.BaseAddress = new Uri(ROOT_URL);
 
             var hrefs = await this.GetHrefs(ROOT_URL);
+            //hrefs.ToList().ForEach(x => Debug.WriteLine(x));
 
             foreach (var href in hrefs)
             {
-                this.GetGlyphs(href);
+                var x = this.GetGlyphs(href).Result;
             }
+            
+            this.GeneratedCode
+                .ToList()
+                .ForEach(x => Debug.WriteLine(x));
 
             new object();
         }
 
-        async private void GetGlyphs(string url)
+        HashSet<string> Schemas = new HashSet<string>();
+        HashSet<string> GeneratedCode = new HashSet<string>();
+
+        async private Task<bool> GetGlyphs(string url)
         {
             var response = await new HttpClient().GetStringAsync(url);
             var doc = new HtmlDocument();
@@ -45,27 +53,181 @@ namespace SMuFLScraper.console
                 {
                     foreach (var td in tr.Descendants("td").ToList())
                     {
-#if false
-<td>
-<strong>U+E000</strong>&nbsp;(and U+1D114)
-<br><em>brace</em><br>
-Brace</td>
-#endif
+                        var identifier = string.Empty;
+                        var code_point = string.Empty;
+                        var comment = string.Empty;
 
-                        if (td.Descendants("strong").Any())
+                        this.Schemas.Add(string.Join(", ", td.ChildNodes.Select(x => x.Name)));
+
+                        if (1 == td.ChildNodes.Count(x => x.Name == "#text"))
                         {
-                            var nstrong = td.Descendants("strong").First();
-                            Debug.WriteLine(nstrong.InnerText);
+
+                            var txt01 = td.ChildNodes.First(x => x.Name == "#text");
+                            identifier = txt01.InnerText;
+
+                            if (td.Descendants("strong").Any())
+                            {
+                                var nstrong = td.Descendants("strong").First();
+                                code_point = nstrong.InnerText;
+                                code_point = code_point.Replace("U+", "0x");
+                            }
                         }
-                        new object();
+                        else if (2 == td.ChildNodes.Count(x => x.Name == "#text"))
+                        {
+                            var txt01 = td.ChildNodes.First(x => x.Name == "#text");
+                            var txt02 = td.ChildNodes.Last(x => x.Name == "#text");
+                            if (txt01 != txt02)
+                            {
+                                comment = "//" + txt01.InnerText;
+                                identifier = txt02.InnerText;
+                            }
+                            else
+                            {
+                                identifier = txt01.InnerText;
+                            }
+
+                            if (td.Descendants("strong").Any())
+                            {
+                                var nstrong = td.Descendants("strong").First();
+                                code_point = nstrong.InnerText;
+                                code_point = code_point.Replace("U+", "0x");
+                            }
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+
+                        if (!string.IsNullOrEmpty(identifier)
+                            && !string.IsNullOrEmpty(code_point))
+                        {
+                            identifier = this.CoerceIdentifier(identifier);
+                            var code = $"public Rune {identifier} = new Rune({code_point}); {comment}";
+                            this.GeneratedCode.Add(code);
+                            //this.GeneratedCode.Add($"_Catalog.Add({identifier});" );
+                            new object();
+                        }
                     }
                 }
             }
+            var result = await Task.FromResult(true);
+            return result;
         }
+
+        string CoerceIdentifier(string input)
+        {
+            if (input.Contains("Double whole note (breve)"))
+            {
+                //Debug.WriteLine(identifier);
+                new object();
+            }
+
+            var identifier = input;
+
+            identifier = identifier.Replace(" ", "_");
+            identifier = identifier.Replace(".", "");
+            identifier = identifier.Replace("[", "");
+            identifier = identifier.Replace("]", "");
+            
+            identifier = identifier.Replace("(", "");
+            identifier = identifier.Replace(")", "");
+            identifier = identifier.Replace(",", "_");
+            identifier = identifier.Replace("/", "_");
+            identifier = identifier.Replace("-", "_");
+            identifier = identifier.Replace(";", "_");
+            identifier = identifier.Replace("+", "_plus_");
+
+            identifier = identifier.Replace("¼", "_one_fourth");
+            identifier = identifier.Replace("½", "_one_half");
+            identifier = identifier.Replace("¾", "_three_fourths");
+            identifier = identifier.Replace("⅓", "_one_third");
+            identifier = identifier.Replace("⅔", "two_thirds");
+            
+            identifier = identifier.Replace("1", "One");
+            identifier = identifier.Replace("2", "Two");
+            identifier = identifier.Replace("3", "Three");
+            identifier = identifier.Replace("4", "Four");
+            identifier = identifier.Replace("5", "Five");
+            identifier = identifier.Replace("6", "Six");
+            identifier = identifier.Replace("7", "Seven");
+            identifier = identifier.Replace("8", "Eight");
+            identifier = identifier.Replace("9", "Nine");
+
+            if (identifier.Contains("Double_whole_note_breve"))
+            {
+                //Debug.WriteLine($"{input}:");
+                //Debug.WriteLine($"\t{identifier}");
+                new object();
+            }
+            
+            return identifier;
+        }
+
+        Rune Brace = new Rune(0xE000);
 
         async Task<HashSet<string>> GetHrefs(string url)
         {
             var result = new HashSet<string>();
+
+            result.Add("https://w3c.github.io/smufl/latest/tables/staff-brackets-and-dividers.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/staves.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/barlines.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/repeats.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/clefs.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/time-signatures.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/slash-noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/round-and-square-noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/note-clusters.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/note-name-noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/shape-note-noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/individual-notes.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/beamed-groups-of-notes.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/stems.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/flags.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/standard-accidentals-12-edo.html");
+            //result.Add("https://w3c.github.io/smufl/latest/tables/other-accidentals.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/articulation.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/holds-and-pauses.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/rests.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/bar-repeats.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/octaves.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/dynamics.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/lyrics.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/common-ornaments.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/guitar.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/chord-diagrams.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/analytics.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/chord-symbols.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/tuplets.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/beams-and-slurs.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/figured-bass.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/function-theory-symbols.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/combining-staff-positions.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/simplified-music-notation.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/time-signatures-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/octaves-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/metronome-marks.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/figured-bass-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/shape-note-noteheads-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/turned-time-signatures.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/fingering.html");
+            //result.Add("https://w3c.github.io/smufl/latest/tables/stockhausen-accidentals-24-edo.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/standard-accidentals-for-chord-symbols.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/clefs-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/fingering-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/other-accidentals-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/techniques-noteheads.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/noteheads-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/note-name-noteheads-supplement.html");
+            result.Add("https://w3c.github.io/smufl/latest/tables/scale-degrees.html");
+            //result.Add("https://w3c.github.io/smufl/latest/print.html");
+            result.Add("https://w3c.github.io/smufl/latest/specification/font-metadata-locations.html");
+
+
+            return result;
+
 
             var response = await new HttpClient().GetStringAsync(url);
             var doc = new HtmlDocument();
@@ -84,14 +246,8 @@ Brace</td>
                     {
                         if (_capture)
                         {
-                            Debug.WriteLine(anchor.InnerText);
-                            Debug.WriteLine(href);
-
                             var target = $"https://w3c.github.io/smufl/latest{href.Replace("..", "")}";
                             result.Add(target);
-
-                            //https://w3c.github.io/smufl/latest/tables/staff-brackets-and-dividers.html
-                            //https://w3c.github.io/smufl/latest
                         }
                         if (!_capture && anchor.InnerText == "4. Glyph tables")
                         {
