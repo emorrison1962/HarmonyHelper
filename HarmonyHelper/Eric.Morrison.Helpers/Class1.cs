@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eric.Morrison.Harmony
+namespace Eric.Morrison
 {
     static public class Helpers
     {
@@ -15,7 +14,6 @@ namespace Eric.Morrison.Harmony
         {
             var result = string.Empty;
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
             foreach (var assembly in assemblies)
             {
                 var resource = assembly.GetManifestResourceNames()

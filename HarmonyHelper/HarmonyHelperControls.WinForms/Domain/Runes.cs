@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace HarmonyHelperControls.WinForms
 {
-    static class Runes
+    public class Runes02
+    {
+        public void foo()
+        { 
+        }
+    }
+
+
+    public static class Runes
     {
         static List<Rune> _Catalog = new List<Rune>();
         static public IEnumerable<Rune> Catalog { get { return _Catalog.AsEnumerable<Rune>(); } }
