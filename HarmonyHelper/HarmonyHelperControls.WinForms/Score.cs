@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony.Rhythm;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace HarmonyHelperControls.WinForms
 {
     public partial class Score : UserControl
@@ -24,10 +26,12 @@ namespace HarmonyHelperControls.WinForms
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        private void Score_Paint(object sender, PaintEventArgs e)
+        private void Score_Paint(object sender, PaintEventArgs pea)
         {
-            this.DrawStaff(sender, e);
-            this.DrawText(sender, e);
+            this.DrawClientRect(pea);
+            var rc = this.GetStaffRectangle(pea);
+            this.DrawStaff(pea, rc);
+            this.DrawText(pea, rc);
         }
 
         StaffGrid CreateStaffGrid(Point pt, int cx, TimeSignature ts)
@@ -35,19 +39,67 @@ namespace HarmonyHelperControls.WinForms
             var result = new StaffGrid(pt, cx, ts);
             return result;
         }
-        void DrawStaff(object sender, PaintEventArgs e)
-        {
-            var staffGrid = this.CreateStaffGrid(e.ClipRectangle.Location, 
-                e.ClipRectangle.Width, 
-                new TimeSignature(4, 4));
-            this.DrawStaffGrid(sender, e, staffGrid);
 
+        string SelectedFont { get { return "Bravura"; } }
+
+        override public Font Font { get { return new Font(this.SelectedFont, 40); } }
+
+        public Rectangle GetStaffRectangle(PaintEventArgs pea)
+        {
+            Rectangle result = Rectangle.Empty;
+            using (var font = this.Font)
+            {
+                var cyLineSpacing = font.FontFamily.GetLineSpacing(FontStyle.Regular);
+                var pxLineSpacing = font.Size * cyLineSpacing / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyEm = font.FontFamily.GetEmHeight(FontStyle.Regular);
+                var pxEm = font.Size * cyEm / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyDescent = font.FontFamily.GetCellDescent(FontStyle.Regular);
+                var pxDescent = font.Size * cyDescent / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyAscent = font.FontFamily.GetCellAscent(FontStyle.Regular);
+                var pxAscent = font.Size * cyAscent / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyxTotal = pxEm + pxDescent+ pxAscent;
+
+                var pt = pea.ClipRectangle.Location;
+                var width = pea.ClipRectangle.Width;
+
+                var size = new Size(width, (int)pxLineSpacing);
+                result = new Rectangle(pt, size);
+
+                using (var pen = new Pen(Brushes.Magenta, 3))
+                {
+                    pea.Graphics.DrawRectangle(pen, result);
+                }
+            }
+            return result;
+        }
+
+        [Conditional("DEBUG")]
+        void DrawClientRect(PaintEventArgs pea)
+        {
+            pea.Graphics.DrawRectangle(Pens.Red, pea.ClipRectangle);
+        }
+
+        void DrawStaff(PaintEventArgs pea, Rectangle rc)
+        {
+
+            //var szStr = pea.Graphics.MeasureString(Runes.F_clef.ToString(), this.Font);
+
+            var staffGrid = this.CreateStaffGrid(rc.Location, 
+                rc.Width, 
+                new TimeSignature(4, 4));
+            this.DrawStaffGrid(pea, rc, staffGrid);
+
+#if false
             using (var pen = new Pen(Color.Black, 2))
             {
-                var x = e.ClipRectangle.Left;
-                var cx = e.ClipRectangle.Width;
-                var y = e.ClipRectangle.Top + 20;
-                var cy = e.ClipRectangle.Height;
+                var x = rc.Left;
+                var cx = rc.Width;
+                var y = rc.Top + 20;
+                var cy = rc.Height;
 
                 var cxMin = x + 50;
                 var cxMax = (cx - 50) - cxMin;
@@ -58,7 +110,7 @@ namespace HarmonyHelperControls.WinForms
                 const int MAX_STAFF_LINES = 5;
                 for (int i = 0; i < MAX_STAFF_LINES; ++i)
                 {
-                    e.Graphics.DrawLine(pen,
+                    pea.Graphics.DrawLine(pen,
                         new Point(cxMin, (i * cyLines) + cyMin),
                         new Point(cxMax, (i * cyLines) + cyMin));
                 }
@@ -70,18 +122,18 @@ namespace HarmonyHelperControls.WinForms
                 var cxMeasure = (cxMax - cxMin) / MAX_MEASURES_PER_LINE + 1;
                 for (int i = 0; i <= MAX_MEASURES_PER_LINE; ++i)
                 {
-                    e.Graphics.DrawLine(pen,
+                    pea.Graphics.DrawLine(pen,
                         new Point(cxMin + (i * cxMeasure), cyMin),
                         new Point(cxMin + (i * cxMeasure), cyStaff));
                 }
             }
-
+#endif
 
             new object();
         }
-        void DrawStaffGrid(object sender, PaintEventArgs e, StaffGrid staff)
+        void DrawStaffGrid(PaintEventArgs pea, Rectangle rc, StaffGrid staff)
         {
-            staff.DrawStaff(sender, e);
+            staff.DrawStaff(pea, rc);
              
 
             //e.Graphics.DrawRectangle(Pens.DarkRed, staff.StaffPrefixRectangle);
@@ -89,23 +141,47 @@ namespace HarmonyHelperControls.WinForms
 
         }
 
-        private void DrawText(object sender, PaintEventArgs e)
+        private void DrawText(PaintEventArgs pea, Rectangle rc)
         {
-            using (var font = new Font("Bravura", 40))
+            using (var font = this.Font)
             {
-                var brush = Brushes.Black;
-                var pt = e.ClipRectangle.Location;
+                ///////////////////////////////////////////////////
+                var cyLineSpacing = font.FontFamily.GetLineSpacing(FontStyle.Regular);
+                var pxLineSpacing = font.Size * cyLineSpacing / font.FontFamily.GetEmHeight(FontStyle.Regular);
 
-                throw new NotImplementedException();
+                var cyEm = font.FontFamily.GetEmHeight(FontStyle.Regular);
+                var pxEm = font.Size * cyEm / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyDescent = font.FontFamily.GetCellDescent(FontStyle.Regular);
+                var pxDescent = font.Size * cyDescent / font.FontFamily.GetEmHeight(FontStyle.Regular);
+
+                var cyAscent = font.FontFamily.GetCellAscent(FontStyle.Regular);
+                var pxAscent = font.Size * cyAscent / font.FontFamily.GetEmHeight(FontStyle.Regular);
+                ///////////////////////////////////////////////////
+
+
+                var brush = Brushes.Black;
+                //var pt = rc.Location;
+                var pt = new Point(rc.Location.X, rc.Location.Y + (int)pxAscent);
+
                 var str = Runes.F_clef.ToString();
+                str += (Runes.Eighth_note_quaver_stem_up)+(Runes.Black_notehead).ToString();
+
 
                 var sf = new StringFormat();
-                sf.LineAlignment = StringAlignment.Near;
-                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Center;
+                sf.Alignment = StringAlignment.Near;
 
-                e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                e.Graphics.DrawString(str, font, Brushes.Black, pt, System.Drawing.StringFormat.GenericTypographic);
+                pea.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                pea.Graphics.DrawString(str, font, Brushes.Black, pt, sf); //System.Drawing.StringFormat.GenericTypographic);
 
+                pt.Y += font.Height;
+                pea.Graphics.DrawString(str, font, Brushes.Black, pt, sf); 
+
+                using (var pen = new Pen(Brushes.LimeGreen, 7))
+                {
+                    pea.Graphics.DrawRectangle(pen, rc);
+                }
 
                 new object();
             }

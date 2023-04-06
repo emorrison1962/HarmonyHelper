@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -30,13 +31,35 @@ namespace HarmonyHelperControls.WinForms
             this.MeasureGrid = new MeasureGrid(location, cxTotal, ts);
         }
 
-        public void DrawStaff(object sender, PaintEventArgs e)
+        Rectangle GetRectangle(Rectangle rc)
         {
+            var x = rc.Location.X;
+            var y = rc.Location.Y + MIN_STAFF_HEIGHT;
+            var cx = rc.Width;
+            var cy = rc.Height - MIN_STAFF_HEIGHT / 2;
+            var result = new Rectangle(x, y, cx, cy);
+            return result;
+        }
+
+        public void DrawStaff(PaintEventArgs pea, Rectangle rawRect)
+        {
+            var rc = this.GetRectangle(rawRect);
+            using (var pen = new Pen(Brushes.Red, 4))
+            {
+                rawRect.Width /= 2;
+                pea.Graphics.DrawRectangle(pen, rawRect);
+            }
+            using (var pen = new Pen(Brushes.Blue, 4))
+            {
+                pea.Graphics.DrawRectangle(pen, rc);
+            }
+
+
             using (var pen = new Pen(Color.Black, 2))
             {
-                var left = e.ClipRectangle.Left;
-                var cx = e.ClipRectangle.Width;
-                var top = e.ClipRectangle.Top;
+                var left = rc.Left;
+                var cx = rc.Width;
+                var top = rc.Top;
                 var cy = top + MIN_STAFF_HEIGHT;
 
                 var cyLineSpacing = 15;
@@ -44,7 +67,7 @@ namespace HarmonyHelperControls.WinForms
                 const int MAX_STAFF_LINES = 5;
                 for (int i = 0; i < MAX_STAFF_LINES; ++i)
                 {
-                    e.Graphics.DrawLine(pen,
+                    pea.Graphics.DrawLine(pen,
                         new Point(left, top + (i * cyLineSpacing)),
                         new Point(cx, top + (i * cyLineSpacing)));
                 }
@@ -53,7 +76,7 @@ namespace HarmonyHelperControls.WinForms
                 var cxMeasure = (cx - left) / MAX_MEASURES_PER_LINE + 1;
                 for (int i = 0; i <= MAX_MEASURES_PER_LINE; ++i)
                 {
-                    e.Graphics.DrawLine(pen,
+                    pea.Graphics.DrawLine(pen,
                         new Point(left + (i * cxMeasure), top),
                         new Point(left + (i * cxMeasure), cy));
                 }
