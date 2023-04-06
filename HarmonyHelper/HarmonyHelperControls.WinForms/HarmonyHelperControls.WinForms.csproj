@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Domain\bravura_metadata.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\bravura_metadata.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
   </ItemGroup>
 
