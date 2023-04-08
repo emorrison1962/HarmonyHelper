@@ -15,17 +15,4 @@ namespace CharMapEx
         }
     }
 }
-public class Rootobject
-{
-    public string fontName { get; set; }
-    public float fontVersion { get; set; }
-    public Engravingdefaults engravingDefaults { get; set; }
-    public Glyphadvancewidths glyphAdvanceWidths { get; set; }
-    public Glyphbboxes glyphBBoxes { get; set; }
-    public Glyphswithalternates glyphsWithAlternates { get; set; }
-    public Glyphswithanchors glyphsWithAnchors { get; set; }
-    public Ligatures ligatures { get; set; }
-    public Optionalglyphs optionalGlyphs { get; set; }
-    public Sets sets { get; set; }
-}
 

@@ -105,6 +105,11 @@ namespace NeckDiagrams
                 }
             }
 
+            if (e.KeyCode == Keys.Escape)
+            { 
+                this.Close();
+            }
+
         }
 
         private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
