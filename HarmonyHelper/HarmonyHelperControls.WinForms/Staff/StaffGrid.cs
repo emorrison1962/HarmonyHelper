@@ -29,7 +29,7 @@ namespace HarmonyHelperControls.WinForms
         float LineSpacing { get; set; }
         public float BaseLine { get; private set; }
         public MusicXmlModel Model { get; private set; }
-        SMuFLFontMetadata? SmuflFontMetadata { get; set; }
+        SMuFLFontMetadata SmuflFontMetadata { get; set; }
 
         #endregion
 
@@ -48,19 +48,20 @@ namespace HarmonyHelperControls.WinForms
             var pt = new PointF(location.X + cx, 0);
             this.MeasureGrid = new MeasureGrid(ptBaseline, cxTotal, ts);
 
-            this.Init();
+            this.Init().Wait();
         }
 
         [Obsolete]
-        async private void Init()
+        async private Task Init()
         {
             var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
-            this.SmuflFontMetadata = await Task.Run(()=> JsonConvert.DeserializeObject<SMuFLFontMetadata>(json));
+            this.SmuflFontMetadata = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
 
             var path = Path.Combine(TEST_FILES_PATH, @"Effendi MusicXml Files\I\AllBlues 1.xml");
             Debug.Assert(File.Exists(path));
             var parser = new MusicXmlImporter();
             this.Model = parser.Import(path);
+
         }
 
         [Obsolete]
@@ -120,9 +121,9 @@ namespace HarmonyHelperControls.WinForms
             new object();
             str = SMuFLGlyphs.Instance.GClef.Rune.ToString();
 
-            pea.Graphics.DrawString(str, 
-                this.FontContext.Font, 
-                Brushes.DarkMagenta, 
+            pea.Graphics.DrawString(str,
+                this.FontContext.Font,
+                Brushes.DarkMagenta,
                 ptNe);
 
         }
@@ -137,7 +138,7 @@ namespace HarmonyHelperControls.WinForms
             this.DrawNotes(pea);
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-            this.DrawDebugRectangle($"{MethodBase.GetCurrentMethod().Name}, rawRect", 
+            this.DrawDebugRectangle($"{MethodBase.GetCurrentMethod().Name}, rawRect",
                 pea,
                 Brushes.Red,
                 4,
@@ -192,7 +193,7 @@ namespace HarmonyHelperControls.WinForms
                 }
             }
 
-            foreach(var measure in this.Model.Parts.First().Measures) 
+            foreach (var measure in this.Model.Parts.First().Measures)
             {
                 this.DrawMeasure(pea, measure);
             }
@@ -201,11 +202,11 @@ namespace HarmonyHelperControls.WinForms
 
         private void DrawMeasure(PaintEventArgs pea, Measure measure)
         {
-            foreach(var note in measure.Notes) 
+            foreach (var note in measure.Notes)
             {
                 var tcx = note.TimeContext;
-                var de = tcx.DurationEnum; 
-                var evt = note.Event; 
+                var de = tcx.DurationEnum;
+                var evt = note.Event;
                 new object();
 
                 this.GetNotehead(note);
@@ -221,18 +222,87 @@ namespace HarmonyHelperControls.WinForms
         {
             var tcx = ten.TimeContext;
             var de = tcx.DurationEnum; //get stem
-            if (de > Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter)
+            if (de < Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter)
             {
                 var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadWhole;
                 var str = SMuFLGlyphs.Instance.NoteheadWhole.Rune.ToString();
             }
-            else 
+            else
             {
                 var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
                 var str = SMuFLGlyphs.Instance.NoteheadBlack.Rune.ToString();
             }
 
             var note = ten.Event; //get notehead
+
+            Rune rune = new Rune();
+            switch (de)
+            {
+                case DurationEnum.Duration_Maxima:
+                    {
+                        rune = SMuFLGlyphs.Instance.MensuralNoteheadMaximaWhite.Rune;
+                        break;
+                    }
+                case DurationEnum.Duration_Long:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_Breve:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_Whole:
+                    {
+                        rune = SMuFLGlyphs.Instance.NoteheadWhole.Rune;
+                        break;
+                    }
+                case DurationEnum.Duration_Half:
+                    {
+                        rune = SMuFLGlyphs.Instance.NoteheadHalf.Rune;
+                        break;
+                    }
+                case DurationEnum.Duration_Quarter:
+                    {
+                        rune = SMuFLGlyphs.Instance.NoteheadHalf.Rune;
+                        break;
+                    }
+                case DurationEnum.Duration_Eighth:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_16th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_32nd:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_64th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_128th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_256th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_512th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_1024th:
+                    {
+                        break;
+                    }
+                case DurationEnum.Unknown:
+                case DurationEnum.None:
+                default: throw new ArgumentOutOfRangeException(nameof(de));
+
+            }
 
         }
         private void DrawNotes(PaintEventArgs pea)
@@ -268,20 +338,20 @@ namespace HarmonyHelperControls.WinForms
             }
         }
 
-        void DrawDebugRectangle(string msg, PaintEventArgs pea, 
+        void DrawDebugRectangle(string msg, PaintEventArgs pea,
             Brush brush, int cxPen, RectangleF src)
         {
             using (var pen = new Pen(Brushes.Red, 4))
-                using (var font = new Font("Courier New", 10))
+            using (var font = new Font("Courier New", 10))
             {
                 //src.Width /= 2;
                 pea.Graphics.DrawRectangle(pen, src);
-                
+
                 var msgSize = pea.Graphics.MeasureString(msg, font);
                 var x = src.Width - msgSize.Width;
                 var msgLocation = new PointF(x, src.Top);
                 var msgRect = new RectangleF(msgLocation, msgSize);
-                
+
                 pea.Graphics.FillRectangle(SystemBrushes.Control, msgRect);
                 pea.Graphics.DrawString($"{msg}",
                     font,
