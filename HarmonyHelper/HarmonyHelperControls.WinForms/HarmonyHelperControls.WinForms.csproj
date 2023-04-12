@@ -9,10 +9,12 @@
 
   <ItemGroup>
     <None Remove="Domain\bravura_metadata.json" />
+    <None Remove="Domain\glyphnames.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Domain\bravura_metadata.json" />
+    <EmbeddedResource Include="Domain\glyphnames.json" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,8 +8,14 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
+using Eric.Morrison;
 using Eric.Morrison.Harmony.Rhythm;
+
+using Manufaktura.Controls.SMuFL.EagerLoading;
+
+using Newtonsoft.Json;
 
 namespace HarmonyHelperControls.WinForms
 {
@@ -59,13 +65,32 @@ namespace HarmonyHelperControls.WinForms
 
             //var yOffset = this.FontContext.EmHeight / 4;
             //var cxNote = new SizeF(0, -((FontContext.BaseLine * 2) + yOffset * 2));
-            //var qq = PointF.Add(this.Rectangle.Location, cxNote);
+            //var ptNe = PointF.Add(this.Rectangle.Location, cxNote);
 
             pea.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-            //pea.Graphics.DrawString(str, this.FontContext.Font, Brushes.Black, qq);
+            //pea.Graphics.DrawString(str, this.FontContext.Font, Brushes.Black, ptNe);
             pea.Graphics.DrawString(str, this.FontContext.Font, Brushes.Black, this.Rectangle.Location);
 
+
+            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
+            var meta = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
+
+
+            var bbox = meta.GlyphBBoxes.GClef;
+            var ptNe = bbox.PointNe;
+            this.LastPoint = bbox.PointSw;
+
+            new object();
+            str = SMuFLGlyphs.Instance.GClef.Rune.ToString();
+
+            pea.Graphics.DrawString(str, 
+                this.FontContext.Font, 
+                Brushes.DarkMagenta, 
+                ptNe);
+
         }
+
+        PointF LastPoint { get; set; }
 
         RectangleF Rectangle { get; set; }
         public void DrawStaff(PaintEventArgs pea, RectangleF rawRect)
@@ -135,6 +160,39 @@ namespace HarmonyHelperControls.WinForms
         }
 
         private void DrawNotes(PaintEventArgs pea)
+        {
+            //var pt = this.Rectangle.Location;
+            //var zz = this.FontContext.EmHeight / 4;
+            //pt.X += 80;
+            //for (int i = 0; i < 9; ++i)
+            //{
+            //    var str = Runes.Black_notehead.ToString();
+            //    pea.Graphics.DrawString(str,
+            //        this.FontContext.Font, Brushes.Black, pt);
+            //    pt.X += 50;
+            //    pt.Y -= (zz);
+            //}
+
+            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
+            var meta = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
+
+
+            var bbox = meta.GlyphBBoxes.NoteheadBlack;
+            var ptNe = bbox.PointNe;
+            ptNe.X += 50;// this.LastPoint.X;
+
+            new object();
+            var str = SMuFLGlyphs.Instance.NoteheadBlack.Rune.ToString();
+
+            pea.Graphics.DrawString(str,
+                this.FontContext.Font,
+                Brushes.DarkBlue,
+                ptNe);
+
+
+        }
+
+        private void oldDrawNotes(PaintEventArgs pea)
         {
             var pt = this.Rectangle.Location;
             var zz = this.FontContext.EmHeight / 4;

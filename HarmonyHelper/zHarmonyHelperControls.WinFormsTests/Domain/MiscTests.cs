@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony;
 using Newtonsoft.Json;
+using MyNamespace;
+using Manufaktura.Controls.SMuFL.EagerLoading;
 
 namespace HarmonyHelperControls.WinForms.Tests
 {
@@ -17,12 +19,12 @@ namespace HarmonyHelperControls.WinForms.Tests
         [TestMethod()]
         public void fooTest()
         {
-            var junk = new Runes02();
             var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
 
-            var blob = JsonConvert.DeserializeObject(json);
+            var blob = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
 
             new object();
         }
-    }
-}
+
+    }//class
+}//ns

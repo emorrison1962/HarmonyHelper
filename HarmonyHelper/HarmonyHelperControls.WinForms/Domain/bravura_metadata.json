@@ -25,12 +25,6 @@
 		"stemThickness":0.12,
 		"subBracketThickness":0.16,
 		"textEnclosureThickness":0.16,
-		"textFontFamily":[
-			"Academico",
-			"Century Schoolbook",
-			"Edwin",
-			"serif"
-		],
 		"thickBarlineThickness":0.5,
 		"thinBarlineThickness":0.16,
 		"tieEndpointThickness":0.1,

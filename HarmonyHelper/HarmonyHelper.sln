@@ -27,14 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zTests", "zTests", "{75A489
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.IoC", "HarmonyHelper.IoC\HarmonyHelper.IoC.csproj", "{BE2A446D-7D03-4292-9949-0B0745E4B8BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.CodeFirst", "HarmonyHelper.Dal.CodeFirst\HarmonyHelper.Dal.CodeFirst.csproj", "{A009FCB0-CD20-4F23-AF38-61113F77A561}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.CodeFirst.console", "HarmonyHelper.Dal.CodeFirst.console\HarmonyHelper.Dal.CodeFirst.console.csproj", "{1604855D-2121-432E-B89F-EFA9F1D00C6A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.DbFirst", "HarmonyHelper.Dal.DbFirst\HarmonyHelper.Dal.DbFirst.csproj", "{5DEF336C-6AD9-4FCD-91B0-09D1901C0286}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelper.Dal.Entities", "HarmonyHelper.Dal.Entities\HarmonyHelper.Dal.Entities.csproj", "{CF5E70DB-B20D-46CE-9000-97A42B16F605}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manufaktura", "Manufaktura", "{E719A23C-694B-4C9F-8323-10D69A04FFE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manufaktura.Music", "Manufaktura\Manufaktura.Music\Manufaktura.Music.csproj", "{8DA7E516-007E-4606-895D-619A12FE3F1A}"
@@ -51,9 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharMapEx", "CharMapEx\Char
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMuFLScraper.console.", "SMuFLScraper.console\SMuFLScraper.console..csproj", "{B631CB13-2A50-4E05-8FA0-AE56337F1507}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zHarmonyHelperControls.WinFormsTests", "zHarmonyHelperControls.WinFormsTests\zHarmonyHelperControls.WinFormsTests.csproj", "{00B19BAD-2721-4B3B-B727-738EC361114E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelperControls.WinFormsTests", "zHarmonyHelperControls.WinFormsTests\zHarmonyHelperControls.WinFormsTests.csproj", "{00B19BAD-2721-4B3B-B727-738EC361114E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eric.Morrison.Helpers", "Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj", "{849C94B4-7156-4E1D-9F5B-8818D1B59C07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eric.Morrison.Helpers", "Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj", "{849C94B4-7156-4E1D-9F5B-8818D1B59C07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,18 +93,6 @@ Global
 		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE2A446D-7D03-4292-9949-0B0745E4B8BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A009FCB0-CD20-4F23-AF38-61113F77A561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A009FCB0-CD20-4F23-AF38-61113F77A561}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A009FCB0-CD20-4F23-AF38-61113F77A561}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1604855D-2121-432E-B89F-EFA9F1D00C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1604855D-2121-432E-B89F-EFA9F1D00C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1604855D-2121-432E-B89F-EFA9F1D00C6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DEF336C-6AD9-4FCD-91B0-09D1901C0286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DEF336C-6AD9-4FCD-91B0-09D1901C0286}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DEF336C-6AD9-4FCD-91B0-09D1901C0286}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF5E70DB-B20D-46CE-9000-97A42B16F605}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA7E516-007E-4606-895D-619A12FE3F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
