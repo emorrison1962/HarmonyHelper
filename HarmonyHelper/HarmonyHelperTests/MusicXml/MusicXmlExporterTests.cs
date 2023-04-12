@@ -152,7 +152,7 @@ namespace MusicXml.Tests
                 isValid = measure.IsValid();
                 Assert.IsTrue(isValid);
 
-                part.Add(measure);
+                part.Sections.Last().Add(measure);
                 isValid = part.IsValid();
                 Assert.IsTrue(isValid);
 

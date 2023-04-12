@@ -25,15 +25,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         public List<MusicXmlStaff> Staves { get; set; } = new List<MusicXmlStaff>()
             { new MusicXmlStaff(new Clef(ClefEnum.Treble, 1))};
         public PartIdentifier Identifier { get; set; } = new PartIdentifier("P1", "Part 01");
+        [Obsolete("", true)]
         MeasureList _Measures { get; set; } = new MeasureList();
         public ReadOnlyCollection<Measure> Measures
         {
             get
             {
-                return _Measures
-                    .OrderBy(x => x.MeasureNumber)
-                    .ToList()
-                    .AsReadOnly();
+                var result = (from s in this.Sections
+                           from m in s.Measures
+                           select m).ToList().AsReadOnly();
+                return result;
             }
         }
         public XElement XElement { get; set; }
@@ -69,6 +70,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
+        [Obsolete("", true)]
         public void AddRange(IEnumerable<Measure> measures, bool renumberMeasures = true)
         {
             if (null == this.Rhythm)
@@ -84,6 +86,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
+        [Obsolete("", true)]
         public void Add(Measure measure)
         {
             if (null == this.Rhythm)
@@ -99,6 +102,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.ResetMeasureNumbers();
         }
 
+        [Obsolete("", true)]
         public void Remove(Measure measure)
         {
             this._Measures.Remove(measure);
@@ -110,6 +114,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Sections.Add(section);
         }
 
+        [Obsolete("", true)]
         public void ResetMeasureNumbers()
         {
             for (int i = 0; i < this._Measures.Count; ++i)
@@ -135,7 +140,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             {
                 result = false;
             }
-            if (result && !this._Measures.All(x => x.IsValid()))
+            if (result && !this.Measures.All(x => x.IsValid()))
             {
                 result = false;
             }

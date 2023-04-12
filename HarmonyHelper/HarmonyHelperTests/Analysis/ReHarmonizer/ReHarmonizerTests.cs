@@ -60,7 +60,6 @@ namespace Analysis.ReHarmonizer.Tests
                         }
                     }
 
-                    model.RenderSections();
                     var doc = new MusicXmlExporter()
                         .Export(model);
 

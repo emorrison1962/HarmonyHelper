@@ -73,6 +73,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 //this.ParsingContext.CurrentPart = part;
                 var xmeasures = part.XElement.Elements(XmlConstants.measure)
                     .ToList();
+                Debug.Assert(xmeasures.Any());
                 foreach (var xmeasure in xmeasures)
                 {
                     if (xmeasure.Elements(XmlConstants.attributes).Any())

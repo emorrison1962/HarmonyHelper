@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using Eric.Morrison;
+using Eric.Morrison.Harmony.MusicXml;
 using Eric.Morrison.Harmony.Rhythm;
 
 using Manufaktura.Controls.SMuFL.EagerLoading;
@@ -21,18 +22,18 @@ namespace HarmonyHelperControls.WinForms
 {
     public class StaffGrid
     {
-        //public const int MIN_STAFF_HEIGHT = 60;
+        #region Properties
         public RectangleF StaffPrefixRectangle { get; set; }
         public MeasureGrid MeasureGrid { get; set; }
-
-        //E, G, B, D
-        //F, A, C, E
-        //clef, key, time
-
         public FontContext FontContext { get; private set; }
         float LineSpacing { get; set; }
         public float BaseLine { get; private set; }
+        public MusicXmlModel Model { get; private set; }
+        SMuFLFontMetadata? SmuflFontMetadata { get; set; }
 
+        #endregion
+
+        #region Construction
         public StaffGrid(FontContext fontMetrics, Point location, float cxTotal, TimeSignature ts)
         {//| cxPrefix | m1 | m2 | m3 | m4 | m5 | m6 | m7 | m8 |
             this.FontContext = fontMetrics;
@@ -43,10 +44,46 @@ namespace HarmonyHelperControls.WinForms
             var cx = cxTotal / 9;
             this.StaffPrefixRectangle = new RectangleF(ptBaseline, new SizeF(cx, fontMetrics.EmHeight));
             cxTotal -= FontContext.EmHeight;
-            
+
             var pt = new PointF(location.X + cx, 0);
             this.MeasureGrid = new MeasureGrid(ptBaseline, cxTotal, ts);
+
+            this.Init();
         }
+
+        [Obsolete]
+        async private void Init()
+        {
+            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
+            this.SmuflFontMetadata = await Task.Run(()=> JsonConvert.DeserializeObject<SMuFLFontMetadata>(json));
+
+            var path = Path.Combine(TEST_FILES_PATH, @"Effendi MusicXml Files\I\AllBlues 1.xml");
+            Debug.Assert(File.Exists(path));
+            var parser = new MusicXmlImporter();
+            this.Model = parser.Import(path);
+        }
+
+        [Obsolete]
+        string TEST_FILES_PATH
+        {
+            get
+            {
+                var path = Assembly.GetExecutingAssembly().Location;
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.GetDirectoryName(path);
+                path = Path.Combine(path, @"HarmonyHelperTests\TEST_FILES");
+                Debug.WriteLine(path);
+                return path;
+
+                //D:\CODE\HarmonyHelper\HarmonyHelper\HarmonyHelperTests\TEST_FILES\Effendi MusicXml Files\I\AllBlues 1.xml
+            }
+        }
+
+
+        #endregion
 
         RectangleF GetRectangle(RectangleF rc)
         {
@@ -155,29 +192,53 @@ namespace HarmonyHelperControls.WinForms
                 }
             }
 
-
+            foreach(var measure in this.Model.Parts.First().Measures) 
+            {
+                this.DrawMeasure(pea, measure);
+            }
             new object();
         }
 
+        private void DrawMeasure(PaintEventArgs pea, Measure measure)
+        {
+            foreach(var note in measure.Notes) 
+            {
+                var tcx = note.TimeContext;
+                var de = tcx.DurationEnum; 
+                var evt = note.Event; 
+                new object();
+
+                this.GetNotehead(note);
+                this.GetMeasurePosition();
+            }
+        }
+
+        private void GetMeasurePosition()
+        {
+        }
+
+        void GetNotehead(TimedEventNote ten)
+        {
+            var tcx = ten.TimeContext;
+            var de = tcx.DurationEnum; //get stem
+            if (de > Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter)
+            {
+                var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadWhole;
+                var str = SMuFLGlyphs.Instance.NoteheadWhole.Rune.ToString();
+            }
+            else 
+            {
+                var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
+                var str = SMuFLGlyphs.Instance.NoteheadBlack.Rune.ToString();
+            }
+
+            var note = ten.Event; //get notehead
+
+        }
         private void DrawNotes(PaintEventArgs pea)
         {
-            //var pt = this.Rectangle.Location;
-            //var zz = this.FontContext.EmHeight / 4;
-            //pt.X += 80;
-            //for (int i = 0; i < 9; ++i)
-            //{
-            //    var str = Runes.Black_notehead.ToString();
-            //    pea.Graphics.DrawString(str,
-            //        this.FontContext.Font, Brushes.Black, pt);
-            //    pt.X += 50;
-            //    pt.Y -= (zz);
-            //}
 
-            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
-            var meta = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
-
-
-            var bbox = meta.GlyphBBoxes.NoteheadBlack;
+            var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
             var ptNe = bbox.PointNe;
             ptNe.X += 50;// this.LastPoint.X;
 

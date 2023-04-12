@@ -74,26 +74,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         #region Sections
-        void TrimStart(int count)
-        {
-            foreach (var part in this.Parts)
-            {
-                var removals = part.Measures.Take(count).ToList();
-                removals.ForEach(x => part.Remove(x));
-            }
-        }
-
-        void SetLength(int measureCount)
-        {
-            foreach (var part in this.Parts)
-            {
-                part.Measures.Skip(measureCount);
-                var removals = part.Measures
-                    .Take(part.Measures.Count - measureCount)
-                    .ToList();
-                removals.ForEach(x => part.Remove(x));
-            }
-        }
 
         #endregion
 
@@ -114,6 +94,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Parts.Add(part);
         }
 
+        [Obsolete("", true)]
         public void RenderSections()
         {
             foreach (var part in this.Parts)

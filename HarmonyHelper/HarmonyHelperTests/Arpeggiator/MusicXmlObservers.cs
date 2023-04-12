@@ -66,7 +66,7 @@ namespace zHarmonyHelperTests_Arpeggiator
                 var measure = new Measure(this.Part, measureNumber);
                 if (args.CurrentMeasure == 1)
                     measure.Add(new BarlineContext(BarlineStyleEnum.Light_Light, BarlineSideEnum.Left));
-                this.Part.Add(measure);
+                this.Part.Sections.Last().Add(measure);
             }
             new object();
 

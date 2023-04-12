@@ -85,6 +85,13 @@ namespace MusicXmlImporter_Tests
                 try
                 {
                     var model = parser.Import(file);
+                    Assert.IsNotNull(model.Parts);
+                    foreach (var part in model.Parts)
+                    {
+                        Assert.IsNotNull(part.Measures);
+                        Assert.IsTrue(part.Measures.Any());
+                    }
+
                     Assert.IsNotNull(model.Rhythm);
                 }
                 catch (Exception ex)
