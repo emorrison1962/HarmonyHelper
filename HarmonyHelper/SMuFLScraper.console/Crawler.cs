@@ -54,7 +54,7 @@ namespace SMuFLScraper.console
                     foreach (var td in tr.Descendants("td").ToList())
                     {
                         var identifier = string.Empty;
-                        var code_point = string.Empty;
+                        var codePoint = string.Empty;
                         var comment = string.Empty;
 
                         this.Schemas.Add(string.Join(", ", td.ChildNodes.Select(x => x.Name)));
@@ -68,8 +68,8 @@ namespace SMuFLScraper.console
                             if (td.Descendants("strong").Any())
                             {
                                 var nstrong = td.Descendants("strong").First();
-                                code_point = nstrong.InnerText;
-                                code_point = code_point.Replace("U+", "0x");
+                                codePoint = nstrong.InnerText;
+                                codePoint = codePoint.Replace("U+", "0x");
                             }
                         }
                         else if (2 == td.ChildNodes.Count(x => x.Name == "#text"))
@@ -89,8 +89,8 @@ namespace SMuFLScraper.console
                             if (td.Descendants("strong").Any())
                             {
                                 var nstrong = td.Descendants("strong").First();
-                                code_point = nstrong.InnerText;
-                                code_point = code_point.Replace("U+", "0x");
+                                codePoint = nstrong.InnerText;
+                                codePoint = codePoint.Replace("U+", "0x");
                             }
                         }
                         else
@@ -100,12 +100,15 @@ namespace SMuFLScraper.console
 
 
                         if (!string.IsNullOrEmpty(identifier)
-                            && !string.IsNullOrEmpty(code_point))
+                            && !string.IsNullOrEmpty(codePoint))
                         {
                             identifier = this.CoerceIdentifier(identifier);
-                            var code = $"public Rune {identifier} = new Rune({code_point}); {comment}";
-                            this.GeneratedCode.Add(code);
-                            //this.GeneratedCode.Add($"_Catalog.Add({identifier});" );
+                            if (!this.IsFiltered(identifier, codePoint))
+                            {
+                                var code = $"public Rune {identifier} = new Rune({codePoint}); {comment}";
+                                this.GeneratedCode.Add(code);
+                                //this.GeneratedCode.Add($"_Catalog.Add({identifier});" );
+                            }
                             new object();
                         }
                     }
@@ -198,7 +201,7 @@ namespace SMuFLScraper.console
             result.Add("https://w3c.github.io/smufl/latest/tables/common-ornaments.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/guitar.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/chord-diagrams.html");
-            result.Add("https://w3c.github.io/smufl/latest/tables/analytics.html");
+            //result.Add("https://w3c.github.io/smufl/latest/tables/analytics.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/chord-symbols.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/tuplets.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/beams-and-slurs.html");
@@ -211,7 +214,7 @@ namespace SMuFLScraper.console
             result.Add("https://w3c.github.io/smufl/latest/tables/metronome-marks.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/figured-bass-supplement.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/shape-note-noteheads-supplement.html");
-            result.Add("https://w3c.github.io/smufl/latest/tables/turned-time-signatures.html");
+            //result.Add("https://w3c.github.io/smufl/latest/tables/turned-time-signatures.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/fingering.html");
             //result.Add("https://w3c.github.io/smufl/latest/tables/stockhausen-accidentals-24-edo.html");
             result.Add("https://w3c.github.io/smufl/latest/tables/standard-accidentals-for-chord-symbols.html");
@@ -258,6 +261,37 @@ namespace SMuFLScraper.console
             }
 
             return result;
+        }
+
+        bool IsFiltered(string identifier, string codePoint)
+        {
+            var result = false;
+            if (codePoint.Contains('.'))
+            {
+                result = true;
+            }
+            var lowered = identifier.ToLower();
+            if (lowered.Contains("arrow")
+                || lowered.Contains("cowell")
+                || lowered.Contains("swiss_")
+                || lowered.Contains("alois_hába")
+                || lowered.Contains("fingering_")
+                || lowered.Contains("_walker_")
+                || lowered.Contains("_aikin_")
+                || lowered.Contains("_history_sign")
+                || lowered.Contains("function_theory_")
+                || lowered.Contains("figured_bass_")
+                || lowered.Contains("_seven_")
+                || lowered.Contains("triangle_notehead_")
+                || lowered.Contains("square_notehead")
+                || lowered.Contains("_x")
+                || lowered.Contains("x_")
+                    ) 
+            {
+                result = true;
+            }
+
+            return result;  
         }
 
     }//class
