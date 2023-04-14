@@ -261,8 +261,6 @@ namespace HarmonyHelperControls.WinForms
             return result;
         }
 
-
-
         #region Drawing
         public void DrawStaffPrefix(PaintEventArgs pea)
         {
@@ -443,5 +441,6 @@ namespace HarmonyHelperControls.WinForms
         }
 
         #endregion
+
     }//class
 }//ns
