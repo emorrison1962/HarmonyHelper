@@ -12,7 +12,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using System.Diagnostics;
 using System.Runtime.Serialization;
+
+using Newtonsoft.Json;
 
 namespace Manufaktura.Controls.Model.SMuFL
 {
@@ -26,6 +29,15 @@ namespace Manufaktura.Controls.Model.SMuFL
 
         [DataMember(Name="type")]
         public string Type { get; set; }
+
+        [JsonConstructor]
+        public GlyphSet(string description, Glyph[] glyphs, string type)
+        {
+            this.Description = description;
+            this.Glyphs = glyphs;
+            this.Type = type;
+            Debug.WriteLine(this.Description);
+        }
     }
 
     public class Glyph

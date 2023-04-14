@@ -29,7 +29,7 @@ namespace HarmonyHelperControls.WinForms
         float LineSpacing { get; set; }
         public float BaseLine { get; private set; }
         public MusicXmlModel Model { get; private set; }
-        SMuFLFontMetadata SmuflFontMetadata { get; set; }
+        SMuFLFontMetadata SMuFLFontMetadata { get; set; }
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace HarmonyHelperControls.WinForms
         async private Task Init()
         {
             var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
-            this.SmuflFontMetadata = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
+            this.SMuFLFontMetadata = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
 
             var path = Path.Combine(TEST_FILES_PATH, @"Effendi MusicXml Files\I\AllBlues 1.xml");
             Debug.Assert(File.Exists(path));
@@ -110,11 +110,7 @@ namespace HarmonyHelperControls.WinForms
             pea.Graphics.DrawString(str, this.FontContext.Font, Brushes.Black, this.Rectangle.Location);
 
 
-            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
-            var meta = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
-
-
-            var bbox = meta.GlyphBBoxes.GClef;
+            var bbox = this.SMuFLFontMetadata.GlyphBBoxes.GClef;
             var ptNe = bbox.PointNe;
             this.LastPoint = bbox.PointSw;
 
@@ -224,12 +220,12 @@ namespace HarmonyHelperControls.WinForms
             var de = tcx.DurationEnum; //get stem
             if (de < Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter)
             {
-                var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadWhole;
+                var bbox = this.SMuFLFontMetadata.GlyphBBoxes.NoteheadWhole;
                 var str = SMuFLGlyphs.Instance.NoteheadWhole.Rune.ToString();
             }
             else
             {
-                var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
+                var bbox = this.SMuFLFontMetadata.GlyphBBoxes.NoteheadBlack;
                 var str = SMuFLGlyphs.Instance.NoteheadBlack.Rune.ToString();
             }
 
@@ -308,7 +304,7 @@ namespace HarmonyHelperControls.WinForms
         private void DrawNotes(PaintEventArgs pea)
         {
 
-            var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
+            var bbox = this.SMuFLFontMetadata.GlyphBBoxes.NoteheadBlack;
             var ptNe = bbox.PointNe;
             ptNe.X += 50;// this.LastPoint.X;
 
