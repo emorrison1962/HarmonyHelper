@@ -14,6 +14,8 @@ using Eric.Morrison;
 using Eric.Morrison.Harmony.MusicXml;
 using Eric.Morrison.Harmony.Rhythm;
 
+using HarmonyHelperControls.WinForms.Domain;
+
 using Manufaktura.Controls.SMuFL.EagerLoading;
 
 using Newtonsoft.Json;
@@ -109,17 +111,31 @@ namespace HarmonyHelperControls.WinForms
             return result;
         }
 
+        List<RectangleF> MeasureRectangles { get; set; } = new List<RectangleF>();
         private void GetMeasureSize()
         {
-            var left = this.Rectangle.Left;
-            var cx = this.Rectangle.Width;
-            var top = this.Rectangle.Top + this.FontContext.LineSpacing;
-            var cy = this.Rectangle.Height;
-            const int MAX_MEASURES_PER_LINE = 4;
-            var cxMeasure = (cx - left) / MAX_MEASURES_PER_LINE + 1;
-            var cyMeasure = this.FontContext.EmHeight;
+            if (!this.Rectangle.IsEmpty)
+            {
+                this.MeasureRectangles.Clear();
+                var left = this.Rectangle.Left;
+                var cx = this.Rectangle.Width;
+                var top = this.Rectangle.Top + this.FontContext.LineSpacing;
+                var cy = this.Rectangle.Height;
+                const int MAX_MEASURES_PER_LINE = 4;
+                var cxMeasure = (cx - left) / MAX_MEASURES_PER_LINE + 1;
+                var cyMeasure = this.FontContext.EmHeight;
+                var cyLineSpacing = this.LineSpacing;
 
-            this.MeasureSize = new SizeF(cxMeasure, cyMeasure);
+                this.MeasureSize = new SizeF(cxMeasure, cyMeasure);
+
+                for (int i = 0; i <= MAX_MEASURES_PER_LINE; ++i)
+                {
+                    var pt = new PointF(left + (i * cxMeasure), top);
+                    var size = new SizeF(left + (i * cxMeasure), top - (4 * cyLineSpacing));
+                    var rc = new RectangleF(pt, size);
+                    this.MeasureRectangles.Add(rc);
+                }
+            }
         }
 
         private void GetStaffSize()
@@ -327,6 +343,8 @@ namespace HarmonyHelperControls.WinForms
 
             foreach (var measure in this.Model.Parts.First().Measures)
             {
+                //this.Measure
+                if (measure.MeasureNumber % 4 == 0)
                 this.DrawMeasure(pea, measure);
             }
             new object();
@@ -334,6 +352,7 @@ namespace HarmonyHelperControls.WinForms
 
         private void DrawMeasure(PaintEventArgs pea, Measure measure)
         {
+            var neasureRect = this.MeasureRectangles[measure.MeasureNumber % 4];
             var x = 0;
             foreach (var note in measure.Notes)
             {
@@ -348,7 +367,8 @@ namespace HarmonyHelperControls.WinForms
 
                 var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
                 var ptNe = bbox.PointNe;
-                ptNe.X += x += 50;// this.LastPoint.X;
+                x += 50;
+                ptNe.X += x;// this.LastPoint.X;
 
                 new object();
                 var str = rune.ToString();
@@ -413,6 +433,13 @@ namespace HarmonyHelperControls.WinForms
                     brush,
                     new PointF(msgRect.Location.X + 20, msgRect.Location.Y - 5));
             }
+        }
+
+        internal void Resize(Rectangle clientRectangle)
+        {
+            this.Rectangle = clientRectangle;
+            this.GetMeasureSize();
+            this.GetStaffSize();
         }
 
         #endregion

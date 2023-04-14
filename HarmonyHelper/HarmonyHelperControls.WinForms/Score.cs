@@ -6,13 +6,17 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Eric.Morrison.Harmony.Rhythm;
 
-using static System.Net.Mime.MediaTypeNames;
+using HarmonyHelperControls.WinForms.Domain;
+
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace HarmonyHelperControls.WinForms
 {
@@ -35,6 +39,15 @@ namespace HarmonyHelperControls.WinForms
             //this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.StaffGrid = this.CreateStaffGrid(
+                this.ClientRectangle.Location,
+                this.ClientRectangle.Width,
+                new TimeSignature(4, 4));
+
+        }
         #endregion
 
         private void Score_Paint(object sender, PaintEventArgs pea)
@@ -76,19 +89,20 @@ namespace HarmonyHelperControls.WinForms
         [Conditional("DEBUG")]
         void DrawClientRect(PaintEventArgs pea)
         {
-            pea.Graphics.DrawRectangle(Pens.Red, pea.ClipRectangle);
+            pea.Graphics.DrawRectangle(Pens.Red, this.ClientRectangle);
         }
 
+        StaffGrid StaffGrid { get; set; }   
         void DrawStaff(PaintEventArgs pea, Rectangle rc)
         {
 
             //var szStr = pea.Graphics.MeasureString(Runes.F_clef.ToString(), this.Font);
 
-            var staffGrid = this.CreateStaffGrid(
-                rc.Location,
-                rc.Width,
-                new TimeSignature(4, 4));
-            this.DrawStaffGrid(pea, rc, staffGrid);
+            //this.StaffGrid = this.CreateStaffGrid(
+            //    rc.Location,
+            //    rc.Width,
+            //    new TimeSignature(4, 4));
+            this.DrawStaffGrid(pea, rc);
 
 #if false
             using (var pen = new Pen(Color.Black, 2))
@@ -128,9 +142,9 @@ namespace HarmonyHelperControls.WinForms
 
             new object();
         }
-        void DrawStaffGrid(PaintEventArgs pea, Rectangle rc, StaffGrid staff)
+        void DrawStaffGrid(PaintEventArgs pea, Rectangle rc)
         {
-            staff.DrawStaff(pea, rc);
+            this.StaffGrid.DrawStaff(pea, rc);
 
 
             //e.Graphics.DrawRectangle(Pens.DarkRed, staff.StaffPrefixRectangle);
@@ -166,52 +180,18 @@ namespace HarmonyHelperControls.WinForms
             new object();
         }
 
-
-    }//class
-
-    public class FontContext
-    {
-        public float BaseLine { get; set; }
-        public float EmHeight { get; set; } = 0;
-        public float LineSpacing { get; set; } = 0;
-        public float CellDescent { get; set; } = 0;
-        public float CellAscent { get; set; } = 0;
-        public Font Font { get; set; }
-        public FontContext(Font font, float baseline, float emHeight, float lineSpacing, float cellDescent, float cellAscent)
+        private void Score_Layout(object sender, LayoutEventArgs e)
         {
-            Font= font;
-            BaseLine = baseline;
-            EmHeight = emHeight;
-            LineSpacing = lineSpacing;
-            CellDescent = cellDescent;
-            CellAscent = cellAscent;
+            Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}");
         }
-    }
 
-
-    public static class FontExtensions
-    {
-        static public FontContext GetFontMetrics(this Font font)
+        private void Score_Resize(object sender, EventArgs e)
         {
-            var cyLineSpacing = font.FontFamily.GetLineSpacing(FontStyle.Regular);
-            var pxLineSpacing = font.Size * cyLineSpacing / font.FontFamily.GetEmHeight(FontStyle.Regular);
-
-            var cyEm = font.FontFamily.GetEmHeight(FontStyle.Regular);
-            var pxEmHeight = font.Size * cyEm / font.FontFamily.GetEmHeight(FontStyle.Regular);
-
-            var cyDescent = font.FontFamily.GetCellDescent(FontStyle.Regular);
-            var pxDescent = font.Size * cyDescent / font.FontFamily.GetEmHeight(FontStyle.Regular);
-
-            var cyAscent = font.FontFamily.GetCellAscent(FontStyle.Regular);
-            var pxAscent = font.Size * cyAscent / font.FontFamily.GetEmHeight(FontStyle.Regular);
-
-            var yBaseline = cyDescent - cyEm;
-            var pxBaseline = font.Size * yBaseline / font.FontFamily.GetEmHeight(FontStyle.Regular);
-
-            var result = new FontContext(font, pxBaseline, pxEmHeight, pxLineSpacing, pxDescent, pxAscent);
-            return result;
+            this.StaffGrid?.Resize(this.ClientRectangle);
+            Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}");
         }
     }//class
+
 
 }//ns
 

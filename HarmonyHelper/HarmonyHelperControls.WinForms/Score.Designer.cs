@@ -37,6 +37,8 @@
             this.Name = "Score";
             this.Size = new System.Drawing.Size(1000, 400);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Score_Paint);
+            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Score_Layout);
+            this.Resize += new System.EventHandler(this.Score_Resize);
             this.ResumeLayout(false);
 
         }
