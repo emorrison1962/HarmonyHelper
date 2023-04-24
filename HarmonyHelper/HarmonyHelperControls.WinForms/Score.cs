@@ -248,7 +248,8 @@ namespace HarmonyHelperControls.WinForms
                 var measureRect = this.MeasureRectangles[j];
                 var left = this.ClientRectangle.Left;
                 var cx = this.ClientRectangle.Width;
-                var top = measureRect.Top;
+#warning FIXME: MAGIC NUMBER
+                var top = measureRect.Top - 34;
                 var cy = this.ClientRectangle.Height;
 
                 using (var pen2 = new Pen(Color.Green, 2))
@@ -257,15 +258,22 @@ namespace HarmonyHelperControls.WinForms
                 }
 
 
+                pea.Graphics.DrawString(Runes.Five_line_staff_wide.ToString(),
+                    this.FontContext.Font,
+                    Brushes.Red,
+                    this.CurrentLocation);
+
+
                 var cyLineSpacing = this.LineSpacing;
                 using (var pen = new Pen(Color.Black, 2))
                 {
                     const int MAX_STAFF_LINES = 5;
                     for (int i = 0; i < MAX_STAFF_LINES; ++i)
                     {
+#warning FIXME: MAGIC NUMBER
                         pea.Graphics.DrawLine(pen,
-                            new PointF(left, top - (i * cyLineSpacing)),
-                            new PointF(cx, top - (i * cyLineSpacing)));
+                            new PointF(left, top - (i * 21 /*cyLineSpacing*/)),
+                            new PointF(cx, top - (i * 21 /*cyLineSpacing*/)));
                     }
 
                     const int MAX_MEASURES_PER_LINE = 4;
@@ -280,12 +288,12 @@ namespace HarmonyHelperControls.WinForms
             }
 
             #endregion
-            
+
             foreach (var measure in this.Model.Parts.First().Measures)
             {
                 this.DrawMeasure(pea, measure);
             }
-            
+
             new object();
         }
 
@@ -341,15 +349,16 @@ namespace HarmonyHelperControls.WinForms
         {
             var measureRect = this.MeasureRectangles[measure.MeasureNumber % 4];
             var x = measureRect.Location.X;
-
+            var y = this.CurrentLocation.Y;
             foreach (var note in measure.Notes)
             {
+
                 var tcx = note.TimeContext;
                 var de = tcx.DurationEnum;
                 var evt = note.Event;
                 new object();
 
-                this.GetNotehead(note);
+                //var rune = this.GetNotehead(note);
                 var rune = this.GetStem(note);
                 this.GetMeasurePosition();
 
@@ -357,15 +366,20 @@ namespace HarmonyHelperControls.WinForms
                 var ptNe = bbox.PointNe;
                 x += 50;
                 ptNe.X += x;// this.LastPoint.X;
-                ptNe.Y = measureRect.Location.Y;
+                //ptNe.Y = measureRect.Location.Y;
+                ptNe.Y = y;
+                y += 10.0F;
+
 
                 new object();
                 var str = rune.ToString();
 
                 pea.Graphics.DrawString(str,
                     this.FontContext.Font,
-                    Brushes.DarkBlue,
+                    Brushes.Black,
                     ptNe);
+
+                this.CurrentLocation = ptNe;
             }
         }
 
@@ -397,8 +411,10 @@ namespace HarmonyHelperControls.WinForms
         {
         }
 
-        void GetNotehead(TimedEventNote ten)
+        Rune GetNotehead(TimedEventNote ten)
         {
+            Rune result = new Rune();
+
             var tcx = ten.TimeContext;
             var de = tcx.DurationEnum; //get stem
             var note = ten.Event; //get notehead
@@ -409,7 +425,7 @@ namespace HarmonyHelperControls.WinForms
                 case DurationEnum.Duration_Whole:
                 case DurationEnum.Duration_Half:
                     {
-                        rune = SMuFLGlyphs.Instance.NoteheadWhole.Rune;
+                        result = SMuFLGlyphs.Instance.NoteheadWhole.Rune;
                         break;
                     }
                 case DurationEnum.Duration_Quarter:
@@ -422,7 +438,7 @@ namespace HarmonyHelperControls.WinForms
                 case DurationEnum.Duration_512th:
                 case DurationEnum.Duration_1024th:
                     {
-                        rune = SMuFLGlyphs.Instance.NoteheadBlack.Rune;
+                        result = SMuFLGlyphs.Instance.NoteheadBlack.Rune;
                         break;
                     }
                 case DurationEnum.Duration_Maxima:
@@ -433,7 +449,7 @@ namespace HarmonyHelperControls.WinForms
                 default: throw new ArgumentOutOfRangeException(nameof(de));
 
             }
-
+            return result;
         }
 
         Rune GetStem(TimedEventNote ten)
