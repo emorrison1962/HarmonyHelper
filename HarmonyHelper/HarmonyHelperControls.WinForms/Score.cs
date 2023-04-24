@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Eric.Morrison;
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.MusicXml;
 using Eric.Morrison.Harmony.Rhythm;
 
@@ -345,6 +346,14 @@ namespace HarmonyHelperControls.WinForms
         }
 
         PointF CurrentLocation { get; set; }
+
+        public class NoteMetrics
+        {
+            public TimedEventNote Note { get; set; }
+            public Rune Rune { get; set; }
+            public RectangleF Rectangle { get; set; }
+            public PointF Location { get; set; }
+        }
         void DrawMeasure(PaintEventArgs pea, Measure measure)
         {
             var measureRect = this.MeasureRectangles[measure.MeasureNumber % 4];
@@ -360,6 +369,7 @@ namespace HarmonyHelperControls.WinForms
 
                 //var rune = this.GetNotehead(note);
                 var rune = this.GetStem(note);
+                NoteMetrics nm = this.GetNoteMetrics(note);
                 this.GetMeasurePosition();
 
                 var bbox = this.SmuflFontMetadata.GlyphBBoxes.NoteheadBlack;
@@ -410,6 +420,19 @@ namespace HarmonyHelperControls.WinForms
         void GetMeasurePosition()
         {
         }
+
+
+        private NoteMetrics GetNoteMetrics(TimedEventNote note)
+        {
+            var result = new NoteMetrics();
+            result.Note = note;
+            var rune = this.GetStem(note);
+            result.Rune = rune;
+            var rc = this.GetBoundingBox(note);
+            result.Rectangle = rc;
+            return result;
+        }
+
 
         Rune GetNotehead(TimedEventNote ten)
         {
@@ -527,7 +550,175 @@ namespace HarmonyHelperControls.WinForms
 
             return result;
         }
+        RectangleF GetBoundingBox(TimedEventNote ten)
+        {
+            RectangleF result = RectangleF.Empty;
+            var width = MeasureSize.Width;
 
+            var tcx = ten.TimeContext;
+            var de = tcx.DurationEnum; //get stem
+            var note = ten.Event; //get notehead
+
+            switch (de)
+            {
+                case DurationEnum.Duration_Whole:
+                    {
+                        break;
+                    }
+                case DurationEnum.Duration_Half:
+                    {
+                        width = width / 2;
+                        break;
+                    }
+                case DurationEnum.Duration_Quarter:
+                    {
+                        width = width / 4;
+                        break;
+                    }
+                case DurationEnum.Duration_Eighth:
+                    {
+                        width = width / 8;
+                        break;
+                    }
+                case DurationEnum.Duration_16th:
+                    {
+                        width = width / 16;
+                        break;
+                    }
+                case DurationEnum.Duration_32nd:
+                    {
+                        width = width / 32;
+                        break;
+                    }
+                case DurationEnum.Duration_64th:
+                    {
+                        width = width / 64;
+                        break;
+                    }
+                case DurationEnum.Duration_128th:
+                    {
+                        width = width / 128;
+                        break;
+                    }
+                case DurationEnum.Duration_256th:
+                    {
+                        width = width / 256;
+                        break;
+                    }
+                case DurationEnum.Duration_512th:
+                    {
+                        width = width / 512;
+                        break;
+                    }
+                case DurationEnum.Duration_1024th:
+                    {
+                        width = width / 1024;
+                        break;
+                    }
+                case DurationEnum.Duration_Maxima:
+                case DurationEnum.Duration_Long:
+                case DurationEnum.Duration_Breve:
+                case DurationEnum.Unknown:
+                case DurationEnum.None:
+                default: throw new ArgumentOutOfRangeException(nameof(de));
+            }
+
+            result = new RectangleF(this.CurrentLocation, new SizeF(width, MeasureSize.Height));
+            return result;
+        }
+        PointF GetLocation(TimedEventNote ten)
+        {
+            var result = PointF.Empty;
+            var note = ten.Event;
+
+            //c4 is middle C.
+
+            switch (note.Octave)
+            {
+                case OctaveEnum.Octave0:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave1:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave2:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave3:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave4:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave5:
+                    {
+                        break;
+                    }
+                case OctaveEnum.Octave6:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(note.Octave));
+                    }
+            }
+
+            switch (note.NoteName.NameAscii[0])
+            {
+                case 'A':
+                    {
+                        break;
+                    }
+                case 'B':
+                    {
+                        break;
+                    }
+                case 'C':
+                    {
+                        break;
+                    }
+                case 'D':
+                    {
+                        break;
+                    }
+                case 'E':
+                    {
+                        break;
+                    }
+                case 'F':
+                    {
+                        break;
+                    }
+                case 'G':
+                    {
+                        break;
+                    }
+                default: throw new ArgumentOutOfRangeException(nameof(note.NoteName));
+            }
+
+            return result;
+        }
+
+        PointF ToPointF(TimedEventNote ten)
+        {
+            var result = PointF.Empty;
+            var note = ten.Event;
+
+            //Every Good Boy Does Fine & FACE 
+            //Good Boys Do Fine Always and All Cows Eat Grass
+            //
+            switch (note)
+            { 
+                case Note.
+            }
+            return result;
+        }
     }//class
 }//ns
 

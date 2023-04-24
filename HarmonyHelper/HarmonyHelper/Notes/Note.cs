@@ -84,9 +84,6 @@ namespace Eric.Morrison.Harmony
 				case OctaveEnum.Octave4: { octaveNum = SuperScript.FOUR; break; }
 				case OctaveEnum.Octave5: { octaveNum = SuperScript.FIVE; break; }
 				case OctaveEnum.Octave6: { octaveNum = SuperScript.SIX; break; }
-				//case OctaveEnum.Octave7: { octaveNum = SuperScript.SEVEN; break; }
-				//case OctaveEnum.Octave8: { octaveNum = SuperScript.EIGHT; break; }
-				//case OctaveEnum.Octave9: { octaveNum = SuperScript.NINE; break; }
 				default: 
 					{
 						throw new NotImplementedException();
