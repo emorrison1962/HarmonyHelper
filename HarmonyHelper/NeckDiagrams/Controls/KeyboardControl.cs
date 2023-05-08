@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
@@ -16,6 +17,49 @@ namespace NeckDiagrams.Controls
 #pragma warning disable CA1416
     public partial class KeyboardControl : UserControl
     {
+        Dictionary<Note, Region> NoteRegions = new();
+
+        public void Arpeggiator_CurrentNoteChanged(object? sender, Arpeggiator args)
+        {
+            Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
+            this.NoteChanged(args);
+            new object();
+        }
+
+        private void NoteChanged(Arpeggiator arpeggiator)
+        {
+            this.NoteChanged(arpeggiator.CurrentNote);
+        }
+
+        Region LastRegion { get; set; }
+        private void NoteChanged(Note currentNote)
+        {
+            if (this.NoteRegions.ContainsKey(currentNote))
+            {
+                if (null != this.LastRegion)
+                {
+                    this.Invalidate(this.LastRegion);
+                    this.Refresh();
+                }
+
+                var region = this.NoteRegions[currentNote];
+                using (var graphics = Graphics.FromHwnd(this.Handle))
+                {
+                    var rc = region.GetBounds(graphics);
+                    var cx = Math.Min(rc.Width, rc.Height);
+                    var rc2 = new RectangleF(
+                        new PointF(rc.Bottom - cx, 0), 
+                        new SizeF(cx, cx));
+                    graphics.FillRegion(Brushes.Red, region);
+                    //graphics.FillEllipse(Brushes.Red, rc);
+
+
+                    this.LastRegion = region;
+                }
+            }
+            new object();
+        }
+
         public KeyboardControl()
         {
             InitializeComponent();
@@ -31,7 +75,6 @@ namespace NeckDiagrams.Controls
             this.DrawKeyboard(e.Graphics, e.ClipRectangle, 52);
         }
 
-        Dictionary<Note, Region> KeyRegions = new();
         private void DrawKeyboard(Graphics g, RectangleF rect, int numKeys)
         {
             float keyWidth = rect.Width / numKeys;
@@ -59,11 +102,15 @@ namespace NeckDiagrams.Controls
                     RectangleF blackKeyRect = new RectangleF(x1, y1, blackKeyWidth, blackKeyHeight);
                     g.FillRectangle(Brushes.Black, blackKeyRect);
                     g.DrawRectangle(Pens.Black, blackKeyRect.X, blackKeyRect.Y, blackKeyRect.Width, blackKeyRect.Height);
-                    region = new Region(blackKeyRect);
 
+                    var szHs = new SizeF(blackKeyRect.Width, blackKeyRect.Width);
+                    var ptHs = new PointF(blackKeyRect.Location.X,
+                        (blackKeyRect.Location.Y - blackKeyRect.Bottom) + blackKeyRect.Width);
+                    var rcHs = new RectangleF(ptHs, szHs);
+                    region = new Region(rcHs);
                 }
 
-                this.KeyRegions[note] = region;
+                this.NoteRegions[note] = region;
                 note++;
             }
         }

@@ -49,7 +49,7 @@ namespace NeckDiagrams.Controls
             this.pnlMain = new System.Windows.Forms.Panel();
             this._noteViewer = new Manufaktura.Controls.WinForms.NoteViewer();
             this._rtbResults = new System.Windows.Forms.RichTextBox();
-            this.keyboardControl1 = new KeyboardControl();
+            this._keyboardControl = new KeyboardControl();
             this.pnlSettings.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupDirection.SuspendLayout();
@@ -278,11 +278,11 @@ namespace NeckDiagrams.Controls
             // 
             // keyboardControl1
             // 
-            this.keyboardControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.keyboardControl1.Location = new Point(0, 465);
-            this.keyboardControl1.Name = "keyboardControl1";
-            this.keyboardControl1.Size = new Size(1163, 84);
-            this.keyboardControl1.TabIndex = 2;
+            this._keyboardControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._keyboardControl.Location = new Point(0, 465);
+            this._keyboardControl.Name = "keyboardControl1";
+            this._keyboardControl.Size = new Size(1163, 84);
+            this._keyboardControl.TabIndex = 2;
             // 
             // ArpeggiatorControl
             // 
@@ -291,7 +291,7 @@ namespace NeckDiagrams.Controls
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.keyboardControl1);
+            this.Controls.Add(this._keyboardControl);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ArpeggiatorControl";
             this.Size = new Size(1163, 549);
@@ -329,6 +329,6 @@ namespace NeckDiagrams.Controls
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.RichTextBox _rtbResults;
         private Manufaktura.Controls.WinForms.NoteViewer _noteViewer;
-        private KeyboardControl keyboardControl1;
+        private KeyboardControl _keyboardControl;
     }
 }

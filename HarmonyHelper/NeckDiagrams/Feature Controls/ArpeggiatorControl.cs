@@ -50,6 +50,8 @@ namespace NeckDiagrams.Controls
         {
             _noteViewer.DataSource = null;
             var observer = new MusicXmlObservers(arpeggiator);
+            arpeggiator.NoteChanged += this._keyboardControl.Arpeggiator_CurrentNoteChanged;
+
             arpeggiator.Arpeggiate();
             var part = observer.Part;
             var sw = Stopwatch.StartNew();
