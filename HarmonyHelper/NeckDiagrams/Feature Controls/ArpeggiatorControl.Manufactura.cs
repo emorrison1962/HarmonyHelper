@@ -13,24 +13,24 @@ using Manufaktura.Controls.WinForms;
 
 namespace NeckDiagrams.Controls
 {
-	public partial class ArpeggiatorControl 
-	{
-		void PopulateNoteViewer(XDocument doc)
-		{
-			var settings = _noteViewer.Settings;
+    public partial class ArpeggiatorControl
+    {
+        void PopulateNoteViewer(XDocument doc)
+        {
+            var settings = _noteViewer.Settings;
             var sw = Stopwatch.StartNew();
-			var score = doc.ToScore(new MusicXmlNormalizer());
+            var score = doc.ToScore(new MusicXmlNormalizer());
 
-			//score.FirstStaff.Height = 400;
-			//foreach (var measure in score.FirstStaff.Measures)
-			//{
-			//	measure.Width = 400;
-			//}
+            //score.FirstStaff.Height = 400;
+            //foreach (var measure in score.FirstStaff.Measures)
+            //{
+            //	measure.Width = 400;
+            //}
 
-			_noteViewer.DataSource = score;
+            _noteViewer.DataSource = score;
             _noteViewer.Refresh();
-			sw.Stop();
-			Debug.WriteLine(sw.ElapsedMilliseconds);
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
 
         }
     }//class

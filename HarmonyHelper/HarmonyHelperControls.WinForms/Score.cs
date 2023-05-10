@@ -108,7 +108,7 @@ namespace HarmonyHelperControls.WinForms
         [Obsolete]
         async Task Init()
         {
-            var json = Helpers.LoadEmbeddedResource("bravura_metadata.json");
+            var json = Eric.Morrison.Helpers.LoadEmbeddedResource("bravura_metadata.json");
             this.SmuflFontMetadata = JsonConvert.DeserializeObject<SMuFLFontMetadata>(json);
 
             var path = Path.Combine(TEST_FILES_PATH, @"Effendi MusicXml Files\I\AllBlues 1.xml");
@@ -713,9 +713,14 @@ namespace HarmonyHelperControls.WinForms
             //Every Good Boy Does Fine & FACE 
             //Good Boys Do Fine Always and All Cows Eat Grass
             //
-            switch (note)
-            { 
-                case Note.
+            switch (note.NameAscii)
+            {
+                case "": { break; }
+                default: 
+                    {
+                        Debug.WriteLine(note.NameAscii);
+                        break;
+                    }
             }
             return result;
         }

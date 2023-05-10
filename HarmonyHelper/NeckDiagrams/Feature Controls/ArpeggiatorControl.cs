@@ -50,6 +50,8 @@ namespace NeckDiagrams.Controls
         {
             _noteViewer.DataSource = null;
             var observer = new MusicXmlObservers(arpeggiator);
+            arpeggiator.NoteChanged += this._keyboardControl.Arpeggiator_CurrentNoteChanged;
+
             arpeggiator.Arpeggiate();
             var part = observer.Part;
             var sw = Stopwatch.StartNew();
@@ -70,7 +72,7 @@ namespace NeckDiagrams.Controls
 
             //MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
 
-            _rtbResults.Text = part.ToXElement().ToString();    
+            _rtbResults.Text = part.ToXElement().ToString();
             new object();
         }
 
@@ -149,7 +151,7 @@ namespace NeckDiagrams.Controls
     class ArpeggiatorCreationContext
     {
         public event EventHandler<Arpeggiator> ArpeggiatorCreated;
-        
+
         #region Properties
         List<ChordFormulaVM> _Formulas { get; set; } = new List<ChordFormulaVM>();
         public List<ChordFormulaVM> Formulas
@@ -165,26 +167,26 @@ namespace NeckDiagrams.Controls
         List<ArpeggiationChordContext> ChordContexts { get; set; } = new List<ArpeggiationChordContext> { };
         public NoteRange NoteRange { get; set; } = new FiveStringBassRange(FiveStringBassPositionEnum.FirstPosition);
         int _BeatsPerMeasure { get; set; }
-        public int BeatsPerMeasure 
+        public int BeatsPerMeasure
         {
             get { return this._BeatsPerMeasure; }
-            set 
+            set
             {
                 this._BeatsPerMeasure = value;
                 this.TryCreateArpeggiator();
-            } 
+            }
         }
 
         DirectionEnum _Direction = DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote;
-        public DirectionEnum Direction 
+        public DirectionEnum Direction
         {
             get { return this._Direction; }
-            set 
+            set
             {
                 this._Direction = value;
                 this.TryCreateArpeggiator();
-            } 
-        } 
+            }
+        }
         public bool UntilPatternRepeats { get; set; }
         public bool TemporaryReversal { get; set; }
 

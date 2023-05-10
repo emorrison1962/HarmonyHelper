@@ -90,7 +90,8 @@ namespace Eric.Morrison.Harmony.Chords
 			bool success = false;
 			// Debug.WriteLine(input);
 			var match = Regex.Match(input, REGEX);
-			try
+#pragma warning disable CS0168 // Variable is declared but never used
+            try
 			{
 				if (match.Success)
 				{
@@ -141,8 +142,9 @@ namespace Eric.Morrison.Harmony.Chords
 			{
 				throw;
 			}
+#pragma warning restore CS0168 // Variable is declared but never used
 
-			if (success)
+            if (success)
 			{
 				chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
                 chordFormula = ChordFormula.Create(chordFormula.Root, chordFormula.ChordType);

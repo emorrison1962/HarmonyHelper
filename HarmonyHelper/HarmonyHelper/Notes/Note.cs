@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 
 using static Eric.Morrison.Harmony.NoteName;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Eric.Morrison.Harmony
 {
@@ -142,11 +143,23 @@ namespace Eric.Morrison.Harmony
 		}
 		public static bool operator !=(Note a, Note b)
 		{
-			var result = Compare(a, b) != 0;
+            var result = Compare(a, b) != 0;
+            return result;
+        }
+
+		public static Note operator ++(Note src)
+		{
+			var nn = src.NoteName.TransposeUp(Interval.Minor2nd);
+			var octave = src.Octave;
+			if (nn == NoteName.C)
+			{
+				octave++;
+			}
+			var result = new Note(nn, octave);
 			return result;
 		}
-
-		public static Note operator +(Note n, Interval interval)
+		
+        public static Note operator +(Note n, Interval interval)
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
