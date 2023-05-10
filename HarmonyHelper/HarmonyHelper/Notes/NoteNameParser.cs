@@ -68,7 +68,8 @@ namespace Eric.Morrison.Harmony.Notes
 			bool success = false;
 			// Debug.WriteLine(input);
 			var match = Regex.Match(input, REGEX);
-			try
+#pragma warning disable CS0168 // Variable is declared but never used
+            try
 			{
 				if (match.Success)
 				{
@@ -95,8 +96,9 @@ namespace Eric.Morrison.Harmony.Notes
 			{
 				throw;
 			}
+#pragma warning restore CS0168 // Variable is declared but never used
 
-			if (success)
+            if (success)
 				result = true;
 
 			return result;

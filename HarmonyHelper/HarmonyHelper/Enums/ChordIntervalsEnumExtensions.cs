@@ -390,7 +390,6 @@ namespace Eric.Morrison.Harmony
         {
             var result = false;
             var isDominant = false;
-            var isAltered = false;
 
             if (src.HasFlag(ChordIntervalsEnum.IntervalMajor3rd)
                 && src.HasFlag(ChordIntervalsEnum.IntervalMinor7th))
