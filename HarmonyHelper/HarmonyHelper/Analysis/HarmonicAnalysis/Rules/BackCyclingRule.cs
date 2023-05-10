@@ -7,44 +7,58 @@ using Eric.Morrison.Harmony.Intervals;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
-	/// <summary>
-	/// WHAT IS BACK CYCLING?
-	///	Before you dive into applying this concept to your playing, let’s look at the theory behind this common chord substitution and how you can apply it to your playing.
-	///
-	///
-	/// Here is the basic definition of back cycling to check out before we dissect that theory further.
-	/// 
-	/// 
-	/// Back Cycling is when you take one chord progression, such as a ii-V-I, and you substitute a cycle of V7 changes over those chords, such as ii-II-V-I.
-	/// 
-	/// This may seem simple on paper, but it can pose a challenge to apply on the guitar, mostly because you are seeing one set of chords on the page, hearing that same set of chords in the band, but playing a completely different set of chords in your comping or soloing phrases.
-	/// 
-	/// The term back cycling is so labeled because you start at the resolution chord (such as the Imaj7 in a ii-V-I phrase) and you work back using the cycle of V7s to create your chord substitutions.
-	/// 
-	/// For example: playing the progression Dm7-D7 G7-Cmaj7 over Dm7-G7-Cmaj7.
-	/// 
-	/// The reason this works is that the subs are dominant chords (V7s) of the next chord in the progression. D7 shouldn’t sound good over G7, but in the progression, it resolves to the next chord (G7) as it is the V7 of that chord.
-	/// 
-	/// This creates that cool, tension-and-release sound that you hear in many classic jazz solos, and one that can add a new level of interest to your comping and soloing performance.
-	/// 
-	/// To create more tension in your lines, you simply work back the cycle of V7s further, always adding the V7 of the chord you are on before that chord in the changes.
-	/// 
-	/// If you were to do this to a ii-V-I progression, which you will see in more detail in the next section of this lesson, you would get:
-	/// 
-	/// 
-	/// Dm7-G7-Cmaj7
-	/// Dm7-D7 G7-Cmaj7
-	/// Dm7 A7-D7 G7-Cmaj7
-	/// E7 A7-D7 G7-Cmaj7
-	/// As you can see, in each example I’ve added one more V7 chord before the V7 in the progression, which eventually creates a V7 of, V7 of, V7 of, V7 to Imaj7 progression.
-	/// 
-	/// 
-	/// The essence of back cycling is that you are creating tension, but the cycle of V7s is such a recognizable progression that these subs can be followed by the listener until you resolve the subs to an “inside” chord in the phrase.
-	/// 
-	/// 
-	/// It will take some time for your ears to become accustomed to this level of tension and release in your playing, so start today and over time you will begin to hear this kind of chord sub concept as normal in your comping and soloing.
-	/// </summary>
-	[Obsolete("Need to clarify the deistinction of this rule compared to Secondary Dominant rule.", false)]
+#if CHATGPT_DESCRIPTION
+Back cycling, also known as "back cycling progression" or "back cycling chord progression," is a harmonic device commonly used in jazz and other contemporary genres. It involves the movement of chords in a cyclical or circular pattern, typically descending in fifths or ascending in fourths.
+
+In a back cycling progression, the last chord of a phrase or progression is temporarily tonicized (given a temporary sense of tonal center) by using a series of secondary dominant chords. These secondary dominants lead to the chord that precedes the original tonic, creating a sense of tension and resolution.
+
+For example, let's consider a simple back cycling progression in the key of C major:
+
+| C | G7 | Cmaj7 | F#7 | B7 | Em | A7 | Dm7 | G7 |
+
+In this progression, the G7 chord functions as a secondary dominant leading to the Cmaj7 chord, creating a temporary tonicization of the C major chord. The same principle applies to the F#7 chord, which leads to B7, and so on. This creates a cyclical movement through dominant chords, resolving ultimately back to the original tonic.
+
+Back cycling can add complexity, tension, and a sense of harmonic movement to a chord progression, allowing for interesting variations and enriching the overall musical texture.
+#endif
+
+    /// <summary>
+    /// WHAT IS BACK CYCLING?
+    ///	Before you dive into applying this concept to your playing, let’s look at the theory behind this common chord substitution and how you can apply it to your playing.
+    ///
+    ///
+    /// Here is the basic definition of back cycling to check out before we dissect that theory further.
+    /// 
+    /// 
+    /// Back Cycling is when you take one chord progression, such as a ii-V-I, and you substitute a cycle of V7 changes over those chords, such as ii-II-V-I.
+    /// 
+    /// This may seem simple on paper, but it can pose a challenge to apply on the guitar, mostly because you are seeing one set of chords on the page, hearing that same set of chords in the band, but playing a completely different set of chords in your comping or soloing phrases.
+    /// 
+    /// The term back cycling is so labeled because you start at the resolution chord (such as the Imaj7 in a ii-V-I phrase) and you work back using the cycle of V7s to create your chord substitutions.
+    /// 
+    /// For example: playing the progression Dm7-D7 G7-Cmaj7 over Dm7-G7-Cmaj7.
+    /// 
+    /// The reason this works is that the subs are dominant chords (V7s) of the next chord in the progression. D7 shouldn’t sound good over G7, but in the progression, it resolves to the next chord (G7) as it is the V7 of that chord.
+    /// 
+    /// This creates that cool, tension-and-release sound that you hear in many classic jazz solos, and one that can add a new level of interest to your comping and soloing performance.
+    /// 
+    /// To create more tension in your lines, you simply work back the cycle of V7s further, always adding the V7 of the chord you are on before that chord in the changes.
+    /// 
+    /// If you were to do this to a ii-V-I progression, which you will see in more detail in the next section of this lesson, you would get:
+    /// 
+    /// 
+    /// Dm7-G7-Cmaj7
+    /// Dm7-D7 G7-Cmaj7
+    /// Dm7 A7-D7 G7-Cmaj7
+    /// E7 A7-D7 G7-Cmaj7
+    /// As you can see, in each example I’ve added one more V7 chord before the V7 in the progression, which eventually creates a V7 of, V7 of, V7 of, V7 to Imaj7 progression.
+    /// 
+    /// 
+    /// The essence of back cycling is that you are creating tension, but the cycle of V7s is such a recognizable progression that these subs can be followed by the listener until you resolve the subs to an “inside” chord in the phrase.
+    /// 
+    /// 
+    /// It will take some time for your ears to become accustomed to this level of tension and release in your playing, so start today and over time you will begin to hear this kind of chord sub concept as normal in your comping and soloing.
+    /// </summary>
+    [Obsolete("Need to clarify the deistinction of this rule compared to Secondary Dominant rule.", false)]
 	public class BackCyclingRule : HarmonicAnalysisRuleBase
 	{
 		const string DESCRIPTION =
