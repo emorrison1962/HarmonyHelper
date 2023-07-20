@@ -62,6 +62,11 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #region Construction
 
+        public Measure()
+        {
+
+        }
+
         public Measure(Part part, int measureNumber)
         {
             if (part == null)
@@ -355,6 +360,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        internal void SetPart(Part part)
+        {
+            this.Part = part;
         }
 
         #endregion

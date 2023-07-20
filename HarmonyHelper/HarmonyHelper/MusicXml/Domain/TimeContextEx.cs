@@ -57,6 +57,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.RelativeEnd = this.Rhythm.PulsesPerMeasure * this.MeasureNumber | (int)duration;
         }
 
+        public TimeContextEx(Measure measure, RhythmicContext rhythm, DurationEnum duration)
+            : this(measure.MeasureNumber, rhythm, duration)
+        {
+        }
+
         public TimeContextEx(CreationContext ctx)
             : this(ctx.MeasureNumber, ctx.Rhythm)
         {

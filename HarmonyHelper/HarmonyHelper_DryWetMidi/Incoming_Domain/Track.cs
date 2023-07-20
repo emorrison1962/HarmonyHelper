@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using Eric.Morrison.Harmony;
+//using Eric.Morrison.Harmony;
 using System.Diagnostics;
 using Melanchall.DryWetMidi.Tools;
 

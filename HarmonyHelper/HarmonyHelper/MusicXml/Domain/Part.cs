@@ -48,7 +48,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         public Part(PartTypeEnum PartType)
         {
             this.PartType = PartType;
-            this.Sections.Add(new Section(this));
         }
         public Part(PartTypeEnum PartType, PartIdentifier PartIdentifier)
             : this(PartType)
@@ -112,6 +111,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public void Add(Section section)
         {
             this.Sections.Add(section);
+            section.SetPart(this);
         }
 
         [Obsolete("", true)]

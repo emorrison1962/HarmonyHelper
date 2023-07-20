@@ -37,6 +37,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.PulsesPerMeasure = ppm;
         }
 
+        public RhythmicContext(TimeSignature ts)
+            : this(ts, 100)
+        {
+        }
+
         #endregion
 
         #region Fluency

@@ -18,6 +18,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     public class MusicXmlModel : IDisposable, IHasIsValid
     {
         private bool disposedValue;
+
         #region Properties
         public ScoreMetadata Metadata { get; set; } = new ScoreMetadata();
         public List<Part> Parts { get; protected set; } = new List<Part>();

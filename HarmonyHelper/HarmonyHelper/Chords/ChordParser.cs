@@ -72,7 +72,7 @@ namespace Eric.Morrison.Harmony.Chords
 		{
 			var result = new List<string>();
 			input = input.ToLower();
-			result = input.Split(new string[] { " ", "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+			result = input.Split(new string[] { " ", "\r\n", "\r", "\n", "|"}, StringSplitOptions.RemoveEmptyEntries).ToList();
 			result.RemoveAll(x => "nc" == x);
 			return result;
 		}

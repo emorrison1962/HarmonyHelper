@@ -102,13 +102,17 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Part = Part;
         }
 
+        public Section()
+        {
+        }
+
         #endregion
 
         public void Add(Measure measure)
         { 
             if (null == measure)
                 throw new ArgumentNullException(nameof(measure));
-            
+            measure.SetPart(this.Part);
             if (this.Measures.Count == 0)
                 measure.IsSectionStart = true;
 
@@ -171,6 +175,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        internal void SetPart(Part part)
+        {
+            this.Part = part;
         }
 
         #endregion

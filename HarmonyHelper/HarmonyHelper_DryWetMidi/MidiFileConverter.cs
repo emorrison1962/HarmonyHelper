@@ -39,7 +39,7 @@ namespace HarmonyHelper_DryWetMidi
             //}
         }
     }
-    public class MidiFileConverter
+    public partial class MidiFileConverter
     {
         #region Properties
         public string Filename { get; private set; }
