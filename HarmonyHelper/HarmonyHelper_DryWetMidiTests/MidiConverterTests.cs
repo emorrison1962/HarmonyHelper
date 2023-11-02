@@ -48,12 +48,24 @@ namespace HarmonyHelper_DryWetMidi.Tests
         }
 
         [TestMethod()]
-        public void CreateMidiFileTest_EitherWay()
+        public void CreateMidiFileTest_EitherWay_V()
         {
-            var model = this.CreateModel_EitherWay();
+            var model = this.CreateModel_EitherWay_V();
             var midi = new MidiFileConverter();
 
-            var filename = @"c:\temp\EitherWay.mid";
+            var filename = @"c:\temp\EitherWay_V.mid";
+            midi.Create(model, filename);
+            new object();
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void CreateMidiFileTest_EitherWay_C()
+        {
+            var model = this.CreateModel_EitherWay_C();
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\EitherWay_C.mid";
             midi.Create(model, filename);
             new object();
             //Assert.Fail();
@@ -177,10 +189,10 @@ namespace HarmonyHelper_DryWetMidi.Tests
             return model;
         }
 
-        public MusicXmlModel CreateModel_EitherWay()
+        public MusicXmlModel CreateModel_EitherWay_V()
         {
 
-            var Verse_1 = @"| G | GMaj7/F# | G7/F | C/E | Eb | D2 | C, G/B | C, Bb |";
+            var Verse_1 = @"| G | GMaj7/F# | G7/F | C/E | Cm/Eb | D | C, G/B | C, Bb |";
             List<string> Sections = new List<string>()
             {
                 Verse_1
@@ -191,5 +203,18 @@ namespace HarmonyHelper_DryWetMidi.Tests
             return model;
         }
 
+        public MusicXmlModel CreateModel_EitherWay_C()
+        {
+
+            var Verse_1 = @"| G | Em | C | Cm | G | Em | C | Cm |";
+            List<string> Sections = new List<string>()
+            {
+                Verse_1
+            };
+
+            var rhythm = new RhythmicContext(new TimeSignature(4, 4));
+            var model = MusicXmlModelFactory.Create(Sections, rhythm);
+            return model;
+        }
     }//class
 }//ns

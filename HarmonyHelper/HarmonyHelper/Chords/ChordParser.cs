@@ -24,7 +24,7 @@ namespace Eric.Morrison.Harmony.Chords
 			String accidentals = "(#|##|b|bb)?";
 
 			String chordTypes =
-                @"(dominant|maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|maj7+|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|sus|maj|min|m11|m13|7b5|7#5|7b9|7#9|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
+                @"(dominant|maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|maj7+|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|sus|maj|min|m11|m13|7b5|7#5|7b9|7#9|7#11|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
 
 			String bass = "?[\\/]?([cdefgab])?";
 
@@ -378,7 +378,10 @@ namespace Eric.Morrison.Harmony.Chords
 				case "7#9":
 					result = ChordIntervalsEnum.Dominant7Sharp9;
 					break;
-				case "7b5b9":
+                case "7#11":
+                    result = ChordIntervalsEnum.DominantAug11;
+                    break;
+                case "7b5b9":
                     throw new NotImplementedException();
                     break;
 				case "7b5#9":

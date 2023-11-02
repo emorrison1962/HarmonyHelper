@@ -39,7 +39,9 @@ namespace NeckDiagrams
                 //var defaultKey = KeySignature.CMajor;
                 //_cbKey.SelectedItem = defaultKey;
                 //this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
-                this._rbScore.Checked = true;
+                
+                //this._rbScore.Checked = true;
+                this._bnFeatureHarmonicAnalysis.Checked = true;
             }
         }
 

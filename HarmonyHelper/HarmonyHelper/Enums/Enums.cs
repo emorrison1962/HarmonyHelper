@@ -328,6 +328,7 @@ namespace Eric.Morrison.Harmony
 
         Dominant9 = Dominant7 | IntervalNinth,
         Dominant11 = Dominant9 | IntervalEleventh,
+        DominantAug11 = Dominant9 | IntervalAugmented11th,
         Dominant11b9 = Dominant11 | IntervalFlat9th,
         Dominant13 = Dominant11 | IntervalThirteenth,
         Dominant13Aug11 = Dominant13 | IntervalAugmented11th,
