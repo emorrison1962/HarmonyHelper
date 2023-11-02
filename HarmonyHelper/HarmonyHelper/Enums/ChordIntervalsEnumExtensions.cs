@@ -257,6 +257,11 @@ namespace Eric.Morrison.Harmony
                         result = "m7b5";
                         break;
                     }
+                case ChordIntervalsEnum.DominantAug11:
+                    {
+                        result = "7+11";
+                        break;
+                    }
 
                 default:
                     throw new NotSupportedException(nameof(src));

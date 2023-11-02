@@ -101,6 +101,8 @@ namespace Eric.Morrison.Harmony.Chords
         [Obsolete("", true)]
         public ChordFormula(ChordFormula src)
         {
+            if (null == src)
+                throw new NullReferenceException(nameof(ChordFormula));
             this.Copy(src);
         }
 

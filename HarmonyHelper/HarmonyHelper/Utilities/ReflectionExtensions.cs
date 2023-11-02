@@ -12,6 +12,8 @@ namespace Eric.Morrison.Harmony
     {
         public static void Copy(this object dst, object src)
         {
+            if (null == src)
+                return;
             dst.CopyFields(src);
             dst.CopyProperties(src);
         }
@@ -29,6 +31,9 @@ namespace Eric.Morrison.Harmony
         }
         public static void CopyProperties(this object dst, object src)
         {
+            if (null == src)
+                return;
+
             var srcPis = src.GetType().GetProperties().ToList();
             var dstPis = dst.GetType().GetProperties().ToList();
 

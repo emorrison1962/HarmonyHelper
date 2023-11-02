@@ -215,7 +215,7 @@ namespace Eric.Morrison.Harmony.Scales
 				ScaleToneInterval.Minor3rd,
 				ScaleToneInterval.Major3rd,
 				ScaleToneInterval.Perfect4th,
-				ScaleToneInterval.Augmented4th,
+				ScaleToneInterval.Diminished5th,
 				ScaleToneInterval.Perfect5th,
 				ScaleToneInterval.Major6th,
 				ScaleToneInterval.Minor7th,

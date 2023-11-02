@@ -4402,7 +4402,7 @@ namespace Eric.Morrison.Harmony.Chords
         
         static ChordFormula()
         {
-
+            Stopwatch sw = Stopwatch.StartNew();
             try
             {
                 //GenerateCodeForStaticChord_Catalog_StageOne();
@@ -5483,7 +5483,9 @@ namespace Eric.Morrison.Harmony.Chords
             {
                 throw;
             }
-
+            sw.Stop();
+            Debug.WriteLine(sw.ElapsedMilliseconds);
+            new object();
         }
 
 

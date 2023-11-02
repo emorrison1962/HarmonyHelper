@@ -127,8 +127,6 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public void Add(ChordFormula formula)
         {
             //Allow adding nulls.
-            //if (null == formula)
-            //    throw new ArgumentNullException(nameof(formula));
             _Chords.Add(formula);
         }
         #endregion

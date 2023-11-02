@@ -249,10 +249,11 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
                         //Debug.WriteLine(scale);
-                        var chord = ChordFormula.InternalCatalog
+                        var chord = ChordFormula.Catalog
                             .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
+
                         gridRow.Add(chord);
                     }
 

@@ -40,7 +40,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         public XElement XElement { get; set; }
         public Measure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; } = KeySignature.CMajor;
-        public List<Section> Sections { get; set; } = new List<Section>();
+        List<Section> _Sections = new List<Section>();
+        public List<Section> Sections 
+        {
+            get 
+            { 
+                if (!this._Sections.Any())
+                    this._Sections.Add(new Section());
+                return this._Sections;
+            }
+        } 
         public RhythmicContext Rhythm { get; set; }
         #endregion
 
