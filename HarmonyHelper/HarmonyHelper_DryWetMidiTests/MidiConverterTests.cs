@@ -71,6 +71,32 @@ namespace HarmonyHelper_DryWetMidi.Tests
             //Assert.Fail();
         }
 
+        [TestMethod()]
+        public void CreateMidiFileTest_Generic()
+        {
+            var str = "c6 e7 a7 d7 g7 b7 e7 a7 abdim7";
+            var model = this.CreateModel(str);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void CreateMidiFileTest_110123()
+        {
+            var str = "cmaj7 e7 f d eb g7 ab f gb bb7 b c#7";
+            var model = this.CreateModel(str);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_110123.mid";
+            midi.Create(model, filename);
+            new object();
+            //Assert.Fail();
+        }
+
 
         [TestMethod()]
         public void Foo()
@@ -185,6 +211,58 @@ namespace HarmonyHelper_DryWetMidi.Tests
             };
 
             var rhythm = new RhythmicContext(new TimeSignature(6, 8));
+            var model = MusicXmlModelFactory.Create(Sections, rhythm);
+            return model;
+        }
+
+        [TestMethod()]
+        public void Test_112223()
+        {
+            var model = this.CreateModel_112223();
+            var midi = new MidiFileConverter();
+            var filename = @"c:\temp\_112223.mid";
+            midi.Create(model, filename);
+            new object();
+            //Assert.Fail();
+        }
+        public MusicXmlModel CreateModel_112223()
+        {
+
+            var Verse_1 = @"| Cm7| F7| E7| Am6| G#7| C#m7| E7| G#7|
+| C#m7| D7| F#m7| A7| Am7| F#7| Bm7b5| E7b9 |
+";
+            List<string> Sections = new List<string>()
+            {
+                Verse_1
+            };
+
+            var rhythm = new RhythmicContext(new TimeSignature(4 ,4));
+            var model = MusicXmlModelFactory.Create(Sections, rhythm);
+            return model;
+        }
+
+        [TestMethod()]
+        public void Test_112723()
+        {
+            var chords = @"| F| C| Am| E7| F| C| G| C| ";
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+
+        public MusicXmlModel CreateModel(string chords)
+        {
+
+            List<string> Sections = new List<string>()
+            {
+                chords
+            };
+
+            var rhythm = new RhythmicContext(new TimeSignature(4, 4));
             var model = MusicXmlModelFactory.Create(Sections, rhythm);
             return model;
         }

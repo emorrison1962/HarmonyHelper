@@ -294,6 +294,16 @@ namespace Eric.Morrison.Harmony.Intervals
             return result;
         }
 
+        static public Interval Min(Interval a, Interval b)
+        {
+            Interval result = b;
+            if (0 > a.Value.CompareTo(b.Value))
+            {
+                result = a;
+            }
+            return result;
+        }
+
         public int CompareTo(Interval other)
         {
             int result = 0;
