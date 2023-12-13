@@ -115,19 +115,28 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         #endregion
 
+        public override string ToString()
+        {
+            var result = $"{nameof(ModalInterchangeGrid)}";
+            foreach (var row in this.Rows) 
+            {
+                result += $"{Environment.NewLine}{row.ToString()}";
+            }
+            return result;
+        }
     }
     public class ModalInterchangeGridRow : IEquatable<ModalInterchangeGridRow>
     {
         #region Properties
-        public KeySignature Key { get; private set; }
-        public string ModeName { get; private set; }
-        List<ChordFormula> _Chords { get; set; } = new List<ChordFormula>();
-        public IList<ChordFormula> Chords { get { return _Chords; } }
+        public KeySignature Key { get; set; }
+        public string ModeName { get; set; }
+        public List<ChordFormula> Chords { get; set; } = new List<ChordFormula>();
+        //public IList<ChordFormula> Chords { get { return _Chords; } }
 
         public void Add(ChordFormula formula)
         {
             //Allow adding nulls.
-            _Chords.Add(formula);
+            this.Chords.Add(formula);
         }
         #endregion
 
@@ -232,7 +241,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         {
             var result = this.Key.GetHashCode()
                 ^ this.ModeName.GetHashCode();
-            this._Chords.ForEach(x => result ^= x.GetHashCode());
+            this.Chords.ForEach(x => result ^= x.GetHashCode());
 
             return result;
         }

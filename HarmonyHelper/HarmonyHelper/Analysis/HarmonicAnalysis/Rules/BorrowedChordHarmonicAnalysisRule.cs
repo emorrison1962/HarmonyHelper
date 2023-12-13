@@ -66,11 +66,21 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                 grids.Add(this.CreateHarmonicMinorBorrowedChordGrid(key));
             }
 
-            using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
+            foreach (var grid in grids)
             {
-                var json = Helpers.LoadEmbeddedResource($"{nameof(ModalInterchangeGrid)} {key.Name}");
-                grids = JsonConvert.DeserializeObject<List<ModalInterchangeGrid>>(json);
+                foreach (var row in grid.Rows)
+                {
+                    foreach (var chord in row.Chords)
+                    {
+                        new object();
+                    }
+                    var chords = row.Chords.Select(x => x.Name).ToList();
+                    var s = $"{row.ModeName} | {chords[0]} | {chords[1]} | {chords[2]} | {chords[3]} | {chords[4]} | {chords[5]} | {chords[6]} | ";
+                    Debug.WriteLine(s);
+                    new object();
+                }
             }
+
             return grids;
         }
 
