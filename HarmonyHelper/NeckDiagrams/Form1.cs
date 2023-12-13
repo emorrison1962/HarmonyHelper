@@ -39,7 +39,7 @@ namespace NeckDiagrams
                 //var defaultKey = KeySignature.CMajor;
                 //_cbKey.SelectedItem = defaultKey;
                 //this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
-                
+
                 //this._rbScore.Checked = true;
                 this._bnFeatureHarmonicAnalysis.Checked = true;
             }
@@ -108,7 +108,7 @@ namespace NeckDiagrams
             }
 
             if (e.KeyCode == Keys.Escape)
-            { 
+            {
                 this.Close();
             }
 
@@ -247,5 +247,12 @@ namespace NeckDiagrams
         }
         #endregion
 
+        private void _bnModalInterchange_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                this.AddControl(new ModalInterchangeControl());
+            }
+        }
     }//class
 }//ns

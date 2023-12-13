@@ -1,277 +1,290 @@
 ﻿
 namespace NeckDiagrams
 {
-	partial class Form1
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.bottomMenuPanel = new System.Windows.Forms.Panel();
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printDialog = new System.Windows.Forms.PrintDialog();
-            this.printDocument = new System.Drawing.Printing.PrintDocument();
-            this._pnlNav = new System.Windows.Forms.Panel();
-            this._rbScore = new System.Windows.Forms.RadioButton();
-            this._rbManufaktura = new System.Windows.Forms.RadioButton();
-            this._bnFeatureVoiceLeading = new System.Windows.Forms.RadioButton();
-            this._bnFeatureScales = new System.Windows.Forms.RadioButton();
-            this._bnFeatureReHarmonize = new System.Windows.Forms.RadioButton();
-            this._bnFeatureLeadSheets = new System.Windows.Forms.RadioButton();
-            this._bnFeatureHarmonicAnalysis = new System.Windows.Forms.RadioButton();
-            this._bnFeatureArpeggiator = new System.Windows.Forms.RadioButton();
-            this._bnFeatureArpeggios = new System.Windows.Forms.RadioButton();
-            this._pnlMain = new System.Windows.Forms.Panel();
-            this.bottomMenuPanel.SuspendLayout();
-            this.menuStrip.SuspendLayout();
-            this._pnlNav.SuspendLayout();
-            this.SuspendLayout();
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            bottomMenuPanel = new System.Windows.Forms.Panel();
+            menuStrip = new System.Windows.Forms.MenuStrip();
+            toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            printDialog = new System.Windows.Forms.PrintDialog();
+            printDocument = new System.Drawing.Printing.PrintDocument();
+            _pnlNav = new System.Windows.Forms.Panel();
+            _bnModalInterchange = new System.Windows.Forms.RadioButton();
+            _rbScore = new System.Windows.Forms.RadioButton();
+            _rbManufaktura = new System.Windows.Forms.RadioButton();
+            _bnFeatureVoiceLeading = new System.Windows.Forms.RadioButton();
+            _bnFeatureScales = new System.Windows.Forms.RadioButton();
+            _bnFeatureReHarmonize = new System.Windows.Forms.RadioButton();
+            _bnFeatureLeadSheets = new System.Windows.Forms.RadioButton();
+            _bnFeatureHarmonicAnalysis = new System.Windows.Forms.RadioButton();
+            _bnFeatureArpeggiator = new System.Windows.Forms.RadioButton();
+            _bnFeatureArpeggios = new System.Windows.Forms.RadioButton();
+            _pnlMain = new System.Windows.Forms.Panel();
+            bottomMenuPanel.SuspendLayout();
+            menuStrip.SuspendLayout();
+            _pnlNav.SuspendLayout();
+            SuspendLayout();
             // 
             // bottomMenuPanel
             // 
-            this.bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.bottomMenuPanel.Controls.Add(this.menuStrip);
-            this.bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomMenuPanel.Location = new System.Drawing.Point(200, 750);
-            this.bottomMenuPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.bottomMenuPanel.Name = "bottomMenuPanel";
-            this.bottomMenuPanel.Size = new System.Drawing.Size(1400, 115);
-            this.bottomMenuPanel.TabIndex = 1;
+            bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            bottomMenuPanel.Controls.Add(menuStrip);
+            bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            bottomMenuPanel.Location = new System.Drawing.Point(200, 750);
+            bottomMenuPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            bottomMenuPanel.Name = "bottomMenuPanel";
+            bottomMenuPanel.Size = new System.Drawing.Size(1400, 115);
+            bottomMenuPanel.TabIndex = 1;
             // 
             // menuStrip
             // 
-            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1400, 33);
-            this.menuStrip.TabIndex = 0;
-            this.menuStrip.Text = "File";
+            menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem });
+            menuStrip.Location = new System.Drawing.Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
+            menuStrip.Size = new System.Drawing.Size(1400, 28);
+            menuStrip.TabIndex = 0;
+            menuStrip.Text = "File";
             // 
             // toolStripMenuItem
             // 
-            this.toolStripMenuItem.Name = "toolStripMenuItem";
-            this.toolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.toolStripMenuItem.Size = new System.Drawing.Size(64, 29);
-            this.toolStripMenuItem.Text = "Print";
+            toolStripMenuItem.Name = "toolStripMenuItem";
+            toolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P;
+            toolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            toolStripMenuItem.Text = "Print";
             // 
             // printDialog
             // 
-            this.printDialog.UseEXDialog = true;
+            printDialog.UseEXDialog = true;
             // 
             // printDocument
             // 
-            this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument1_BeginPrint);
-            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument1_EndPrint);
-            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            this.printDocument.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument1_QueryPageSettings);
+            printDocument.BeginPrint += printDocument1_BeginPrint;
+            printDocument.EndPrint += printDocument1_EndPrint;
+            printDocument.PrintPage += printDocument1_PrintPage;
+            printDocument.QueryPageSettings += printDocument1_QueryPageSettings;
             // 
             // _pnlNav
             // 
-            this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
-            this._pnlNav.Controls.Add(this._rbScore);
-            this._pnlNav.Controls.Add(this._rbManufaktura);
-            this._pnlNav.Controls.Add(this._bnFeatureVoiceLeading);
-            this._pnlNav.Controls.Add(this._bnFeatureScales);
-            this._pnlNav.Controls.Add(this._bnFeatureReHarmonize);
-            this._pnlNav.Controls.Add(this._bnFeatureLeadSheets);
-            this._pnlNav.Controls.Add(this._bnFeatureHarmonicAnalysis);
-            this._pnlNav.Controls.Add(this._bnFeatureArpeggiator);
-            this._pnlNav.Controls.Add(this._bnFeatureArpeggios);
-            this._pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
-            this._pnlNav.Location = new System.Drawing.Point(0, 0);
-            this._pnlNav.Name = "_pnlNav";
-            this._pnlNav.Size = new System.Drawing.Size(200, 865);
-            this._pnlNav.TabIndex = 2;
+            _pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
+            _pnlNav.Controls.Add(_bnModalInterchange);
+            _pnlNav.Controls.Add(_rbScore);
+            _pnlNav.Controls.Add(_rbManufaktura);
+            _pnlNav.Controls.Add(_bnFeatureVoiceLeading);
+            _pnlNav.Controls.Add(_bnFeatureScales);
+            _pnlNav.Controls.Add(_bnFeatureReHarmonize);
+            _pnlNav.Controls.Add(_bnFeatureLeadSheets);
+            _pnlNav.Controls.Add(_bnFeatureHarmonicAnalysis);
+            _pnlNav.Controls.Add(_bnFeatureArpeggiator);
+            _pnlNav.Controls.Add(_bnFeatureArpeggios);
+            _pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
+            _pnlNav.Location = new System.Drawing.Point(0, 0);
+            _pnlNav.Name = "_pnlNav";
+            _pnlNav.Size = new System.Drawing.Size(200, 865);
+            _pnlNav.TabIndex = 2;
+            // 
+            // _bnModalInterchange
+            // 
+            _bnModalInterchange.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnModalInterchange.AutoSize = true;
+            _bnModalInterchange.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnModalInterchange.Location = new System.Drawing.Point(0, 270);
+            _bnModalInterchange.Name = "_bnModalInterchange";
+            _bnModalInterchange.Size = new System.Drawing.Size(200, 30);
+            _bnModalInterchange.TabIndex = 9;
+            _bnModalInterchange.Text = "Modal Interchange";
+            _bnModalInterchange.UseVisualStyleBackColor = true;
+            _bnModalInterchange.CheckedChanged += _bnModalInterchange_CheckedChanged;
             // 
             // _rbScore
             // 
-            this._rbScore.Appearance = System.Windows.Forms.Appearance.Button;
-            this._rbScore.AutoSize = true;
-            this._rbScore.Dock = System.Windows.Forms.DockStyle.Top;
-            this._rbScore.Location = new System.Drawing.Point(0, 280);
-            this._rbScore.Name = "_rbScore";
-            this._rbScore.Size = new System.Drawing.Size(200, 35);
-            this._rbScore.TabIndex = 8;
-            this._rbScore.TabStop = true;
-            this._rbScore.Text = "Score";
-            this._rbScore.UseVisualStyleBackColor = true;
-            this._rbScore.CheckedChanged += new System.EventHandler(this._rbScore_CheckedChanged);
+            _rbScore.Appearance = System.Windows.Forms.Appearance.Button;
+            _rbScore.AutoSize = true;
+            _rbScore.Dock = System.Windows.Forms.DockStyle.Top;
+            _rbScore.Location = new System.Drawing.Point(0, 240);
+            _rbScore.Name = "_rbScore";
+            _rbScore.Size = new System.Drawing.Size(200, 30);
+            _rbScore.TabIndex = 8;
+            _rbScore.TabStop = true;
+            _rbScore.Text = "Score";
+            _rbScore.UseVisualStyleBackColor = true;
+            _rbScore.CheckedChanged += _rbScore_CheckedChanged;
             // 
             // _rbManufaktura
             // 
-            this._rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
-            this._rbManufaktura.AutoSize = true;
-            this._rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
-            this._rbManufaktura.Location = new System.Drawing.Point(0, 245);
-            this._rbManufaktura.Name = "_rbManufaktura";
-            this._rbManufaktura.Size = new System.Drawing.Size(200, 35);
-            this._rbManufaktura.TabIndex = 7;
-            this._rbManufaktura.Text = "Manufaktura";
-            this._rbManufaktura.UseVisualStyleBackColor = true;
-            this._rbManufaktura.CheckedChanged += new System.EventHandler(this._rbManufaktura_CheckedChanged);
+            _rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
+            _rbManufaktura.AutoSize = true;
+            _rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
+            _rbManufaktura.Location = new System.Drawing.Point(0, 210);
+            _rbManufaktura.Name = "_rbManufaktura";
+            _rbManufaktura.Size = new System.Drawing.Size(200, 30);
+            _rbManufaktura.TabIndex = 7;
+            _rbManufaktura.Text = "Manufaktura";
+            _rbManufaktura.UseVisualStyleBackColor = true;
+            _rbManufaktura.CheckedChanged += _rbManufaktura_CheckedChanged;
             // 
             // _bnFeatureVoiceLeading
             // 
-            this._bnFeatureVoiceLeading.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureVoiceLeading.AutoSize = true;
-            this._bnFeatureVoiceLeading.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureVoiceLeading.Location = new System.Drawing.Point(0, 210);
-            this._bnFeatureVoiceLeading.Name = "_bnFeatureVoiceLeading";
-            this._bnFeatureVoiceLeading.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureVoiceLeading.TabIndex = 6;
-            this._bnFeatureVoiceLeading.Text = "Voice Leading";
-            this._bnFeatureVoiceLeading.UseVisualStyleBackColor = true;
-            this._bnFeatureVoiceLeading.CheckedChanged += new System.EventHandler(this._bnFeatureVoiceLeading_CheckedChanged);
+            _bnFeatureVoiceLeading.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureVoiceLeading.AutoSize = true;
+            _bnFeatureVoiceLeading.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureVoiceLeading.Location = new System.Drawing.Point(0, 180);
+            _bnFeatureVoiceLeading.Name = "_bnFeatureVoiceLeading";
+            _bnFeatureVoiceLeading.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureVoiceLeading.TabIndex = 6;
+            _bnFeatureVoiceLeading.Text = "Voice Leading";
+            _bnFeatureVoiceLeading.UseVisualStyleBackColor = true;
+            _bnFeatureVoiceLeading.CheckedChanged += _bnFeatureVoiceLeading_CheckedChanged;
             // 
             // _bnFeatureScales
             // 
-            this._bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureScales.AutoSize = true;
-            this._bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureScales.Location = new System.Drawing.Point(0, 175);
-            this._bnFeatureScales.Name = "_bnFeatureScales";
-            this._bnFeatureScales.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureScales.TabIndex = 0;
-            this._bnFeatureScales.Text = "Scales";
-            this._bnFeatureScales.UseVisualStyleBackColor = true;
-            this._bnFeatureScales.CheckedChanged += new System.EventHandler(this._bnFeatureScales_CheckedChanged);
+            _bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureScales.AutoSize = true;
+            _bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureScales.Location = new System.Drawing.Point(0, 150);
+            _bnFeatureScales.Name = "_bnFeatureScales";
+            _bnFeatureScales.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureScales.TabIndex = 0;
+            _bnFeatureScales.Text = "Scales";
+            _bnFeatureScales.UseVisualStyleBackColor = true;
+            _bnFeatureScales.CheckedChanged += _bnFeatureScales_CheckedChanged;
             // 
             // _bnFeatureReHarmonize
             // 
-            this._bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureReHarmonize.AutoSize = true;
-            this._bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 140);
-            this._bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
-            this._bnFeatureReHarmonize.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureReHarmonize.TabIndex = 3;
-            this._bnFeatureReHarmonize.Text = "Re-Harmonize";
-            this._bnFeatureReHarmonize.UseVisualStyleBackColor = true;
-            this._bnFeatureReHarmonize.CheckedChanged += new System.EventHandler(this._bnFeatureReHarmonize_CheckedChanged);
+            _bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureReHarmonize.AutoSize = true;
+            _bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 120);
+            _bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
+            _bnFeatureReHarmonize.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureReHarmonize.TabIndex = 3;
+            _bnFeatureReHarmonize.Text = "Re-Harmonize";
+            _bnFeatureReHarmonize.UseVisualStyleBackColor = true;
+            _bnFeatureReHarmonize.CheckedChanged += _bnFeatureReHarmonize_CheckedChanged;
             // 
             // _bnFeatureLeadSheets
             // 
-            this._bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureLeadSheets.AutoSize = true;
-            this._bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 105);
-            this._bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
-            this._bnFeatureLeadSheets.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureLeadSheets.TabIndex = 5;
-            this._bnFeatureLeadSheets.Text = "Lead Sheets";
-            this._bnFeatureLeadSheets.UseVisualStyleBackColor = true;
-            this._bnFeatureLeadSheets.CheckedChanged += new System.EventHandler(this._bnFeatureLeadSheets_CheckedChanged);
+            _bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureLeadSheets.AutoSize = true;
+            _bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 90);
+            _bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
+            _bnFeatureLeadSheets.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureLeadSheets.TabIndex = 5;
+            _bnFeatureLeadSheets.Text = "Lead Sheets";
+            _bnFeatureLeadSheets.UseVisualStyleBackColor = true;
+            _bnFeatureLeadSheets.CheckedChanged += _bnFeatureLeadSheets_CheckedChanged;
             // 
             // _bnFeatureHarmonicAnalysis
             // 
-            this._bnFeatureHarmonicAnalysis.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureHarmonicAnalysis.AutoSize = true;
-            this._bnFeatureHarmonicAnalysis.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureHarmonicAnalysis.Location = new System.Drawing.Point(0, 70);
-            this._bnFeatureHarmonicAnalysis.Name = "_bnFeatureHarmonicAnalysis";
-            this._bnFeatureHarmonicAnalysis.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureHarmonicAnalysis.TabIndex = 2;
-            this._bnFeatureHarmonicAnalysis.Text = "Harmonic Analysis";
-            this._bnFeatureHarmonicAnalysis.UseVisualStyleBackColor = true;
-            this._bnFeatureHarmonicAnalysis.CheckedChanged += new System.EventHandler(this._bnFeatureHarmonicAnalysis_CheckedChanged);
+            _bnFeatureHarmonicAnalysis.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureHarmonicAnalysis.AutoSize = true;
+            _bnFeatureHarmonicAnalysis.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureHarmonicAnalysis.Location = new System.Drawing.Point(0, 60);
+            _bnFeatureHarmonicAnalysis.Name = "_bnFeatureHarmonicAnalysis";
+            _bnFeatureHarmonicAnalysis.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureHarmonicAnalysis.TabIndex = 2;
+            _bnFeatureHarmonicAnalysis.Text = "Harmonic Analysis";
+            _bnFeatureHarmonicAnalysis.UseVisualStyleBackColor = true;
+            _bnFeatureHarmonicAnalysis.CheckedChanged += _bnFeatureHarmonicAnalysis_CheckedChanged;
             // 
             // _bnFeatureArpeggiator
             // 
-            this._bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureArpeggiator.AutoSize = true;
-            this._bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 35);
-            this._bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
-            this._bnFeatureArpeggiator.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureArpeggiator.TabIndex = 4;
-            this._bnFeatureArpeggiator.Text = "Arpeggiator";
-            this._bnFeatureArpeggiator.UseVisualStyleBackColor = true;
-            this._bnFeatureArpeggiator.CheckedChanged += new System.EventHandler(this._bnFeatureArpeggiator_CheckedChanged);
+            _bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureArpeggiator.AutoSize = true;
+            _bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 30);
+            _bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
+            _bnFeatureArpeggiator.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureArpeggiator.TabIndex = 4;
+            _bnFeatureArpeggiator.Text = "Arpeggiator";
+            _bnFeatureArpeggiator.UseVisualStyleBackColor = true;
+            _bnFeatureArpeggiator.CheckedChanged += _bnFeatureArpeggiator_CheckedChanged;
             // 
             // _bnFeatureArpeggios
             // 
-            this._bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnFeatureArpeggios.AutoSize = true;
-            this._bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
-            this._bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
-            this._bnFeatureArpeggios.Size = new System.Drawing.Size(200, 35);
-            this._bnFeatureArpeggios.TabIndex = 1;
-            this._bnFeatureArpeggios.Text = "Argeggios";
-            this._bnFeatureArpeggios.UseVisualStyleBackColor = true;
-            this._bnFeatureArpeggios.CheckedChanged += new System.EventHandler(this._bnFeatureArpeggios_CheckedChanged);
+            _bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
+            _bnFeatureArpeggios.AutoSize = true;
+            _bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
+            _bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
+            _bnFeatureArpeggios.Size = new System.Drawing.Size(200, 30);
+            _bnFeatureArpeggios.TabIndex = 1;
+            _bnFeatureArpeggios.Text = "Argeggios";
+            _bnFeatureArpeggios.UseVisualStyleBackColor = true;
+            _bnFeatureArpeggios.CheckedChanged += _bnFeatureArpeggios_CheckedChanged;
             // 
             // _pnlMain
             // 
-            this._pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._pnlMain.Location = new System.Drawing.Point(200, 0);
-            this._pnlMain.Name = "_pnlMain";
-            this._pnlMain.Size = new System.Drawing.Size(1400, 750);
-            this._pnlMain.TabIndex = 3;
+            _pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            _pnlMain.Location = new System.Drawing.Point(200, 0);
+            _pnlMain.Name = "_pnlMain";
+            _pnlMain.Size = new System.Drawing.Size(1400, 750);
+            _pnlMain.TabIndex = 3;
             // 
             // Form1
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1600, 865);
-            this.Controls.Add(this._pnlMain);
-            this.Controls.Add(this.bottomMenuPanel);
-            this.Controls.Add(this._pnlNav);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Harmony Helper";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Form1_PreviewKeyDown);
-            this.bottomMenuPanel.ResumeLayout(false);
-            this.bottomMenuPanel.PerformLayout();
-            this.menuStrip.ResumeLayout(false);
-            this.menuStrip.PerformLayout();
-            this._pnlNav.ResumeLayout(false);
-            this._pnlNav.PerformLayout();
-            this.ResumeLayout(false);
+            AllowDrop = true;
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1600, 865);
+            Controls.Add(_pnlMain);
+            Controls.Add(bottomMenuPanel);
+            Controls.Add(_pnlNav);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            KeyPreview = true;
+            MainMenuStrip = menuStrip;
+            Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            Name = "Form1";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Harmony Helper";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            Load += Form1_Load;
+            SizeChanged += Form1_SizeChanged;
+            KeyUp += Form1_KeyUp;
+            PreviewKeyDown += Form1_PreviewKeyDown;
+            bottomMenuPanel.ResumeLayout(false);
+            bottomMenuPanel.PerformLayout();
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
+            _pnlNav.ResumeLayout(false);
+            _pnlNav.PerformLayout();
+            ResumeLayout(false);
+        }
 
-		}
-
-		#endregion
-		private System.Windows.Forms.Panel bottomMenuPanel;
-		private System.Windows.Forms.MenuStrip menuStrip;
-		private System.Windows.Forms.PrintDialog printDialog;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem;
-		private System.Drawing.Printing.PrintDocument printDocument;
+        #endregion
+        private System.Windows.Forms.Panel bottomMenuPanel;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.PrintDialog printDialog;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem;
+        private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.Panel _pnlNav;
         private System.Windows.Forms.RadioButton _bnFeatureVoiceLeading;
         private System.Windows.Forms.RadioButton _bnFeatureLeadSheets;
@@ -283,6 +296,7 @@ namespace NeckDiagrams
         private System.Windows.Forms.Panel _pnlMain;
         private System.Windows.Forms.RadioButton _rbManufaktura;
         private System.Windows.Forms.RadioButton _rbScore;
+        private System.Windows.Forms.RadioButton _bnModalInterchange;
     }
 }
 

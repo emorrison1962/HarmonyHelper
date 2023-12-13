@@ -24,7 +24,10 @@
     <Compile Update="Controls\ChordsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Feature Controls\HarmonicAnalysisControl.cs">
+    <Compile Update="Views\ModalInterchangeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\HarmonicAnalysisControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\NeckControl.cs">
