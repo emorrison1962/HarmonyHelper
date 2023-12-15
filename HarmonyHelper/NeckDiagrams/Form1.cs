@@ -251,7 +251,7 @@ namespace NeckDiagrams
         {
             if ((sender as RadioButton).Checked)
             {
-                this.AddControl(new ModalInterchangeControl());
+                this.AddControl(new ModalInterchangeView());
             }
         }
     }//class

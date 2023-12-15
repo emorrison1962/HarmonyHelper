@@ -86,7 +86,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         ModalInterchangeGrid CreateMajorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new ModalInterchangeGrid();
+            var result = new ModalInterchangeGrid(typeof(MajorModalScaleFormula));
 
             //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
@@ -153,7 +153,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         ModalInterchangeGrid CreateMelodicMinorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new ModalInterchangeGrid();
+            var result = new ModalInterchangeGrid(typeof(MelodicMinorModalScaleFormula));
 
             //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {
@@ -220,7 +220,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 
         ModalInterchangeGrid CreateHarmonicMinorBorrowedChordGrid(KeySignature inputKey)
         {
-            var result = new ModalInterchangeGrid();
+            var result = new ModalInterchangeGrid(typeof(HarmonicMinorModalScaleFormula));
 
             //using (new TimedLogger(MethodBase.GetCurrentMethod().Name))
             {

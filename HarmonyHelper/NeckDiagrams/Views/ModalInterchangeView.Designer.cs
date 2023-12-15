@@ -1,6 +1,6 @@
 ﻿namespace NeckDiagrams.Controls
 {
-    partial class ModalInterchangeControl
+    partial class ModalInterchangeView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,35 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            _chordNamesControl = new ChordNamesControl();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModalInterchangeView));
             mainSplitter = new System.Windows.Forms.SplitContainer();
             analysisSplitter = new System.Windows.Forms.SplitContainer();
-            lvAnalysis = new System.Windows.Forms.ListView();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
             tbDetails = new System.Windows.Forms.TextBox();
-            bnChords = new System.Windows.Forms.Button();
             pnlTop = new System.Windows.Forms.Panel();
-            keySignatureSelectorControl1 = new KeySignatureSelectorControl();
+            _keySignatureCombo = new KeySignatureCombo();
+            _rootFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelMajor = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelMelodicMinor = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelHarmonicMinor = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)mainSplitter).BeginInit();
             mainSplitter.Panel1.SuspendLayout();
             mainSplitter.Panel2.SuspendLayout();
             mainSplitter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)analysisSplitter).BeginInit();
-            analysisSplitter.Panel1.SuspendLayout();
             analysisSplitter.Panel2.SuspendLayout();
             analysisSplitter.SuspendLayout();
             pnlTop.SuspendLayout();
+            _rootFlowLayoutPanel.SuspendLayout();
             SuspendLayout();
-            // 
-            // _chordNamesControl
-            // 
-            _chordNamesControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            _chordNamesControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            _chordNamesControl.Location = new System.Drawing.Point(0, 0);
-            _chordNamesControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            _chordNamesControl.Name = "_chordNamesControl";
-            _chordNamesControl.Size = new System.Drawing.Size(1246, 345);
-            _chordNamesControl.TabIndex = 4;
             // 
             // mainSplitter
             // 
@@ -68,7 +59,7 @@
             // 
             // mainSplitter.Panel1
             // 
-            mainSplitter.Panel1.Controls.Add(_chordNamesControl);
+            mainSplitter.Panel1.Controls.Add(_rootFlowLayoutPanel);
             // 
             // mainSplitter.Panel2
             // 
@@ -84,37 +75,12 @@
             analysisSplitter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             analysisSplitter.Name = "analysisSplitter";
             // 
-            // analysisSplitter.Panel1
-            // 
-            analysisSplitter.Panel1.Controls.Add(lvAnalysis);
-            // 
             // analysisSplitter.Panel2
             // 
             analysisSplitter.Panel2.Controls.Add(tbDetails);
             analysisSplitter.Size = new System.Drawing.Size(1246, 293);
             analysisSplitter.SplitterDistance = 525;
             analysisSplitter.TabIndex = 0;
-            // 
-            // lvAnalysis
-            // 
-            lvAnalysis.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
-            lvAnalysis.Dock = System.Windows.Forms.DockStyle.Fill;
-            lvAnalysis.FullRowSelect = true;
-            lvAnalysis.GridLines = true;
-            lvAnalysis.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            lvAnalysis.Location = new System.Drawing.Point(0, 0);
-            lvAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            lvAnalysis.Name = "lvAnalysis";
-            lvAnalysis.ShowItemToolTips = true;
-            lvAnalysis.Size = new System.Drawing.Size(525, 293);
-            lvAnalysis.TabIndex = 0;
-            lvAnalysis.UseCompatibleStateImageBehavior = false;
-            lvAnalysis.View = System.Windows.Forms.View.Details;
-            lvAnalysis.SelectedIndexChanged += lvAnalysis_SelectedIndexChanged;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Width = 491;
             // 
             // tbDetails
             // 
@@ -126,23 +92,9 @@
             tbDetails.Size = new System.Drawing.Size(717, 293);
             tbDetails.TabIndex = 0;
             // 
-            // bnChords
-            // 
-            bnChords.AutoSize = true;
-            bnChords.Dock = System.Windows.Forms.DockStyle.Left;
-            bnChords.Location = new System.Drawing.Point(3, 2);
-            bnChords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            bnChords.Name = "bnChords";
-            bnChords.Size = new System.Drawing.Size(82, 36);
-            bnChords.TabIndex = 0;
-            bnChords.Text = "Chords...";
-            bnChords.UseVisualStyleBackColor = true;
-            bnChords.Click += bnChords_Click;
-            // 
             // pnlTop
             // 
-            pnlTop.Controls.Add(keySignatureSelectorControl1);
-            pnlTop.Controls.Add(bnChords);
+            pnlTop.Controls.Add(_keySignatureCombo);
             pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             pnlTop.Location = new System.Drawing.Point(0, 0);
             pnlTop.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
@@ -151,46 +103,80 @@
             pnlTop.Size = new System.Drawing.Size(1246, 40);
             pnlTop.TabIndex = 6;
             // 
-            // keySignatureSelectorControl1
+            // _keySignatureCombo
             // 
-            keySignatureSelectorControl1.Location = new System.Drawing.Point(254, 7);
-            keySignatureSelectorControl1.Name = "keySignatureSelectorControl1";
-            keySignatureSelectorControl1.Size = new System.Drawing.Size(470, 35);
-            keySignatureSelectorControl1.TabIndex = 1;
+            _keySignatureCombo.Location = new System.Drawing.Point(254, 7);
+            _keySignatureCombo.Name = "_keySignatureCombo";
+            _keySignatureCombo.Size = new System.Drawing.Size(470, 28);
+            _keySignatureCombo.TabIndex = 1;
             // 
-            // ModalInterchangeControl
+            // _rootFlowLayoutPanel
+            // 
+            _rootFlowLayoutPanel.Controls.Add(flowLayoutPanelMajor);
+            _rootFlowLayoutPanel.Controls.Add(flowLayoutPanelMelodicMinor);
+            _rootFlowLayoutPanel.Controls.Add(flowLayoutPanelHarmonicMinor);
+            _rootFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            _rootFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            _rootFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            _rootFlowLayoutPanel.Name = "_rootFlowLayoutPanel";
+            _rootFlowLayoutPanel.Size = new System.Drawing.Size(1246, 345);
+            _rootFlowLayoutPanel.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanelMajor.Dock = System.Windows.Forms.DockStyle.Top;
+            flowLayoutPanelMajor.Location = new System.Drawing.Point(3, 3);
+            flowLayoutPanelMajor.Name = "flowLayoutPanel1";
+            flowLayoutPanelMajor.Size = new System.Drawing.Size(0, 125);
+            flowLayoutPanelMajor.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanelMelodicMinor.Dock = System.Windows.Forms.DockStyle.Top;
+            flowLayoutPanelMelodicMinor.Location = new System.Drawing.Point(3, 134);
+            flowLayoutPanelMelodicMinor.Name = "flowLayoutPanel2";
+            flowLayoutPanelMelodicMinor.Size = new System.Drawing.Size(0, 125);
+            flowLayoutPanelMelodicMinor.TabIndex = 1;
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanelHarmonicMinor.Dock = System.Windows.Forms.DockStyle.Top;
+            flowLayoutPanelHarmonicMinor.Location = new System.Drawing.Point(9, 3);
+            flowLayoutPanelHarmonicMinor.Name = "flowLayoutPanel3";
+            flowLayoutPanelHarmonicMinor.Size = new System.Drawing.Size(0, 125);
+            flowLayoutPanelHarmonicMinor.TabIndex = 2;
+            // 
+            // ModalInterchangeView
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(mainSplitter);
             Controls.Add(pnlTop);
             Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            Name = "ModalInterchangeControl";
+            Name = "ModalInterchangeView";
             Size = new System.Drawing.Size(1246, 682);
             mainSplitter.Panel1.ResumeLayout(false);
             mainSplitter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)mainSplitter).EndInit();
             mainSplitter.ResumeLayout(false);
-            analysisSplitter.Panel1.ResumeLayout(false);
             analysisSplitter.Panel2.ResumeLayout(false);
             analysisSplitter.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)analysisSplitter).EndInit();
             analysisSplitter.ResumeLayout(false);
             pnlTop.ResumeLayout(false);
-            pnlTop.PerformLayout();
+            _rootFlowLayoutPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ChordNamesControl _chordNamesControl;
         private System.Windows.Forms.SplitContainer mainSplitter;
         private System.Windows.Forms.SplitContainer analysisSplitter;
-        private System.Windows.Forms.ListView lvAnalysis;
         private System.Windows.Forms.TextBox tbDetails;
-        private System.Windows.Forms.Button bnChords;
         private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private KeySignatureSelectorControl keySignatureSelectorControl1;
+        private KeySignatureCombo _keySignatureCombo;
+        private System.Windows.Forms.FlowLayoutPanel _rootFlowLayoutPanel;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelMajor;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelMelodicMinor;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelHarmonicMinor;
     }
 }

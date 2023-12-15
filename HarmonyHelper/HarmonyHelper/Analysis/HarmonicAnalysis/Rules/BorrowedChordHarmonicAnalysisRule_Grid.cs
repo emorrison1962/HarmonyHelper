@@ -7,12 +7,34 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Scales;
+
+using Microsoft.VisualBasic;
 
 namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
 {
     public class ModalInterchangeGrid : IEquatable<ModalInterchangeGrid>
     {
+        public Type ScaleType { get; set; }
+        public bool IsMajor { get { return this.ScaleType == typeof(MajorModalScaleFormula); } }
+        public bool IsMelodicMinor { get { return this.ScaleType == typeof(MelodicMinorModalScaleFormula); } }
+        public bool IsHarmonicMinor { get { return this.ScaleType == typeof(HarmonicMinorModalScaleFormula); } }
+
         public List<ModalInterchangeGridRow> Rows { get; private set; } = new List<ModalInterchangeGridRow>();
+
+        public ModalInterchangeGrid(Type scaleType)
+        {
+            if (scaleType == typeof(MajorModalScaleFormula)
+                || scaleType == typeof(MelodicMinorModalScaleFormula)
+                || scaleType == typeof(HarmonicMinorModalScaleFormula))
+            {
+                this.ScaleType = scaleType;
+            }
+            else 
+            { 
+                throw new ArgumentOutOfRangeException(nameof(scaleType));
+            }
+        }
 
         #region Operators
         //public static bool operator ==(IEnumerable<Grid> a, IEnumerable<Grid> b)
@@ -118,7 +140,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
         public override string ToString()
         {
             var result = $"{nameof(ModalInterchangeGrid)}";
-            foreach (var row in this.Rows) 
+            foreach (var row in this.Rows)
             {
                 result += $"{Environment.NewLine}{row.ToString()}";
             }
