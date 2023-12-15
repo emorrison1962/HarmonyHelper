@@ -32,20 +32,20 @@ namespace NeckDiagrams.Controls
             this.CreateGrids();
         }
 
-        FlowLayoutPanel GetParentPanel(ModalInterchangeGrid grid)
+        TableLayoutPanel GetParentPanel(ModalInterchangeGrid grid)
         {
-            FlowLayoutPanel result = null;
+            TableLayoutPanel result = null;
             if (grid.IsMajor)
             {
-                result = this.flowLayoutPanelMajor;
+                result = this._panelMajor;
             }
             else if (grid.IsMelodicMinor)
             {
-                result = this.flowLayoutPanelMelodicMinor;
+                result = this._panelMelodicMinor;
             }
             else if (grid.IsHarmonicMinor)
             {
-                result = this.flowLayoutPanelHarmonicMinor;
+                result = this._panelHarmonicMinor;
             }
             Debug.Assert(result != null);
             return result;
@@ -68,6 +68,11 @@ namespace NeckDiagrams.Controls
                         var ctl = new ChordNameControl(vm);
                         parent.Controls.Add(ctl);
                     }
+
+                    var rc = parent.DisplayRectangle;
+                    parent.Refresh();
+                    rc = parent.DisplayRectangle;
+
                     var chords = row.Chords.Select(x => x.Name).ToList();
                     var s = $"{row.ModeName} | {chords[0]} | {chords[1]} | {chords[2]} | {chords[3]} | {chords[4]} | {chords[5]} | {chords[6]} | ";
 
@@ -77,6 +82,8 @@ namespace NeckDiagrams.Controls
                 }
                 new object();
             }
+
+            this.Refresh();
         }
 
         private void Populate()
