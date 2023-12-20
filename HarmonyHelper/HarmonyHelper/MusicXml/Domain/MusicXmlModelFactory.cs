@@ -50,5 +50,29 @@ namespace HarmonyHelper.MusicXml.Domain
             return result;
         }
 
+        static public MusicXmlModel Create(List<string> sections, DurationEnum de, RhythmicContext rhythm = null)
+        {
+            var factory = new MusicXmlModelFactory(rhythm);
+            foreach (var section in sections)
+            {
+                var formulas = ChordFormulaParser.Parse(section);
+                factory.Part.Add(new Section());
+                foreach (var formula in formulas)
+                {
+                    var measure = new Measure();
+                    factory.Part.Sections.Last().Add(measure);
+
+                    var timeCtx = new TimeContextEx(measure,
+                        factory.Model.Rhythm,
+                        de);
+                    var teChordFormula = new TimedEventChordFormula(formula, timeCtx);
+                    measure.Append(teChordFormula);
+                }
+            }
+
+            var result = factory.Model;
+            return result;
+        }
+
     }//class
 }//ns

@@ -130,6 +130,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this._Chords.Add(Chord);
         }
+        public void Append(TimedEventChordFormula Chord)
+        {
+
+            foreach (var chord in this._Chords)
+            {
+                var re = chord.RelativeEnd;
+                var tc_re = chord.TimeContext.RelativeEnd;
+            }
+            this._Chords.Add(Chord);
+        }
         public void AddRange(List<TimedEventChordFormula> Chords)
         {
             this._Chords.AddRange(Chords);

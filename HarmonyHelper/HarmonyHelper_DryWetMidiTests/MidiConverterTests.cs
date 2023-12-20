@@ -257,13 +257,14 @@ namespace HarmonyHelper_DryWetMidi.Tests
         public MusicXmlModel CreateModel(string chords)
         {
 
-            List<string> Sections = new List<string>()
+            List<string> sections = new List<string>()
             {
                 chords
             };
 
             var rhythm = new RhythmicContext(new TimeSignature(4, 4));
-            var model = MusicXmlModelFactory.Create(Sections, rhythm);
+            var model = MusicXmlModelFactory.Create(sections, 
+                DurationEnum.Duration_Quarter, rhythm);
             return model;
         }
 
@@ -294,5 +295,36 @@ namespace HarmonyHelper_DryWetMidi.Tests
             var model = MusicXmlModelFactory.Create(Sections, rhythm);
             return model;
         }
+
+        [TestMethod()]
+        public void Test_121223()
+        {
+            var chords = @"| C | G7 | Cmaj7 | F#7 | 
+                            B7 | E7 | Em | A7 | 
+                            Dm7 | G7 |";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_121523()
+        {
+            var chords = @"| C6 | FMaj7 | Fm7 | Bb7 |";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+
+
     }//class
 }//ns
