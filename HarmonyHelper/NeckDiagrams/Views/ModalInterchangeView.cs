@@ -60,17 +60,21 @@ namespace NeckDiagrams.Controls
             {
                 var parent = this.GetParentPanel(grid);
 
-                foreach (var row in grid.Rows)
+                var rowCount = grid.Rows.Count;
+                for (int ndxRow = 0; ndxRow < rowCount; ++ndxRow)
                 {
-                    foreach (var chord in row.Chords)
+                    var row = grid.Rows[ndxRow];
+                    var chordCount = row.Chords.Count;
+                    for (int ndxChord = 0; ndxChord < chordCount; ++ndxChord)
                     {
+                        var chord = row.Chords[ndxChord];
                         var vm = new ChordFormulaVM(chord, Guid.NewGuid());
-                        var ctl = new ChordNameControl(vm);
-                        parent.Controls.Add(ctl);
+                        //var ctl = new ChordNameControl(vm);
+                        //parent.Controls.Add(ctl);
+                        parent.Controls.Add(new Label() { Text = chord.Name }, ndxChord, ndxRow);
                     }
 
                     var rc = parent.DisplayRectangle;
-                    parent.Refresh();
                     rc = parent.DisplayRectangle;
 
                     var chords = row.Chords.Select(x => x.Name).ToList();
@@ -81,6 +85,8 @@ namespace NeckDiagrams.Controls
                     new object();
                 }
                 new object();
+                //parent.Refresh();
+                //parent.PerformLayout();
             }
 
             this.Refresh();

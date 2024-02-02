@@ -74,7 +74,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     {
                         new object();
                     }
-                    var chords = row.Chords.Select(x => x.Name).ToList();
+                    var chords = row.Chords.Select(x => x?.Name).ToList();
                     var s = $"{row.ModeName} | {chords[0]} | {chords[1]} | {chords[2]} | {chords[3]} | {chords[4]} | {chords[5]} | {chords[6]} | ";
                     Debug.WriteLine(s);
                     new object();
@@ -127,8 +127,8 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                             .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
-                        if (null != formula)
-                            gridRow.Add(formula.CopyEx());
+
+                        gridRow.Add(formula ?? ChordFormula.Empty);
                     }
 
                     result.Rows.Add(gridRow);
@@ -196,7 +196,7 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
 
-                        gridRow.Add(formula);
+                        gridRow.Add(formula ?? ChordFormula.Empty);
                     }
 
                     result.Rows.Add(gridRow);
@@ -259,12 +259,12 @@ namespace Eric.Morrison.Harmony.HarmonicAnalysis.Rules
                     {
                         var chordType = chordTypes.NextOrFirst(ref chordTypeNdx);
                         //Debug.WriteLine(scale);
-                        var chord = ChordFormula.Catalog
+                        var formula = ChordFormula.Catalog
                             .Where(x => x.Root == scale.NoteNames[scaleDegreeNdx]
                                 && x.ChordType == chordType)
                             .FirstOrDefault();
 
-                        gridRow.Add(chord);
+                        gridRow.Add(formula ?? ChordFormula.Empty);
                     }
 
                     result.Rows.Add(gridRow);

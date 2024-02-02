@@ -71,7 +71,9 @@ namespace Eric.Morrison.Harmony.Chords
         #endregion
 
         #region Construction
-        ChordFormula() { }
+
+        static public ChordFormula Empty { get { return NullChordFormula.Instance; } }
+        protected ChordFormula() { }
         ChordFormula(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)
@@ -569,4 +571,5 @@ namespace Eric.Morrison.Harmony.Chords
         }
 
     }//class
+
 }//ns
