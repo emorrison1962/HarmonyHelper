@@ -74,5 +74,42 @@ namespace HarmonyHelper.MusicXml.Domain
             return result;
         }
 
+        static public MusicXmlModel Create(List<Section> sections, RhythmicContext rhythm = null)
+        {
+            var factory = new MusicXmlModelFactory(rhythm);
+            if (null != sections)
+            {
+                foreach (var section in sections)
+                {
+                    var notes = section.Measures.SelectMany(m => m.Notes.Select(c => c.Event))
+                        .ToList();
+
+                    Measure measure = null;// new Measure();
+                    for (int i = 0; i < notes.Count; ++i)
+                    {
+                        var note = notes[i];
+
+                        if (i % 4 == 0)
+                        {
+                            measure = new Measure();
+                            factory.Part.Sections.Last().Add(measure);
+                        }
+
+                        //for (int i = 0; i < 4; ++i)
+                        {
+                            var timeCtx = new TimeContextEx(measure,
+                                factory.Model.Rhythm,
+                                DurationEnum.Duration_Quarter);
+                            var teNote = new TimedEventNote(note, timeCtx);
+                            measure.Add(teNote);
+                        }
+                    }
+                }
+            }
+
+            var result = factory.Model;
+            return result;
+        }
+
     }//class
 }//ns

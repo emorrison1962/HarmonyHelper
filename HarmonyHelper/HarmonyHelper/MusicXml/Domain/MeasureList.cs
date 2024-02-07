@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Eric.Morrison.Harmony.Chords;
+
 namespace Eric.Morrison.Harmony.MusicXml
 {
     public class MeasureList : IList<Measure>, ICollection<Measure>, IEnumerable<Measure>, IEnumerable, IList, ICollection, IReadOnlyList<Measure>, IReadOnlyCollection<Measure>
@@ -22,6 +24,16 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public bool IsSynchronized => ((ICollection)InternalList).IsSynchronized;
 
+        public List<ChordFormula> Formulas 
+        { 
+            get 
+            { 
+                var result = this.InternalList
+                    .SelectMany(x => x.Chords.Select(m=> m.Event))
+                    .ToList();
+                return result;
+            } 
+        }
         #endregion
 
         public MeasureList()

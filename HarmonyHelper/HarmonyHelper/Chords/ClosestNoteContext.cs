@@ -91,7 +91,7 @@ namespace Eric.Morrison.Harmony.Chords
                 Debug.Assert(result is not null);
             }
 
-            Debug.Assert(this.LastNote.NoteName.RawValue != result.NoteName.RawValue);
+            Debug.Assert(this.LastNote?.NoteName?.RawValue != result?.NoteName?.RawValue);
             this.ClosestNote = result;
         }
 
@@ -160,7 +160,7 @@ namespace Eric.Morrison.Harmony.Chords
             Note? result = null;
 
 #if DEBUG
-            Debug.WriteLine($"{LastNote}, {LastNote.RawValue}, {LastNote.Octave}");
+            Debug.WriteLine($"{LastNote}, {LastNote?.RawValue}, {LastNote?.Octave}");
             var sb = new StringBuilder();
             for (int i = 0; i < this.Notes.Count; ++i)
             {

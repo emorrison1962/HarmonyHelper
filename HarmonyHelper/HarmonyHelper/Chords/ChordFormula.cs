@@ -397,7 +397,7 @@ namespace Eric.Morrison.Harmony.Chords
             result = ChordFormula.Catalog
                 .FirstOrDefault(x => x.Root == txposed
                     && x.ChordType == src.ChordType);
-            
+
             return result;
         }
 

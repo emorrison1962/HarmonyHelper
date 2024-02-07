@@ -22,7 +22,7 @@ namespace HarmonyHelper_DryWetMidi
         }
 
         public const int PPQN = 960;
-        public void Create(MusicXmlModel model, string filename) 
+        public void Create(MusicXmlModel model, string filename)
         {
             var midiFile = new Core.MidiFile();
             midiFile.TimeDivision = new TicksPerQuarterNoteTimeDivision(PPQN);
@@ -70,12 +70,48 @@ namespace HarmonyHelper_DryWetMidi
                 }
             }
 
+            using (var notesManager = trackChunk.ManageNotes())
+            {
+                var part = model.Parts.FirstOrDefault();
+                var nBar = 0;
+                if (part != null)
+                {
+                    foreach (var section in part.Sections)
+                    {
+                        foreach (var measure in section.Measures)
+                        {
+                            foreach (var ten in measure.Notes)
+                            {
+                                var note = ten.Event;
+                                var dst = note.ToDWMNote();
+                                dst.Channel = (FourBitNumber)1;
+
+                                dst.Time = (nBar * ppm) / 4;
+                                var length = LengthConverter.ConvertFrom(
+                                    new MidiTimeSpan(ppm),
+                                    new BarBeatFractionTimeSpan(++nBar),
+                                    tempoMap);
+                                dst.Length = length / 4;
+                                notesManager.Objects.Add(dst);
+                                notesManager.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+
             if (File.Exists(filename))
                 File.Delete(filename);
             midiFile.Write(filename);
 
-            var cs = midiFile.GetChords();
-
+            using (var notesManager = trackChunk.ManageNotes())
+            {
+                var count = notesManager.Objects.Count;
+            }
+            using (var chordsManager = trackChunk.ManageChords())
+            {
+                var count = chordsManager.Objects.Count;
+            }
 
             var devices = OutputDevice.GetAll().ToList();
             //This actually plays the MIDI file!

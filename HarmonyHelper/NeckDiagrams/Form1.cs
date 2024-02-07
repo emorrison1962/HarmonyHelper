@@ -41,7 +41,8 @@ namespace NeckDiagrams
                 //this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
 
                 //this._rbScore.Checked = true;
-                this._bnFeatureHarmonicAnalysis.Checked = true;
+                //this._bnFeatureHarmonicAnalysis.Checked = true;
+                this._bnModalInterchange.Checked = true;
             }
         }
 

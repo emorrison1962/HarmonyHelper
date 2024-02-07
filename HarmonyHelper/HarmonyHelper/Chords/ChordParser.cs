@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony.Chords
 				}
 				else
 				{
-					break;
+					continue;
 				}
 			}
 			if (string.IsNullOrEmpty(message))

@@ -110,7 +110,11 @@ namespace Eric.Morrison.Harmony
             }
             set
             {
-                //if (_CurrentNote != value)
+                if (null == value)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                else
                 {
                     OnNoteChanging(this._CurrentNote, value);
                     this._CurrentNote = value;
@@ -211,6 +215,9 @@ namespace Eric.Morrison.Harmony
         public Arpeggiator(IEnumerable<ArpeggiationChordContext> contexts, DirectionEnum direction,
 NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         {
+            if (contexts.Count() == 0)
+                throw new ArgumentOutOfRangeException(nameof(contexts));
+
             this.Direction = direction;
 
             this.BeatsPerMeasure = beatsPerBar;
@@ -223,8 +230,12 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             this.NoteRange = noteRange;
         }
 
-        public Arpeggiator(IEnumerable<ArpeggiationChordContext> contexts, DirectionEnum direction,
-    NoteRange noteRange, int beatsPerBar, Note startingNote = null, bool untilPatternRepeats = false)
+        public Arpeggiator(IEnumerable<ArpeggiationChordContext> contexts, 
+            DirectionEnum direction,
+            NoteRange noteRange, 
+            int beatsPerBar, 
+            Note startingNote = null, 
+            bool untilPatternRepeats = false)
             : this(contexts, direction, noteRange, beatsPerBar, startingNote)
         {
             this.UntilPatternRepeats = untilPatternRepeats;
@@ -253,6 +264,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
         public void Arpeggiate()
         {
             this.ClosestNoteContext = new ClosestNoteContext(this);
+
             var snapshots = new List<StateSnapshot>();
             var snapshot = new StateSnapshot(this);
             snapshots.Add(snapshot);
@@ -261,19 +273,8 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
             if (this.UntilPatternRepeats)
                 repeat = true;
 
-            bool firstTime = true;
             var direction = this.Direction;
-            var allowTemporayReversal = false;
-            if (direction.HasFlag(DirectionEnum.AllowTemporayReversalForCloserNote))
-            {
-                allowTemporayReversal = true;
-            }
-
-
             var beat = 0;
-            //var seq2 = (from ctx in this.ChordContexts
-            //           from notes in ctx.Chord.Notes
-            //           select new { ChordContext = ctx, Chord = ctx.Chord, Notes = ctx.Chord.Notes, Beat = ++beat, NotesToPlay = ctx.NotesToPlay }).OrderBy(x => x.Beat).ToList();
 
             var seq = this.ChordContexts.Select(ctx =>
                 new
