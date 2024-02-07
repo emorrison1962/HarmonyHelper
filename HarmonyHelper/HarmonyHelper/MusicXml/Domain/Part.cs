@@ -37,6 +37,19 @@ namespace Eric.Morrison.Harmony.MusicXml
                 return result;
             }
         }
+
+        public ReadOnlyCollection<TimedEventChordFormula> Chords 
+        {
+            get
+            {
+                var result = (from s in this.Sections
+                              from m in s.Measures
+                              from tecf in m.Chords
+                              select tecf).ToList();
+                return result.AsReadOnly();
+            }
+        }
+
         public XElement XElement { get; set; }
         public Measure CurrentMeasure { get { return Measures.Last(); } }
         public KeySignature KeySignature { get; set; } = KeySignature.CMajor;

@@ -13,6 +13,8 @@ namespace Eric.Morrison.Harmony.MusicXml
     abstract public class TimedEventBase : IHasTimeContext
     {
         #region Properties
+        public int AbsoluteStart { get { return this.TimeContext.AbsoluteStart; } }
+        public int AbsoluteEnd { get { return this.TimeContext.AbsoluteEnd; } }
         public int RelativeStart { get { return this.TimeContext.RelativeStart; } }
         public int RelativeEnd { get { return this.TimeContext.RelativeEnd; } }
         abstract public int SortOrder { get; }
