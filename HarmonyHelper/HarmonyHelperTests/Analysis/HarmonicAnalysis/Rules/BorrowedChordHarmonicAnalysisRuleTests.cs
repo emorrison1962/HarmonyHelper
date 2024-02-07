@@ -14,6 +14,7 @@ using static Eric.Morrison.Harmony.HarmonicAnalysis.Rules.BorrowedChordHarmonicA
 using System.Reflection;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using HarmonyHelper.Utilities;
+using Eric.Morrison.Harmony;
 
 namespace HarmonicAnalysis.Rules.Tests
 {
@@ -44,5 +45,41 @@ namespace HarmonicAnalysis.Rules.Tests
             new object();
         }
 
-    }
-}
+        [TestMethod()]
+        public void GridsTest()
+        {
+            var rule = new BorrowedChordHarmonicAnalysisRule();
+            var grids = rule.CreateGrids(KeySignature.CMajor);
+            foreach (var grid in grids)
+            {
+                var rowCount = grid.Rows.Count;
+                for (int ndxRow = 0; ndxRow < rowCount; ++ndxRow)
+                {
+                    var row = grid.Rows[ndxRow];
+                    var chordCount = row.Chords.Count;
+                    for (int ndxChord = 0; ndxChord < chordCount; ++ndxChord)
+                    {
+                        var chord = row.Chords[ndxChord];
+                        Debug.Write(chord);
+
+                        //parent.Controls.Add(new Label() { Text = chord.Name }, ndxChord, ndxRow);
+                    }
+
+
+                    var chords = row.Chords.Select(x => x.Name).ToList();
+                    var s = $"{row.ModeName} | {chords[0]} | {chords[1]} | {chords[2]} | {chords[3]} | {chords[4]} | {chords[5]} | {chords[6]} | ";
+
+
+                    Debug.WriteLine(s);
+                    new object();
+                }
+                new object();
+                //parent.Refresh();
+                //parent.PerformLayout();
+            }
+
+            new object();
+        }
+
+    }//class
+}//ns
