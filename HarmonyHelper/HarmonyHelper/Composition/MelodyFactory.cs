@@ -11,8 +11,15 @@ using Eric.Morrison.Harmony.MusicXml;
 
 namespace HarmonyHelper.Composition
 {
-    enum MotifDirectionEnum
-    { };
+    [Flags]
+    public enum MotifDirectionEnum
+    { 
+        Unknown = 0,
+        None = 1,
+        Ascending = 1 << 1,
+        Descending = 1 << 2,    
+    };
+
     public static class MelodyFactory
     {
         static public Melody Create(ChordSequence chords)
@@ -76,7 +83,7 @@ namespace HarmonyHelper.Composition
     Key
     CurrentChord
     NextChord
-    Direction: Ascending, Descending, Flat
+    //Direction: Ascending, Descending, Flat
     Beat
 
     Motion: Scalar, Chordal
