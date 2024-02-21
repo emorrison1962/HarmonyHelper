@@ -53,7 +53,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     }
 
-    public class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>, IHasIsValid
+    public abstract class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>, IHasIsValid
     {
         #region Properties
         RhythmicContext _Rhythm { get; set; }

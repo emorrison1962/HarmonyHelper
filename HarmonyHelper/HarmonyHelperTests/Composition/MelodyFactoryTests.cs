@@ -23,7 +23,8 @@ namespace HarmonyHelper.Composition.Tests
         public void CreateTest()
         {
             var seq = ChordSequenceTests.CreateChordSequence();
-            MelodyFactory.Create(seq);
+            var melody = MelodyFactory.Create(seq);
+            Assert.IsNotNull(melody);
 
             new object();
         }

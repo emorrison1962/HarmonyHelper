@@ -76,15 +76,15 @@ namespace HarmonyHelper.Composition
         {
             foreach (var trio in chords.GetTriplets())
             {
-                var chord = trio.First();
-                var next = trio[1];
-                var last = trio[2];
+                var first = trio.First();
+                var second = trio[1];
+                var third = trio[2];
 
-                var nns = chord.Event.NoteNames;
+                var nns = first.Event.NoteNames;
 
-                var formula = chord.Event;
-                var x = chord.AbsoluteStart;
-                var ppm = chord.TimeContext.Rhythm.PulsesPerMeasure;
+                var formula = first.Event;
+                var x = first.AbsoluteStart;
+                var ppm = first.TimeContext.Rhythm.PulsesPerMeasure;
                 for (int i = 0; i < ppm; ++i) 
                 {
                     new object();
@@ -97,13 +97,15 @@ namespace HarmonyHelper.Composition
 
         int GetNextStartTime(TimedEventChordFormula[] trio)
         {
-            DurationEnum.Duration_Quarter
+            //DurationEnum.Duration_Quarter
             return -1;
         }
 
         int GetNextStartTime()
         {
-            DurationEnum.Duration_Quarter;
+            //DurationEnum.Duration_Quarter;
+            return -1;
+
         }
 
     }//class
