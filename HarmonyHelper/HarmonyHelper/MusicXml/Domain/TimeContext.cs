@@ -11,7 +11,7 @@ namespace Eric.Morrison.Harmony.MusicXml
     [Flags]
     public enum DurationEnum
     {
-        Unknown = 0,
+        None = 0,
         Duration_Maxima = 1 << 1,
         Duration_Long = 1 << 2,
         Duration_Breve = 1 << 3,
@@ -26,7 +26,6 @@ namespace Eric.Morrison.Harmony.MusicXml
         Duration_256th = 1 << 12,
         Duration_512th = 1 << 13,
         Duration_1024th = 1 << 14,
-        None = 1 << 32,
     };
 
     public abstract class DurationStrings
@@ -80,14 +79,13 @@ namespace Eric.Morrison.Harmony.MusicXml
 
 
         #region Properties
-        public DurationEnum _DurationEnum { get; protected set; }
-        public DurationEnum DurationEnum
+        public DurationEnum _Duration { get; protected set; }
+        public DurationEnum Duration
         {
-            get { return this._DurationEnum; }
+            get { return this._Duration; }
             protected set
             {
-                this._DurationEnum = value;
-                Debug.Assert(value != DurationEnum.Unknown);
+                this._Duration = value;
             }
         }
 
@@ -111,7 +109,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public TimeContext(int measureNumber, RhythmicContext rhythm, DurationEnum duration)
             : this(measureNumber, rhythm)
         {
-            this.DurationEnum = duration;
+            this.Duration = duration;
             this.RelativeStart = 0;
             this.RelativeEnd = this.Rhythm.PulsesPerMeasure * this.MeasureNumber | (int)duration;
         }
@@ -126,7 +124,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.RelativeStart = ctx.RelativeStart;
             this.RelativeEnd = ctx.RelativeEnd;
-            this.DurationEnum = ctx.Duration;
+            this.Duration = ctx.Duration;
             this.IsDotted = ctx.IsDotted;
         }
         public TimeContext(int measure, CreationContext ctx)
@@ -144,7 +142,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.RelativeStart = src.RelativeStart;
             this.RelativeEnd = src.RelativeEnd;
-            this.DurationEnum = src.DurationEnum;
+            this.Duration = src.Duration;
         }
         public TimeContext()
         {
@@ -155,7 +153,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         #region Fluency
         public TimeContext SetDuration(DurationEnum duration)
         {
-            this.DurationEnum = duration;
+            this.Duration = duration;
             return this;
         }
 
@@ -165,7 +163,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         public bool IsValid()
         {
             var result = true;
-            if (result && _DurationEnum == DurationEnum.Unknown)
+            if (result && _Duration == DurationEnum.None)
             {
                 result = false;
                 Debug.Assert(result);
@@ -176,7 +174,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.DurationEnum}";
+            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.Duration}";
         }
 
         public bool Intersects(TimeContext other)
@@ -200,7 +198,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             var result = string.Empty;
 
-            switch (this._DurationEnum)
+            switch (this._Duration)
             {
                 case DurationEnum.Duration_Maxima:
                     result = DurationStrings.NoteType_maxima;
@@ -257,7 +255,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public static TimeContext operator +(TimeContext addend, TimeContext augend)
         {
-            var Duration = addend.DurationEnum;
+            var Duration = addend.Duration;
             var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
             var RelativeStart = addend.RelativeStart + augend.RelativeStart;
             var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
@@ -265,7 +263,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             var result = new TimeContext(MeasureNumber);
             result.SetRelativeStart(RelativeStart);
             result.SetRelativeEnd(RelativeEnd);
-            result.SetDuration(Duration);
+            result.SetDuration((DurationEnum)Duration);
 
             return result;
         }

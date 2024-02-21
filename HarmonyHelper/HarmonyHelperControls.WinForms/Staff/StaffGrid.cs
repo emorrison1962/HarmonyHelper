@@ -151,7 +151,7 @@ namespace HarmonyHelperControls.WinForms
         void GetNotehead(TimedEventNote ten)
         {
             var tcx = ten.TimeContext;
-            var de = tcx.DurationEnum; //get stem
+            var de = tcx.Duration; //get stem
             var note = ten.Event; //get notehead
 
             Rune rune = new Rune();
@@ -179,7 +179,6 @@ namespace HarmonyHelperControls.WinForms
                 case DurationEnum.Duration_Maxima:
                 case DurationEnum.Duration_Long:
                 case DurationEnum.Duration_Breve:
-                case DurationEnum.Unknown:
                 case DurationEnum.None:
                 default: throw new ArgumentOutOfRangeException(nameof(de));
 
@@ -190,7 +189,7 @@ namespace HarmonyHelperControls.WinForms
         Rune GetStem(TimedEventNote ten)
         {
             var tcx = ten.TimeContext;
-            var de = tcx.DurationEnum; //get stem
+            var de = tcx.Duration; //get stem
             var note = ten.Event; //get notehead
 
             Rune result = new Rune();
@@ -254,7 +253,6 @@ namespace HarmonyHelperControls.WinForms
                 case DurationEnum.Duration_Maxima:
                 case DurationEnum.Duration_Long:
                 case DurationEnum.Duration_Breve:
-                case DurationEnum.Unknown:
                 case DurationEnum.None:
                 default: throw new ArgumentOutOfRangeException(nameof(de));
             }
@@ -355,7 +353,7 @@ namespace HarmonyHelperControls.WinForms
             foreach (var note in measure.Notes)
             {
                 var tcx = note.TimeContext;
-                var de = tcx.DurationEnum;
+                var de = tcx.Duration;
                 var evt = note.Event;
                 new object();
 

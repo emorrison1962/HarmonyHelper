@@ -4,7 +4,8 @@
     {
         int AbsoluteEnd { get; }
         int AbsoluteStart { get; }
-        int Duration { get; }
+        int DurationInteger { get; }
+        DurationEnum Duration { get; }
         bool IsDotted { get; }
         int MeasureNumber { get; }
         int RelativeEnd { get; }

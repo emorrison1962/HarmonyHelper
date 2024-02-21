@@ -26,6 +26,7 @@ namespace HarmonyHelper.Composition.Tests
             var melody = MelodyFactory.Create(seq);
             Assert.IsNotNull(melody);
 
+            Assert.Fail();
             new object();
         }
     }

@@ -46,7 +46,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             TimeModification timeModification,
             XElement xnote)
         {
-            Debug.Assert(de != DurationEnum.Unknown);
+            Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
             var ctx = new TimeContext.CreationContext()
             {

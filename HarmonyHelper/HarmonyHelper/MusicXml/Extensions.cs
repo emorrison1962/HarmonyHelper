@@ -379,7 +379,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         static public DurationEnum ToDurationEnum(this string name)
         {
-            var result = DurationEnum.Unknown;
+            var result = DurationEnum.None;
             switch (name) 
             {
                 case DurationStrings.NoteType_1024th:

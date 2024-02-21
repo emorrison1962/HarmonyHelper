@@ -26,7 +26,7 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
-        public int Duration
+        public int DurationInteger
         {
             get
             {
