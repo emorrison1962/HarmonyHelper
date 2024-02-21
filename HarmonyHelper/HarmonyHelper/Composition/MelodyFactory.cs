@@ -6,18 +6,25 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
 
 namespace HarmonyHelper.Composition
 {
-    enum MotifDirectionEnum
-    { };
+    public enum MotifDirectionEnum
+    { 
+        Unknown = 0,
+        Repeat = 1,
+        Ascending = 2,
+        Descending = 3,    
+    };
+
     public static class MelodyFactory
     {
         static public Melody Create(ChordSequence chords)
-        { 
-            var result = new Melody();
+        {
+            var result = Melody.Create(chords);
             return result;
         }
 
@@ -26,7 +33,7 @@ namespace HarmonyHelper.Composition
     public class ChordSequence : IEnumerable<TimedEventChordFormula>
     {
         #region Properties
-        Dictionary<int, TimedEventChordFormula> Formulas { get; set; } = new Dictionary<int, TimedEventChordFormula>();
+        List<TimedEventChordFormula> Formulas { get; set; } = new List<TimedEventChordFormula>();
 
         public int Count { get { return this.Formulas.Count; } }
         #endregion
@@ -48,17 +55,16 @@ namespace HarmonyHelper.Composition
         
         private void Add(TimedEventChordFormula formula)
         {
-            if (this.Formulas.ContainsKey(formula.AbsoluteStart))
-                new object();
-            this.Formulas.Add(formula.AbsoluteStart, formula);
+            this.Formulas.Add(formula);
+        }
+
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)this.Formulas.GetEnumerator();
         }
 
         public IEnumerator<TimedEventChordFormula> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
         {
             return this.Formulas.GetEnumerator();
         }
@@ -66,6 +72,40 @@ namespace HarmonyHelper.Composition
 
     public class Melody
     {
+        internal static Melody Create(ChordSequence chords)
+        {
+            foreach (var trio in chords.GetTriplets())
+            {
+                var chord = trio.First();
+                var next = trio[1];
+                var last = trio[2];
+
+                var nns = chord.Event.NoteNames;
+
+                var formula = chord.Event;
+                var x = chord.AbsoluteStart;
+                var ppm = chord.TimeContext.Rhythm.PulsesPerMeasure;
+                for (int i = 0; i < ppm; ++i) 
+                {
+                    new object();
+                }
+            }
+            throw new NotImplementedException();
+            return null;
+        }
+        int CurrentStartTime { get; set; } = 0;
+
+        int GetNextStartTime(TimedEventChordFormula[] trio)
+        {
+            DurationEnum.Duration_Quarter
+            return -1;
+        }
+
+        int GetNextStartTime()
+        {
+            DurationEnum.Duration_Quarter;
+        }
+
     }//class
 
 
@@ -76,7 +116,7 @@ namespace HarmonyHelper.Composition
     Key
     CurrentChord
     NextChord
-    Direction: Ascending, Descending, Flat
+    //Direction: Ascending, Descending, Flat
     Beat
 
     Motion: Scalar, Chordal

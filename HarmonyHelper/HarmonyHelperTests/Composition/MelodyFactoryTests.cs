@@ -22,18 +22,10 @@ namespace HarmonyHelper.Composition.Tests
         [TestMethod()]
         public void CreateTest()
         {
-            for (int i = 1; i < 9; i++) 
-            {
-                var msg = 
-                $"{(((i & 4) > 0) ? 1 : 0)}"+
-                $"{(((i & 2) > 0) ? 1 : 0)}"+
-                $"{(((i & 1) > 0) ? 1 : 0)}";
-                Debug.WriteLine(msg);
-            }
-            new object();
-
             var seq = ChordSequenceTests.CreateChordSequence();
             MelodyFactory.Create(seq);
+
+            new object();
         }
     }
 }
