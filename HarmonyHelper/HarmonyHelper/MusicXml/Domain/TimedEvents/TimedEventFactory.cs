@@ -48,7 +48,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             Debug.Assert(de != DurationEnum.Unknown);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var ctx = new TimeContextEx.CreationContext()
+            var ctx = new TimeContext.CreationContext()
             {
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de,
                 IsDotted = isDotted,
             };
-            var time = new TimeContextEx(ctx);
+            var time = new TimeContext(ctx);
             var result = new TimedEventNote(note,
                 time);
             result.TimeModification = timeModification;
@@ -75,7 +75,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             //Debug.Assert(de != DurationEnum.None);
             Debug.Assert(this.PulsesPerMeasure != int.MinValue);
-            var ctx = new TimeContextEx.CreationContext()
+            var ctx = new TimeContext.CreationContext()
             {
                 MeasureNumber = measureNumber,
                 Rhythm = rhythm,
@@ -84,7 +84,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                 Duration = de,
                 IsDotted = isDotted,
             };
-            var time = new TimeContextEx(ctx);
+            var time = new TimeContext(ctx);
             var result = new TimedEventRest(rest,
                 time);
             result.TimeModification = timeModification;

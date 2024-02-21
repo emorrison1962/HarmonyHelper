@@ -485,7 +485,7 @@ namespace HarmonyHelper_DryWetMidi.Tests
 
                         var tens = new List<TimedEventNote>();
                         var ten = new TimedEventNote(note, 
-                            new TimeContextEx(measureNumber, model.Rhythm));
+                            new TimeContext(measureNumber, model.Rhythm));
                         tens.Add(ten);
                         tens.Add(ten);
                         tens.Add(ten);

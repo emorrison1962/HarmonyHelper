@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Eric.Morrison.Harmony.Intervals;
-using Eric.Morrison.Harmony.Rhythm;
 
 namespace Eric.Morrison.Harmony.MusicXml
 {
@@ -53,64 +51,12 @@ namespace Eric.Morrison.Harmony.MusicXml
 
     }
 
-    public abstract class TimeContext : IEquatable<TimeContext>, IComparable<TimeContext>, IHasIsValid
+
+    public partial class TimeContext : IHasIsValid
     {
-        #region Properties
-        RhythmicContext _Rhythm { get; set; }
-        public RhythmicContext Rhythm
-        {
-            get { return this._Rhythm; }
-            set
-            {
-                this._Rhythm = value;
-                Debug.Assert(null != value);
-            }
-        }
-        int _MeasureNumber;
-        public int MeasureNumber
-        {
-            get { return _MeasureNumber; }
-            protected set
-            {
-                //Debug.Assert(value < 6 * 1000);
-                _MeasureNumber = value;
-            }
-        }
-
-        public int AbsoluteStart
-        {
-            get
-            {
-                return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeStart;
-            }
-        }
-        public int AbsoluteEnd
-        {
-            get
-            {
-                return (this.Rhythm.PulsesPerMeasure * this.MeasureNumber) + this.RelativeEnd;
-            }
-        }
-        public int RelativeStart { get; protected set; } = int.MinValue;
-        public int RelativeEnd { get; protected set; } = int.MinValue;
-        public int Duration
-        {
-            get
-            {
-                return RelativeEnd - RelativeStart;
-            }
-        }
-
-        public TieTypeEnum TieType { get; set; } = TieTypeEnum.None;
-        public bool IsDotted { get; protected set; }
-
-
-        #endregion
-
-        #region Construction
-
         public class CreationContext
         {
+            public DurationEnum Duration { get; set; }
             public int MeasureNumber { get; set; }
             RhythmicContext _Rhythm { get; set; }
             public RhythmicContext Rhythm
@@ -132,6 +78,23 @@ namespace Eric.Morrison.Harmony.MusicXml
             }
         }
 
+
+        #region Properties
+        public DurationEnum _DurationEnum { get; protected set; }
+        public DurationEnum DurationEnum
+        {
+            get { return this._DurationEnum; }
+            protected set
+            {
+                this._DurationEnum = value;
+                Debug.Assert(value != DurationEnum.Unknown);
+            }
+        }
+
+        #endregion
+
+        #region Construction
+
         TimeContext(int measureNumber)
         {
             this.MeasureNumber = measureNumber;
@@ -145,11 +108,25 @@ namespace Eric.Morrison.Harmony.MusicXml
             this.Rhythm = rhythm;
         }
 
+        public TimeContext(int measureNumber, RhythmicContext rhythm, DurationEnum duration)
+            : this(measureNumber, rhythm)
+        {
+            this.DurationEnum = duration;
+            this.RelativeStart = 0;
+            this.RelativeEnd = this.Rhythm.PulsesPerMeasure * this.MeasureNumber | (int)duration;
+        }
+
+        public TimeContext(Measure measure, RhythmicContext rhythm, DurationEnum duration)
+            : this(measure.MeasureNumber, rhythm, duration)
+        {
+        }
+
         public TimeContext(CreationContext ctx)
             : this(ctx.MeasureNumber, ctx.Rhythm)
         {
             this.RelativeStart = ctx.RelativeStart;
             this.RelativeEnd = ctx.RelativeEnd;
+            this.DurationEnum = ctx.Duration;
             this.IsDotted = ctx.IsDotted;
         }
         public TimeContext(int measure, CreationContext ctx)
@@ -167,6 +144,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             this.RelativeStart = src.RelativeStart;
             this.RelativeEnd = src.RelativeEnd;
+            this.DurationEnum = src.DurationEnum;
         }
         public TimeContext()
         {
@@ -174,135 +152,20 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         #endregion
 
-        #region Fluent
-        public TimeContext SetMeasureNumber(int measureNumber)
+        #region Fluency
+        public TimeContext SetDuration(DurationEnum duration)
         {
-            this.MeasureNumber = measureNumber;
+            this.DurationEnum = duration;
             return this;
-        }
-        public TimeContext SetRhythmicContext(RhythmicContext ctx)
-        {
-            this.Rhythm = ctx;
-            return this;
-        }
-
-        public TimeContext SetRelativeStart(int start)
-        {
-            this.RelativeStart = start;
-            return this;
-        }
-        public TimeContext SetRelativeEnd(int end)
-        {
-            this.RelativeEnd = end;
-            return this;
-        }
-
-        public TimeContext SetIsDotted(bool isDotted)
-        {
-            this.IsDotted = isDotted;
-            return this;
-        }
-
-
-        #endregion
-
-        #region Equality
-        public bool Equals(TimeContext other)
-        {
-            var result = false;
-            if (this.MeasureNumber == other.MeasureNumber
-                && this.RelativeStart == other.RelativeStart
-                && this.RelativeEnd == other.RelativeEnd)
-                result = true;
-            return result;
-        }
-        public override bool Equals(object obj)
-        {
-            var result = false;
-            if (obj is TimeContext)
-                result = this.Equals(obj as TimeContext);
-            return result;
-        }
-        public int CompareTo(TimeContext other)
-        {
-            var result = Compare(this, other);
-            return result;
-        }
-        public static int Compare(TimeContext a, TimeContext b)
-        {
-            if (a is null && b is null)
-                return 0;
-            else if (a is null)
-                return -1;
-            else if (b is null)
-                return 1;
-
-            var result = a.MeasureNumber.CompareTo(b.MeasureNumber);
-            if (0 == result)
-                result = a.RelativeStart.CompareTo(b.RelativeStart);
-
-            return result;
-        }
-        public override int GetHashCode()
-        {
-            var result = this.MeasureNumber.GetHashCode()
-            ^ this.RelativeStart.GetHashCode();
-
-            return result;
-        }
-        public static bool operator ==(TimeContext a, TimeContext b)
-        {
-            var result = Compare(a, b) == 0;
-            return result;
-        }
-        public static bool operator !=(TimeContext a, TimeContext b)
-        {
-            var result = Compare(a, b) != 0;
-            return result;
         }
 
         #endregion
 
-        virtual public bool IsValid()
+
+        public bool IsValid()
         {
             var result = true;
-
-            if (null == _Rhythm)
-            {
-                result = false;
-                Debug.Assert(result);
-            }
-            if (result && _MeasureNumber < 0)
-            {
-                result = false;
-                Debug.Assert(result);
-            }
-
-            if (result && _MeasureNumber > 0 && AbsoluteStart == 0)
-            {
-                result = false;
-                Debug.Assert(result);
-            }
-
-            if (result && _MeasureNumber > 0 && AbsoluteEnd <= AbsoluteStart)
-            {
-                result = false;
-                Debug.Assert(result, "_MeasureNumber > 0 && AbsoluteEnd <= AbsoluteStart");
-            }
-
-            if (result && _MeasureNumber > 0 && RelativeStart < 0)
-            {
-                result = false;
-                Debug.Assert(result);
-            }
-
-            if (result && _MeasureNumber > 0 && RelativeEnd <= RelativeStart)
-            {
-                result = false;
-                Debug.Assert(result);
-            }
-
-            if (result && Duration <= 0)
+            if (result && _DurationEnum == DurationEnum.Unknown)
             {
                 result = false;
                 Debug.Assert(result);
@@ -313,7 +176,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public override string ToString()
         {
-            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}";
+            return $"Start={this.MeasureNumber}.{this.RelativeStart} End={this.MeasureNumber}.{this.RelativeEnd}, Duration={this.DurationEnum}";
         }
 
         public bool Intersects(TimeContext other)
@@ -333,18 +196,106 @@ namespace Eric.Morrison.Harmony.MusicXml
             return result;
         }
 
+        public string GetNoteLengthName()
+        {
+            var result = string.Empty;
+
+            switch (this._DurationEnum)
+            {
+                case DurationEnum.Duration_Maxima:
+                    result = DurationStrings.NoteType_maxima;
+                    break;
+                case DurationEnum.Duration_Long:
+                    result = DurationStrings.NoteType_long;
+                    break;
+                case DurationEnum.Duration_Breve:
+                    result = DurationStrings.NoteType_breve;
+                    break;
+                case DurationEnum.Duration_Whole:
+                    result = DurationStrings.NoteType_whole;
+                    break;
+                case DurationEnum.Duration_Half:
+                    result = DurationStrings.NoteType_half;
+                    break;
+                case DurationEnum.Duration_Quarter:
+                    result = DurationStrings.NoteType_quarter;
+                    break;
+                case DurationEnum.Duration_Eighth:
+                    result = DurationStrings.NoteType_eighth;
+                    break;
+                case DurationEnum.Duration_16th:
+                    result = DurationStrings.NoteType_16th;
+                    break;
+                case DurationEnum.Duration_32nd:
+                    result = DurationStrings.NoteType_32nd;
+                    break;
+                case DurationEnum.Duration_64th:
+                    result = DurationStrings.NoteType_64th;
+                    break;
+                case DurationEnum.Duration_128th:
+                    result = DurationStrings.NoteType_128th;
+                    break;
+                case DurationEnum.Duration_256th:
+                    result = DurationStrings.NoteType_256th;
+                    break;
+                case DurationEnum.Duration_512th:
+                    result = DurationStrings.NoteType_512th;
+                    break;
+                case DurationEnum.Duration_1024th:
+                    result = DurationStrings.NoteType_1024th;
+                    break;
+                case DurationEnum.None:
+                    result = string.Empty;
+                    break;
+                default:
+                    throw new ArgumentException();
+                    break;
+            }
+
+            return result;
+        }
+
         public static TimeContext operator +(TimeContext addend, TimeContext augend)
         {
+            var Duration = addend.DurationEnum;
             var MeasureNumber = addend.MeasureNumber + augend.MeasureNumber;
             var RelativeStart = addend.RelativeStart + augend.RelativeStart;
             var RelativeEnd = addend.RelativeEnd + augend.RelativeEnd;
 
-            var result = new TimeContext(MeasureNumber)
-                .SetRelativeStart(RelativeStart)
-                .SetRelativeEnd(RelativeEnd);
+            var result = new TimeContext(MeasureNumber);
+            result.SetRelativeStart(RelativeStart);
+            result.SetRelativeEnd(RelativeEnd);
+            result.SetDuration(Duration);
 
             return result;
         }
+
+        public XElement ToXElement(XElement xvoice)
+        {
+            var result = new XElement(Constants.XELEMENT_CHILD_CONTAINER, new object());
+
+            result.Add(new XElement(XmlConstants.duration, this.Duration));
+            
+            if (null != xvoice)
+                result.Add(xvoice);
+
+            var noteTypeName = this.GetNoteLengthName();
+            Debug.Assert(noteTypeName != null);
+            if (!string.IsNullOrEmpty(noteTypeName))
+            {
+                result.Add(new XElement(XmlConstants.type, noteTypeName));
+            }
+
+
+            if (this.IsDotted)
+            {
+                result.Add(new XElement(XmlConstants.dot));
+            }
+
+            return result;
+        }
+
+
     }//class
 
 }//ns

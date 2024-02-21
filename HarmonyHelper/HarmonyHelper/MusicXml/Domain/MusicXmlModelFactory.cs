@@ -38,7 +38,7 @@ namespace HarmonyHelper.MusicXml.Domain
                     var measure = new Measure();
                     factory.Part.Sections.Last().Add(measure);
 
-                    var timeCtx = new TimeContextEx(measure,
+                    var timeCtx = new TimeContext(measure,
                         factory.Model.Rhythm,
                         DurationEnum.Duration_Whole);
                     var teChordFormula = new TimedEventChordFormula(formula, timeCtx);
@@ -62,7 +62,7 @@ namespace HarmonyHelper.MusicXml.Domain
                     var measure = new Measure();
                     factory.Part.Sections.Last().Add(measure);
 
-                    var timeCtx = new TimeContextEx(measure,
+                    var timeCtx = new TimeContext(measure,
                         factory.Model.Rhythm,
                         de);
                     var teChordFormula = new TimedEventChordFormula(formula, timeCtx);
@@ -97,7 +97,7 @@ namespace HarmonyHelper.MusicXml.Domain
 
                         //for (int i = 0; i < 4; ++i)
                         {
-                            var timeCtx = new TimeContextEx(measure,
+                            var timeCtx = new TimeContext(measure,
                                 factory.Model.Rhythm,
                                 DurationEnum.Duration_Quarter);
                             var teNote = new TimedEventNote(note, timeCtx);

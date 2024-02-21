@@ -325,12 +325,12 @@ namespace NeckDiagrams.Controls
 
         private void CreateHarmony(Arpeggiator args)
         {
-            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            var cctx = new TimeContext.CreationContext(this.Rhythm);
             cctx.Duration = Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter;
             cctx.MeasureNumber = args.CurrentMeasure;
             cctx.RelativeStart = 0;
             cctx.RelativeEnd = 1;
-            var tctx = new TimeContextEx(cctx);
+            var tctx = new TimeContext(cctx);
 
             var tecf = new TimedEventChordFormula(args.CurrentChord.Formula, tctx);
             this.Part.CurrentMeasure.Add(tecf);
@@ -350,12 +350,12 @@ namespace NeckDiagrams.Controls
 
         private void CreateNote(Arpeggiator args)
         {
-            var cctx = new TimeContextEx.CreationContext(this.Rhythm);
+            var cctx = new TimeContext.CreationContext(this.Rhythm);
             cctx.Duration = DurationEnum.Duration_Quarter;
             cctx.MeasureNumber = args.CurrentMeasure;
             cctx.RelativeStart = 0;
             cctx.RelativeEnd = 1;
-            var tctx = new TimeContextEx(cctx);
+            var tctx = new TimeContext(cctx);
             var tecf = new TimedEventNote(args.CurrentNote, tctx);
             this.Part.CurrentMeasure.Add(tecf);
         }

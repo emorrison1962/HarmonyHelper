@@ -156,7 +156,7 @@ namespace MusicXml.Tests
                 isValid = part.IsValid();
                 Assert.IsTrue(isValid);
 
-                var tctx = new TimeContextEx(part.CurrentMeasure.MeasureNumber,
+                var tctx = new TimeContext(part.CurrentMeasure.MeasureNumber,
                     model.Rhythm,
                     Eric.Morrison.Harmony.MusicXml.DurationEnum.Duration_Quarter);
 

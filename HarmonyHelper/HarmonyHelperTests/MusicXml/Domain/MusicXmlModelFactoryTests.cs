@@ -47,7 +47,7 @@ namespace HarmonyHelper.MusicXml.Domain.Tests
                     var measure = new Measure();
                     factory.Part.Sections.Last().Add(measure);
 
-                    var timeCtx = new TimeContextEx(measure,
+                    var timeCtx = new TimeContext(measure,
                         factory.Model.Rhythm,
                         DurationEnum.Duration_Whole);
                     var teChordFormula = new TimedEventChordFormula(formula, timeCtx);

@@ -16,14 +16,14 @@ namespace Eric.Morrison.Harmony.MusicXml
         override public int SortOrder { get { return this.Event.SortOrder; } }
         public Rest Event { get; set; }
 
-        protected TimeContextEx _TimeContext { get; set; }
-        new public TimeContextEx TimeContext
+        protected TimeContext _TimeContext { get; set; }
+        new public TimeContext TimeContext
         {
             get { return this._TimeContext; }
             set
             {
-                if (value is TimeContextEx)
-                    this._TimeContext = (TimeContextEx)value;
+                if (value is TimeContext)
+                    this._TimeContext = (TimeContext)value;
                 else
                     Debug.Assert(false);
             }
@@ -35,11 +35,11 @@ namespace Eric.Morrison.Harmony.MusicXml
             : base(src)
         {
             this.Event = src.Event.CopyEx();
-            this.TimeContext = new TimeContextEx(src.TimeContext);
+            this.TimeContext = new TimeContext(src.TimeContext);
             this.Serialization = new XmlSerializationProperties(src.Serialization);
         }
 
-        public TimedEventRest(Rest rest, TimeContextEx ctx)
+        public TimedEventRest(Rest rest, TimeContext ctx)
             : base(ctx)
         {
             this.Event = rest;
