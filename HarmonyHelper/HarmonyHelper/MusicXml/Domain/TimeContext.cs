@@ -57,7 +57,7 @@ namespace Eric.Morrison.Harmony.MusicXml
         {
             public DurationEnum Duration { get; set; }
             public int MeasureNumber { get; set; }
-            RhythmicContext _Rhythm { get; set; }
+            RhythmicContext _Rhythm { get; set; } = new();
             public RhythmicContext Rhythm
             {
                 get { return this._Rhythm; }

@@ -42,7 +42,7 @@ namespace Eric.Morrison.Harmony.MusicXml
 
         public int RelativeStart { get; protected set; } = int.MinValue;
 
-        RhythmicContext _Rhythm { get; set; }
+        RhythmicContext _Rhythm { get; set; } = new();
         public RhythmicContext Rhythm
         {
             get { return this._Rhythm; }
