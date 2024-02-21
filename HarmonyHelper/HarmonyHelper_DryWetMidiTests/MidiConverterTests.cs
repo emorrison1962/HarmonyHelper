@@ -565,6 +565,33 @@ namespace HarmonyHelper_DryWetMidi.Tests
             new object();
         }
 
+        [TestMethod()]
+        public void Test_020724()
+        {
+            //var chords = @"c eb f fm";
+            var chords = @"em am em am f d/f# g abdim7";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_020924()
+        {
+            //var chords = @"c eb f fm";
+            var chords = @"|: C#m7| G#m7| C#m7| G#m7| A| B| C#m7| F#7|";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
 
     }//class
 }//ns
