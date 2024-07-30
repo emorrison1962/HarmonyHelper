@@ -17,6 +17,7 @@ using zHarmonyHelperTests_Arpeggiator;
 using System.Diagnostics;
 using static System.Collections.Specialized.BitVector32;
 using Section = Eric.Morrison.Harmony.MusicXml.Section;
+using System.Runtime.Intrinsics.X86;
 
 namespace HarmonyHelper_DryWetMidi.Tests
 {
@@ -484,7 +485,7 @@ namespace HarmonyHelper_DryWetMidi.Tests
                         var note = new Note(formula.Root, OctaveEnum.Octave2);
 
                         var tens = new List<TimedEventNote>();
-                        var ten = new TimedEventNote(note, 
+                        var ten = new TimedEventNote(note,
                             new TimeContext(measureNumber, model.Rhythm));
                         tens.Add(ten);
                         tens.Add(ten);
@@ -593,5 +594,115 @@ namespace HarmonyHelper_DryWetMidi.Tests
             new object();
         }
 
+        [TestMethod()]
+        public void Test_032524()
+        {
+            //var chords = @"c eb f fm";
+            var chords = @"|: c| abm| fm| dbm11|";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_032424()
+        {
+            //var chords = @"[Chords] |: Fm7| Bb7| Fm7| Bb7| Eb7| Ab7| B7| Bb7| [ChordsEnd] ";
+            var chords = @"|Bb7|Bb7|Bb7|Bb7|Eb7|Eb7|Bb7|Bb7|F7|Eb7|Bb7|F7|";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_041924()
+        {
+            var chords = @"|: Fm7 | Ab7 | Bb7 | Fm7 | Fm7 | Ab7 | C9 | Bb7: |";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_042324()
+        {
+            var chords = @"|: Cm7| | Fm| | Cm7| | F7| |
+| BbMaj7| EbMaj7| Cm7| F7:|";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+
+        [TestMethod()]
+        public void Test_050124()
+        {
+            var chords = @"[Chords] 
+|: DbMaj7 E7| AMaj7 C7| FMaj7| Bm7 E7| AMaj7 C7| FMaj7 Ab7| DbMaj7| Gm7 C7|
+| FMaj7| Bm7 E7| AMaj7| Ebm7 Ab7| DbMaj7| Gm7 C7| FMaj7| Ebm7 Ab7:10X|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+
+        [TestMethod()]
+        public void Test_061624()
+        {
+            var chordsA = @"[Chords] 
+|: A| D7| A| E7| A| C#7| D7| Dm|
+| E7#9| C#7| D7| Dm:5X|
+[ChordsEnd] ";
+
+            var chordsB = @"[Chords] \r\n| G7| C6| G7| Eb6| F7| A7| C#7| D13:5X|\r\n[ChordsEnd] ";
+
+            var model = this.CreateModel(chordsB);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_062824()
+        {
+//            var chordsA = @"[Chords] 
+//|: A| D7| A| E7| A| C#7| D7| Dm|
+//| E7#9| C#7| D7| Dm:5X|
+//[ChordsEnd] ";
+
+            var chordsB = @"[Chords] 
+|: EMaj7| Badd2/D#| DMaj7| Aadd2/C#:5X|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chordsB);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
     }//class
 }//ns
