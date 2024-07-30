@@ -29,7 +29,18 @@ namespace HarmonyHelper.Melody
         }
 
         void Analyze()
-        { 
+        {
+            /*
+            • Avoid octaves.
+            • Prefer m2 chord resolutions.
+            • Enjoy paralell 6ths.
+            • 1.5 octave vocal range.
+            • https://musictheory.pugetsound.edu/mt21c/NonChordTonesIntroduction.html
+            • Use directional patterns.
+            • So to conclude, our Stepwise Melody Rule is to have no more than three stepwise notes in your melodies.
+
+             */
+
             var sb = new StringBuilder();
             var firstTime = true;
             foreach (var pair in ChordFormulas.GetPairs()) 
@@ -58,8 +69,9 @@ namespace HarmonyHelper.Melody
                 var minCtx = list
                     .Where(x => x.Interval > Interval.Unison)
                     .MinBy(x => x.Interval.Value);
+                Debug.Assert(null != minCtx);
 
-                sb.Append(@$" {minCtx.NoteNameFirst} | {minCtx.NoteNameSecond} {minCtx.Interval.Name}  ");
+                sb.Append(@$" {minCtx.NoteNameFirst} > {minCtx.NoteNameSecond} ({minCtx.Interval.Name})  ");
                 list.Clear();
             }
             Debug.WriteLine(sb.ToString());
@@ -81,5 +93,14 @@ namespace HarmonyHelper.Melody
             this.Interval = Interval.Min(tmpInterval, tmpInterval.GetInversion());
         }
     }
+
+    abstract class MelodicMotionBase
+    { 
+    }
+
+    class PassingTone : MelodicMotionBase
+    { 
+    }
+
 
 }//ns
