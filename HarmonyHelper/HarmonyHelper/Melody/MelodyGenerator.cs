@@ -43,22 +43,22 @@ namespace HarmonyHelper.Melody
 
             var sb = new StringBuilder();
             var firstTime = true;
-            foreach (var pair in ChordFormulas.GetPairs()) 
+            foreach (var pair in ChordFormulas.GetPairs())
             {
                 sb.AppendLine();
                 sb.AppendFormat($"    {{0, -20}}{Environment.NewLine}", pair.First.Name);
-                if (firstTime) 
+                if (firstTime)
                 {
                     firstTime = false;
                     sb.Append($"| X m2 ");
                 }
-                else 
+                else
                 {
                     sb.Append($"| Y P4 ");
                 }
 
                 var list = new List<IntervalContext>();
-                foreach (var nn01 in pair.First.NoteNames) 
+                foreach (var nn01 in pair.First.NoteNames)
                 {
                     foreach (var nn02 in pair.Second.NoteNames)
                     {
@@ -79,28 +79,6 @@ namespace HarmonyHelper.Melody
         }
 
     }//class
-
-    class IntervalContext
-    {
-        public NoteName NoteNameFirst { get; set; }
-        public NoteName NoteNameSecond { get; set; }
-        public Interval Interval { get; set; }
-        public IntervalContext(NoteName nnFirst, NoteName nnSecond)
-        {
-            this.NoteNameFirst = nnFirst;
-            this.NoteNameSecond = nnSecond;
-            var tmpInterval = nnFirst - nnSecond;
-            this.Interval = Interval.Min(tmpInterval, tmpInterval.GetInversion());
-        }
-    }
-
-    abstract class MelodicMotionBase
-    { 
-    }
-
-    class PassingTone : MelodicMotionBase
-    { 
-    }
 
 
 }//ns
