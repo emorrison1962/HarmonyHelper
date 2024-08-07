@@ -936,6 +936,23 @@ namespace Eric.Morrison.Harmony
             return this.Name;
         }
 
+        public int GetDistance<T>(NoteName dst, bool invert = false)
+        {
+            int result = int.MinValue;
+            var chars = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', };
+            if (!invert)
+            {
+                result = chars.GetDistance(this.Name[0], dst.Name[0]);
+            }
+            else
+            {
+                result = chars.GetDistance(dst.Name[0], this.Name[0]);
+            }
+
+            return result;
+        }
+
+
     }//class
 
 }//ns

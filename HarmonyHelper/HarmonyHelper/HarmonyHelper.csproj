@@ -84,4 +84,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>

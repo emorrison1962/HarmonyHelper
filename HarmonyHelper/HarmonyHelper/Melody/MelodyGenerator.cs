@@ -10,20 +10,24 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.MusicXml;
 
+#if false
+https://www.edmprod.com/advanced-melodies-chord-tones-motifs/
+#endif
+
 namespace HarmonyHelper.Melody
 {
     public class MelodyGenerator
     {
-        List<ChordFormula> ChordFormulas { get; set; } = new List<ChordFormula>();
-        public MusicXmlModel CreateMelody(string chords)
+        List<TimedEventChordFormula> ChordFormulas { get; set; } = new List<TimedEventChordFormula>();
+        public MusicXmlModel CreateMelody(MusicXmlModel model)
         {
-            var formulas = ChordFormulaParser.Parse(chords);
+            var formulas = model.GetChords();
             return this.CreateMelody(formulas);
         }
 
-        public MusicXmlModel CreateMelody(List<ChordFormula> formulas)
-        { 
-            this.ChordFormulas= formulas;
+        public MusicXmlModel CreateMelody(List<TimedEventChordFormula> teFormulas)
+        {
+            this.ChordFormulas = teFormulas;
             this.Analyze();
             return null;
         }
@@ -45,8 +49,10 @@ namespace HarmonyHelper.Melody
             var firstTime = true;
             foreach (var pair in ChordFormulas.GetPairs()) 
             {
+                var qqq = pair.First.IsStrongBeat;
+
                 sb.AppendLine();
-                sb.AppendFormat($"    {{0, -20}}{Environment.NewLine}", pair.First.Name);
+                sb.AppendFormat($"    {{0, -20}}{Environment.NewLine}", pair.First.Event);
                 if (firstTime) 
                 {
                     firstTime = false;
@@ -58,9 +64,9 @@ namespace HarmonyHelper.Melody
                 }
 
                 var list = new List<IntervalContext>();
-                foreach (var nn01 in pair.First.NoteNames) 
+                foreach (var nn01 in pair.First.Event.NoteNames) 
                 {
-                    foreach (var nn02 in pair.Second.NoteNames)
+                    foreach (var nn02 in pair.Second.Event.NoteNames)
                     {
                         var ctx = new IntervalContext(nn01, nn02);
                         list.Add(ctx);

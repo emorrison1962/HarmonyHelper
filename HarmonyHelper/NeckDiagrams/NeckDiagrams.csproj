@@ -61,6 +61,7 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />
     <ProjectReference Include="..\HarmonyHelper.IoC\HarmonyHelper.IoC.csproj" />
     <ProjectReference Include="..\HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
