@@ -14,11 +14,12 @@ using Eric.Morrison.Harmony.MusicXml;
 https://www.edmprod.com/advanced-melodies-chord-tones-motifs/
 #endif
 
+#if false
 namespace HarmonyHelper.Melody
 {
     public class MelodyGenerator
     {
-        List<TimedEventChordFormula> ChordFormulas { get; set; } = new List<TimedEventChordFormula>();
+        List<TimedEventChordFormula> TimedEventChordFormulas { get; set; } = new List<TimedEventChordFormula>();
         public MusicXmlModel CreateMelody(MusicXmlModel model)
         {
             var formulas = model.GetChords();
@@ -27,7 +28,7 @@ namespace HarmonyHelper.Melody
 
         public MusicXmlModel CreateMelody(List<TimedEventChordFormula> teFormulas)
         {
-            this.ChordFormulas = teFormulas;
+            this.TimedEventChordFormulas = teFormulas;
             this.Analyze();
             return null;
         }
@@ -45,11 +46,27 @@ namespace HarmonyHelper.Melody
 
              */
 
+            
+            foreach (var tecf in TimedEventChordFormulas)
+            {
+            }
+
             var sb = new StringBuilder();
             var firstTime = true;
-            foreach (var pair in ChordFormulas.GetPairs()) 
+            foreach (var pair in TimedEventChordFormulas.GetPairs()) 
             {
                 var qqq = pair.First.IsStrongBeat;
+                var ppm = pair.First.TimeContext.Rhythm.PulsesPerMeasure;
+                var formula = pair.First.Event;
+                var nns = formula.NoteNames;
+                NoteName nnCurrent = nns[0];
+
+                for (int i = 0; i < ppm; i++)
+                {
+                    var melodicMotion = MelodicMotion.GetRandom();
+                    NoteName nnNext = this.GetNextNote(nnCurrent, melodicMotion, pair);
+                }
+
 
                 sb.AppendLine();
                 sb.AppendFormat($"    {{0, -20}}{Environment.NewLine}", pair.First.Event);
@@ -84,29 +101,123 @@ namespace HarmonyHelper.Melody
             new object();
         }
 
-    }//class
-
-    class IntervalContext
-    {
-        public NoteName NoteNameFirst { get; set; }
-        public NoteName NoteNameSecond { get; set; }
-        public Interval Interval { get; set; }
-        public IntervalContext(NoteName nnFirst, NoteName nnSecond)
+        NoteName GetNextNote(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
         {
-            this.NoteNameFirst = nnFirst;
-            this.NoteNameSecond = nnSecond;
-            var tmpInterval = nnFirst - nnSecond;
-            this.Interval = Interval.Min(tmpInterval, tmpInterval.GetInversion());
+            NoteName result = NoteName.C;
+            var first = pair.First.Event.NoteNames;
+            var second = pair.Second.Event.NoteNames;
+
+            switch (melodicMotion.MelodicMotionType)
+            {
+                case MelodicMotionEnum.PassingTone:
+                    {
+                        result = this.GetNextPassingTone(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.NeighborTone:
+                    {
+                        result = this.GetNextNeighborTone(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.Appoggiatura:
+                    {
+                        result = this.GetNextAppoggiatura(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.EscapeTone:
+                    {
+                        result = this.GetNextEscapeTone(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.DoubleNeighbor:
+                    {
+                        result = this.GetNextDoubleNeighbor(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.Anticipation:
+                    {
+                        result = this.GetNextAnticipation(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.PedalPoint:
+                    {
+                        result = this.GetNextPedalPoint(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.Suspension:
+                    {
+                        result = this.GetNextSuspension(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                case MelodicMotionEnum.Retardation:
+                    {
+                        result = this.GetNextRetardation(currentNote, melodicMotion, pair);
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            return result;
         }
-    }
 
-    abstract class MelodicMotionBase
-    { 
-    }
+        /// <summary>
+        /// PassingTone
+        /// Approached by   Left by
+        /// step            step in same direction
+        /// </summary>
+        /// <param name="currentNote"></param>
+        /// <param name="melodicMotion"></param>
+        /// <param name="pair"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private NoteName GetNextPassingTone(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
 
-    class PassingTone : MelodicMotionBase
-    { 
-    }
+        private NoteName GetNextNeighborTone(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
 
+        private NoteName GetNextAppoggiatura(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
 
+        private NoteName GetNextEscapeTone(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+
+        private NoteName GetNextDoubleNeighbor(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+
+        private NoteName GetNextAnticipation(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+
+        private NoteName GetNextPedalPoint(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private NoteName GetNextSuspension(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+
+        private NoteName GetNextRetardation(NoteName currentNote, MelodicMotion melodicMotion, LinqExtensions.Pair<TimedEventChordFormula> pair)
+        {
+            throw new NotImplementedException();
+        }
+
+    }//class
 }//ns
+
+#endif

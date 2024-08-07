@@ -1,0 +1,126 @@
+﻿using Eric.Morrison.Harmony.Chords;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Eric.Morrison.Harmony.Melody
+{
+    public partial class MelodyGenerator
+	{
+		class StateSnapshot : IEquatable<StateSnapshot>
+		{
+            MelodyGeneratorChordContext ArpeggiationContext { get; set; }
+			Chord StartingChord { get; set; }
+			DirectionEnum StartingDirection { get; set; }
+			Note StartingNote { get; set; }
+			List<Note> NoteHistory { get; set; } = new List<Note>();
+
+			public StateSnapshot(MelodyGenerator mg)
+			{
+				this.ArpeggiationContext = mg.CurrentContext;
+				this.StartingChord = mg.CurrentChord;
+				this.StartingNote = mg.CurrentNote;
+				this.StartingDirection = mg.Direction;
+				this.NoteHistory = new List<Note>(mg.NoteHistory);
+
+			}
+
+			public static implicit operator StateSnapshot(MelodyGenerator arp)
+			{
+				StateSnapshot temp = new StateSnapshot(arp);
+				return temp;
+			}
+
+			public bool Equals(MelodyGenerator arp)
+			{
+				var result = false;
+				bool success = true;
+				if (success)
+				{
+					success = this.ArpeggiationContext.Equals(arp.CurrentContext);
+					if (!success) { new object(); }
+				}
+				if (success)
+				{
+					success = this.StartingChord.Equals(arp.CurrentChord);
+					if (!success) { new object(); }
+				}
+				if (success)
+				{
+					success = this.StartingNote.Equals(arp.CurrentNote);
+					if (!success) { new object(); }
+				}
+				if (success)
+				{
+					success = this.StartingDirection == arp.Direction;
+					if (!success) { new object(); }
+				}
+				if (success)
+				{
+					if (this.NoteHistory.Count != arp.NoteHistory.Count)
+						success = false;
+					else
+					{
+						var count = this.NoteHistory.Count;
+						for (int i = 0; i < count; ++i)
+						{
+							if (this.NoteHistory[i] != arp.NoteHistory[i])
+							{
+								success = false;
+								break;
+							}
+						}
+						if (!success) { new object(); }
+					}
+				}
+				if (success)
+				{
+					result = true;
+				}
+				return result;
+			}
+
+			public bool Equals(StateSnapshot other)
+			{
+				throw new NotSupportedException();
+				return this.Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				var result = this.ArpeggiationContext.GetHashCode()
+					^ this.StartingChord.GetHashCode()
+					^ this.StartingDirection.GetHashCode()
+					^ this.StartingNote.GetHashCode();
+				return result;
+			}
+
+			public override bool Equals(object obj)
+			{
+				var result = false;
+				if (obj is StateSnapshot)
+					result = this.Equals(obj as Note);
+				return result;
+			}
+
+			public static bool operator ==(StateSnapshot snapshot, MelodyGenerator arp)
+			{
+				var result = snapshot.Equals(arp);
+				return result;
+			}
+
+			public static bool operator !=(StateSnapshot snapshot, MelodyGenerator arp)
+			{
+				var result = !snapshot.Equals(arp);
+				return result;
+			}
+
+			public override string ToString()
+			{
+				return $"{base.ToString()}: StartingChord={this.StartingChord}, StartingNote={this.StartingNote}, StartingDirection={this.StartingDirection}";
+			}
+
+		}//class
+
+	}//class
+}//ns

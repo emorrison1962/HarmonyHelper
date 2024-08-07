@@ -22,7 +22,7 @@ namespace HarmonyHelper.Melody.Tests
             //var str = "c6 e7 a7 d7 g7 b7 e7 a7 abdim7";
             var str = "|| dm7 | g7 | cmaj7 | a7 ||";
             var model = this.CreateModel(str);
-            new MelodyGenerator().CreateMelody(model);    
+            //new MelodyGenerator().CreateMelody(model);    
             Assert.Fail();
         }
 
