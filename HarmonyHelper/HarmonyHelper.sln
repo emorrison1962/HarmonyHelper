@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelperControls.WinF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eric.Morrison.Helpers", "Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj", "{849C94B4-7156-4E1D-9F5B-8818D1B59C07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelperTests1", "HarmonyHelperTests1\HarmonyHelperTests1.csproj", "{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{849C94B4-7156-4E1D-9F5B-8818D1B59C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{849C94B4-7156-4E1D-9F5B-8818D1B59C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{849C94B4-7156-4E1D-9F5B-8818D1B59C07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
