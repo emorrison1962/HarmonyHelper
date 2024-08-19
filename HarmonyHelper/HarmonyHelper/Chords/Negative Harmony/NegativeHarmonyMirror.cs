@@ -20,7 +20,7 @@ namespace HarmonyHelper.Chords.NegativeHarmony
     /// C Locrian transforms into G Lydian.
     /// https://rcalsaverini.github.io/blog/modes-transform-negative-harmony/
     /// </summary>
-    public class ModesMirror
+    public class NegativeHarmonyMirror
     {
 
         public NoteName GetMirror(KeySignature ks, NoteName nn)
