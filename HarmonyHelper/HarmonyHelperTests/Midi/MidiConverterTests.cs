@@ -264,7 +264,12 @@ namespace HarmonyHelper_DryWetMidi.Tests
 
         public MusicXmlModel CreateModel(string chords)
         {
-            List<string> sections = chords.Split(new char[] { ' ' }).ToList();
+
+            List<string> sections = new List<string>()
+            {
+                chords
+            };
+
             return this.CreateModel(sections);
         }
 

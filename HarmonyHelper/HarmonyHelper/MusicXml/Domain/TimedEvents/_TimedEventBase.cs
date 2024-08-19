@@ -1,4 +1,5 @@
 ﻿using Eric.Morrison.Harmony.Chords;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,16 @@ namespace Eric.Morrison.Harmony.MusicXml
         public XmlSerializationProperties Serialization { get; set; } = new XmlSerializationProperties();
         public TimeModification TimeModification { get; set; }
         public bool HasTimeModification { get { return null == this.TimeModification; } }
-
+        public bool IsStrongBeat
+        {
+            get
+            {
+                var result = false;
+                if (0 == this.TimeContext.RelativeStart % 1.00F)
+                    result = true;
+                return result;
+            }
+        }
         #endregion
 
         #region Construction
@@ -49,8 +59,8 @@ namespace Eric.Morrison.Harmony.MusicXml
         protected bool IsValid()
         {
             var result = true;
-            if (null == this.TimeContext) 
-            { 
+            if (null == this.TimeContext)
+            {
                 result = false;
                 Debug.Assert(result);
             }
@@ -91,20 +101,20 @@ namespace Eric.Morrison.Harmony.MusicXml
         public bool HasChord { get; set; }
         int Forward { get; set; }
         int Backup { get; set; }
-        bool HasForward { get { return  this.Forward != 0; } }
-        bool HasBackup { get { return  this.Backup != 0; } }   
+        bool HasForward { get { return this.Forward != 0; } }
+        bool HasBackup { get { return this.Backup != 0; } }
         public string Attack { get; set; }
         public string Release { get; set; }
 
         public XmlSerializationProperties() { }
-        public XmlSerializationProperties(XmlSerializationProperties src) 
-        { 
+        public XmlSerializationProperties(XmlSerializationProperties src)
+        {
             this.Staff = src.Staff;
-            this.Forward = src.Forward; 
+            this.Forward = src.Forward;
             this.Backup = src.Backup;
             this.Attack = src.Attack;
             this.Release = src.Release;
-            this.Voice = src.Voice; 
+            this.Voice = src.Voice;
         }
     }
 

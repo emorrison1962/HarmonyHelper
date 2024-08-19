@@ -1,4 +1,5 @@
-﻿using Eric.Morrison.Harmony;
+﻿using Eric.Morrison;
+using Eric.Morrison.Harmony;
 using System;
 using System.Collections.Generic;
 using System.Data;

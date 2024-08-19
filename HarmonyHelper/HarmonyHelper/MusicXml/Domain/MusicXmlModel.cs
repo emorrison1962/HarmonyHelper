@@ -87,7 +87,7 @@ namespace Eric.Morrison.Harmony.MusicXml
                     var rhythm = (from m in part.Measures
                                   from n in m.Notes
                                   where n.TimeContext.Rhythm != null
-                                  select n.TimeContext.Rhythm).FirstOrDefault();
+                                  select n.TimeContext.Rhythm).First();
                     this.Rhythm = rhythm;
                 }
             }
@@ -134,8 +134,25 @@ namespace Eric.Morrison.Harmony.MusicXml
             GC.SuppressFinalize(this);
         }
 
+        public List<TimedEventChordFormula> GetChords()
+        {
+            List<TimedEventChordFormula> result = null;
+            var parts = this.Parts
+                .Where(x => x.PartType == PartTypeEnum.Harmony);
+            foreach (var part in parts)
+            {
+                foreach (var section in part.Sections.Skip(1))
+                {
+                    result = section.Measures
+                        .SelectMany(x => x.Chords)
+                        .ToList();
+                }
+            }
+            return result;
+        }
 
-        #endregion    
+
+        #endregion
 
     }//class
 

@@ -43,7 +43,21 @@ namespace HarmonyHelper.Melody
         }
     }//class
 
-    public abstract class MelodicMotionBase
+    public enum MelodicMotionEnum
+    {
+        None = 0,
+                               //Approached by   Left by
+        PassingTone,           //step            step in same direction
+        NeighborTone,          //step            step in opposite direction
+        Appoggiatura,          //leap            step
+        EscapeTone,            //step            leap in opposite direction
+        DoubleNeighbor,        //see text        see text
+        Anticipation,          //step            same note
+        PedalPoint,            //same note       same note
+        Suspension,            //same note       step down
+        Retardation,           //same note       step up
+    };
+    public class MelodicMotion
     {
 #if false
 Non-Chord Tone          Approached by   Left by
@@ -58,9 +72,20 @@ Suspension              same note       step down
 Retardation             same note       step up
 
 #endif    
+
+        public MelodicMotionEnum MelodicMotionType { get; set; }
+        public static MelodicMotion GetRandom()
+        { 
+            var result = new MelodicMotion();
+            var motionType = (MelodicMotionEnum)new Random()
+                .Next((int)MelodicMotionEnum.PassingTone,
+                    (int)MelodicMotionEnum.Retardation);
+            result.MelodicMotionType = motionType;
+            return result;
+        }
     }//class
 
-    public class PassingTone : MelodicMotionBase
+    public class PassingTone : MelodicMotion
     {
     }//class
 
@@ -74,6 +99,6 @@ Retardation             same note       step up
     /// Note: Fragments may overlap.
     /// </summary>
     public class Fragment
-    { 
+    {
     }
 }//ns

@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>(()=>{class RocketLazyLoadScripts{constructor(){this.v="1.2.6",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this.t.bind(this),this.touchStartHandler=this.i.bind(this),this.touchMoveHandler=this.o.bind(this),this.touchEndHandler=this.h.bind(this),this.clickHandler=this.u.bind(this),this.interceptedClicks=[],this.interceptedClickListeners=[],this.l(this),window.addEventListener("pageshow",(t=>{this.persisted=t.persisted,this.everythingLoaded&&this.m()})),this.CSPIssue=sessionStorage.getItem("rocketCSPIssue"),document.addEventListener("securitypolicyviolation",(t=>{this.CSPIssue||"script-src-elem"!==t.violatedDirective||"data"!==t.blockedURI||(this.CSPIssue=!0,sessionStorage.setItem("rocketCSPIssue",!0))})),document.addEventListener("DOMContentLoaded",(()=>{this.k()})),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}p(t){document.hidden?t.t():(this.triggerEvents.forEach((e=>window.addEventListener(e,t.userEventHandler,{passive:!0}))),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler))}_(){this.triggerEvents.forEach((t=>window.removeEventListener(t,this.userEventHandler,{passive:!0}))),document.removeEventListener("visibilitychange",this.userEventHandler)}i(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this.L(t.target,!0),this.S(t.target,"onclick","rocket-onclick"),this.C())}o(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this.L(t.target,!1),this.S(t.target,"rocket-onclick","onclick"),this.M()}h(){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}u(t){t.target.removeEventListener("click",this.clickHandler),this.L(t.target,!1),this.S(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this.M()}O(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach((t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))}))}l(t){EventTarget.prototype.addEventListenerWPRocketBase=EventTarget.prototype.addEventListener,EventTarget.prototype.addEventListener=function(e,i,o){"click"!==e||t.windowLoaded||i===t.clickHandler||t.interceptedClickListeners.push({target:this,func:i,options:o}),(this||window).addEventListenerWPRocketBase(e,i,o)}}L(t,e){this.interceptedClickListeners.forEach((i=>{i.target===t&&(e?t.removeEventListener("click",i.func,i.options):t.addEventListener("click",i.func,i.options))})),t.parentNode!==document.documentElement&&this.L(t.parentNode,e)}D(){return new Promise((t=>{this.P?this.M=t:t()}))}C(){this.P=!0}M(){this.P=!1}S(t,e,i){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(i,event.target.getAttribute(e)),event.target.removeAttribute(e))}t(){this._(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this.R.bind(this)):this.R()}k(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach((e=>{let i=e.getAttribute("data-rocket-src");if(i&&!i.startsWith("data:")){0===i.indexOf("//")&&(i=location.protocol+i);try{const o=new URL(i).origin;o!==location.origin&&t.push({src:o,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(t){}}})),t=[...new Map(t.map((t=>[JSON.stringify(t),t]))).values()],this.T(t,"preconnect")}async R(){this.lastBreath=Date.now(),this.j(this),this.F(this),this.I(),this.W(),this.q(),await this.A(this.delayedScripts.normal),await this.A(this.delayedScripts.defer),await this.A(this.delayedScripts.async);try{await this.U(),await this.H(this),await this.J()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this.everythingLoaded=!0,this.D().then((()=>{this.O()})),this.N()}W(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)}))}async B(t){if(await this.G(),!0!==t.noModule||!("noModule"in HTMLScriptElement.prototype))return new Promise((e=>{let i;function o(){(i||t).setAttribute("data-rocket-status","executed"),e()}try{if(navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor||this.CSPIssue)i=document.createElement("script"),[...t.attributes].forEach((t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),i.setAttribute(e,t.nodeValue))})),t.text&&(i.text=t.text),i.hasAttribute("src")?(i.addEventListener("load",o),i.addEventListener("error",(function(){i.setAttribute("data-rocket-status","failed-network"),e()})),setTimeout((()=>{i.isConnected||e()}),1)):(i.text=t.text,o()),t.parentNode.replaceChild(i,t);else{const i=t.getAttribute("data-rocket-type"),s=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",o),t.addEventListener("error",(i=>{this.CSPIssue&&i.target.src.startsWith("data:")?(console.log("WPRocket: data-uri blocked by CSP -> fallback"),t.removeAttribute("src"),this.B(t).then(e)):(t.setAttribute("data-rocket-status","failed-network"),e())})),s?(t.removeAttribute("data-rocket-src"),t.src=s):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}}catch(i){t.setAttribute("data-rocket-status","failed-transform"),e()}}));t.setAttribute("data-rocket-status","skipped")}async A(t){const e=t.shift();return e&&e.isConnected?(await this.B(e),this.A(t)):Promise.resolve()}q(){this.T([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}T(t,e){var i=document.createDocumentFragment();t.forEach((t=>{const o=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(o&&!o.startsWith("data:")){const s=document.createElement("link");s.href=o,s.rel=e,"preconnect"!==e&&(s.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(s.crossOrigin=!0),t.crossOrigin&&(s.crossOrigin=t.crossOrigin),t.integrity&&(s.integrity=t.integrity),i.appendChild(s),this.trash.push(s)}})),document.head.appendChild(i)}j(t){let e={};function i(i,o){return e[o].eventsToRewrite.indexOf(i)>=0&&!t.everythingLoaded?"rocket-"+i:i}function o(t,o){!function(t){e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=i(arguments[0],t),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=i(arguments[0],t),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(o)}function s(e,i){let o=e[i];e[i]=null,Object.defineProperty(e,i,{get:()=>o||function(){},set(s){t.everythingLoaded?o=s:e["rocket"+i]=o=s}})}o(document,"DOMContentLoaded"),o(window,"DOMContentLoaded"),o(window,"load"),o(window,"pageshow"),o(document,"readystatechange"),s(document,"onreadystatechange"),s(window,"onload"),s(window,"onpageshow");try{Object.defineProperty(document,"readyState",{get:()=>t.rocketReadyState,set(e){t.rocketReadyState=e},configurable:!0}),document.readyState="loading"}catch(t){console.log("WPRocket DJE readyState conflict, bypassing")}}F(t){let e;function i(e){return t.everythingLoaded?e:e.split(" ").map((t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t)).join(" ")}function o(o){function s(t){const e=o.fn[t];o.fn[t]=o.fn.init.prototype[t]=function(){return this[0]===window&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=i(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{const e=arguments[0][t];delete arguments[0][t],arguments[0][i(t)]=e}))),e.apply(this,arguments),this}}o&&o.fn&&!t.allJQueries.includes(o)&&(o.fn.ready=o.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(o):document.addEventListener("rocket-DOMContentLoaded",(()=>e.bind(document)(o))),o([])},s("on"),s("one"),t.allJQueries.push(o)),e=o}o(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){o(t)}})}async H(t){const e=document.querySelector("script[data-webpack]");e&&(await async function(){return new Promise((t=>{e.addEventListener("load",t),e.addEventListener("error",t)}))}(),await t.K(),await t.H(t))}async U(){this.domReadyFired=!0;try{document.readyState="interactive"}catch(t){}await this.G(),document.dispatchEvent(new Event("rocket-readystatechange")),await this.G(),document.rocketonreadystatechange&&document.rocketonreadystatechange(),await this.G(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this.G(),window.dispatchEvent(new Event("rocket-DOMContentLoaded"))}async J(){try{document.readyState="complete"}catch(t){}await this.G(),document.dispatchEvent(new Event("rocket-readystatechange")),await this.G(),document.rocketonreadystatechange&&document.rocketonreadystatechange(),await this.G(),window.dispatchEvent(new Event("rocket-load")),await this.G(),window.rocketonload&&window.rocketonload(),await this.G(),this.allJQueries.forEach((t=>t(window).trigger("rocket-jquery-load"))),await this.G();const t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this.G(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted}),this.windowLoaded=!0}m(){document.onreadystatechange&&document.onreadystatechange(),window.onload&&window.onload(),window.onpageshow&&window.onpageshow({persisted:this.persisted})}I(){const t=new Map;document.write=document.writeln=function(e){const i=document.currentScript;i||console.error("WPRocket unable to document.write this: "+e);const o=document.createRange(),s=i.parentElement;let n=t.get(i);void 0===n&&(n=i.nextSibling,t.set(i,n));const c=document.createDocumentFragment();o.setStart(c,0),c.appendChild(o.createContextualFragment(e)),s.insertBefore(c,n)}}async G(){Date.now()-this.lastBreath>45&&(await this.K(),this.lastBreath=Date.now())}async K(){return document.hidden?new Promise((t=>setTimeout(t))):new Promise((t=>requestAnimationFrame(t)))}N(){this.trash.forEach((t=>t.remove()))}static run(){const t=new RocketLazyLoadScripts;t.p(t)}}RocketLazyLoadScripts.run()})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<title>Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd</title><link rel="preload" as="style" href="https://www.edmprod.com/wp-content/cache/perfmatters/www.edmprod.com/fonts/02b77da6b9c9.google-fonts.min.css" /><link rel="stylesheet" href="https://www.edmprod.com/wp-content/cache/perfmatters/www.edmprod.com/fonts/02b77da6b9c9.google-fonts.min.css" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="https://www.edmprod.com/wp-content/cache/perfmatters/www.edmprod.com/fonts/02b77da6b9c9.google-fonts.min.css" /></noscript><link rel="preload" as="image" imagesrcset="https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1024x576.png.webp 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-300x169.png.webp 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-768x432.png.webp 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1536x864.png.webp 1536w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png.webp 1920w" imagesizes="(max-width: 1024px) 100vw, 1024px" fetchpriority="high">
+<meta name="description" content="Sick of boring, cheesy and stale melodies? Want to up your writing game? Learn new techniques like chord tones, motifs, and space in our advanced guide." />
+<link rel="canonical" href="https://www.edmprod.com/advanced-melodies-chord-tones-motifs/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Advanced Melody Guide: Using Chord Tones, Motifs and More" />
+<meta property="og:description" content="Sick of boring, cheesy and stale melodies? Want to up your writing game? Learn new techniques like chord tones, motifs, and space in our advanced guide." />
+<meta property="og:url" content="https://www.edmprod.com/advanced-melodies-chord-tones-motifs/" />
+<meta property="og:site_name" content="EDMProd" />
+<meta property="article:publisher" content="http://facebook.com/edmpsite" />
+<meta property="article:published_time" content="2020-05-10T22:00:04+00:00" />
+<meta property="article:modified_time" content="2023-02-14T22:20:52+00:00" />
+<meta property="og:image" content="https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="1080" />
+<meta property="og:image:type" content="image/png" />
+<meta name="author" content="Connor O&#039;Brien" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@edmprod" />
+<meta name="twitter:site" content="@edmprod" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Connor O&#039;Brien" />
+<meta name="twitter:label2" content="Est. reading time" />
+<meta name="twitter:data2" content="16 minutes" />
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/","url":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/","name":"Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd","isPartOf":{"@id":"https://www.edmprod.com/#website"},"primaryImageOfPage":{"@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/#primaryimage"},"image":{"@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/#primaryimage"},"thumbnailUrl":"https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png","datePublished":"2020-05-10T22:00:04+00:00","dateModified":"2023-02-14T22:20:52+00:00","author":{"@id":"https://www.edmprod.com/#/schema/person/857a4506fcfa1db9269a416aca96be90"},"description":"Sick of boring, cheesy and stale melodies? Want to up your writing game? Learn new techniques like chord tones, motifs, and space in our advanced guide.","breadcrumb":{"@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.edmprod.com/advanced-melodies-chord-tones-motifs/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/#primaryimage","url":"https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png","contentUrl":"https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png","width":1920,"height":1080},{"@type":"BreadcrumbList","@id":"https://www.edmprod.com/advanced-melodies-chord-tones-motifs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.edmprod.com/"},{"@type":"ListItem","position":2,"name":"Advanced Melody Guide: Using Chord Tones, Motifs and More"}]},{"@type":"WebSite","@id":"https://www.edmprod.com/#website","url":"https://www.edmprod.com/","name":"EDMProd","description":"Ideas and Resources for Electronic Dance Music Production","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.edmprod.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Person","@id":"https://www.edmprod.com/#/schema/person/857a4506fcfa1db9269a416aca96be90","name":"Connor O'Brien","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.edmprod.com/#/schema/person/image/","url":"https://secure.gravatar.com/avatar/0dc74cc7cffd2ee11068309b85f1b9c6?s=96&d=mm&r=g","contentUrl":"https://secure.gravatar.com/avatar/0dc74cc7cffd2ee11068309b85f1b9c6?s=96&d=mm&r=g","caption":"Connor O'Brien"},"description":"With 10,000,000+ streams across projects, releases on bitbird, Colorize &amp; having done an official remix for DROELOE, Connor is a more-than-prolific music producer. He primarily creates beautiful, melodic electronic music under the name Palisade. He is the instructor of Songwriting for Producers, the Ableton Workflow Bible, and our popular article series: Track Breakdowns","url":"https://www.edmprod.com/author/connor-obrien/"}]}</script>
+
+<link rel="stylesheet" id="wp-block-library-css" href="https://www.edmprod.com/wp-includes/css/dist/block-library/style.min.css?ver=6.6.1" media="all" />
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="hello-elementor-css" href="https://www.edmprod.com/wp-content/themes/hello-elementor/style.min.css?ver=3.0.1" media="all" />
+<link rel="stylesheet" id="hello-elementor-header-footer-css" href="https://www.edmprod.com/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.0.1" media="all" />
+<link rel="stylesheet" id="elementor-frontend-css" href="https://www.edmprod.com/wp-content/plugins/elementor/assets/css/frontend-lite.min.css?ver=3.22.2" media="all" />
+<link data-minify="1" rel="stylesheet" id="swiper-css" href="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=1722917863" media="all" />
+<link rel="stylesheet" id="elementor-post-28197-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-28197.css?ver=1720210822" media="all" />
+<link rel="stylesheet" id="elementor-pro-css" href="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/css/frontend-lite.min.css?ver=3.9.2" media="all" />
+<link rel="stylesheet" id="elementor-post-12161-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-12161.css?ver=1721876973" media="all" />
+<link rel="stylesheet" id="elementor-post-15459-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-15459.css?ver=1720220524" media="all" />
+<link rel="stylesheet" id="elementor-post-21358-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-21358.css?ver=1719785344" media="all" />
+<link rel="stylesheet" id="elementor-post-45902-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-45902.css?ver=1721332456" media="all" />
+<link rel="stylesheet" id="elementor-post-36891-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-36891.css?ver=1719785344" media="all" />
+<link rel="stylesheet" id="elementor-post-14318-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-14318.css?ver=1719785326" media="all" />
+<link data-minify="1" rel="stylesheet" id="elementor-icons-ekiticons-css" href="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/modules/elementskit-icon-pack/assets/css/ekiticons.css?ver=1722917863" media="all" />
+<link data-minify="1" rel="stylesheet" id="ekit-widget-styles-css" href="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/widgets/init/assets/css/widget-styles.css?ver=1722917863" media="all" />
+<link data-minify="1" rel="stylesheet" id="ekit-responsive-css" href="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/widgets/init/assets/css/responsive.css?ver=1722917863" media="all" />
+<script src="https://www.edmprod.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+
+<script type="rocketlazyloadscript">
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1090581387636164');
+fbq('track', 'PageView');
+</script>
+<noscript><img loading="lazy" height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1090581387636164&ev=PageView&noscript=1"
+/></noscript>
+
+<script type="rocketlazyloadscript">window.addEventListener('DOMContentLoaded', function() {
+jQuery(document).ready(function($) {
+var delay = 100; setTimeout(function() {
+$('.elementor-tab-title').removeClass('elementor-active');
+ $('.elementor-tab-content').css('display', 'none'); }, delay);
+});
+});</script>
+
+<script type="rocketlazyloadscript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NV6493B');</script>
+
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="https://a.omappapi.com/app/js/api.min.js" data-account="65993" data-user="58571" async></script>
+<link rel="icon" href="https://www.edmprod.com/wp-content/uploads/2020/05/cropped-Logo-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.edmprod.com/wp-content/uploads/2020/05/cropped-Logo-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.edmprod.com/wp-content/uploads/2020/05/cropped-Logo-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.edmprod.com/wp-content/uploads/2020/05/cropped-Logo-270x270.png" />
+</head>
+<body class="post-template-default single single-post postid-8676 single-format-standard elementor-default elementor-kit-28197 elementor-page-15241 elementor-page-21358">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NV6493B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+<div data-elementor-type="header" data-elementor-id="12161" class="elementor elementor-12161 elementor-location-header">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-1b35b815 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="1b35b815" data-element_type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-7a4fbb95" data-id="7a4fbb95" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-26c1209 elementor-widget elementor-widget-image" data-id="26c1209" data-element_type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<style>/*! elementor - v3.22.0 - 24-06-2024 */
+.elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=".svg"]{width:48px}.elementor-widget-image img{vertical-align:middle;display:inline-block}</style> <a href="https://edmprod.com">
+<picture loading="lazy" class="attachment-large size-large wp-image-17289">
+<source type="image/webp" srcset="https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1024x210.png.webp 1024w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-300x61.png.webp 300w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-768x157.png.webp 768w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1536x314.png.webp 1536w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-2048x419.png.webp 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<img loading="lazy" width="1024" height="210" src="https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1024x210.png" alt srcset="https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1024x210.png 1024w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-600x123.png 600w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-300x61.png 300w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-768x157.png 768w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1536x314.png 1536w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-2048x419.png 2048w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-100x20.png 100w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-862x176.png 862w, https://www.edmprod.com/wp-content/uploads/2020/04/Asset-2-1200x246.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-2c772cb9" data-id="2c772cb9" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-57f77b2 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57f77b2" data-element_type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-7692180" data-id="7692180" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-2188fa16 elementor-nav-menu__align-right elementor-nav-menu--stretch elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="2188fa16" data-element_type="widget" data-settings="{&quot;full_width&quot;:&quot;stretch&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;svg class=\&quot;e-font-icon-svg e-fas-caret-down\&quot; viewBox=\&quot;0 0 320 512\&quot; xmlns=\&quot;http:\/\/www.w3.org\/2000\/svg\&quot;&gt;&lt;path d=\&quot;M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z\&quot;&gt;&lt;\/path&gt;&lt;\/svg&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+<div class="elementor-widget-container">
+<link rel="stylesheet" href="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"> <nav migration_allowed="1" migrated="0" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-none">
+<ul id="menu-1-2188fa16" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43378"><a href="https://www.edmprod.com/launchpad/" class="elementor-item">1-on-1 Coaching</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44742"><a href="https://www.edmprod.com/pro-producer-bundle/" class="elementor-item">All-Access Bundle</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-6135"><a href="https://www.edmprod.com/courses" class="elementor-item">Courses</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38134"><a href="https://www.edmprod.com/pro-producer-bundle/" class="elementor-sub-item">Pro Producer Bundle (All Courses in 1) 🔥</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38135"><a href="https://www.edmprod.com/edm-foundations/" class="elementor-sub-item">EDM Foundations 🎹</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42457"><a href="https://www.edmprod.com/songwriting-for-producers/" class="elementor-sub-item">Songwriting For Producers 🎶</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42458"><a href="https://www.edmprod.com/bsd/" class="elementor-sub-item">Breakthrough Sound Design 🔊</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42459"><a href="https://www.edmprod.com/drums-by-design/" class="elementor-sub-item">Drums By Design 🥁</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42460"><a href="https://www.edmprod.com/mixing/" class="elementor-sub-item">Mixing For Producers 🎚️</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42461"><a href="https://www.edmprod.com/mastering-for-producers/" class="elementor-sub-item">Mastering For Producers 🎛️</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17378"><a href="https://www.edmprod.com/blog" class="elementor-item">Blog</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12665"><a href="https://www.edmprod.com/free/" class="elementor-item">Free Downloads</a></li>
+</ul> </nav>
+<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+<svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open e-font-icon-svg e-eicon-menu-bar" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M104 333H896C929 333 958 304 958 271S929 208 896 208H104C71 208 42 237 42 271S71 333 104 333ZM104 583H896C929 583 958 554 958 521S929 458 896 458H104C71 458 42 487 42 521S71 583 104 583ZM104 833H896C929 833 958 804 958 771S929 708 896 708H104C71 708 42 737 42 771S71 833 104 833Z"></path></svg><svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close e-font-icon-svg e-fas-times" viewBox="0 0 352 512" xmlns="http://www.w3.org/2000/svg"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg> <span class="elementor-screen-only">Menu</span>
+</div>
+<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+<ul id="menu-2-2188fa16" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43378"><a href="https://www.edmprod.com/launchpad/" class="elementor-item" tabindex="-1">1-on-1 Coaching</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44742"><a href="https://www.edmprod.com/pro-producer-bundle/" class="elementor-item" tabindex="-1">All-Access Bundle</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-6135"><a href="https://www.edmprod.com/courses" class="elementor-item" tabindex="-1">Courses</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38134"><a href="https://www.edmprod.com/pro-producer-bundle/" class="elementor-sub-item" tabindex="-1">Pro Producer Bundle (All Courses in 1) 🔥</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38135"><a href="https://www.edmprod.com/edm-foundations/" class="elementor-sub-item" tabindex="-1">EDM Foundations 🎹</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42457"><a href="https://www.edmprod.com/songwriting-for-producers/" class="elementor-sub-item" tabindex="-1">Songwriting For Producers 🎶</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42458"><a href="https://www.edmprod.com/bsd/" class="elementor-sub-item" tabindex="-1">Breakthrough Sound Design 🔊</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42459"><a href="https://www.edmprod.com/drums-by-design/" class="elementor-sub-item" tabindex="-1">Drums By Design 🥁</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42460"><a href="https://www.edmprod.com/mixing/" class="elementor-sub-item" tabindex="-1">Mixing For Producers 🎚️</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42461"><a href="https://www.edmprod.com/mastering-for-producers/" class="elementor-sub-item" tabindex="-1">Mastering For Producers 🎛️</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17378"><a href="https://www.edmprod.com/blog" class="elementor-item" tabindex="-1">Blog</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12665"><a href="https://www.edmprod.com/free/" class="elementor-item" tabindex="-1">Free Downloads</a></li>
+</ul> </nav>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-4229b0c elementor-hidden-mobile" data-id="4229b0c" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-c1b7b4b elementor-tablet-align-center elementor-align-justify elementor-mobile-align-right elementor-hidden-mobile nav-bar-button elementor-widget elementor-widget-button" data-id="c1b7b4b" data-element_type="widget" data-widget_type="button.default">
+<div class="elementor-widget-container">
+<div class="elementor-button-wrapper">
+<a class="elementor-button elementor-button-link elementor-size-md" href="https://edmprod.com/courses">
+<span class="elementor-button-content-wrapper">
+<span class="elementor-button-text">Explore Courses 🎛️</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div data-elementor-type="single-post" data-elementor-id="21358" class="elementor elementor-21358 elementor-location-single post-8676 post type-post status-publish format-standard has-post-thumbnail hentry category-songwriting">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-58c15c9d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58c15c9d" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3a90b71" data-id="3a90b71" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-7c997bed elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="7c997bed" data-element_type="widget" data-widget_type="theme-post-title.default">
+<div class="elementor-widget-container">
+<style>/*! elementor - v3.22.0 - 24-06-2024 */
+.elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}</style><h1 class="elementor-heading-title elementor-size-default">Advanced Melody Guide: Using Chord Tones, Motifs and More</h1> </div>
+</div>
+<div class="elementor-element elementor-element-1c0912f elementor-mobile-align-center elementor-align-center elementor-widget elementor-widget-post-info" data-id="1c0912f" data-element_type="widget" data-widget_type="post-info.default">
+<div class="elementor-widget-container">
+<link rel="stylesheet" href="https://www.edmprod.com/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"><link rel="stylesheet" href="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/css/widget-theme-elements.min.css"> <ul class="elementor-inline-items elementor-icon-list-items elementor-post-info">
+<li class="elementor-icon-list-item elementor-repeater-item-3626479 elementor-inline-item" itemprop="author">
+<a href="https://www.edmprod.com/author/connor-obrien/">
+<span class="elementor-icon-list-icon">
+<img class="elementor-avatar" src="https://secure.gravatar.com/avatar/0dc74cc7cffd2ee11068309b85f1b9c6?s=96&amp;d=mm&amp;r=g" alt="Connor O&#039;Brien">
+</span>
+<span class="elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-author">
+Connor O'Brien </span>
+</a>
+</li>
+<li class="elementor-icon-list-item elementor-repeater-item-d708b1e elementor-inline-item">
+<span class="elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-custom">
+February 15, 2023 </span>
+</li>
+</ul>
+</div>
+</div>
+<div class="elementor-element elementor-element-3b7f9506 elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="3b7f9506" data-element_type="widget" data-widget_type="theme-post-featured-image.default">
+<div class="elementor-widget-container">
+<picture fetchpriority="high" loading="lazy" class="attachment-large size-large wp-image-17995">
+<source type="image/webp" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1024x576.png.webp 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-300x169.png.webp 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-768x432.png.webp 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1536x864.png.webp 1536w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png.webp 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<img fetchpriority="high" loading="lazy" width="1024" height="576" src="https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1024x576.png" alt srcset="https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1024x576.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-600x338.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-300x169.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-768x432.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1536x864.png 1536w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-100x56.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-862x485.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide-1200x675.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/Advanced-Melody-Guide.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture>
+</div>
+</div>
+<div class="elementor-element elementor-element-4b8a8f12 elementor-widget elementor-widget-theme-post-content" data-id="4b8a8f12" data-element_type="widget" data-widget_type="theme-post-content.default">
+<div class="elementor-widget-container">
+<p><strong>Want to master melody and chord progression writing? Check out&nbsp;<a rel="noreferrer noopener" href="https://edmprod.com/songwriting-for-producers" target="_blank">Songwriting For Producers</a>.</strong></p>
+<p class="c3"><span class="c1">The success of your music depends on your ability to write<strong> strong</strong>, <strong>unique,</strong> and <strong>memorable</strong> melodies.</span></p>
+<p class="c3"><span class="c1">The ability to write great melodies is a muscle: you must actively train it, continually growing your knowledge and skillset.</span></p>
+<p>But maybe you&#8217;ve written a few, watched a few tutorials, and your melodies still sound <strong>lame and cheesy</strong>.</p>
+<p class="c3"><span class="c1">This guide will teach you the key elements of a great melody and goes <a rel="noreferrer noopener" href="https://www.edmprod.com/ultimate-melody-guide/" target="_blank">far beyond just the basics.</a> </span></p>
+<p class="c3"><span class="c1">You&#8217;ll learn:</span></p>
+<ul class="wp-block-list">
+<li><span class="c1">How to turn boring melody lines into memorable, catchy hooks that grab the attention of the listener</span></li>
+<li>The concepts of space, repetition, chord tones, motifs and much more</li>
+<li><span class="c1">A few popular melodies, dissecting what makes them work</span></li>
+<li>When and how to fix a melody that just plain sucks</li>
+<li><span class="c1">How to take what you’ve learned and apply it to your own musi</span>c</li>
+</ul>
+<p>Let&#8217;s dive right in.</p>
+<div data-elementor-type="section" data-elementor-id="23210" class="elementor elementor-23210 elementor-location-single">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-2ad4d151 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2ad4d151" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-6f686d11" data-id="6f686d11" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-background-overlay"></div>
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-cb6c8bc elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="cb6c8bc" data-element_type="section">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-15d5f40b" data-id="15d5f40b" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-5d0a2924 elementor-widget elementor-widget-heading" data-id="5d0a2924" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">Learn to write catchy & memorable melodies like the pros 🎶</h4> </div>
+</div>
+<div class="elementor-element elementor-element-787e78e8 elementor-widget elementor-widget-text-editor" data-id="787e78e8" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<style>/*! elementor - v3.22.0 - 24-06-2024 */
+.elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:#69727d;color:#fff}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap{color:#69727d;border:3px solid;background-color:transparent}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap{margin-top:8px}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter{width:1em;height:1em}.elementor-widget-text-editor .elementor-drop-cap{float:left;text-align:center;line-height:1;font-size:50px}.elementor-widget-text-editor .elementor-drop-cap-letter{display:inline-block}</style> <p>Download our free <strong>Melody Cheat Sheet &amp; MIDI Pack. </strong>Includes a step-by-step PDF sheet with everything you need to level up your melodies + MIDI files to study the melodies of huge artists like Calvin Harris  👇</p> </div>
+</div>
+<div class="elementor-element elementor-element-4fc0405b elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="4fc0405b" data-element_type="widget" data-settings="{&quot;button_width&quot;:&quot;30&quot;,&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<style>/*! elementor-pro - v3.9.2 - 21-12-2022 */
+.elementor-button.elementor-hidden,.elementor-hidden{display:none}.e-form__step{width:100%}.e-form__step:not(.elementor-hidden){display:flex;flex-wrap:wrap}.e-form__buttons{flex-wrap:wrap}.e-form__buttons,.e-form__buttons__wrapper{display:flex}.e-form__indicators{display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;font-size:13px;margin-bottom:var(--e-form-steps-indicators-spacing)}.e-form__indicators__indicator{display:flex;flex-direction:column;align-items:center;justify-content:center;flex-basis:0;padding:0 var(--e-form-steps-divider-gap)}.e-form__indicators__indicator__progress{width:100%;position:relative;background-color:var(--e-form-steps-indicator-progress-background-color);border-radius:var(--e-form-steps-indicator-progress-border-radius);overflow:hidden}.e-form__indicators__indicator__progress__meter{width:var(--e-form-steps-indicator-progress-meter-width,0);height:var(--e-form-steps-indicator-progress-height);line-height:var(--e-form-steps-indicator-progress-height);padding-right:15px;border-radius:var(--e-form-steps-indicator-progress-border-radius);background-color:var(--e-form-steps-indicator-progress-color);color:var(--e-form-steps-indicator-progress-meter-color);text-align:right;transition:width .1s linear}.e-form__indicators__indicator:first-child{padding-left:0}.e-form__indicators__indicator:last-child{padding-right:0}.e-form__indicators__indicator--state-inactive{color:var(--e-form-steps-indicator-inactive-primary-color,#c2cbd2)}.e-form__indicators__indicator--state-inactive [class*=indicator--shape-]:not(.e-form__indicators__indicator--shape-none){background-color:var(--e-form-steps-indicator-inactive-secondary-color,#fff)}.e-form__indicators__indicator--state-inactive object,.e-form__indicators__indicator--state-inactive svg{fill:var(--e-form-steps-indicator-inactive-primary-color,#c2cbd2)}.e-form__indicators__indicator--state-active{color:var(--e-form-steps-indicator-active-primary-color,#39b54a);border-color:var(--e-form-steps-indicator-active-secondary-color,#fff)}.e-form__indicators__indicator--state-active [class*=indicator--shape-]:not(.e-form__indicators__indicator--shape-none){background-color:var(--e-form-steps-indicator-active-secondary-color,#fff)}.e-form__indicators__indicator--state-active object,.e-form__indicators__indicator--state-active svg{fill:var(--e-form-steps-indicator-active-primary-color,#39b54a)}.e-form__indicators__indicator--state-completed{color:var(--e-form-steps-indicator-completed-secondary-color,#fff)}.e-form__indicators__indicator--state-completed [class*=indicator--shape-]:not(.e-form__indicators__indicator--shape-none){background-color:var(--e-form-steps-indicator-completed-primary-color,#39b54a)}.e-form__indicators__indicator--state-completed .e-form__indicators__indicator__label{color:var(--e-form-steps-indicator-completed-primary-color,#39b54a)}.e-form__indicators__indicator--state-completed .e-form__indicators__indicator--shape-none{color:var(--e-form-steps-indicator-completed-primary-color,#39b54a);background-color:initial}.e-form__indicators__indicator--state-completed object,.e-form__indicators__indicator--state-completed svg{fill:var(--e-form-steps-indicator-completed-secondary-color,#fff)}.e-form__indicators__indicator__icon{width:var(--e-form-steps-indicator-padding,30px);height:var(--e-form-steps-indicator-padding,30px);font-size:var(--e-form-steps-indicator-icon-size);border-width:1px;border-style:solid;display:flex;justify-content:center;align-items:center;overflow:hidden;margin-bottom:10px}.e-form__indicators__indicator__icon img,.e-form__indicators__indicator__icon object,.e-form__indicators__indicator__icon svg{width:var(--e-form-steps-indicator-icon-size);height:auto}.e-form__indicators__indicator__icon .e-font-icon-svg{height:1em}.e-form__indicators__indicator__number{width:var(--e-form-steps-indicator-padding,30px);height:var(--e-form-steps-indicator-padding,30px);border-width:1px;border-style:solid;display:flex;justify-content:center;align-items:center;margin-bottom:10px}.e-form__indicators__indicator--shape-circle{border-radius:50%}.e-form__indicators__indicator--shape-square{border-radius:0}.e-form__indicators__indicator--shape-rounded{border-radius:5px}.e-form__indicators__indicator--shape-none{border:0}.e-form__indicators__indicator__label{text-align:center}.e-form__indicators__indicator__separator{width:100%;height:var(--e-form-steps-divider-width);background-color:#c2cbd2}.e-form__indicators--type-icon,.e-form__indicators--type-icon_text,.e-form__indicators--type-number,.e-form__indicators--type-number_text{align-items:flex-start}.e-form__indicators--type-icon .e-form__indicators__indicator__separator,.e-form__indicators--type-icon_text .e-form__indicators__indicator__separator,.e-form__indicators--type-number .e-form__indicators__indicator__separator,.e-form__indicators--type-number_text .e-form__indicators__indicator__separator{margin-top:calc(var(--e-form-steps-indicator-padding, 30px) / 2 - var(--e-form-steps-divider-width, 1px) / 2)}.elementor-field-type-hidden{display:none}.elementor-field-type-html{display:inline-block}.elementor-login .elementor-lost-password,.elementor-login .elementor-remember-me{font-size:.85em}.elementor-field-type-recaptcha_v3 .elementor-field-label{display:none}.elementor-field-type-recaptcha_v3 .grecaptcha-badge{z-index:1}.elementor-button .elementor-form-spinner{order:3}.elementor-form .elementor-button>span{display:flex;justify-content:center;align-items:center}.elementor-form .elementor-button .elementor-button-text{white-space:normal;flex-grow:0}.elementor-form .elementor-button svg{height:auto}.elementor-form .elementor-button .e-font-icon-svg{height:1em}.elementor-select-wrapper .select-caret-down-wrapper{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:10px;pointer-events:none;font-size:11px}.elementor-select-wrapper .select-caret-down-wrapper svg{display:unset;width:1em;aspect-ratio:unset;fill:currentColor}.elementor-select-wrapper .select-caret-down-wrapper i{font-size:19px;line-height:2}.elementor-select-wrapper.remove-before:before{content:""!important}</style> <form class="elementor-form" method="post" id="melody_cheat_sheet_midi" name="New Form">
+<input type="hidden" name="post_id" value="23210" />
+<input type="hidden" name="form_id" value="4fc0405b" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-above">
+<div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-30">
+<input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="First Name">
+</div>
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-40 elementor-field-required">
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-30 e-form__buttons">
+<button type="submit" class="elementor-button elementor-size-sm">
+<span>
+<span class="elementor-align-icon-right elementor-button-icon">
+<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-alt-circle-down" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM212 140v116h-70.9c-10.7 0-16.1 13-8.5 20.5l114.9 114.3c4.7 4.7 12.2 4.7 16.9 0l114.9-114.3c7.6-7.6 2.2-20.5-8.5-20.5H300V140c0-6.6-5.4-12-12-12h-64c-6.6 0-12 5.4-12 12z"></path></svg> </span>
+<span class="elementor-button-text">Download for free</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<h2 class="wp-block-heading">Melody &amp; Chords</h2>
+<p class="c3"><span class="c1">First, I want to talk discuss the most important part of a great melody: it’s relationship to the chords.</span></p>
+<p class="c3"><span class="c1"><strong>A melody must relate to its chords in a purposeful way.</strong></span></p>
+<p class="c3"><span class="c1">Without this, the melody will be weak and the song will fall short.</span></p>
+<p class="c3">Think of it this way: I can take your favorite melody of all time and put a <a href="https://www.edmprod.com/chordprogressions/" target="_blank" rel="noreferrer noopener">chord progression</a> under it that makes your ears bleed.</p>
+<p class="c3"><span class="c1">So how exactly do melodies and chords relate?</span></p>
+<p class="c3">When writing a melody over a chord progression, it’s essential to understand the relationship between&nbsp;<span class="c11"><strong>chord tones</strong></span>&nbsp;and&nbsp;<span class="c9"><strong>non-chord tones</strong>.</span></p>
+<h2 class="c6 wp-block-heading" id="h.8njwsjsefda8"><span class="c15">Chord Tones vs. Non-Chord Tones</span></h2>
+<p class="c3"><span class="c1">A chord tone is a note that is in the chord, and a non-chord tone is a note that is not in the chord but still in the scale.</span></p>
+<p class="c3"><span class="c1">Chord tones will sound comfortable and satisfying, while non-chord tones will add tension and excitement.</span></p>
+<p class="c3">Another way to think about this is chord tones are&nbsp;<span class="c11">stable</span>&nbsp;while non-chord tones are&nbsp;<span class="c11">unstable</span><span class="c1">.</span></p>
+<p class="c3"><span class="c1">To write a good melody, you must have a balance of both: non-chord tones that add tension, and chord-tones that resolve that tension.</span></p>
+<p class="c3"><span class="c9"><em>Disclaimer</em>: Even if your song doesn’t have chords, chords are still being implied by the <a href="https://www.edmprod.com/bass-lines-tips/" target="_blank" rel="noreferrer noopener">bassline</a> (or another melodic element in your track).&nbsp;</span></p>
+<h3 class="wp-block-heading">An Example</h3>
+<p class="c3"><span class="c1">We&#8217;re in the key of C Major, which contains all white notes, namely C, D, E, F, G, A, and B.</span></p>
+<p class="c3"><span class="c1">We&#8217;ll start with a C Major chord (C-E-G).</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image9.png"><img fetchpriority="high" fetchpriority="high" decoding="async" width="555" height="335" src="https://www.edmprod.com/wp-content/uploads/2018/03/image9.png" alt class="wp-image-8685" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image9.png 555w, https://www.edmprod.com/wp-content/uploads/2018/03/image9-300x181.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image9-100x60.png 100w" sizes="(max-width: 555px) 100vw, 555px" /></a></figure>
+<p class="c3"><span class="c1">In this case, C, E, and G are all chord tones. Conversely, D, F, A, and B, are non-chord tones.</span></p>
+<p class="c3"><span class="c1">Thus, C, E, and G will sound comfortable over the C major chord, while D, F, A, and B will add a bit of tension.</span></p>
+<h3 class="c6 wp-block-heading" id="h.qx25p5g5qsha"><span class="c15">How To Use Chord Tones</span></h3>
+<p class="c3"><span class="c1">It is important to recognize the overall relationship between chords and melodies.&nbsp;</span></p>
+<p class="c3"><span class="c1">In general, notes that play on strong beats will have more emphasis, and notes that play on weak beats will have less emphasis.</span></p>
+<p class="c3"><span class="c1">Further, non-chord tones want to be resolved quickly, especially if they’re played on a strong beat.</span></p>
+<p class="c3"><span class="c1">For those of you unfamiliar with strong/weak beats, in a 4/4 time signature divided into quarter notes, the first beat is a strong beat, the second and fourth are weak, and the third beat is a medium beat.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image4.png"><img decoding="async" width="1024" height="164" src="https://www.edmprod.com/wp-content/uploads/2018/03/image4-1024x164.png" alt class="wp-image-8680" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image4-1024x164.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image4-600x96.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image4-300x48.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image4-768x123.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image4-100x16.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image4-862x138.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image4.png 1102w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/03/beats.mp3"></audio></figure>
+<p class="c3"><span class="c1"><span style="text-decoration: underline;">To summarize</span>: Notes played on strong beats will have more emphasis, while notes played on weak beats will have less emphasis. Both add to the overall shape and power of a melody. Non-chord tones want to be resolved to chord tones, especially when they&#8217;re played on a strong beat.</span></p>
+<p class="has-text-align-center">&#8212;</p>
+<p class="c3"><span class="c1">Let’s look an example of this. </span></p>
+<p class="c3"><span class="c1">Below is a transcription of the chords and melody of the chorus in <a href="https://www.youtube.com/watch?v=1y6smkh6c-0">Swedish House Mafia’s “Don’t You Worry Child”</a>.&nbsp;For clarity purposes, I’ve highlighted the melody.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image3.png"><img decoding="async" width="1024" height="499" src="https://www.edmprod.com/wp-content/uploads/2018/03/image3-1024x499.png" alt class="wp-image-8679" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image3-1024x499.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-600x292.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-300x146.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-768x374.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-100x49.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-862x420.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image3.png 1141w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/03/shm.mp3"></audio></figure>
+<p class="c3"><span class="c1">Let’s look at the which melody notes are chord tones.&nbsp;</span><span class="c1">Below, I’ve highlighted every chord tone in the melody.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image17.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="497" src="https://www.edmprod.com/wp-content/uploads/2018/03/image17-1024x497.png" alt class="wp-image-8693" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image17-1024x497.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image17-600x291.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image17-300x146.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image17-768x373.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image17-100x49.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image17-862x418.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image17.png 1142w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">As you can see, the melody is almost entirely comprised of chord tones.</span></p>
+<p class="c3"><span class="c1">Every time a new chord hits, a chord tone is played with it.</span></p>
+<p class="c3">Remember, chord tones are&nbsp;<span class="c1">stable: they help reinforce the chords.</span></p>
+<p class="c3"><span class="c1">Only one non-chord tone is played. It is played on an off beat and doesn’t add much tension to the progression. It adds a bit of early tension, which is immediately resolved by the next note.</span></p>
+<p class="c3"><span class="c1">Relatively speaking, this particular melody is very stable.</span></p>
+<p class="c3"><span class="c1">Most melodies will have more non-chord tones then this particular example.</span></p>
+<p class="c3"><span class="c1">Like a good movie, your melody has to have tension: it can’t be all smiles, there must be some degree of conflict and resolution. You need to create tension, and ultimately resolve that tension.</span></p>
+<p>Let&#8217;s look at another example.</p>
+<p>Here is a transcription of the chords and melody during the intro of <a href="https://www.youtube.com/watch?v=HdzI-191xhU">ODESZA&#8217;s Say My Name</a>.</p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="441" src="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-1024x441.png" alt class="wp-image-8702" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-1024x441.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-600x258.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-300x129.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-768x330.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-100x43.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-862x371.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.44.48-PM-1200x516.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/02/melody-n-chords.mp3"></audio></figure>
+<p>Just as above, let&#8217;s see how many of the melody notes are chord tones. I&#8217;ve highlighted the chord tones below.</p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="441" src="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-1024x441.png" alt class="wp-image-8701" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-1024x441.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-600x259.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-300x129.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-768x331.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-100x43.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-862x372.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-4.45.21-PM-1200x517.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p>This melody strikes a good balance between chord tones and non-chord tones.</p>
+<p>Notice that most of the non-chord tones are present during off beats, which adds less tension then during strong beats.</p>
+<p>What about the last bar?</p>
+<p>Most of the melody notes in the last bar are non-chord tones. Although this creates a good amount of tension, this tension is immediately resolved once the progression loops around.</p>
+<p class="c3"><span class="c1">Keeping these examples in mind, focus on the relationship between your melodies and chords. </span></p>
+<p class="c3"><span class="c1">Utilize chord tones and non-chord tones to create dynamic and cohesive arrangements.</span></p>
+<div data-elementor-type="section" data-elementor-id="23210" class="elementor elementor-23210 elementor-location-single">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-2ad4d151 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2ad4d151" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-6f686d11" data-id="6f686d11" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-background-overlay"></div>
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-cb6c8bc elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="cb6c8bc" data-element_type="section">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-15d5f40b" data-id="15d5f40b" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-5d0a2924 elementor-widget elementor-widget-heading" data-id="5d0a2924" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">Learn to write catchy & memorable melodies like the pros 🎶</h4> </div>
+</div>
+<div class="elementor-element elementor-element-787e78e8 elementor-widget elementor-widget-text-editor" data-id="787e78e8" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Download our free <strong>Melody Cheat Sheet &amp; MIDI Pack. </strong>Includes a step-by-step PDF sheet with everything you need to level up your melodies + MIDI files to study the melodies of huge artists like Calvin Harris  👇</p> </div>
+</div>
+<div class="elementor-element elementor-element-4fc0405b elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="4fc0405b" data-element_type="widget" data-settings="{&quot;button_width&quot;:&quot;30&quot;,&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<form class="elementor-form" method="post" id="melody_cheat_sheet_midi" name="New Form">
+<input type="hidden" name="post_id" value="23210" />
+<input type="hidden" name="form_id" value="4fc0405b" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-above">
+<div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-30">
+<input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="First Name">
+</div>
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-40 elementor-field-required">
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-30 e-form__buttons">
+<button type="submit" class="elementor-button elementor-size-sm">
+<span>
+<span class="elementor-align-icon-right elementor-button-icon">
+<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-alt-circle-down" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM212 140v116h-70.9c-10.7 0-16.1 13-8.5 20.5l114.9 114.3c4.7 4.7 12.2 4.7 16.9 0l114.9-114.3c7.6-7.6 2.2-20.5-8.5-20.5H300V140c0-6.6-5.4-12-12-12h-64c-6.6 0-12 5.4-12 12z"></path></svg> </span>
+<span class="elementor-button-text">Download for free</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<h2 class="c16 wp-block-heading" id="h.br9izw3r5e8x"><span class="c4">Motif vs. Melody</span></h2>
+<p>Before we dive deeper into melody writing, let&#8217;s first discuss the concept of <em>motifs</em>.</p>
+<p class="c3"><span class="c1">A motif is a short musical idea. It’s composed of a few or several notes that relate to each other in a meaningful way.</span></p>
+<p class="c3"><span class="c1">A collection of motifs played together creates a full music idea, or in other words, a full melodic phrase.</span></p>
+<p class="c3"><span class="c1">A melody is composed of several motifs, repeated and tweaked to create a complete musical idea.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="560" src="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-1024x560.png" alt class="wp-image-8704" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-1024x560.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-600x328.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-300x164.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-768x420.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-100x55.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-862x471.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM-1200x656.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-06-at-5.03.50-PM.png 1552w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<h2 class="c16 wp-block-heading" id="h.yvtzuhuupoiw"><span class="c4">The Core Elements of a Great Melody</span></h2>
+<p>What follows is a framework you can use to dissect a melody.</p>
+<p class="c3"><span class="c1">The core elements of great melody are:</span></p>
+<ul class="wp-block-list">
+<li><span class="c1">Motion</span></li>
+<li><span class="c1">Space</span></li>
+<li><span class="c1">Rhythm</span></li>
+<li><span class="c1">Repetition</span></li>
+</ul>
+<h3 class="c6 wp-block-heading" id="h.mk8evca1io4a"><span class="c15">Motion</span></h3>
+<p class="c3">There a two types of melodic motion: stepwise motion and leapwise motion.</p>
+<p class="c3">Stepwise motion is when a note moves to an adjacent note in the scale.</p>
+<p class="c3"><span class="c1">Leapwise motion is when a note moves more than one note away in the scale.</span></p>
+<p class="c3"><span class="c1">For example, let’s look at a melody in the key of C Major. The example below is comprised entirely of stepwise motion, since it is always playing an adjacent note in the scale.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image10.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="202" src="https://www.edmprod.com/wp-content/uploads/2018/03/image10-1024x202.png" alt class="wp-image-8686" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image10-1024x202.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image10-600x118.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image10-300x59.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image10-768x152.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image10-100x20.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image10-862x170.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image10.png 1186w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">Conversely, let’s look at an example of leapwise motion. Below, the melody is composed entirely of leapwise motion, where it always jumps at least one note in the scale to reach the next note.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image12.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="357" src="https://www.edmprod.com/wp-content/uploads/2018/03/image12-1024x357.png" alt class="wp-image-8688" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image12-1024x357.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image12-600x209.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image12-300x105.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image12-768x268.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image12-100x35.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image12-862x300.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image12.png 1188w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p>Most melodies will favor stepwise motion over leapwise motion.</p>
+<p>Stepwise motion is easier to follow then leapwise.<span class="c1">&nbsp;However, leapwise motion adds a necessary element of tension and development.</span></p>
+<p>A great melody will have a careful balance of both.</p>
+<p>Which type of motion should your melodies favor?</p>
+<p class="c3">This&nbsp;<span class="c1">will ultimately depend on the style and genre you produce. Pop music will use heaps of stepwise motion, while other genres will use a balance of both stepwise and leapwise motion.</span></p>
+<p class="c3"><span class="c1">I don&#8217;t like giving hard numbers, but a safe bet would be between 60-80% stepwise motion for a traditional pop-melody. There are plenty of examples that go against this, but I feel it&#8217;s a good starting point.</span></p>
+<p class="c3"><span class="c1">Let’s take another look at the melody in “Don’t You Worry Child”. You can listen the melody below.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image15.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="229" src="https://www.edmprod.com/wp-content/uploads/2018/03/image15-1024x229.png" alt class="wp-image-8691" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image15-1024x229.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-600x134.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-300x67.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-768x172.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-100x22.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-862x193.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image15-1200x268.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image15.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/03/shm-melody.mp3"></audio></figure>
+<p class="c3"><span class="c1">Below, I’ve highlighted every example of stepwise motion.&nbsp;</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image2.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="260" src="https://www.edmprod.com/wp-content/uploads/2018/03/image2-1024x260.png" alt class="wp-image-8678" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image2-1024x260.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-600x152.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-300x76.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-768x195.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-100x25.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-862x219.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image2-1200x305.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image2.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p><span class="c1">This melody is primarily composed of stepwise motion.</span></p>
+<p class="c3"><span class="c1">For the first bar and a half, the melody uses only stepwise motion. It isn’t until the end of bar 2 that leapwise motion is introduced. Below, I’ve highlighted when the melody uses leapwise motion.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image16.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="258" src="https://www.edmprod.com/wp-content/uploads/2018/03/image16-1024x258.png" alt class="wp-image-8692" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image16-1024x258.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-600x151.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-300x75.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-768x193.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-100x25.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-862x217.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image16-1200x302.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image16.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">As you can see, a good amount of leapwise motion is used. This creates a bit of tension, which is resolved once the chord progression repeats.</span></p>
+<p class="c3"><span class="c1">Further, notice how most of the leapwise motion (the tenser motion) is on weak or medium beats. This results in less tension than leapwise motion would have on strong beats.</span></p>
+<p class="c3"><span class="c1">The key here is balance: a great melody has a purposely balance of stepwise and leapwise motion.</span></p>
+<h3 class="c6 wp-block-heading" id="h.iuzb4yir3qgv"><span class="c15">Space</span></h3>
+<p class="c3"><span class="c1">The next element of a great melody is space. Finding the right spacing for a melody is all about balance.</span></p>
+<p class="c3"><span class="c1">Too many notes will make the melody difficult to remember, and too few notes will make the melody boring and uninteresting.</span></p>
+<p class="c3"><span class="c1">The right amount of space is subjective, and will heavily depend on the style of music you are writing.</span></p>
+<p class="c3"><span class="c1">It’s common to feel the need to fill up the entire MIDI roll with notes; however, this can often be detrimental.</span></p>
+<p class="c3"><span class="c1">You want a clear line for the listener to focus on, and you want that line to be easily understood.</span></p>
+<p class="c3"><span class="c1">When writing melodies, focus on the space between the notes. Be careful not to make it too busy.</span></p>
+<p class="c3"><span class="c1">Focus on what you want your melody to say, and say it with as few notes as possible.</span></p>
+<p class="has-text-align-center">&#8212;</p>
+<p class="c3"><span class="c1">Let’s take a look at the chorus of <a href="https://www.youtube.com/watch?v=AeGfss2vsZg">Martin Garrix’s “In the Name of Love”</a>.</span></p>
+<p class="c3"><span class="c1">Below is the MIDI for the main melody (vocal chop) during the chorus.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image14.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="267" src="https://www.edmprod.com/wp-content/uploads/2018/03/image14-1024x267.png" alt class="wp-image-8690" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image14-1024x267.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-600x157.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-300x78.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-768x201.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-100x26.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-862x225.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image14-1200x313.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image14.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/03/inthenameof.mp3"></audio></figure>
+<p class="c3"><span class="c1">The melody is relatively busy, but has essential pauses at bars 2 and 4. Below, I’ve highlighted the break at bar 2.</span></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image6.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="947" src="https://www.edmprod.com/wp-content/uploads/2018/03/image6-1024x947.png" alt class="wp-image-8682" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image6-1024x947.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image6-600x555.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image6-300x278.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image6-768x710.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image6-100x93.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image6-862x797.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image6.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure></div>
+<p class="c3"><span class="c1">As discussed earlier, melody notes have more of an emphasis when played on strong beats.</span></p>
+<p class="c3"><span class="c1">The listener is expecting a note at bar 2, given the active melody in the first bar. When the melody pauses at bar 2, this adds tension that wants to be immediately resolved (which it is).</span></p>
+<p class="c3"><span class="c1">The same goes for the break at bar 4.</span></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image7.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="654" src="https://www.edmprod.com/wp-content/uploads/2018/03/image7-1024x654.png" alt class="wp-image-8683" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image7-1024x654.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image7-600x383.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image7-300x192.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image7-768x490.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image7-100x64.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image7-862x550.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image7.png 1106w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure></div>
+<p class="c3"><span class="c1">Overall, this careful use of space contributes to the tension and development of the melody.</span></p>
+<h3 class="c6 wp-block-heading" id="h.a65p324k82k"><span class="c15">Rhythm</span></h3>
+<p class="c3">Another essential component of a great melody is rhythm.</p>
+<p class="c3"><span class="c1">Like the notes themselves, the rhythm of the melody should be “simple” and easy to follow. 2-3 different rhythmic patterns in a melody is a safe bet, and will help make your melody easy to remember.</span></p>
+<p class="c3"><span class="c1">Let’s look back at “Don’t You Worry Child”. How do the rhythm of the melody and chords relate?</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image3.png"><img decoding="async" width="1024" height="499" src="https://www.edmprod.com/wp-content/uploads/2018/03/image3-1024x499.png" alt class="wp-image-8679" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image3-1024x499.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-600x292.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-300x146.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-768x374.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-100x49.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image3-862x420.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image3.png 1141w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">The rhythm of the melody and chords are the exact same. This makes the melody easy to remember because it’s rhythm is the same as the chords.</span></p>
+<p>Similarly, the same rhythmic pattern repeats every bar. The notes change, but the rhythm stays the same.</p>
+<p>The rhythm of this melody is compact and predictable, but it works for this song.</p>
+<p class="c3"><span class="c1">More often than not you&#8217;ll want a &#8220;tenser&#8221; rhythm then the one used in this melody.&nbsp;</span></p>
+<p class="c3"><span class="c1">Let’s take another look at “In the Name of Love”. Below is the chorus melody.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image8.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="358" src="https://www.edmprod.com/wp-content/uploads/2018/03/image8-1024x358.png" alt class="wp-image-8684" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image8-1024x358.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-600x210.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-300x105.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-768x269.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-100x35.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-862x301.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image8-1200x420.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image8.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<figure class="wp-block-audio"><audio controls src="https://www.edmprod.com/wp-content/uploads/2018/03/inthenameof.mp3"></audio></figure>
+<p class="c3"><span class="c1">There are two rhythmic patterns in this melody.</span></p>
+<p class="c3"><span class="c1">The first shape is present in bars 1 and 3. They’re highlighted below.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image1.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="319" src="https://www.edmprod.com/wp-content/uploads/2018/03/image1-1024x319.png" alt class="wp-image-8677" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image1-1024x319.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-600x187.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-300x93.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-768x239.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-100x31.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-862x268.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-1200x373.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image1.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">Bars 1 and 3 have the exact shame rhythmic pattern (and melodic pattern).</span></p>
+<p class="c3"><span class="c1">The second shape is present in bars 2 and 4. They’re highlighted below.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image5.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="286" src="https://www.edmprod.com/wp-content/uploads/2018/03/image5-1024x286.png" alt class="wp-image-8681" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image5-1024x286.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-600x167.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-300x84.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-768x214.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-100x28.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-862x241.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-1200x335.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image5.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3">While bar 2 and bar 4 have a different&nbsp;<span class="c11">melodic</span>&nbsp;pattern, they share the same&nbsp;<span class="c11">rhythmic&nbsp;</span><span class="c1">pattern.</span></p>
+<p>This makes bar 4 sound new, but familiar. It&#8217;s distinct from the melody in bar 2, but feels familiar since they share the same rhythmic pattern.</p>
+<p>Focus on keeping the rhythm of your melodies interesting but easy to remember. As mentioned above, using 2-3 distinct rhythmic patterns in a melody is a safe bet.</p>
+<p>Why so few?</p>
+<p>Because familiarity is the key to proper melodic development.</p>
+<p>T<span class="c1">hroughout the songwriting process, you’ll want to make changes that develop and push a track forward.</span></p>
+<p><span class="c1">Familiarity breeds comfort, as it helps keep the listener engaged and excited.</span></p>
+<h3 class="c6 wp-block-heading" id="h.5h2n6px2ubqx"><span class="c15">Repetition</span></h3>
+<p class="c3"><span class="c1">The last component of a great melody is repetition.</span></p>
+<p class="c3"><span class="c1">Repetition helps create melodic development that feels natural and familiar. Repetition helps ease the listener, which is better than bombarding them with new idea after new idea.</span></p>
+<p class="c3"><span class="c1">Repetition can reveal itself in a number of ways.</span></p>
+<p class="c3"><span class="c1"> The main ways you’ll see repetition in a melody are:</span></p>
+<ul class="wp-block-list">
+<li><span class="c1">Melodic repetition</span></li>
+<li><span class="c1">Rhythm repetition</span></li>
+<li><span class="c1">Shape/Contour repetition</span></li>
+</ul>
+<h4 class="c8 wp-block-heading" id="h.stt9hemb37bw"><span class="c14">Melodic Repetition</span></h4>
+<p class="c3"><span class="c1">Simply put, melodic repetition is when a melody repeats.</span></p>
+<p class="c3"><span class="c1">Looking back at the chorus melody from “In the Name of Love”, the 3rd bar repeats the 1st bar. This is an example of melodic repetition.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image1.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="319" src="https://www.edmprod.com/wp-content/uploads/2018/03/image1-1024x319.png" alt class="wp-image-8677" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image1-1024x319.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-600x187.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-300x93.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-768x239.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-100x31.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-862x268.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image1-1200x373.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image1.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">Treat melodic repetition like you would adding a spice while cooking. It&#8217;s something you want to have, but too much of it can ruin your track.</span></p>
+<h4 class="c8 wp-block-heading" id="h.tycxrgxzpigx"><span class="c14">Rhythmic Repetition</span></h4>
+<p class="c3"><span class="c1">Rhythmic repetition is when a melody plays different notes with the same rhythmic pattern. It&#8217;s a great way to develop a motif in a way that sounds new, but familiar.</span></p>
+<p class="c3"><span class="c1">As discussed, in the chorus of “In the Name of Love”, the 4th bar repeats the same rhythmic pattern as the 2nd bar.&nbsp;</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image5.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="286" src="https://www.edmprod.com/wp-content/uploads/2018/03/image5-1024x286.png" alt class="wp-image-8681" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image5-1024x286.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-600x167.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-300x84.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-768x214.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-100x28.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-862x241.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image5-1200x335.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image5.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">Rhythmic repetition is powerful technique because it breeds familiarity while helping develop and push a track forward.</span></p>
+<h4 class="c8 wp-block-heading" id="h.ag1phfldsy23"><span class="c14">Contour Repetition</span></h4>
+<p class="c3">Alongside rhythmic repetition, melodies can also repeat&nbsp;<span class="c11">shape</span>s or&nbsp;<span class="c11">contours.&nbsp;</span><span class="c1">Melodies can be looked at as having a shape, where they naturally rise up, fall down, and make leaps up and down.</span></p>
+<p class="c3"><span class="c1">Contour repetition, i.e. repeating the same melodic shape, is another way to introduce repetition.</span></p>
+<p class="c3"><span class="c1">Take the example below, a 2 bar melody in the key of C Major. While the first and second bar differ, they have the same exact melodic shape and rhythm. The only difference is the starting note.</span></p>
+<p class="c3"><span class="c1">This makes the 2nd bar feel familiar, despite it playing a different melody line.</span></p>
+<figure class="wp-block-image"><a href="https://www.edmprod.com/wp-content/uploads/2018/03/image13.png"><img loading="lazy" loading="lazy" decoding="async" width="1024" height="336" src="https://www.edmprod.com/wp-content/uploads/2018/03/image13-1024x336.png" alt class="wp-image-8689" srcset="https://www.edmprod.com/wp-content/uploads/2018/03/image13-1024x336.png 1024w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-600x197.png 600w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-300x98.png 300w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-768x252.png 768w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-100x33.png 100w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-862x283.png 862w, https://www.edmprod.com/wp-content/uploads/2018/03/image13-1200x394.png 1200w, https://www.edmprod.com/wp-content/uploads/2018/03/image13.png 1999w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p class="c3"><span class="c1">All in all, the memorability of your melody relies on repetition. Repetition makes your song easier to follow, helping to strengthen the overall message of your track.</span></p>
+<h2 class="c16 wp-block-heading" id="h.t37ieanwrc3s"><span class="c4">Learning From the Pros</span></h2>
+<p class="c3"><span class="c1">As you’ve seen in the examples above, deconstructing the melodies of <a href="https://www.edmprod.com/memorable-music/" target="_blank" rel="noreferrer noopener">memorable</a> tracks is a great way to learn how to write memorable tracks yourself.</span></p>
+<p class="c3"><span class="c1">This is <em>by far</em> the best way to learn how to write catchy and memorable melodies.</span></p>
+<p>There is no &#8220;hack&#8221;<em>&nbsp;</em>to writing great melodies.&nbsp;If you were looking for a quick fix, I apologize.</p>
+<p>The only way to get better at this is through deliberate practice and experimentation.</p>
+<p>Deliberate practice is the fastest way to turn your passion for music into a sustainable career.</p>
+<h2 class="c16 wp-block-heading" id="h.t37ieanwrc3s"><span class="c4">How to Fix a Bad Melody</span></h2>
+<p>We&#8217;ve looked at the core components of a great melody and how important it is to break down and analyze your favorite melodies.</p>
+<p>But what about when you&#8217;re writing a track and can&#8217;t figure out why your melody doesn&#8217;t work?</p>
+<p>Using the same tools above, you can break down your melody to figure out why it doesn&#8217;t work.</p>
+<p>Here are some questions to get you in the right mindset:</p>
+<ul class="wp-block-list">
+<li>Motion: How is the motion of your melody? Does it move around too much, or is it too static?</li>
+<li>Space: How is the space of your melody? Is it too busy or too sparse?</li>
+<li>Rhythm: How is the rhythm of your melody? Is it too complicated, or is it too repetitive?</li>
+<li>Repetition: Is there any repetition? Is the melody easy to remember?</li>
+</ul>
+<p>Outside of these, it always helps to gain a second opinion.</p>
+<h2 class="c6 wp-block-heading" id="h.cz2mnjqi39s5"><span class="c15">Final Thoughts</span></h2>
+<p class="c3"><span class="c1">Hopefully you’ve gained a better understanding of the main components of a great melody. </span></p>
+<p class="c3"><span class="c1">Using the tools above, you now have a proper framework to break down melodies and figure out why they work (or why they don’t work). </span></p>
+<p class="c3"><span class="c1">If you focus on implementing the techniques discussed above, I promise in time you will become a more confident and competent songwriter.</span></p>
+<p>Lastly, if you want a melody writing cheat sheet and some MIDI files, make sure to grab our MIDI pack below!</p>
+<div data-elementor-type="section" data-elementor-id="23210" class="elementor elementor-23210 elementor-location-single">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-2ad4d151 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2ad4d151" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-6f686d11" data-id="6f686d11" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-background-overlay"></div>
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-cb6c8bc elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="cb6c8bc" data-element_type="section">
+<div class="elementor-container elementor-column-gap-no">
+<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-15d5f40b" data-id="15d5f40b" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-5d0a2924 elementor-widget elementor-widget-heading" data-id="5d0a2924" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">Learn to write catchy & memorable melodies like the pros 🎶</h4> </div>
+</div>
+<div class="elementor-element elementor-element-787e78e8 elementor-widget elementor-widget-text-editor" data-id="787e78e8" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Download our free <strong>Melody Cheat Sheet &amp; MIDI Pack. </strong>Includes a step-by-step PDF sheet with everything you need to level up your melodies + MIDI files to study the melodies of huge artists like Calvin Harris  👇</p> </div>
+</div>
+<div class="elementor-element elementor-element-4fc0405b elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="4fc0405b" data-element_type="widget" data-settings="{&quot;button_width&quot;:&quot;30&quot;,&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<form class="elementor-form" method="post" id="melody_cheat_sheet_midi" name="New Form">
+<input type="hidden" name="post_id" value="23210" />
+<input type="hidden" name="form_id" value="4fc0405b" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-above">
+<div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-30">
+<input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="First Name">
+</div>
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-40 elementor-field-required">
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-30 e-form__buttons">
+<button type="submit" class="elementor-button elementor-size-sm">
+<span>
+<span class="elementor-align-icon-right elementor-button-icon">
+<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-alt-circle-down" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM212 140v116h-70.9c-10.7 0-16.1 13-8.5 20.5l114.9 114.3c4.7 4.7 12.2 4.7 16.9 0l114.9-114.3c7.6-7.6 2.2-20.5-8.5-20.5H300V140c0-6.6-5.4-12-12-12h-64c-6.6 0-12 5.4-12 12z"></path></svg> </span>
+<span class="elementor-button-text">Download for free</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-element elementor-element-b0e6cb8 elementor-author-box--layout-image-above elementor-author-box--align-center elementor-author-box--avatar-yes elementor-author-box--name-yes elementor-author-box--biography-yes elementor-author-box--link-no elementor-widget elementor-widget-author-box" data-id="b0e6cb8" data-element_type="widget" data-widget_type="author-box.default">
+<div class="elementor-widget-container">
+<div class="elementor-author-box">
+<div class="elementor-author-box__avatar">
+<img src="https://secure.gravatar.com/avatar/0dc74cc7cffd2ee11068309b85f1b9c6?s=300&amp;d=mm&amp;r=g" alt="Connor O&#039;Brien">
+</div>
+<div class="elementor-author-box__text">
+<div>
+<h4 class="elementor-author-box__name">
+Connor O'Brien </h4>
+</div>
+<div class="elementor-author-box__bio">
+With 10,000,000+ streams across projects, releases on bitbird, Colorize &amp; having done an official remix for DROELOE, Connor is a more-than-prolific music producer. He primarily creates beautiful, melodic electronic music under the name <a href="https://open.spotify.com/artist/51knFsooF002cLj6fRUJny?si=7qxhv9RhSxqbq_gz5ajVYQ">Palisade</a>. He is the instructor of <a href="https://edmprod.com/songwriting-for-producers">Songwriting for Producers</a>, the <a href="https://edmprod.com/ableton-workflow-bible">Ableton Workflow Bible</a>, and our popular article series: <a href="https://edmprod.com/tb">Track Breakdowns</a> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div data-elementor-type="footer" data-elementor-id="15459" class="elementor elementor-15459 elementor-location-footer">
+<div class="elementor-section-wrap">
+<footer class="elementor-section elementor-top-section elementor-element elementor-element-87f7bbb elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="87f7bbb" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-7ef1670" data-id="7ef1670" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-392b95f4 elementor-widget elementor-widget-heading" data-id="392b95f4" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">CONTENT</h4> </div>
+</div>
+<div class="elementor-element elementor-element-d6cb920 elementor-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="d6cb920" data-element_type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items">
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/electronic-music-production-glossary/">
+<span class="elementor-icon-list-text">Glossary</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/tb/">
+<span class="elementor-icon-list-text">Track Breakdowns</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/category/workflowcreativity/">
+<span class="elementor-icon-list-text">Workflow & Creativity</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/category/arrangecomp/">
+<span class="elementor-icon-list-text">Arrangement & Composition</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/category/mixingmastering/">
+<span class="elementor-icon-list-text">Mixing & Mastering</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/category/general/">
+<span class="elementor-icon-list-text">General</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-664b1d4" data-id="664b1d4" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-12ddd75 elementor-widget elementor-widget-heading" data-id="12ddd75" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">PRODUCTS</h4> </div>
+</div>
+<div class="elementor-element elementor-element-12a94fc elementor-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="12a94fc" data-element_type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items">
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/pro-producer-bundle">
+<span class="elementor-icon-list-text">All-Access Bundle</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/edm-foundations">
+<span class="elementor-icon-list-text">EDM Foundations</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/songwriting-for-producers">
+<span class="elementor-icon-list-text">Songwriting For Producers</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/bsd">
+<span class="elementor-icon-list-text">Breakthrough Sound Design</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/drums-by-design">
+<span class="elementor-icon-list-text">Drums By Design</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/mixing">
+<span class="elementor-icon-list-text">Mixing For Producers</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-d22bd01" data-id="d22bd01" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-b21d0a8 elementor-widget elementor-widget-heading" data-id="b21d0a8" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">Partners & OTHER</h4> </div>
+</div>
+<div class="elementor-element elementor-element-1301d22 elementor-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="1301d22" data-element_type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items">
+<li class="elementor-icon-list-item">
+<a href="https://www.vokaal.com/en-au">
+<span class="elementor-icon-list-text">Vokaal</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://soundgym.co/?aff=9002">
+<span class="elementor-icon-list-text">SoundGym</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://edmprod.teachable.com/sign_in">
+<span class="elementor-icon-list-text">Student Login</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/podcast">
+<span class="elementor-icon-list-text">Podcast</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.iubenda.com/privacy-policy/29076032/legal">
+<span class="elementor-icon-list-text">Privacy Policy</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.edmprod.com/terms">
+<span class="elementor-icon-list-text">Terms of Service</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-228f050" data-id="228f050" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-136cbc84 elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="136cbc84" data-element_type="widget" data-settings="{&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<form class="elementor-form" method="post" id="updates" name="New Form">
+<input type="hidden" name="post_id" value="15459" />
+<input type="hidden" name="form_id" value="136cbc84" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-">
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
+<label for="form-field-email" class="elementor-field-label elementor-screen-only">
+Email </label>
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-md  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+<button type="submit" class="elementor-button elementor-size-md">
+<span>
+<span class=" elementor-button-icon">
+</span>
+<span class="elementor-button-text">Join Newsletter</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="elementor-element elementor-element-c3ff1c6 elementor-widget elementor-widget-heading" data-id="c3ff1c6" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h4 class="elementor-heading-title elementor-size-default">Follow Us</h4> </div>
+</div>
+<div class="elementor-element elementor-element-fabaec6 elementor-shape-circle e-grid-align-left elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="fabaec6" data-element_type="widget" data-widget_type="social-icons.default">
+<div class="elementor-widget-container">
+<style>/*! elementor - v3.22.0 - 24-06-2024 */
+.elementor-widget-social-icons.elementor-grid-0 .elementor-widget-container,.elementor-widget-social-icons.elementor-grid-mobile-0 .elementor-widget-container,.elementor-widget-social-icons.elementor-grid-tablet-0 .elementor-widget-container{line-height:1;font-size:0}.elementor-widget-social-icons:not(.elementor-grid-0):not(.elementor-grid-tablet-0):not(.elementor-grid-mobile-0) .elementor-grid{display:inline-grid}.elementor-widget-social-icons .elementor-grid{grid-column-gap:var(--grid-column-gap,5px);grid-row-gap:var(--grid-row-gap,5px);grid-template-columns:var(--grid-template-columns);justify-content:var(--justify-content,center);justify-items:var(--justify-content,center)}.elementor-icon.elementor-social-icon{font-size:var(--icon-size,25px);line-height:var(--icon-size,25px);width:calc(var(--icon-size, 25px) + 2 * var(--icon-padding, .5em));height:calc(var(--icon-size, 25px) + 2 * var(--icon-padding, .5em))}.elementor-social-icon{--e-social-icon-icon-color:#fff;display:inline-flex;background-color:#69727d;align-items:center;justify-content:center;text-align:center;cursor:pointer}.elementor-social-icon i{color:var(--e-social-icon-icon-color)}.elementor-social-icon svg{fill:var(--e-social-icon-icon-color)}.elementor-social-icon:last-child{margin:0}.elementor-social-icon:hover{opacity:.9;color:#fff}.elementor-social-icon-android{background-color:#a4c639}.elementor-social-icon-apple{background-color:#999}.elementor-social-icon-behance{background-color:#1769ff}.elementor-social-icon-bitbucket{background-color:#205081}.elementor-social-icon-codepen{background-color:#000}.elementor-social-icon-delicious{background-color:#39f}.elementor-social-icon-deviantart{background-color:#05cc47}.elementor-social-icon-digg{background-color:#005be2}.elementor-social-icon-dribbble{background-color:#ea4c89}.elementor-social-icon-elementor{background-color:#d30c5c}.elementor-social-icon-envelope{background-color:#ea4335}.elementor-social-icon-facebook,.elementor-social-icon-facebook-f{background-color:#3b5998}.elementor-social-icon-flickr{background-color:#0063dc}.elementor-social-icon-foursquare{background-color:#2d5be3}.elementor-social-icon-free-code-camp,.elementor-social-icon-freecodecamp{background-color:#006400}.elementor-social-icon-github{background-color:#333}.elementor-social-icon-gitlab{background-color:#e24329}.elementor-social-icon-globe{background-color:#69727d}.elementor-social-icon-google-plus,.elementor-social-icon-google-plus-g{background-color:#dd4b39}.elementor-social-icon-houzz{background-color:#7ac142}.elementor-social-icon-instagram{background-color:#262626}.elementor-social-icon-jsfiddle{background-color:#487aa2}.elementor-social-icon-link{background-color:#818a91}.elementor-social-icon-linkedin,.elementor-social-icon-linkedin-in{background-color:#0077b5}.elementor-social-icon-medium{background-color:#00ab6b}.elementor-social-icon-meetup{background-color:#ec1c40}.elementor-social-icon-mixcloud{background-color:#273a4b}.elementor-social-icon-odnoklassniki{background-color:#f4731c}.elementor-social-icon-pinterest{background-color:#bd081c}.elementor-social-icon-product-hunt{background-color:#da552f}.elementor-social-icon-reddit{background-color:#ff4500}.elementor-social-icon-rss{background-color:#f26522}.elementor-social-icon-shopping-cart{background-color:#4caf50}.elementor-social-icon-skype{background-color:#00aff0}.elementor-social-icon-slideshare{background-color:#0077b5}.elementor-social-icon-snapchat{background-color:#fffc00}.elementor-social-icon-soundcloud{background-color:#f80}.elementor-social-icon-spotify{background-color:#2ebd59}.elementor-social-icon-stack-overflow{background-color:#fe7a15}.elementor-social-icon-steam{background-color:#00adee}.elementor-social-icon-stumbleupon{background-color:#eb4924}.elementor-social-icon-telegram{background-color:#2ca5e0}.elementor-social-icon-threads{background-color:#000}.elementor-social-icon-thumb-tack{background-color:#1aa1d8}.elementor-social-icon-tripadvisor{background-color:#589442}.elementor-social-icon-tumblr{background-color:#35465c}.elementor-social-icon-twitch{background-color:#6441a5}.elementor-social-icon-twitter{background-color:#1da1f2}.elementor-social-icon-viber{background-color:#665cac}.elementor-social-icon-vimeo{background-color:#1ab7ea}.elementor-social-icon-vk{background-color:#45668e}.elementor-social-icon-weibo{background-color:#dd2430}.elementor-social-icon-weixin{background-color:#31a918}.elementor-social-icon-whatsapp{background-color:#25d366}.elementor-social-icon-wordpress{background-color:#21759b}.elementor-social-icon-x-twitter{background-color:#000}.elementor-social-icon-xing{background-color:#026466}.elementor-social-icon-yelp{background-color:#af0606}.elementor-social-icon-youtube{background-color:#cd201f}.elementor-social-icon-500px{background-color:#0099e5}.elementor-shape-rounded .elementor-icon.elementor-social-icon{border-radius:10%}.elementor-shape-circle .elementor-icon.elementor-social-icon{border-radius:50%}</style> <div class="elementor-social-icons-wrapper elementor-grid">
+<span class="elementor-grid-item">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-d34d57b" href="https://facebook.com/edmpsite" target="_blank">
+<span class="elementor-screen-only">Facebook</span>
+<svg class="e-font-icon-svg e-fab-facebook" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg> </a>
+</span>
+<span class="elementor-grid-item">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-8fb1e74" href="https://twitter.com/edmprod" target="_blank">
+<span class="elementor-screen-only">Twitter</span>
+<svg class="e-font-icon-svg e-fab-twitter" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg> </a>
+</span>
+<span class="elementor-grid-item">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-youtube elementor-repeater-item-bca7c7c" href="https://youtube.com/edmprod" target="_blank">
+<span class="elementor-screen-only">Youtube</span>
+<svg class="e-font-icon-svg e-fab-youtube" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg> </a>
+</span>
+<span class="elementor-grid-item">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-a4c714c" href="https://instagram.com/edmprodgram" target="_blank">
+<span class="elementor-screen-only">Instagram</span>
+<svg class="e-font-icon-svg e-fab-instagram" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg> </a>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<div class="elementor-element elementor-element-35bb34f e-flex e-con-boxed e-con e-parent" data-id="35bb34f" data-element_type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="e-con-inner">
+<div class="elementor-element elementor-element-110a557 e-con-full e-flex e-con e-child" data-id="110a557" data-element_type="container">
+<div class="elementor-element elementor-element-53ba97f elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="53ba97f" data-element_type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<picture loading="lazy" class="attachment-large size-large wp-image-20925">
+<source type="image/webp" srcset="https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1024x210.png.webp 1024w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-300x61.png.webp 300w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-768x157.png.webp 768w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1536x314.png.webp 1536w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-2048x419.png.webp 2048w" sizes="(max-width: 1024px) 100vw, 1024px" />
+<img loading="lazy" width="1024" height="210" src="https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1024x210.png" alt srcset="https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1024x210.png 1024w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-600x123.png 600w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-300x61.png 300w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-768x157.png 768w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1536x314.png 1536w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-2048x419.png 2048w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-100x20.png 100w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-862x176.png 862w, https://www.edmprod.com/wp-content/uploads/2021/02/white-logo-1200x246.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" />
+</picture>
+</div>
+</div>
+<div class="elementor-element elementor-element-5810412 elementor-widget elementor-widget-text-editor" data-id="5810412" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>© 2024 EDMProd</p> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+    (function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+    vgo('setAccount', '610480396');
+    vgo('setTrackByDefault', true);
+
+    vgo('process');
+</script> <div data-elementor-type="popup" data-elementor-id="45389" class="elementor elementor-45389 elementor-location-popup" data-elementor-settings="{&quot;entrance_animation&quot;:&quot;fadeIn&quot;,&quot;exit_animation&quot;:&quot;fadeIn&quot;,&quot;entrance_animation_duration&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0.29999999999999999,&quot;sizes&quot;:[]},&quot;timing&quot;:[]}">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-71c535e6 elementor-section-height-min-height elementor-section-items-stretch ignore-toc elementor-section-boxed elementor-section-height-default" data-id="71c535e6" data-element_type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-85c5591" data-id="85c5591" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-background-overlay"></div>
+<div class="elementor-element elementor-element-78cb3865 elementor-widget elementor-widget-spacer" data-id="78cb3865" data-element_type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<style>/*! elementor - v3.22.0 - 24-06-2024 */
+.elementor-column .elementor-spacer-inner{height:var(--spacer-size)}.e-con{--container-widget-width:100%}.e-con-inner>.elementor-widget-spacer,.e-con>.elementor-widget-spacer{width:var(--container-widget-width,var(--spacer-size));--align-self:var(--container-widget-align-self,initial);--flex-shrink:0}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container,.e-con>.elementor-widget-spacer>.elementor-widget-container{height:100%;width:100%}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer{height:100%}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner{height:var(--container-widget-height,var(--spacer-size))}.e-con-inner>.elementor-widget-spacer.elementor-widget-empty,.e-con>.elementor-widget-spacer.elementor-widget-empty{position:relative;min-height:22px;min-width:22px}.e-con-inner>.elementor-widget-spacer.elementor-widget-empty .elementor-widget-empty-icon,.e-con>.elementor-widget-spacer.elementor-widget-empty .elementor-widget-empty-icon{position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;padding:0;width:22px;height:22px}</style> <div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-13efeab1" data-id="13efeab1" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-20fb7e22 elementor-widget elementor-widget-heading" data-id="20fb7e22" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Thank you! Check your inbox for your download!</h2> </div>
+</div>
+<div class="elementor-element elementor-element-3ff4e3d6 elementor-widget elementor-widget-text-editor" data-id="3ff4e3d6" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>In the meantime, why not check out our <b>FREE Video Training</b>?</p><p>An easy, 5-step roadmap to become a <b>confident</b> and <b>creative</b> music producer🔥</p> </div>
+</div>
+<div class="elementor-element elementor-element-825d7eb elementor-align-center elementor-widget elementor-widget-button" data-id="825d7eb" data-element_type="widget" data-widget_type="button.default">
+<div class="elementor-widget-container">
+<div class="elementor-button-wrapper">
+<a class="elementor-button elementor-button-link elementor-size-sm" href="https://www.edmprod.com/thanks-free-training/" target="_blank">
+<span class="elementor-button-content-wrapper">
+<span class="elementor-button-icon">
+<svg aria-hidden="true" class="e-font-icon-svg e-far-arrow-alt-circle-down" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm-32-316v116h-67c-10.7 0-16 12.9-8.5 20.5l99 99c4.7 4.7 12.3 4.7 17 0l99-99c7.6-7.6 2.2-20.5-8.5-20.5h-67V140c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12z"></path></svg> </span>
+<span class="elementor-button-text">Watch here</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+<div class="elementor-element elementor-element-7bdbfe86 elementor-widget elementor-widget-text-editor" data-id="7bdbfe86" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>We&#8217;ll also send you awesome electronic music production tips (that you can unsubscribe from at any time). We do not sell or share your information.</p> </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div data-elementor-type="popup" data-elementor-id="45902" class="elementor elementor-45902 elementor-location-popup" data-elementor-settings="{&quot;ekit_onepagescroll&quot;:&quot;block&quot;,&quot;triggers&quot;:{&quot;page_load_delay&quot;:8,&quot;page_load&quot;:&quot;yes&quot;},&quot;timing&quot;:{&quot;times_times&quot;:1,&quot;times_period&quot;:&quot;session&quot;,&quot;times&quot;:&quot;yes&quot;}}">
+<div class="elementor-section-wrap">
+<div class="elementor-element elementor-element-162bded e-flex e-con-boxed e-con e-parent" data-id="162bded" data-element_type="container">
+<div class="e-con-inner">
+<div class="elementor-element elementor-element-9becdcc elementor-widget elementor-widget-text-editor" data-id="9becdcc" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+Want to finish your next song in <em>days</em>, not months? <a style="color: #ffffff;" href="https://www.edmprod.com/song-finishing-system/" target="_blank" rel="noopener"><strong>Grab the <span style="text-decoration: underline;"><span style="color: #55ee99; text-decoration: underline;">7 Day Song Finishing System</span></span> today for just <s>$97</s> $47.</strong></a> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div data-elementor-type="popup" data-elementor-id="36891" class="elementor elementor-36891 elementor-location-popup" data-elementor-settings="{&quot;entrance_animation&quot;:&quot;fadeIn&quot;,&quot;exit_animation&quot;:&quot;fadeIn&quot;,&quot;entrance_animation_duration&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0.29999999999999999,&quot;sizes&quot;:[]},&quot;triggers&quot;:{&quot;exit_intent&quot;:&quot;yes&quot;},&quot;timing&quot;:{&quot;times_times&quot;:1,&quot;times_period&quot;:&quot;session&quot;,&quot;times&quot;:&quot;yes&quot;}}">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-373dfcaf elementor-section-height-min-height elementor-section-items-stretch ignore-toc elementor-section-boxed elementor-section-height-default" data-id="373dfcaf" data-element_type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-3070f4fc" data-id="3070f4fc" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-background-overlay"></div>
+<div class="elementor-element elementor-element-30dd4763 elementor-widget elementor-widget-spacer" data-id="30dd4763" data-element_type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-407fbe24" data-id="407fbe24" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-46951c84 elementor-widget elementor-widget-heading" data-id="46951c84" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">HEY! WANT A FREE GUIDE ON MAKING ELECTRONIC MUSIC? 👇</h2> </div>
+</div>
+<div class="elementor-element elementor-element-b4d297e elementor-widget elementor-widget-text-editor" data-id="b4d297e" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Enter your email below and get the guide (read by over 50,000 producers) along with <strong>two bonus resources.</strong></p> </div>
+</div>
+<div class="elementor-element elementor-element-384adbfe elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="384adbfe" data-element_type="widget" data-settings="{&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;button_width_tablet&quot;:&quot;100&quot;,&quot;button_width&quot;:&quot;100&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<form class="elementor-form" method="post" name="New Form">
+<input type="hidden" name="post_id" value="36891" />
+<input type="hidden" name="form_id" value="384adbfe" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-above">
+<div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100 elementor-md-100">
+<input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="First Name">
+</div>
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-md-100 elementor-field-required">
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons elementor-md-100">
+<button type="submit" class="elementor-button elementor-size-sm">
+<span>
+<span class="elementor-align-icon-right elementor-button-icon">
+<svg aria-hidden="true" class="e-font-icon-svg e-far-arrow-alt-circle-down" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm-32-316v116h-67c-10.7 0-16 12.9-8.5 20.5l99 99c4.7 4.7 12.3 4.7 17 0l99-99c7.6-7.6 2.2-20.5-8.5-20.5h-67V140c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12z"></path></svg> </span>
+<span class="elementor-button-text">DOWNLOAD</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="elementor-element elementor-element-36060c25 elementor-widget elementor-widget-text-editor" data-id="36060c25" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>We&#8217;ll also send you awesome electronic music production tips (that you can unsubscribe from at any time). We do not sell or share your information.</p> </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div data-elementor-type="popup" data-elementor-id="14318" class="elementor elementor-14318 elementor-location-popup" data-elementor-settings="{&quot;triggers&quot;:[],&quot;timing&quot;:[]}">
+<div class="elementor-section-wrap">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ddba94c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ddba94c" data-element_type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-ec784a4" data-id="ec784a4" data-element_type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-80e9936 elementor-widget elementor-widget-heading" data-id="80e9936" data-element_type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Get instant access to our free video training</h2> </div>
+</div>
+<div class="elementor-element elementor-element-df6c521 elementor-widget elementor-widget-text-editor" data-id="df6c521" data-element_type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p style="text-align: center;">Learn how to master the fundamentals of electronic music production with the best roadmap for new producers</p> </div>
+</div>
+<div class="elementor-element elementor-element-4da257c elementor-button-align-stretch elementor-widget elementor-widget-form" data-id="4da257c" data-element_type="widget" data-settings="{&quot;button_width&quot;:&quot;100&quot;,&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+<div class="elementor-widget-container">
+<form class="elementor-form" method="post" name="New Form">
+<input type="hidden" name="post_id" value="14318" />
+<input type="hidden" name="form_id" value="4da257c" />
+<input type="hidden" name="referer_title" value="Advanced Melody Guide: Using Chord Tones, Motifs and More - EDMProd" />
+<input type="hidden" name="queried_id" value="8676" />
+<div class="elementor-form-fields-wrapper elementor-labels-">
+<div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_1 elementor-col-100">
+<label for="form-field-field_1" class="elementor-field-label elementor-screen-only">
+Name </label>
+<input size="1" type="text" name="form_fields[field_1]" id="form-field-field_1" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Enter your first name here...">
+</div>
+<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
+<label for="form-field-email" class="elementor-field-label elementor-screen-only">
+Email </label>
+<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-lg  elementor-field-textual" placeholder="Enter your email here..." required="required" aria-required="true">
+</div>
+<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+<button type="submit" class="elementor-button elementor-size-lg">
+<span>
+<span class=" elementor-button-icon">
+</span>
+<span class="elementor-button-text">Yes, give me the free video training</span>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<link rel="stylesheet" id="elementor-post-23210-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-23210.css?ver=1720172875" media="all" />
+<link rel="stylesheet" id="elementor-post-45389-css" href="https://www.edmprod.com/wp-content/uploads/elementor/css/post-45389.css?ver=1720171791" media="all" />
+<link rel="stylesheet" id="e-animations-css" href="https://www.edmprod.com/wp-content/plugins/elementor/assets/lib/animations/animations.min.css?ver=3.22.2" media="all" />
+<script data-minify="1" src="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/libs/framework/assets/js/frontend-script.js?ver=1722917863" id="elementskit-framework-js-frontend-js" defer></script>
+<script id="elementskit-framework-js-frontend-js-after">
+		var elementskit = {
+			resturl: 'https://www.edmprod.com/wp-json/elementskit/v1/',
+		}
+
+		
+</script>
+<script data-minify="1" src="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/widgets/init/assets/js/widget-scripts.js?ver=1722917864" id="ekit-widget-scripts-js" defer></script>
+<script id="eael-general-js-extra">
+var localize = {"ajaxurl":"https:\/\/www.edmprod.com\/wp-admin\/admin-ajax.php","nonce":"585eadff39","i18n":{"added":"Added ","compare":"Compare","loading":"Loading..."},"eael_translate_text":{"required_text":"is a required field","invalid_text":"Invalid","billing_text":"Billing","shipping_text":"Shipping"},"page_permalink":"https:\/\/www.edmprod.com\/advanced-melodies-chord-tones-motifs\/","cart_redirectition":"no","cart_page_url":"","el_breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"ParticleThemesData":{"default":"{\"particles\":{\"number\":{\"value\":160,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":true,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"repulse\"},\"onclick\":{\"enable\":true,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nasa":"{\"particles\":{\"number\":{\"value\":250,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":1,\"random\":true,\"anim\":{\"enable\":true,\"speed\":1,\"opacity_min\":0,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":4,\"size_min\":0.3,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":1,\"direction\":\"none\",\"random\":true,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":600}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":250,\"size\":0,\"duration\":2,\"opacity\":0,\"speed\":3},\"repulse\":{\"distance\":400,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","bubble":"{\"particles\":{\"number\":{\"value\":15,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#1b1e34\"},\"shape\":{\"type\":\"polygon\",\"stroke\":{\"width\":0,\"color\":\"#000\"},\"polygon\":{\"nb_sides\":6},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":50,\"random\":false,\"anim\":{\"enable\":true,\"speed\":10,\"size_min\":40,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":200,\"color\":\"#ffffff\",\"opacity\":1,\"width\":2},\"move\":{\"enable\":true,\"speed\":8,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":false,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","snow":"{\"particles\":{\"number\":{\"value\":450,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#fff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":500,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":2},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"bottom\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":0.5}},\"bubble\":{\"distance\":400,\"size\":4,\"duration\":0.3,\"opacity\":1,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nyan_cat":"{\"particles\":{\"number\":{\"value\":150,\"density\":{\"enable\":false,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"star\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"http:\/\/wiki.lexisnexis.com\/academic\/images\/f\/fb\/Itunes_podcast_icon_300.jpg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":4,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":14,\"direction\":\"left\",\"random\":false,\"straight\":true,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":200,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}"},"eael_login_nonce":"1c6341bee4","eael_register_nonce":"0ac1fa9cba"};
+</script>
+<script src="https://www.edmprod.com/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/js/view/general.min.js?ver=5.9.24" id="eael-general-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.0.1" id="smartmenus-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.9.2" id="elementor-pro-webpack-runtime-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.22.2" id="elementor-webpack-runtime-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.22.2" id="elementor-frontend-modules-js" defer></script>
+<script src="https://www.edmprod.com/wp-includes/js/dist/hooks.min.js?ver=2810c76e705dd1a53b18" id="wp-hooks-js"></script>
+<script src="https://www.edmprod.com/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+</script>
+<script id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.edmprod.com\/wp-admin\/admin-ajax.php","nonce":"c43fe9d057","urls":{"assets":"https:\/\/www.edmprod.com\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/www.edmprod.com\/wp-json\/"},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"en_US","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/www.edmprod.com\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+</script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.9.2" id="elementor-pro-frontend-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2" id="elementor-waypoints-js" defer></script>
+<script src="https://www.edmprod.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js" defer></script>
+<script id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselWrapperAriaLabel":"Carousel | Horizontal scrolling: Arrow Left & Right","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},"version":"3.22.2","is_static":false,"experimentalFeatures":{"e_optimized_assets_loading":true,"e_optimized_css_loading":true,"e_font_icon_svg":true,"additional_custom_breakpoints":true,"container":true,"container_grid":true,"e_swiper_latest":true,"e_onboarding":true,"theme_builder_v2":true,"home_screen":true,"ai-layout":true,"landing-pages":true,"page-transitions":true,"notes":true,"form-submissions":true,"e_scroll_snap":true},"urls":{"assets":"https:\/\/www.edmprod.com\/wp-content\/plugins\/elementor\/assets\/"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":8676,"title":"Advanced%20Melody%20Guide%3A%20Using%20Chord%20Tones%2C%20Motifs%20and%20More%20-%20EDMProd","excerpt":"","featuredImage":"https:\/\/www.edmprod.com\/wp-content\/uploads\/2018\/03\/Advanced-Melody-Guide-1024x576.png"}};
+</script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.22.2" id="elementor-frontend-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.9.2" id="pro-elements-handlers-js" defer></script>
+<script src="https://www.edmprod.com/wp-content/plugins/elementskit-lite/widgets/init/assets/js/animate-circle.min.js?ver=3.2.0" id="animate-circle-js" defer></script>
+<script id="elementskit-elementor-js-extra">
+var ekit_config = {"ajaxurl":"https:\/\/www.edmprod.com\/wp-admin\/admin-ajax.php","nonce":"87606ab23a"};
+</script>
+<script data-minify="1" src="https://www.edmprod.com/wp-content/cache/min/1/wp-content/plugins/elementskit-lite/widgets/init/assets/js/elementor.js?ver=1722917864" id="elementskit-elementor-js" defer></script>
+<script>class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode-wpr",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);</script></body>
+</html>
