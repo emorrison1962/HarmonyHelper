@@ -150,21 +150,34 @@ b7		bVII7		iim6
                         chordType = ChordIntervalsEnum.Minor;
                         break;
                     }
-                case ChordIntervalsEnum.Major6:
                 case ChordIntervalsEnum.Major7:
                     {
                         chordType = ChordIntervalsEnum.Minor6;
                         break;
                     }
-                case ChordIntervalsEnum.Major9:
-                case ChordIntervalsEnum.Major11:
-                case ChordIntervalsEnum.Major13:
-                case ChordIntervalsEnum.MajorMu:
                 case ChordIntervalsEnum.Dominant7:
                     {//1		I7		im6		
                         chordType = ChordIntervalsEnum.Minor6;
                         break;
                     }
+                case ChordIntervalsEnum.Augmented:
+                    { //V+
+                        chordType = ChordIntervalsEnum.Augmented;
+                        break;
+                    }
+                case ChordIntervalsEnum.Minor:
+                    {
+                        chordType = ChordIntervalsEnum.Major; break;
+                    }
+                case ChordIntervalsEnum.Minor7:
+                    { //im7		I6		
+                        chordType = ChordIntervalsEnum.Major6; break;
+                    }
+                case ChordIntervalsEnum.Major6:
+                case ChordIntervalsEnum.Major9:
+                case ChordIntervalsEnum.Major11:
+                case ChordIntervalsEnum.Major13:
+                case ChordIntervalsEnum.MajorMu:
                 case ChordIntervalsEnum.Dominant7b9:
                 case ChordIntervalsEnum.Dominant7Sharp9:
                 case ChordIntervalsEnum.Dominant7b5:
@@ -185,22 +198,9 @@ b7		bVII7		iim6
                 case ChordIntervalsEnum.Sus2Sus4:
                 case ChordIntervalsEnum.Dominant7Sus2:
                 case ChordIntervalsEnum.Dominant7Sus4:
-                case ChordIntervalsEnum.Augmented:
-                    { //V+
-                        chordType = ChordIntervalsEnum.Augmented;
-                        break;
-                    }
                 case ChordIntervalsEnum.Diminished:
                 case ChordIntervalsEnum.HalfDiminished:
                 case ChordIntervalsEnum.Diminished7:
-                case ChordIntervalsEnum.Minor:
-                    {
-                        chordType = ChordIntervalsEnum.Major; break;
-                    }
-                case ChordIntervalsEnum.Minor7:
-                    { //im7		I6		
-                        chordType = ChordIntervalsEnum.Major6; break;
-                    }
                 case ChordIntervalsEnum.Minor9:
                 case ChordIntervalsEnum.Minor11:
                 case ChordIntervalsEnum.Minor13:

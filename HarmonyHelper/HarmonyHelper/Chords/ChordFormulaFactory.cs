@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
+        [DebuggerStepThrough]
         static public ChordFormula Get(NoteName root, ChordIntervalsEnum chordType)
         {
             var result = ChordFormula.Catalog
