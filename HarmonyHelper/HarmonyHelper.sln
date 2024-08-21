@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zHarmonyHelperControls.WinF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eric.Morrison.Helpers", "Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj", "{849C94B4-7156-4E1D-9F5B-8818D1B59C07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyHelperTests1", "HarmonyHelperTests1\HarmonyHelperTests1.csproj", "{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyHelperTests1", "HarmonyHelperTests1\HarmonyHelperTests1.csproj", "{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JunkHtmlParser", "JunkHtmlParser\JunkHtmlParser.csproj", "{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6DBCD8F-3BB1-4AD7-B06F-C3BF6FB44E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{8599EA24-8373-4890-BFAA-45553184B560} = {E719A23C-694B-4C9F-8323-10D69A04FFE6}
 		{B631CB13-2A50-4E05-8FA0-AE56337F1507} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
 		{00B19BAD-2721-4B3B-B727-738EC361114E} = {75A489ED-BC5E-49FB-BDA4-29AF4DA9B1B3}
+		{A77B5BBB-06A7-4DEF-B1A3-A37E313E4C0A} = {34128D4B-4C9B-471E-AC32-FCA5A25E8EF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00888077-AB00-4165-92B2-7E9015599ADC}

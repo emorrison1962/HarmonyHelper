@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eric.Morrison.Harmony;
 using HarmonyHelper.Chords.NegativeHarmony;
+using System.Diagnostics;
 
 namespace HarmonyHelper.Chords.Negative_Harmony.Tests
 {
@@ -20,5 +21,18 @@ namespace HarmonyHelper.Chords.Negative_Harmony.Tests
             new CircleOfFifths(NoteName.C);
             new object();
         }
-    }
+
+        [TestMethod()]
+        public void CircleOfChromaticsTest()
+        {
+            var coc = new CircleOfChromatics(KeySignature.CMajor);
+            foreach (var nn in coc.Notes)
+            { 
+                Debug.WriteLine(nn);
+            }
+
+            new object();
+        }
+
+    }//class
 }

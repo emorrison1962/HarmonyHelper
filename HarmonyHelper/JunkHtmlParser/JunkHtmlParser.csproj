@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="NegativeHarmonyChordConversions.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="NegativeHarmonyChordConversions.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.64" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />
+  </ItemGroup>
+
+</Project>
