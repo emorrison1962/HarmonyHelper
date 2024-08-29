@@ -580,14 +580,11 @@ namespace Eric.Morrison.Harmony.Chords
                 {
                     var interval = nns[i] - nns[j];
                     var inverted = interval.Invert();
-                    if (interval.FunctionalValue == IntervalFunctionalValuesEnum.Third
-                        || interval.FunctionalValue == IntervalFunctionalValuesEnum.Minor3rd
-
-                        || inverted.FunctionalValue == IntervalFunctionalValuesEnum.Third
-                        || inverted.FunctionalValue == IntervalFunctionalValuesEnum.Minor3rd)
+                    if (interval.FunctionalValue.HasFlag(IntervalFunctionalValuesEnum.Third)
+                        || inverted.FunctionalValue.HasFlag(IntervalFunctionalValuesEnum.Third))
                     {
-                        var triad = ValueTuple.Create(nns[i], nns[j]);
-                        vts.Add(triad);
+                        var third = ValueTuple.Create(nns[i], nns[j]);
+                        vts.Add(third);
                     }
                 }
             }

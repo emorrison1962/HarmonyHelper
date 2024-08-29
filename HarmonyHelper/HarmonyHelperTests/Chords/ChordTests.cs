@@ -371,6 +371,11 @@ namespace Chord_Tests
             nns.AddRange(new NoteName[] { NoteName.C, NoteName.E, NoteName.G });
             var result = ChordFormula.IsTriad(nns);
             Assert.IsTrue(result);
+
+            nns = new List<NoteName>();
+            nns.AddRange(new NoteName[] { NoteName.E, NoteName.G, NoteName.C});
+            result = ChordFormula.IsTriad(nns);
+            Assert.IsTrue(result);
         }
 
 
