@@ -1,5 +1,8 @@
-﻿namespace NeckDiagrams.Feature_Controls
+﻿using System;
+
+namespace NeckDiagrams.Views
 {
+    [Obsolete("", true)]
     partial class ScoreControl_Scratchpad
     {
         /// <summary> 

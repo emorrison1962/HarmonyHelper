@@ -5,6 +5,8 @@ using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 
 using Manufaktura.Music.Model;
 
+using NeckDiagrams.Controls;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Views
 {
     public partial class ModalInterchangeView : UserControl
     {
@@ -31,23 +33,23 @@ namespace NeckDiagrams.Controls
         private void _keySignatureCombo_KeySignatureChanged(object sender, KeySignature e)
         {
             this.KeySignature = e;
-            this.CreateGrids();
+            Task.Run(() => this.CreateGrids());
         }
 
-        TableLayoutPanel GetParentPanel(ModalInterchangeGrid grid)
+        ModalInterchangeGridControl GetGridControl(ModalInterchangeGrid grid)
         {
-            TableLayoutPanel result = null;
+            ModalInterchangeGridControl result = null;
             if (grid.IsMajor)
             {
-                result = this._panelMajor;
+                result = this._gridMajor;
             }
             else if (grid.IsMelodicMinor)
             {
-                result = this._panelMelodicMinor;
+                result = this._gridMelodicMinor;
             }
             else if (grid.IsHarmonicMinor)
             {
-                result = this._panelHarmonicMinor;
+                result = this._gridHarmonicMinor;
             }
             Debug.Assert(result != null);
             return result;
@@ -63,15 +65,20 @@ namespace NeckDiagrams.Controls
             return result;
         }
 
-        private void CreateGrids()
+        async Task CreateGrids()
         {
+            if (this.InvokeRequired) 
+            {
+                await Task.Run(() => this.Invoke(this.CreateGrids));
+            }
+
             var rule = new BorrowedChordHarmonicAnalysisRule();
-            var grids = rule.CreateGrids(this.KeySignature);
+            var grids = await Task.Run(()=> rule.CreateGrids(this.KeySignature));
             foreach (var grid in grids)
             {
-                var parent = this.GetParentPanel(grid);
-                var rowCount = grid.Rows.Count;
-                for (int ndxRow = 0; ndxRow < rowCount; ++ndxRow)
+                var miGrid = this.GetGridControl(grid);
+                var rowCount = grid.Rows.Count + 1;
+                for (int ndxRow = 1; ndxRow < rowCount; ++ndxRow)
                 {
                     var row = grid.Rows[ndxRow];
                     var chordCount = row.Chords.Count;
@@ -79,33 +86,12 @@ namespace NeckDiagrams.Controls
                     {
                         if (ndxColumn == 0)
                         {
-                            var col1 = CreateCellControl(row.ModeName);
-                            col1.Width = parent.Parent.Width / 8;
-                            parent.Controls.Add(col1, 0, ndxRow);
+                            miGrid.GetControl(0, ndxRow).Text = row.ModeName;
                         }
 
                         var chord = row.Chords[ndxColumn];
-                        var vm = new ChordFormulaVM(chord, Guid.NewGuid());
-                        var ctl = new ChordNameControl(vm);
-                        var cx = parent.ClientSize.Width / 8;
-                        //ctl.Width = cx;
-                        //parent.Controls.Add(ctl, ndxColumn + 1, ndxRow);
-                        //ctl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right;
-                        
-                        ctl.Dock = DockStyle.Fill;
-                        parent.Controls.Add(CreateCellControl(chord.Name), ndxColumn + 1, ndxRow);
+                        miGrid.GetControl(ndxColumn, ndxRow).Text = chord.Name;
                     }
-
-                    //var rc = parent.DisplayRectangle;
-                    //rc = parent.DisplayRectangle;
-                    for (int i = 0; i < parent.ColumnStyles.Count; ++i)
-                    {
-                        var col = parent.ColumnStyles[i];
-                        var cx = parent.ClientSize.Width / 8;
-                        col.Width = cx;
-                        col.Width = 200;
-                    }
-
 
                     var chords = row.Chords.Select(x => x.Name).ToList();
                     var s = $"{row.ModeName} | {chords[0]} | {chords[1]} | {chords[2]} | {chords[3]} | {chords[4]} | {chords[5]} | {chords[6]} | ";
@@ -115,8 +101,8 @@ namespace NeckDiagrams.Controls
                     new object();
                 }
                 new object();
-                //parent.Refresh();
-                //parent.PerformLayout();
+                //miGrid.Refresh();
+                //miGrid.PerformLayout();
             }
 
             this.Refresh();

@@ -167,14 +167,14 @@ namespace Eric.Morrison.Harmony
                 if (_CurrentBeat != value)
                 {
 
-                    Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
+                    //Debug.Write($"\tCurrentBeat {_CurrentBeat} Changing, ");
                     _CurrentBeat = value;
-                    Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
+                    //Debug.WriteLine($"CurrentBeat {_CurrentBeat} Changed.");
                     if (_CurrentBeat % this.BeatsPerMeasure == 1)
                     {
-                        Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
+                        //Debug.Write($"CurrentMeasure {CurrentMeasure} Changing.");
                         this.CurrentMeasure++;
-                        Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
+                        //Debug.WriteLine($"CurrentMeasure {CurrentMeasure} Changed.");
                     }
                     else
                     {
@@ -318,7 +318,7 @@ NoteRange noteRange, int beatsPerBar, Note startingNote = null)
                         this.CurrentNote = nextNote;
                         sb.Append($"{nextNote} ");
                     }
-                    Debug.WriteLine(sb.ToString());
+                    //Debug.WriteLine(sb.ToString());
                     new object();
                 }
                 if (this.UntilPatternRepeats)

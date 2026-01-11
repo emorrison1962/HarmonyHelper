@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony;
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Controls.ComboBoxes
 {
     public class KeySignatureCombo : ComboBox
     {
@@ -16,14 +17,14 @@ namespace NeckDiagrams.Controls
         #region Construction
         public KeySignatureCombo()
         {
-            this.Init();
+            Init();
         }
 
         void Init()
         {
             foreach (var key in KeySignature.Catalog)
             {
-                this.Items.Add(key);
+                Items.Add(key);
             }
         }
 
@@ -31,9 +32,9 @@ namespace NeckDiagrams.Controls
 
         protected override void OnSelectionChangeCommitted(EventArgs e)
         {
-            var item = this.SelectedItem as KeySignature;
+            var item = SelectedItem as KeySignature;
             if (null != item)
-                this.OnKeySignatureChanged(item);
+                OnKeySignatureChanged(item);
         }
 
         public void OnKeySignatureChanged(KeySignature key)
@@ -42,4 +43,28 @@ namespace NeckDiagrams.Controls
         }
 
     }//class
+
+    [DesignTimeVisible(true)]
+    public class FeatureTypeButton : RadioButton
+    {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public FeatureType FeatureType{ get; set; } = FeatureType.None;
+
+
+        #region Construction
+        public FeatureTypeButton()
+        {
+        }
+
+        
+        public FeatureTypeButton(FeatureType ft)
+        {
+            FeatureType = ft;
+        }
+
+        #endregion
+
+
+    }//class
+
 }//ns

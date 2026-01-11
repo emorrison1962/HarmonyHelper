@@ -51,7 +51,24 @@ namespace Eric.Morrison.Harmony.MusicXml
         }
 
         public XElement XElement { get; set; }
-        public Measure CurrentMeasure { get { return Measures.Last(); } }
+        public Measure CurrentMeasure 
+        { 
+            get 
+            {
+                Measure result = null;
+                var section = this.Sections.FirstOrDefault();
+                if (section != null) 
+                {
+                    result = section.Measures.LastOrDefault();
+                    if (null == result)
+                    {
+                        result = new Measure();
+                        section.Add(result);
+                    }
+                }
+                return result;
+            } 
+        }
         public KeySignature KeySignature { get; set; } = KeySignature.CMajor;
         List<Section> _Sections = new List<Section>();
         public List<Section> Sections 

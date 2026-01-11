@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using NeckDiagrams.Views;
+
 namespace NeckDiagrams.Controls
 {
     public partial class ChordNamesControl : UserControl

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
+	[Obsolete("", true)]
 	public partial class NewHarmonyItemDialog : Form
 	{
 		public HarmonyModelItem Item { get { return this.modelItemControl.Item; } }

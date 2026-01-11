@@ -10,9 +10,10 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
+	[Obsolete("", true)]
 	public partial class ModelsControl : UserControl
 	{
-		HarmonyModel Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>() as HarmonyModel; } }
+		HarmonyContext Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyContext>() as HarmonyContext; } }
 
 		public ModelsControl()
 		{
@@ -28,7 +29,7 @@ namespace NeckDiagrams
 			}
 		}
 
-		public void ModelChanged_Handler(object sender, HarmonyModel model)
+		public void ModelChanged_Handler(object sender, HarmonyContext model)
 		{
 			this.itemsPanel.Controls.Clear();
 			foreach (var item in model.Items)

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using Manufaktura.Controls.Model.Fonts;
 
-namespace NeckDiagrams.Feature_Controls
+namespace NeckDiagrams.Views
 {
     public partial class ScoreControl_Scratchpad : UserControl
     {

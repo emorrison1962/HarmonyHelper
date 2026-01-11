@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+
 using Eric.Morrison.Harmony;
 
 namespace NeckDiagrams
@@ -8,7 +10,8 @@ namespace NeckDiagrams
 	public partial class NoteNameComboBox : UserControl
 	{
 		public event EventHandler<NoteName> SelectionChanged;
-		public NoteName SelectedNoteName 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public NoteName SelectedNoteName 
 		{ 
 			get { return this._cbNoteName.SelectedItem as NoteName; }
 			set { this._cbNoteName.SelectedItem = value; }  

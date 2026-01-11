@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
+
 namespace NeckDiagrams
 {
 	static class Program
@@ -20,7 +21,6 @@ namespace NeckDiagrams
 
 		private static void Bootstrap()
 		{
-
-		}
-	}
+        }
+    }
 }

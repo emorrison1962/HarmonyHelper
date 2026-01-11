@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony.MusicXml;
@@ -195,8 +196,15 @@ namespace HarmonyHelper_DryWetMidi
             var midiFile = Core.MidiFile.Read(filename);
             this.Init();
 
-            //This actually plays the MIDI file!
-            midiFile.Play(OutputDevice.GetAll().First());
+            using (var device = OutputDevice.GetAll().First())
+            using (var playback = midiFile.GetPlayback(device))
+            {
+                //playback.NotesPlaybackStarted += OnNotesPlaybackStarted;
+
+                //This actually plays the MIDI file!
+                SpinWait.SpinUntil(() => !playback.IsRunning);
+                playback.Start();
+            }
         }
 
 

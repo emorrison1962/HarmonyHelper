@@ -32,7 +32,6 @@ namespace NeckDiagrams
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.pnlNeck = new System.Windows.Forms.Panel();
             this.pnlTop = new System.Windows.Forms.Panel();
-            this._ctlModels = new NeckDiagrams.ModelsControl();
             this.pnlKey = new System.Windows.Forms.Panel();
             this._bnAddItem = new System.Windows.Forms.Button();
             this.lblKey = new System.Windows.Forms.Label();
@@ -65,7 +64,6 @@ namespace NeckDiagrams
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlTop.Controls.Add(this._ctlModels);
             this.pnlTop.Controls.Add(this.pnlKey);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(40, 39);
@@ -74,15 +72,6 @@ namespace NeckDiagrams
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1626, 192);
             this.pnlTop.TabIndex = 2;
-            // 
-            // _ctlModels
-            // 
-            this._ctlModels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._ctlModels.Location = new System.Drawing.Point(400, 0);
-            this._ctlModels.Margin = new System.Windows.Forms.Padding(8);
-            this._ctlModels.Name = "_ctlModels";
-            this._ctlModels.Size = new System.Drawing.Size(1226, 192);
-            this._ctlModels.TabIndex = 2;
             // 
             // pnlKey
             // 
@@ -150,8 +139,6 @@ namespace NeckDiagrams
 		private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.Panel pnlNeck;
         private System.Windows.Forms.Panel pnlTop;
-        private NeckControl _neckCtl;
-        private ModelsControl _ctlModels;
         private System.Windows.Forms.Panel pnlKey;
         private System.Windows.Forms.Button _bnAddItem;
         private System.Windows.Forms.Label lblKey;

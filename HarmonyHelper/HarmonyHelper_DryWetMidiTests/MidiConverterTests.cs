@@ -18,6 +18,7 @@ using System.Diagnostics;
 using static System.Collections.Specialized.BitVector32;
 using Section = Eric.Morrison.Harmony.MusicXml.Section;
 using System.Runtime.Intrinsics.X86;
+using HarmonyHelper.Chords.NegativeHarmony;
 
 namespace HarmonyHelper_DryWetMidi.Tests
 {
@@ -683,10 +684,10 @@ namespace HarmonyHelper_DryWetMidi.Tests
         [TestMethod()]
         public void Test_062824()
         {
-//            var chordsA = @"[Chords] 
-//|: A| D7| A| E7| A| C#7| D7| Dm|
-//| E7#9| C#7| D7| Dm:5X|
-//[ChordsEnd] ";
+            //            var chordsA = @"[Chords] 
+            //|: A| D7| A| E7| A| C#7| D7| Dm|
+            //| E7#9| C#7| D7| Dm:5X|
+            //[ChordsEnd] ";
 
             var chordsB = @"[Chords] 
 |: EMaj7| Badd2/D#| DMaj7| Aadd2/C#:5X|
@@ -699,5 +700,192 @@ namespace HarmonyHelper_DryWetMidi.Tests
             midi.Create(model, filename);
             new object();
         }
+
+        [TestMethod()]
+        public void Test_082124()
+        {
+            var ks = KeySignature.CMajor;
+            var CM7 = ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Major7);
+            var Dm7 = ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7);
+            var G7 = ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7);
+
+            var mirroredCM7 = new NegativeHarmonyMirror().GetMirrored(ks, CM7);
+            var mirroredDm7 = new NegativeHarmonyMirror().GetMirrored(ks, Dm7);
+            var mirroredG7 = new NegativeHarmonyMirror().GetMirrored(ks, G7);
+
+            var chords = $"|| {CM7.NameAscii} | {Dm7.NameAscii} | {G7.NameAscii} | {CM7.NameAscii} ||";
+            var mirroredChords = $"|| {mirroredCM7.NameAscii} | {mirroredDm7.NameAscii} | {mirroredG7.NameAscii} | {mirroredCM7.NameAscii} ||";
+
+            Debug.WriteLine(chords);
+            Debug.WriteLine(mirroredChords);
+
+
+            var model = this.CreateModel(mirroredChords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_092524()
+        {
+            var chords = @"[Chords] 
+|: C7| Bb7| C7| Bb7| Ebm| AbMaj7| F#7 Em7b5| B7|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_101324()
+        {
+            var chords = @"[Chords] 
+|: C6| Cm7| EbMaj7| Bb| F| C6| Cm7| EbMaj7|
+| Bb| D7|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_110324()
+        {
+            var chords = @"[Chords] 
+|: CMaj7| FMaj7| Cm7| F7| AbMaj7| DbMaj7| Dbm7| Gb7|
+| F7| Bb7| EbMaj7| D7|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_121324()
+        {
+            var chords = @"[Chords] 
+| F#m7| BMaj7| Bm7| E7| A| E/G#| C/G| F#7:5X|
+[ChordsEnd] ";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_121524()
+        {
+            var chords = @"        [Chords] 
+| C| D| C| Dsus D| C| D| C| Bbdim:5X|
+[ChordsEnd]
+";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_250831()
+        {
+            var chords = @"[Chords] 
+|F6| Cm6| Gm6| Bb6|
+|CMaj7| Am7| Dm7| G7|
+";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_250903()
+        {
+            var chords = @"A | G | D";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_250903_Negative()
+        {
+            var ks = KeySignature.AMinor;
+            var CM7 = ChordFormulaFactory.Get(NoteName.C, ChordIntervalsEnum.Major7);
+            var Dm7 = ChordFormulaFactory.Get(NoteName.D, ChordIntervalsEnum.Minor7);
+            var G7 = ChordFormulaFactory.Get(NoteName.G, ChordIntervalsEnum.Dominant7);
+
+            var str = @"Am7 | G | D7 | E7" ;
+            bool success = ChordFormulaParser.TryParse(str, out var key, out var formulas, out var msg);
+
+            var negFormulas = new List<ChordFormula>();
+            foreach (var formula in formulas) 
+            {
+                negFormulas.Add(new NegativeHarmonyMirror().GetMirrored(ks, formula));
+            }
+
+            foreach (var formula in negFormulas)
+            {
+                Debug.WriteLine(formula.NameAscii);
+            }
+
+            var chords = $"|| {string.Join("|", negFormulas.Select(x=> x.NameAscii))} ||";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+        [TestMethod()]
+        public void Test_250906()
+        {
+            var chords = @"[Chords] 
+| AMaj7| Fm7| E7| A6
+| Bm7| Bm7b5| AMaj7| Fm6|
+| E7| A6| Bm7 / E7:10X|
+[ChordsEnd] 
+";
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
+
+
+
     }//class
 }//ns

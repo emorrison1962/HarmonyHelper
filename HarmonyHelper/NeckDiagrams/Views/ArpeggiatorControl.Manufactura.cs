@@ -11,7 +11,7 @@ using Manufaktura.Controls.Linq;
 using Manufaktura.Controls.Parser.MusicXml;
 using Manufaktura.Controls.WinForms;
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Views
 {
     public partial class ArpeggiatorControl
     {

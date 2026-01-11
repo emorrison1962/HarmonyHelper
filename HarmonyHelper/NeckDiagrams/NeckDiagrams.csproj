@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
@@ -36,7 +36,7 @@
     <Compile Update="Controls\ModelsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\NoteNameComboBox.cs">
+    <Compile Update="Controls\ComboBoxes\NoteNameComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\StringControl.cs">
@@ -55,10 +55,10 @@
       <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony.MusicXml;
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Views
 {
     public partial class ReHarmonizerControl : UserControl
     {

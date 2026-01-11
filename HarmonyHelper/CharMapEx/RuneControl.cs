@@ -24,7 +24,8 @@ namespace NeckDiagrams.Controls
         #endregion
 
         #region Properties
-        public string SelectedFont
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string? SelectedFont
         {
             get { return this._SelectedFont; }
             set
@@ -35,6 +36,7 @@ namespace NeckDiagrams.Controls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsSelected
         {
             get
@@ -48,6 +50,7 @@ namespace NeckDiagrams.Controls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Rune Rune { get; set; }
 
         #endregion

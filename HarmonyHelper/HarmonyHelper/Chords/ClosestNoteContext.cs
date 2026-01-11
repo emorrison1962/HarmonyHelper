@@ -159,7 +159,7 @@ namespace Eric.Morrison.Harmony.Chords
         {
             Note? result = null;
 
-#if DEBUG
+#if false //DEBUG
             Debug.WriteLine($"{LastNote}, {LastNote?.RawValue}, {LastNote?.Octave}");
             var sb = new StringBuilder();
             for (int i = 0; i < this.Notes.Count; ++i)

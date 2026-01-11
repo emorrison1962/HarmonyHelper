@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NeckDiagrams.Feature_Controls
+namespace NeckDiagrams.Views
 {
     public partial class ArpeggiosControl : UserControl
     {

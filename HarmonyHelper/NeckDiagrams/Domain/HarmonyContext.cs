@@ -7,23 +7,17 @@ using HarmonyHelper.IoC;
 
 namespace NeckDiagrams
 {
-	[Flags]
-	public enum ModelItemTypeEnum
+
+	public abstract class HarmonyContext : IHarmonyContext
 	{
-		Scale = 1,
-		Arpeggio = 1 << 2,
-		//Chord = 1 << 3
-	}
+		public event EventHandler<HarmonyContext> ModelChanged;
 
+        KeySignature _KeySignature;
 
-	public class HarmonyModel : IHarmonyModel
-	{
-		public event EventHandler<HarmonyModel> ModelChanged;
-
+		#region Properties
 		public List<HarmonyModelItem> Items { get; set; } = new List<HarmonyModelItem>();
-		KeySignature _KeySignature;
 
-		public KeySignature KeySignature
+		public KeySignature? KeySignature
 		{
 			get { return this._KeySignature; }
 			set
@@ -40,12 +34,6 @@ namespace NeckDiagrams
 				var result = this.NormalizeNoteNames();
 				return result;
 			}
-		}
-
-		public HarmonyModel(KeySignature key)
-		{
-			this.KeySignature = key;
-			Container.Register<IHarmonyModel>(this);
 		}
 
 		public bool IsValid
@@ -66,6 +54,20 @@ namespace NeckDiagrams
 				return result;
 			}
 		}
+
+        #endregion
+
+        #region Construction
+        protected HarmonyContext()
+        {
+            Container.Register<IHarmonyContext>(this);
+        }
+        public HarmonyContext(KeySignature key) : this()
+		{
+			this.KeySignature = key;
+		}
+
+		#endregion
 
 		List<NoteName> NormalizeNoteNames()
 		{
@@ -102,4 +104,21 @@ namespace NeckDiagrams
 			this.OnModelChanged();
 		}
 	}//class
+
+    public class ScaleHarmonyModel : HarmonyContext
+    {
+        public ScaleHarmonyModel(KeySignature key) : base(key)
+        {
+        }
+    }
+
+    public class ChordFormulaContext : HarmonyContext
+    {
+        public ChordFormula ChordFormula { get; set; }
+		public ChordFormulaContext(ChordFormula cf, KeySignature key = null) : base(key)
+        {
+			this.ChordFormula = cf;
+        }
+    }
+
 }//ns

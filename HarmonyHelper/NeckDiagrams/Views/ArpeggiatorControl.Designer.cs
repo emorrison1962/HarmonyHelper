@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 
-namespace NeckDiagrams.Controls
+using NeckDiagrams.Controls;
+
+namespace NeckDiagrams.Views
 {
     partial class ArpeggiatorControl
     {

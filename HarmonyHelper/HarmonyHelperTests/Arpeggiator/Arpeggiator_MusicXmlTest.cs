@@ -291,10 +291,63 @@ namespace Arpeggiator_Tests
 		}
 
 
+        [TestMethod()]
+        public void Arpeggiator_102124_Test()
+        {
+            this.Model = new MusicXmlModel();
+
+            var chordTxt = "[Chords] \r\n|: CMaj7| FMaj7| Fm7| Bb7| CMaj7| FMaj7| Fm7| Bb7|\r\n[ChordsEnd] ";
+            var success = false;
+
+            if (ChordFormulaParser.TryParse(chordTxt, out var key, out List<ChordFormula> formulas, out string message))
+            {
+                //formulas.ForEach(x => Debug.WriteLine(x));
+                success = true;
+            }
+            else
+            {
+                Assert.Fail("Couldn't parse chords.");
+            }
+
+
+            if (success)
+            {
+                var noteRange = new FiveStringBassRange(FiveStringBassPositionEnum.EigthPosition);
+
+                new object();
+
+                var startingNote = new Note(formulas[0].Root,
+                OctaveEnum.Octave2);
+                var notesToPlay = 1;
+
+                var contexts = new List<ArpeggiationChordContext>();
+                formulas.ForEach(x => contexts.Add(new ArpeggiationChordContext(x, noteRange, notesToPlay)));
+
+                var arpeggiator = new Arpeggiator(contexts,
+                    DirectionEnum.Ascending | DirectionEnum.AllowTemporayReversalForCloserNote,
+                    noteRange, notesToPlay, startingNote, true);
+
+                this.RegisterTraceObservers(arpeggiator);
+                //var musicXmlObservers = new MusicXmlObservers(arpeggiator);
+
+                arpeggiator.Arpeggiate();
+
+				//var part = musicXmlObservers.Part;
+				//var model = this.CreateModel(part);
+				new object();
+
+				//MusicXmlExporterTests.Export($@"c:\temp\{MethodBase.GetCurrentMethod().Name}.xml", model);
+
+			}
+
+
+            new object();
+        }
 
 
 
 
 
-	}//class
+
+    }//class
 }//ns

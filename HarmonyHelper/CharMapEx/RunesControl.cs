@@ -28,6 +28,7 @@ namespace NeckDiagrams.Controls
         public bool MouseIsDragging { get; private set; }
         public Point DragBeginPoint { get; private set; }
         string _SelectedFont;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SelectedFont
         {
             get { return this._SelectedFont; }
@@ -37,6 +38,7 @@ namespace NeckDiagrams.Controls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IFontProvider FontProvider { get; set; }
         public RunesControl()
         {

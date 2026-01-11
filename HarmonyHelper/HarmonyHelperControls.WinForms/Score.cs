@@ -25,12 +25,16 @@ using Newtonsoft.Json;
 
 namespace HarmonyHelperControls.WinForms
 {
+    [Obsolete("", true)]
     public partial class Score : UserControl
     {
         #region Properties
         string SelectedFontName { get { return "Bravura"; } }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Font LocalFont { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public RectangleF StaffPrefixRectangle { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MeasureGrid MeasureGrid { get; set; }
         public FontContext FontContext { get; private set; }
         float LineSpacing { get; set; }
@@ -105,7 +109,7 @@ namespace HarmonyHelperControls.WinForms
             Cursor.Current = Cursors.Default;
         }
 
-        [Obsolete]
+        [Obsolete("")]
         async Task Init()
         {
             var json = Eric.Morrison.Helpers.LoadEmbeddedResource("bravura_metadata.json");

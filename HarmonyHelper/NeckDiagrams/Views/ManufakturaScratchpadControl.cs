@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 using Manufaktura.Controls.Linq;
 
-namespace NeckDiagrams.Feature_Controls
+namespace NeckDiagrams.Views
 {
     public partial class ManufakturaScratchPadControl : UserControl
     {

@@ -1,10 +1,11 @@
-﻿using Eric.Morrison.Harmony;
-using Eric.Morrison.Harmony.Scales;
-
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+
+using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Scales;
 
 namespace NeckDiagrams
 {
@@ -12,6 +13,7 @@ namespace NeckDiagrams
     {
         public event EventHandler<ScaleFormulaBase> SelectedScaleChanged;
         public ScaleFormulaCatalog ScaleFormulaCatalog { get; private set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ScaleFormulaBase SelectedItem
         {
             get { return this._cbScaleType.SelectedItem as ScaleFormulaBase; }
@@ -25,6 +27,7 @@ namespace NeckDiagrams
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public NoteName NoteName
         {
             get { return _scaleNoteNameCombo.SelectedNoteName; }

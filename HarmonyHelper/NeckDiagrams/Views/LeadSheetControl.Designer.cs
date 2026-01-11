@@ -1,4 +1,4 @@
-﻿namespace NeckDiagrams.Controls
+﻿namespace NeckDiagrams.Views
 {
     partial class LeadSheetControl
     {

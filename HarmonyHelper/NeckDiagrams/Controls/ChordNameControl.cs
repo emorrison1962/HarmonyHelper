@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using Eric.Morrison.Harmony.Chords;
 
+using NeckDiagrams.Views;
+
 namespace NeckDiagrams.Controls
 {
     public partial class ChordNameControl : UserControl
@@ -18,9 +20,11 @@ namespace NeckDiagrams.Controls
         Color SELECTED_COLOR = Color.CornflowerBlue;
 
         public ChordFormula Chord { get { return VM.ChordFormula; } }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ChordFormulaVM VM { get; set; }
 
         public bool _IsSelected = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsSelected
         {
             get

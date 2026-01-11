@@ -17,6 +17,7 @@ namespace NeckDiagrams
 {
     public partial class ChordParserDialog : Form
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<ChordFormulaVM> ChordFormulaVMs { get; set; }
         public ChordParserDialog()
         {

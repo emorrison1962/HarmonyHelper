@@ -11,7 +11,7 @@ namespace HarmonyHelper.Eric.Morrison.Collections.Generic
 {
     public class CatalogBase<T> : IEnumerable<T>, IList<T> where T : IHasName
     {
-        HashSet<T> _Catalog = new HashSet<T>();
+        List<T> _Catalog = new List<T>();
 
         public T this[string name]
         {
@@ -21,59 +21,59 @@ namespace HarmonyHelper.Eric.Morrison.Collections.Generic
 
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable<T>)this._Catalog).GetEnumerator();
+            return this._Catalog.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)this._Catalog).GetEnumerator();
+            return this._Catalog.GetEnumerator();
         }
 
         public int IndexOf(T item)
         {
-            return ((IList<T>)this._Catalog).IndexOf(item);
+            return this._Catalog.ToList().IndexOf(item);
         }
 
         public void Insert(int index, T item)
         {
-            ((IList<T>)this._Catalog).Insert(index, item);
+            this._Catalog.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            ((IList<T>)this._Catalog).RemoveAt(index);
+            this._Catalog.RemoveAt(index);
         }
 
         public T this[int index] { get => ((IList<T>)this._Catalog)[index]; set => ((IList<T>)this._Catalog)[index] = value; }
 
         public void Add(T item)
         {
-            ((ICollection<T>)this._Catalog).Add(item);
+            this._Catalog.Add(item);
         }
 
         public void Clear()
         {
-            ((ICollection<T>)this._Catalog).Clear();
+            this._Catalog.Clear();
         }
 
         public bool Contains(T item)
         {
-            return ((ICollection<T>)this._Catalog).Contains(item);
+            return this._Catalog.Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            ((ICollection<T>)this._Catalog).CopyTo(array, arrayIndex);
+            this._Catalog.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(T item)
         {
-            return ((ICollection<T>)this._Catalog).Remove(item);
+            return this._Catalog.Remove(item);
         }
 
-        public int Count => ((ICollection<T>)this._Catalog).Count;
+        public int Count => this._Catalog.Count;
 
-        public bool IsReadOnly => ((ICollection<T>)this._Catalog).IsReadOnly;
+        public bool IsReadOnly => throw new NotSupportedException();
     }
 
 }

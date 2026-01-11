@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 using Eric.Morrison.Harmony;
 
+using Manufaktura.Controls.Model;
+
 using NeckDiagrams.Controls;
-using NeckDiagrams.Feature_Controls;
+using NeckDiagrams.Views;
 
 namespace NeckDiagrams
 {
@@ -16,13 +20,13 @@ namespace NeckDiagrams
         //public event EventHandler<HarmonyModel> ModelChanged;
         ScaleFormulaCatalog ScaleFormulaCatalog { get; set; }
 
-        public HarmonyModel Model { get; private set; }
+        //public HarmonyModel Model { get; private set; }
 
         public Form1()
         {
             InitializeComponent();
             var defaultKey = KeySignature.CMajor;
-            this.Model = new HarmonyModel(defaultKey);
+            //this.Model = new HarmonyModel(defaultKey);
 
             this.Load += this.Form1_Load;
         }
@@ -31,6 +35,7 @@ namespace NeckDiagrams
         {
             if (!DesignMode)
             {
+                this._ctlNav.SelectedFeatureTypeChanged += this.SelectedFeatureChanged;
                 //foreach (var key in KeySignature.InternalCatalog.OrderBy(x => x.NoteName))
                 //{
                 //	_cbKey.Items.Add(key);
@@ -42,8 +47,14 @@ namespace NeckDiagrams
 
                 //this._rbScore.Checked = true;
                 //this._bnFeatureHarmonicAnalysis.Checked = true;
-                this._bnModalInterchange.Checked = true;
             }
+        }
+
+        private void SelectedFeatureChanged(object sender, FeatureType e)
+        {
+            Debug.WriteLine(e.ToString());
+            var featureView = new FeatureViewFactory().CreateView(e);
+            this.AddControl(featureView);
         }
 
 
@@ -73,16 +84,6 @@ namespace NeckDiagrams
             //	Model.KeySignature.NoteName, chordType, Model.KeySignature);
             //this.Model.ChordFormula = formula;
             //this.OnModelChanged();
-        }
-
-        private void _bnAddItem_Click(object sender, EventArgs e)
-        {
-            var dlg = new NewHarmonyItemDialog();
-            var dr = dlg.ShowDialog();
-            if (dr == DialogResult.OK)
-            {
-                Model.Add(dlg.Item);
-            }
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -151,7 +152,7 @@ namespace NeckDiagrams
         {
             throw new NotImplementedException();
             //if (_cbScale.Checked)
-            //	Model.ModelType |= ModelItemTypeEnum.Scale;
+            //Model.ModelType |= ModelItemTypeEnum.Scale;
             //else
             //	Model.ModelType ^= ModelItemTypeEnum.Scale;
         }
@@ -165,95 +166,44 @@ namespace NeckDiagrams
             //	Model.ModelType ^= ModelItemTypeEnum.Arpeggio;
         }
 
-        #region Show/ hide feature controls.
-        Control CurrentControl { get; set; }
+        Control CurrentView { get; set; }
         void AddControl(Control ctl)
         {
-            if (this.CurrentControl is not null)
-                this._pnlMain.Controls.Remove(this.CurrentControl);
+            if (this.CurrentView is not null)
+                this._pnlFeatureView.Controls.Remove(this.CurrentView);
 
             ctl.Dock = DockStyle.Fill;
-            this._pnlMain.Controls.Add(ctl);
-            this.CurrentControl = ctl;
+            this._pnlFeatureView.Controls.Add(ctl);
+            this.CurrentView = ctl;
+            this.Invalidate(true);
         }
 
-        private void _bnFeatureScales_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new Feature_Controls.ScalesControl());
-            }
-        }
-
-        private void _bnFeatureArpeggios_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new Feature_Controls.ArpeggiosControl());
-            }
-        }
-
-        private void _bnFeatureHarmonicAnalysis_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new HarmonicAnalysisControl());
-            }
-        }
-        private void _bnFeatureReHarmonize_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new ReHarmonizerControl());
-            }
-        }
-
-        private void _bnFeatureArpeggiator_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new ArpeggiatorControl());
-            }
-        }
-
-        private void _bnFeatureLeadSheets_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new LeadSheetControl());
-            }
-        }
-
-        private void _bnFeatureVoiceLeading_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new VoiceLeadingControl());
-            }
-        }
-        private void _rbManufaktura_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new ManufakturaScratchPadControl());
-            }
-        }
-
-        private void _rbScore_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new ScoreControl_Scratchpad());
-            }
-        }
-        #endregion
-
-        private void _bnModalInterchange_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                this.AddControl(new ModalInterchangeView());
-            }
-        }
     }//class
+
+    class FeatureViewFactory
+    {
+        internal Control CreateView(FeatureType e)
+        {
+            Control result = null;
+            switch (e)
+            {
+                case FeatureType.None:
+                    { }
+                    break;
+                case FeatureType.VoiceLeading: { result = new VoiceLeadingControl(); } break;
+                case FeatureType.ChordFingering: { result = new ChordShapeControl(); } break;
+                case FeatureType.Arpeggiator: { result = new ArpeggiatorControl(); } break;
+                case FeatureType.Manufaktura: { result = new ManufakturaScratchPadControl(); } break;
+                case FeatureType.Arpeggios: { result = new ArpeggiosControl(); } break;
+                case FeatureType.HarmonicAnalysis: { result = new HarmonicAnalysisControl(); } break;
+                case FeatureType.LeadSheets: { result = new LeadSheetControl(); } break;
+                case FeatureType.ModalInterchange: { result = new ModalInterchangeView(); } break;
+                case FeatureType.ReHarmonize: { result = new ReHarmonizerControl(); } break;
+                case FeatureType.Scales: { result = new ScalesControl(); } break;
+                default: { throw new ArgumentOutOfRangeException(nameof(e)); }
+            }
+            Debug.WriteLine(result.GetType().Name);
+            return result;
+        }
+    }
 }//ns

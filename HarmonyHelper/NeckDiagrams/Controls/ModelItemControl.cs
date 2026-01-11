@@ -1,5 +1,8 @@
 ﻿using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
+
+using NeckDiagrams.Domain;
+
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -7,6 +10,7 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
+	[Obsolete("", true)]
 	public partial class ModelItemControl : UserControl
 	{
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
@@ -17,12 +21,12 @@ namespace NeckDiagrams
 		public ScaleFormulaCatalog ScaleFormulaCatalog { get; private set; }
 		//NoteName Root { get; set; }
 
-		HarmonyModel Model
+		HarmonyContext Model
 		{
 			get
 			{
 				var result = HarmonyHelper.IoC.Container
-					.Resolve<IHarmonyModel>() as HarmonyModel;
+					.Resolve<IHarmonyContext>() as HarmonyContext;
 				return result;
 			}
 		}
@@ -58,14 +62,15 @@ namespace NeckDiagrams
 				this.Model.ModelChanged += this.Model_ModelChanged;
 				this.Populate();
 
-				this.chordSelectorControl.SelectedChordChanged += this.ChordSelectorControl_SelectedChordChanged;
+#warning FIXME
+				//this.chordSelectorControl.SelectedChordChanged += this.ChordSelectorControl_SelectedChordChanged;
 
 				this.scaleSelectorControl.SelectedScaleChanged += this.ScaleSelectorControl_SelectedScaleChanged;
 
 			}
 		}
 
-		private void Model_ModelChanged(object sender, HarmonyModel model)
+		private void Model_ModelChanged(object sender, HarmonyContext model)
 		{
 			if (null != this.Item)
 			{
@@ -138,6 +143,7 @@ namespace NeckDiagrams
 				}
 			}
 		}
+		[Obsolete("", true)]
 		private void ChordSelectorControl_SelectedChordChanged(object sender, ChordFormula chordFormula)
 		{
 			if (null != chordFormula.Root)

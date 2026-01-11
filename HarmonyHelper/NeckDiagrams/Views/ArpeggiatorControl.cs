@@ -15,7 +15,7 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.MusicXml;
 
 
-namespace NeckDiagrams.Controls
+namespace NeckDiagrams.Views
 {
     public partial class ArpeggiatorControl : UserControl
     {

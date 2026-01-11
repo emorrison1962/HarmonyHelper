@@ -4,8 +4,11 @@ using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.Scales;
 
+using NeckDiagrams.Domain;
+
 namespace NeckDiagrams
 {
+	
 	public class HarmonyModelItem
 	{
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
@@ -33,26 +36,31 @@ namespace NeckDiagrams
 		public ChordFormula ChordFormula { get { return _ChordFormula; } set { _ChordFormula = value; this.OnModelItemChanged(); } }
 		public NoteName Root { get { return _Root; } set { _Root = value; this.OnModelItemChanged(); } }
 		public bool IsVisible { get { return _IsVisible; } set { _IsVisible = value; this.OnModelItemChanged(); } }
+        public List<NoteName> NoteNames { get { return NoteNameContainer?.NoteNames; } }
+
+        protected INoteNameContainer NoteNameContainer
+        {
+            get
+            {
+                var result =
+                    (this.ScaleFormula as INoteNameContainer)
+                        ?? (this.ChordFormula as INoteNameContainer);
+                return result;
+            }
+        }
 		#endregion
-		protected INoteNameContainer NoteNameContainer
-		{
-			get
-			{
-				var result =
-					(this.ScaleFormula as INoteNameContainer)
-						?? (this.ChordFormula as INoteNameContainer);
-				return result;
-			}
-		}
-		public List<NoteName> NoteNames { get { return NoteNameContainer?.NoteNames; } }
 
 
+
+		#region Construction
+		[Obsolete("")]
 		public HarmonyModelItem()
 		{
 
 		}
 
-		public HarmonyModelItem(INoteNameContainer nnc)
+        [Obsolete("")]
+        public HarmonyModelItem(INoteNameContainer nnc)
 		{
 			if (null == nnc)
 				throw new ArgumentNullException("INoteNameContainer");
@@ -68,6 +76,8 @@ namespace NeckDiagrams
 			}
 		}
 
+		#endregion
+		
 		void OnModelItemChanged()
 		{
 			if (null != this.ModelItemChanged)

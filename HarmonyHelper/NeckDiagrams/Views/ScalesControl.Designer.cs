@@ -1,4 +1,4 @@
-﻿namespace NeckDiagrams.Feature_Controls
+﻿namespace NeckDiagrams.Views
 {
     partial class ScalesControl
     {
