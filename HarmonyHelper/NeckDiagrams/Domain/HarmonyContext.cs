@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
+using Eric.Morrison.Harmony.Scales;
+
 using HarmonyHelper.IoC;
 
 namespace NeckDiagrams
 {
 
-	public abstract class HarmonyContext : IHarmonyContext
-	{
-		public event EventHandler<HarmonyContext> ModelChanged;
-
+	public abstract class HarmonyContext<T> : IHarmonyContext<T>, INoteNameContainer where T: INoteNameContainer
+    {
         KeySignature _KeySignature;
 
 		#region Properties
-		public List<HarmonyModelItem> Items { get; set; } = new List<HarmonyModelItem>();
 
 		public KeySignature? KeySignature
 		{
@@ -23,7 +22,6 @@ namespace NeckDiagrams
 			set
 			{
 				this._KeySignature = value;
-				this.OnModelChanged();
 			}
 		}
 
@@ -31,94 +29,64 @@ namespace NeckDiagrams
 		{
 			get
 			{
-				var result = this.NormalizeNoteNames();
+				var result = this.Value.NoteNames;
+				//var result = this.NormalizeNoteNames();
 				return result;
 			}
 		}
 
-		public bool IsValid
-		{
-			get
-			{
-				var result = this.Items.Any(x => x.IsValid == false);
-				if (!result)
-				{
-					if (null != this.KeySignature)
-					{
-						if (null != this.NoteNames && this.NoteNames.Count > 0)
-						{
-							result = true;
-						}
-					}
-				}
-				return result;
-			}
-		}
+		public T Value { get; private set; }
 
         #endregion
 
         #region Construction
         protected HarmonyContext()
         {
-            Container.Register<IHarmonyContext>(this);
+            Container.Register<IHarmonyContext<T>>(this);
         }
-        public HarmonyContext(KeySignature key) : this()
+        public HarmonyContext(T t) : this()
 		{
-			this.KeySignature = key;
+			this.Value = t;
 		}
 
 		#endregion
 
-		List<NoteName> NormalizeNoteNames()
-		{
-			throw new NotImplementedException();
-			var nns = new HashSet<NoteName>();
-			foreach (var item in this.Items)
-			{
-				item.NoteNames.ForEach(x => nns.Add(x));
-			}
+		//List<NoteName> NormalizeNoteNames()
+		//{
+		//	throw new NotImplementedException();
+		//	var nns = new HashSet<NoteName>();
+		//	foreach (var item in this.Items)
+		//	{
+		//		item.NoteNames.ForEach(x => nns.Add(x));
+		//	}
 
-			var result = nns.ToList();
-			if (null != result && null != this.KeySignature)
-			{
-				//this.KeySignature.Normalize(ref result);
-			}
-			return result;
-		}
+		//	var result = nns.ToList();
+		//	if (null != result && null != this.KeySignature)
+		//	{
+		//		//this.KeySignature.Normalize(ref result);
+		//	}
+		//	return result;
+		//}
 
-		void OnModelChanged()
-		{
-			if (null != this.ModelChanged)
-				this.ModelChanged(this, this);
-		}
-
-		internal void Add(HarmonyModelItem item)
-		{
-			this.Items.Add(item);
-			item.ModelItemChanged += this.Item_ModelItemChanged;
-			this.OnModelChanged();
-		}
-
-		private void Item_ModelItemChanged(object sender, HarmonyModelItem e)
-		{
-			this.OnModelChanged();
-		}
 	}//class
 
-    public class ScaleHarmonyModel : HarmonyContext
+    public class ScaleHarmonyContext : HarmonyContext<ScaleFormulaBase>
     {
-        public ScaleHarmonyModel(KeySignature key) : base(key)
+        public ScaleHarmonyContext(ScaleFormulaBase sf) : base(sf)
         {
         }
     }
 
-    public class ChordFormulaContext : HarmonyContext
+    public class ChordFormulaContext : HarmonyContext<ChordFormula>
     {
-        public ChordFormula ChordFormula { get; set; }
-		public ChordFormulaContext(ChordFormula cf, KeySignature key = null) : base(key)
+		public ChordFormulaContext(ChordFormula cf, KeySignature key = null) : base(cf)
         {
-			this.ChordFormula = cf;
         }
+    }
+
+    public class junk : INoteNameContainer
+    {
+        public List<NoteName> NoteNames { get; }
     }
 
 }//ns

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ctlNeck = new NeckControl();
+            ctlNeck = new NeckControl<ChordFormulaContext>();
             pnlTop = new System.Windows.Forms.Panel();
+            guitarStringsControl1 = new NeckDiagrams.Controls.GuitarStringsControl();
             ctlChordTypeSelectorControl = new ChordTypeSelectorControl();
-            comboNoteNameComboBox = new NoteNameComboBox();
             pnlTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,36 +40,37 @@
             ctlNeck.Location = new System.Drawing.Point(275, 139);
             ctlNeck.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             ctlNeck.Name = "ctlNeck";
-            ctlNeck.Size = new System.Drawing.Size(1368, 597);
+            ctlNeck.Size = new System.Drawing.Size(1368, 310);
             ctlNeck.TabIndex = 0;
             // 
             // pnlTop
             // 
+            pnlTop.Controls.Add(guitarStringsControl1);
             pnlTop.Controls.Add(ctlChordTypeSelectorControl);
-            pnlTop.Controls.Add(comboNoteNameComboBox);
             pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             pnlTop.Location = new System.Drawing.Point(0, 0);
             pnlTop.Name = "pnlTop";
             pnlTop.Size = new System.Drawing.Size(1915, 87);
             pnlTop.TabIndex = 1;
             // 
+            // guitarStringsControl1
+            // 
+            guitarStringsControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            guitarStringsControl1.Location = new System.Drawing.Point(1241, 0);
+            guitarStringsControl1.Name = "guitarStringsControl1";
+            guitarStringsControl1.Size = new System.Drawing.Size(674, 87);
+            guitarStringsControl1.TabIndex = 2;
+            // 
             // ctlChordTypeSelectorControl
             // 
-            ctlChordTypeSelectorControl.Location = new System.Drawing.Point(545, 36);
+            ctlChordTypeSelectorControl.Dock = System.Windows.Forms.DockStyle.Left;
+            ctlChordTypeSelectorControl.Location = new System.Drawing.Point(0, 0);
             ctlChordTypeSelectorControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             ctlChordTypeSelectorControl.Name = "ctlChordTypeSelectorControl";
             ctlChordTypeSelectorControl.NoteName = null;
             ctlChordTypeSelectorControl.SelectedItem = null;
-            ctlChordTypeSelectorControl.Size = new System.Drawing.Size(376, 32);
+            ctlChordTypeSelectorControl.Size = new System.Drawing.Size(376, 87);
             ctlChordTypeSelectorControl.TabIndex = 1;
-            // 
-            // comboNoteNameComboBox
-            // 
-            comboNoteNameComboBox.Location = new System.Drawing.Point(282, 31);
-            comboNoteNameComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            comboNoteNameComboBox.Name = "comboNoteNameComboBox";
-            comboNoteNameComboBox.Size = new System.Drawing.Size(200, 32);
-            comboNoteNameComboBox.TabIndex = 0;
             // 
             // ChordShapeControl
             // 
@@ -86,9 +87,10 @@
 
         #endregion
 
-        private NeckControl ctlNeck;
+        private NeckControl<ChordFormulaContext> ctlNeck;
         private System.Windows.Forms.Panel pnlTop;
-        private NoteNameComboBox comboNoteNameComboBox;
         private ChordTypeSelectorControl ctlChordTypeSelectorControl;
+        private Controls.GuitarStringsControl guitarStringsControl1;
     }
 }
+

@@ -13,34 +13,19 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams
 {
-    public partial class NeckControl : UserControl
+    public partial class NeckControl<T> : UserControl where T : INoteNameContainer
     {
-        //List<NoteRange> NoteRanges { get; set; } = new List<NoteRange>();
-        List<GuitarStringModel> GuitarStrings { get; set; } = new List<GuitarStringModel>();
+        GuitarStringCollection GuitarStrings { get; set; }
         Scale MusicalScale { get; set; }
         public PrintDocument PrintDocument { get { return this.printDocument; } }
-        //[Obsolete("")]
-        //HarmonyContext _Model { get; set; } = null;
-        //HarmonyContext Model
-        //{
-        //    get { return this._Model; }
-        //    set
-        //    {
-        //        if (null != this._Model)
-        //            value.ModelChanged -= ModelChanged_Handler;
-        //        this._Model = value;
-        //        value.ModelChanged += ModelChanged_Handler;
-        //    }
-        //}
-
 
         public NeckControl()
         {
             InitializeComponent();
+            this.GuitarStrings = GuitarStringCollection.LoadSettingsOrDefault();
+
             this.Load += this.NeckControl_Load;
             this.Layout += this.NeckControl_Layout;
-            //this.Model = HarmonyHelper.IoC.Container.Resolve<IHarmonyContext>() as HarmonyContext;
-            //this.Model.ModelChanged += ModelChanged_Handler;
         }
 
         private void NeckControl_Load(object sender, EventArgs e)
@@ -50,45 +35,19 @@ namespace NeckDiagrams
                 //this.Model.ModelChanged += this.ModelChanged_Handler;
 
                 this.Controls.Clear();
-                var ctls = new List<StringControl>();
+                var ctls = new List<StringControl<T>>();
 
-                var string1 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.E, OctaveEnum.Octave3),
-                    new Note(NoteName.E, OctaveEnum.Octave4)));
-
-                var string2 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.B, OctaveEnum.Octave3),
-                    new Note(NoteName.B, OctaveEnum.Octave4)));
-
-                var string3 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.G, OctaveEnum.Octave2),
-                    new Note(NoteName.G, OctaveEnum.Octave3)));
-
-                var string4 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.D, OctaveEnum.Octave2),
-                    new Note(NoteName.D, OctaveEnum.Octave3)));
-
-                var string5 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.A, OctaveEnum.Octave1),
-                    new Note(NoteName.A, OctaveEnum.Octave2)));
-
-                var string6 = new GuitarStringModel(new NoteRange(
-                    new Note(NoteName.E, OctaveEnum.Octave1),
-                    new Note(NoteName.E, OctaveEnum.Octave2)));
-
-                this.GuitarStrings = new List<GuitarStringModel>()
-                { string1, string2, string3, string4, string5, string6 };
-
-                for (int i = 0; i < this.GuitarStrings.Count; ++i)
+                foreach (var gs in this.GuitarStrings.Dictionary.Values)
                 {
-                    var gString = this.GuitarStrings[i];
-                    gString.GuitarStringChanged += String_GuitarStringChanged;
-                    var ctl = new StringControl(i, gString, new List<NoteName>());
+                    gs.GuitarStringChanged += String_GuitarStringChanged;
+                    var ctl = new StringControl<T>(gs);
                     ctl.Dock = DockStyle.Top;
-                    ctls.Insert(0, ctl);
+                    //ctls.Insert(0, ctl);
+                    ctls.Add(ctl);
                 }
 
                 this.Controls.AddRange(ctls.ToArray());
+
                 this.PerformLayout();
             }
         }
@@ -100,7 +59,7 @@ namespace NeckDiagrams
 
         public void SetChord(ChordFormula cf)
         {
-            foreach (var gs in this.GuitarStrings)
+            foreach (var gs in this.GuitarStrings.Dictionary.Values)
             {
                 gs.ActiveNotes = cf.NoteNames;
             }
@@ -132,7 +91,7 @@ namespace NeckDiagrams
             }
         }
 
-        public void ModelChanged_Handler(object sender, HarmonyContext model)
+        public void ModelChanged_Handler(object sender, HarmonyContext<T> model)
         {
             new object();
             this.Refresh();

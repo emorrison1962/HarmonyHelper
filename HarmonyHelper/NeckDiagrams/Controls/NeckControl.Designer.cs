@@ -1,7 +1,7 @@
 ﻿
 namespace NeckDiagrams
 {
-	partial class NeckControl
+	partial class NeckControl<T>
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -21,122 +21,122 @@ namespace NeckDiagrams
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.printDocument = new System.Drawing.Printing.PrintDocument();
-            this.pnlNeck = new System.Windows.Forms.Panel();
-            this.pnlTop = new System.Windows.Forms.Panel();
-            this.pnlKey = new System.Windows.Forms.Panel();
-            this._bnAddItem = new System.Windows.Forms.Button();
-            this.lblKey = new System.Windows.Forms.Label();
-            this._cbKey = new System.Windows.Forms.ComboBox();
-            this.pnlNeck.SuspendLayout();
-            this.pnlTop.SuspendLayout();
-            this.pnlKey.SuspendLayout();
-            this.SuspendLayout();
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            printDocument = new System.Drawing.Printing.PrintDocument();
+            pnlNeck = new System.Windows.Forms.Panel();
+            pnlTop = new System.Windows.Forms.Panel();
+            pnlKey = new System.Windows.Forms.Panel();
+            _bnAddItem = new System.Windows.Forms.Button();
+            lblKey = new System.Windows.Forms.Label();
+            _cbKey = new System.Windows.Forms.ComboBox();
+            pnlNeck.SuspendLayout();
+            pnlTop.SuspendLayout();
+            pnlKey.SuspendLayout();
+            SuspendLayout();
             // 
             // printDocument
             // 
-            this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
-            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
-            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
-            this.printDocument.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument_QueryPageSettings);
+            printDocument.BeginPrint += printDocument_BeginPrint;
+            printDocument.EndPrint += printDocument_EndPrint;
+            printDocument.PrintPage += printDocument_PrintPage;
+            printDocument.QueryPageSettings += printDocument_QueryPageSettings;
             // 
             // pnlNeck
             // 
-            this.pnlNeck.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlNeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlNeck.Controls.Add(this.pnlTop);
-            this.pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlNeck.Location = new System.Drawing.Point(0, 0);
-            this.pnlNeck.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.pnlNeck.Name = "pnlNeck";
-            this.pnlNeck.Padding = new System.Windows.Forms.Padding(40, 39, 40, 39);
-            this.pnlNeck.Size = new System.Drawing.Size(1710, 746);
-            this.pnlNeck.TabIndex = 4;
+            pnlNeck.BackColor = System.Drawing.SystemColors.Control;
+            pnlNeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            pnlNeck.Controls.Add(pnlTop);
+            pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlNeck.Location = new System.Drawing.Point(0, 0);
+            pnlNeck.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlNeck.Name = "pnlNeck";
+            pnlNeck.Padding = new System.Windows.Forms.Padding(32, 31, 32, 31);
+            pnlNeck.Size = new System.Drawing.Size(1368, 334);
+            pnlNeck.TabIndex = 4;
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlTop.Controls.Add(this.pnlKey);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Location = new System.Drawing.Point(40, 39);
-            this.pnlTop.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.pnlTop.MinimumSize = new System.Drawing.Size(1600, 192);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1626, 192);
-            this.pnlTop.TabIndex = 2;
+            pnlTop.BackColor = System.Drawing.SystemColors.Control;
+            pnlTop.Controls.Add(pnlKey);
+            pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlTop.Location = new System.Drawing.Point(32, 31);
+            pnlTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlTop.MinimumSize = new System.Drawing.Size(1280, 154);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Size = new System.Drawing.Size(1300, 154);
+            pnlTop.TabIndex = 2;
             // 
             // pnlKey
             // 
-            this.pnlKey.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlKey.Controls.Add(this._bnAddItem);
-            this.pnlKey.Controls.Add(this.lblKey);
-            this.pnlKey.Controls.Add(this._cbKey);
-            this.pnlKey.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlKey.Location = new System.Drawing.Point(0, 0);
-            this.pnlKey.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.pnlKey.Name = "pnlKey";
-            this.pnlKey.Size = new System.Drawing.Size(400, 192);
-            this.pnlKey.TabIndex = 1;
+            pnlKey.BackColor = System.Drawing.SystemColors.Control;
+            pnlKey.Controls.Add(_bnAddItem);
+            pnlKey.Controls.Add(lblKey);
+            pnlKey.Controls.Add(_cbKey);
+            pnlKey.Dock = System.Windows.Forms.DockStyle.Left;
+            pnlKey.Location = new System.Drawing.Point(0, 0);
+            pnlKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlKey.Name = "pnlKey";
+            pnlKey.Size = new System.Drawing.Size(320, 154);
+            pnlKey.TabIndex = 1;
             // 
             // _bnAddItem
             // 
-            this._bnAddItem.Location = new System.Drawing.Point(212, 100);
-            this._bnAddItem.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this._bnAddItem.Name = "_bnAddItem";
-            this._bnAddItem.Size = new System.Drawing.Size(149, 44);
-            this._bnAddItem.TabIndex = 6;
-            this._bnAddItem.Text = "+";
-            this._bnAddItem.UseVisualStyleBackColor = true;
+            _bnAddItem.Location = new System.Drawing.Point(170, 80);
+            _bnAddItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            _bnAddItem.Name = "_bnAddItem";
+            _bnAddItem.Size = new System.Drawing.Size(119, 35);
+            _bnAddItem.TabIndex = 6;
+            _bnAddItem.Text = "+";
+            _bnAddItem.UseVisualStyleBackColor = true;
             // 
             // lblKey
             // 
-            this.lblKey.AutoSize = true;
-            this.lblKey.Location = new System.Drawing.Point(37, 52);
-            this.lblKey.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblKey.Name = "lblKey";
-            this.lblKey.Size = new System.Drawing.Size(44, 25);
-            this.lblKey.TabIndex = 5;
-            this.lblKey.Text = "Key:";
-            this.lblKey.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            lblKey.AutoSize = true;
+            lblKey.Location = new System.Drawing.Point(30, 42);
+            lblKey.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblKey.Name = "lblKey";
+            lblKey.Size = new System.Drawing.Size(36, 20);
+            lblKey.TabIndex = 5;
+            lblKey.Text = "Key:";
+            lblKey.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // _cbKey
             // 
-            this._cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._cbKey.FormattingEnabled = true;
-            this._cbKey.Location = new System.Drawing.Point(120, 49);
-            this._cbKey.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this._cbKey.Name = "_cbKey";
-            this._cbKey.Size = new System.Drawing.Size(239, 33);
-            this._cbKey.TabIndex = 4;
+            _cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            _cbKey.FormattingEnabled = true;
+            _cbKey.Location = new System.Drawing.Point(96, 39);
+            _cbKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            _cbKey.Name = "_cbKey";
+            _cbKey.Size = new System.Drawing.Size(192, 28);
+            _cbKey.TabIndex = 4;
             // 
             // NeckControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlNeck);
-            this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.Name = "NeckControl";
-            this.Size = new System.Drawing.Size(1710, 746);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.NeckControl_MouseMove);
-            this.pnlNeck.ResumeLayout(false);
-            this.pnlTop.ResumeLayout(false);
-            this.pnlKey.ResumeLayout(false);
-            this.pnlKey.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(pnlNeck);
+            Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            Name = "NeckControl";
+            Size = new System.Drawing.Size(1368, 334);
+            MouseMove += NeckControl_MouseMove;
+            pnlNeck.ResumeLayout(false);
+            pnlTop.ResumeLayout(false);
+            pnlKey.ResumeLayout(false);
+            pnlKey.PerformLayout();
+            ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Drawing.Printing.PrintDocument printDocument;
+        private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.Panel pnlNeck;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlKey;

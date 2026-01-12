@@ -1,8 +1,10 @@
 ﻿
+using Eric.Morrison.Harmony;
+
 namespace NeckDiagrams
 {
-	partial class NewHarmonyItemDialog
-	{
+	partial class NewHarmonyItemDialog<T> where T : INoteNameContainer
+    {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -32,7 +34,7 @@ namespace NeckDiagrams
 			this.bnPanel = new System.Windows.Forms.Panel();
 			this._bnCancel = new System.Windows.Forms.Button();
 			this._bnOk = new System.Windows.Forms.Button();
-			this.modelItemControl = new NeckDiagrams.ModelItemControl();
+			this.modelItemControl = new NeckDiagrams.ModelItemControl<T>();
 			this.bnPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -99,6 +101,6 @@ namespace NeckDiagrams
 		private System.Windows.Forms.Panel bnPanel;
 		private System.Windows.Forms.Button _bnCancel;
 		private System.Windows.Forms.Button _bnOk;
-		private ModelItemControl modelItemControl;
+		private ModelItemControl<T> modelItemControl;
 	}
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
 
 using NeckDiagrams.Domain;
 #if false
@@ -19,21 +20,22 @@ scale
 
 namespace NeckDiagrams
 {
-    public partial class StringPositionControl : UserControl
+    public partial class StringPositionControl<T> : UserControl where T : INoteNameContainer
     {
+        const int CX_ELLIPSE = 20;
+        const int CY_ELLIPSE = 20;
+
         #region Properties
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Note Note { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int Position { get; set; }
+        public Note Note { get; private set; }
+        int Position { get; set; }
         const int NUT = 0;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsActive { get; set; }
         public bool IsRoot { get; private set; }
 
-        private NoteTypeEnum NoteType { get { return this.Context.NoteType; } }
-        StringPositionContext Context { get; set; }
-        HarmonyContext Model { get { return HarmonyHelper.IoC.Container.Resolve<HarmonyContext>(); } }
+        StringPositionContext StringPositionContext { get; set; }
+        private NoteTypeEnum NoteType { get { return this.StringPositionContext.NoteType; } }
+        HarmonyContext<T> Model { get { return HarmonyHelper.IoC.Container.Resolve<HarmonyContext<T>>(); } }
 
         #endregion
 
@@ -42,7 +44,7 @@ namespace NeckDiagrams
         {
             if (ctx == null || !ctx.IsValid)
                 throw new ArgumentException(nameof(ctx));
-            this.Context = ctx;
+            this.StringPositionContext = ctx;
             InitializeComponent();
             this.Note = ctx.Note;
             this.Position = ctx.Position;
@@ -67,15 +69,16 @@ namespace NeckDiagrams
 
         #endregion
 
-        public void ModelChanged_Handler(object sender, HarmonyContext model)
+        public void ModelChanged_Handler(object sender, HarmonyContext<T> model)
         {
             if (null != this.Note)
             {
-                if (model.Items.Any(x => x.Root == this.Note.NoteName))
+                ChordFormula  cf = (dynamic)model;
+                if (cf.Root == this.Note.NoteName)
                 {
                     this.IsRoot = true;
                 }
-                else if (model.Items.Any(x => x.NoteNames.Contains(this.Note.NoteName)))
+                else if (cf.NoteNames.Any(x => x == this.Note.NoteName))
                 {
                     this.Refresh();
                 }
@@ -150,12 +153,28 @@ namespace NeckDiagrams
             }
         }
 
-        private void DrawString(PaintEventArgs e)
+        private void DrawText(PaintEventArgs e)
         {
+            var cxFret = this.Width / 2;
             var cyString = this.Height / 2;
-            var p1 = new Point(0, cyString);
-            var p2 = new Point(this.Width, cyString);
-            e.Graphics.DrawLine(Pens.Black, p1, p2);
+
+            var cxText = cxFret - 25;
+            var cyText = cyString - 25;
+
+            var xCenter = CX_ELLIPSE;
+            var yCenter = this.Height / 2;
+
+            var x = (xCenter - CX_ELLIPSE / 2) - 10;
+            var y = (yCenter - CY_ELLIPSE / 2) - 10;
+
+
+            using (var font = new Font(FontFamily.GenericMonospace, 11))
+            {
+                e.Graphics.DrawString($"{this.Note.ToString()}",
+                    font,
+                    Brushes.Black,
+                    new Point(x, y));
+            }
         }
 
         private void DrawFrets(PaintEventArgs e)
@@ -167,7 +186,7 @@ namespace NeckDiagrams
             Rectangle rcNut = Rectangle.Empty;
             List<Point> fretPoints = null;
 
-            if ((this.Parent as StringControl)?.StringNumber == 0)
+            if ((this.Parent as StringControl<T>)?.StringNumber == 5)
             {
                 if (this.Position == NUT)
                 {
@@ -182,7 +201,7 @@ namespace NeckDiagrams
                         new Point(cxFret, this.Height)};
                 }
             }
-            else if ((this.Parent as StringControl)?.StringNumber == 5)
+            else if ((this.Parent as StringControl<T>)?.StringNumber == 0)
             {
                 if (this.Position == NUT)
                 {
@@ -228,77 +247,12 @@ namespace NeckDiagrams
 
         }
 
-        void Debug_DrawBoundary(PaintEventArgs e)
+        private void DrawString(PaintEventArgs e)
         {
-            var rcBoundary = new Rectangle(
-                new Point(0, 0),
-                new Size(5, this.Height));
-            e.Graphics.FillRectangle(Brushes.Blue, rcBoundary);
-            rcBoundary = new Rectangle(
-                new Point(this.Width - 5, 0),
-                new Size(5, this.Height));
-            e.Graphics.FillRectangle(Brushes.Red, rcBoundary);
-
-
-            e.Graphics.DrawLine(Pens.Magenta,
-                new Point(this.Width / 2, 0),
-                new Point(this.Width / 2, this.Height));
-            ////left
-            //e.Graphics.DrawLine(Pens.Magenta,
-            //	new Point(2, 2),
-            //	new Point(2, this.Height));
-            ////right
-            //e.Graphics.DrawLine(Pens.Magenta,
-            //	new Point(this.Width, 2),
-            //	new Point(this.Width, this.Height));
-            //// top
-            //e.Graphics.DrawLine(Pens.Magenta,
-            //	new Point(2, 2),
-            //	new Point(2, this.Width));
-            //// bottom
-            //e.Graphics.DrawLine(Pens.Magenta,
-            //	new Point(this.Height, 2),
-            //	new Point(this.Height, this.Width));
-
-        }
-
-        private void DrawText(PaintEventArgs e)
-        {
-            var cxFret = this.Width / 2;
             var cyString = this.Height / 2;
-
-            var cxText = cxFret - 25;
-            var cyText = cyString - 25;
-
-            var xCenter = CX_ELLIPSE;
-            var yCenter = this.Height / 2;
-
-            var x = (xCenter - CX_ELLIPSE / 2) - 10;
-            var y = (yCenter - CY_ELLIPSE / 2) - 10;
-
-
-            using (var font = new Font(FontFamily.GenericMonospace, 11))
-            {
-                e.Graphics.DrawString($"{this.Note.ToString()}",
-                    font,
-                    Brushes.Black,
-                    new Point(x, y));
-            }
-        }
-
-        private static void DrawYinYang(Graphics gr, int xctr, int yctr, int rmax, int rint, int ysmall, int rsmall)
-        {
-            Brush white = Brushes.White;
-            Brush black = Brushes.Black;
-            Pen BlackPen = new Pen(Color.Black, 2 * (rmax - rint));
-
-            gr.FillPie(black, xctr - rmax, yctr - rmax, 2 * rmax, 2 * rmax, -90, 180);
-            gr.FillEllipse(black, xctr - rint / 2, yctr - rint, rint, rint);
-            gr.FillEllipse(black, xctr - rint / 2, yctr, rint, rint);
-            gr.FillEllipse(black, xctr - rsmall, yctr + ysmall - rsmall, 2 * rsmall, 2 * rsmall);
-            gr.FillEllipse(black, xctr - rsmall, yctr - ysmall - rsmall, 2 * rsmall, 2 * rsmall);
-            double rcircle = (rmax + rint) / 2.0;
-            gr.DrawEllipse(BlackPen, (float)(xctr - rcircle), (float)(yctr - rcircle), (float)(2 * rcircle), (float)(2 * rcircle));
+            var p1 = new Point(0, cyString);
+            var p2 = new Point(this.Width, cyString);
+            e.Graphics.DrawLine(Pens.Black, p1, p2);
         }
 
         private void DrawActiveDot(PaintEventArgs e)
@@ -344,21 +298,72 @@ namespace NeckDiagrams
             }
         }
 
-        const int CX_ELLIPSE = 20;
-        const int CY_ELLIPSE = 20;
+        void Debug_DrawBoundary(PaintEventArgs e)
+        {
+            var rcBoundary = new Rectangle(
+                new Point(0, 0),
+                new Size(5, this.Height));
+            e.Graphics.FillRectangle(Brushes.Blue, rcBoundary);
+            rcBoundary = new Rectangle(
+                new Point(this.Width - 5, 0),
+                new Size(5, this.Height));
+            e.Graphics.FillRectangle(Brushes.Red, rcBoundary);
+
+
+            e.Graphics.DrawLine(Pens.Magenta,
+                new Point(this.Width / 2, 0),
+                new Point(this.Width / 2, this.Height));
+            ////left
+            //e.Graphics.DrawLine(Pens.Magenta,
+            //	new Point(2, 2),
+            //	new Point(2, this.Height));
+            ////right
+            //e.Graphics.DrawLine(Pens.Magenta,
+            //	new Point(this.Width, 2),
+            //	new Point(this.Width, this.Height));
+            //// top
+            //e.Graphics.DrawLine(Pens.Magenta,
+            //	new Point(2, 2),
+            //	new Point(2, this.Width));
+            //// bottom
+            //e.Graphics.DrawLine(Pens.Magenta,
+            //	new Point(this.Height, 2),
+            //	new Point(this.Height, this.Width));
+
+        }
+        
+        static void DrawYinYang(Graphics gr, int xctr, int yctr, int rmax, int rint, int ysmall, int rsmall)
+        {
+            Brush white = Brushes.White;
+            Brush black = Brushes.Black;
+            Pen BlackPen = new Pen(Color.Black, 2 * (rmax - rint));
+
+            gr.FillPie(black, xctr - rmax, yctr - rmax, 2 * rmax, 2 * rmax, -90, 180);
+            gr.FillEllipse(black, xctr - rint / 2, yctr - rint, rint, rint);
+            gr.FillEllipse(black, xctr - rint / 2, yctr, rint, rint);
+            gr.FillEllipse(black, xctr - rsmall, yctr + ysmall - rsmall, 2 * rsmall, 2 * rsmall);
+            gr.FillEllipse(black, xctr - rsmall, yctr - ysmall - rsmall, 2 * rsmall, 2 * rsmall);
+            double rcircle = (rmax + rint) / 2.0;
+            gr.DrawEllipse(BlackPen, (float)(xctr - rcircle), (float)(yctr - rcircle), (float)(2 * rcircle), (float)(2 * rcircle));
+        }
 
         Brush CreateBrush()
         {
             return new SolidBrush(Color.Black);
         }
+
+#if false        
         Brush CreateBrush_old()
         {
-            var items = this.Model.Items
-                .Where(mi => mi.NoteNames.Contains(this.Note.NoteName))
+            var items = this.Model.NoteNames
+                .Where(x => x == this.Note.NoteName)
                 .ToList();
             if (items.Count == 1)
             {
-                return new SolidBrush(items[0].Color);
+
+#warning FIXME
+                //return new SolidBrush(items[0].Color);
+                this.CreateBrush();
             }
 
             var colors = items.Select(mi => mi.Color).ToList();
@@ -409,7 +414,7 @@ namespace NeckDiagrams
             return result;
 
         }
-
+#endif
         #endregion
 
     }//class

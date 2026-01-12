@@ -21,43 +21,46 @@ namespace NeckDiagrams
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this._cbNoteName = new System.Windows.Forms.ComboBox();
-			this.SuspendLayout();
-			// 
-			// _cbNoteName
-			// 
-			this._cbNoteName.Dock = System.Windows.Forms.DockStyle.Top;
-			this._cbNoteName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this._cbNoteName.DropDownWidth = 300;
-			this._cbNoteName.FormattingEnabled = true;
-			this._cbNoteName.Location = new System.Drawing.Point(0, 0);
-			this._cbNoteName.MaxDropDownItems = 100;
-			this._cbNoteName.Name = "_cbNoteName";
-			this._cbNoteName.Size = new System.Drawing.Size(150, 21);
-			this._cbNoteName.TabIndex = 16;
-			this._cbNoteName.SelectedValueChanged += new System.EventHandler(this._cbNoteName_SelectedValueChanged);
-			// 
-			// NoteNameComboBox
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this._cbNoteName);
-			this.Name = "NoteNameComboBox";
-			this.Size = new System.Drawing.Size(150, 21);
-			this.ResumeLayout(false);
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            _cbNoteName = new System.Windows.Forms.ComboBox();
+            SuspendLayout();
+            // 
+            // _cbNoteName
+            // 
+            _cbNoteName.Dock = System.Windows.Forms.DockStyle.Top;
+            _cbNoteName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            _cbNoteName.DropDownWidth = 300;
+            _cbNoteName.FormattingEnabled = true;
+            _cbNoteName.Location = new System.Drawing.Point(0, 0);
+            _cbNoteName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            _cbNoteName.MaxDropDownItems = 100;
+            _cbNoteName.Name = "_cbNoteName";
+            _cbNoteName.Size = new System.Drawing.Size(200, 28);
+            _cbNoteName.TabIndex = 16;
+            _cbNoteName.SelectedValueChanged += _cbNoteName_SelectedValueChanged;
+            // 
+            // NoteNameComboBox
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(_cbNoteName);
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            MinimumSize = new System.Drawing.Size(0, 32);
+            Name = "NoteNameComboBox";
+            Size = new System.Drawing.Size(200, 32);
+            ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ComboBox _cbNoteName;
+        private System.Windows.Forms.ComboBox _cbNoteName;
 	}
 }

@@ -1,11 +1,15 @@
-﻿using Eric.Morrison.Harmony.Intervals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
-using static Eric.Morrison.Harmony.NoteName;
+using Eric.Morrison.Harmony.Intervals;
+
+using Newtonsoft.Json;
+
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static Eric.Morrison.Harmony.NoteName;
 
 namespace Eric.Morrison.Harmony
 {
@@ -28,7 +32,8 @@ namespace Eric.Morrison.Harmony
         #region Properties
         public int SortOrder { get { return 5; } }
 
-        public NoteName NoteName { get; private set; }
+        [JsonProperty] 
+		public NoteName NoteName { get; private set; }
 
 		public OctaveEnum Octave { get; set; }
 
@@ -74,17 +79,25 @@ namespace Eric.Morrison.Harmony
 
 		public override string ToString()
 		{
-			//var result = this.NoteName.ToString();
-			string octaveNum = string.Empty;
+            const string ZERO = "0";
+            const string ONE = "1";
+            const string TWO = "2";
+            const string THREE = "3";
+            const string FOUR = "4";
+            const string FIVE = "5";
+            const string SIX = "6";
+
+            //var result = this.NoteName.ToString();
+            string octaveNum = string.Empty;
 			switch (this.Octave)
 			{
-				case OctaveEnum.Octave0: { octaveNum = SuperScript.ZERO; break; }
-				case OctaveEnum.Octave1: { octaveNum = SuperScript.ONE; break; }
-				case OctaveEnum.Octave2: { octaveNum = SuperScript.TWO; break; }
-				case OctaveEnum.Octave3: { octaveNum = SuperScript.THREE; break; }
-				case OctaveEnum.Octave4: { octaveNum = SuperScript.FOUR; break; }
-				case OctaveEnum.Octave5: { octaveNum = SuperScript.FIVE; break; }
-				case OctaveEnum.Octave6: { octaveNum = SuperScript.SIX; break; }
+				case OctaveEnum.Octave0: { octaveNum = ZERO; break; }
+				case OctaveEnum.Octave1: { octaveNum = ONE; break; }
+				case OctaveEnum.Octave2: { octaveNum = TWO; break; }
+				case OctaveEnum.Octave3: { octaveNum = THREE; break; }
+				case OctaveEnum.Octave4: { octaveNum = FOUR; break; }
+				case OctaveEnum.Octave5: { octaveNum = FIVE; break; }
+				case OctaveEnum.Octave6: { octaveNum = SIX; break; }
 				default: 
 					{
 						throw new NotImplementedException();

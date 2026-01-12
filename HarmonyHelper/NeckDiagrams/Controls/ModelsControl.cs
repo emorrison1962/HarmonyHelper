@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Eric.Morrison.Harmony;
+
 namespace NeckDiagrams
 {
 	[Obsolete("", true)]
-	public partial class ModelsControl : UserControl
-	{
-		HarmonyContext Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyContext>() as HarmonyContext; } }
+	public partial class ModelsControl<T> : UserControl where T : INoteNameContainer
+    {
+		HarmonyContext<T> Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyContext<junk>>() as HarmonyContext<T>; } }
 
 		public ModelsControl()
 		{
@@ -25,17 +27,6 @@ namespace NeckDiagrams
 		{
 			if (!DesignMode)
 			{
-				this.Model.ModelChanged += this.ModelChanged_Handler;
-			}
-		}
-
-		public void ModelChanged_Handler(object sender, HarmonyContext model)
-		{
-			this.itemsPanel.Controls.Clear();
-			foreach (var item in model.Items)
-			{
-				var control = new ModelItemControl(item);
-				this.itemsPanel.Controls.Add(control);
 			}
 		}
 

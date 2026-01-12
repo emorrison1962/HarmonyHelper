@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NeckDiagrams
 {
-	partial class StringControl
+	partial class StringControl<T>
 	{
 		/// <summary> 
 		/// Required designer variable.

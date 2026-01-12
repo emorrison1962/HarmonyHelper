@@ -13,44 +13,41 @@ using NeckDiagrams.Domain;
 
 namespace NeckDiagrams
 {
-    public partial class StringControl : UserControl
+    public partial class StringControl<T> : UserControl where T : INoteNameContainer
     {
         const int FRET_COUNT = 13;
-        NoteRange NoteRange { get { return StringModel.NoteRange; } }
+
+        #region Properties
         GuitarStringModel _StringModel;
         GuitarStringModel StringModel
         {
             get { return this._StringModel; }
-            set { this._StringModel = value;
-                value.GuitarStringChanged += GuitarStringChanged; }
+            set
+            {
+                this._StringModel = value;
+                value.GuitarStringChanged += GuitarStringChanged;
+            }
         }
-
-        private void GuitarStringChanged(object sender, GuitarStringModel e)
-        {
-            this.UpdatePositions();
-            this.Refresh();
-        }
-
+        NoteRange NoteRange { get { return StringModel.NoteRange; } }
         List<NoteName> ActiveNotes { get { return StringModel?.ActiveNotes; } }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int StringNumber { get; set; }
-        [Obsolete("", true)]
-        HarmonyContext Model { get { return HarmonyHelper.IoC.Container.Resolve<IHarmonyContext>() as HarmonyContext; } }
+        public int StringNumber { get { return (int)StringModel.GuitarStringNdx; } }
 
+        #endregion
+
+        #region Construction
         StringControl()
         {
             InitializeComponent();
             this.Load += this.StringControl_Load;
             this.Layout += this.StringControl_Layout;
         }
-        public StringControl(int stringNum, GuitarStringModel gsModel, List<NoteName> activeNotes)
+        public StringControl(GuitarStringModel gsModel)
             : this()
         {
-            this.StringNumber = stringNum;
             this.StringModel = gsModel;
-            Debug.Assert(activeNotes.Count == 0);
         }
 
+        #endregion
 
         private void StringControl_Load(object sender, EventArgs e)
         {
@@ -65,7 +62,7 @@ namespace NeckDiagrams
                 for (int i = 0; i < FRET_COUNT; ++i)
                 {
                     var note = this.NoteRange.Notes.NextOrFirst(i);
-                    var ctl = new StringPositionControl(new StringPositionContext(i, note));
+                    var ctl = new StringPositionControl<T>(new StringPositionContext(i, note));
                     ctl.Dock = DockStyle.Left;
                     ctls.Insert(0, ctl);
                 }
@@ -78,7 +75,7 @@ namespace NeckDiagrams
 
         private void UpdatePositions()
         {
-            var ctls = this.Controls.Cast<StringPositionControl>();
+            var ctls = this.Controls.Cast<StringPositionControl<T>>();
             foreach (var ctl in ctls)
             {
                 ctl.IsActive = this.ActiveNotes.Contains(ctl.Note.NoteName);
@@ -95,7 +92,7 @@ namespace NeckDiagrams
             }
         }
 
-        public void ModelChanged_Handler(object sender, HarmonyContext model)
+        public void ModelChanged_Handler(object sender, HarmonyContext<T> model)
         {
             if (null != model.NoteNames)
             {
@@ -105,7 +102,11 @@ namespace NeckDiagrams
             }
         }
 
-
+        private void GuitarStringChanged(object sender, GuitarStringModel e)
+        {
+            this.UpdatePositions();
+            this.Refresh();
+        }
 
     }//class
 }//ns

@@ -1,7 +1,7 @@
 ﻿
 namespace NeckDiagrams
 {
-	partial class ModelsControl
+	partial class ModelsControl<T>
 	{
 		/// <summary> 
 		/// Required designer variable.

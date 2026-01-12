@@ -1,7 +1,7 @@
 ﻿
 namespace NeckDiagrams
 {
-	partial class StringPositionControl
+	partial class StringPositionControl<T>
 	{
 		/// <summary> 
 		/// Required designer variable.

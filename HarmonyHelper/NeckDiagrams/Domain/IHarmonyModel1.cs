@@ -6,10 +6,11 @@ using Eric.Morrison.Harmony;
 
 namespace NeckDiagrams
 {
-	public interface IHarmonyContext
-	{
-		List<HarmonyModelItem> Items { get; set; }
+	public interface IHarmonyContext<T> where T : INoteNameContainer
+    {
 		KeySignature KeySignature { get; set; }
 		List<NoteName> NoteNames { get; }
-	}
+        T Value { get; }
+
+    }
 }

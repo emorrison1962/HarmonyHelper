@@ -8,7 +8,8 @@ using NeckDiagrams.Domain;
 
 namespace NeckDiagrams
 {
-	
+
+	[Obsolete("", true)]
 	public class HarmonyModelItem
 	{
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
@@ -23,7 +24,7 @@ namespace NeckDiagrams
 		#endregion
 
 		#region Properties
-		public System.Drawing.Color Color { get { return _Color; } set { _Color = value; this.OnModelItemChanged(); } }
+		public System.Drawing.Color Color { get { return _Color; } private set { _Color = value; this.OnModelItemChanged(); } }
 		public ModelItemTypeEnum ModelType
 		{
 			get 

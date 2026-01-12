@@ -24,6 +24,11 @@
     <Compile Update="Controls\ChordsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Update="Views\HarmonicAnalysisControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -42,9 +47,7 @@
     <Compile Update="Controls\StringControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\StringPositionControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\StringPositionControl.cs" />
     <Compile Update="ScaleSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -66,5 +69,11 @@
     <ProjectReference Include="..\HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
     <ProjectReference Include="..\Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

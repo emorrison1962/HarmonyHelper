@@ -20,13 +20,9 @@ namespace NeckDiagrams
         //public event EventHandler<HarmonyModel> ModelChanged;
         ScaleFormulaCatalog ScaleFormulaCatalog { get; set; }
 
-        //public HarmonyModel Model { get; private set; }
-
         public Form1()
         {
             InitializeComponent();
-            var defaultKey = KeySignature.CMajor;
-            //this.Model = new HarmonyModel(defaultKey);
 
             this.Load += this.Form1_Load;
         }
@@ -35,6 +31,7 @@ namespace NeckDiagrams
         {
             if (!DesignMode)
             {
+                //this.ShowGuitarNeckSettingsDialog();
                 this._ctlNav.SelectedFeatureTypeChanged += this.SelectedFeatureChanged;
                 //foreach (var key in KeySignature.InternalCatalog.OrderBy(x => x.NoteName))
                 //{
@@ -48,6 +45,12 @@ namespace NeckDiagrams
                 //this._rbScore.Checked = true;
                 //this._bnFeatureHarmonicAnalysis.Checked = true;
             }
+        }
+
+        void ShowGuitarNeckSettingsDialog()
+        {
+            var dlg = new GuitarNeckSettingsDialog();
+            dlg.ShowDialog();
         }
 
         private void SelectedFeatureChanged(object sender, FeatureType e)

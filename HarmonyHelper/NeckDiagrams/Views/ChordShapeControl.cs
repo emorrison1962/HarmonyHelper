@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using Eric.Morrison.Harmony;
 using Eric.Morrison.Harmony.Chords;
 
+using NeckDiagrams.Controls;
+
 
 
 namespace NeckDiagrams.Views
@@ -33,8 +35,14 @@ namespace NeckDiagrams.Views
 
         private void CtlChordTypeSelectorControl_ChordFolmulaChanged(object sender, ChordFormulaContext e)
         {
-            this.ChordFormula = e.ChordFormula;
+            this.ChordFormula = e.Value;
             this.ctlNeck.SetChord(this.ChordFormula);
+        }
+
+        void foo()
+        {
+            var dlg = new GuitarNeckSettingsDialog();
+            var dr = dlg.ShowDialog();
         }
 
     }//class

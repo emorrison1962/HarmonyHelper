@@ -11,8 +11,8 @@ using System.Windows.Forms;
 namespace NeckDiagrams
 {
 	[Obsolete("", true)]
-	public partial class ModelItemControl : UserControl
-	{
+	public partial class ModelItemControl<T> : UserControl where T : INoteNameContainer
+    {
 		public event EventHandler<HarmonyModelItem> ModelItemChanged;
 		const string SELECT_ITEM_TYPE = "Select Item Type";
 		const string ARPEGGIO = "Arpeggio";
@@ -21,12 +21,12 @@ namespace NeckDiagrams
 		public ScaleFormulaCatalog ScaleFormulaCatalog { get; private set; }
 		//NoteName Root { get; set; }
 
-		HarmonyContext Model
+		HarmonyContext<T> Model
 		{
 			get
 			{
 				var result = HarmonyHelper.IoC.Container
-					.Resolve<IHarmonyContext>() as HarmonyContext;
+					.Resolve<IHarmonyContext<ChordFormula>>() as HarmonyContext<T>;
 				return result;
 			}
 		}
@@ -59,7 +59,6 @@ namespace NeckDiagrams
 		{
 			if (!DesignMode)
 			{
-				this.Model.ModelChanged += this.Model_ModelChanged;
 				this.Populate();
 
 #warning FIXME
@@ -67,18 +66,6 @@ namespace NeckDiagrams
 
 				this.scaleSelectorControl.SelectedScaleChanged += this.ScaleSelectorControl_SelectedScaleChanged;
 
-			}
-		}
-
-		private void Model_ModelChanged(object sender, HarmonyContext model)
-		{
-			if (null != this.Item)
-			{
-				if (model.Items.Any(x => x == this.Item))
-				{
-					
-					this.Refresh();
-				}
 			}
 		}
 
@@ -138,7 +125,6 @@ namespace NeckDiagrams
 				{
 					var color = this.colorDialog.Color;
 					this._colorSwatch.BackColor = color;
-					this.Item.Color = color;
 					this.OnModelItemChanged();
 				}
 			}
