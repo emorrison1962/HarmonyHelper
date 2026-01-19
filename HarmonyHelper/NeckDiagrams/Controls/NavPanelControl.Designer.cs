@@ -87,6 +87,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureChordShape.Name = "_bnFeatureChordShape";
             _bnFeatureChordShape.Size = new System.Drawing.Size(468, 30);
             _bnFeatureChordShape.TabIndex = 10;
+            _bnFeatureChordShape.TabStop = true;
             _bnFeatureChordShape.Tag = "";
             _bnFeatureChordShape.Text = "Chord Shapes";
             _bnFeatureChordShape.UseVisualStyleBackColor = true;

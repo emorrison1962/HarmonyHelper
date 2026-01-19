@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -33,7 +34,16 @@ namespace NeckDiagrams
         //    }
         //}
 
-        IChordShapeVM Model { get; set; }
+        public IChordShapeVM model;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IChordShapeVM Model 
+        {
+            get { return this.model; }
+            set 
+            { 
+                model = value; 
+            } 
+        }
         GuitarStringCollection GuitarStringCollection { get { return this.Model.GuitarStringCollection; } }
 
         public PrintDocument PrintDocument { get { return this.printDocument; } }
@@ -44,28 +54,39 @@ namespace NeckDiagrams
         public NeckControl()
         {
             InitializeComponent();
-
-            this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
-            this.InitModel();
-
             this.Load += this.NeckControl_Load;
             this.Layout += this.NeckControl_Layout;
         }
 
-        void InitModel()
+        private void NeckControl_Load(object sender, EventArgs e)
         {
-            //this.Model.ModelChanged += Model_ModelChanged;
-            //this.Model.ChordFormulaChanged += Model_ChordFormulaChanged;
-            ////this.Model.GuitarStringCollectionChanged += Model_GuitarStringCollectionChanged;
-            //this.Model.GuitarStringModelChanged += Model_GuitarStringModelChanged;
+            Init();
         }
 
-        private void Model_ModelChanged(object sender, ChordShapeVM e)
+        void Init()
+        {
+            if (this.Model == null)
+            {
+                this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
+            }
+            this.Model.PropertyChanged += Model_PropertyChanged; 
+            this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.Model.ChordFormula))
+            {
+                this.Model_ChordFormulaChanged(sender, this.Model.ChordFormula);
+            }
+        }
+        private void Model_ChordFormulaChanged(object sender, ChordFormula e)
         {
             this.PopulateControls();
         }
 
-        private void Model_ChordFormulaChanged(object sender, ChordFormula e)
+
+        private void Model_ModelChanged(object sender, ChordShapeVM e)
         {
             this.PopulateControls();
         }
@@ -85,7 +106,7 @@ namespace NeckDiagrams
         {
             foreach (var gs in this.GuitarStringCollection.Dictionary.Values)
             {
-                gs.ActiveNotes = this.Model.ChordFormula.NoteNames;
+                gs.SetActiveNotes(this.Model.ChordFormula.NoteNames);
             }
             //this.Model.ModelChanged += this.ModelChanged_Handler;
 
@@ -94,10 +115,6 @@ namespace NeckDiagrams
 
 
         #endregion
-
-        private void NeckControl_Load(object sender, EventArgs e)
-        {
-        }
 
         void PopulateControls()
         {

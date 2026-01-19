@@ -32,15 +32,7 @@ namespace NeckDiagrams
             components = new System.ComponentModel.Container();
             printDocument = new System.Drawing.Printing.PrintDocument();
             pnlNeck = new System.Windows.Forms.Panel();
-            pnlTop = new System.Windows.Forms.Panel();
-            pnlKey = new System.Windows.Forms.Panel();
-            _bnAddItem = new System.Windows.Forms.Button();
-            lblKey = new System.Windows.Forms.Label();
-            _cbKey = new System.Windows.Forms.ComboBox();
             chordShapeVMBindingSource = new System.Windows.Forms.BindingSource(components);
-            pnlNeck.SuspendLayout();
-            pnlTop.SuspendLayout();
-            pnlKey.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chordShapeVMBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -55,7 +47,6 @@ namespace NeckDiagrams
             // 
             pnlNeck.BackColor = System.Drawing.SystemColors.Control;
             pnlNeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pnlNeck.Controls.Add(pnlTop);
             pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
             pnlNeck.Location = new System.Drawing.Point(0, 0);
             pnlNeck.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -63,62 +54,6 @@ namespace NeckDiagrams
             pnlNeck.Padding = new System.Windows.Forms.Padding(32, 31, 32, 31);
             pnlNeck.Size = new System.Drawing.Size(1368, 334);
             pnlNeck.TabIndex = 4;
-            // 
-            // pnlTop
-            // 
-            pnlTop.BackColor = System.Drawing.SystemColors.Control;
-            pnlTop.Controls.Add(pnlKey);
-            pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlTop.Location = new System.Drawing.Point(32, 31);
-            pnlTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnlTop.MinimumSize = new System.Drawing.Size(1280, 154);
-            pnlTop.Name = "pnlTop";
-            pnlTop.Size = new System.Drawing.Size(1300, 154);
-            pnlTop.TabIndex = 2;
-            // 
-            // pnlKey
-            // 
-            pnlKey.BackColor = System.Drawing.SystemColors.Control;
-            pnlKey.Controls.Add(_bnAddItem);
-            pnlKey.Controls.Add(lblKey);
-            pnlKey.Controls.Add(_cbKey);
-            pnlKey.Dock = System.Windows.Forms.DockStyle.Left;
-            pnlKey.Location = new System.Drawing.Point(0, 0);
-            pnlKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnlKey.Name = "pnlKey";
-            pnlKey.Size = new System.Drawing.Size(320, 154);
-            pnlKey.TabIndex = 1;
-            // 
-            // _bnAddItem
-            // 
-            _bnAddItem.Location = new System.Drawing.Point(170, 80);
-            _bnAddItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            _bnAddItem.Name = "_bnAddItem";
-            _bnAddItem.Size = new System.Drawing.Size(119, 35);
-            _bnAddItem.TabIndex = 6;
-            _bnAddItem.Text = "+";
-            _bnAddItem.UseVisualStyleBackColor = true;
-            // 
-            // lblKey
-            // 
-            lblKey.AutoSize = true;
-            lblKey.Location = new System.Drawing.Point(30, 42);
-            lblKey.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblKey.Name = "lblKey";
-            lblKey.Size = new System.Drawing.Size(36, 20);
-            lblKey.TabIndex = 5;
-            lblKey.Text = "Key:";
-            lblKey.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // _cbKey
-            // 
-            _cbKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            _cbKey.FormattingEnabled = true;
-            _cbKey.Location = new System.Drawing.Point(96, 39);
-            _cbKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            _cbKey.Name = "_cbKey";
-            _cbKey.Size = new System.Drawing.Size(192, 28);
-            _cbKey.TabIndex = 4;
             // 
             // chordShapeVMBindingSource
             // 
@@ -134,10 +69,6 @@ namespace NeckDiagrams
             Name = "NeckControl";
             Size = new System.Drawing.Size(1368, 334);
             MouseMove += NeckControl_MouseMove;
-            pnlNeck.ResumeLayout(false);
-            pnlTop.ResumeLayout(false);
-            pnlKey.ResumeLayout(false);
-            pnlKey.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chordShapeVMBindingSource).EndInit();
             ResumeLayout(false);
 
@@ -147,11 +78,6 @@ namespace NeckDiagrams
 
         private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.Panel pnlNeck;
-        private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.Panel pnlKey;
-        private System.Windows.Forms.Button _bnAddItem;
-        private System.Windows.Forms.Label lblKey;
-        private System.Windows.Forms.ComboBox _cbKey;
         private System.Windows.Forms.BindingSource chordShapeVMBindingSource;
     }
 }

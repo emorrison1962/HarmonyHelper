@@ -1,16 +1,14 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Eric.Morrison.Harmony;
+using Microsoft.VisualBasic;
+using NeckDiagrams.Properties;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
-
-using Eric.Morrison.Harmony;
-
-using Microsoft.VisualBasic;
-
-using NeckDiagrams.Properties;
-
-using Newtonsoft.Json;
 
 namespace NeckDiagrams.Domain
 {
@@ -25,53 +23,82 @@ namespace NeckDiagrams.Domain
         First
     };
 
-    public class GuitarStringVM
+    public class GuitarStringVM : ObservableObject
     {
         const int ONE_OCTAVE = 1;
 
+        #region Fields
+        Note openNote;
+        NoteRange noteRange;
+        GuitarStringNdxEnum guitarStringNdx = GuitarStringNdxEnum.None;
+        ObservableCollection<NoteName> activeNotes = new ObservableCollection<NoteName>();
+        ObservableCollection<StringPositionVM> stringPositions = new ObservableCollection<StringPositionVM>();
+
+        #endregion
+
         #region Properties
-        Note _OpenNote { get; set; }
+
         public Note OpenNote
         {
-            get { return this._OpenNote; }
+            get => this.openNote;
             set
             {
-                _OpenNote = value;
-                this.SetNoteRange();
+                if (SetProperty(ref openNote, value))
+                {
+                    this.SetNoteRange();
+                    OnPropertyChanged(nameof(OpenNote));
+                }
             }
         }
 
-        NoteRange _NoteRange;
         public NoteRange NoteRange
         {
-            get
-            {
-                if (null == this._NoteRange)
-                    this.SetNoteRange();
-                return this._NoteRange;
-            }
+            get => this.noteRange;
             set
             {
-                //if (null == value)
-                //    throw new ArgumentNullException("value");
-                this._NoteRange = value;
+                if (SetProperty(ref noteRange, value))
+                {
+                    OnPropertyChanged(nameof(NoteRange));
+                }
             }
         }
 
-        public GuitarStringNdxEnum GuitarStringNdx { get; set; }
-
-        public List<NoteName> _ActiveNotes = new List<NoteName>();
-
-        public List<NoteName> ActiveNotes
+        public GuitarStringNdxEnum GuitarStringNdx
         {
-            get { return this._ActiveNotes; }
+            get => this.guitarStringNdx;
             set
             {
-                this._ActiveNotes = value;
+                if (SetProperty(ref guitarStringNdx, value))
+                {
+                    OnPropertyChanged(nameof(GuitarStringNdx));
+                }
             }
         }
 
-        public List<StringPositionVM> _StringPositions = new List<StringPositionVM>();
+        public ObservableCollection<NoteName> ActiveNotes
+        {
+            get => this.activeNotes;
+            set
+            {
+                if (SetProperty(ref activeNotes, value))
+                {
+                    OnPropertyChanged(nameof(ActiveNotes));
+                }
+            }
+        }
+
+        public ObservableCollection<StringPositionVM> StringPositions
+        {
+            get => this.stringPositions;
+            set
+            {
+                if (SetProperty(ref stringPositions, value))
+                {
+                    OnPropertyChanged(nameof(StringPositions));
+                }
+            }
+        }
+
         #endregion
 
         #region Construction
@@ -93,14 +120,25 @@ namespace NeckDiagrams.Domain
 
         void SetNoteRange()
         {
-            if (null == this._NoteRange || this._NoteRange.LowerLimit != this._OpenNote)
-                this._NoteRange = new NoteRange(this._OpenNote, ONE_OCTAVE);
+            if (null == this.noteRange || this.noteRange.LowerLimit != this.openNote)
+                this.NoteRange = new NoteRange(this.openNote, ONE_OCTAVE);
         }
 
-        //public override string ToString()
-        //{
-        //    return this.ToStringEx();
-        //}
+        internal void SetActiveNotes(List<NoteName> noteNames)
+        {
+            this.ActiveNotes.Clear();
+            foreach (var item in noteNames)
+            {   
+                this.ActiveNotes.Add(item);
+            }
+        }
+
+        [OnDeserialized]
+        internal void OnDeserializedMethod(StreamingContext context)
+        {
+            this.SetNoteRange();
+        }
+
     }//class
 
 }//ns

@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
@@ -30,47 +32,31 @@ namespace NeckDiagrams.Views
         #region Construction
         public ChordShapeView()
         {
-            InitializeComponent();
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            this.Init();
             this.Load += ChordShapeControl_Load;
+            InitializeComponent();
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         private void ChordShapeControl_Load(object sender, EventArgs e)
         {
-            this.Init();
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void Init()
-        {
-            this.InitModel();
-            _ctlChordFormulaSelector.Model = this.Model;
-        }
-
-        void InitModel()
         {
             this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
             if (this.Model == null)
             {
                 this.Model = new ChordShapeVM();
             }
-            _ctlChordFormulaSelector.Model = this.Model;
-            // Bind TextBox.Text to MyData.Name (Two-Way)
+            HarmonyHelper.IoC.Container.Register<IChordShapeVM>(this.Model);
             this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         #endregion
-
-        private void Model_ModelChanged(object sender, ChordShapeVM e)
-        {
-#warning can I swallow this?
-            new object();
-            //throw new NotImplementedException();
-        }
-
-        private void CtlChordTypeSelectorControl_ChordFolmulaChanged(object sender, object e)
-        {
-            throw new NotImplementedException();
-            //this.Model.Set(e.ChordFormula);
-        }
 
         void foo()
         {

@@ -101,5 +101,12 @@ namespace NeckDiagrams.Domain
             var result = Dictionary[ndx];
             return result;
         }
+
+        public GuitarStringVM this[GuitarStringNdxEnum ndx]
+        {
+            get { return Dictionary[ndx]; }
+            set { Dictionary[ndx] = value; }
+        }
+
     }//class
 }//ns

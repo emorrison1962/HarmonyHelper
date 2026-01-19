@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -49,12 +51,15 @@ namespace NeckDiagrams
         #region Costruction
         public ChordFormulaSelectorControl()
         {
-            InitializeComponent();
+            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             this.Load += this.ChordSelectorControl_Load;
+            InitializeComponent();
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         private void ChordSelectorControl_Load(object sender, EventArgs e)
         {
+            Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}");
             _chordNoteNameCombo.SelectionChanged += this._chordNoteNameCombo_SelectionChanged;
             Init();
             this._cbChordType.Enabled = false;
@@ -62,25 +67,18 @@ namespace NeckDiagrams
             {
                 this.PopulateChordFormulas();
             }
+            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void Init()
         {
-            InitModel();
-            _chordNoteNameCombo.SelectedNoteName = NoteName.C;
-        }
-
-        void InitModel()
-        {
-#if false
             if (this.Model == null)
             {
-                throw new NotImplementedException();
+                this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
+
             }
             // Bind TextBox.Text to MyData.Name (Two-Way)
             this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
-
-#endif        
         }
 
             void PopulateChordFormulas()
@@ -104,49 +102,24 @@ namespace NeckDiagrams
             var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
             this.OnSelectedChordChanged();
         }
-#if false
-        void OnSelectedChordChanged()
-        {
-            if (null != this.SelectedChordChanged)
-            {
-                if (null != _chordNoteNameCombo.SelectedNoteName
-                    && null != _cbChordType.SelectedItem)
-                {
-                    var root = _chordNoteNameCombo.SelectedNoteName;
-                    var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
-                    var model = HarmonyHelper.IoC.Container.Resolve<IHarmonyModel>();
-                    var result = ChordFormulaFactory.Get(root, chordType);
-                    this.SelectedChordChanged(this, result);
-                }
-            }
-        }
-#endif
+
         void OnSelectedChordChanged()
         {
 
             if (null != _chordNoteNameCombo.SelectedNoteName
                 && null != _cbChordType.SelectedItem)
-                //&& null != this.ChordFolmulaChanged)
             {
                 var root = _chordNoteNameCombo.SelectedNoteName;
                 var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
-
-
                 try
                 {
                     var result = ChordFormulaFactory.Get(root, chordType);
-
                     this.Model.ChordFormula = result;
-
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }               
-                
-                //this.ChordFormulaContext = new ChordFormulaContext(result);
-                //this.ChordFolmulaChanged(this, this.ChordFormulaContext);
             }
         }
 

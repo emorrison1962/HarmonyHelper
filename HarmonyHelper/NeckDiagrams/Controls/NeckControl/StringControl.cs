@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -19,9 +20,9 @@ namespace NeckDiagrams
 
         #region Properties
         IChordShapeVM Model { get; set; }
-        GuitarStringVM GuitarStringModel { get { return this.Model.GuitarStringCollection.Dictionary[this.GuitarStringNdx];  } }
-        NoteRange NoteRange { get { return GuitarStringModel.NoteRange; } }
-        List<NoteName> ActiveNotes { get { return GuitarStringModel?.ActiveNotes; } }
+        GuitarStringVM GuitarStringVM { get; set; }
+        NoteRange NoteRange { get { return GuitarStringVM.NoteRange; } }
+        ObservableCollection<NoteName> ActiveNotes { get { return GuitarStringVM?.ActiveNotes; } }
         public GuitarStringNdxEnum GuitarStringNdx { get; private set; }
 
         #endregion
@@ -39,13 +40,50 @@ namespace NeckDiagrams
             this.GuitarStringNdx = stringNumber;
         }
 
-        #endregion
-
-        void InitModel()
+        private void StringControl_Load(object sender, EventArgs e)
         {
+            Init();
+            if (!DesignMode)
+            {
+                this.CreateControls();
+                this.UpdatePositions();
+            }
+        }
+
+        void Init()
+        {
+            if (this.Model == null)
+            {
+                this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
+            }
+            var gsvm = this.Model.GuitarStringCollection[GuitarStringNdx];
+            gsvm.PropertyChanged += GuitarString_PropertyChanged;
+            this.GuitarStringVM = gsvm;
             //this.Model.ModelChanged += Model_ModelChanged;
             //this.Model.ChordFormulaChanged += Model_ChordFormulaChanged;
             //this.Model.GuitarStringModelChanged += Model_GuitarStringModelChanged;
+        }
+
+        private void GuitarString_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        void CreateControls()
+        {
+            this.Controls.Clear();
+            var ctls = new List<Control>();
+            for (int i = 0; i < FRET_COUNT; ++i)
+            {
+                var note = this.NoteRange.Notes.NextOrFirst(i);
+                var ctl = new StringPositionControl(new StringPositionVM(i, note));
+                ctl.Dock = DockStyle.Left;
+                ctls.Insert(0, ctl);
+            }
+
+            this.Controls.AddRange(ctls.ToArray());
         }
 
         //private void Model_ModelChanged(object sender, ChordShapeVM vm)
@@ -64,33 +102,6 @@ namespace NeckDiagrams
         {
             this.UpdatePositions();
             this.Refresh();
-        }
-
-        private void StringControl_Load(object sender, EventArgs e)
-        {
-            //this.Model.ModelChanged += this.ModelChanged_Handler;
-            new object();
-
-            if (!DesignMode)
-            {
-                this.CreateControls();
-                this.UpdatePositions();
-            }
-        }
-
-        void CreateControls()
-        {
-            this.Controls.Clear();
-            var ctls = new List<Control>();
-            for (int i = 0; i < FRET_COUNT; ++i)
-            {
-                var note = this.NoteRange.Notes.NextOrFirst(i);
-                var ctl = new StringPositionControl(new StringPositionVM(i, note));
-                ctl.Dock = DockStyle.Left;
-                ctls.Insert(0, ctl);
-            }
-
-            this.Controls.AddRange(ctls.ToArray());
         }
 
         private void UpdatePositions()

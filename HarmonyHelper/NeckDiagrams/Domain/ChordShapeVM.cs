@@ -69,14 +69,14 @@ namespace NeckDiagrams.Domain
 
             foreach (GuitarStringVM gsm in this.GuitarStringCollection.Dictionary.Values)
             {
-                gsm.ActiveNotes = cf.NoteNames;
+                gsm.SetActiveNotes(cf.NoteNames);
             }
 
         }
 
     }//class
 
-    public interface IChordShapeVM
+    public interface IChordShapeVM : INotifyPropertyChanged
     {
         ChordFormula ChordFormula { get; set; }
         GuitarStringCollection GuitarStringCollection { get; set; }

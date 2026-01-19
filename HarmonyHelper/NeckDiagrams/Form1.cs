@@ -44,6 +44,8 @@ namespace NeckDiagrams
 
                 //this._rbScore.Checked = true;
                 //this._bnFeatureHarmonicAnalysis.Checked = true;
+                _ctlNav.SelectedFeatureType = FeatureType.ChordFingering;
+
             }
         }
 
