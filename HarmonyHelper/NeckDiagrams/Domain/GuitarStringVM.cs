@@ -97,10 +97,10 @@ namespace NeckDiagrams.Domain
                 this._NoteRange = new NoteRange(this._OpenNote, ONE_OCTAVE);
         }
 
-        public override string ToString()
-        {
-            return this.ToStringEx();
-        }
+        //public override string ToString()
+        //{
+        //    return this.ToStringEx();
+        //}
     }//class
 
 }//ns

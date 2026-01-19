@@ -40,7 +40,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\NeckControl\StringPositionControl.cs" />
-    <Compile Update="ScaleSelectorControl.cs">
+    <Compile Update="Controls\ScaleSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

@@ -21,12 +21,28 @@ namespace NeckDiagrams.Views
 {
     public partial class ChordShapeView : UserControl
     {
-        IChordShapeVM Model { get; set; }
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IChordShapeVM Model { get; set; }
+
+        #endregion
+
+        #region Construction
         public ChordShapeView()
         {
-            this.InitModel();
             InitializeComponent();
             this.Load += ChordShapeControl_Load;
+        }
+
+        private void ChordShapeControl_Load(object sender, EventArgs e)
+        {
+            this.Init();
+        }
+
+        void Init()
+        {
+            this.InitModel();
+            _ctlChordFormulaSelector.Model = this.Model;
         }
 
         void InitModel()
@@ -34,11 +50,14 @@ namespace NeckDiagrams.Views
             this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
             if (this.Model == null)
             {
-                throw new ArgumentNullException("model");
+                this.Model = new ChordShapeVM();
             }
+            _ctlChordFormulaSelector.Model = this.Model;
             // Bind TextBox.Text to MyData.Name (Two-Way)
-            this.DataBindings.Add("Text", this.Model, "modelPropName", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+
+        #endregion
 
         private void Model_ModelChanged(object sender, ChordShapeVM e)
         {
@@ -47,20 +66,10 @@ namespace NeckDiagrams.Views
             //throw new NotImplementedException();
         }
 
-
-        private void ChordShapeControl_Load(object sender, EventArgs e)
-        {
-            this.Init();
-        }
-
         private void CtlChordTypeSelectorControl_ChordFolmulaChanged(object sender, object e)
         {
             throw new NotImplementedException();
             //this.Model.Set(e.ChordFormula);
-        }
-
-        void Init()
-        {
         }
 
         void foo()

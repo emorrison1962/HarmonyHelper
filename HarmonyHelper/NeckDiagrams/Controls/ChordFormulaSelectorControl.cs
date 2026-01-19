@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
+using NeckDiagrams.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,14 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Eric.Morrison.Harmony;
-using Eric.Morrison.Harmony.Chords;
-
 
 namespace NeckDiagrams
 {
     public partial class ChordFormulaSelectorControl : UserControl
     {
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IChordShapeVM Model { get; set; }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ChordFormula SelectedItem
         {
@@ -40,6 +44,8 @@ namespace NeckDiagrams
             set { _chordNoteNameCombo.SelectedNoteName = value; }
         }
 
+        #endregion
+
         #region Costruction
         public ChordFormulaSelectorControl()
         {
@@ -47,14 +53,10 @@ namespace NeckDiagrams
             this.Load += this.ChordSelectorControl_Load;
         }
 
-        void Init()
-        {
-            new object();
-        }
-
         private void ChordSelectorControl_Load(object sender, EventArgs e)
         {
             _chordNoteNameCombo.SelectionChanged += this._chordNoteNameCombo_SelectionChanged;
+            Init();
             this._cbChordType.Enabled = false;
             if (!DesignMode)
             {
@@ -62,7 +64,26 @@ namespace NeckDiagrams
             }
         }
 
-        void PopulateChordFormulas()
+        void Init()
+        {
+            InitModel();
+            _chordNoteNameCombo.SelectedNoteName = NoteName.C;
+        }
+
+        void InitModel()
+        {
+#if false
+            if (this.Model == null)
+            {
+                throw new NotImplementedException();
+            }
+            // Bind TextBox.Text to MyData.Name (Two-Way)
+            this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
+
+#endif        
+        }
+
+            void PopulateChordFormulas()
         {
             this._cbChordType.Items.Clear();
             foreach (var chordType in ChordType.Catalog.OrderBy(x => x.Name()))
@@ -107,11 +128,23 @@ namespace NeckDiagrams
                 && null != _cbChordType.SelectedItem)
                 //&& null != this.ChordFolmulaChanged)
             {
-                throw new NotImplementedException();
                 var root = _chordNoteNameCombo.SelectedNoteName;
                 var chordType = (ChordIntervalsEnum)_cbChordType.SelectedItem;
-                var result = ChordFormulaFactory.Get(root, chordType);
 
+
+                try
+                {
+                    var result = ChordFormulaFactory.Get(root, chordType);
+
+                    this.Model.ChordFormula = result;
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }               
+                
                 //this.ChordFormulaContext = new ChordFormulaContext(result);
                 //this.ChordFolmulaChanged(this, this.ChordFormulaContext);
             }

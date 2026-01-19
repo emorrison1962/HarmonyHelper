@@ -14,64 +14,58 @@ using Newtonsoft.Json.Linq;
 
 namespace NeckDiagrams.Domain
 {
-    public interface IChordShapeVM
-    {
-        ChordFormula ChordFormula { get; }
-        GuitarStringCollection GuitarStringCollection { get; set; }
-
-        void Set(ChordFormula cf);
-    }
-
     public partial class ChordShapeVM : ObservableObject, IChordShapeVM
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
-        
-        //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
 
-        void foo()
-        {
-            OnPropertyChanged(nameof(this.ChordFormula));
-        }
+        #region Fields
+        public ChordFormula chordFormula;
+        public List<NoteName> NoteNames => this.chordFormula.NoteNames;
+        public GuitarStringCollection guitarStringCollection;
 
+        #endregion
 
         #region Properties
 
-
-        public int junk { get; set; }
-
-        public ChordFormula chordFormula;
         public ChordFormula ChordFormula
         {
             get => this.chordFormula;
-            private set
+            set
             {
                 if (SetProperty(ref chordFormula, value))
                 {
+                    this.Set(value);
                     OnPropertyChanged(nameof(ChordFormula));
                 }
             }
         }
 
-        public List<NoteName> NoteNames => this.chordFormula.NoteNames;
         public GuitarStringCollection GuitarStringCollection
         {
-            get { return GuitarStringCollection.LoadSettingsOrDefault(); }
-            set { GuitarStringCollection.SaveToSettings(value); }
+            get => guitarStringCollection;
+            set
+            {
+                if (SetProperty(ref guitarStringCollection, value))
+                {
+                    GuitarStringCollection.SaveToSettings(value); 
+                    OnPropertyChanged(nameof(GuitarStringCollection));
+                }
+            }
         }
 
         #endregion
-        
+
         #region Construction
-        public ChordShapeVM() { }
+        public ChordShapeVM() 
+        { 
+            this.chordFormula = ChordFormula.CMajor7;
+            this.guitarStringCollection = GuitarStringCollection.LoadSettingsOrDefault(); 
+        }
 
         #endregion    
 
-        public void Set(ChordFormula cf)
+         public void Set(ChordFormula cf)
         {
-            this.ChordFormula = cf;
+            //this.ChordFormula = cf;
 
             foreach (GuitarStringVM gsm in this.GuitarStringCollection.Dictionary.Values)
             {
@@ -81,4 +75,14 @@ namespace NeckDiagrams.Domain
         }
 
     }//class
+
+    public interface IChordShapeVM
+    {
+        ChordFormula ChordFormula { get; set; }
+        GuitarStringCollection GuitarStringCollection { get; set; }
+
+        void Set(ChordFormula cf);
+    }//interface
+
+
 }//ns
