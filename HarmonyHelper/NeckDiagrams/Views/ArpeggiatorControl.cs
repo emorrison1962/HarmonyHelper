@@ -22,7 +22,7 @@ namespace NeckDiagrams.Views
         #region Properties
         ArpeggiatorCreationContext CreationContext { get; set; } = new ArpeggiatorCreationContext();
         Arpeggiator Arpeggiator { get; set; }
-        List<ChordFormulaVM> ChordFormulaVMs { get; set; }
+        List<ChordFormula> ChordFormulas { get; set; }
 
         #endregion
 
@@ -99,7 +99,7 @@ namespace NeckDiagrams.Views
             var dlg = new ChordParserDialog();
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                this.CreationContext.Formulas = dlg.ChordFormulaVMs;
+                this.CreationContext.FormulaVMs = dlg.ChordFormulaVMs;
             }
         }
 
@@ -153,13 +153,13 @@ namespace NeckDiagrams.Views
         public event EventHandler<Arpeggiator> ArpeggiatorCreated;
 
         #region Properties
-        List<ChordFormulaVM> _Formulas { get; set; } = new List<ChordFormulaVM>();
-        public List<ChordFormulaVM> Formulas
+        List<ChordFormulaVM> _FormulaVMs { get; set; } = new List<ChordFormulaVM>();
+        public List<ChordFormulaVM> FormulaVMs
         {
-            get { return this._Formulas; }
+            get { return this._FormulaVMs; }
             set
             {
-                this._Formulas = value;
+                this._FormulaVMs = value;
                 this.TryCreateArpeggiator();
             }
         }
@@ -196,7 +196,7 @@ namespace NeckDiagrams.Views
         {
             var result = false;
 
-            if (this.Formulas.Any()
+            if (this.FormulaVMs.Any()
                 && this.NoteRange.IsValid()
                 && this.BeatsPerMeasure > 0
                 && this.Direction.HasFlag(DirectionEnum.Ascending) || this.Direction.HasFlag(DirectionEnum.Descending)
@@ -211,7 +211,7 @@ namespace NeckDiagrams.Views
         {
             if (this.IsValid())
             {
-                foreach (var formula in this.Formulas)
+                foreach (var formula in this.FormulaVMs)
                 {
                     this.Chords.Add(new Chord(formula.ChordFormula, this.NoteRange));
                 }

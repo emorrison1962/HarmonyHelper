@@ -18,9 +18,7 @@
     <Compile Update="Controls\ChordNamesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\ChordTypeSelectorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\ChordFormulaSelectorControl.cs" />
     <Compile Update="Controls\ChordsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -32,27 +30,22 @@
     <Compile Update="Views\HarmonicAnalysisControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\NeckControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\ModelItemControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\ModelsControl.cs">
+    <Compile Update="Controls\NeckControl\NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\ComboBoxes\NoteNameComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\StringControl.cs">
+    <Compile Update="Controls\NeckControl\StringControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\StringPositionControl.cs" />
+    <Compile Update="Controls\NeckControl\StringPositionControl.cs" />
     <Compile Update="ScaleSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="RandomValue">
       <Version>1.0.0</Version>
@@ -61,7 +54,7 @@
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eric.Morrison.Helpers\Eric.Morrison.Helpers.csproj" />

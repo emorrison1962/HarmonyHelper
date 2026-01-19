@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
 
 using NeckDiagrams.Properties;
 
@@ -10,11 +11,11 @@ using Newtonsoft.Json;
 
 namespace NeckDiagrams.Domain
 {
-    public class GuitarStringCollection
+    public class GuitarStringCollection 
     {
 
         #region Properties
-        public Dictionary<GuitarStringNdxEnum, GuitarStringModel> Dictionary { get; set; } = new Dictionary<GuitarStringNdxEnum, GuitarStringModel>();
+        public Dictionary<GuitarStringNdxEnum, GuitarStringVM> Dictionary { get; set; } = new Dictionary<GuitarStringNdxEnum, GuitarStringVM>();
 
         #endregion
 
@@ -39,25 +40,25 @@ namespace NeckDiagrams.Domain
 
         static public GuitarStringCollection CreateDefaultCollection()
         {
-            var list = new List<GuitarStringModel>();
+            var list = new List<GuitarStringVM>();
             //6th String(Thickest): Low E(E2)
             var note = new Note(NoteName.E, OctaveEnum.Octave2);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.Sixth, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.Sixth, note));
             //5th String: A(A2)
             note = new Note(NoteName.A, OctaveEnum.Octave2);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.Fifth, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.Fifth, note));
             //4th String: D(D3)
             note = new Note(NoteName.D, OctaveEnum.Octave3);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.Fourth, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.Fourth, note));
             //3rd String: G(G3)
             note = new Note(NoteName.G, OctaveEnum.Octave3);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.Third, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.Third, note));
             //2nd String: B(B3)
             note = new Note(NoteName.B, OctaveEnum.Octave2);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.Second, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.Second, note));
             //1st String(Thinnest): High E(E4)
             note = new Note(NoteName.E, OctaveEnum.Octave4);
-            list.Add(new GuitarStringModel(GuitarStringNdxEnum.First, note));
+            list.Add(new GuitarStringVM(GuitarStringNdxEnum.First, note));
 
             var result = new GuitarStringCollection(list);
             return result;
@@ -82,7 +83,7 @@ namespace NeckDiagrams.Domain
         #region Construction
         [Newtonsoft.Json.JsonConstructor]
         public GuitarStringCollection() { }
-        public GuitarStringCollection(List<GuitarStringModel> list)
+        public GuitarStringCollection(List<GuitarStringVM> list)
         {
             foreach (var str in list)
             {
@@ -95,7 +96,7 @@ namespace NeckDiagrams.Domain
 
         #endregion
 
-        public GuitarStringModel Get(GuitarStringNdxEnum ndx)
+        public GuitarStringVM Get(GuitarStringNdxEnum ndx)
         {
             var result = Dictionary[ndx];
             return result;

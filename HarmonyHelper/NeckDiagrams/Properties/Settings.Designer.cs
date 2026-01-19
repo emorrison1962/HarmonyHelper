@@ -34,5 +34,17 @@ namespace NeckDiagrams.Properties {
                 this["GuitarStringCollection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ColorContextCollection {
+            get {
+                return ((string)(this["ColorContextCollection"]));
+            }
+            set {
+                this["ColorContextCollection"] = value;
+            }
+        }
     }
 }

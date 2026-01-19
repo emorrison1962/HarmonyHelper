@@ -173,6 +173,33 @@ namespace Eric.Morrison.Harmony.Chords
             }
         }
 
+        public ChordFunctionEnum GetChordFunction(NoteName nn)
+        {
+            ChordFunctionEnum result = ChordFunctionEnum.None;
+            if (this.Root == nn)
+                result = ChordFunctionEnum.Root;
+            else if (this.Second == nn)
+                result = ChordFunctionEnum.Second;
+            else if (this.Third == nn)
+                result = ChordFunctionEnum.Third;
+            else if (this.Fourth == nn)
+                result = ChordFunctionEnum.Fourth;
+            else if (this.Fifth == nn)
+                result = ChordFunctionEnum.Fifth;
+            else if (this.Sixth == nn)
+                result = ChordFunctionEnum.Sixth;
+            else if (this.Seventh == nn)
+                result = ChordFunctionEnum.Seventh;
+            else if (this.Ninth == nn)
+                result = ChordFunctionEnum.Ninth;
+            else if (this.Eleventh == nn)
+                result = ChordFunctionEnum.Eleventh;
+            else if (this.Thirteenth == nn)
+                result = ChordFunctionEnum.Thirteenth;
+
+            return result;
+        }
+
         static public ChordFormula Create(NoteName root, ChordIntervalsEnum chordType)
         {
             if (null == root)

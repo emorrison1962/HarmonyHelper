@@ -9,23 +9,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Eric.Morrison.Harmony.Chords;
+
 using NeckDiagrams.Views;
 
 namespace NeckDiagrams.Controls
 {
     public partial class ChordNamesControl : UserControl
     {
-        public class ChordFormulaVMEventArgs : EventArgs
+        public class ChordFormulaEventArgs : EventArgs
         {
             public List<ChordFormulaVM> Items { get; private set; } = new List<ChordFormulaVM>();
-            public ChordFormulaVMEventArgs(List<ChordFormulaVM> Items)
+            public ChordFormulaEventArgs(List<ChordFormulaVM> Items)
             {
                 this.Items = Items;
             }
         }
-        public event EventHandler<ChordFormulaVMEventArgs> SelectedChordNamesChanged;
+        public event EventHandler<ChordFormulaEventArgs> SelectedChordNamesChanged;
 
-        public List<ChordFormulaVM> ChordFormulaVMs { get; private set; } = new List<ChordFormulaVM>();
+        public List<ChordFormula> ChordFormulas { get; private set; } = new List<ChordFormula>();
         public bool MouseIsDragging { get; private set; }
         public Point DragBeginPoint { get; private set; }
 

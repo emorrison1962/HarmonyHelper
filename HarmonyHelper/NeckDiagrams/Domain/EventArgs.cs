@@ -5,19 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Eric.Morrison.Harmony;
+using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 
 namespace NeckDiagrams.Domain
 {
-    public class ChordFormulaVMEventArgs : EventArgs
+    [Obsolete("", true)]
+    public class ChordFormulaEventArgs : EventArgs
     {
-        public List<ChordFormulaVM> Items { get; private set; } = new List<ChordFormulaVM>();
-        public ChordFormulaVMEventArgs(List<ChordFormulaVM> Items)
+        public List<ChordFormula> Items { get; private set; } = new List<ChordFormula>();
+        public ChordFormulaEventArgs(List<ChordFormula> Items)
         {
             this.Items = Items;
         }
     }//class
 
+    [Obsolete("", true)]
     public class AnalysisResultEventArgs : EventArgs
     {
         public HarmonicAnalysisResult Result { get; protected set; }

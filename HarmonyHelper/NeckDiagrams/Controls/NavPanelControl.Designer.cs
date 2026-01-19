@@ -31,22 +31,24 @@ namespace NeckDiagrams.Controls
         private void InitializeComponent()
         {
             _pnlNav = new System.Windows.Forms.Panel();
-            _bnFeatureChordShape = new FeatureTypeButton(FeatureType.ChordFingering);
-            _bnModalInterchange = new FeatureTypeButton(FeatureType.ModalInterchange);
-            _rbManufaktura = new FeatureTypeButton(FeatureType.Manufaktura);
-            _bnFeatureVoiceLeading = new FeatureTypeButton(FeatureType.VoiceLeading);
-            _bnFeatureScales = new FeatureTypeButton(FeatureType.Scales);
-            _bnFeatureReHarmonize = new FeatureTypeButton(FeatureType.ReHarmonize);
-            _bnFeatureLeadSheets = new FeatureTypeButton(FeatureType.LeadSheets);
-            _bnFeatureHarmonicAnalysis = new FeatureTypeButton(FeatureType.HarmonicAnalysis);
-            _bnFeatureArpeggiator = new FeatureTypeButton(FeatureType.Arpeggiator);
-            _bnFeatureArpeggios = new FeatureTypeButton(FeatureType.Arpeggios);
+            bnOptions = new System.Windows.Forms.Button();
+            _bnFeatureChordShape = new FeatureTypeButton();
+            _bnModalInterchange = new FeatureTypeButton();
+            _rbManufaktura = new FeatureTypeButton();
+            _bnFeatureVoiceLeading = new FeatureTypeButton();
+            _bnFeatureScales = new FeatureTypeButton();
+            _bnFeatureReHarmonize = new FeatureTypeButton();
+            _bnFeatureLeadSheets = new FeatureTypeButton();
+            _bnFeatureHarmonicAnalysis = new FeatureTypeButton();
+            _bnFeatureArpeggiator = new FeatureTypeButton();
+            _bnFeatureArpeggios = new FeatureTypeButton();
             _pnlNav.SuspendLayout();
             SuspendLayout();
             // 
             // _pnlNav
             // 
             _pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
+            _pnlNav.Controls.Add(bnOptions);
             _pnlNav.Controls.Add(_bnFeatureChordShape);
             _pnlNav.Controls.Add(_bnModalInterchange);
             _pnlNav.Controls.Add(_rbManufaktura);
@@ -63,12 +65,25 @@ namespace NeckDiagrams.Controls
             _pnlNav.Size = new System.Drawing.Size(468, 1039);
             _pnlNav.TabIndex = 3;
             // 
+            // bnOptions
+            // 
+            bnOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
+            bnOptions.Location = new System.Drawing.Point(0, 1009);
+            bnOptions.Name = "bnOptions";
+            bnOptions.Size = new System.Drawing.Size(468, 30);
+            bnOptions.TabIndex = 11;
+            bnOptions.Text = "Options...";
+            bnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            bnOptions.UseVisualStyleBackColor = true;
+            bnOptions.Click += bnOptions_Click;
+            // 
             // _bnFeatureChordShape
             // 
             _bnFeatureChordShape.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureChordShape.AutoSize = true;
             _bnFeatureChordShape.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureChordShape.Location = new System.Drawing.Point(0, 300);
+            _bnFeatureChordShape.FeatureType = FeatureType.ChordFingering;
+            _bnFeatureChordShape.Location = new System.Drawing.Point(0, 270);
             _bnFeatureChordShape.Name = "_bnFeatureChordShape";
             _bnFeatureChordShape.Size = new System.Drawing.Size(468, 30);
             _bnFeatureChordShape.TabIndex = 10;
@@ -82,7 +97,8 @@ namespace NeckDiagrams.Controls
             _bnModalInterchange.Appearance = System.Windows.Forms.Appearance.Button;
             _bnModalInterchange.AutoSize = true;
             _bnModalInterchange.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnModalInterchange.Location = new System.Drawing.Point(0, 270);
+            _bnModalInterchange.FeatureType = FeatureType.ModalInterchange;
+            _bnModalInterchange.Location = new System.Drawing.Point(0, 240);
             _bnModalInterchange.Name = "_bnModalInterchange";
             _bnModalInterchange.Size = new System.Drawing.Size(468, 30);
             _bnModalInterchange.TabIndex = 9;
@@ -95,6 +111,7 @@ namespace NeckDiagrams.Controls
             _rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
             _rbManufaktura.AutoSize = true;
             _rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
+            _rbManufaktura.FeatureType = FeatureType.Manufaktura;
             _rbManufaktura.Location = new System.Drawing.Point(0, 210);
             _rbManufaktura.Name = "_rbManufaktura";
             _rbManufaktura.Size = new System.Drawing.Size(468, 30);
@@ -108,6 +125,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureVoiceLeading.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureVoiceLeading.AutoSize = true;
             _bnFeatureVoiceLeading.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureVoiceLeading.FeatureType = FeatureType.VoiceLeading;
             _bnFeatureVoiceLeading.Location = new System.Drawing.Point(0, 180);
             _bnFeatureVoiceLeading.Name = "_bnFeatureVoiceLeading";
             _bnFeatureVoiceLeading.Size = new System.Drawing.Size(468, 30);
@@ -121,6 +139,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureScales.AutoSize = true;
             _bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureScales.FeatureType = FeatureType.Scales;
             _bnFeatureScales.Location = new System.Drawing.Point(0, 150);
             _bnFeatureScales.Name = "_bnFeatureScales";
             _bnFeatureScales.Size = new System.Drawing.Size(468, 30);
@@ -134,6 +153,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureReHarmonize.AutoSize = true;
             _bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureReHarmonize.FeatureType = FeatureType.ReHarmonize;
             _bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 120);
             _bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
             _bnFeatureReHarmonize.Size = new System.Drawing.Size(468, 30);
@@ -147,6 +167,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureLeadSheets.AutoSize = true;
             _bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureLeadSheets.FeatureType = FeatureType.LeadSheets;
             _bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 90);
             _bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
             _bnFeatureLeadSheets.Size = new System.Drawing.Size(468, 30);
@@ -160,6 +181,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureHarmonicAnalysis.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureHarmonicAnalysis.AutoSize = true;
             _bnFeatureHarmonicAnalysis.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureHarmonicAnalysis.FeatureType = FeatureType.HarmonicAnalysis;
             _bnFeatureHarmonicAnalysis.Location = new System.Drawing.Point(0, 60);
             _bnFeatureHarmonicAnalysis.Name = "_bnFeatureHarmonicAnalysis";
             _bnFeatureHarmonicAnalysis.Size = new System.Drawing.Size(468, 30);
@@ -173,6 +195,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureArpeggiator.AutoSize = true;
             _bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureArpeggiator.FeatureType = FeatureType.Arpeggiator;
             _bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 30);
             _bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
             _bnFeatureArpeggiator.Size = new System.Drawing.Size(468, 30);
@@ -186,6 +209,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
             _bnFeatureArpeggios.AutoSize = true;
             _bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
+            _bnFeatureArpeggios.FeatureType = FeatureType.Arpeggios;
             _bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
             _bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
             _bnFeatureArpeggios.Size = new System.Drawing.Size(468, 30);
@@ -220,7 +244,6 @@ namespace NeckDiagrams.Controls
         private FeatureTypeButton _bnFeatureArpeggiator;
         private FeatureTypeButton _bnFeatureArpeggios;
         private FeatureTypeButton _bnFeatureChordShape;
-
-        
+        private System.Windows.Forms.Button bnOptions;
     }
 }

@@ -290,7 +290,7 @@ namespace Eric.Morrison.Harmony
                 case ChordFunctionEnum.None:
                     break;
 
-                case ChordFunctionEnum.Sus2:
+                case ChordFunctionEnum.Second:
                     predicate = (ChordToneInterval x) => x == ChordToneInterval.Major2nd;
                     break;
 
@@ -298,7 +298,7 @@ namespace Eric.Morrison.Harmony
                     predicate = (ChordToneInterval x) => x == ChordToneInterval.Minor3rd || x == ChordToneInterval.Major3rd;
                     break;
 
-                case ChordFunctionEnum.Sus4:
+                case ChordFunctionEnum.Fourth:
                     predicate = (ChordToneInterval x) => x == ChordToneInterval.Perfect4th;
                     break;
 

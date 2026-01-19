@@ -351,7 +351,7 @@ namespace Eric.Morrison.Harmony
                 _catalog.Add(this);
         }
 
-        NoteName(NoteName src)
+        protected NoteName(NoteName src)
             : this(src.Name,
                   (RawNoteValuesEnum)src.RawValue,
                   src.ExplicitValue, false)

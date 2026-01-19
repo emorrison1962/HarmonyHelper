@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Eric.Morrison.Harmony.Chords;
+
 namespace NeckDiagrams.Controls
 {
     public class MouseDragContext
@@ -69,7 +71,7 @@ namespace NeckDiagrams.Controls
     partial class ChordNamesControl
     {
         MouseDragContext MouseDragContext { get; set; }
-        public List<ChordFormulaVM> SelectedItems { get; private set; } = new List<ChordFormulaVM>();
+        public List<ChordFormula> SelectedItems { get; private set; } = new List<ChordFormula>();
 
 
         private void ChordNamesControl_MouseDown(object sender, MouseEventArgs e)
@@ -154,7 +156,7 @@ namespace NeckDiagrams.Controls
                 .Controls
                 .Cast<ChordNameControl>()
                 .Where(ctl => ctl.IsSelected)
-                .Select(x => x.VM)
+                .Select(x => x.ChordFormula)
                 .ToList();
             return result;
         }
@@ -164,7 +166,7 @@ namespace NeckDiagrams.Controls
             if (null != this.SelectedChordNamesChanged)
             {
                 this.SelectedChordNamesChanged(this, 
-                    new ChordFormulaVMEventArgs(
+                    new ChordFormulaEventArgs(
                         this.GetSelectedItems()));
             }
         }

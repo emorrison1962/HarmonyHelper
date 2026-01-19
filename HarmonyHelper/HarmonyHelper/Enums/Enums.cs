@@ -150,10 +150,11 @@ namespace Eric.Morrison.Harmony
     {
         None = 0,
         Root,
-        Sus2,
+        Second,
         Third,
-        Sus4,
+        Fourth,
         Fifth,
+        Sixth,
         Seventh,
         Ninth,
         Eleventh,
@@ -230,6 +231,7 @@ namespace Eric.Morrison.Harmony
     public enum IntervalRoleTypeEnum
     {
         Unknown = int.MinValue,
+        Root = 0,
         Unison = 0,
         Second = 1,
         Third = 2,

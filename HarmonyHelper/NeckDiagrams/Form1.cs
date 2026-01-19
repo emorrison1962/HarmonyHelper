@@ -181,6 +181,9 @@ namespace NeckDiagrams
             this.Invalidate(true);
         }
 
+        private void _ctlNav_Load(object sender, EventArgs e)
+        {
+        }
     }//class
 
     class FeatureViewFactory
@@ -194,7 +197,7 @@ namespace NeckDiagrams
                     { }
                     break;
                 case FeatureType.VoiceLeading: { result = new VoiceLeadingControl(); } break;
-                case FeatureType.ChordFingering: { result = new ChordShapeControl(); } break;
+                case FeatureType.ChordFingering: { result = new ChordShapeView(); } break;
                 case FeatureType.Arpeggiator: { result = new ArpeggiatorControl(); } break;
                 case FeatureType.Manufaktura: { result = new ManufakturaScratchPadControl(); } break;
                 case FeatureType.Arpeggios: { result = new ArpeggiosControl(); } break;

@@ -19,9 +19,8 @@ namespace NeckDiagrams.Controls
         Color NORMAL_COLOR = System.Drawing.SystemColors.Control;
         Color SELECTED_COLOR = Color.CornflowerBlue;
 
-        public ChordFormula Chord { get { return VM.ChordFormula; } }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ChordFormulaVM VM { get; set; }
+        public ChordFormulaVM ChordFormula { get; set; }
 
         public bool _IsSelected = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -41,7 +40,7 @@ namespace NeckDiagrams.Controls
         public ChordNameControl(ChordFormulaVM vm)
         {
             InitializeComponent();
-            this.VM = vm;
+            this.ChordFormula = vm;
         }
 
         public ChordNameControl(ChordFormulaVM vm, HarmonicAnalysisControl parent)
@@ -54,7 +53,7 @@ namespace NeckDiagrams.Controls
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.lblChordName.Text = Chord.Name;
+            this.lblChordName.Text = ChordFormula.Name;
         }
 
         void SubscribeToEvents(HarmonicAnalysisControl parent)
@@ -65,7 +64,7 @@ namespace NeckDiagrams.Controls
         private void Parent_AnalysisResultChanged(object sender, HarmonicAnalysisControl.AnalysisResultEventArgs e)
         {
             if (e.Result.Chords
-                .Contains(this.Chord, new ChordFormulaInstanceEqualityComparer()))
+                .Contains(this.ChordFormula.ChordFormula, new ChordFormulaInstanceEqualityComparer()))
             {
                 this.IsSelected = true;
             }

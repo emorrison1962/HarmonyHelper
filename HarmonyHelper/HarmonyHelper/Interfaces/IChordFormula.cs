@@ -5,6 +5,11 @@ using Eric.Morrison.Harmony.MusicXml;
 
 namespace Eric.Morrison.Harmony.Chords
 {
+    public interface IHasChordFormula
+    { 
+        ChordFormula ChordFormula { get; }
+    }
+
     public interface IChordFormula
     {
         NoteName Bass { get; }
