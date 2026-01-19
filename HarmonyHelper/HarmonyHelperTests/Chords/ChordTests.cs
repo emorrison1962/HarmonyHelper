@@ -364,45 +364,20 @@ namespace Chord_Tests
 
         }
 
-        //[TestMethod()]
-        //public void GetChordToneFunctionTest()
-        //{
-        //	var chordTypes = ChordType.Catalog;
-        //	foreach (var chordType in chordTypes)
-        //	{
-        //		var chord = ChordFormulaFactory.Create(NoteName.C, chordType, KeySignature.CMajor);
-        //		foreach (var note in NoteName.Catalog)
-        //		{
-        //			if (chord.Contains(note))
-        //			{
-        //				var function = chord.GetChordToneFunction(note);
-        //				if (function == ChordToneFunctionEnum.None)
-        //				{
-        //					function = chord.GetChordToneFunction(note);
-        //				}
-        //				Debug.WriteLine($"{note}'s relationship to {chord.Name}, is {function}");
-        //				new object();
-        //			}
-        //			else
-        //			{
-        //				var function = chord.GetChordToneFunction(note);
-        //				var msg = $"{note}'s relationship to {chord.Name}, is {function}";
-        //				Debug.WriteLine($"{note}'s relationship to {chord.Name}, is {function}");
-        //				new object();
-        //				if (function == ChordToneFunctionEnum.None)
-        //				{
-        //					function = chord.GetChordToneFunction(note);
-        //				}
-        //				if (function != ChordToneFunctionEnum.None)
-        //				{
-        //					function = chord.GetChordToneFunction(note);
-        //				}
-        //			}
-        //		}
-        //	}
-        //	new object();
+        [TestMethod()]
+        public void IsTriadTest()
+        {
+            var nns = new List<NoteName>();
+            nns.AddRange(new NoteName[] { NoteName.C, NoteName.E, NoteName.G });
+            var result = ChordFormula.IsTriad(nns);
+            Assert.IsTrue(result);
 
-        //}
+            nns = new List<NoteName>();
+            nns.AddRange(new NoteName[] { NoteName.E, NoteName.G, NoteName.C});
+            result = ChordFormula.IsTriad(nns);
+            Assert.IsTrue(result);
+        }
+
 
 
     }//class

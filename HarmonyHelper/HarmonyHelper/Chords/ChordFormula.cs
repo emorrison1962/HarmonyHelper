@@ -597,6 +597,43 @@ namespace Eric.Morrison.Harmony.Chords
             this._Keys = new HashSet<KeySignature>();
         }
 
+        public static bool IsTriad(List<NoteName> nns)
+        {
+            var result = true;
+            var vts = new HashSet<ValueTuple<NoteName, NoteName>>();
+            for (int i = 0; i < nns.Count; i++)
+            {
+                for (int j = 0; j < nns.Count; j++)
+                {
+                    var interval = nns[i] - nns[j];
+                    var inverted = interval.Invert();
+                    if (interval.FunctionalValue.HasFlag(IntervalFunctionalValuesEnum.Third)
+                        || inverted.FunctionalValue.HasFlag(IntervalFunctionalValuesEnum.Third))
+                    {
+                        var third = ValueTuple.Create(nns[i], nns[j]);
+                        vts.Add(third);
+                    }
+                }
+            }
+
+            var seq = (from vt in vts
+                       select vt.Item1)
+                       .ToList();
+            seq.AddRange((from vt in vts
+                       select vt.Item2)
+                       .ToList());
+            seq.AddRange(seq);
+            for (int i = 0; i < nns.Count; i++)
+            {
+                if (!seq.Contains(nns[i]))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
     }//class
 
 }//ns
