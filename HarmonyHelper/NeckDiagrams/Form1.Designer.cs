@@ -88,7 +88,6 @@ namespace NeckDiagrams
             // 
             // _pnlFeatureView
             // 
-            _pnlFeatureView.BackColor = System.Drawing.Color.Turquoise;
             _pnlFeatureView.Dock = System.Windows.Forms.DockStyle.Fill;
             _pnlFeatureView.Location = new System.Drawing.Point(0, 0);
             _pnlFeatureView.Name = "_pnlFeatureView";

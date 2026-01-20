@@ -15,12 +15,15 @@ namespace NeckDiagrams.Domain
     public class ColorContext
     {
         const string ROOT = "Root";
-        const string SECOND = "Second/ Ninth";
+        const string SECOND = "Second";
         const string THIRD = "Third";
-        const string FOURTH = "Fourth/ Eleventh";
+        const string FOURTH = "Fourth";
         const string FIFTH = "Fifth";
-        const string SIXTH = "Sixth/ Thirteenth";
+        const string SIXTH = "Sixth";
         const string SEVENTH = "Seventh";
+        const string NINTH = "Ninth";
+        const string ELEVENTH = "Eleventh";
+        const string THIRTEENTH = "Thirteenth";
 
         static Dictionary<ChordFunctionEnum, string> Names { get; set; } = new Dictionary<ChordFunctionEnum, string>();
         static ColorContext()
@@ -32,6 +35,9 @@ namespace NeckDiagrams.Domain
             Names.Add(ChordFunctionEnum.Fifth, FIFTH);
             Names.Add(ChordFunctionEnum.Sixth, SIXTH);
             Names.Add(ChordFunctionEnum.Seventh, SEVENTH);
+            Names.Add(ChordFunctionEnum.Ninth, NINTH);
+            Names.Add(ChordFunctionEnum.Eleventh, ELEVENTH);
+            Names.Add(ChordFunctionEnum.Thirteenth, THIRTEENTH);
         }
 
         public Color Color { get; set; }
@@ -52,6 +58,7 @@ namespace NeckDiagrams.Domain
     public class ColorContextCollection : IColorContextCollection
     {
         #region Properties
+        [Newtonsoft.Json.JsonProperty]
         Dictionary<ChordFunctionEnum, ColorContext> Dictionary { get; set; } = new Dictionary<ChordFunctionEnum, ColorContext>();
 
         #endregion
@@ -79,13 +86,17 @@ namespace NeckDiagrams.Domain
         {
             var list = new List<ColorContext>();
 
-            list.Add(new ColorContext(ChordFunctionEnum.Root, Color.Red));
+            list.Add(new ColorContext(ChordFunctionEnum.Root, Color.Red));         
             list.Add(new ColorContext(ChordFunctionEnum.Second, Color.HotPink));
             list.Add(new ColorContext(ChordFunctionEnum.Third, Color.Orange));
             list.Add(new ColorContext(ChordFunctionEnum.Fourth, Color.Yellow));
             list.Add(new ColorContext(ChordFunctionEnum.Fifth, Color.Violet));
             list.Add(new ColorContext(ChordFunctionEnum.Sixth, Color.LimeGreen));
             list.Add(new ColorContext(ChordFunctionEnum.Seventh, Color.HotPink));
+            
+            list.Add(new ColorContext(ChordFunctionEnum.Ninth, Color.DarkBlue));
+            list.Add(new ColorContext(ChordFunctionEnum.Eleventh, Color.DarkRed));
+            list.Add(new ColorContext(ChordFunctionEnum.Thirteenth, Color.DarkViolet));
 
             var result = new ColorContextCollection(list);
             return result;
@@ -155,7 +166,5 @@ namespace NeckDiagrams.Domain
         ColorContext Get(ChordFunctionEnum ndx);
         Color GetColor(ChordFunctionEnum ndx);
     }//class
-
-
 
 }//ns

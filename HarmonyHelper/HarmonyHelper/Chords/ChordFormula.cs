@@ -83,7 +83,8 @@ namespace Eric.Morrison.Harmony.Chords
             //this.NoteNames.Add(this.Root = root);
             this.ChordType = chordType;
 
-            foreach (var interval in this.ChordType.Intervals())
+            var intervals = this.ChordType.Intervals();
+            foreach (var interval in intervals)
             {
                 var nn = NoteName.TransposeUp(root, interval, true);
                 this.SetChordTone(interval, nn);
@@ -99,6 +100,9 @@ namespace Eric.Morrison.Harmony.Chords
                     this.UsesSharps = true;
                 }
             }
+
+            this.RefineChordTones();
+
         }
         [Obsolete("", true)]
         public ChordFormula(ChordFormula src)
@@ -173,28 +177,55 @@ namespace Eric.Morrison.Harmony.Chords
             }
         }
 
+        void RefineChordTones()
+        {
+            if (this.ChordType == ChordIntervalsEnum.Dominant13)
+                new object();
+            if (this.HasThird())
+            {
+                if (null != this.Fourth)
+                {
+                    this.Eleventh = this.Fourth;
+                    this.Fourth = null;
+                }
+            }
+            if (this.HasSeventh())
+            {
+                if (null != this.Second)
+                {
+                    this.Ninth = this.Second;
+                    this.Second = null;
+                }
+                if (null != this.Sixth)
+                {
+                    this.Thirteenth = this.Sixth;
+                    this.Sixth = null;
+                }
+            }
+        }
+
         public ChordFunctionEnum GetChordFunction(NoteName nn)
         {
             ChordFunctionEnum result = ChordFunctionEnum.None;
-            if (this.Root == nn)
+            if (this.Root.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Root;
-            else if (this.Second == nn)
+            else if (this.Second?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Second;
-            else if (this.Third == nn)
+            else if (this.Third?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Third;
-            else if (this.Fourth == nn)
+            else if (this.Fourth?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Fourth;
-            else if (this.Fifth == nn)
+            else if (this.Fifth?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Fifth;
-            else if (this.Sixth == nn)
+            else if (this.Sixth?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Sixth;
-            else if (this.Seventh == nn)
+            else if (this.Seventh?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Seventh;
-            else if (this.Ninth == nn)
+            else if (this.Ninth?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Ninth;
-            else if (this.Eleventh == nn)
+            else if (this.Eleventh?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Eleventh;
-            else if (this.Thirteenth == nn)
+            else if (this.Thirteenth?.RawValue == nn.RawValue)
                 result = ChordFunctionEnum.Thirteenth;
 
             return result;
@@ -372,43 +403,65 @@ namespace Eric.Morrison.Harmony.Chords
         bool HasThird()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Third))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMajor3rd)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMinor3rd))
+            {
                 result = true;
+            }
             return result;
         }
         bool HasFifth()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Fifth))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalDiminished5th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalPerfect5th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalAugmented5th))
+            {
                 result = true;
+            }
             return result;
         }
         bool HasSeventh()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Seventh))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalDiminished7th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMinor7th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalMajor7th))
+            {
                 result = true;
+            }
             return result;
         }
         bool HasNinth()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Ninth))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalFlat9th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalNinth)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalSharp9th))
+            {
                 result = true;
+            }
             return result;
         }
         bool HasEleventh()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Eleventh))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalFlat11th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalEleventh)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalAugmented11th))
+            {
                 result = true;
+            }
             return result;
         }
         bool HasThirteenth()
         {
             var result = false;
-            if (Interval.Unison == this.ChordType.GetInterval(ChordFunctionEnum.Thirteenth))
+            if (this.ChordType.HasFlag(ChordIntervalsEnum.IntervalFlat13th)
+                || this.ChordType.HasFlag(ChordIntervalsEnum.IntervalThirteenth))
+            {
                 result = true;
+            }
             return result;
         }
 
@@ -620,7 +673,7 @@ namespace Eric.Morrison.Harmony.Chords
                        select vt.Item1)
                        .ToList();
             seq.AddRange((from vt in vts
-                       select vt.Item2)
+                          select vt.Item2)
                        .ToList());
             seq.AddRange(seq);
             for (int i = 0; i < nns.Count; i++)

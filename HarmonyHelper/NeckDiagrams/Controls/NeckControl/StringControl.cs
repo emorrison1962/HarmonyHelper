@@ -109,7 +109,7 @@ namespace NeckDiagrams
             var ctls = this.Controls.Cast<StringPositionControl>();
             foreach (var ctl in ctls)
             {
-                ctl.IsActive = this.ActiveNotes.Contains(ctl.Note.NoteName);
+                ctl.IsActive = this.ActiveNotes.Contains(ctl.Note.NoteName, new NoteNameValueEqualityComparer());
             }
         }
 

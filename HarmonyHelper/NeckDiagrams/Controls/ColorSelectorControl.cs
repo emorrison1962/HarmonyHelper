@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -37,7 +38,7 @@ namespace NeckDiagrams.Controls
         public ColorSelectorControl()
         {
             InitializeComponent();
-            
+
             this.Init();
             this.VisibleChanged += ColorSelectorControl_VisibleChanged;
         }
@@ -84,9 +85,21 @@ namespace NeckDiagrams.Controls
             this.Color = color;
             this.lblChordTone.BackColor = Color;
 
-            var brightness = this.Color.GetBrightness();
-            if (brightness <= .5)
+            var grayscale = this.ToGrayscaleLuminosity(this.Color);
+            if (grayscale.R <= 127)
+            {
                 lblChordTone.ForeColor = Color.White;
+            }
+            else
+            {
+                lblChordTone.ForeColor = Color.Black;
+            }
+        }
+
+        public Color ToGrayscaleLuminosity(Color originalColor)
+        {
+            int grayScale = (int)((originalColor.R * 0.3) + (originalColor.G * 0.59) + (originalColor.B * 0.11));
+            return Color.FromArgb(originalColor.A, grayScale, grayScale, grayScale);
         }
 
         int ToInt(Color color)

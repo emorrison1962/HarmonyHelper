@@ -35,7 +35,7 @@ namespace NeckDiagrams
 
         StringPositionVM StringPositionContext { get; set; }
         private NoteTypeEnum NoteType { get { return this.StringPositionContext.NoteType; } }
-        Color DotColor { get; set; } = Color.Black;
+        Color DotColor { get; set; } //= Color.Black;
 
         #endregion
 
@@ -74,61 +74,22 @@ namespace NeckDiagrams
                 var color = colors.GetColor(chordFunctionEnum);
                 this.DotColor = color;
                 new object();
+
+                this._toolTip.InitialDelay = 1000;
+                const string CHORD_FUNCTION = "Chord Function";
+                this._toolTip.ToolTipTitle = CHORD_FUNCTION;
+                this._toolTip.ShowAlways = true;
+                var nn = formula.NoteNames.FirstOrDefault(x => x.RawValue == this.Note.NoteName.RawValue);
+                this._toolTip.SetToolTip(this, $"{nn.Name} is the {chordFunctionEnum.ToString()}");
             }
             new object();
 
 
-            this._toolTip.Popup += this._toolTip_Popup;
-            this._toolTip.InitialDelay = 1000;
-            this._toolTip.ToolTipTitle = "FIXME";
-            this._toolTip.ShowAlways = true;
-            this._toolTip.SetToolTip(this, "tool tip");
         }
 
         #endregion
 
-        //void GetNoteType()
-        //{
-        //    var noteType = NoteTypeEnum.None;
-        //    if (this.NoteType == NoteTypeEnum.ScaleTone
-        //        && this.Context.Note.NoteName
-        //            == this.Note.NoteName)
-        //    {
-        //        noteType |= NoteTypeEnum.ScaleTone;
-        //    }
-        //    else if (this.NoteType == NoteTypeEnum.ChordTone
-        //        && this.Context.Note.NoteName == this.Note.NoteName)
-        //    {
-        //        noteType |= NoteTypeEnum.ChordTone;
-        //    }
-
-        //    this.NoteType = noteType;
-        //}
-
         #region Event Handlers
-        private void _toolTip_Popup(object sender, PopupEventArgs e)
-        {
-            //var noteType = NoteTypeEnum.None;
-            //if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Scale
-            //    && mi.NoteNames
-            //        .Contains(this.Note.NoteName)))
-            //{
-            //    noteType |= NoteTypeEnum.ScaleTone;
-
-            //    //var scales = this.Model.Items.Where(x => x.ModelType == ModelItemTypeEnum.Scale);
-            //    //foreach (var scale in scales)
-            //    //{
-            //    //	scale.ScaleFormula.GetFunction(this.Note.NoteName);
-            //    //}
-            //}
-            //if (this.Model.Items.Any(mi => mi.ModelType == ModelItemTypeEnum.Arpeggio
-            //    && mi.NoteNames
-            //        .Contains(this.Note.NoteName)))
-            //{
-            //    noteType |= NoteTypeEnum.ChordTone;
-            //}
-
-        }
 
         private void StringPositionControl_Layout(object sender, LayoutEventArgs e)
         {
@@ -149,7 +110,7 @@ namespace NeckDiagrams
             {
                 this.DrawText(e);
                 this.DrawFrets(e);
-                this.DrawString(e);
+                this.DrawLine(e);
                 this.DrawActiveDot(e);
                 //Debug_DrawBoundary(e);
             }
@@ -174,21 +135,19 @@ namespace NeckDiagrams
             {
                 e.Graphics.DrawString($"{this.Note.ToString()}",
                     font,
-                    Brushes.Black,
+                    SystemBrushes.ControlText,
                     new Point(x, y));
             }
         }
 
         private void DrawFrets(PaintEventArgs e)
         {
-            Pen pen = Pens.Black;
-            Brush brush = Brushes.Black;
             var cxFret = this.Width / 2;
 
             Rectangle rcNut = Rectangle.Empty;
             List<Point> fretPoints = null;
 
-            if ((this.Parent as GuitarStringControl)?.GuitarStringNdx == GuitarStringNdxEnum.Sixth)
+            if ((this.Parent as GuitarStringControl)?.GuitarStringNdx == GuitarStringNdxEnum.First)
             {
                 if (this.Position == NUT)
                 {
@@ -203,7 +162,7 @@ namespace NeckDiagrams
                         new Point(cxFret, this.Height)};
                 }
             }
-            else if ((this.Parent as GuitarStringControl)?.GuitarStringNdx == 0)
+            else if ((this.Parent as GuitarStringControl)?.GuitarStringNdx == GuitarStringNdxEnum.Sixth)
             {
                 if (this.Position == NUT)
                 {
@@ -237,10 +196,12 @@ namespace NeckDiagrams
 
             if (this.Position == NUT)
             {
-                e.Graphics.FillRectangle(brush, rcNut);
+                Brush brush = SystemBrushes.ControlText;
+                    e.Graphics.FillRectangle(brush, rcNut);
             }
             else
             {
+                Pen pen = SystemPens.ControlText;
                 e.Graphics.DrawLine(pen,
                     fretPoints.First(),
                     fretPoints.Last());
@@ -249,45 +210,20 @@ namespace NeckDiagrams
 
         }
 
-        private void DrawString(PaintEventArgs e)
+        private void DrawLine(PaintEventArgs e)
         {
             var cyString = this.Height / 2;
             var p1 = new Point(0, cyString);
             var p2 = new Point(this.Width, cyString);
-            e.Graphics.DrawLine(Pens.Black, p1, p2);
+            e.Graphics.DrawLine(SystemPens.ControlText, p1, p2);
         }
 
         private void DrawActiveDot(PaintEventArgs e)
         {
             if (this.IsActive)
             {
-                var pen = Pens.Magenta;
-                var brush = Brushes.Magenta;
-                if (this.IsRoot)
-                {
-                    pen = Pens.Red;
-                    brush = Brushes.Red;
-                }
-                else
-                {
-                    if (this.NoteType == (NoteTypeEnum.ChordTone | NoteTypeEnum.ScaleTone))
-                    {
-                        pen = Pens.Purple;
-                        brush = Brushes.Purple;
-                    }
-                    else if (this.NoteType == NoteTypeEnum.ScaleTone)
-                    {
-                        pen = Pens.Blue;
-                        brush = Brushes.Blue;
-                    }
-                    else if (this.NoteType == NoteTypeEnum.ChordTone)
-                    {
-                        pen = Pens.Green;
-                        brush = Brushes.Green;
-                    }
-                }
-
-                brush = this.CreateBrush();
+                using var pen = this.CreatePen();
+                using var brush = this.CreateBrush();
 
                 var xCenter = CX_ELLIPSE;
                 var yCenter = this.Height / 2;
@@ -349,80 +285,16 @@ namespace NeckDiagrams
             gr.DrawEllipse(BlackPen, (float)(xctr - rcircle), (float)(yctr - rcircle), (float)(2 * rcircle), (float)(2 * rcircle));
         }
 
+        Pen CreatePen()
+        {
+            return new Pen(this.DotColor);
+        }
+
         Brush CreateBrush()
         {
             return new SolidBrush(this.DotColor);
         }
 
-        void foo()
-        {
-            //ChordFormula cf = (dynamic)model;
-            //var ctfe = cf.GetRelationship(this.Note.NoteName);
-        }
-
-#if false        
-        Brush CreateBrush_old()
-        {
-            var items = this.Model.NoteNames
-                .Where(x => x == this.Note.NoteName)
-                .ToList();
-            if (items.Count == 1)
-            {
-
-#warning FIXME
-                //return new SolidBrush(items[0].Color);
-                this.CreateBrush();
-            }
-
-            var colors = items.Select(mi => mi.Color).ToList();
-            if (colors.Count > 1)
-            {
-                if (colors[0].GetBrightness() > .5)
-                {
-                    //we'll need to outline this dot.
-                }
-                new object();
-            }
-            var floats = new List<float>();
-            for (int i = 0; i < colors.Count; ++i)
-            {
-                var f = 1 / (float)i;
-                if (float.IsInfinity(f))
-                {
-                    f = 0;
-                }
-                floats.Add(f);
-            }
-            new object();
-
-            var rc = new Rectangle(0, 0, CX_ELLIPSE, CX_ELLIPSE);
-            LinearGradientBrush result = new LinearGradientBrush(rc, Color.Black, Color.Black, 0, false);
-            ColorBlend cb = new ColorBlend();
-            cb.Positions = floats.ToArray();
-            cb.Colors = colors.ToArray();
-            //cb.Positions = new[] 
-            //{ 0, 
-            //	1 / 6f, 
-            //	2 / 6f, 
-            //	3 / 6f, 
-            //	4 / 6f, 
-            //	5 / 6f, 
-            //	1 };
-            //cb.Colors = new[] 
-            //{ Color.Red, 
-            //	Color.Orange, 
-            //	Color.Yellow, 
-            //	Color.Green, 
-            //	Color.Blue, 
-            //	Color.Indigo, 
-            //	Color.Violet };
-            result.InterpolationColors = cb;
-            // rotate
-            result.RotateTransform(45);
-            return result;
-
-        }
-#endif
         #endregion
 
     }//class

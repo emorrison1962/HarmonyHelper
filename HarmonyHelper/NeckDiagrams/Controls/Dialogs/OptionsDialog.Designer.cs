@@ -28,28 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Domain.GuitarStringCollection guitarStringCollection2 = new Domain.GuitarStringCollection();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             tabControl = new System.Windows.Forms.TabControl();
             tabGuitarStrings = new System.Windows.Forms.TabPage();
+            panel3 = new System.Windows.Forms.Panel();
+            ctlGuitarStrings = new GuitarStringsControl();
             tabColors = new System.Windows.Forms.TabPage();
             panel2 = new System.Windows.Forms.Panel();
-            colorSelectorControl07 = new ColorSelectorControl();
-            colorSelectorControl06 = new ColorSelectorControl();
-            colorSelectorControl05 = new ColorSelectorControl();
-            colorSelectorControl04 = new ColorSelectorControl();
-            colorSelectorControl03 = new ColorSelectorControl();
-            colorSelectorControl02 = new ColorSelectorControl();
-            colorSelectorControl01 = new ColorSelectorControl();
+            ctlSeventh = new ColorSelectorControl();
+            ctlSixth = new ColorSelectorControl();
+            ctlFifth = new ColorSelectorControl();
+            ctlFourth = new ColorSelectorControl();
+            ctlThird = new ColorSelectorControl();
+            ctlSecond = new ColorSelectorControl();
+            ctlRoot = new ColorSelectorControl();
             panel1 = new System.Windows.Forms.Panel();
             bnCancel = new System.Windows.Forms.Button();
             bnOK = new System.Windows.Forms.Button();
-            panel3 = new System.Windows.Forms.Panel();
-            ctlGuitarStrings = new GuitarStringsControl();
+            ctlNinth = new ColorSelectorControl();
+            ctlEleventh = new ColorSelectorControl();
+            ctlThirteenth = new ColorSelectorControl();
             tabControl.SuspendLayout();
             tabGuitarStrings.SuspendLayout();
+            panel3.SuspendLayout();
             tabColors.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
-            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl
@@ -74,6 +79,24 @@
             tabGuitarStrings.Text = "tabPage1";
             tabGuitarStrings.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(ctlGuitarStrings);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(786, 411);
+            panel3.TabIndex = 0;
+            // 
+            // ctlGuitarStrings
+            // 
+            ctlGuitarStrings.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlGuitarStrings.GuitarStringCollection = guitarStringCollection2;
+            ctlGuitarStrings.Location = new System.Drawing.Point(0, 0);
+            ctlGuitarStrings.Name = "ctlGuitarStrings";
+            ctlGuitarStrings.Size = new System.Drawing.Size(786, 268);
+            ctlGuitarStrings.TabIndex = 0;
+            // 
             // tabColors
             // 
             tabColors.Controls.Add(panel2);
@@ -87,88 +110,91 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(colorSelectorControl07);
-            panel2.Controls.Add(colorSelectorControl06);
-            panel2.Controls.Add(colorSelectorControl05);
-            panel2.Controls.Add(colorSelectorControl04);
-            panel2.Controls.Add(colorSelectorControl03);
-            panel2.Controls.Add(colorSelectorControl02);
-            panel2.Controls.Add(colorSelectorControl01);
+            panel2.Controls.Add(ctlThirteenth);
+            panel2.Controls.Add(ctlEleventh);
+            panel2.Controls.Add(ctlNinth);
+            panel2.Controls.Add(ctlSeventh);
+            panel2.Controls.Add(ctlSixth);
+            panel2.Controls.Add(ctlFifth);
+            panel2.Controls.Add(ctlFourth);
+            panel2.Controls.Add(ctlThird);
+            panel2.Controls.Add(ctlSecond);
+            panel2.Controls.Add(ctlRoot);
             panel2.Dock = System.Windows.Forms.DockStyle.Left;
             panel2.Location = new System.Drawing.Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(284, 411);
             panel2.TabIndex = 0;
             // 
-            // colorSelectorControl07
+            // ctlSeventh
             // 
-            colorSelectorControl07.ColorContext = null;
-            colorSelectorControl07.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl07.Label = "label1";
-            colorSelectorControl07.Location = new System.Drawing.Point(0, 180);
-            colorSelectorControl07.Name = "colorSelectorControl07";
-            colorSelectorControl07.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl07.TabIndex = 6;
+            ctlSeventh.ColorContext = null;
+            ctlSeventh.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlSeventh.Label = "label1";
+            ctlSeventh.Location = new System.Drawing.Point(0, 180);
+            ctlSeventh.Name = "ctlSeventh";
+            ctlSeventh.Size = new System.Drawing.Size(284, 30);
+            ctlSeventh.TabIndex = 6;
             // 
-            // colorSelectorControl06
+            // ctlSixth
             // 
-            colorSelectorControl06.ColorContext = null;
-            colorSelectorControl06.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl06.Label = "label1";
-            colorSelectorControl06.Location = new System.Drawing.Point(0, 150);
-            colorSelectorControl06.Name = "colorSelectorControl06";
-            colorSelectorControl06.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl06.TabIndex = 5;
+            ctlSixth.ColorContext = null;
+            ctlSixth.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlSixth.Label = "label1";
+            ctlSixth.Location = new System.Drawing.Point(0, 150);
+            ctlSixth.Name = "ctlSixth";
+            ctlSixth.Size = new System.Drawing.Size(284, 30);
+            ctlSixth.TabIndex = 5;
             // 
-            // colorSelectorControl05
+            // ctlFifth
             // 
-            colorSelectorControl05.ColorContext = null;
-            colorSelectorControl05.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl05.Label = "label1";
-            colorSelectorControl05.Location = new System.Drawing.Point(0, 120);
-            colorSelectorControl05.Name = "colorSelectorControl05";
-            colorSelectorControl05.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl05.TabIndex = 4;
+            ctlFifth.ColorContext = null;
+            ctlFifth.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlFifth.Label = "label1";
+            ctlFifth.Location = new System.Drawing.Point(0, 120);
+            ctlFifth.Name = "ctlFifth";
+            ctlFifth.Size = new System.Drawing.Size(284, 30);
+            ctlFifth.TabIndex = 4;
             // 
-            // colorSelectorControl04
+            // ctlFourth
             // 
-            colorSelectorControl04.ColorContext = null;
-            colorSelectorControl04.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl04.Label = "label1";
-            colorSelectorControl04.Location = new System.Drawing.Point(0, 90);
-            colorSelectorControl04.Name = "colorSelectorControl04";
-            colorSelectorControl04.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl04.TabIndex = 3;
+            ctlFourth.ColorContext = null;
+            ctlFourth.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlFourth.Label = "label1";
+            ctlFourth.Location = new System.Drawing.Point(0, 90);
+            ctlFourth.Name = "ctlFourth";
+            ctlFourth.Size = new System.Drawing.Size(284, 30);
+            ctlFourth.TabIndex = 3;
             // 
-            // colorSelectorControl03
+            // ctlThird
             // 
-            colorSelectorControl03.ColorContext = null;
-            colorSelectorControl03.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl03.Label = "label1";
-            colorSelectorControl03.Location = new System.Drawing.Point(0, 60);
-            colorSelectorControl03.Name = "colorSelectorControl03";
-            colorSelectorControl03.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl03.TabIndex = 2;
+            ctlThird.ColorContext = null;
+            ctlThird.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlThird.Label = "label1";
+            ctlThird.Location = new System.Drawing.Point(0, 60);
+            ctlThird.Name = "ctlThird";
+            ctlThird.Size = new System.Drawing.Size(284, 30);
+            ctlThird.TabIndex = 2;
             // 
-            // colorSelectorControl02
+            // ctlSecond
             // 
-            colorSelectorControl02.ColorContext = null;
-            colorSelectorControl02.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl02.Label = "label1";
-            colorSelectorControl02.Location = new System.Drawing.Point(0, 30);
-            colorSelectorControl02.Name = "colorSelectorControl02";
-            colorSelectorControl02.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl02.TabIndex = 1;
+            ctlSecond.ColorContext = null;
+            ctlSecond.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlSecond.Label = "label1";
+            ctlSecond.Location = new System.Drawing.Point(0, 30);
+            ctlSecond.Name = "ctlSecond";
+            ctlSecond.Size = new System.Drawing.Size(284, 30);
+            ctlSecond.TabIndex = 1;
             // 
-            // colorSelectorControl01
+            // ctlRoot
             // 
-            colorSelectorControl01.ColorContext = null;
-            colorSelectorControl01.Dock = System.Windows.Forms.DockStyle.Top;
-            colorSelectorControl01.Label = "label1";
-            colorSelectorControl01.Location = new System.Drawing.Point(0, 0);
-            colorSelectorControl01.Name = "colorSelectorControl01";
-            colorSelectorControl01.Size = new System.Drawing.Size(284, 30);
-            colorSelectorControl01.TabIndex = 0;
+            ctlRoot.ColorContext = null;
+            ctlRoot.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlRoot.Label = "label1";
+            ctlRoot.Location = new System.Drawing.Point(0, 0);
+            ctlRoot.Name = "ctlRoot";
+            ctlRoot.Size = new System.Drawing.Size(284, 30);
+            ctlRoot.TabIndex = 0;
             // 
             // panel1
             // 
@@ -204,23 +230,35 @@
             bnOK.UseVisualStyleBackColor = true;
             bnOK.Click += bnOK_Click;
             // 
-            // panel3
+            // ctlNinth
             // 
-            panel3.Controls.Add(ctlGuitarStrings);
-            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(3, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(786, 411);
-            panel3.TabIndex = 0;
+            ctlNinth.ColorContext = null;
+            ctlNinth.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlNinth.Label = "label1";
+            ctlNinth.Location = new System.Drawing.Point(0, 210);
+            ctlNinth.Name = "ctlNinth";
+            ctlNinth.Size = new System.Drawing.Size(284, 30);
+            ctlNinth.TabIndex = 7;
             // 
-            // guitarStringsControl1
+            // ctlEleventh
             // 
-            ctlGuitarStrings.Dock = System.Windows.Forms.DockStyle.Top;
-            ctlGuitarStrings.GuitarStringCollection = null;
-            ctlGuitarStrings.Location = new System.Drawing.Point(0, 0);
-            ctlGuitarStrings.Name = "guitarStringsControl1";
-            ctlGuitarStrings.Size = new System.Drawing.Size(786, 268);
-            ctlGuitarStrings.TabIndex = 0;
+            ctlEleventh.ColorContext = null;
+            ctlEleventh.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlEleventh.Label = "label1";
+            ctlEleventh.Location = new System.Drawing.Point(0, 240);
+            ctlEleventh.Name = "ctlEleventh";
+            ctlEleventh.Size = new System.Drawing.Size(284, 30);
+            ctlEleventh.TabIndex = 8;
+            // 
+            // ctlThirteenth
+            // 
+            ctlThirteenth.ColorContext = null;
+            ctlThirteenth.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlThirteenth.Label = "label1";
+            ctlThirteenth.Location = new System.Drawing.Point(0, 270);
+            ctlThirteenth.Name = "ctlThirteenth";
+            ctlThirteenth.Size = new System.Drawing.Size(284, 30);
+            ctlThirteenth.TabIndex = 9;
             // 
             // OptionsDialog
             // 
@@ -236,10 +274,10 @@
             Text = "OptionsDialog";
             tabControl.ResumeLayout(false);
             tabGuitarStrings.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             tabColors.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -252,14 +290,17 @@
         private System.Windows.Forms.Button bnCancel;
         private System.Windows.Forms.Button bnOK;
         private System.Windows.Forms.Panel panel2;
-        private ColorSelectorControl colorSelectorControl01;
-        private ColorSelectorControl colorSelectorControl02;
-        private ColorSelectorControl colorSelectorControl03;
-        private ColorSelectorControl colorSelectorControl04;
-        private ColorSelectorControl colorSelectorControl05;
-        private ColorSelectorControl colorSelectorControl06;
-        private ColorSelectorControl colorSelectorControl07;
+        private ColorSelectorControl ctlRoot;
+        private ColorSelectorControl ctlSecond;
+        private ColorSelectorControl ctlThird;
+        private ColorSelectorControl ctlFourth;
+        private ColorSelectorControl ctlFifth;
+        private ColorSelectorControl ctlSixth;
+        private ColorSelectorControl ctlSeventh;
         private System.Windows.Forms.Panel panel3;
         private GuitarStringsControl ctlGuitarStrings;
+        private ColorSelectorControl ctlThirteenth;
+        private ColorSelectorControl ctlEleventh;
+        private ColorSelectorControl ctlNinth;
     }
 }

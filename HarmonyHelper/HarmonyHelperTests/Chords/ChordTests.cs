@@ -37,6 +37,7 @@ namespace Chord_Tests
             var result = (Interval)which;
 
             var interval = ChordIntervalsEnum.Major.GetInterval(ChordFunctionEnum.Third);
+            new Object();
             //Interval GetThird(this ChordType e)
             //interval.ToStringEx();
         }

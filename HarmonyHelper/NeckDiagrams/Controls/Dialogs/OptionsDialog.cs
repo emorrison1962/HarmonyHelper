@@ -19,7 +19,6 @@ namespace NeckDiagrams.Controls
         {
             get
             {
-                ColorContextCollection.LoadSettingsOrDefault();
                 return colorContextCollection;
             }
             set
@@ -39,24 +38,30 @@ namespace NeckDiagrams.Controls
 
         private void OptionsDialog_Load(object sender, EventArgs e)
         {
-            colorSelectorControl01.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
-            colorSelectorControl02.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
-            colorSelectorControl03.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
-            colorSelectorControl04.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
-            colorSelectorControl05.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
-            colorSelectorControl06.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
-            colorSelectorControl07.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+            ctlRoot.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
+            ctlSecond.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
+            ctlThird.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
+            ctlFourth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
+            ctlFifth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
+            ctlSixth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
+            ctlSeventh.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+            ctlNinth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Ninth);
+            ctlEleventh.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Eleventh);
+            ctlThirteenth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Thirteenth);
         }
 
         private void TabColors_ControlAdded(object sender, ControlEventArgs e)
         {
-            colorSelectorControl01.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
-            colorSelectorControl02.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
-            colorSelectorControl03.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
-            colorSelectorControl04.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
-            colorSelectorControl05.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
-            colorSelectorControl06.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
-            colorSelectorControl07.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+            ctlRoot.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
+            ctlSecond.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
+            ctlThird.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
+            ctlFourth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
+            ctlFifth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
+            ctlSixth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
+            ctlSeventh.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+            ctlNinth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Ninth);
+            ctlEleventh.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Eleventh);
+            ctlThirteenth.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Thirteenth);
         }
 
         private void Init()
