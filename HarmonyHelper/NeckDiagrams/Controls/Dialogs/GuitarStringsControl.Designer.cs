@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            noteNameComboBox6 = new NoteNameComboBox();
-            noteNameComboBox5 = new NoteNameComboBox();
-            noteNameComboBox4 = new NoteNameComboBox();
-            noteNameComboBox3 = new NoteNameComboBox();
-            noteNameComboBox2 = new NoteNameComboBox();
-            noteNameComboBox1 = new NoteNameComboBox();
+            noteComboBox6 = new NoteComboBox();
+            noteComboBox5 = new NoteComboBox();
+            noteComboBox4 = new NoteComboBox();
+            noteComboBox3 = new NoteComboBox();
+            noteComboBox2 = new NoteComboBox();
+            noteComboBox1 = new NoteComboBox();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             tableLayoutPanel1.SuspendLayout();
@@ -51,12 +51,12 @@
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.4279308F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.0672321F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(noteNameComboBox6, 0, 0);
-            tableLayoutPanel1.Controls.Add(noteNameComboBox5, 1, 0);
-            tableLayoutPanel1.Controls.Add(noteNameComboBox4, 2, 0);
-            tableLayoutPanel1.Controls.Add(noteNameComboBox3, 3, 0);
-            tableLayoutPanel1.Controls.Add(noteNameComboBox2, 4, 0);
-            tableLayoutPanel1.Controls.Add(noteNameComboBox1, 5, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox6, 0, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox5, 1, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox4, 2, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox3, 3, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox2, 4, 0);
+            tableLayoutPanel1.Controls.Add(noteComboBox1, 5, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             tableLayoutPanel1.Location = new System.Drawing.Point(101, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -65,65 +65,65 @@
             tableLayoutPanel1.Size = new System.Drawing.Size(601, 42);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // noteNameComboBox6
+            // noteComboBox6
             // 
-            noteNameComboBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox6.Location = new System.Drawing.Point(4, 5);
-            noteNameComboBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox6.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox6.Name = "noteNameComboBox6";
-            noteNameComboBox6.Size = new System.Drawing.Size(92, 32);
-            noteNameComboBox6.TabIndex = 0;
+            noteComboBox6.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox6.Location = new System.Drawing.Point(4, 5);
+            noteComboBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox6.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox6.Name = "noteComboBox6";
+            noteComboBox6.Size = new System.Drawing.Size(92, 32);
+            noteComboBox6.TabIndex = 0;
             // 
-            // noteNameComboBox5
+            // noteComboBox5
             // 
-            noteNameComboBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox5.Location = new System.Drawing.Point(104, 5);
-            noteNameComboBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox5.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox5.Name = "noteNameComboBox5";
-            noteNameComboBox5.Size = new System.Drawing.Size(92, 32);
-            noteNameComboBox5.TabIndex = 0;
+            noteComboBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox5.Location = new System.Drawing.Point(104, 5);
+            noteComboBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox5.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox5.Name = "noteComboBox5";
+            noteComboBox5.Size = new System.Drawing.Size(92, 32);
+            noteComboBox5.TabIndex = 0;
             // 
-            // noteNameComboBox4
+            // noteComboBox4
             // 
-            noteNameComboBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox4.Location = new System.Drawing.Point(204, 5);
-            noteNameComboBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox4.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox4.Name = "noteNameComboBox4";
-            noteNameComboBox4.Size = new System.Drawing.Size(92, 32);
-            noteNameComboBox4.TabIndex = 0;
+            noteComboBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox4.Location = new System.Drawing.Point(204, 5);
+            noteComboBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox4.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox4.Name = "noteComboBox4";
+            noteComboBox4.Size = new System.Drawing.Size(92, 32);
+            noteComboBox4.TabIndex = 0;
             // 
-            // noteNameComboBox3
+            // noteComboBox3
             // 
-            noteNameComboBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox3.Location = new System.Drawing.Point(304, 5);
-            noteNameComboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox3.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox3.Name = "noteNameComboBox3";
-            noteNameComboBox3.Size = new System.Drawing.Size(92, 32);
-            noteNameComboBox3.TabIndex = 0;
+            noteComboBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox3.Location = new System.Drawing.Point(304, 5);
+            noteComboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox3.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox3.Name = "noteComboBox3";
+            noteComboBox3.Size = new System.Drawing.Size(92, 32);
+            noteComboBox3.TabIndex = 0;
             // 
-            // noteNameComboBox2
+            // noteComboBox2
             // 
-            noteNameComboBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox2.Location = new System.Drawing.Point(404, 5);
-            noteNameComboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox2.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox2.Name = "noteNameComboBox2";
-            noteNameComboBox2.Size = new System.Drawing.Size(92, 32);
-            noteNameComboBox2.TabIndex = 0;
+            noteComboBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox2.Location = new System.Drawing.Point(404, 5);
+            noteComboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox2.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox2.Name = "noteComboBox2";
+            noteComboBox2.Size = new System.Drawing.Size(92, 32);
+            noteComboBox2.TabIndex = 0;
             // 
-            // noteNameComboBox1
+            // noteComboBox1
             // 
-            noteNameComboBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            noteNameComboBox1.Location = new System.Drawing.Point(504, 5);
-            noteNameComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            noteNameComboBox1.MinimumSize = new System.Drawing.Size(0, 32);
-            noteNameComboBox1.Name = "noteNameComboBox1";
-            noteNameComboBox1.Size = new System.Drawing.Size(93, 32);
-            noteNameComboBox1.TabIndex = 1;
+            noteComboBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            noteComboBox1.Location = new System.Drawing.Point(504, 5);
+            noteComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            noteComboBox1.MinimumSize = new System.Drawing.Size(0, 32);
+            noteComboBox1.Name = "noteComboBox1";
+            noteComboBox1.Size = new System.Drawing.Size(93, 32);
+            noteComboBox1.TabIndex = 1;
             // 
             // label1
             // 
@@ -161,12 +161,12 @@
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private NoteNameComboBox noteNameComboBox6;
-        private NoteNameComboBox noteNameComboBox5;
-        private NoteNameComboBox noteNameComboBox4;
-        private NoteNameComboBox noteNameComboBox3;
-        private NoteNameComboBox noteNameComboBox2;
-        private NoteNameComboBox noteNameComboBox1;
+        private NoteComboBox noteComboBox6;
+        private NoteComboBox noteComboBox5;
+        private NoteComboBox noteComboBox4;
+        private NoteComboBox noteComboBox3;
+        private NoteComboBox noteComboBox2;
+        private NoteComboBox noteComboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }

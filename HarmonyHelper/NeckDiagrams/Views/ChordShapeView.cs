@@ -66,11 +66,5 @@ namespace NeckDiagrams.Views
 
         #endregion
 
-        void foo()
-        {
-            var dlg = new GuitarNeckSettingsDialog();
-            var dr = dlg.ShowDialog();
-        }
-
     }//class
 }//ns

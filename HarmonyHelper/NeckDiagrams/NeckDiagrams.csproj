@@ -33,7 +33,7 @@
     <Compile Update="Controls\NeckControl\NeckControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\ComboBoxes\NoteNameComboBox.cs">
+    <Compile Update="Controls\ComboBoxes\NoteComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\NeckControl\StringControl.cs">

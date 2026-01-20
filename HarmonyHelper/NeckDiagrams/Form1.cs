@@ -49,6 +49,7 @@ namespace NeckDiagrams
             }
         }
 
+        [Obsolete("", true)]
         void ShowGuitarNeckSettingsDialog()
         {
             var dlg = new GuitarNeckSettingsDialog();

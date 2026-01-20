@@ -43,7 +43,7 @@
             bnCancel = new System.Windows.Forms.Button();
             bnOK = new System.Windows.Forms.Button();
             panel3 = new System.Windows.Forms.Panel();
-            guitarStringsControl1 = new GuitarStringsControl();
+            ctlGuitarStrings = new GuitarStringsControl();
             tabControl.SuspendLayout();
             tabGuitarStrings.SuspendLayout();
             tabColors.SuspendLayout();
@@ -206,7 +206,7 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(guitarStringsControl1);
+            panel3.Controls.Add(ctlGuitarStrings);
             panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             panel3.Location = new System.Drawing.Point(3, 3);
             panel3.Name = "panel3";
@@ -215,12 +215,12 @@
             // 
             // guitarStringsControl1
             // 
-            guitarStringsControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            guitarStringsControl1.GuitarStringCollection = null;
-            guitarStringsControl1.Location = new System.Drawing.Point(0, 0);
-            guitarStringsControl1.Name = "guitarStringsControl1";
-            guitarStringsControl1.Size = new System.Drawing.Size(786, 268);
-            guitarStringsControl1.TabIndex = 0;
+            ctlGuitarStrings.Dock = System.Windows.Forms.DockStyle.Top;
+            ctlGuitarStrings.GuitarStringCollection = null;
+            ctlGuitarStrings.Location = new System.Drawing.Point(0, 0);
+            ctlGuitarStrings.Name = "guitarStringsControl1";
+            ctlGuitarStrings.Size = new System.Drawing.Size(786, 268);
+            ctlGuitarStrings.TabIndex = 0;
             // 
             // OptionsDialog
             // 
@@ -260,6 +260,6 @@
         private ColorSelectorControl colorSelectorControl06;
         private ColorSelectorControl colorSelectorControl07;
         private System.Windows.Forms.Panel panel3;
-        private GuitarStringsControl guitarStringsControl1;
+        private GuitarStringsControl ctlGuitarStrings;
     }
 }

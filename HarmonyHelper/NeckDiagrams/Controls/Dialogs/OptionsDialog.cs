@@ -15,17 +15,17 @@ namespace NeckDiagrams.Controls
     public partial class OptionsDialog : Form
     {
         ColorContextCollection colorContextCollection;
-        ColorContextCollection ColorContextCollection 
+        ColorContextCollection ColorContextCollection
         {
-            get 
+            get
             {
                 ColorContextCollection.LoadSettingsOrDefault();
                 return colorContextCollection;
             }
-            set 
-            { 
+            set
+            {
                 this.colorContextCollection = value;
-            } 
+            }
         }
 
 
@@ -70,12 +70,15 @@ namespace NeckDiagrams.Controls
         }
 
         void bnCancel_Click(object sender, EventArgs e)
-        { 
+        {
         }
 
-        void bnOK_Click(object sender, EventArgs e) 
+        void bnOK_Click(object sender, EventArgs e)
         {
             ColorContextCollection.SaveToSettings(this.ColorContextCollection);
+
+            var coll = ctlGuitarStrings.GuitarStringCollection;
+            GuitarStringCollection.SaveToSettings(coll);
         }
 
 

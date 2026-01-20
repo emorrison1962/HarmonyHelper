@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 
 namespace NeckDiagrams.Controls
 {
+    [Obsolete("", true)]
     public partial class GuitarNeckSettingsDialog : Form
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
