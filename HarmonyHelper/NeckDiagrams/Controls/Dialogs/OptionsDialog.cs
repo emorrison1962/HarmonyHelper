@@ -14,14 +14,51 @@ namespace NeckDiagrams.Controls
 {
     public partial class OptionsDialog : Form
     {
-        ColorContextCollection ColorContextCollection {  get; set; }
+        ColorContextCollection colorContextCollection;
+        ColorContextCollection ColorContextCollection 
+        {
+            get 
+            {
+                ColorContextCollection.LoadSettingsOrDefault();
+                return colorContextCollection;
+            }
+            set 
+            { 
+                this.colorContextCollection = value;
+            } 
+        }
+
 
         public OptionsDialog()
         {
-            InitializeComponent();
             this.Init();
+            InitializeComponent();
+            this.Load += OptionsDialog_Load;
+            this.tabColors.ControlAdded += TabColors_ControlAdded;
         }
-        
+
+        private void OptionsDialog_Load(object sender, EventArgs e)
+        {
+            colorSelectorControl01.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
+            colorSelectorControl02.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
+            colorSelectorControl03.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
+            colorSelectorControl04.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
+            colorSelectorControl05.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
+            colorSelectorControl06.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
+            colorSelectorControl07.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+        }
+
+        private void TabColors_ControlAdded(object sender, ControlEventArgs e)
+        {
+            colorSelectorControl01.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Root);
+            colorSelectorControl02.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Second);
+            colorSelectorControl03.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Third);
+            colorSelectorControl04.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fourth);
+            colorSelectorControl05.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Fifth);
+            colorSelectorControl06.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Sixth);
+            colorSelectorControl07.ColorContext = this.ColorContextCollection.Get(ChordFunctionEnum.Seventh);
+        }
+
         private void Init()
         {
             this.InitColorContextCollection();
@@ -30,14 +67,6 @@ namespace NeckDiagrams.Controls
         void InitColorContextCollection()
         {
             this.ColorContextCollection = ColorContextCollection.LoadSettingsOrDefault();
-
-            colorSelectorControl01.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Root);
-            colorSelectorControl02.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Second);
-            colorSelectorControl03.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Third);
-            colorSelectorControl04.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Fourth);
-            colorSelectorControl05.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Fifth);
-            colorSelectorControl06.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Sixth);
-            colorSelectorControl07.ColorContext = this.ColorContextCollection.Get(IntervalRoleTypeEnum.Seventh);
         }
 
         void bnCancel_Click(object sender, EventArgs e)

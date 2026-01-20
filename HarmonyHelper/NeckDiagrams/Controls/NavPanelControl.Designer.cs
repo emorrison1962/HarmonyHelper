@@ -42,6 +42,7 @@ namespace NeckDiagrams.Controls
             _bnFeatureHarmonicAnalysis = new FeatureTypeButton();
             _bnFeatureArpeggiator = new FeatureTypeButton();
             _bnFeatureArpeggios = new FeatureTypeButton();
+            pnlSpacer = new System.Windows.Forms.Panel();
             _pnlNav.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,6 +50,7 @@ namespace NeckDiagrams.Controls
             // 
             _pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
             _pnlNav.Controls.Add(bnOptions);
+            _pnlNav.Controls.Add(pnlSpacer);
             _pnlNav.Controls.Add(_bnFeatureChordShape);
             _pnlNav.Controls.Add(_bnModalInterchange);
             _pnlNav.Controls.Add(_rbManufaktura);
@@ -67,8 +69,8 @@ namespace NeckDiagrams.Controls
             // 
             // bnOptions
             // 
-            bnOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            bnOptions.Location = new System.Drawing.Point(0, 1009);
+            bnOptions.Dock = System.Windows.Forms.DockStyle.Top;
+            bnOptions.Location = new System.Drawing.Point(0, 400);
             bnOptions.Name = "bnOptions";
             bnOptions.Size = new System.Drawing.Size(468, 30);
             bnOptions.TabIndex = 11;
@@ -219,6 +221,15 @@ namespace NeckDiagrams.Controls
             _bnFeatureArpeggios.UseVisualStyleBackColor = true;
             _bnFeatureArpeggios.CheckedChanged += _CheckedChanged;
             // 
+            // pnlSpacer
+            // 
+            pnlSpacer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlSpacer.Location = new System.Drawing.Point(0, 300);
+            pnlSpacer.Name = "pnlSpacer";
+            pnlSpacer.Size = new System.Drawing.Size(468, 100);
+            pnlSpacer.TabIndex = 12;
+            // 
             // NavPanelControl
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -246,5 +257,6 @@ namespace NeckDiagrams.Controls
         private FeatureTypeButton _bnFeatureArpeggios;
         private FeatureTypeButton _bnFeatureChordShape;
         private System.Windows.Forms.Button bnOptions;
+        private System.Windows.Forms.Panel pnlSpacer;
     }
 }

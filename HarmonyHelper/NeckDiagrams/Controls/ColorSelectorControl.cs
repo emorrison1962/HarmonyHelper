@@ -21,9 +21,12 @@ namespace NeckDiagrams.Controls
             get { return this._ColorContext; }
             set
             {
-                this._ColorContext = value;
-                this.Label = this._ColorContext.Label;
-                this.SetColor(this._ColorContext.Color);
+                if (value != null)
+                {
+                    this._ColorContext = value;
+                    this.Label = this._ColorContext.Label;
+                    this.SetColor(this._ColorContext.Color);
+                }
             }
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -34,11 +37,23 @@ namespace NeckDiagrams.Controls
         public ColorSelectorControl()
         {
             InitializeComponent();
+            
             this.Init();
+            this.VisibleChanged += ColorSelectorControl_VisibleChanged;
+        }
+
+        private void ColorSelectorControl_VisibleChanged(object sender, EventArgs e)
+        {
+            new object();
         }
 
         void Init()
         {
+        }
+
+        protected override void InitLayout()
+        {
+            base.InitLayout();
         }
 
         private void bnColor_Click(object sender, EventArgs e)

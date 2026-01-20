@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tabControl = new System.Windows.Forms.TabControl();
-            tabPage1 = new System.Windows.Forms.TabPage();
+            tabGuitarStrings = new System.Windows.Forms.TabPage();
             tabColors = new System.Windows.Forms.TabPage();
             panel2 = new System.Windows.Forms.Panel();
             colorSelectorControl07 = new ColorSelectorControl();
@@ -42,15 +42,19 @@
             panel1 = new System.Windows.Forms.Panel();
             bnCancel = new System.Windows.Forms.Button();
             bnOK = new System.Windows.Forms.Button();
+            panel3 = new System.Windows.Forms.Panel();
+            guitarStringsControl1 = new GuitarStringsControl();
             tabControl.SuspendLayout();
+            tabGuitarStrings.SuspendLayout();
             tabColors.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl
             // 
-            tabControl.Controls.Add(tabPage1);
+            tabControl.Controls.Add(tabGuitarStrings);
             tabControl.Controls.Add(tabColors);
             tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             tabControl.Location = new System.Drawing.Point(0, 0);
@@ -59,15 +63,16 @@
             tabControl.Size = new System.Drawing.Size(800, 450);
             tabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // tabGuitarStrings
             // 
-            tabPage1.Location = new System.Drawing.Point(4, 29);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            tabPage1.Size = new System.Drawing.Size(792, 417);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabGuitarStrings.Controls.Add(panel3);
+            tabGuitarStrings.Location = new System.Drawing.Point(4, 29);
+            tabGuitarStrings.Name = "tabGuitarStrings";
+            tabGuitarStrings.Padding = new System.Windows.Forms.Padding(3);
+            tabGuitarStrings.Size = new System.Drawing.Size(792, 417);
+            tabGuitarStrings.TabIndex = 0;
+            tabGuitarStrings.Text = "tabPage1";
+            tabGuitarStrings.UseVisualStyleBackColor = true;
             // 
             // tabColors
             // 
@@ -97,6 +102,7 @@
             // 
             // colorSelectorControl07
             // 
+            colorSelectorControl07.ColorContext = null;
             colorSelectorControl07.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl07.Label = "label1";
             colorSelectorControl07.Location = new System.Drawing.Point(0, 180);
@@ -106,6 +112,7 @@
             // 
             // colorSelectorControl06
             // 
+            colorSelectorControl06.ColorContext = null;
             colorSelectorControl06.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl06.Label = "label1";
             colorSelectorControl06.Location = new System.Drawing.Point(0, 150);
@@ -115,6 +122,7 @@
             // 
             // colorSelectorControl05
             // 
+            colorSelectorControl05.ColorContext = null;
             colorSelectorControl05.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl05.Label = "label1";
             colorSelectorControl05.Location = new System.Drawing.Point(0, 120);
@@ -124,6 +132,7 @@
             // 
             // colorSelectorControl04
             // 
+            colorSelectorControl04.ColorContext = null;
             colorSelectorControl04.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl04.Label = "label1";
             colorSelectorControl04.Location = new System.Drawing.Point(0, 90);
@@ -133,6 +142,7 @@
             // 
             // colorSelectorControl03
             // 
+            colorSelectorControl03.ColorContext = null;
             colorSelectorControl03.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl03.Label = "label1";
             colorSelectorControl03.Location = new System.Drawing.Point(0, 60);
@@ -142,6 +152,7 @@
             // 
             // colorSelectorControl02
             // 
+            colorSelectorControl02.ColorContext = null;
             colorSelectorControl02.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl02.Label = "label1";
             colorSelectorControl02.Location = new System.Drawing.Point(0, 30);
@@ -151,6 +162,7 @@
             // 
             // colorSelectorControl01
             // 
+            colorSelectorControl01.ColorContext = null;
             colorSelectorControl01.Dock = System.Windows.Forms.DockStyle.Top;
             colorSelectorControl01.Label = "label1";
             colorSelectorControl01.Location = new System.Drawing.Point(0, 0);
@@ -192,6 +204,24 @@
             bnOK.UseVisualStyleBackColor = true;
             bnOK.Click += bnOK_Click;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(guitarStringsControl1);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(786, 411);
+            panel3.TabIndex = 0;
+            // 
+            // guitarStringsControl1
+            // 
+            guitarStringsControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            guitarStringsControl1.GuitarStringCollection = null;
+            guitarStringsControl1.Location = new System.Drawing.Point(0, 0);
+            guitarStringsControl1.Name = "guitarStringsControl1";
+            guitarStringsControl1.Size = new System.Drawing.Size(786, 268);
+            guitarStringsControl1.TabIndex = 0;
+            // 
             // OptionsDialog
             // 
             AcceptButton = bnOK;
@@ -205,16 +235,18 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "OptionsDialog";
             tabControl.ResumeLayout(false);
+            tabGuitarStrings.ResumeLayout(false);
             tabColors.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabGuitarStrings;
         private System.Windows.Forms.TabPage tabColors;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button bnCancel;
@@ -227,5 +259,7 @@
         private ColorSelectorControl colorSelectorControl05;
         private ColorSelectorControl colorSelectorControl06;
         private ColorSelectorControl colorSelectorControl07;
+        private System.Windows.Forms.Panel panel3;
+        private GuitarStringsControl guitarStringsControl1;
     }
 }

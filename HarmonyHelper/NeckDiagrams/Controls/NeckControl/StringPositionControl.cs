@@ -20,7 +20,7 @@ scale
 
 namespace NeckDiagrams
 {
-    public partial class StringPositionControl : UserControl 
+    public partial class StringPositionControl : UserControl
     {
         const int CX_ELLIPSE = 20;
         const int CY_ELLIPSE = 20;
@@ -35,6 +35,7 @@ namespace NeckDiagrams
 
         StringPositionVM StringPositionContext { get; set; }
         private NoteTypeEnum NoteType { get { return this.StringPositionContext.NoteType; } }
+        Color DotColor { get; set; } = Color.Black;
 
         #endregion
 
@@ -59,11 +60,29 @@ namespace NeckDiagrams
 
         void Init()
         {
+            var vm = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
+            var formula = vm.ChordFormula;
+            this.IsRoot = formula.Root == this.Note.NoteName;
+
+            var colors = HarmonyHelper.IoC.Container.Resolve<IColorContextCollection>();
+
+            this.IsActive = false;
+            var chordFunctionEnum = formula.GetChordFunction(this.Note.NoteName);
+            if (chordFunctionEnum != ChordFunctionEnum.None)
+            {
+                this.IsActive = true;
+                var color = colors.GetColor(chordFunctionEnum);
+                this.DotColor = color;
+                new object();
+            }
+            new object();
+
+
             this._toolTip.Popup += this._toolTip_Popup;
             this._toolTip.InitialDelay = 1000;
             this._toolTip.ToolTipTitle = "FIXME";
             this._toolTip.ShowAlways = true;
-            this._toolTip.SetToolTip(this, "FIXME_02");
+            this._toolTip.SetToolTip(this, "tool tip");
         }
 
         #endregion
@@ -314,7 +333,7 @@ namespace NeckDiagrams
             //	new Point(this.Height, this.Width));
 
         }
-        
+
         static void DrawYinYang(Graphics gr, int xctr, int yctr, int rmax, int rint, int ysmall, int rsmall)
         {
             Brush white = Brushes.White;
@@ -332,7 +351,7 @@ namespace NeckDiagrams
 
         Brush CreateBrush()
         {
-            return new SolidBrush(Color.Black);
+            return new SolidBrush(this.DotColor);
         }
 
         void foo()

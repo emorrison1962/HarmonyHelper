@@ -14,31 +14,31 @@ namespace NeckDiagrams.Domain
 {
     public class ColorContext
     {
-        const string ROOT   = "Root";
+        const string ROOT = "Root";
         const string SECOND = "Second/ Ninth";
-        const string THIRD  = "Third";
+        const string THIRD = "Third";
         const string FOURTH = "Fourth/ Eleventh";
-        const string FIFTH  = "Fifth";
-        const string SIXTH  = "Sixth/ Thirteenth";
+        const string FIFTH = "Fifth";
+        const string SIXTH = "Sixth/ Thirteenth";
         const string SEVENTH = "Seventh";
 
-        static Dictionary<IntervalRoleTypeEnum, string> Names { get; set; } = new Dictionary<IntervalRoleTypeEnum, string>();
-        static ColorContext() 
+        static Dictionary<ChordFunctionEnum, string> Names { get; set; } = new Dictionary<ChordFunctionEnum, string>();
+        static ColorContext()
         {
-            Names.Add(IntervalRoleTypeEnum.Root, ROOT);
-            Names.Add(IntervalRoleTypeEnum.Second, SECOND );
-            Names.Add(IntervalRoleTypeEnum.Third, THIRD  );
-            Names.Add(IntervalRoleTypeEnum.Fourth, FOURTH );
-            Names.Add(IntervalRoleTypeEnum.Fifth, FIFTH  );
-            Names.Add(IntervalRoleTypeEnum.Sixth, SIXTH  );
-            Names.Add(IntervalRoleTypeEnum.Seventh, SEVENTH);
+            Names.Add(ChordFunctionEnum.Root, ROOT);
+            Names.Add(ChordFunctionEnum.Second, SECOND);
+            Names.Add(ChordFunctionEnum.Third, THIRD);
+            Names.Add(ChordFunctionEnum.Fourth, FOURTH);
+            Names.Add(ChordFunctionEnum.Fifth, FIFTH);
+            Names.Add(ChordFunctionEnum.Sixth, SIXTH);
+            Names.Add(ChordFunctionEnum.Seventh, SEVENTH);
         }
 
         public Color Color { get; set; }
-        public IntervalRoleTypeEnum ChordFunction { get; set; }
+        public ChordFunctionEnum ChordFunction { get; set; }
         public string Label { get { return Names[this.ChordFunction]; } }
         public ColorContext() { }
-        public ColorContext(IntervalRoleTypeEnum cfe, Color color)
+        public ColorContext(ChordFunctionEnum cfe, Color color)
         {
             this.ChordFunction = cfe;
             this.Color = color;
@@ -47,19 +47,17 @@ namespace NeckDiagrams.Domain
         void Init()
         {
         }
-#if false
-#endif
     }//class
 
-    public class ColorContextCollection
+    public class ColorContextCollection : IColorContextCollection
     {
         #region Properties
-        public Dictionary<IntervalRoleTypeEnum, ColorContext> Dictionary { get; set; } = new Dictionary<IntervalRoleTypeEnum, ColorContext>();
+        Dictionary<ChordFunctionEnum, ColorContext> Dictionary { get; set; } = new Dictionary<ChordFunctionEnum, ColorContext>();
 
         #endregion
 
         #region Static Methods
-        static public bool TryLoadSettings(out ColorContextCollection coll)
+        static bool TryLoadSettings(out ColorContextCollection coll)
         {
             var result = false;
             coll = null;
@@ -67,7 +65,7 @@ namespace NeckDiagrams.Domain
             {
                 var json = Settings.Default.ColorContextCollection;
                 coll = JsonConvert.DeserializeObject<ColorContextCollection>(json);
-                if (null != coll)
+                if (null != coll && coll.Dictionary.Count > 0)
                     result = true;
             }
             catch (Exception)
@@ -77,24 +75,17 @@ namespace NeckDiagrams.Domain
             return result;
         }
 
-        static public void SaveToSettings(ColorContextCollection coll)
-        {
-            var json = JsonConvert.SerializeObject(coll);
-            Settings.Default.ColorContextCollection = json;
-            Settings.Default.Save();
-        }
-
-        static public ColorContextCollection CreateDefaultCollection()
+        static ColorContextCollection CreateDefaultCollection()
         {
             var list = new List<ColorContext>();
 
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Root, Color.Red));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Second, Color.HotPink));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Third, Color.Orange));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Fourth, Color.Yellow));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Fifth, Color.Violet));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Sixth, Color.LimeGreen));
-            list.Add(new ColorContext(IntervalRoleTypeEnum.Seventh, Color.HotPink));
+            list.Add(new ColorContext(ChordFunctionEnum.Root, Color.Red));
+            list.Add(new ColorContext(ChordFunctionEnum.Second, Color.HotPink));
+            list.Add(new ColorContext(ChordFunctionEnum.Third, Color.Orange));
+            list.Add(new ColorContext(ChordFunctionEnum.Fourth, Color.Yellow));
+            list.Add(new ColorContext(ChordFunctionEnum.Fifth, Color.Violet));
+            list.Add(new ColorContext(ChordFunctionEnum.Sixth, Color.LimeGreen));
+            list.Add(new ColorContext(ChordFunctionEnum.Seventh, Color.HotPink));
 
             var result = new ColorContextCollection(list);
             return result;
@@ -107,7 +98,14 @@ namespace NeckDiagrams.Domain
             return result;
         }
 
-        static public ColorContextCollection Clone(ColorContextCollection coll)
+        static public void SaveToSettings(ColorContextCollection coll)
+        {
+            var json = JsonConvert.SerializeObject(coll);
+            Settings.Default.ColorContextCollection = json;
+            Settings.Default.Save();
+        }
+
+        static ColorContextCollection Clone(ColorContextCollection coll)
         {
             var json = JsonConvert.SerializeObject(coll);
             var result = JsonConvert.DeserializeObject<ColorContextCollection>(json);
@@ -132,18 +130,31 @@ namespace NeckDiagrams.Domain
 
         #endregion
 
-        public Color GetColor(IntervalRoleTypeEnum ndx)
+        public Color GetColor(ChordFunctionEnum ndx)
         {
             var result = this.Dictionary[ndx].Color;
             return result;
         }
-        public ColorContext Get(IntervalRoleTypeEnum ndx)
+        public ColorContext Get(ChordFunctionEnum ndx)
         {
             var result = this.Dictionary[ndx];
             return result;
         }
 
-    }
+        public Color this[ChordFunctionEnum key]
+        {
+            get => this.Dictionary[key].Color;
+            set => this.Dictionary[key].Color = value;
+        }
+
+    }//class
+
+    public interface IColorContextCollection
+    {
+        Color this[ChordFunctionEnum key] { get; set; }
+        ColorContext Get(ChordFunctionEnum ndx);
+        Color GetColor(ChordFunctionEnum ndx);
+    }//class
 
 
 

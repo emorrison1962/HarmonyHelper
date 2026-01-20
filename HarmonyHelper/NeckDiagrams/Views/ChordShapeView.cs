@@ -47,13 +47,21 @@ namespace NeckDiagrams.Views
 
         void Init()
         {
+            this.BootstrapModel();
+            this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        void BootstrapModel()
+        {
             this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
             if (this.Model == null)
             {
                 this.Model = new ChordShapeVM();
             }
             HarmonyHelper.IoC.Container.Register<IChordShapeVM>(this.Model);
-            this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
+            
+            var colors = ColorContextCollection.LoadSettingsOrDefault();
+            HarmonyHelper.IoC.Container.Register<IColorContextCollection>(colors);
         }
 
         #endregion
