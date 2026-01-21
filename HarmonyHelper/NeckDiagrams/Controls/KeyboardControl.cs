@@ -21,7 +21,7 @@ namespace NeckDiagrams.Controls
 
         public void Arpeggiator_CurrentNoteChanged(object? sender, Arpeggiator args)
         {
-            Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
+            //Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
             this.NoteChanged(args);
             new object();
         }

@@ -32,17 +32,17 @@ namespace NeckDiagrams.Views
         #region Construction
         public ChordShapeView()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             this.Init();
             this.Load += ChordShapeControl_Load;
             InitializeComponent();
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         private void ChordShapeControl_Load(object sender, EventArgs e)
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void Init()

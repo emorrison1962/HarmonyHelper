@@ -33,18 +33,8 @@ namespace NeckDiagrams
             {
                 //this.ShowGuitarNeckSettingsDialog();
                 this._ctlNav.SelectedFeatureTypeChanged += this.SelectedFeatureChanged;
-                //foreach (var key in KeySignature.InternalCatalog.OrderBy(x => x.NoteName))
-                //{
-                //	_cbKey.Items.Add(key);
-                //}
-
-                //var defaultKey = KeySignature.CMajor;
-                //_cbKey.SelectedItem = defaultKey;
-                //this.ScaleFormulaCatalog = new ScaleFormulaCatalog(defaultKey);
-
-                //this._rbScore.Checked = true;
-                //this._bnFeatureHarmonicAnalysis.Checked = true;
-                _ctlNav.SelectedFeatureType = FeatureType.ChordFingering;
+                //_ctlNav.SelectedFeatureType = FeatureType.ChordFingering;
+                _ctlNav.SelectedFeatureType = FeatureType.ModalInterchange;
 
             }
         }
@@ -58,7 +48,7 @@ namespace NeckDiagrams
 
         private void SelectedFeatureChanged(object sender, FeatureType e)
         {
-            Debug.WriteLine(e.ToString());
+            //Debug.WriteLine(e.ToString());
             var featureView = new FeatureViewFactory().CreateView(e);
             this.AddControl(featureView);
         }
@@ -211,7 +201,7 @@ namespace NeckDiagrams
                 case FeatureType.Scales: { result = new ScalesControl(); } break;
                 default: { throw new ArgumentOutOfRangeException(nameof(e)); }
             }
-            Debug.WriteLine(result.GetType().Name);
+            //Debug.WriteLine(result.GetType().Name);
             return result;
         }
     }

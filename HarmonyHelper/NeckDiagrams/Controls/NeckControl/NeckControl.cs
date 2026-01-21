@@ -19,6 +19,9 @@ namespace NeckDiagrams
 {
     public partial class NeckControl : UserControl
     {
+        const int FRET_COUNT = 13;
+        const int CX_ELLIPSE = 30;
+
         #region Properties
         //GuitarStringCollection GuitarStringCollection { get; set; }
         //ChordFormula _ChordFormula { get; set; }
@@ -36,13 +39,13 @@ namespace NeckDiagrams
 
         public IChordShapeVM model;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IChordShapeVM Model 
+        public IChordShapeVM Model
         {
             get { return this.model; }
-            set 
-            { 
-                model = value; 
-            } 
+            set
+            {
+                model = value;
+            }
         }
         GuitarStringCollection GuitarStringCollection { get { return this.Model.GuitarStringCollection; } }
 
@@ -69,7 +72,7 @@ namespace NeckDiagrams
             {
                 this.Model = HarmonyHelper.IoC.Container.Resolve<IChordShapeVM>();
             }
-            this.Model.PropertyChanged += Model_PropertyChanged; 
+            this.Model.PropertyChanged += Model_PropertyChanged;
             this.DataBindings.Add("Model", this.Model, null, true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -93,13 +96,13 @@ namespace NeckDiagrams
 
         private void Model_GuitarStringCollectionChanged(object sender, GuitarStringCollection e)
         {
-            Debug.WriteLine(MethodBase.GetCurrentMethod().Name);
+            //Debug.WriteLine(MethodBase.GetCurrentMethod().Name);
         }
 
         private void Model_GuitarStringModelChanged(object sender, GuitarStringVM e)
         {
-            Debug.WriteLine(e.ToString());
-            Debug.WriteLine(MethodBase.GetCurrentMethod().Name);
+            //Debug.WriteLine(e.ToString());
+            //Debug.WriteLine(MethodBase.GetCurrentMethod().Name);
         }
 
         void SetChord()
@@ -186,6 +189,74 @@ namespace NeckDiagrams
             new object();
         }
 
-        #endregion    
+        #endregion
+
+        private void NeckControl_Paint(object sender, PaintEventArgs e)
+        {
+            var cxFret = this.Width / FRET_COUNT;
+            List<int> cxFrets = new List<int>();
+            for (int i = 0; i <= FRET_COUNT; ++i)
+            {
+                var l = (i * cxFret);
+                cxFrets.Add(l);
+            }
+            var top = (this.Height / 2);
+
+            var left = cxFrets.Skip(3).Take(1).First();
+            DrawFretMarker(e, top, left);
+            left = cxFrets.Skip(5).Take(1).First();
+            DrawFretMarker(e, top, left);
+            left = cxFrets.Skip(7).Take(1).First();
+            DrawFretMarker(e, top, left);
+            left = cxFrets.Skip(9).Take(1).First();
+            DrawFretMarker(e, top, left);
+            left = cxFrets.Skip(12).Take(1).First();
+            DrawTwelfthFretMarker(e, top, left);
+        }
+
+        private void DrawFretMarker(PaintEventArgs e, int top, int left)
+        {
+            using var pen = this.CreatePen();
+            using var brush = this.CreateBrush();
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            e.Graphics.FillEllipse(brush,
+                left - (CX_ELLIPSE / 2),
+                top - (CX_ELLIPSE / 2),
+                CX_ELLIPSE,
+                CX_ELLIPSE);
+        }
+
+        private void DrawTwelfthFretMarker(PaintEventArgs e, int top, int left)
+        {
+            using var pen = this.CreatePen();
+            using var brush = this.CreateBrush();
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            var cy = this.Height / 8; //8 is purely for aesthetic reasons.
+            e.Graphics.FillEllipse(brush,
+                left - (CX_ELLIPSE / 2),
+                top - (CX_ELLIPSE / 2) - (cy * 2),
+                CX_ELLIPSE,
+                CX_ELLIPSE);
+            e.Graphics.FillEllipse(brush,
+                left - (CX_ELLIPSE / 2),
+                top - (CX_ELLIPSE / 2) + (cy * 2),
+                CX_ELLIPSE,
+                CX_ELLIPSE);
+        }
+
+        Pen CreatePen()
+        {
+            return new Pen(SystemColors.ControlDarkDark);
+        }
+
+        Brush CreateBrush()
+        {
+            return new SolidBrush(SystemColors.ControlDarkDark);
+        }
+
+
     }//class
 }//ns

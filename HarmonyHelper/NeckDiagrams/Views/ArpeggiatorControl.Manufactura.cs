@@ -30,7 +30,7 @@ namespace NeckDiagrams.Views
             _noteViewer.DataSource = score;
             _noteViewer.Refresh();
             sw.Stop();
-            Debug.WriteLine(sw.ElapsedMilliseconds);
+            //Debug.WriteLine(sw.ElapsedMilliseconds);
 
         }
     }//class

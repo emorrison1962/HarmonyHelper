@@ -67,18 +67,18 @@ namespace NeckDiagrams.Views
 
         async Task CreateGrids()
         {
-            if (this.InvokeRequired) 
+            if (this.InvokeRequired)
             {
                 await Task.Run(() => this.Invoke(this.CreateGrids));
             }
 
             var rule = new BorrowedChordHarmonicAnalysisRule();
-            var grids = await Task.Run(()=> rule.CreateGrids(this.KeySignature));
+            var grids = await Task.Run(() => rule.CreateGrids(this.KeySignature));
             foreach (var grid in grids)
             {
                 var miGrid = this.GetGridControl(grid);
-                var rowCount = grid.Rows.Count + 1;
-                for (int ndxRow = 1; ndxRow < rowCount; ++ndxRow)
+                var rowCount = grid.Rows.Count;
+                for (int ndxRow = 0; ndxRow < rowCount; ++ndxRow)
                 {
                     var row = grid.Rows[ndxRow];
                     var chordCount = row.Chords.Count;
@@ -86,11 +86,17 @@ namespace NeckDiagrams.Views
                     {
                         if (ndxColumn == 0)
                         {
-                            miGrid.GetControl(0, ndxRow).Text = row.ModeName;
+                            this.Invoke(() =>
+                            {
+                                miGrid.GetControl(0, ndxRow).Text = row.ModeName;
+                            });
                         }
 
                         var chord = row.Chords[ndxColumn];
-                        miGrid.GetControl(ndxColumn, ndxRow).Text = chord.Name;
+                        this.Invoke(() =>
+                        {
+                            miGrid.GetControl((ndxColumn + 1), ndxRow).Text = chord.Name;
+                        });
                     }
 
                     var chords = row.Chords.Select(x => x.Name).ToList();
@@ -105,7 +111,10 @@ namespace NeckDiagrams.Views
                 //miGrid.PerformLayout();
             }
 
-            this.Refresh();
+            this.Invoke(() =>
+            {
+                this.Refresh();
+            });
         }
 
         private void Populate()

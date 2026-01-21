@@ -136,7 +136,7 @@ namespace Eric.Morrison.Harmony.Scales
 		}
 
 
-		const string IONIAN_NAME = "Harmonic Minor";
+		const string IONIAN_NAME = "Ionian";
 		const string DORIAN_NAME = "Locrian #6";
 		const string PHRYGIAN_NAME = "Ionian #5";
 		const string LYDIAN_NAME = "Dorian #4";

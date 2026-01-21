@@ -132,7 +132,7 @@ namespace Eric.Morrison.Harmony.Scales
 		}
 
 
-		const string IONIAN_NAME = "Melodic Minor";
+		const string IONIAN_NAME = "Ionian";
 		const string DORIAN_NAME = "Phrygian #6";
 		const string PHRYGIAN_NAME = "Lydian Augmented";
 		const string LYDIAN_NAME = "Overtone Scale";

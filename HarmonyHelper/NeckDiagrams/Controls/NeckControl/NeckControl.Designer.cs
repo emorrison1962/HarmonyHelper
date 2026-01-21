@@ -68,6 +68,7 @@ namespace NeckDiagrams
             Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             Name = "NeckControl";
             Size = new System.Drawing.Size(1368, 334);
+            Paint += NeckControl_Paint;
             MouseMove += NeckControl_MouseMove;
             ((System.ComponentModel.ISupportInitialize)chordShapeVMBindingSource).EndInit();
             ResumeLayout(false);

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -31,6 +32,7 @@ namespace NeckDiagrams
         GuitarStringControl()
         {
             InitializeComponent();
+            this.BackColor = Color.Transparent;
             this.Load += this.StringControl_Load;
             this.Layout += this.StringControl_Layout;
         }

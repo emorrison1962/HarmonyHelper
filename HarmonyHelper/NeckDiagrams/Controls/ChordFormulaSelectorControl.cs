@@ -52,15 +52,15 @@ namespace NeckDiagrams
         #region Costruction
         public ChordFormulaSelectorControl()
         {
-            Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"+{MethodBase.GetCurrentMethod().Name}");
             this.Load += this.ChordSelectorControl_Load;
             InitializeComponent();
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         private void ChordSelectorControl_Load(object sender, EventArgs e)
         {
-            Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"{MethodBase.GetCurrentMethod().Name}");
             _chordNoteNameCombo.SelectionChanged += this._chordNoteNameCombo_SelectionChanged;
             Init();
             this._cbChordType.Enabled = false;
@@ -68,7 +68,7 @@ namespace NeckDiagrams
             {
                 this.PopulateChordFormulas();
             }
-            Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
+            //Debug.WriteLine($"-{MethodBase.GetCurrentMethod().Name}");
         }
 
         void Init()

@@ -38,6 +38,7 @@ namespace NeckDiagrams
             else
             {
                 Debug.WriteLine(messageResult);
+                throw new NotImplementedException();
             }
         }
 

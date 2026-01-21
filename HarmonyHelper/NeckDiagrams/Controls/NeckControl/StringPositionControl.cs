@@ -97,7 +97,7 @@ namespace NeckDiagrams
 
         public override bool PreProcessMessage(ref Message msg)
         {
-            Debug.WriteLine(msg.Msg);
+            //Debug.WriteLine(msg.Msg);
             return base.PreProcessMessage(ref msg);
         }
 
@@ -108,7 +108,7 @@ namespace NeckDiagrams
         {
             if (!DesignMode)
             {
-                this.DrawText(e);
+                //this.DrawText(e);
                 this.DrawFrets(e);
                 this.DrawLine(e);
                 this.DrawActiveDot(e);

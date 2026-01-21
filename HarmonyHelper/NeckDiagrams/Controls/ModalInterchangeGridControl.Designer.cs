@@ -28,156 +28,178 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._panelMajor = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this._panelMajor.SuspendLayout();
-            this.SuspendLayout();
+            _panelTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            labelEmpty = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            _panelTableLayout.SuspendLayout();
+            SuspendLayout();
             // 
-            // _panelMajor
+            // _panelTableLayout
             // 
-            this._panelMajor.AutoSize = true;
-            this._panelMajor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this._panelMajor.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this._panelMajor.ColumnCount = 8;
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this._panelMajor.Controls.Add(this.label1, 1, 0);
-            this._panelMajor.Controls.Add(this.label2, 2, 0);
-            this._panelMajor.Controls.Add(this.label3, 3, 0);
-            this._panelMajor.Controls.Add(this.label4, 4, 0);
-            this._panelMajor.Controls.Add(this.label5, 5, 0);
-            this._panelMajor.Controls.Add(this.label6, 6, 0);
-            this._panelMajor.Controls.Add(this.label7, 7, 0);
-            this._panelMajor.Dock = System.Windows.Forms.DockStyle.Top;
-            this._panelMajor.Location = new System.Drawing.Point(0, 0);
-            this._panelMajor.Margin = new System.Windows.Forms.Padding(5);
-            this._panelMajor.Name = "_panelMajor";
-            this._panelMajor.RowCount = 8;
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this._panelMajor.Size = new System.Drawing.Size(1456, 249);
-            this._panelMajor.TabIndex = 1;
+            _panelTableLayout.AutoSize = true;
+            _panelTableLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            _panelTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            _panelTableLayout.ColumnCount = 8;
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.2857141F));
+            _panelTableLayout.Controls.Add(labelEmpty, 0, 0);
+            _panelTableLayout.Controls.Add(label1, 1, 0);
+            _panelTableLayout.Controls.Add(label2, 2, 0);
+            _panelTableLayout.Controls.Add(label3, 3, 0);
+            _panelTableLayout.Controls.Add(label4, 4, 0);
+            _panelTableLayout.Controls.Add(label5, 5, 0);
+            _panelTableLayout.Controls.Add(label6, 6, 0);
+            _panelTableLayout.Controls.Add(label7, 7, 0);
+            _panelTableLayout.Dock = System.Windows.Forms.DockStyle.Top;
+            _panelTableLayout.Location = new System.Drawing.Point(0, 0);
+            _panelTableLayout.Name = "_panelTableLayout";
+            _panelTableLayout.RowCount = 8;
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            _panelTableLayout.Size = new System.Drawing.Size(896, 161);
+            _panelTableLayout.TabIndex = 1;
+            // 
+            // labelEmpty
+            // 
+            labelEmpty.AutoSize = true;
+            labelEmpty.BackColor = System.Drawing.SystemColors.Control;
+            labelEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelEmpty.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            labelEmpty.Location = new System.Drawing.Point(3, 1);
+            labelEmpty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            labelEmpty.Name = "labelEmpty";
+            labelEmpty.Size = new System.Drawing.Size(1, 19);
+            labelEmpty.TabIndex = 7;
+            labelEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(185, 1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "I";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label1.AutoSize = true;
+            label1.BackColor = System.Drawing.SystemColors.Control;
+            label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label1.Location = new System.Drawing.Point(8, 1);
+            label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(122, 19);
+            label1.TabIndex = 0;
+            label1.Text = "I";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(366, 1);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 30);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "II";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label2.AutoSize = true;
+            label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label2.Location = new System.Drawing.Point(135, 1);
+            label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(122, 19);
+            label2.TabIndex = 1;
+            label2.Text = "II";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(547, 1);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(174, 30);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "III";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label3.AutoSize = true;
+            label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label3.Location = new System.Drawing.Point(262, 1);
+            label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(122, 19);
+            label3.TabIndex = 2;
+            label3.Text = "III";
+            label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(728, 1);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(174, 30);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "IV";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label4.AutoSize = true;
+            label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label4.Location = new System.Drawing.Point(389, 1);
+            label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(122, 19);
+            label4.TabIndex = 3;
+            label4.Text = "IV";
+            label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(909, 1);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(174, 30);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "V";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label5.AutoSize = true;
+            label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label5.Location = new System.Drawing.Point(516, 1);
+            label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(122, 19);
+            label5.TabIndex = 4;
+            label5.Text = "V";
+            label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(1090, 1);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(174, 30);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "VI";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label6.AutoSize = true;
+            label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label6.Location = new System.Drawing.Point(643, 1);
+            label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(122, 19);
+            label6.TabIndex = 5;
+            label6.Text = "VI";
+            label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(1271, 1);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(181, 30);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "VII";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label7.AutoSize = true;
+            label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            label7.Location = new System.Drawing.Point(770, 1);
+            label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(123, 19);
+            label7.TabIndex = 6;
+            label7.Text = "VII";
+            label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ModalInterchangeGridControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this._panelMajor);
-            this.Name = "ModalInterchangeGridControl";
-            this.Size = new System.Drawing.Size(1456, 255);
-            this._panelMajor.ResumeLayout(false);
-            this._panelMajor.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(_panelTableLayout);
+            Margin = new System.Windows.Forms.Padding(2);
+            Name = "ModalInterchangeGridControl";
+            Size = new System.Drawing.Size(896, 159);
+            _panelTableLayout.ResumeLayout(false);
+            _panelTableLayout.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel _panelMajor;
+        private System.Windows.Forms.TableLayoutPanel _panelTableLayout;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -185,5 +207,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelEmpty;
     }
 }

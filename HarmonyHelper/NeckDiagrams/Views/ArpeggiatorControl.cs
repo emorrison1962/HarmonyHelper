@@ -57,15 +57,15 @@ namespace NeckDiagrams.Views
             var sw = Stopwatch.StartNew();
             var model = this.CreateModel(part);
             sw.Stop();
-            Debug.WriteLine(sw.ElapsedMilliseconds);
+            //Debug.WriteLine(sw.ElapsedMilliseconds);
 
             sw = Stopwatch.StartNew();
             var doc = model.ToXDocument();
 
-            Debug.WriteLine(doc.ToString());
+            //Debug.WriteLine(doc.ToString());
 
             sw.Stop();
-            Debug.WriteLine(sw.ElapsedMilliseconds);
+            //Debug.WriteLine(sw.ElapsedMilliseconds);
             this.PopulateNoteViewer(doc);
 
             new object();
@@ -281,7 +281,7 @@ namespace NeckDiagrams.Views
 
         private void Arpeggiator_Starting(object? sender, Arpeggiator args)
         {
-            Debug.WriteLine("Arpeggiator_Starting");
+            //Debug.WriteLine("Arpeggiator_Starting");
             new object();
         }
         private void Arpeggiator_MeasureChanging(object? sender, Arpeggiator args)
@@ -292,7 +292,7 @@ namespace NeckDiagrams.Views
         }
         private void Arpeggiator_MeasureChanged(object? sender, Arpeggiator args)
         {
-            Debug.WriteLine($"\tArpeggiator_MeasureChanged: {args.CurrentMeasure}");
+            //Debug.WriteLine($"\tArpeggiator_MeasureChanged: {args.CurrentMeasure}");
             this.CreateMeasure(args);
             new object();
         }
@@ -318,7 +318,7 @@ namespace NeckDiagrams.Views
 
         private void Arpeggiator_ChordChanged(object? sender, Arpeggiator args)
         {
-            Debug.WriteLine($"\t\tArpeggiator_ChordChanged: {args.CurrentChord}");
+            //Debug.WriteLine($"\t\tArpeggiator_ChordChanged: {args.CurrentChord}");
             this.CreateHarmony(args);
             new object();
         }
@@ -338,12 +338,12 @@ namespace NeckDiagrams.Views
 
         private void Arpeggiator_CurrentNoteChanging(object sender, Arpeggiator.NoteChangingEventArgs args)
         {
-            Debug.WriteLine("Arpeggiator_CurrentNoteChanging");
+            //Debug.WriteLine("Arpeggiator_CurrentNoteChanging");
             new object();
         }
         private void Arpeggiator_CurrentNoteChanged(object? sender, Arpeggiator args)
         {
-            Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
+            //Debug.WriteLine($"\t\t\tArpeggiator_CurrentNoteChanged: {args.CurrentNote}");
             this.CreateNote(args);
             new object();
         }

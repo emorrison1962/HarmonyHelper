@@ -17,6 +17,7 @@ namespace NeckDiagrams.Controls.ComboBoxes
         #region Construction
         public KeySignatureCombo()
         {
+            this.DropDownStyle = ComboBoxStyle.DropDownList;
             Init();
         }
 

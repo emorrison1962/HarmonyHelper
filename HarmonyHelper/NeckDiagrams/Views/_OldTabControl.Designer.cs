@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            comboBox1 = new System.Windows.Forms.ComboBox();
+            SuspendLayout();
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new System.Drawing.Point(252, 143);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new System.Drawing.Size(121, 28);
+            comboBox1.TabIndex = 0;
             // 
             // OldTabControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "OldTabControl";
-            this.Size = new System.Drawing.Size(776, 422);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(comboBox1);
+            Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            Name = "OldTabControl";
+            Size = new System.Drawing.Size(621, 338);
+            ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
