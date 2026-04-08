@@ -88,14 +88,17 @@ namespace NeckDiagrams.Views
                         {
                             this.Invoke(() =>
                             {
-                                miGrid.GetControl(0, ndxRow).Text = row.ModeName;
+                                miGrid.GetControl(0, ndxRow + 1).Text = row.ModeName;
                             });
                         }
 
                         var chord = row.Chords[ndxColumn];
                         this.Invoke(() =>
                         {
-                            miGrid.GetControl((ndxColumn + 1), ndxRow).Text = chord.Name;
+                            //if (ndxRow > 0)
+                            //{
+                                miGrid.GetControl((ndxColumn + 1), ndxRow + 1).Text = chord.Name;
+                            //}
                         });
                     }
 

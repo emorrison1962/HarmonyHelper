@@ -30,149 +30,148 @@ namespace NeckDiagrams.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this._chordNamesControl = new ChordNamesControl();
-            this.mainSplitter = new System.Windows.Forms.SplitContainer();
-            this.analysisSplitter = new System.Windows.Forms.SplitContainer();
-            this.lvAnalysis = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tbDetails = new System.Windows.Forms.TextBox();
-            this.bnChords = new System.Windows.Forms.Button();
-            this.pnlTop = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.mainSplitter)).BeginInit();
-            this.mainSplitter.Panel1.SuspendLayout();
-            this.mainSplitter.Panel2.SuspendLayout();
-            this.mainSplitter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.analysisSplitter)).BeginInit();
-            this.analysisSplitter.Panel1.SuspendLayout();
-            this.analysisSplitter.Panel2.SuspendLayout();
-            this.analysisSplitter.SuspendLayout();
-            this.pnlTop.SuspendLayout();
-            this.SuspendLayout();
+            _chordNamesControl = new ChordNamesControl();
+            mainSplitter = new System.Windows.Forms.SplitContainer();
+            analysisSplitter = new System.Windows.Forms.SplitContainer();
+            lvAnalysis = new System.Windows.Forms.ListView();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            tbDetails = new System.Windows.Forms.TextBox();
+            bnChords = new System.Windows.Forms.Button();
+            pnlTop = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)mainSplitter).BeginInit();
+            mainSplitter.Panel1.SuspendLayout();
+            mainSplitter.Panel2.SuspendLayout();
+            mainSplitter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)analysisSplitter).BeginInit();
+            analysisSplitter.Panel1.SuspendLayout();
+            analysisSplitter.Panel2.SuspendLayout();
+            analysisSplitter.SuspendLayout();
+            pnlTop.SuspendLayout();
+            SuspendLayout();
             // 
-            // chordsTablePanel
+            // _chordNamesControl
             // 
-            this._chordNamesControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._chordNamesControl.Location = new System.Drawing.Point(0, 0);
-            this._chordNamesControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this._chordNamesControl.Name = "_chordNamesControl";
-            this._chordNamesControl.Size = new System.Drawing.Size(1402, 345);
-            this._chordNamesControl.TabIndex = 4;
+            _chordNamesControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            _chordNamesControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            _chordNamesControl.Location = new System.Drawing.Point(0, 0);
+            _chordNamesControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            _chordNamesControl.Name = "_chordNamesControl";
+            _chordNamesControl.Size = new System.Drawing.Size(1246, 345);
+            _chordNamesControl.TabIndex = 4;
             // 
             // mainSplitter
             // 
-            this.mainSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainSplitter.Location = new System.Drawing.Point(0, 40);
-            this.mainSplitter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.mainSplitter.Name = "mainSplitter";
-            this.mainSplitter.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            mainSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
+            mainSplitter.Location = new System.Drawing.Point(0, 40);
+            mainSplitter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            mainSplitter.Name = "mainSplitter";
+            mainSplitter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // mainSplitter.Panel1
             // 
-            this.mainSplitter.Panel1.Controls.Add(this._chordNamesControl);
+            mainSplitter.Panel1.Controls.Add(_chordNamesControl);
             // 
             // mainSplitter.Panel2
             // 
-            this.mainSplitter.Panel2.Controls.Add(this.analysisSplitter);
-            this.mainSplitter.Size = new System.Drawing.Size(1402, 642);
-            this.mainSplitter.SplitterDistance = 345;
-            this.mainSplitter.TabIndex = 5;
+            mainSplitter.Panel2.Controls.Add(analysisSplitter);
+            mainSplitter.Size = new System.Drawing.Size(1246, 642);
+            mainSplitter.SplitterDistance = 345;
+            mainSplitter.TabIndex = 5;
             // 
             // analysisSplitter
             // 
-            this.analysisSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.analysisSplitter.Location = new System.Drawing.Point(0, 0);
-            this.analysisSplitter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.analysisSplitter.Name = "analysisSplitter";
+            analysisSplitter.Dock = System.Windows.Forms.DockStyle.Fill;
+            analysisSplitter.Location = new System.Drawing.Point(0, 0);
+            analysisSplitter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            analysisSplitter.Name = "analysisSplitter";
             // 
             // analysisSplitter.Panel1
             // 
-            this.analysisSplitter.Panel1.Controls.Add(this.lvAnalysis);
+            analysisSplitter.Panel1.Controls.Add(lvAnalysis);
             // 
             // analysisSplitter.Panel2
             // 
-            this.analysisSplitter.Panel2.Controls.Add(this.tbDetails);
-            this.analysisSplitter.Size = new System.Drawing.Size(1402, 293);
-            this.analysisSplitter.SplitterDistance = 591;
-            this.analysisSplitter.TabIndex = 0;
+            analysisSplitter.Panel2.Controls.Add(tbDetails);
+            analysisSplitter.Size = new System.Drawing.Size(1246, 293);
+            analysisSplitter.SplitterDistance = 525;
+            analysisSplitter.TabIndex = 0;
             // 
             // lvAnalysis
             // 
-            this.lvAnalysis.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.lvAnalysis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvAnalysis.FullRowSelect = true;
-            this.lvAnalysis.GridLines = true;
-            this.lvAnalysis.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvAnalysis.HideSelection = false;
-            this.lvAnalysis.Location = new System.Drawing.Point(0, 0);
-            this.lvAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lvAnalysis.Name = "lvAnalysis";
-            this.lvAnalysis.ShowItemToolTips = true;
-            this.lvAnalysis.Size = new System.Drawing.Size(591, 293);
-            this.lvAnalysis.TabIndex = 0;
-            this.lvAnalysis.UseCompatibleStateImageBehavior = false;
-            this.lvAnalysis.View = System.Windows.Forms.View.Details;
-            this.lvAnalysis.SelectedIndexChanged += new System.EventHandler(this.lvAnalysis_SelectedIndexChanged);
+            lvAnalysis.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
+            lvAnalysis.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvAnalysis.FullRowSelect = true;
+            lvAnalysis.GridLines = true;
+            lvAnalysis.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            lvAnalysis.Location = new System.Drawing.Point(0, 0);
+            lvAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            lvAnalysis.Name = "lvAnalysis";
+            lvAnalysis.ShowItemToolTips = true;
+            lvAnalysis.Size = new System.Drawing.Size(525, 293);
+            lvAnalysis.TabIndex = 0;
+            lvAnalysis.UseCompatibleStateImageBehavior = false;
+            lvAnalysis.View = System.Windows.Forms.View.Details;
+            lvAnalysis.SelectedIndexChanged += lvAnalysis_SelectedIndexChanged;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Width = 491;
+            columnHeader1.Width = 491;
             // 
             // tbDetails
             // 
-            this.tbDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbDetails.Location = new System.Drawing.Point(0, 0);
-            this.tbDetails.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbDetails.Multiline = true;
-            this.tbDetails.Name = "tbDetails";
-            this.tbDetails.Size = new System.Drawing.Size(807, 293);
-            this.tbDetails.TabIndex = 0;
+            tbDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            tbDetails.Location = new System.Drawing.Point(0, 0);
+            tbDetails.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tbDetails.Multiline = true;
+            tbDetails.Name = "tbDetails";
+            tbDetails.Size = new System.Drawing.Size(717, 293);
+            tbDetails.TabIndex = 0;
             // 
             // bnChords
             // 
-            this.bnChords.AutoSize = true;
-            this.bnChords.Dock = System.Windows.Forms.DockStyle.Left;
-            this.bnChords.Location = new System.Drawing.Point(3, 2);
-            this.bnChords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.bnChords.Name = "bnChords";
-            this.bnChords.Size = new System.Drawing.Size(92, 36);
-            this.bnChords.TabIndex = 0;
-            this.bnChords.Text = "Chords...";
-            this.bnChords.UseVisualStyleBackColor = true;
-            this.bnChords.Click += new System.EventHandler(this.bnChords_Click);
+            bnChords.AutoSize = true;
+            bnChords.Dock = System.Windows.Forms.DockStyle.Left;
+            bnChords.Location = new System.Drawing.Point(3, 2);
+            bnChords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            bnChords.Name = "bnChords";
+            bnChords.Size = new System.Drawing.Size(82, 36);
+            bnChords.TabIndex = 0;
+            bnChords.Text = "Chords...";
+            bnChords.UseVisualStyleBackColor = true;
+            bnChords.Click += bnChords_Click;
             // 
             // pnlTop
             // 
-            this.pnlTop.Controls.Add(this.bnChords);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Margin = new System.Windows.Forms.Padding(10);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pnlTop.Size = new System.Drawing.Size(1402, 40);
-            this.pnlTop.TabIndex = 6;
+            pnlTop.Controls.Add(bnChords);
+            pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlTop.Location = new System.Drawing.Point(0, 0);
+            pnlTop.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            pnlTop.Size = new System.Drawing.Size(1246, 40);
+            pnlTop.TabIndex = 6;
             // 
             // HarmonicAnalysisControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.mainSplitter);
-            this.Controls.Add(this.pnlTop);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "HarmonicAnalysisControl";
-            this.Size = new System.Drawing.Size(1402, 682);
-            this.mainSplitter.Panel1.ResumeLayout(false);
-            this.mainSplitter.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainSplitter)).EndInit();
-            this.mainSplitter.ResumeLayout(false);
-            this.analysisSplitter.Panel1.ResumeLayout(false);
-            this.analysisSplitter.Panel2.ResumeLayout(false);
-            this.analysisSplitter.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.analysisSplitter)).EndInit();
-            this.analysisSplitter.ResumeLayout(false);
-            this.pnlTop.ResumeLayout(false);
-            this.pnlTop.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(mainSplitter);
+            Controls.Add(pnlTop);
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            Name = "HarmonicAnalysisControl";
+            Size = new System.Drawing.Size(1246, 682);
+            mainSplitter.Panel1.ResumeLayout(false);
+            mainSplitter.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)mainSplitter).EndInit();
+            mainSplitter.ResumeLayout(false);
+            analysisSplitter.Panel1.ResumeLayout(false);
+            analysisSplitter.Panel2.ResumeLayout(false);
+            analysisSplitter.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)analysisSplitter).EndInit();
+            analysisSplitter.ResumeLayout(false);
+            pnlTop.ResumeLayout(false);
+            pnlTop.PerformLayout();
+            ResumeLayout(false);
 
         }
 

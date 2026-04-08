@@ -20,6 +20,7 @@ namespace NeckDiagrams
         HarmonicAnalysis,
         Arpeggiator,
         Arpeggios,
-        ChordFingering
+        ChordFingering,
+        SquareOfStitch
     }
 }

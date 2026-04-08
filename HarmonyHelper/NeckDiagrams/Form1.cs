@@ -34,7 +34,8 @@ namespace NeckDiagrams
                 //this.ShowGuitarNeckSettingsDialog();
                 this._ctlNav.SelectedFeatureTypeChanged += this.SelectedFeatureChanged;
                 //_ctlNav.SelectedFeatureType = FeatureType.ChordFingering;
-                _ctlNav.SelectedFeatureType = FeatureType.ModalInterchange;
+                _ctlNav.SelectedFeatureType = FeatureType.SquareOfStitch;
+                _ctlNav.Init();
 
             }
         }
@@ -199,6 +200,7 @@ namespace NeckDiagrams
                 case FeatureType.ModalInterchange: { result = new ModalInterchangeView(); } break;
                 case FeatureType.ReHarmonize: { result = new ReHarmonizerControl(); } break;
                 case FeatureType.Scales: { result = new ScalesControl(); } break;
+                case FeatureType.SquareOfStitch: { result = new SquareOfStichView(); } break;
                 default: { throw new ArgumentOutOfRangeException(nameof(e)); }
             }
             //Debug.WriteLine(result.GetType().Name);

@@ -34,6 +34,21 @@ namespace NeckDiagrams.Controls
             InitializeComponent();
         }
 
+        public void Init()
+        {
+            this._bnSquareOfStitch.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureChordShape.CheckedChanged += this._CheckedChanged;
+            this._bnModalInterchange.CheckedChanged += this._CheckedChanged;
+            this._rbManufaktura.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureVoiceLeading.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureScales.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureReHarmonize.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureLeadSheets.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureHarmonicAnalysis.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureArpeggiator.CheckedChanged += this._CheckedChanged;
+            this._bnFeatureArpeggios.CheckedChanged += this._CheckedChanged;
+
+        }
 
         private void _CheckedChanged(object sender, EventArgs e)
         {

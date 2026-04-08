@@ -30,216 +30,223 @@ namespace NeckDiagrams.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            _pnlNav = new System.Windows.Forms.Panel();
-            bnOptions = new System.Windows.Forms.Button();
-            _bnFeatureChordShape = new FeatureTypeButton();
-            _bnModalInterchange = new FeatureTypeButton();
-            _rbManufaktura = new FeatureTypeButton();
-            _bnFeatureVoiceLeading = new FeatureTypeButton();
-            _bnFeatureScales = new FeatureTypeButton();
-            _bnFeatureReHarmonize = new FeatureTypeButton();
-            _bnFeatureLeadSheets = new FeatureTypeButton();
-            _bnFeatureHarmonicAnalysis = new FeatureTypeButton();
-            _bnFeatureArpeggiator = new FeatureTypeButton();
-            _bnFeatureArpeggios = new FeatureTypeButton();
-            pnlSpacer = new System.Windows.Forms.Panel();
-            _pnlNav.SuspendLayout();
-            SuspendLayout();
+            this._pnlNav = new System.Windows.Forms.Panel();
+            this.bnOptions = new System.Windows.Forms.Button();
+            this.pnlSpacer = new System.Windows.Forms.Panel();
+            this._bnSquareOfStitch = new FeatureTypeButton();
+            this._bnFeatureChordShape = new FeatureTypeButton();
+            this._bnModalInterchange = new FeatureTypeButton();
+            this._rbManufaktura = new FeatureTypeButton();
+            this._bnFeatureVoiceLeading = new FeatureTypeButton();
+            this._bnFeatureScales = new FeatureTypeButton();
+            this._bnFeatureReHarmonize = new FeatureTypeButton();
+            this._bnFeatureLeadSheets = new FeatureTypeButton();
+            this._bnFeatureHarmonicAnalysis = new FeatureTypeButton();
+            this._bnFeatureArpeggiator = new FeatureTypeButton();
+            this._bnFeatureArpeggios = new FeatureTypeButton();
+            this._pnlNav.SuspendLayout();
+            this.SuspendLayout();
             // 
             // _pnlNav
             // 
-            _pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
-            _pnlNav.Controls.Add(bnOptions);
-            _pnlNav.Controls.Add(pnlSpacer);
-            _pnlNav.Controls.Add(_bnFeatureChordShape);
-            _pnlNav.Controls.Add(_bnModalInterchange);
-            _pnlNav.Controls.Add(_rbManufaktura);
-            _pnlNav.Controls.Add(_bnFeatureVoiceLeading);
-            _pnlNav.Controls.Add(_bnFeatureScales);
-            _pnlNav.Controls.Add(_bnFeatureReHarmonize);
-            _pnlNav.Controls.Add(_bnFeatureLeadSheets);
-            _pnlNav.Controls.Add(_bnFeatureHarmonicAnalysis);
-            _pnlNav.Controls.Add(_bnFeatureArpeggiator);
-            _pnlNav.Controls.Add(_bnFeatureArpeggios);
-            _pnlNav.Dock = System.Windows.Forms.DockStyle.Fill;
-            _pnlNav.Location = new System.Drawing.Point(0, 0);
-            _pnlNav.Name = "_pnlNav";
-            _pnlNav.Size = new System.Drawing.Size(468, 1039);
-            _pnlNav.TabIndex = 3;
+            this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._pnlNav.Controls.Add(this.bnOptions);
+            this._pnlNav.Controls.Add(this.pnlSpacer);
+            this._pnlNav.Controls.Add(this._bnSquareOfStitch);
+            this._pnlNav.Controls.Add(this._bnFeatureChordShape);
+            this._pnlNav.Controls.Add(this._bnModalInterchange);
+            this._pnlNav.Controls.Add(this._rbManufaktura);
+            this._pnlNav.Controls.Add(this._bnFeatureVoiceLeading);
+            this._pnlNav.Controls.Add(this._bnFeatureScales);
+            this._pnlNav.Controls.Add(this._bnFeatureReHarmonize);
+            this._pnlNav.Controls.Add(this._bnFeatureLeadSheets);
+            this._pnlNav.Controls.Add(this._bnFeatureHarmonicAnalysis);
+            this._pnlNav.Controls.Add(this._bnFeatureArpeggiator);
+            this._pnlNav.Controls.Add(this._bnFeatureArpeggios);
+            this._pnlNav.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._pnlNav.Location = new System.Drawing.Point(0, 0);
+            this._pnlNav.Name = "_pnlNav";
+            this._pnlNav.Size = new System.Drawing.Size(468, 1039);
+            this._pnlNav.TabIndex = 3;
             // 
             // bnOptions
             // 
-            bnOptions.Dock = System.Windows.Forms.DockStyle.Top;
-            bnOptions.Location = new System.Drawing.Point(0, 400);
-            bnOptions.Name = "bnOptions";
-            bnOptions.Size = new System.Drawing.Size(468, 30);
-            bnOptions.TabIndex = 11;
-            bnOptions.Text = "Options...";
-            bnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            bnOptions.UseVisualStyleBackColor = true;
-            bnOptions.Click += bnOptions_Click;
-            // 
-            // _bnFeatureChordShape
-            // 
-            _bnFeatureChordShape.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureChordShape.AutoSize = true;
-            _bnFeatureChordShape.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureChordShape.FeatureType = FeatureType.ChordFingering;
-            _bnFeatureChordShape.Location = new System.Drawing.Point(0, 270);
-            _bnFeatureChordShape.Name = "_bnFeatureChordShape";
-            _bnFeatureChordShape.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureChordShape.TabIndex = 10;
-            _bnFeatureChordShape.TabStop = true;
-            _bnFeatureChordShape.Tag = "";
-            _bnFeatureChordShape.Text = "Chord Shapes";
-            _bnFeatureChordShape.UseVisualStyleBackColor = true;
-            _bnFeatureChordShape.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnModalInterchange
-            // 
-            _bnModalInterchange.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnModalInterchange.AutoSize = true;
-            _bnModalInterchange.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnModalInterchange.FeatureType = FeatureType.ModalInterchange;
-            _bnModalInterchange.Location = new System.Drawing.Point(0, 240);
-            _bnModalInterchange.Name = "_bnModalInterchange";
-            _bnModalInterchange.Size = new System.Drawing.Size(468, 30);
-            _bnModalInterchange.TabIndex = 9;
-            _bnModalInterchange.Text = "Modal Interchange";
-            _bnModalInterchange.UseVisualStyleBackColor = true;
-            _bnModalInterchange.CheckedChanged += _CheckedChanged;
-            // 
-            // _rbManufaktura
-            // 
-            _rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
-            _rbManufaktura.AutoSize = true;
-            _rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
-            _rbManufaktura.FeatureType = FeatureType.Manufaktura;
-            _rbManufaktura.Location = new System.Drawing.Point(0, 210);
-            _rbManufaktura.Name = "_rbManufaktura";
-            _rbManufaktura.Size = new System.Drawing.Size(468, 30);
-            _rbManufaktura.TabIndex = 7;
-            _rbManufaktura.Text = "Manufaktura";
-            _rbManufaktura.UseVisualStyleBackColor = true;
-            _rbManufaktura.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureVoiceLeading
-            // 
-            _bnFeatureVoiceLeading.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureVoiceLeading.AutoSize = true;
-            _bnFeatureVoiceLeading.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureVoiceLeading.FeatureType = FeatureType.VoiceLeading;
-            _bnFeatureVoiceLeading.Location = new System.Drawing.Point(0, 180);
-            _bnFeatureVoiceLeading.Name = "_bnFeatureVoiceLeading";
-            _bnFeatureVoiceLeading.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureVoiceLeading.TabIndex = 6;
-            _bnFeatureVoiceLeading.Text = "Voice Leading";
-            _bnFeatureVoiceLeading.UseVisualStyleBackColor = true;
-            _bnFeatureVoiceLeading.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureScales
-            // 
-            _bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureScales.AutoSize = true;
-            _bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureScales.FeatureType = FeatureType.Scales;
-            _bnFeatureScales.Location = new System.Drawing.Point(0, 150);
-            _bnFeatureScales.Name = "_bnFeatureScales";
-            _bnFeatureScales.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureScales.TabIndex = 0;
-            _bnFeatureScales.Text = "Scales";
-            _bnFeatureScales.UseVisualStyleBackColor = true;
-            _bnFeatureScales.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureReHarmonize
-            // 
-            _bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureReHarmonize.AutoSize = true;
-            _bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureReHarmonize.FeatureType = FeatureType.ReHarmonize;
-            _bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 120);
-            _bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
-            _bnFeatureReHarmonize.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureReHarmonize.TabIndex = 3;
-            _bnFeatureReHarmonize.Text = "Re-Harmonize";
-            _bnFeatureReHarmonize.UseVisualStyleBackColor = true;
-            _bnFeatureReHarmonize.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureLeadSheets
-            // 
-            _bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureLeadSheets.AutoSize = true;
-            _bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureLeadSheets.FeatureType = FeatureType.LeadSheets;
-            _bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 90);
-            _bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
-            _bnFeatureLeadSheets.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureLeadSheets.TabIndex = 5;
-            _bnFeatureLeadSheets.Text = "Lead Sheets";
-            _bnFeatureLeadSheets.UseVisualStyleBackColor = true;
-            _bnFeatureLeadSheets.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureHarmonicAnalysis
-            // 
-            _bnFeatureHarmonicAnalysis.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureHarmonicAnalysis.AutoSize = true;
-            _bnFeatureHarmonicAnalysis.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureHarmonicAnalysis.FeatureType = FeatureType.HarmonicAnalysis;
-            _bnFeatureHarmonicAnalysis.Location = new System.Drawing.Point(0, 60);
-            _bnFeatureHarmonicAnalysis.Name = "_bnFeatureHarmonicAnalysis";
-            _bnFeatureHarmonicAnalysis.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureHarmonicAnalysis.TabIndex = 2;
-            _bnFeatureHarmonicAnalysis.Text = "Harmonic Analysis";
-            _bnFeatureHarmonicAnalysis.UseVisualStyleBackColor = true;
-            _bnFeatureHarmonicAnalysis.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureArpeggiator
-            // 
-            _bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureArpeggiator.AutoSize = true;
-            _bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureArpeggiator.FeatureType = FeatureType.Arpeggiator;
-            _bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 30);
-            _bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
-            _bnFeatureArpeggiator.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureArpeggiator.TabIndex = 4;
-            _bnFeatureArpeggiator.Text = "Arpeggiator";
-            _bnFeatureArpeggiator.UseVisualStyleBackColor = true;
-            _bnFeatureArpeggiator.CheckedChanged += _CheckedChanged;
-            // 
-            // _bnFeatureArpeggios
-            // 
-            _bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
-            _bnFeatureArpeggios.AutoSize = true;
-            _bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
-            _bnFeatureArpeggios.FeatureType = FeatureType.Arpeggios;
-            _bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
-            _bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
-            _bnFeatureArpeggios.Size = new System.Drawing.Size(468, 30);
-            _bnFeatureArpeggios.TabIndex = 1;
-            _bnFeatureArpeggios.Text = "Argeggios";
-            _bnFeatureArpeggios.UseVisualStyleBackColor = true;
-            _bnFeatureArpeggios.CheckedChanged += _CheckedChanged;
+            this.bnOptions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bnOptions.Location = new System.Drawing.Point(0, 430);
+            this.bnOptions.Name = "bnOptions";
+            this.bnOptions.Size = new System.Drawing.Size(468, 30);
+            this.bnOptions.TabIndex = 13;
+            this.bnOptions.Text = "Options...";
+            this.bnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bnOptions.UseVisualStyleBackColor = true;
+            this.bnOptions.Click += this.bnOptions_Click;
             // 
             // pnlSpacer
             // 
-            pnlSpacer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlSpacer.Location = new System.Drawing.Point(0, 300);
-            pnlSpacer.Name = "pnlSpacer";
-            pnlSpacer.Size = new System.Drawing.Size(468, 100);
-            pnlSpacer.TabIndex = 12;
+            this.pnlSpacer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSpacer.Location = new System.Drawing.Point(0, 330);
+            this.pnlSpacer.Name = "pnlSpacer";
+            this.pnlSpacer.Size = new System.Drawing.Size(468, 100);
+            this.pnlSpacer.TabIndex = 12;
+            // 
+            // _bnSquareOfStitch
+            // 
+            this._bnSquareOfStitch.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnSquareOfStitch.AutoSize = true;
+            this._bnSquareOfStitch.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnSquareOfStitch.FeatureType = FeatureType.SquareOfStitch;
+            this._bnSquareOfStitch.Location = new System.Drawing.Point(0, 300);
+            this._bnSquareOfStitch.Name = "_bnSquareOfStitch";
+            this._bnSquareOfStitch.Size = new System.Drawing.Size(468, 30);
+            this._bnSquareOfStitch.TabIndex = 11;
+            this._bnSquareOfStitch.TabStop = true;
+            this._bnSquareOfStitch.Tag = "";
+            this._bnSquareOfStitch.Text = "Square Of Stitch";
+            this._bnSquareOfStitch.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureChordShape
+            // 
+            this._bnFeatureChordShape.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureChordShape.AutoSize = true;
+            this._bnFeatureChordShape.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureChordShape.FeatureType = FeatureType.ChordFingering;
+            this._bnFeatureChordShape.Location = new System.Drawing.Point(0, 270);
+            this._bnFeatureChordShape.Name = "_bnFeatureChordShape";
+            this._bnFeatureChordShape.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureChordShape.TabIndex = 10;
+            this._bnFeatureChordShape.TabStop = true;
+            this._bnFeatureChordShape.Tag = "";
+            this._bnFeatureChordShape.Text = "Chord Shapes";
+            this._bnFeatureChordShape.UseVisualStyleBackColor = true;
+            // 
+            // _bnModalInterchange
+            // 
+            this._bnModalInterchange.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnModalInterchange.AutoSize = true;
+            this._bnModalInterchange.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnModalInterchange.FeatureType = FeatureType.ModalInterchange;
+            this._bnModalInterchange.Location = new System.Drawing.Point(0, 240);
+            this._bnModalInterchange.Name = "_bnModalInterchange";
+            this._bnModalInterchange.Size = new System.Drawing.Size(468, 30);
+            this._bnModalInterchange.TabIndex = 9;
+            this._bnModalInterchange.Text = "Modal Interchange";
+            this._bnModalInterchange.UseVisualStyleBackColor = true;
+            // 
+            // _rbManufaktura
+            // 
+            this._rbManufaktura.Appearance = System.Windows.Forms.Appearance.Button;
+            this._rbManufaktura.AutoSize = true;
+            this._rbManufaktura.Dock = System.Windows.Forms.DockStyle.Top;
+            this._rbManufaktura.FeatureType = FeatureType.Manufaktura;
+            this._rbManufaktura.Location = new System.Drawing.Point(0, 210);
+            this._rbManufaktura.Name = "_rbManufaktura";
+            this._rbManufaktura.Size = new System.Drawing.Size(468, 30);
+            this._rbManufaktura.TabIndex = 7;
+            this._rbManufaktura.Text = "Manufaktura";
+            this._rbManufaktura.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureVoiceLeading
+            // 
+            this._bnFeatureVoiceLeading.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureVoiceLeading.AutoSize = true;
+            this._bnFeatureVoiceLeading.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureVoiceLeading.FeatureType = FeatureType.VoiceLeading;
+            this._bnFeatureVoiceLeading.Location = new System.Drawing.Point(0, 180);
+            this._bnFeatureVoiceLeading.Name = "_bnFeatureVoiceLeading";
+            this._bnFeatureVoiceLeading.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureVoiceLeading.TabIndex = 6;
+            this._bnFeatureVoiceLeading.Text = "Voice Leading";
+            this._bnFeatureVoiceLeading.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureScales
+            // 
+            this._bnFeatureScales.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureScales.AutoSize = true;
+            this._bnFeatureScales.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureScales.FeatureType = FeatureType.Scales;
+            this._bnFeatureScales.Location = new System.Drawing.Point(0, 150);
+            this._bnFeatureScales.Name = "_bnFeatureScales";
+            this._bnFeatureScales.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureScales.TabIndex = 0;
+            this._bnFeatureScales.Text = "Scales";
+            this._bnFeatureScales.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureReHarmonize
+            // 
+            this._bnFeatureReHarmonize.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureReHarmonize.AutoSize = true;
+            this._bnFeatureReHarmonize.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureReHarmonize.FeatureType = FeatureType.ReHarmonize;
+            this._bnFeatureReHarmonize.Location = new System.Drawing.Point(0, 120);
+            this._bnFeatureReHarmonize.Name = "_bnFeatureReHarmonize";
+            this._bnFeatureReHarmonize.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureReHarmonize.TabIndex = 3;
+            this._bnFeatureReHarmonize.Text = "Re-Harmonize";
+            this._bnFeatureReHarmonize.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureLeadSheets
+            // 
+            this._bnFeatureLeadSheets.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureLeadSheets.AutoSize = true;
+            this._bnFeatureLeadSheets.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureLeadSheets.FeatureType = FeatureType.LeadSheets;
+            this._bnFeatureLeadSheets.Location = new System.Drawing.Point(0, 90);
+            this._bnFeatureLeadSheets.Name = "_bnFeatureLeadSheets";
+            this._bnFeatureLeadSheets.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureLeadSheets.TabIndex = 5;
+            this._bnFeatureLeadSheets.Text = "Lead Sheets";
+            this._bnFeatureLeadSheets.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureHarmonicAnalysis
+            // 
+            this._bnFeatureHarmonicAnalysis.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureHarmonicAnalysis.AutoSize = true;
+            this._bnFeatureHarmonicAnalysis.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureHarmonicAnalysis.FeatureType = FeatureType.HarmonicAnalysis;
+            this._bnFeatureHarmonicAnalysis.Location = new System.Drawing.Point(0, 60);
+            this._bnFeatureHarmonicAnalysis.Name = "_bnFeatureHarmonicAnalysis";
+            this._bnFeatureHarmonicAnalysis.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureHarmonicAnalysis.TabIndex = 2;
+            this._bnFeatureHarmonicAnalysis.Text = "Harmonic Analysis";
+            this._bnFeatureHarmonicAnalysis.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureArpeggiator
+            // 
+            this._bnFeatureArpeggiator.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureArpeggiator.AutoSize = true;
+            this._bnFeatureArpeggiator.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureArpeggiator.FeatureType = FeatureType.Arpeggiator;
+            this._bnFeatureArpeggiator.Location = new System.Drawing.Point(0, 30);
+            this._bnFeatureArpeggiator.Name = "_bnFeatureArpeggiator";
+            this._bnFeatureArpeggiator.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureArpeggiator.TabIndex = 4;
+            this._bnFeatureArpeggiator.Text = "Arpeggiator";
+            this._bnFeatureArpeggiator.UseVisualStyleBackColor = true;
+            // 
+            // _bnFeatureArpeggios
+            // 
+            this._bnFeatureArpeggios.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnFeatureArpeggios.AutoSize = true;
+            this._bnFeatureArpeggios.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnFeatureArpeggios.FeatureType = FeatureType.Arpeggios;
+            this._bnFeatureArpeggios.Location = new System.Drawing.Point(0, 0);
+            this._bnFeatureArpeggios.Name = "_bnFeatureArpeggios";
+            this._bnFeatureArpeggios.Size = new System.Drawing.Size(468, 30);
+            this._bnFeatureArpeggios.TabIndex = 1;
+            this._bnFeatureArpeggios.Text = "Argeggios";
+            this._bnFeatureArpeggios.UseVisualStyleBackColor = true;
             // 
             // NavPanelControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(_pnlNav);
-            Name = "NavPanelControl";
-            Size = new System.Drawing.Size(468, 1039);
-            _pnlNav.ResumeLayout(false);
-            _pnlNav.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._pnlNav);
+            this.Name = "NavPanelControl";
+            this.Size = new System.Drawing.Size(468, 1039);
+            this._pnlNav.ResumeLayout(false);
+            this._pnlNav.PerformLayout();
+            this.ResumeLayout(false);
 
         }
 
@@ -258,5 +265,6 @@ namespace NeckDiagrams.Controls
         private FeatureTypeButton _bnFeatureChordShape;
         private System.Windows.Forms.Button bnOptions;
         private System.Windows.Forms.Panel pnlSpacer;
+        private FeatureTypeButton _bnSquareOfStitch;
     }
 }

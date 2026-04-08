@@ -29,49 +29,49 @@ namespace NeckDiagrams
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            printDocument = new System.Drawing.Printing.PrintDocument();
-            pnlNeck = new System.Windows.Forms.Panel();
-            chordShapeVMBindingSource = new System.Windows.Forms.BindingSource(components);
-            ((System.ComponentModel.ISupportInitialize)chordShapeVMBindingSource).BeginInit();
-            SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.printDocument = new System.Drawing.Printing.PrintDocument();
+            this.pnlNeck = new System.Windows.Forms.Panel();
+            this.chordShapeVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)this.chordShapeVMBindingSource).BeginInit();
+            this.SuspendLayout();
             // 
             // printDocument
             // 
-            printDocument.BeginPrint += printDocument_BeginPrint;
-            printDocument.EndPrint += printDocument_EndPrint;
-            printDocument.PrintPage += printDocument_PrintPage;
-            printDocument.QueryPageSettings += printDocument_QueryPageSettings;
+            this.printDocument.BeginPrint += this.printDocument_BeginPrint;
+            this.printDocument.EndPrint += this.printDocument_EndPrint;
+            this.printDocument.PrintPage += this.printDocument_PrintPage;
+            this.printDocument.QueryPageSettings += this.printDocument_QueryPageSettings;
             // 
             // pnlNeck
             // 
-            pnlNeck.BackColor = System.Drawing.SystemColors.Control;
-            pnlNeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
-            pnlNeck.Location = new System.Drawing.Point(0, 0);
-            pnlNeck.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnlNeck.Name = "pnlNeck";
-            pnlNeck.Padding = new System.Windows.Forms.Padding(32, 31, 32, 31);
-            pnlNeck.Size = new System.Drawing.Size(1368, 334);
-            pnlNeck.TabIndex = 4;
+            this.pnlNeck.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlNeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlNeck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlNeck.Location = new System.Drawing.Point(0, 0);
+            this.pnlNeck.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlNeck.Name = "pnlNeck";
+            this.pnlNeck.Padding = new System.Windows.Forms.Padding(32, 31, 32, 31);
+            this.pnlNeck.Size = new System.Drawing.Size(1368, 334);
+            this.pnlNeck.TabIndex = 4;
             // 
             // chordShapeVMBindingSource
             // 
-            chordShapeVMBindingSource.DataSource = typeof(Domain.ChordShapeVM);
+            this.chordShapeVMBindingSource.DataSource = typeof(Domain.ChordShapeVM);
             // 
             // NeckControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(pnlNeck);
-            DataBindings.Add(new System.Windows.Forms.Binding("DataContext", chordShapeVMBindingSource, "", true));
-            Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            Name = "NeckControl";
-            Size = new System.Drawing.Size(1368, 334);
-            Paint += NeckControl_Paint;
-            MouseMove += NeckControl_MouseMove;
-            ((System.ComponentModel.ISupportInitialize)chordShapeVMBindingSource).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnlNeck);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.chordShapeVMBindingSource, "", true));
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.Name = "NeckControl";
+            this.Size = new System.Drawing.Size(1368, 334);
+            this.Paint += this.NeckControl_Paint;
+            this.MouseMove += this.NeckControl_MouseMove;
+            ((System.ComponentModel.ISupportInitialize)this.chordShapeVMBindingSource).EndInit();
+            this.ResumeLayout(false);
 
         }
 

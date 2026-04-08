@@ -16,7 +16,12 @@ namespace NeckDiagrams.Controls
 {
     public partial class ModalInterchangeGridControl : UserControl
     {
+        #region Properties
         public TableLayoutPanel TableLayoutPanel { get { return this._panelTableLayout; } }
+
+        #endregion
+        
+        #region Construction
         public ModalInterchangeGridControl()
         {
             InitializeComponent();
@@ -30,7 +35,7 @@ namespace NeckDiagrams.Controls
                     if (null == existing)
                     {
                         new object();
-                        var tb = new TextBox() 
+                        var tb = new TextBox()
                         { ReadOnly = true, BorderStyle = BorderStyle.None, Dock = DockStyle.Fill };
                         this._panelTableLayout.Controls.Add(tb, ndxColumn, ndxRow);
                     }
@@ -43,6 +48,8 @@ namespace NeckDiagrams.Controls
             }
         }
 
+        #endregion
+        
         public Control GetControl(int col, int row)
         {
             const int ZERO = 0;

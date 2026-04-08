@@ -15,9 +15,14 @@ namespace NeckDiagrams
         public bool IsSelected { get; set; } = false;
         public string Name { get { return this.ChordFormula.Name; } }
 
-        public ChordFormulaVM(ChordFormula chordFormula, Guid guid)
+        public ChordFormulaVM(ChordFormula chordFormula)
         {
             ChordFormula = chordFormula;
+            Guid = Guid.NewGuid();
+        }
+
+        public ChordFormulaVM(ChordFormula chordFormula, Guid guid) : this(chordFormula)
+        {
             Guid = guid;
         }
     }//class

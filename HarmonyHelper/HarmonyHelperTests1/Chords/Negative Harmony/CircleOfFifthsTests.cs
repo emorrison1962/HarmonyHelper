@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Eric.Morrison.Harmony;
 using HarmonyHelper.Chords.NegativeHarmony;
 using System.Diagnostics;
+using Eric.Morrison.Harmony.Intervals;
 
 namespace HarmonyHelper.Chords.Negative_Harmony.Tests
 {
@@ -18,7 +19,7 @@ namespace HarmonyHelper.Chords.Negative_Harmony.Tests
         [TestMethod()]
         public void CircleOfFifthsTest()
         {
-            new CircleOfFifths(NoteName.C);
+            new CircleOf(Interval.Perfect4th, NoteName.C, true);
             new object();
         }
 

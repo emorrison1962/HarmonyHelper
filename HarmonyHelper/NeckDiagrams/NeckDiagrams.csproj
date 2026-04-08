@@ -43,6 +43,9 @@
     <Compile Update="Controls\ScaleSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\ModalInterchangeView - Copy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />

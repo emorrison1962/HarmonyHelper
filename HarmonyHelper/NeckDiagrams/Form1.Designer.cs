@@ -31,106 +31,107 @@ namespace NeckDiagrams
         /// </summary>
         private void InitializeComponent()
         {
-            bottomMenuPanel = new System.Windows.Forms.Panel();
-            menuStrip = new System.Windows.Forms.MenuStrip();
-            toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            printDialog = new System.Windows.Forms.PrintDialog();
-            printDocument = new System.Drawing.Printing.PrintDocument();
-            _pnlMain = new System.Windows.Forms.Panel();
-            _pnlFeatureView = new System.Windows.Forms.Panel();
-            _ctlNav = new NavPanelControl();
-            bottomMenuPanel.SuspendLayout();
-            menuStrip.SuspendLayout();
-            _pnlMain.SuspendLayout();
-            SuspendLayout();
+            this.bottomMenuPanel = new System.Windows.Forms.Panel();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printDialog = new System.Windows.Forms.PrintDialog();
+            this.printDocument = new System.Drawing.Printing.PrintDocument();
+            this._pnlMain = new System.Windows.Forms.Panel();
+            this._pnlFeatureView = new System.Windows.Forms.Panel();
+            this._ctlNav = new NavPanelControl();
+            this.bottomMenuPanel.SuspendLayout();
+            this.menuStrip.SuspendLayout();
+            this._pnlMain.SuspendLayout();
+            this.SuspendLayout();
             // 
             // bottomMenuPanel
             // 
-            bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
-            bottomMenuPanel.Controls.Add(menuStrip);
-            bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            bottomMenuPanel.Location = new System.Drawing.Point(200, 750);
-            bottomMenuPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            bottomMenuPanel.Name = "bottomMenuPanel";
-            bottomMenuPanel.Size = new System.Drawing.Size(1400, 115);
-            bottomMenuPanel.TabIndex = 1;
+            this.bottomMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.bottomMenuPanel.Controls.Add(this.menuStrip);
+            this.bottomMenuPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomMenuPanel.Location = new System.Drawing.Point(200, 750);
+            this.bottomMenuPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.bottomMenuPanel.Name = "bottomMenuPanel";
+            this.bottomMenuPanel.Size = new System.Drawing.Size(1400, 115);
+            this.bottomMenuPanel.TabIndex = 1;
             // 
             // menuStrip
             // 
-            menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem });
-            menuStrip.Location = new System.Drawing.Point(0, 0);
-            menuStrip.Name = "menuStrip";
-            menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
-            menuStrip.Size = new System.Drawing.Size(1400, 28);
-            menuStrip.TabIndex = 0;
-            menuStrip.Text = "File";
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripMenuItem });
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(1400, 28);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "File";
             // 
             // toolStripMenuItem
             // 
-            toolStripMenuItem.Name = "toolStripMenuItem";
-            toolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P;
-            toolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            toolStripMenuItem.Text = "Print";
+            this.toolStripMenuItem.Name = "toolStripMenuItem";
+            this.toolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P;
+            this.toolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.toolStripMenuItem.Text = "Print";
             // 
             // printDialog
             // 
-            printDialog.UseEXDialog = true;
+            this.printDialog.UseEXDialog = true;
             // 
             // _pnlMain
             // 
-            _pnlMain.Controls.Add(_pnlFeatureView);
-            _pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            _pnlMain.Location = new System.Drawing.Point(200, 0);
-            _pnlMain.Name = "_pnlMain";
-            _pnlMain.Size = new System.Drawing.Size(1400, 750);
-            _pnlMain.TabIndex = 3;
+            this._pnlMain.Controls.Add(this._pnlFeatureView);
+            this._pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._pnlMain.Location = new System.Drawing.Point(200, 0);
+            this._pnlMain.Name = "_pnlMain";
+            this._pnlMain.Size = new System.Drawing.Size(1400, 750);
+            this._pnlMain.TabIndex = 3;
             // 
             // _pnlFeatureView
             // 
-            _pnlFeatureView.Dock = System.Windows.Forms.DockStyle.Fill;
-            _pnlFeatureView.Location = new System.Drawing.Point(0, 0);
-            _pnlFeatureView.Name = "_pnlFeatureView";
-            _pnlFeatureView.Size = new System.Drawing.Size(1400, 750);
-            _pnlFeatureView.TabIndex = 0;
+            this._pnlFeatureView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._pnlFeatureView.Location = new System.Drawing.Point(0, 0);
+            this._pnlFeatureView.Name = "_pnlFeatureView";
+            this._pnlFeatureView.Size = new System.Drawing.Size(1400, 750);
+            this._pnlFeatureView.TabIndex = 0;
             // 
             // _ctlNav
             // 
-            _ctlNav.BackColor = System.Drawing.SystemColors.ControlLight;
-            _ctlNav.Dock = System.Windows.Forms.DockStyle.Left;
-            _ctlNav.Location = new System.Drawing.Point(0, 0);
-            _ctlNav.Name = "_ctlNav";
-            _ctlNav.Size = new System.Drawing.Size(200, 865);
-            _ctlNav.TabIndex = 2;
-            _ctlNav.Load += _ctlNav_Load;
+            this._ctlNav.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._ctlNav.Dock = System.Windows.Forms.DockStyle.Left;
+            this._ctlNav.Location = new System.Drawing.Point(0, 0);
+            this._ctlNav.Name = "_ctlNav";
+            this._ctlNav.Size = new System.Drawing.Size(200, 865);
+            this._ctlNav.TabIndex = 2;
+            this._ctlNav.Load += this._ctlNav_Load;
             // 
             // Form1
             // 
-            AllowDrop = true;
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1600, 865);
-            Controls.Add(_pnlMain);
-            Controls.Add(bottomMenuPanel);
-            Controls.Add(_ctlNav);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            KeyPreview = true;
-            MainMenuStrip = menuStrip;
-            Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            Name = "Form1";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Harmony Helper";
-            WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            bottomMenuPanel.ResumeLayout(false);
-            bottomMenuPanel.PerformLayout();
-            menuStrip.ResumeLayout(false);
-            menuStrip.PerformLayout();
-            _pnlMain.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1600, 865);
+            this.Controls.Add(this._pnlMain);
+            this.Controls.Add(this.bottomMenuPanel);
+            this.Controls.Add(this._ctlNav);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Harmony Helper";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.bottomMenuPanel.ResumeLayout(false);
+            this.bottomMenuPanel.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this._pnlMain.ResumeLayout(false);
+            this.ResumeLayout(false);
 
         }
 
         #endregion
+
         private System.Windows.Forms.Panel bottomMenuPanel;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.PrintDialog printDialog;

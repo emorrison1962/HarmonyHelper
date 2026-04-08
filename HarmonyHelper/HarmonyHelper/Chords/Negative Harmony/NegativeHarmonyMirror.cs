@@ -27,7 +27,7 @@ namespace HarmonyHelper.Chords.NegativeHarmony
 
         public NoteName GetMirrored(KeySignature ks, NoteName nn)
         {
-            var cof = new CircleOfFifths(ks.NoteName);
+            var cof = new CircleOf(Interval.Perfect5th, ks.NoteName, ks.IsMajor);
             var interval = ks.NoteName - nn;
             var ndx = cof.Notes.IndexOf(nn);
 
@@ -50,7 +50,7 @@ namespace HarmonyHelper.Chords.NegativeHarmony
         public ChordFormula xGetMirrored(KeySignature ks, ChordFormula formula)
         {
             ChordFormula result = null;
-            var cof = new CircleOfFifths(ks.NoteName);
+            var cof = new CircleOf(Interval.Perfect5th, ks.NoteName, ks.IsMajor);
 
             var nns = new List<NoteName>();
             foreach (var nn in formula.NoteNames)
@@ -233,32 +233,6 @@ b7		bVII7		iim6
         }
 
 
-    }//class
-
-    /// <summary>
-    /// Clockwise:
-    /// C, G, D, A, E, B, Gb/F#, Db, Ab, Eb, Bb, F
-    /// </summary>
-    public class CircleOfFifths
-    {
-        public List<NoteName> Notes { get; set; } = new List<NoteName>();
-        public CircleOfFifths(NoteName nn)
-        {
-            Notes.Add(nn);
-            for (int i = 1; i < 12; ++i)
-            {
-                nn += Interval.Perfect5th;
-                if (!nn.IsNatural)
-                {
-                    var enharmonic = NoteName.GetEnharmonicEquivalents(nn)
-                        .OrderBy(ee => ee.AccidentalCount)
-                        .First();
-                    Notes.Add(enharmonic);
-                }
-                else
-                    Notes.Add(nn);
-            }
-        }
     }//class
 
     public class CircleOfChromatics
