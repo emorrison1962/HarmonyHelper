@@ -182,19 +182,34 @@ namespace Eric.Morrison.Harmony.Scales
 		}
 		protected override void PopulateIntervals()
 		{
-			this.Intervals = new List<ScaleToneInterval>() {
-				ScaleToneInterval.AugmentedUnison,
-				ScaleToneInterval.Major2nd,
-				ScaleToneInterval.Augmented2nd,
-				ScaleToneInterval.Major3rd,
-				ScaleToneInterval.Perfect4th,
-				ScaleToneInterval.Augmented4th,
-				ScaleToneInterval.Perfect5th,
-				ScaleToneInterval.Augmented5th,
-				ScaleToneInterval.Major6th,
-				ScaleToneInterval.Augmented6th,
-				ScaleToneInterval.Major7th,
-			};
+            this.Intervals = new List<ScaleToneInterval>() {
+                ScaleToneInterval.Minor2nd,
+                ScaleToneInterval.Major2nd,
+                ScaleToneInterval.Minor3rd,
+                ScaleToneInterval.Major3rd,
+                ScaleToneInterval.Perfect4th,
+                ScaleToneInterval.Diminished5th,
+                ScaleToneInterval.Perfect5th,
+                ScaleToneInterval.Minor6th,
+                ScaleToneInterval.Major6th,
+                ScaleToneInterval.Minor7th,
+                ScaleToneInterval.Major7th,
+            };
+
+#warning FIXME: Do we want sharps or flats?
+			//this.Intervals = new List<ScaleToneInterval>() {
+			//	ScaleToneInterval.AugmentedUnison,
+			//	ScaleToneInterval.Major2nd,
+			//	ScaleToneInterval.Augmented2nd,
+			//	ScaleToneInterval.Major3rd,
+			//	ScaleToneInterval.Perfect4th,
+			//	ScaleToneInterval.Augmented4th,
+			//	ScaleToneInterval.Perfect5th,
+			//	ScaleToneInterval.Augmented5th,
+			//	ScaleToneInterval.Major6th,
+			//	ScaleToneInterval.Augmented6th,
+			//	ScaleToneInterval.Major7th,
+			//};
 		}
 	}
 

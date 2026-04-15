@@ -201,6 +201,7 @@ namespace NeckDiagrams
                 case FeatureType.ReHarmonize: { result = new ReHarmonizerControl(); } break;
                 case FeatureType.Scales: { result = new ScalesControl(); } break;
                 case FeatureType.SquareOfStitch: { result = new SquareOfStichView(); } break;
+                case FeatureType.SandBox: { result = new SandBoxView(); } break;
                 default: { throw new ArgumentOutOfRangeException(nameof(e)); }
             }
             //Debug.WriteLine(result.GetType().Name);

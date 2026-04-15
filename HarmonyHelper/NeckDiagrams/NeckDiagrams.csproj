@@ -12,37 +12,21 @@
     <None Remove="Contracts\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controls\ChordNameControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\ChordNamesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\ChordNameControl.cs" />
+    <Compile Update="Controls\ChordNamesControl.cs" />
     <Compile Update="Controls\ChordFormulaSelectorControl.cs" />
-    <Compile Update="Controls\ChordsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\ChordsControl.cs" />
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Views\HarmonicAnalysisControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\NeckControl\NeckControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\ComboBoxes\NoteComboBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\NeckControl\StringControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Views\HarmonicAnalysisControl.cs" />
+    <Compile Update="Controls\NeckControl\NeckControl.cs" />
+    <Compile Update="Controls\ComboBoxes\NoteComboBox.cs" />
+    <Compile Update="Controls\NeckControl\StringControl.cs" />
     <Compile Update="Controls\NeckControl\StringPositionControl.cs" />
-    <Compile Update="Controls\ScaleSelectorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\ScaleSelectorControl.cs" />
     <Compile Update="Views\ModalInterchangeView - Copy.cs">
       <SubType>UserControl</SubType>
     </Compile>

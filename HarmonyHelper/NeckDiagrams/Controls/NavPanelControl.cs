@@ -47,6 +47,7 @@ namespace NeckDiagrams.Controls
             this._bnFeatureHarmonicAnalysis.CheckedChanged += this._CheckedChanged;
             this._bnFeatureArpeggiator.CheckedChanged += this._CheckedChanged;
             this._bnFeatureArpeggios.CheckedChanged += this._CheckedChanged;
+            this._bnSandbox.CheckedChanged += this._CheckedChanged;
 
         }
 

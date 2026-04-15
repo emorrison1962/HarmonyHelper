@@ -33,6 +33,7 @@ namespace NeckDiagrams.Controls
             this._pnlNav = new System.Windows.Forms.Panel();
             this.bnOptions = new System.Windows.Forms.Button();
             this.pnlSpacer = new System.Windows.Forms.Panel();
+            this._bnSandbox = new FeatureTypeButton();
             this._bnSquareOfStitch = new FeatureTypeButton();
             this._bnFeatureChordShape = new FeatureTypeButton();
             this._bnModalInterchange = new FeatureTypeButton();
@@ -52,6 +53,7 @@ namespace NeckDiagrams.Controls
             this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
             this._pnlNav.Controls.Add(this.bnOptions);
             this._pnlNav.Controls.Add(this.pnlSpacer);
+            this._pnlNav.Controls.Add(this._bnSandbox);
             this._pnlNav.Controls.Add(this._bnSquareOfStitch);
             this._pnlNav.Controls.Add(this._bnFeatureChordShape);
             this._pnlNav.Controls.Add(this._bnModalInterchange);
@@ -72,7 +74,7 @@ namespace NeckDiagrams.Controls
             // bnOptions
             // 
             this.bnOptions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bnOptions.Location = new System.Drawing.Point(0, 430);
+            this.bnOptions.Location = new System.Drawing.Point(0, 460);
             this.bnOptions.Name = "bnOptions";
             this.bnOptions.Size = new System.Drawing.Size(468, 30);
             this.bnOptions.TabIndex = 13;
@@ -85,10 +87,25 @@ namespace NeckDiagrams.Controls
             // 
             this.pnlSpacer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSpacer.Location = new System.Drawing.Point(0, 330);
+            this.pnlSpacer.Location = new System.Drawing.Point(0, 360);
             this.pnlSpacer.Name = "pnlSpacer";
             this.pnlSpacer.Size = new System.Drawing.Size(468, 100);
             this.pnlSpacer.TabIndex = 12;
+            // 
+            // _bnSandbox
+            // 
+            this._bnSandbox.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnSandbox.AutoSize = true;
+            this._bnSandbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnSandbox.FeatureType = FeatureType.SandBox;
+            this._bnSandbox.Location = new System.Drawing.Point(0, 330);
+            this._bnSandbox.Name = "_bnSandbox";
+            this._bnSandbox.Size = new System.Drawing.Size(468, 30);
+            this._bnSandbox.TabIndex = 14;
+            this._bnSandbox.TabStop = true;
+            this._bnSandbox.Tag = "";
+            this._bnSandbox.Text = "SandBox";
+            this._bnSandbox.UseVisualStyleBackColor = true;
             // 
             // _bnSquareOfStitch
             // 
@@ -266,5 +283,6 @@ namespace NeckDiagrams.Controls
         private System.Windows.Forms.Button bnOptions;
         private System.Windows.Forms.Panel pnlSpacer;
         private FeatureTypeButton _bnSquareOfStitch;
+        private FeatureTypeButton _bnSandbox;
     }
 }

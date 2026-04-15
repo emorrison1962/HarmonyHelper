@@ -501,7 +501,9 @@ namespace Eric.Morrison.Harmony
             if (this.RawValue == other.RawValue
                 && this.Name == other.Name)
                 result = true;
-            return result;
+            else
+            { }
+                return result;
         }
 
         public override bool Equals(object obj)
@@ -645,20 +647,20 @@ namespace Eric.Morrison.Harmony
         /// </summary>
         /// <param name="src"></param>
         /// <param name="interval"></param>
-        /// <param name="noteVal"></param>
+        /// <param name="rawTxposedVal"></param>
         /// <param name="@explicit">
         ///     If @explicit == true, enhormonic equilalents are not returned. 
         ///     This means that you may receive a double or triple sharp or flat.
         ///     If @explicit == false, an enharmoic equivalent is returned.
         /// </param>
         /// <returns></returns>
-        public static NoteName ResolveNoteName(NoteName src, Interval interval, uint noteVal, bool @explicit)
+        public static NoteName ResolveNoteName(NoteName src, Interval interval, uint rawTxposedVal, bool @explicit)
         {
             if (null == interval)
                 throw new ArgumentNullException(nameof(interval));
             var intervalRole = interval.IntervalRoleType;
 
-            var result = ResolveNoteNameExplicit(src, noteVal, intervalRole, out var resultCandidates);
+            var result = ResolveNoteNameExplicit(src, rawTxposedVal, intervalRole, out var resultCandidates);
             if (!@explicit)
             {//return an enharmonic equivalent, if ## or bb.
 
@@ -722,7 +724,7 @@ namespace Eric.Morrison.Harmony
             return result;
         }
 
-        private static NoteName ResolveNoteNameExplicit(NoteName src, uint txposedVal, IntervalRoleTypeEnum intervalRole, out List<NoteName> resultCandidates)
+        private static NoteName ResolveNoteNameExplicit(NoteName src, uint rawTxposedVal, IntervalRoleTypeEnum intervalRole, out List<NoteName> resultCandidates)
         {
             const char ASCII_G = 'G';
             NoteName result = null;
@@ -730,7 +732,7 @@ namespace Eric.Morrison.Harmony
             var notenames = NoteName.InternalCatalog
                 .OrderBy(x => x.RawValue)
                 .ToList();
-            resultCandidates = notenames.Where(x => x.RawValue == txposedVal).ToList();
+            resultCandidates = notenames.Where(x => x.RawValue == rawTxposedVal).ToList();
             Debug.Assert(resultCandidates.Count > 0);
 
             

@@ -21,6 +21,7 @@ namespace NeckDiagrams
         Arpeggiator,
         Arpeggios,
         ChordFingering,
-        SquareOfStitch
+        SquareOfStitch,
+        SandBox,
     }
 }
