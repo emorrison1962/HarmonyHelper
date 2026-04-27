@@ -16,15 +16,9 @@ namespace NeckDiagrams.Controls.Buttons
         #region Construction
         public FeatureTypeButton()
         {
-            this.CheckedChanged += this.FeatureTypeButton_CheckedChanged;
         }
 
-        private void FeatureTypeButton_CheckedChanged(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
-
-        public FeatureTypeButton(FeatureType ft)
+        public FeatureTypeButton(FeatureType ft) :this()
         {
             FeatureType = ft;
         }
