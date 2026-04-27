@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Manufaktura.Controls.Model.Fonts;
 
 namespace NeckDiagrams.Views
 {

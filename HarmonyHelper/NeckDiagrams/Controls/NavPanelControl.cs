@@ -46,13 +46,11 @@ namespace NeckDiagrams.Controls
             this._bnSquareOfStitch.CheckedChanged += this._CheckedChanged;
             this._bnFeatureChordShape.CheckedChanged += this._CheckedChanged;
             this._bnModalInterchange.CheckedChanged += this._CheckedChanged;
-            this._rbManufaktura.CheckedChanged += this._CheckedChanged;
             this._bnFeatureVoiceLeading.CheckedChanged += this._CheckedChanged;
             this._bnFeatureScales.CheckedChanged += this._CheckedChanged;
             this._bnFeatureReHarmonize.CheckedChanged += this._CheckedChanged;
             this._bnFeatureLeadSheets.CheckedChanged += this._CheckedChanged;
             this._bnFeatureHarmonicAnalysis.CheckedChanged += this._CheckedChanged;
-            this._bnFeatureArpeggiator.CheckedChanged += this._CheckedChanged;
             this._bnFeatureArpeggios.CheckedChanged += this._CheckedChanged;
             this._bnSandbox.CheckedChanged += this._CheckedChanged;
 

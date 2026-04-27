@@ -3,8 +3,6 @@ using Eric.Morrison.Harmony.Chords;
 using Eric.Morrison.Harmony.HarmonicAnalysis;
 using Eric.Morrison.Harmony.HarmonicAnalysis.Rules;
 
-using Manufaktura.Music.Model;
-
 using NeckDiagrams.Controls;
 
 using System;

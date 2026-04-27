@@ -193,8 +193,6 @@ namespace NeckDiagrams
                     break;
                 case FeatureType.VoiceLeading: { result = new VoiceLeadingControl(); } break;
                 case FeatureType.ChordFingering: { result = new ChordShapeView(); } break;
-                case FeatureType.Arpeggiator: { result = new ArpeggiatorControl(); } break;
-                case FeatureType.Manufaktura: { result = new ManufakturaScratchPadControl(); } break;
                 case FeatureType.Arpeggios: { result = new ArpeggiosControl(); } break;
                 case FeatureType.HarmonicAnalysis: { result = new HarmonicAnalysisControl(); } break;
                 case FeatureType.LeadSheets: { result = new LeadSheetControl(); } break;

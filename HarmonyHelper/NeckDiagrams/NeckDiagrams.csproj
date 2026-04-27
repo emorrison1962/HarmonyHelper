@@ -21,7 +21,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Views\HarmonicAnalysisControl.cs" />
+    <Compile Update="Feature Views\HarmonicAnalysisControl.cs" />
     <Compile Update="Controls\NeckControl\NeckControl.cs" />
     <Compile Update="Controls\ComboBoxes\NoteComboBox.cs" />
     <Compile Update="Controls\NeckControl\StringControl.cs" />
@@ -49,7 +49,6 @@
     <ProjectReference Include="..\HarmonyHelperControls.WinForms\HarmonyHelperControls.WinForms.csproj" />
     <ProjectReference Include="..\HarmonyHelper\HarmonyHelper.csproj" />
     <ProjectReference Include="..\HarmonyHelper_DryWetMidi\HarmonyHelper_DryWetMidi.csproj" />
-    <ProjectReference Include="..\Manufaktura\Manufaktura.Controls.WinForms\Manufaktura.Controls.WinForms.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\Settings.settings">

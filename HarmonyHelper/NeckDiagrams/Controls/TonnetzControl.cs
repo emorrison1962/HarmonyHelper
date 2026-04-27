@@ -21,9 +21,6 @@ using HarmonyHelper.Chords.NeoRiemannianTheory;
 
 using HarmonyHelper_DryWetMidi;
 
-using Manufaktura.Controls.Model;
-using Manufaktura.Music.Model.MajorAndMinor;
-
 using Newtonsoft.Json.Serialization;
 
 using Note = Eric.Morrison.Harmony.Note;

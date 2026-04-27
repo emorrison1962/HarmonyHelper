@@ -12,12 +12,14 @@ namespace NeckDiagrams
         ModalInterchange,
         [Obsolete("", true)]
         Score,
+        [Obsolete("", true)]
         Manufaktura,
         VoiceLeading,
         Scales,
         ReHarmonize,
         LeadSheets,
         HarmonicAnalysis,
+        [Obsolete("", true)]
         Arpeggiator,
         Arpeggios,
         ChordFingering,
