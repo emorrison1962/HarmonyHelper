@@ -90,27 +90,4 @@ namespace NeckDiagrams.Controls.ComboBoxes
 
     }//class
 
-    [DesignTimeVisible(true)]
-    public class FeatureTypeButton : RadioButton
-    {
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public FeatureType FeatureType{ get; set; } = FeatureType.None;
-
-
-        #region Construction
-        public FeatureTypeButton()
-        {
-        }
-
-        
-        public FeatureTypeButton(FeatureType ft)
-        {
-            FeatureType = ft;
-        }
-
-        #endregion
-
-
-    }//class
-
 }//ns

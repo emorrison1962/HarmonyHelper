@@ -35,7 +35,8 @@ namespace NeckDiagrams
                 this._ctlNav.SelectedFeatureTypeChanged += this.SelectedFeatureChanged;
                 //_ctlNav.SelectedFeatureType = FeatureType.ChordFingering;
                 _ctlNav.SelectedFeatureType = FeatureType.SquareOfStitch;
-                _ctlNav.Init();
+                
+                //_ctlNav.Init();
 
             }
         }

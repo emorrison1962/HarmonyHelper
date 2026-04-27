@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using NeckDiagrams.Controls.Buttons;
 using NeckDiagrams.Controls.ComboBoxes;
 
 namespace NeckDiagrams.Controls
@@ -32,6 +33,12 @@ namespace NeckDiagrams.Controls
         public NavPanelControl()
         {
             InitializeComponent();
+        }
+
+        override protected void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            this.Init();
         }
 
         public void Init()

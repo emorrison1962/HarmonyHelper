@@ -1,4 +1,5 @@
-﻿using NeckDiagrams.Controls.ComboBoxes;
+﻿using NeckDiagrams.Controls.Buttons;
+using NeckDiagrams.Controls.ComboBoxes;
 
 namespace NeckDiagrams.Controls
 {
@@ -116,7 +117,7 @@ namespace NeckDiagrams.Controls
             this._bnSquareOfStitch.Location = new System.Drawing.Point(0, 300);
             this._bnSquareOfStitch.Name = "_bnSquareOfStitch";
             this._bnSquareOfStitch.Size = new System.Drawing.Size(468, 30);
-            this._bnSquareOfStitch.TabIndex = 11;
+            this._bnSquareOfStitch.TabIndex = 10;
             this._bnSquareOfStitch.TabStop = true;
             this._bnSquareOfStitch.Tag = "";
             this._bnSquareOfStitch.Text = "Square Of Stitch";
@@ -131,7 +132,7 @@ namespace NeckDiagrams.Controls
             this._bnFeatureChordShape.Location = new System.Drawing.Point(0, 270);
             this._bnFeatureChordShape.Name = "_bnFeatureChordShape";
             this._bnFeatureChordShape.Size = new System.Drawing.Size(468, 30);
-            this._bnFeatureChordShape.TabIndex = 10;
+            this._bnFeatureChordShape.TabIndex = 11;
             this._bnFeatureChordShape.TabStop = true;
             this._bnFeatureChordShape.Tag = "";
             this._bnFeatureChordShape.Text = "Chord Shapes";

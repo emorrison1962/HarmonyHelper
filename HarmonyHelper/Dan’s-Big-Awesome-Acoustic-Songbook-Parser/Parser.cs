@@ -4,157 +4,144 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+
 using Eric.Morrison;
+
 using HtmlAgilityPack;
 
 namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 {
-	public class Song
-	{
-		public string Title { get; private set; }
-		public string Key { get; private set; }
-		public List<string> Chords { get; private set; } = new List<string>();
-		public List<string> ChorusChords { get; set; } = new List<string>();
-		public Song(string title, string key, List<string> chords)
-		{
-			this.Title = title;
-			this.Key = key;
-			this.Chords = chords;
-		}
-	}
+    public class Parser
+    {
+        const string CLASS_SONG_TITLE = "sg_title";
+        const string CLASS_CHORD = "ch";
+        const string CLASS_SONG = "sg_song";
 
-	public class Parser
-	{
-		const string CLASS_SONG_TITLE = "sg_title";
-		const string CLASS_CHORD = "ch";
-		const string CLASS_SONG = "sg_song";
+        public Parser()
+        {
 
-		HtmlDocument HtmlDocument { get; set; } = new HtmlDocument();
-		public bool TryParse(string html, out List<Song> songs)
-		{
-			songs = new List<Song>();
-			this.HtmlDocument.LoadHtml(html);
+        }
 
-			bool result = false;
+        HtmlDocument HtmlDocument { get; set; } = new HtmlDocument();
+        public bool TryParse(string html, out List<Song> songs)
+        {
+            songs = new List<Song>();
+            this.HtmlDocument.LoadHtml(html);
 
-			var songNodes = this.HtmlDocument.DocumentNode.GetNodes("div", CLASS_SONG);
-			foreach (var songNode in songNodes)
-			{
-				this.GetTitle(songNode, out string title);
-				this.GetKey(songNode, out string key);
-				
+            bool result = false;
 
-				var chordNodes = songNode.GetNodes("tr", CLASS_CHORD);
-				List<string> chords = new List<string>();
-				foreach (var chordNode in chordNodes)
-				{
-					chords.AddRange(this.GetChords(chordNode));
-				}
+            var songNodes = this.HtmlDocument.DocumentNode.GetNodes("div", CLASS_SONG);
+            foreach (var songNode in songNodes)
+            {
+                this.GetTitle(songNode, out string title);
+                this.GetKey(songNode, out string key);
+
+
+                var chordNodes = songNode.GetNodes("tr", CLASS_CHORD);
+                List<string> chords = new List<string>();
+                foreach (var chordNode in chordNodes)
+                {
+                    chords.AddRange(this.GetChords(chordNode));
+                }
 
 
 
-				#region Chorus Chords
+                #region Chorus Chords
 
-				var chorusNodes = songNode.GetNodes("div", "sg_chorus_all");
-				List<List<string>> allChorusChords = new List<List<string>>();
-				foreach (var chorusNode in chorusNodes)
-				{
-					chordNodes = chorusNode.GetNodes("tr", CLASS_CHORD);
-					var chorusChords = new List<string>();
-					foreach (var chordNode in chordNodes)
-					{
-						chorusChords.AddRange(this.GetChords(chordNode));
-					}
-					allChorusChords.Add(chorusChords);
-				}
+                var chorusNodes = songNode.GetNodes("div", "sg_chorus_all");
+                List<List<string>> allChorusChords = new List<List<string>>();
+                foreach (var chorusNode in chorusNodes)
+                {
+                    chordNodes = chorusNode.GetNodes("tr", CLASS_CHORD);
+                    var chorusChords = new List<string>();
+                    foreach (var chordNode in chordNodes)
+                    {
+                        chorusChords.AddRange(this.GetChords(chordNode));
+                    }
+                    allChorusChords.Add(chorusChords);
+                }
+                #endregion
 
-				var pairs = allChorusChords.GetPairs();
-				foreach (var pair in pairs)
-				{
-					var diff1 = pair[0].Except(pair[1]).Count();
-					var diff2 = pair[1].Except(pair[0]).Count();
-					Debug.Assert(0 == diff1 && 0 == diff2);
-				}
+                var song = new Song(title, key, chords);
+                foreach (var chorus in allChorusChords)
+                {
+                    song.AddChorus(chorus);
+                }
+                songs.Add(song);
+            }
 
-				#endregion
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(songs);
+            var path = Assembly.GetExecutingAssembly().Location;
 
-				var song = new Song(title, key, chords);
-				// song.ChorusChords = chorusChords;
-				songs.Add(song);
-			}
-
-			var json = Newtonsoft.Json.JsonConvert.SerializeObject(songs);
-			var path = Assembly.GetExecutingAssembly().Location;
-
-			path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(path))));
-			path = Path.Combine(path, "songs.json");
-			using (var fs = File.CreateText(path))
-			{
-				fs.Write(json);
-			}
+            path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(path))));
+            path = Path.Combine(path, "songs.json");
+            using (var fs = File.CreateText(path))
+            {
+                fs.Write(json);
+            }
 
 
 
-			return result;
-		}
+            return result;
+        }
 
-		private bool GetKey(HtmlNode songNode, out string key)
-		{
-			key = string.Empty;
-			key = songNode.GetAttributeValue("data-key", string.Empty);
-			var result = false;
-			if (string.Empty != key)
-				result = true;
-			return result;
+        private bool GetKey(HtmlNode songNode, out string key)
+        {
+            key = string.Empty;
+            key = songNode.GetAttributeValue("data-key", string.Empty);
+            var result = false;
+            if (string.Empty != key)
+                result = true;
+            return result;
 
-		}
+        }
 
-		bool GetTitle(HtmlNode parentNode, out string title)
-		{
-			title = null;
-			bool result = false;
-			var titleNode = parentNode.ChildNodes.ByClass(CLASS_SONG_TITLE).First();
-			if (null != titleNode)
-			{
-				title = WebUtility.HtmlDecode(titleNode.InnerText.FromHtml());
-				title = title.Trim();
-				result = true;
-			}
-			return result;
-		}
+        bool GetTitle(HtmlNode parentNode, out string title)
+        {
+            title = null;
+            bool result = false;
+            var titleNode = parentNode.ChildNodes.ByClass(CLASS_SONG_TITLE).First();
+            if (null != titleNode)
+            {
+                title = WebUtility.HtmlDecode(titleNode.InnerText.FromHtml());
+                title = title.Trim();
+                result = true;
+            }
+            return result;
+        }
 
-		List<string> GetChords(HtmlNode parent)
-		{
-			var result = new List<string>();
-			//Debug.WriteLine(parent.InnerHtml);
-			var tds = parent.GetNodes("td");
-			foreach (var td in tds)
-			{
-				var txt = td.InnerText.FromHtml().Trim();
-				if (string.Empty != txt)
-					result.Add(txt);
-			}
-			return result;
-		}
+        List<string> GetChords(HtmlNode parent)
+        {
+            var result = new List<string>();
+            //Debug.WriteLine(parent.InnerHtml);
+            var tds = parent.GetNodes("td");
+            foreach (var td in tds)
+            {
+                var txt = td.InnerText.FromHtml().Trim();
+                if (string.Empty != txt)
+                    result.Add(txt);
+            }
+            return result;
+        }
 
-		virtual protected HtmlNode GetNode(string nodeType, string className)
-		{
-			var nodes = this.HtmlDocument.DocumentNode.Descendants(nodeType);
-			var result = nodes.ByClass(className).FirstOrDefault();
+        virtual protected HtmlNode GetNode(string nodeType, string className)
+        {
+            var nodes = this.HtmlDocument.DocumentNode.Descendants(nodeType);
+            var result = nodes.ByClass(className).FirstOrDefault();
 
-			return result;
-		}
+            return result;
+        }
 
 
-	}//class
+    }//class
 
-	public static class HtmlNodeExtensions
-	{
-		static public IEnumerable<HtmlNode> ByClass(this IEnumerable<HtmlNode> nodes, string classname)
-		{
-			var seq = nodes.Where(x => x.HasAttributes);
-			var result = seq.Where(x =>
-				x.Attributes.Where(a => "class" == a.Name && a.Value.Contains(classname)).FirstOrDefault() != null);
+    public static class HtmlNodeExtensions
+    {
+        static public IEnumerable<HtmlNode> ByClass(this IEnumerable<HtmlNode> nodes, string classname)
+        {
+            var seq = nodes.Where(x => x.HasAttributes);
+            var result = seq.Where(x =>
+                x.Attributes.Where(a => "class" == a.Name && a.Value.Contains(classname)).FirstOrDefault() != null);
 
 #if false
 			foreach (var div in seq)
@@ -173,13 +160,13 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 			}
 
 #endif
-			return result;
-		}
-		static public IEnumerable<HtmlNode> ByID(this IEnumerable<HtmlNode> nodes, string id)
-		{
-			var seq = nodes.Where(x => x.HasAttributes);
-			var result = seq.Where(x =>
-				x.Attributes.Where(a => "id" == a.Name && a.Value.Contains(id)).FirstOrDefault() != null);
+            return result;
+        }
+        static public IEnumerable<HtmlNode> ByID(this IEnumerable<HtmlNode> nodes, string id)
+        {
+            var seq = nodes.Where(x => x.HasAttributes);
+            var result = seq.Where(x =>
+                x.Attributes.Where(a => "id" == a.Name && a.Value.Contains(id)).FirstOrDefault() != null);
 
 #if false
 			foreach (var div in seq)
@@ -198,53 +185,53 @@ namespace Dan_s_Big_Awesome_Acoustic_Songbook_Parser
 			}
 
 #endif
-			return result;
-		}
+            return result;
+        }
 
-		static public string FromHtml(this string innerText)
-		{
-			var result = System.Net.WebUtility.HtmlDecode(innerText);
-			result = result.Trim();
-			return result;
-		}
+        static public string FromHtml(this string innerText)
+        {
+            var result = System.Net.WebUtility.HtmlDecode(innerText);
+            result = result.Trim();
+            return result;
+        }
 
-		static public HtmlNode GetNode(this HtmlNode parent, string nodeType, string className = null)
-		{
-			var result = parent.GetNodes(nodeType, className).FirstOrDefault();
-			return result;
-		}
+        static public HtmlNode GetNode(this HtmlNode parent, string nodeType, string className = null)
+        {
+            var result = parent.GetNodes(nodeType, className).FirstOrDefault();
+            return result;
+        }
 
-		static public List<HtmlNode> GetNodes(this HtmlNode parent, string nodeType, string className = null)
-		{
-			var result = parent.Descendants(nodeType).ToList();
-			if (null != className)
-			{
-				result = result.ByClass(className).ToList();
-			}
+        static public List<HtmlNode> GetNodes(this HtmlNode parent, string nodeType, string className = null)
+        {
+            var result = parent.Descendants(nodeType).ToList();
+            if (null != className)
+            {
+                result = result.ByClass(className).ToList();
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		#region HtmlDocument Extensions
+        #region HtmlDocument Extensions
 
-		static public HtmlNode GetNode(this HtmlDocument doc, string nodeType, string className = null)
-		{
-			var result = doc.GetNodes(nodeType, className).FirstOrDefault();
-			return result;
-		}
+        static public HtmlNode GetNode(this HtmlDocument doc, string nodeType, string className = null)
+        {
+            var result = doc.GetNodes(nodeType, className).FirstOrDefault();
+            return result;
+        }
 
-		static public List<HtmlNode> GetNodes(this HtmlDocument doc, string nodeType, string className = null)
-		{
-			var result = doc.DocumentNode.Descendants(nodeType).ToList();
-			if (null != className)
-			{
-				result = result.ByClass(className).ToList();
-			}
-			return result;
-		}
+        static public List<HtmlNode> GetNodes(this HtmlDocument doc, string nodeType, string className = null)
+        {
+            var result = doc.DocumentNode.Descendants(nodeType).ToList();
+            if (null != className)
+            {
+                result = result.ByClass(className).ToList();
+            }
+            return result;
+        }
 
-		#endregion
+        #endregion
 
-	}//class
+    }//class
 
 }//ns
