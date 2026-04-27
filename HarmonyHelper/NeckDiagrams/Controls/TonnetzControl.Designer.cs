@@ -40,6 +40,8 @@
             this.SizeChanged += this.TonnetzControl_SizeChanged;
             this.Paint += this.TonnetzControl_Paint;
             this.MouseClick += this.TonnetzPanel_MouseClick;
+            this.MouseDown += this.TonnetzControl_MouseDown;
+            this.MouseUp += this.TonnetzControl_MouseUp;
             this.ResumeLayout(false);
         }
 

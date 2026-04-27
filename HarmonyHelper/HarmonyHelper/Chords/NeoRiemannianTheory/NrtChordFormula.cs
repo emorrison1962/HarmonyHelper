@@ -131,7 +131,6 @@ namespace HarmonyHelper.Chords.NeoRiemannianTheory
             return result;
         }
 
-
         NrtChordFormula TransformL()
         {
             // C Major (0,4,7) -> E Minor (4,7,11). Root 0 moves to 11 (B).

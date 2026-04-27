@@ -105,7 +105,7 @@ namespace Eric.Morrison.Harmony
 			}
 
 			//⁰²³⁴¹
-			var result = $"{this.NoteName.ToString()}{octaveNum}";
+			var result = $"{this.NoteName.NameAscii}{octaveNum}";
 
 			//var result = string.Format("{0}, NoteName={1}, Octave={2}", 
 			//    base.ToString(), this.NoteName, this.Octave);

@@ -29,12 +29,12 @@ namespace HarmonyHelper_DryWetMidi
             var result = new List<MDI.Note>();
             foreach (var nn in src)
             {
-                result.Add(nn.ToDWMNote());
+                result.Add(nn.ToDwmNote());
             }
             return result;
         }
 
-        static public MDI.Note ToDWMNote(this HH.NoteName src, int octave = 4)
+        static public MDI.Note ToDwmNote(this HH.NoteName src, int octave = 4)
         {
             MDT.NoteName dstNn;
             switch ((RawNoteValuesEnum)src.RawValue)
@@ -72,7 +72,7 @@ namespace HarmonyHelper_DryWetMidi
 
         static public MDI.Note ToDWMNote(this HH.Note src)
         {
-            var result = ToDWMNote(src.NoteName, (int)src.Octave);
+            var result = ToDwmNote(src.NoteName, (int)src.Octave);
             return result;
         }
 

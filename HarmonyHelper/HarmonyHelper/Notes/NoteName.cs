@@ -39,9 +39,9 @@ namespace Eric.Morrison.Harmony
             C = 1 << 1 | Natural,
             Dbb = 1 << 1 | DoubleFlat,
 
-            BSharpSharp = 1 << 1 | DoubleSharp,
-            CSharp = 1 << 1 | Sharp,
-            Db = 1 << 1 | Flat,
+            BSharpSharp = 1 << 2 | DoubleSharp,
+            CSharp = 1 << 2 | Sharp,
+            Db = 1 << 2 | Flat,
 
             CSharpSharp = 1 << 3 | DoubleSharp,
             D = 1 << 3 | Natural,

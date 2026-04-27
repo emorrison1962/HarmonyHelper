@@ -19,10 +19,14 @@ using Eric.Morrison.Harmony.Scales;
 
 using HarmonyHelper.Chords.NeoRiemannianTheory;
 
+using HarmonyHelper_DryWetMidi;
+
 using Manufaktura.Controls.Model;
 using Manufaktura.Music.Model.MajorAndMinor;
 
 using Newtonsoft.Json.Serialization;
+
+using Note = Eric.Morrison.Harmony.Note;
 
 namespace NeckDiagrams.Controls
 {
@@ -36,7 +40,18 @@ namespace NeckDiagrams.Controls
         private int _spacing = 100;
 
         // The chord the user starts from (e.g., C Major).
-        private ChordState? _startChord = null;
+        private ChordState? _startChord;
+
+        private ChordState? _selectedChord = null;
+        private ChordState? SelectedChord
+        {
+            get { return _selectedChord; }
+            set
+            {
+                _selectedChord = value;
+                this.Play();
+            }
+        }
 
         // The destination chord for the A* search (e.g., F# Minor).
         private ChordState? _targetChord = null;
@@ -78,7 +93,7 @@ namespace NeckDiagrams.Controls
 
 
             // 2. Draw the Selection Highlights (Visual feedback for the "Pro" click)
-            HighlightSelectedChords(g, center, spacing);
+            this.HighlightSelectedChords(g, center, spacing);
 
 
             using Font chordFont = new Font("Arial", 12, FontStyle.Regular);
@@ -93,7 +108,7 @@ namespace NeckDiagrams.Controls
                     PointF screenPos = GridToScreen(gridPt, center, spacing);
 
                     // Draw the lines (Fifths, Maj3rds, Min3rds)
-                    DrawLatticeLines(g, screenPos, gridPt, center, spacing);
+                    this.DrawLatticeLines(g, screenPos, gridPt, center, spacing);
 
                     // Draw Chord Labels (Major and Minor)
                     var nn = GetNoteAtGridPoint(gridPt);
@@ -101,13 +116,13 @@ namespace NeckDiagrams.Controls
                         .First(n => n.NrtFormula.Root == nn
                             && n.NrtFormula.IsMajor);
                     var nrtMajor = node.NrtFormula;
-                    this.DrawChordLabel(g, nrtMajor, gridPt, center, spacing, Brushes.RoyalBlue, chordFont, sf);
+                    this.DrawChordLabel(g, nrtMajor, gridPt, center, spacing, Brushes.White, chordFont, sf);
 
                     node = this.Tonnetz.Nodes
                         .First(n => n.NrtFormula.Root == nn
                             && n.NrtFormula.IsMinor);
                     var nrtMinor = node.NrtFormula;
-                    this.DrawChordLabel(g, nrtMinor, gridPt, center, spacing, Brushes.DarkRed, chordFont, sf);
+                    this.DrawChordLabel(g, nrtMinor, gridPt, center, spacing, Brushes.White, chordFont, sf);
 
                     // Draw the pitch node
                     g.FillEllipse(Brushes.LightGray, screenPos.X - 2, screenPos.Y - 2, 4, 4);
@@ -565,92 +580,6 @@ namespace NeckDiagrams.Controls
             _colorToChord[idColor] = state;
         }
 
-
-        //private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    // Force focus so Keyboard events (like Esc) work immediately
-        //    this.Focus();
-
-        //    // 1. Get the color of the pixel exactly where the user clicked
-        //    Color clickedColor = _clickMap.GetPixel(e.X, e.Y);
-
-        //    if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
-        //    {
-        //        // selectedChord ALREADY knows its GridPosition and Formula 
-        //        // because we mapped them in MapChordsToColors.
-        //        if (e.Button == MouseButtons.Left) 
-        //            _startChord = selectedChord;
-        //        if (e.Button == MouseButtons.Right) 
-        //            _targetChord = selectedChord;
-
-        //        this.Invalidate();
-        //    }
-        //}
-
-        //private Rectangle GetTriangleBounds(PointF[] pts)
-        //{
-        //    float minX = pts.Min(p => p.X);
-        //    float minY = pts.Min(p => p.Y);
-        //    float maxX = pts.Max(p => p.X);
-        //    float maxY = pts.Max(p => p.Y);
-
-        //    // Add 2-3 pixels of padding to account for pen thickness
-        //    return new Rectangle(
-        //        (int)minX - 2,
-        //        (int)minY - 2,
-        //        (int)(maxX - minX) + 4,
-        //        (int)(maxY - minY) + 4
-        //    );
-        //}
-
-        private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
-        {
-            // Force focus so the control can receive keyboard events like 'Esc'
-            this.Focus();
-
-            if (_clickMap == null) return;
-
-            // 1. Get the pixel color from our hidden "Click Map"
-            Color clickedColor = _clickMap.GetPixel(e.X, e.Y);
-
-            // 2. Background Check (Opaque Black/Transparent check)
-            if (clickedColor.A == 0 || clickedColor.ToArgb() == Color.FromArgb(255, 0, 0, 0).ToArgb())
-                return;
-
-            // 3. Identification via Dictionary
-            if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
-            {
-                // Capture the old area for invalidation before updating the state
-                if (e.Button == MouseButtons.Left)
-                {
-                    if (_startChord != null)
-                        Invalidate(GetTriangleBounds(GetTrianglePoints(_startChord.Value.GridPosition, _startChord.Value.Formula.IsMajor)));
-
-                    _startChord = selectedChord;
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    if (_targetChord != null)
-                        Invalidate(GetTriangleBounds(GetTrianglePoints(_targetChord.Value.GridPosition, _targetChord.Value.Formula.IsMajor)));
-
-                    _targetChord = selectedChord;
-                }
-
-                // 4. Update the "dirty" area for the NEW selection
-                PointF[] newPts = GetTrianglePoints(selectedChord.GridPosition, selectedChord.Formula.IsMajor);
-                Invalidate(GetTriangleBounds(newPts));
-
-                // 5. If we have a path, we usually need to invalidate the whole thing 
-                // since the lines stretch across multiple triangles.
-                if (_startChord != null && _targetChord != null)
-                {
-                    // Note: If you add pathfinding back, you'll likely need a full Invalidate() 
-                    // here unless you calculate a bounding box for the entire path.
-                    //this.Invalidate();
-                }
-            }
-        }
-
         /// <summary>
         /// Calculates the bounding rectangle for a set of points to use for targeted invalidation.
         /// </summary>
@@ -829,63 +758,131 @@ namespace NeckDiagrams.Controls
             this.RenderClickMap();
         }
 
-
-#if false
-
-        private void UpdateClickMap(int width, int height, Point center, int spacing)
+        
+        void Play()
         {
-            _clickMap?.Dispose();
-            _clickMap = new Bitmap(width, height);
+            var formula = _selectedChord.Value.Formula;
+            var chord = new Chord(formula, new NoteRange(new Note(NoteName.C, OctaveEnum.Octave4),
+                new Note(NoteName.C, OctaveEnum.Octave5)));
 
-            using (Graphics g = Graphics.FromImage(_clickMap))
+            this.MidiSender.Play(chord);
+        }
+
+        MidiEventsSender _MidiSender = null;
+        MidiEventsSender MidiSender 
+        { 
+            get
             {
-                g.SmoothingMode = SmoothingMode.None; // CRITICAL: No anti-aliasing!
-                g.Clear(Color.Black); // Black = No Chord
+                if (this._MidiSender == null)
+                    this._MidiSender = new MidiEventsSender();
+                return this._MidiSender;
+            }
+        }
 
-                for (int x = -10; x <= 10; x++)
+        void Stop()
+        {
+            var formula = _selectedChord.Value.Formula;
+            var chord = new Chord(formula, new NoteRange(new Note(NoteName.C, OctaveEnum.Octave4),
+                new Note(NoteName.C, OctaveEnum.Octave5)));
+
+            this.MidiSender.Stop(chord);
+        }
+
+        private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Force focus so the control can receive keyboard events like 'Esc'
+            this.Focus();
+
+            if (_clickMap == null)
+                return;
+
+            // 1. Get the pixel color from our hidden "Click Map"
+            Color clickedColor = _clickMap.GetPixel(e.X, e.Y);
+
+            // 2. Background Check (Opaque Black/Transparent check)
+            if (clickedColor.A == 0 || clickedColor.ToArgb() == Color.FromArgb(255, 0, 0, 0).ToArgb())
+                return;
+
+            // 3. Identification via Dictionary
+            if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
+            {
+                // Capture the old area for invalidation before updating the state
+                if (e.Button == MouseButtons.Left)
                 {
-                    for (int y = -10; y <= 10; y++)
-                    {
-                        int semitone = (7 * x + 4 * y) % 12;
-                        if (semitone < 0) semitone += 12;
+                    if (_startChord != null)
+                        Invalidate(GetTriangleBounds(GetTrianglePoints(_startChord.Value.GridPosition, _startChord.Value.Formula.IsMajor)));
 
-                        // Draw Major Triangle for this coord
-                        DrawIdTriangle(g, new Point(x, y), true, semitone);
-                        // Draw Minor Triangle for this coord
-                        DrawIdTriangle(g, new Point(x, y), false, semitone);
-                    }
+                    _startChord = selectedChord;
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    if (_targetChord != null)
+                        Invalidate(GetTriangleBounds(GetTrianglePoints(_targetChord.Value.GridPosition, _targetChord.Value.Formula.IsMajor)));
+
+                    _targetChord = selectedChord;
+                }
+
+                // 4. Update the "dirty" area for the NEW selection
+                PointF[] newPts = GetTrianglePoints(selectedChord.GridPosition, selectedChord.Formula.IsMajor);
+                Invalidate(GetTriangleBounds(newPts));
+
+                // 5. If we have a path, we usually need to invalidate the whole thing 
+                // since the lines stretch across multiple triangles.
+                if (_startChord != null && _targetChord != null)
+                {
+                    // Note: If you add pathfinding back, you'll likely need a full Invalidate() 
+                    // here unless you calculate a bounding box for the entire path.
+                    //this.Invalidate();
                 }
             }
         }
 
-        private void DrawIdTriangle(Graphics g, Point gridPos, bool isMajor, int semitone)
+        ChordState? GetSelectedChord(MouseEventArgs e)
         {
-            PointF p1 = GridToScreen(gridPos, _center, _spacing);
-            PointF p2, p3;
+            ChordState? result = null;
 
-            if (isMajor)
-            {
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y + 1), _center, _spacing);
-                p3 = GridToScreen(new Point(gridPos.X + 1, gridPos.Y), _center, _spacing);
-            }
-            else
-            {
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y - 1), _center, _spacing);
-                p3 = GridToScreen(new Point(gridPos.X - 1, gridPos.Y), _center, _spacing);
-            }
+            // 1. Get the pixel color from our hidden "Click Map"
+            Color clickedColor = _clickMap.GetPixel(e.X, e.Y);
 
-            // Encode ChordState into a Color
-            // Red = Semitone (0-11), Green = Quality (0 or 1)
-            Color idColor = Color.FromArgb(semitone, isMajor ? 1 : 0, 0);
-            using (Brush b = new SolidBrush(idColor))
+            // 2. Background Check (Opaque Black/Transparent check)
+            if (clickedColor.A == 0 || clickedColor.ToArgb() == Color.FromArgb(255, 0, 0, 0).ToArgb())
+                return result;
+
+            // 3. Identification via Dictionary
+            if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
             {
-                g.FillPolygon(b, new[] { p1, p2, p3 });
+                result = selectedChord;
+                this._selectedChord = selectedChord;
             }
+            return result;
         }
 
-        HashSet<ChordState> ChordStateMap { get; set; } = new HashSet<ChordState>();
-#endif
+        private void TonnetzControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            var state = GetSelectedChord(e);
+            this.Play();
+        }
 
+        private void TonnetzControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Stop();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_DESTROY = 0x0002;
+
+            if (m.Msg == WM_DESTROY)
+            {
+                if (null != this._MidiSender)
+                {
+                    this._MidiSender.Dispose();
+                    this._MidiSender = null;
+                }
+            }
+
+            base.WndProc(ref m);
+        }
     }//class
 
     public static class Extensions

@@ -66,7 +66,25 @@ namespace Note_Tests
 			}
 		}
 
-		[Ignore]
+        [TestMethod()]
+        public void Name_Test()
+        {
+            var octaves = Enum.GetValues(typeof(OctaveEnum))
+                .Cast<OctaveEnum>()
+                .Where(x => OctaveEnum.Unknown != x)
+                .ToList();
+            foreach (var nn in NoteName.Catalog)
+            {
+                foreach (var octave in octaves)
+                {
+                    var n1 = new Note(nn, octave);
+					Debug.WriteLine($"Note: {n1}");
+                }
+            }
+        }
+
+
+        [Ignore]
 		[TestMethod()]
 		public void SetNoteName_Test()
 		{
