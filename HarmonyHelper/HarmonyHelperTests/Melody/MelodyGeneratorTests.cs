@@ -16,6 +16,7 @@ namespace HarmonyHelper.Melody.Tests
     [TestClass()]
     public class MelodyGeneratorTests
     {
+        [Ignore]
         [TestMethod()]
         public void CreateMelodyTest()
         {

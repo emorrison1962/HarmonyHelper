@@ -57,7 +57,6 @@ namespace NeckDiagrams.Domain
         #region Construction
         public ChordShapeVM() 
         { 
-            this.chordFormula = ChordFormula.CMajor7;
             this.guitarStringCollection = GuitarStringCollection.LoadSettingsOrDefault(); 
         }
 

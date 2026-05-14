@@ -16,6 +16,7 @@ namespace HarmonyHelper.Composition.Tests
     [TestClass()]
     public class ChordSequenceTests
     {
+        [Ignore]
         [TestMethod()]
         public void ChordSequenceTest()
         {

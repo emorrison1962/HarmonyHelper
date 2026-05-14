@@ -175,6 +175,7 @@ namespace Eric.Morrison.Harmony.Chords
             this.Notes.Sort(new NoteComparer());
         }
 
+
         #endregion
 
         public void Set(NoteRange noteRange)

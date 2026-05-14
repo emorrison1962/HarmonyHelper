@@ -359,13 +359,11 @@ namespace Eric.Morrison.Harmony.Intervals
             var result = a.Value | b.Value;
             return result;
         }
-        [Obsolete("", false)]
 		public static explicit operator uint(Interval ct)
         {
             var result = ct.Value;
             return result;
         }
-		[Obsolete("", false)]
 		public static explicit operator Interval(uint i)
         {
             var result = Interval.Catalog.First(x => x.Value == i);

@@ -521,6 +521,17 @@ namespace Eric.Morrison.Harmony
 
         }
 
+        public bool EnharmonicallyEquals(NoteName other)
+        {
+            var result = false;
+            if (this.RawValue == other.RawValue)
+                result = true;
+            else
+            { }
+            return result;
+        }
+
+
         public override int GetHashCode()
         {
             var result = this.ExplicitValue.GetHashCode()
@@ -953,7 +964,6 @@ namespace Eric.Morrison.Harmony
 
             return result;
         }
-
 
     }//class
 

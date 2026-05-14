@@ -308,8 +308,9 @@ namespace Chord_Tests
             try
             {
                 foreach (var formula in ChordFormula.Catalog
-                    .OrderBy(x => x.Root.AsciiSortValue)
-                    .Where(x=> x.ChordType == ChordIntervalsEnum.Major || x.ChordType == ChordIntervalsEnum.Minor || x.ChordType == ChordIntervalsEnum.Diminished))
+                    .Where(x=> x.ChordType == ChordIntervalsEnum.Major 
+                        || x.ChordType == ChordIntervalsEnum.Minor 
+                        || x.ChordType == ChordIntervalsEnum.Diminished))
                 {
                     Debug.Assert(formula.NoteNames.Count == 3, $"Chord {formula} has {formula.NoteNames.Count} notes.");
 
@@ -321,6 +322,7 @@ namespace Chord_Tests
                     var upperLimit = lowerLimit + Interval.Major7th;
 
                     var nr = new NoteRange(lowerLimit, upperLimit);
+                    Assert.IsTrue(nr.IsValid(), $"NoteRange {nr} is not valid.");
                     var str = nr.ToString();
 
                     var chord = new Chord(formula, nr);

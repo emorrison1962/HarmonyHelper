@@ -1,304 +1,306 @@
 ﻿using Eric.Morrison.Harmony.Intervals;
 using Eric.Morrison.Harmony.Scales;
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Eric.Morrison.Harmony
 {
-	public class NoteRange
-	{
-		public static readonly NoteRange Default = new NoteRange(new Note(NoteName.C, OctaveEnum.Octave3), new Note(NoteName.C, OctaveEnum.Octave4));
-		
-		#region Properties
-		public Note LowerLimit { get; set; }
-		public Note UpperLimit { get; set; }
-		public List<Note> Notes { get; private set; } = new List<Note>();
+    public class NoteRange
+    {
+        public static readonly NoteRange Default = new NoteRange(new Note(NoteName.C, OctaveEnum.Octave3), new Note(NoteName.C, OctaveEnum.Octave4));
 
-		#endregion
-		
-		#region Construction
-		protected NoteRange()
-		{
-		}
-		public NoteRange(Note lowerLimit, Note upperLimit)
-		{
-			this.LowerLimit = lowerLimit;
-			this.UpperLimit = upperLimit;
-			Init();
-		}
+        #region Properties
+        public Note LowerLimit { get; set; }
+        public Note UpperLimit { get; set; }
+        public List<Note> Notes { get; private set; } = new List<Note>();
 
-		public NoteRange(Note lowerLimit, int numberOfOctaves)
-		{
-			this.LowerLimit = lowerLimit;
-			var upperLimit = this.LowerLimit.CopyEx();
-			var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
+        #endregion
 
-			for (int i = 0; i < numberOfOctaves; ++i)
-			{
-				var octave = upperLimit.Octave;
-				octave = octaves.FirstOrDefault(x => x > octave);
-				if (OctaveEnum.Octave0 == octave)
-				{
-					throw new ArgumentOutOfRangeException("Invalid octave count.");
-				}
-				upperLimit.Octave = octave;
-			}
+        #region Construction
+        protected NoteRange()
+        {
+        }
+        public NoteRange(Note lowerLimit, Note upperLimit)
+        {
+            this.LowerLimit = lowerLimit;
+            this.UpperLimit = upperLimit;
+            Init();
+        }
 
-			this.UpperLimit = upperLimit;
-			Init();
-		}
+        public NoteRange(Note lowerLimit, int numberOfOctaves)
+        {
+            this.LowerLimit = lowerLimit;
+            var upperLimit = this.LowerLimit.CopyEx();
+            var octaves = Enum.GetValues(typeof(OctaveEnum)).Cast<OctaveEnum>().ToList();
 
-		protected void Init()
-		{
-			if (null == this.LowerLimit)
-				throw new InvalidOperationException();
-			if (null == this.UpperLimit)
-				throw new InvalidOperationException();
+            for (int i = 0; i < numberOfOctaves; ++i)
+            {
+                var octave = upperLimit.Octave;
+                octave = octaves.FirstOrDefault(x => x > octave);
+                if (OctaveEnum.Octave0 == octave)
+                {
+                    throw new ArgumentOutOfRangeException("Invalid octave count.");
+                }
+                upperLimit.Octave = octave;
+            }
 
-			var notes = new List<Note>();
-			var note = this.LowerLimit.CopyEx();
-			notes.Add(note);
+            this.UpperLimit = upperLimit;
+            Init();
+        }
 
-			var chromatic = new ChromaticScaleFormula(KeySignature.CMajor);
-			var octave = (int)this.LowerLimit.Octave;
-			bool wrapped = false;
+        protected void Init()
+        {
+            if (null == this.LowerLimit)
+                throw new InvalidOperationException();
+            if (null == this.UpperLimit)
+                throw new InvalidOperationException();
 
-			while (note < this.UpperLimit)
-			{
-				var noteName = chromatic.NoteNames.NextOrFirst(note.NoteName, ref wrapped);
-				if (wrapped)
-				{
-					++octave;
-					wrapped = false;
-				}
-				note = new Note(noteName, (OctaveEnum)octave);
-				notes.Add(note);
-				if (this.UpperLimit.Equals(note))
-					break;
-			}
+            var notes = new List<Note>();
+            var note = this.LowerLimit.CopyEx();
+            notes.Add(note);
 
-			notes.Sort(new NoteComparer());
-			this.Notes = notes;
-		}
+            var chromatic = new ChromaticScaleFormula(KeySignature.CMajor);
+            var octave = (int)this.LowerLimit.Octave;
+            bool wrapped = false;
 
-		#endregion
+            while (note < this.UpperLimit)
+            {
+                var noteName = chromatic.NoteNames.NextOrFirst(note.NoteName, ref wrapped);
+                if (wrapped)
+                {
+                    ++octave;
+                    wrapped = false;
+                }
+                note = new Note(noteName, (OctaveEnum)octave);
+                notes.Add(note);
+                if (this.UpperLimit.Equals(note))
+                    break;
+            }
 
-		public Note First(NoteName nn)
-		{
-			Note result = null;
-			if (null != nn)
-			{
-				var tmp = this.Notes.Where(x => x.NoteName.RawValue == nn.RawValue).FirstOrDefault();
-				result = tmp.CopyEx();
-				var normalized = nn;// normalizer.GetNormalized(nn, null);
-				result.SetNoteName(normalized);
-			}
-			return result;
-		}
+            notes.Sort(new NoteComparer());
+            this.Notes = notes;
+        }
 
-		public List<Note> GetNotes(List<Note> requestedNotes)
-		{
-			var result = new List<Note>();
+        #endregion
 
-			#region Remove out of range octaves
+        public Note First(NoteName nn)
+        {
+            Note result = null;
+            if (null != nn)
+            {
+                var tmp = this.Notes.Where(x => x.NoteName.RawValue == nn.RawValue).First();
+                result = tmp.CopyEx();
+                var normalized = nn;// normalizer.GetNormalized(nn, null);
+                result.SetNoteName(normalized);
+            }
+            return result;
+        }
 
-			var octaves = Enum.GetValues(typeof(OctaveEnum)).OfType<OctaveEnum>().ToList();
-			octaves.Where(x => x < this.LowerLimit.Octave || x > this.UpperLimit.Octave)
-				.ToList().ForEach(x => octaves.Remove(x));
+        public List<Note> GetNotes(IEnumerable<NoteName> requestedNames)
+        {
+            var wantedNotes = new List<Note>();
+            foreach (var nn in requestedNames)
+            {
+                var tmp = new Note(nn, OctaveEnum.Unknown);
+                wantedNotes.Add(tmp);
+            }
+            var result = this.GetNotes(wantedNotes);
+            Debug.Assert(result.Count > 0);
+            return result;
+        }
 
-			#endregion
+        public List<Note> GetNotes(List<Note> requestedNotes)
+        {
+            var result = new List<Note>();
 
-			foreach (var note in requestedNotes)
-			{
-				var copy = new Note(note);
-				foreach (var octave in octaves)
-				{
-					copy = new Note(copy);
-					copy.Octave = octave;
+            #region Remove out of range octaves
+
+            var octaves = Enum.GetValues(typeof(OctaveEnum)).OfType<OctaveEnum>().ToList();
+            octaves.Where(x => x < this.LowerLimit.Octave || x > this.UpperLimit.Octave)
+                .ToList().ForEach(x => octaves.Remove(x));
+
+            #endregion
+
+            foreach (var octave in octaves)
+            {
+                foreach (var note in requestedNotes)
+                {
+                    var copy = new Note(note);
+                    copy.Octave = octave;
 
                     if (copy >= this.LowerLimit
                         && copy <= this.UpperLimit)
                     {
                         result.Add(copy);
                     }
-        //            if (copy.RawValue >= this.LowerLimit.RawValue
-        //&& copy.RawValue <= this.UpperLimit.RawValue)
-        //            {
-        //                result.Add(copy);
-        //            }
+                    //            if (copy.RawValue >= this.LowerLimit.RawValue
+                    //&& copy.RawValue <= this.UpperLimit.RawValue)
+                    //            {
+                    //                result.Add(copy);
+                    //            }
                 }
             }
 
-			result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
-				.ToList().ForEach(x => result.Remove(x));
+            result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
+                .ToList().ForEach(x => result.Remove(x));
 
-			//this.AdjustExceptiopnalNotes(result);
+            //this.AdjustExceptiopnalNotes(result);
 
-			return result;
-		}
+            return result;
+        }
 
-		void AdjustExceptiopnalNotes(List<Note> notes)
-		{
+        void AdjustExceptiopnalNotes(List<Note> notes)
+        {
 #warning HACK ALERT: NoteName.Cb or NoteName.BSharp? For programmatic convenience, adjust OctaveEnum
-			#region HACK ALERT
-			if (notes.Any(x => x.NoteName == NoteName.Cb))
-			{
-				Action<Note> fixOctave = (x) => x.Octave = ++x.Octave;
-				var affected = notes.Where(x => x.NoteName == NoteName.Cb).ToList();
-				affected.ForEach(x => fixOctave(x));
-			}
-			if (notes.Any(x => x.NoteName == NoteName.BSharp))
-			{
-				Action<Note> fixOctave = (x) => x.Octave = --x.Octave;
-				var affected = notes.Where(x => x.NoteName == NoteName.BSharp).ToList();
-				affected.ForEach(x => fixOctave(x));
-			}
-			#endregion
-		}
+            #region HACK ALERT
+            if (notes.Any(x => x.NoteName == NoteName.Cb))
+            {
+                Action<Note> fixOctave = (x) => x.Octave = ++x.Octave;
+                var affected = notes.Where(x => x.NoteName == NoteName.Cb).ToList();
+                affected.ForEach(x => fixOctave(x));
+            }
+            if (notes.Any(x => x.NoteName == NoteName.BSharp))
+            {
+                Action<Note> fixOctave = (x) => x.Octave = --x.Octave;
+                var affected = notes.Where(x => x.NoteName == NoteName.BSharp).ToList();
+                affected.ForEach(x => fixOctave(x));
+            }
+            #endregion
+        }
 
-		public List<Note> GetNotes(IEnumerable<NoteName> requestedNames)
-		{
-			var wantedNotes = new List<Note>();
-			foreach (var nn in requestedNames)
-			{
-				var tmp = new Note(nn, OctaveEnum.Unknown);
-				wantedNotes.Add(tmp);
-			}
-			var result = this.GetNotes(wantedNotes);
-			return result;
-		}
-
-		override public string ToString()
-		{
-			return $"{this.LowerLimit} - {this.UpperLimit}";
+        override public string ToString()
+        {
+            return $"{this.LowerLimit} - {this.UpperLimit}";
         }
 
         public bool IsValid()
-		{
-			var result = false;
-			if (this.LowerLimit is not null)
-				if (this.UpperLimit is not null)
-					if (this.LowerLimit < this.UpperLimit)
-						if (this.Notes.Any())
-							result = true;
-			return result;
-		}
-	}//class
+        {
+            var result = false;
+            if (this.LowerLimit is not null)
+                if (this.UpperLimit is not null)
+                    if (this.LowerLimit < this.UpperLimit)
+                        if (this.Notes.Any())
+                            result = true;
+            return result;
+        }
+    }//class
 
-	public class FiveStringBassRange : NoteRange
-	{
-		public FiveStringBassRange(FiveStringBassPositionEnum position)
-		{
-			this.SetNoteRange(position);
-			base.Init();
-		}
+    public class FiveStringBassRange : NoteRange
+    {
+        public FiveStringBassRange(FiveStringBassPositionEnum position)
+        {
+            this.SetNoteRange(position);
+            base.Init();
+        }
 
-		void SetNoteRange(FiveStringBassPositionEnum position)
-		{
-			switch (position)
-			{
-				case FiveStringBassPositionEnum.FirstPosition:
-					{
-						this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave2);
-						this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave0);
-					}
-					break;
-				case FiveStringBassPositionEnum.FifthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.SixthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.Eb, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.F, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.SeventhPosition:
-					{
-						this.UpperLimit = new Note(NoteName.Gb, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.Gb, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.EigthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.G, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.G, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.NinthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.Ab, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.TenthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.A, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.EleventhPosition:
-					{
-						this.UpperLimit = new Note(NoteName.Bb, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.Bb, OctaveEnum.Octave1);
-					}
-					break;
-				case FiveStringBassPositionEnum.TwelfthPosition:
-					{
-						this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave3);
-						this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave1);
-					}
-					break;
-				default:
-					{ throw new ArgumentOutOfRangeException(); }
+        void SetNoteRange(FiveStringBassPositionEnum position)
+        {
+            switch (position)
+            {
+                case FiveStringBassPositionEnum.FirstPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave2);
+                        this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave0);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.FifthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.E, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.SixthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.Eb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.F, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.SeventhPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.Gb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Gb, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.EigthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.G, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.G, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.NinthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Ab, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.TenthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.A, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.A, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.EleventhPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.Bb, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.Bb, OctaveEnum.Octave1);
+                    }
+                    break;
+                case FiveStringBassPositionEnum.TwelfthPosition:
+                    {
+                        this.UpperLimit = new Note(NoteName.B, OctaveEnum.Octave3);
+                        this.LowerLimit = new Note(NoteName.B, OctaveEnum.Octave1);
+                    }
+                    break;
+                default:
+                    { throw new ArgumentOutOfRangeException(); }
 
-			}
-		}
+            }
+        }
 
-		/// <summary>
-		/// C1 = B string, 1st fret
-		/// C2 = B string, 13th fret
-		/// C2 = E string, 8th fret
-		/// C2 = A string, 3rd fret
-		/// C3 = A string, 15th fret
-		/// C3 = G string, 5th fret
-		/// C3 = D string, 10th fret
-		/// C4 (Middle C)= G string, 17th fret on of bass guitar.
-		/// 
-		/// 1st pos, B0, B2
-		/// 5th E1, E3
-		/// 9th G1, G3
-		/// 12th B1, B3
-		/// 
-		/// </summary>
+        /// <summary>
+        /// C1 = B string, 1st fret
+        /// C2 = B string, 13th fret
+        /// C2 = E string, 8th fret
+        /// C2 = A string, 3rd fret
+        /// C3 = A string, 15th fret
+        /// C3 = G string, 5th fret
+        /// C3 = D string, 10th fret
+        /// C4 (Middle C)= G string, 17th fret on of bass guitar.
+        /// 
+        /// 1st pos, B0, B2
+        /// 5th E1, E3
+        /// 9th G1, G3
+        /// 12th B1, B3
+        /// 
+        /// </summary>
 
-	}//class
+    }//class
 
-	public class GuitarNoteRange : NoteRange
-	{
-		public GuitarNoteRange(GuitarPositionEnum position)
-		{
-			this.SetNoteRange(position);
-			base.Init();
-		}
+    public class GuitarNoteRange : NoteRange
+    {
+        public GuitarNoteRange(GuitarPositionEnum position)
+        {
+            this.SetNoteRange(position);
+            base.Init();
+        }
 
-		void SetNoteRange(GuitarPositionEnum position)
-		{
-			var openUpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
-			var openLowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
-			//var x = Enum.GetValues(typeof(GuitarPositionEnum))
-			//	.Cast<int>()
-			//	.ToList()
-			//	.Where(x => x == (int)position)
-			//	.First();
+        void SetNoteRange(GuitarPositionEnum position)
+        {
+            var openUpperLimit = new Note(NoteName.Ab, OctaveEnum.Octave3);
+            var openLowerLimit = new Note(NoteName.E, OctaveEnum.Octave1);
+            //var x = Enum.GetValues(typeof(GuitarPositionEnum))
+            //	.Cast<int>()
+            //	.ToList()
+            //	.Where(x => x == (int)position)
+            //	.First();
 
-			openUpperLimit += (Interval)(uint)position;
-			openLowerLimit += (Interval)(uint)position;
-			this.UpperLimit = openUpperLimit;
-			this.LowerLimit = openLowerLimit;
+            openUpperLimit += (Interval)(uint)position;
+            openLowerLimit += (Interval)(uint)position;
+            this.UpperLimit = openUpperLimit;
+            this.LowerLimit = openLowerLimit;
 
 #if false
 			switch (position)
@@ -386,28 +388,28 @@ namespace Eric.Morrison.Harmony
 
 			} 
 #endif
-		}
+        }
 
-		/// <summary>
-		/// C1 = B string, 1st fret
+        /// <summary>
+        /// C1 = B string, 1st fret
 
-		/// C2 = B string, 13th fret
-		/// C2 = E string, 8th fret
-		/// C2 = A string, 3rd fret
+        /// C2 = B string, 13th fret
+        /// C2 = E string, 8th fret
+        /// C2 = A string, 3rd fret
 
-		/// C3 = A string, 15th fret
-		/// C3 = G string, 5th fret
-		/// C3 = D string, 10th fret
+        /// C3 = A string, 15th fret
+        /// C3 = G string, 5th fret
+        /// C3 = D string, 10th fret
 
-		/// C4 (Middle C)= G string, 17th fret on of bass guitar.
-		/// 
-		/// 1st pos, B0, B2
-		/// 5th E1, E3
-		/// 9th G1, G3
-		/// 12th B1, B3
-		/// 
-		/// </summary>
+        /// C4 (Middle C)= G string, 17th fret on of bass guitar.
+        /// 
+        /// 1st pos, B0, B2
+        /// 5th E1, E3
+        /// 9th G1, G3
+        /// 12th B1, B3
+        /// 
+        /// </summary>
 
-	}//class
+    }//class
 
 }//ns

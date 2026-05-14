@@ -176,10 +176,14 @@ namespace Eric.Morrison.Harmony
 		{
 			if (null == interval)
 				throw new ArgumentNullException(nameof(interval));
+			var result = n.CopyEx();	
             var txposed = NoteName.TransposeUp(n.NoteName, interval);
-			n.NoteName = txposed;
-			n.Octave += (uint)interval;
-			return n;
+            result.NoteName = txposed;
+			if (txposed.AsciiSortValue < result.NoteName.AsciiSortValue)
+				result.Octave++;
+			else if (result.NoteName.RawValue < n.NoteName.RawValue)
+				result.Octave++;
+			return result;
 		}
 
 		public static Interval operator -(Note a, Note b)
