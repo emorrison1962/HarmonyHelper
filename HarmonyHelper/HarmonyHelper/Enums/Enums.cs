@@ -309,6 +309,7 @@ namespace Eric.Morrison.Harmony
         Major = IsChord | IntervalRoot | IntervalMajor3rd | IntervalPerfect5th,
         Major6 = Major | IntervalMajor6th,
         Major7 = Major | IntervalMajor7th,
+        Major69 = Major6 | IntervalNinth,
         Major9 = Major7 | IntervalNinth,
         Major11 = Major9 | IntervalEleventh,
         Major13 = Major11 | IntervalThirteenth,

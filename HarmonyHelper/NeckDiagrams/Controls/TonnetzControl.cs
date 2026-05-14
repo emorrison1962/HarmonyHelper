@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,10 +37,22 @@ namespace NeckDiagrams.Controls
         // The pixel distance between nodes; defines the "zoom" level of the grid.
         private int _spacing = 100;
 
-        // The chord the user starts from (e.g., C Major).
         private ChordState? _startChord;
-
         private ChordState? _selectedChord = null;
+        private Bitmap _clickMap;
+
+        private List<ChordState> _currentPath { get; set; } = new List<ChordState>();
+
+        private Point _lastClickedGrid = new Point(-100, -100); // Initialize off-screen
+        string _lastClickedContext = null;
+        private Dictionary<Color, ChordState> _colorToChord = new();
+        private Dictionary<ChordState, Color> _chordToColor = new();
+        private Dictionary<NoteName, Bitmap> _noteBmpCache = new Dictionary<NoteName, Bitmap>();
+
+        #endregion
+
+        #region Properties
+        public Tonnetz Tonnetz { get; private set; }
         private ChordState? SelectedChord
         {
             get { return _selectedChord; }
@@ -50,311 +63,98 @@ namespace NeckDiagrams.Controls
             }
         }
 
-        // The destination chord for the A* search (e.g., F# Minor).
-        private ChordState? _targetChord = null;
-        private List<ChordState> _currentPath { get; set; } = new List<ChordState>();
-
-        private Point _lastClickedGrid = new Point(-100, -100); // Initialize off-screen
-        string _lastClickedContext = null;
-        private Dictionary<Color, ChordState> _colorToChord = new();
-        private Dictionary<ChordState, Color> _chordToColor = new();
-
 
         #endregion
 
-        #region Properties
-        public Tonnetz Tonnetz { get; private set; }
-
-        #endregion
-
+        #region Construction
         public TonnetzControl()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
 
             this.Tonnetz = new Tonnetz();
+            this.Init();
+        }
+        private void TonnetzControl_Load(object sender, EventArgs e)
+        {
+            this.RenderClickMap();
+        }
+
+        void Init()
+        {
             this.MapChordsToColors();
-        }
-
-        #region Painting
-        private void TonnetzControl_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            this.DrawTonnetz(g, _currentPath, this.Size.Width, this.Size.Height);
-        }
-
-        public void DrawTonnetz(Graphics g, List<ChordState> path, int width, int height)
-        {
-            g.SmoothingMode = SmoothingMode.AntiAlias; // Beautiful smooth lines for the eye
-            Point center = new Point(width / 2, height / 2);
-            int spacing = _spacing;
-
-
-            // 2. Draw the Selection Highlights (Visual feedback for the "Pro" click)
-            this.HighlightSelectedChords(g, center, spacing);
-
-
-            using Font chordFont = new Font("Arial", 12, FontStyle.Regular);
-            using StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-
-            // 1. Draw the Background Lattice & Chord Labels
-            for (int x = -10; x <= 10; x++)
-            {
-                for (int y = -10; y <= 10; y++)
-                {
-                    Point gridPt = new Point(x, y);
-                    PointF screenPos = GridToScreen(gridPt, center, spacing);
-
-                    // Draw the lines (Fifths, Maj3rds, Min3rds)
-                    this.DrawLatticeLines(g, screenPos, gridPt, center, spacing);
-
-                    // Draw Chord Labels (Major and Minor)
-                    var nn = GetNoteAtGridPoint(gridPt);
-                    var node = this.Tonnetz.Nodes
-                        .First(n => n.NrtFormula.Root == nn
-                            && n.NrtFormula.IsMajor);
-                    var nrtMajor = node.NrtFormula;
-                    this.DrawChordLabel(g, nrtMajor, gridPt, center, spacing, Brushes.White, chordFont, sf);
-
-                    node = this.Tonnetz.Nodes
-                        .First(n => n.NrtFormula.Root == nn
-                            && n.NrtFormula.IsMinor);
-                    var nrtMinor = node.NrtFormula;
-                    this.DrawChordLabel(g, nrtMinor, gridPt, center, spacing, Brushes.White, chordFont, sf);
-
-                    // Draw the pitch node
-                    g.FillEllipse(Brushes.LightGray, screenPos.X - 2, screenPos.Y - 2, 4, 4);
-                }
-            }
-
-            // 3. Draw the Path
-            if (path != null && path.Count > 1)
-            {
-                DrawPathLines(g, path, center, spacing);
-            }
-
-            this.DrawDebug(g);
-        }
-
-        private void DrawChordLabel(Graphics g, NrtChordFormula nrt, Point gridPt, Point center, int spacing, Brush brush, Font font, StringFormat sf)
-        {
-            PointF[] pts = GetTrianglePoints(gridPt, nrt.IsMajor);
-            // Centroid of the triangle
-            PointF chordCenter = new PointF((pts[0].X + pts[1].X + pts[2].X) / 3, (pts[0].Y + pts[1].Y + pts[2].Y) / 3);
-
-            string label = nrt.IsMajor
-                ? $"{nrt.Root.NameAscii}"
-                : $"{nrt.Root.NameAscii}m";
-
-            g.DrawString(label, font, brush, chordCenter, sf);
-        }
-
-        private void DrawPathLines(Graphics g, List<ChordState> path, Point center, int spacing)
-        {
-            if (path == null || path.Count < 2) return;
-
-            using Pen pathPen = new Pen(Color.Orange, 4) { DashStyle = DashStyle.Solid, StartCap = LineCap.Round, EndCap = LineCap.ArrowAnchor };
-
-            for (int i = 0; i < path.Count - 1; i++)
-            {
-                // 1. Calculate centers for current and next chord
-                PointF start = GetChordCentroid(path[i].Root, path[i].ChordType, center, spacing);
-                PointF end = GetChordCentroid(path[i + 1].Root, path[i + 1].ChordType, center, spacing);
-
-                // 2. Draw the connection
-                g.DrawLine(pathPen, start, end);
-
-                // 3. Optional: Draw a small 'joint' circle at each chord center
-                g.FillEllipse(Brushes.Orange, start.X - 4, start.Y - 4, 8, 8);
-            }
-        }
-        private PointF GetChordCentroid(NoteName root, ChordIntervalsEnum type, Point center, int spacing)
-        {
-            // Find the specific grid position for this note (near the origin)
-            Point gridPos = GetCoordinates(root);
-
-            // Use your existing helper to get the 3 vertex pixels
-            PointF[] vertices = GetTrianglePoints(gridPos, type == ChordIntervalsEnum.Major);
-
-            // Calculate the average (Centroid)
-            return new PointF(
-                (vertices[0].X + vertices[1].X + vertices[2].X) / 3f,
-                (vertices[0].Y + vertices[1].Y + vertices[2].Y) / 3f
-            );
-        }
-
-        public Point GetCoordinates(NoteName root)
-        {
-            // We map the RawNoteValue (bitwise) to a fixed Point on the Tonnetz.
-            // X = Perfect Fifths (7 semitones), Y = Major Thirds (4 semitones)
-            var result = Point.Empty;
-            switch (root.NameAscii)
-            {
-                case "C.": result = new Point(0, 0); break;
-                case "G": result = new Point(1, 0); break;
-                case "D": result = new Point(2, 0); break;
-                case "A": result = new Point(3, 0); break;
-                case "E": result = new Point(0, 1); break;
-                case "B": result = new Point(1, 1); break;
-                case "F#": result = new Point(2, 1); break; // F#
-                case "Gb": result = new Point(2, 1); break; // F#
-                case "Db": result = new Point(3, 1); break; // C#
-                case "C#": result = new Point(3, 1); break; // C#
-                case "Ab": result = new Point(0, -1); break;
-                case "G#": result = new Point(0, -1); break;
-                case "Eb": result = new Point(1, -1); break;
-                case "D#": result = new Point(1, -1); break;
-                case "Bb": result = new Point(2, -1); break;
-                case "A#": result = new Point(2, -1); break;
-                case "F": result = new Point(3, -1); break;
-
-                default: throw new ArgumentOutOfRangeException(nameof(root));
-            }
-            ;
-            return result;
-        }
-
-
-        private PointF GetCentroid(PointF[] pts) => new PointF((pts[0].X + pts[1].X + pts[2].X) / 3, (pts[0].Y + pts[1].Y + pts[2].Y) / 3);
-
-        void DrawDebug(Graphics g)
-        {
-            // Inside DrawTonnetz at the very end
-            //if (_lastClickedGrid.X != -100)
-            {
-                PointF debugPos = GridToScreen(_lastClickedGrid, _center, _spacing);
-
-                using (Pen debugPen = new Pen(Color.Red, 3))
-                {
-                    // Draw a large circle around the "snapped" grid node
-                    g.DrawEllipse(debugPen, debugPos.X - 10, debugPos.Y - 10, 20, 20);
-
-                    // Fill a small dot exactly at the calculated vertex
-                    g.FillEllipse(Brushes.Red, debugPos.X - 3, debugPos.Y - 3, 6, 6);
-
-                    g.DrawString(_lastClickedContext, new Font("Arial", 30), Brushes.LightGray, 50, 50);
-                    g.DrawString($"_spacing= {_spacing}", new Font("Arial", 30), Brushes.LightGray, 50, 100);
-                }
-            }
-
-            this.DrawPathDebug(g);
-        }
-
-        private void DrawPathDebug(Graphics g)
-        {
-            var str = string.Join(", ", this._currentPath);
-            g.DrawString(str, new Font("Arial", 30), Brushes.LightGray, 50, 150);
-        }
-
-
-        /// <summary>
-        /// Draws the connecting interval lines of the Tonnetz lattice for a specific pitch node.
-        /// </summary>
-        /// <param name="g">The <see cref="Graphics""")/>> surface used for drawing.</param>
-        /// <param name="screenPos">The calculated <see cref="PointF""")/>> pixel position of the current node.</param>
-        /// <param name="gridPos">The <see cref="Point""")/>> representing the node's position in the Tonnetz coordinate space (X: Fifths, Y: Major Thirds).</param>
-        /// <param name="center">The <see cref="Point""")/>> representing the screen's center origin.</param>
-        /// <param name="spacing">The pixel distance between adjacent nodes in the grid.</param>
-        /// <remarks>
-        /// This method renders the three primary harmonic axes of the Tonnetz:
-        /// <list type="bullet">
-        /// <item><description>Horizontal: Perfect Fifths (7 semitones)</description></item>
-        /// <item><description>Diagonal Up-Right: Major Thirds (4 semitones)</description></item>
-        /// <item><description>Diagonal Down-Right: Minor Thirds (3 semitones)</description></item>
-        /// </list>
-        /// </remarks>
-        private void DrawLatticeLines(Graphics g, PointF screenPos, Point gridPos, Point center, int spacing)
-        {
-            // Define pens for different intervals to make the grid readable
-            using Pen fifthPen = new Pen(Color.FromArgb(50, Color.LightGray), 1);      // Horizontal
-            using Pen maj3rdPen = new Pen(Color.FromArgb(50, Color.LightBlue), 1);    // Up-Right
-            using Pen min3rdPen = new Pen(Color.FromArgb(50, Color.Orange), 1);  // Down-Right
-
-            // 1. Draw Perfect Fifth Connection (Right)
-            PointF rightNode = GridToScreen(new Point(gridPos.X + 1, gridPos.Y), center, spacing);
-            g.DrawLine(fifthPen, screenPos, rightNode);
-
-            // 2. Draw Major Third Connection (Up-Right)
-            PointF upRightNode = GridToScreen(new Point(gridPos.X, gridPos.Y + 1), center, spacing);
-            g.DrawLine(maj3rdPen, screenPos, upRightNode);
-
-            // 3. Draw Minor Third Connection (Down-Right)
-            // In our coordinate system (7x + 4y), the minor third (3 semitones) 
-            // is achieved by moving +1 on X and -1 on Y: (7*1) + (4*-1) = 3.
-            PointF downRightNode = GridToScreen(new Point(gridPos.X + 1, gridPos.Y - 1), center, spacing);
-            g.DrawLine(min3rdPen, screenPos, downRightNode);
-        }
-
-        private void HighlightSelectedChords(Graphics g, Point center, int spacing)
-        {
-            // Draw Start Chord Highlight
-            if (_startChord != null)
-            {
-                HighlightChord(g, _startChord, Color.FromArgb(120, Color.LimeGreen), center, spacing);
-            }
-
-            // Draw Target Chord Highlight
-            if (_targetChord != null)
-            {
-                HighlightChord(g, _targetChord, Color.FromArgb(120, Color.Crimson), center, spacing);
-            }
-        }
-
-        private void HighlightChord(Graphics g, ChordState? state, Color highlightColor, Point center, int spacing)
-        {
-            if (state == null)
-                return;
-
-            // 1. Get the triangle vertices based on the GridPosition stored in the state
-            // This ensures it highlights the EXACT triangle you clicked, not just any "C Major"
-            PointF[] points = GetTrianglePoints(state.Value.GridPosition, state.Value.Formula.IsMajor);
-
-            // 2. Fill the triangle with a semi-transparent "glow"
-            using (Brush fillBrush = new SolidBrush(Color.FromArgb(120, highlightColor)))
-            {
-                g.FillPolygon(fillBrush, points);
-            }
-
-            // 3. Draw a bold border to make it distinct
-            using (Pen borderPen = new Pen(highlightColor, 3))
-            {
-                borderPen.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                g.DrawPolygon(borderPen, points);
-            }
-        }
-
-        private PointF GetChordCenter(Point gridPos, bool isMajor, Point center, int spacing)
-        {
-            // Use the specific gridPos passed in (e.g., 5, -3) 
-            // instead of letting the NoteName snap it back to 0,0
-            PointF p1 = GridToScreen(gridPos, center, spacing);
-            PointF p2, p3;
-
-            if (isMajor)
-            {
-                // Major: Root, Maj3rd (Y+1), Perf5th (X+1)
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y + 1), center, spacing);
-                p3 = GridToScreen(new Point(gridPos.X + 1, gridPos.Y), center, spacing);
-            }
-            else
-            {
-                // Minor: Root, Maj3rd down (Y-1), Perf5th down (X-1)
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y - 1), center, spacing);
-                p3 = GridToScreen(new Point(gridPos.X - 1, gridPos.Y), center, spacing);
-            }
-
-            return new PointF((p1.X + p2.X + p3.X) / 3f, (p1.Y + p2.Y + p3.Y) / 3f);
+            this.CacheNoteNames(this.Font, Color.White);
         }
 
         #endregion
 
+        private void CacheNoteNames(Font font, Color color)
+        {
+            foreach (var bmp in _noteBmpCache.Values)
+                bmp.Dispose();
+            _noteBmpCache.Clear();
+
+            var nns = new List<NoteName> { NoteName.C, NoteName.Db, NoteName.D, NoteName.Eb, NoteName.E, NoteName.F, NoteName.Gb, NoteName.G, NoteName.Ab, NoteName.A, NoteName.Bb, NoteName.B };
+            foreach (var nn in nns)
+            {
+                string text = nn.ToString(); // Or note.Symbol
+                Size size = TextRenderer.MeasureText(text, font, Size.Empty, TextFormatFlags.NoPadding);
+
+                Bitmap bmp = new Bitmap(Math.Max(1, size.Width), Math.Max(1, size.Height));
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.Clear(Color.Transparent);
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                    TextRenderer.DrawText(g, text, font, Point.Empty, color, TextFormatFlags.NoPadding);
+                }
+                _noteBmpCache[nn] = bmp;
+            }
+        }
+
         // Maps your Point (5ths, Maj3rds) to actual screen pixels
-        private PointF GridToScreen(Point gridPos, Point center, int spacing)
+        private PointF old_GridToScreen(Point gridPos, Point center, int spacing)
         {
             // The "Skew" factor (spacing * 0.5f) is what turns a square grid into triangles.
             float x = center.X + (gridPos.X * spacing) + (gridPos.Y * spacing * 0.5f);
             float y = center.Y - (gridPos.Y * spacing);
             return new PointF(x, y);
         }
+
+        public PointF GridToScreen(Point gridPos, Point center, int spacing)
+        {
+            // 1. Vertical move (Major Thirds)
+            float y = gridPos.Y * spacing;
+
+            // 2. Horizontal move (Fifths) + Skew 
+            // We use (spacing * 0.5f) to ensure the triangles are equilateral/cleanly skewed
+            float x = (gridPos.X * spacing) + (gridPos.Y * (spacing * 0.5f));
+
+            return new PointF(center.X + x, center.Y + y);
+        }
+
+        private PointF[] GetTrianglePoints(Point gridPos, bool isMajor, Point center, int spacing)
+        {
+            // CRITICAL: We pass the loop's 'center' and 'spacing' through
+            PointF p1 = GridToScreen(gridPos, center, spacing);
+            PointF p2, p3;
+
+            if (isMajor)
+            {
+                // Major: (Root) -> (Fifth) -> (Major 3rd)
+                p2 = GridToScreen(new Point(gridPos.X + 1, gridPos.Y), center, spacing);
+                p3 = GridToScreen(new Point(gridPos.X, gridPos.Y + 1), center, spacing);
+            }
+            else
+            {
+                // Minor: (Root) -> (Fourth/Fifth down) -> (Minor 3rd down)
+                // This closes the "backside" of the major triad
+                p2 = GridToScreen(new Point(gridPos.X - 1, gridPos.Y), center, spacing);
+                p3 = GridToScreen(new Point(gridPos.X, gridPos.Y - 1), center, spacing);
+            }
+
+            return new[] { p1, p2, p3 };
+        }
+
 
         public Point ScreenToGrid(PointF mousePos, Point center, int spacing)
         {
@@ -379,86 +179,6 @@ namespace NeckDiagrams.Controls
             return result;
         }
 
-        //private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    if (_clickMap == null)
-        //        return;
-
-        //    // Peek at the hidden pixel color
-        //    Color pixel = _clickMap.GetPixel(e.X, e.Y);
-
-        //    if (pixel.ToArgb() == Color.Black.ToArgb())
-        //        return; // Clicked on background
-
-        //    int semitone = pixel.R;
-        //    bool isMajor = pixel.G == 1;
-
-        //    NoteName note = NoteName.FromSemitone(semitone);
-        //    var chordType = isMajor ? ChordIntervalsEnum.Major : ChordIntervalsEnum.Minor;
-
-        //    // NEW: We can also store the grid X/Y in the Blue channel if we need 
-        //    // to know EXACTLY which repeating C on the grid was clicked!
-
-        //    _targetChord = new ChordState(note, chordType);
-        //    this.Invalidate();
-        //}
-
-        //private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    // Force focus so Keyboard events (like Esc) work immediately
-        //    this.Focus();
-
-        //    // 1. Map pixels to musical grid
-        //    Point gridCoord = ScreenToGrid(e.Location, _center, _spacing);
-        //    NoteName clickedNote = GetNoteAtGridPoint(gridCoord);
-
-        //    // 2. Create the state (Defaulting to Major, or use a toggle logic)
-        //    var clickedState = new ChordState(clickedNote, ChordIntervalsEnum.Major);
-
-        //    // 3. Update specific end of the path
-        //    if (e.Button == MouseButtons.Left)
-        //    {
-        //        _startChord = clickedState;
-        //    }
-        //    else if (e.Button == MouseButtons.Right)
-        //    {
-        //        _targetChord = clickedState;
-        //    }
-
-        //    // 4. Update path only if both are set
-        //    if (_startChord != null && _targetChord != null)
-        //    {
-        //        _currentPath = FindShortestPath(_startChord, _targetChord);
-        //    }
-        //    DebugClickEvent(e);
-
-        //    this.Invalidate();
-        //}
-
-        //List<ChordState> FindShortestPath(ChordState? startChord, ChordState? targetChord)
-        //{
-        //    var result = Task.Run(()=> this.Tonnetz.FindShortestPathAsync(
-        //        startChord.GetValueOrDefault(),
-        //        targetChord.GetValueOrDefault())).Result;
-        //    return result;
-        //}
-
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                // Clear all path data
-                _startChord = null;
-                _targetChord = null;
-                _currentPath?.Clear();
-
-                // Redraw to show the empty grid
-                this.Invalidate();
-            }
-        }
-
         void DebugClickEvent(MouseEventArgs e)
         {
 #if DEBUG
@@ -479,44 +199,6 @@ namespace NeckDiagrams.Controls
             Console.WriteLine($"Selected {clickedNote} at Grid({gridCoord.X}, {gridCoord.Y})");
 #endif
         }
-
-        public NoteName GetNoteAtGridPoint(Point gridCoord)
-        {
-            // 1. Calculate semitone 0-11
-            int semitone = (7 * gridCoord.X + 4 * gridCoord.Y) % 12;
-            if (semitone < 0)
-                semitone += 12;
-
-            // 2. Map semitone to your RawNoteValuesEnum bit (C=1<<1, Db=1<<2...)
-            var rawValue = (NoteName.RawNoteValuesEnum)(1 << (semitone + 1));
-
-            // 3. Find the matching NoteName from your static Catalog
-            // This ensures you get the actual static instance (like NoteName.C)
-            // and not a new disconnected object.
-            var result = NoteName.Catalog
-                .FirstOrDefault(n => n.RawValue == (int)rawValue
-                    && n.IsSharped == false)
-                   ?? NoteName.C; // Default to C if not found
-
-            return result;
-        }
-
-
-        //private void UpdatePath()
-        //{
-        //    if (null != this._startChord && this._targetChord != null)
-        //    {
-
-        //        var startChord = new ChordState(new NrtChordFormula(this._startChord));
-        //        var targetChord = new ChordState(new NrtChordFormula(this._targetChord));
-        //        // Run the A* search we built earlier
-        //        // This returns the sequence of chords (Nodes) to visit
-        //        _currentPath = this.Tonnetz.FindShortestPath(startChord, targetChord);
-
-        //        // Force the control to call the Paint/Draw method
-        //        this.Invalidate();
-        //    }
-        //}
 
         private void TonnetzControl_SizeChanged(object sender, EventArgs e)
         {
@@ -573,64 +255,20 @@ namespace NeckDiagrams.Controls
                 id & 0xFF            // Blue channel
             );
 
+            
             _chordToColor[state] = idColor;
             _colorToChord[idColor] = state;
-        }
-
-        /// <summary>
-        /// Calculates the bounding rectangle for a set of points to use for targeted invalidation.
-        /// </summary>
-        private Rectangle GetTriangleBounds(PointF[] pts)
-        {
-            float minX = pts[0].X;
-            float minY = pts[0].Y;
-            float maxX = pts[0].X;
-            float maxY = pts[0].Y;
-
-            for (int i = 1; i < pts.Length; i++)
+#warning FIXME:
+            if (state.Formula == ChordFormula.AMinor)
             {
-                if (pts[i].X < minX) minX = pts[i].X;
-                if (pts[i].X > maxX) maxX = pts[i].X;
-                if (pts[i].Y < minY) minY = pts[i].Y;
-                if (pts[i].Y > maxY) maxY = pts[i].Y;
+                Debug.WriteLine(idColor);
+                new object();
             }
 
-            // Add padding for pen width and anti-aliasing
-            return new Rectangle(
-                (int)Math.Floor(minX) - 5,
-                (int)Math.Floor(minY) - 5,
-                (int)Math.Ceiling(maxX - minX) + 10,
-                (int)Math.Ceiling(maxY - minY) + 10
-            );
         }
 
-
-        private Bitmap _clickMap;
-
-        private void new_RenderClickMap()
-        {
-            _clickMap?.Dispose();
-            _clickMap = new Bitmap(this.Width, this.Height);
-
-            using (Graphics g = Graphics.FromImage(_clickMap))
-            {
-                g.SmoothingMode = SmoothingMode.None; // MUST be none for pixel-perfect IDs
-                g.Clear(Color.Black);
-
-                // Standard drawing loop
-                for (int x = -10; x <= 10; x++)
-                {
-                    for (int y = -10; y <= 10; y++)
-                    {
-                        // Draw triangles using _chordToColor[state]
-                        // and the same GridToScreen logic as your visible DrawTonnetz
-                    }
-                }
-            }
-        }
         private void RenderClickMap()
         {
-            // Re-initialize bitmap if control size changed
             if (_clickMap == null || _clickMap.Size != this.Size)
             {
                 _clickMap?.Dispose();
@@ -639,68 +277,59 @@ namespace NeckDiagrams.Controls
 
             using (Graphics g = Graphics.FromImage(_clickMap))
             {
-                // MUST disable smoothing so pixel colors stay pure for dictionary lookup
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                g.Clear(Color.FromArgb(255, 0, 0, 0));
+                g.SmoothingMode = SmoothingMode.None; // Essential for pure colors
+                g.Clear(Color.Black);
 
-                for (int x = -10; x <= 10; x++)
+                // Use the same loop range as your DrawTonnetz
+                for (int x = -12; x <= 12; x++)
                 {
-                    for (int y = -10; y <= 10; y++)
+                    for (int y = -12; y <= 12; y++)
                     {
-                        var gridPt = new Point(x, y);
+                        Point gridPt = new Point(x, y);
 
-                        // Draw Major triangle to hidden map
-                        var nrt = GetNrtFromGridPoint(gridPt, true);
-                        var majState = new ChordState(nrt.Root, nrt.ChordType, gridPt);
+                        // 1. MAJOR Triangle (Anchor to this vertex)
+                        var majNrt = GetNrtFromGridPoint(gridPt, true);
+                        var majState = new ChordState(majNrt.Root, majNrt.ChordType, gridPt);
                         if (_chordToColor.TryGetValue(majState, out Color majColor))
                         {
-                            g.FillPolygon(new SolidBrush(majColor), GetTrianglePoints(new Point(x, y), true));
+                            using (var brush = new SolidBrush(majColor))
+                                g.FillPolygon(brush, GetTrianglePoints(gridPt, true, _center, _spacing));
                         }
 
-                        // Draw Minor triangle to hidden map
-                        nrt = GetNrtFromGridPoint(gridPt, false);
-                        var minState = new ChordState(nrt.Root, nrt.ChordType, gridPt);
+                        // 2. MINOR Triangle (Apply the Neighbor Fix)
+                        // We use (x - 1, y) to match the visual "Fm/Am" label logic
+                        Point minorRootPt = new Point(x - 1, y);
+                        var minNrt = GetNrtFromGridPoint(minorRootPt, false);
+
+                        // CRITICAL: The State must use the minorRootPt so the lookup finds the right chord
+                        var minState = new ChordState(minNrt.Root, minNrt.ChordType, minorRootPt);
+
                         if (_chordToColor.TryGetValue(minState, out Color minColor))
                         {
-                            g.FillPolygon(new SolidBrush(minColor), GetTrianglePoints(new Point(x, y), false));
+                            // We still draw the triangle using gridPt because GetTrianglePoints(false) 
+                            // handles the physical offset, but the IDENTITY is from minorRootPt.
+                            using (var brush = new SolidBrush(minColor))
+                                g.FillPolygon(brush, GetTrianglePoints(gridPt, false, _center, _spacing));
                         }
                     }
                 }
             }
         }
 
-        NrtChordFormula GetNrtFromGridPoint(Point gridPt, bool isMajor)
+        private void CalculateVisibleGridRange(out int minX, out int maxX, out int minY, out int maxY)
         {
-            NrtChordFormula result = null;
-            var nn = GetNoteAtGridPoint(gridPt);
-            TonnetzNode node = null;
-            if (isMajor)
-            {
-                node = this.Tonnetz.Nodes
-                    .First(n => n.NrtFormula.Root == nn
-                        && n.NrtFormula.IsMajor);
-            }
-            else
-            {
-                node = this.Tonnetz.Nodes
-                    .First(n => n.NrtFormula.Root == nn
-                        && n.NrtFormula.IsMinor);
-            }
-            result = node.NrtFormula;
-            return result;
-        }
+            // Use _spacing directly as the pixel distance
+            int horizontalUnits = (int)Math.Ceiling(this.Width / (float)_spacing) + 2;
+            int verticalUnits = (int)Math.Ceiling(this.Height / (float)_spacing) + 2;
 
-        NrtChordFormula GetNrtFromGridPoint(Point gridPt)
-        {
-            NrtChordFormula result = null;
-            var nn = GetNoteAtGridPoint(gridPt);
-            TonnetzNode node = null;
+            int centerGridX = (int)(_center.X / _spacing);
+            int centerGridY = (int)(_center.Y / _spacing);
 
-            node = this.Tonnetz.Nodes
-                .First(n => n.NrtFormula.Root == nn);
+            minX = -centerGridX - 2;
+            maxX = minX + horizontalUnits;
 
-            result = node.NrtFormula;
-            return result;
+            minY = -centerGridY - 2;
+            maxY = minY + verticalUnits;
         }
 
         private void DrawChordToClickMap(Graphics g, int x, int y, bool isMajor)
@@ -716,7 +345,7 @@ namespace NeckDiagrams.Controls
             if (_chordToColor.TryGetValue(state, out Color idColor))
             {
                 // 3. Get the physical points on screen
-                PointF[] trianglePoints = GetTrianglePoints(new Point(x, y), isMajor);
+                PointF[] trianglePoints = GetTrianglePoints(new Point(x, y), isMajor, _center, _spacing);
 
                 // 4. Fill the hidden triangle with the ID color
                 using (Brush b = new SolidBrush(idColor))
@@ -726,48 +355,31 @@ namespace NeckDiagrams.Controls
             }
         }
 
-        private PointF[] GetTrianglePoints(Point gridPos, bool isMajor)
+        Region GetTriangleRegion(Point gridPos, bool isMajor)
         {
-            // Vertex 1: The Root Note
-            PointF p1 = GridToScreen(gridPos, _center, _spacing);
-            PointF p2, p3;
+            // Reuse your existing logic to get the three vertices
+            PointF[] points = GetTrianglePoints(gridPos, isMajor, _center, _spacing);
 
-            if (isMajor)
-            {
-                // Major triads point "downwards" in standard Tonnetz layouts
-                // Connections: Root -> Major 3rd (Y+1) -> Perfect 5th (X+1)
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y + 1), _center, _spacing);
-                p3 = GridToScreen(new Point(gridPos.X + 1, gridPos.Y), _center, _spacing);
-            }
-            else
-            {
-                // Minor triads point "upwards"
-                // Connections: Root -> Major 3rd down (Y-1) -> Perfect 5th down (X-1)
-                p2 = GridToScreen(new Point(gridPos.X, gridPos.Y - 1), _center, _spacing);
-                p3 = GridToScreen(new Point(gridPos.X - 1, gridPos.Y), _center, _spacing);
-            }
+            GraphicsPath path = new GraphicsPath();
+            path.AddPolygon(points);
 
-            return new[] { p1, p2, p3 };
+            return new Region(path);
         }
 
-        private void TonnetzControl_Load(object sender, EventArgs e)
-        {
-            this.RenderClickMap();
-        }
-
-        
         void Play()
         {
             var formula = _selectedChord.Value.Formula;
-            var chord = new Chord(formula, new NoteRange(new Note(NoteName.C, OctaveEnum.Octave4),
-                new Note(NoteName.C, OctaveEnum.Octave5)));
+            var chord = new Chord(formula, NoteRange.Default);
 
+            Debug.Assert(chord.Notes.Count == 3, "We shouldn't have more than 3 notes in a triad.");  
             this.MidiSender.Play(chord);
         }
 
         MidiEventsSender _MidiSender = null;
-        MidiEventsSender MidiSender 
-        { 
+        private bool disposedValue;
+
+        MidiEventsSender MidiSender
+        {
             get
             {
                 if (this._MidiSender == null)
@@ -785,55 +397,6 @@ namespace NeckDiagrams.Controls
             this.MidiSender.Stop(chord);
         }
 
-        private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
-        {
-            // Force focus so the control can receive keyboard events like 'Esc'
-            this.Focus();
-
-            if (_clickMap == null)
-                return;
-
-            // 1. Get the pixel color from our hidden "Click Map"
-            Color clickedColor = _clickMap.GetPixel(e.X, e.Y);
-
-            // 2. Background Check (Opaque Black/Transparent check)
-            if (clickedColor.A == 0 || clickedColor.ToArgb() == Color.FromArgb(255, 0, 0, 0).ToArgb())
-                return;
-
-            // 3. Identification via Dictionary
-            if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
-            {
-                // Capture the old area for invalidation before updating the state
-                if (e.Button == MouseButtons.Left)
-                {
-                    if (_startChord != null)
-                        Invalidate(GetTriangleBounds(GetTrianglePoints(_startChord.Value.GridPosition, _startChord.Value.Formula.IsMajor)));
-
-                    _startChord = selectedChord;
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    if (_targetChord != null)
-                        Invalidate(GetTriangleBounds(GetTrianglePoints(_targetChord.Value.GridPosition, _targetChord.Value.Formula.IsMajor)));
-
-                    _targetChord = selectedChord;
-                }
-
-                // 4. Update the "dirty" area for the NEW selection
-                PointF[] newPts = GetTrianglePoints(selectedChord.GridPosition, selectedChord.Formula.IsMajor);
-                Invalidate(GetTriangleBounds(newPts));
-
-                // 5. If we have a path, we usually need to invalidate the whole thing 
-                // since the lines stretch across multiple triangles.
-                if (_startChord != null && _targetChord != null)
-                {
-                    // Note: If you add pathfinding back, you'll likely need a full Invalidate() 
-                    // here unless you calculate a bounding box for the entire path.
-                    //this.Invalidate();
-                }
-            }
-        }
-
         ChordState? GetSelectedChord(MouseEventArgs e)
         {
             ChordState? result = null;
@@ -843,7 +406,9 @@ namespace NeckDiagrams.Controls
 
             // 2. Background Check (Opaque Black/Transparent check)
             if (clickedColor.A == 0 || clickedColor.ToArgb() == Color.FromArgb(255, 0, 0, 0).ToArgb())
-                return result;
+            {
+                throw new InvalidOperationException($"Clicked color {clickedColor} not found in _colorToChord dictionary.");
+            }
 
             // 3. Identification via Dictionary
             if (_colorToChord.TryGetValue(clickedColor, out ChordState selectedChord))
@@ -851,12 +416,24 @@ namespace NeckDiagrams.Controls
                 result = selectedChord;
                 this._selectedChord = selectedChord;
             }
+
+            if (null == result)
+                throw new InvalidOperationException($"Clicked color {clickedColor} not found in _colorToChord dictionary.");
+
             return result;
+        }
+
+        private void TonnetzPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Force focus so the control can receive keyboard events like 'Esc'
+            this.Focus();
+
         }
 
         private void TonnetzControl_MouseDown(object sender, MouseEventArgs e)
         {
-            var state = GetSelectedChord(e);
+            _startChord = this.GetSelectedChord(e);
+            Invalidate(); //YES!
             this.Play();
         }
 
@@ -880,15 +457,28 @@ namespace NeckDiagrams.Controls
 
             base.WndProc(ref m);
         }
+
     }//class
 
     public static class Extensions
     {
+        static List<uint> PitchClasses = new List<uint> { NoteName.C.RawValue, NoteName.Db.RawValue, NoteName.D.RawValue, NoteName.Eb.RawValue, NoteName.E.RawValue, NoteName.F.RawValue, NoteName.Gb.RawValue, NoteName.G.RawValue, NoteName.Ab.RawValue, NoteName.A.RawValue, NoteName.Bb.RawValue, NoteName.B.RawValue };
+
         public static ChordFormula ToChordFormula(this TonnetzNode src)
         {
             var result = src.NrtFormula.Formula;
             return result;
         }
+
+        public static int ToPitchClass(this NoteName src)
+        {
+            var result = PitchClasses.IndexOf(src.RawValue);
+
+            if (result == -1)
+                throw new InvalidOperationException($"NoteName {src} not found in pitch class mapping.");
+            return result;
+        }
+
     }
 
 }//ns

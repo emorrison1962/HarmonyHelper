@@ -263,12 +263,21 @@ namespace NoteName_Tests
 			Assert.AreEqual(lessThan, greaterThan);
 		}
 
-		[Ignore]
 		[TestMethod()]
 		public void EqualsTest()
 		{
-			Assert.Fail();
-		}
+            foreach (var nn1 in NoteName.Catalog)
+            {
+                foreach (var nn2 in NoteName.Catalog)
+				{
+					if (nn1.ExplicitValue == nn2.ExplicitValue)
+						Assert.IsTrue(nn1.Equals(nn2));
+					else
+						Assert.IsFalse(nn1.Equals(nn2));
+				}
+			}
+			 new object();
+        }
 
 		[Ignore]
 		[TestMethod()]

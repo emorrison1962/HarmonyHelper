@@ -265,7 +265,7 @@ namespace Chord_Tests
 
 
         [TestMethod()]
-        public void ChordTest()
+        public void ChordTransposeTest()
         {
             try
             {
@@ -301,6 +301,45 @@ namespace Chord_Tests
                 throw;
             }
         }
+
+        [TestMethod()]
+        public void ChordNoteCountTest()
+        {
+            try
+            {
+                foreach (var formula in ChordFormula.Catalog
+                    .OrderBy(x => x.Root.AsciiSortValue)
+                    .Where(x=> x.ChordType == ChordIntervalsEnum.Major || x.ChordType == ChordIntervalsEnum.Minor || x.ChordType == ChordIntervalsEnum.Diminished))
+                {
+                    Debug.Assert(formula.NoteNames.Count == 3, $"Chord {formula} has {formula.NoteNames.Count} notes.");
+
+                    if (formula == ChordFormula.BSharpDiminished)
+                        new object();
+
+                    var octave = OctaveEnum.Octave4;
+                    var lowerLimit = new Note(formula.Root, octave);
+                    var upperLimit = lowerLimit + Interval.Major7th;
+
+                    var nr = new NoteRange(lowerLimit, upperLimit);
+                    var str = nr.ToString();
+
+                    var chord = new Chord(formula, nr);
+
+                    var noteCount = chord.Notes.Count;
+                    if (noteCount < 3 || noteCount > 4)
+                    {
+                        Assert.Fail($"Chord {formula} has {noteCount} notes.");
+                    }
+                }
+                new object();
+            }
+            catch (Exception ex)
+            {
+                var bex = ex.GetBaseException();
+                throw;
+            }
+        }
+
 
         [TestMethod()]
         public void IteratorTest()
@@ -374,7 +413,7 @@ namespace Chord_Tests
             Assert.IsTrue(result);
 
             nns = new List<NoteName>();
-            nns.AddRange(new NoteName[] { NoteName.E, NoteName.G, NoteName.C});
+            nns.AddRange(new NoteName[] { NoteName.E, NoteName.G, NoteName.C });
             result = ChordFormula.IsTriad(nns);
             Assert.IsTrue(result);
         }

@@ -142,6 +142,11 @@ namespace Eric.Morrison.Harmony
                         result = "6";
                         break;
                     }
+                case ChordIntervalsEnum.Major69:
+                    {
+                        result = "69";
+                        break;
+                    }
                 case ChordIntervalsEnum.Major7:
                     {
                         result = "Maj7";

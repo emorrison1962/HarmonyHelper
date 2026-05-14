@@ -113,7 +113,6 @@ namespace Eric.Morrison.Harmony.Chords
         }
 
 
-
         public ChordFormula Formula { get; private set; }
         public List<Note> Notes { get; private set; } = new List<Note>();
         public List<NoteName> NoteNames { get; private set; } = new List<NoteName>();

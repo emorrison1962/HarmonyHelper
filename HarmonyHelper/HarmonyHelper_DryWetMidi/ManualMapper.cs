@@ -16,15 +16,29 @@ namespace HarmonyHelper_DryWetMidi
 {
     static public partial class MappingExtensions
     {
+        const int DEFAULT_OCTAVE = 4;
+
         public static MDI.Chord ToDWMChord(this HHC.ChordFormula src)
         {
             var result = new MDI.Chord();
-            var dstNotes = src.NoteNames.ToDWMNotes();
-            result.Notes.Add(dstNotes);
+
+            foreach (var nn in src.NoteNames)
+            {
+                var octave = DEFAULT_OCTAVE;
+                if (nn == src.Ninth
+                    || nn == src.Eleventh
+                    || nn == src.Thirteenth)
+                {
+                    octave = DEFAULT_OCTAVE + 1;
+                }
+
+                var note = nn.ToDwmNote(octave);
+                result.Notes.Add(note);
+            }
             return result;
         }
 
-        static public List<MDI.Note> ToDWMNotes(this List<HH.NoteName> src)
+        static public List<MDI.Note> ToDwmNotes(this List<HH.NoteName> src)
         {
             var result = new List<MDI.Note>();
             foreach (var nn in src)

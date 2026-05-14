@@ -117,16 +117,18 @@ namespace Eric.Morrison.Harmony
 					copy = new Note(copy);
 					copy.Octave = octave;
 
-					if (copy <= this.UpperLimit)
-					{
-						result.Add(copy);
-					}
-					else
-					{
-						break;
-					}
-				}
-			}
+                    if (copy >= this.LowerLimit
+                        && copy <= this.UpperLimit)
+                    {
+                        result.Add(copy);
+                    }
+        //            if (copy.RawValue >= this.LowerLimit.RawValue
+        //&& copy.RawValue <= this.UpperLimit.RawValue)
+        //            {
+        //                result.Add(copy);
+        //            }
+                }
+            }
 
 			result.Where(x => x < this.LowerLimit || x > this.UpperLimit)
 				.ToList().ForEach(x => result.Remove(x));
@@ -167,12 +169,12 @@ namespace Eric.Morrison.Harmony
 			return result;
 		}
 
-		public override string ToString()
+		override public string ToString()
 		{
-			return $"{this.GetType().Name}: {this.LowerLimit}-{this.UpperLimit}";
-		}
+			return $"{this.LowerLimit} - {this.UpperLimit}";
+        }
 
-		public bool IsValid()
+        public bool IsValid()
 		{
 			var result = false;
 			if (this.LowerLimit is not null)

@@ -24,6 +24,8 @@ namespace HarmonyHelper.Chords.NeoRiemannianTheory
         public ChordIntervalsEnum ChordType { get; }
         public NrtChordFormula NrtFormula { get; set; }
         public ChordFormula Formula { get=> NrtFormula.Formula; }
+        public bool IsMajor => NrtFormula.IsMajor;
+        public bool IsMinor => NrtFormula.IsMinor;  
         public Point GridPosition { get; } 
 
         #endregion

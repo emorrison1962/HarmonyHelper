@@ -25,7 +25,7 @@ namespace Eric.Morrison.Harmony.Chords
             String accidentals = "(#|##|b|bb)?";
 
             String chordTypes =
-                @"(dominant|maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|maj7+|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|sus|maj|min|m11|m13|7b5|7#5|7b9|7#9|7#11|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|6|-|7|9|m|)";
+                @"(dominant|maj13#11|sus2sus4|maj9#11|maj7b5|maj7#5|maj7+|m6add9|maj11|maj13|madd9|mmaj7|mmaj9|7sus4|7b5|7b5b9|7b5#9|7#5b9|13#11|maj7|maj9|add9|-7b5|m7b5|m7#5|13b9|11b9|dim7|sus4|sus2|sus|maj|min|m11|m13|7b5|7#5|7b9|7#9|7#11|9#5|aug|dim|-7|m7|m9|m6|11|13|\+|-5|69|6|-|7|9|m|)";
 
             String bass = "?[\\/]?([cdefgab])?";
 
@@ -38,7 +38,14 @@ namespace Eric.Morrison.Harmony.Chords
             return chords;
         }
 
-
+        /// <summary>
+        /// This is where the logic for parsing the chord string is implemented. The input string is pre-parsed to remove barlines, biab strings, and split into individual chord strings. Each chord string is then parsed to extract the root note, chord type, and bass note (if present). The resulting ChordFormula objects are collected into a list, and the key signature is determined based on the chords. If any errors occur during parsing, an appropriate message is returned.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="key"></param>
+        /// <param name="formulas"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         static public bool TryParse(string input, out KeySignature key, out List<ChordFormula> formulas, out string message)
         {
             var result = false;
@@ -220,8 +227,8 @@ namespace Eric.Morrison.Harmony.Chords
 
             if (success)
             {
-                chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
-                chordFormula = ChordFormula.Create(chordFormula.Root, chordFormula.ChordType);
+                //chordFormula = ChordFormula.Catalog.First(x => root == x.Root && x.ChordType == chordType);
+                chordFormula = ChordFormula.Create(root, chordType);
 
                 if (null != bass)
                     chordFormula.SetBassNote(bass);
@@ -342,6 +349,9 @@ namespace Eric.Morrison.Harmony.Chords
                     break;
                 case "6":
                     result = ChordIntervalsEnum.Major6;
+                    break;
+                case "69":
+                    result = ChordIntervalsEnum.Major69;
                     break;
                 case "maj7":
                     result = ChordIntervalsEnum.Major7;

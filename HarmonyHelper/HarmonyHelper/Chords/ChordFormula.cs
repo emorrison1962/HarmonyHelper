@@ -400,6 +400,16 @@ namespace Eric.Morrison.Harmony.Chords
             return result;
         }
 
+        public bool HasExtensions()
+        {
+            var result = false;
+            if (this.ChordType > ChordIntervalsEnum.Major7)
+            {
+                result = true;
+            }
+            return result;
+        }   
+
         bool HasThird()
         {
             var result = false;
@@ -686,6 +696,13 @@ namespace Eric.Morrison.Harmony.Chords
             }
 
             return result;
+        }
+
+        public class EqualityComparer
+        {
+            public EqualityComparer()
+            {
+            }
         }
     }//class
 

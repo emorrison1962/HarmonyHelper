@@ -362,12 +362,14 @@ namespace Eric.Morrison.Harmony.Intervals
         [Obsolete("", false)]
 		public static explicit operator uint(Interval ct)
         {
-            return ct.Value;
+            var result = ct.Value;
+            return result;
         }
 		[Obsolete("", false)]
 		public static explicit operator Interval(uint i)
         {
-            return Interval.Catalog.First(x => x.Value == i);
+            var result = Interval.Catalog.First(x => x.Value == i);
+            return result;
         }
 
         #endregion

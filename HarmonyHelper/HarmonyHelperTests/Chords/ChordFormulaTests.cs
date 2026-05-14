@@ -144,5 +144,33 @@ namespace HarmonyHelperTests.Chords
             new object();
         }
 
+        [TestMethod()]
+        public void WhichChordsContainTest()
+        {
+            var criteria = new List<NoteName>() 
+            { 
+                NoteName.Bb, 
+                NoteName.C 
+            };
+
+            Predicate<ChordFormula> predicate = (ChordFormula x) => 
+            { 
+                foreach(var nn in criteria)
+                {
+                    if (!x.NoteNames.Any(x => x == nn))
+                        return false;
+                }
+                return true; 
+            };
+
+            ChordFormula.Catalog
+                .OrderBy(x => x.NameAscii)
+                .Where(x=> predicate(x))
+                .ToList()
+                .ForEach(cf => Debug.WriteLine(cf.Name));
+            new object();
+        }
+
+
     }//class
 }//ns

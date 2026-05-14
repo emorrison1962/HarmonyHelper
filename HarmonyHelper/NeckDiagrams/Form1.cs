@@ -11,6 +11,7 @@ using Eric.Morrison.Harmony;
 using Manufaktura.Controls.Model;
 
 using NeckDiagrams.Controls;
+using NeckDiagrams.Feature_Views;
 using NeckDiagrams.Views;
 
 namespace NeckDiagrams
@@ -50,6 +51,11 @@ namespace NeckDiagrams
 
         private void SelectedFeatureChanged(object sender, FeatureType e)
         {
+            if (null != this.CurrentView)
+            {
+                this._pnlFeatureView.Controls.Remove(this.CurrentView);
+                this.CurrentView.Dispose();
+            }
             //Debug.WriteLine(e.ToString());
             var featureView = new FeatureViewFactory().CreateView(e);
             this.AddControl(featureView);
@@ -201,6 +207,7 @@ namespace NeckDiagrams
                 case FeatureType.Scales: { result = new ScalesControl(); } break;
                 case FeatureType.SquareOfStitch: { result = new SquareOfStichView(); } break;
                 case FeatureType.SandBox: { result = new SandBoxView(); } break;
+                case FeatureType.MidiFileGenerator: { result = new MidiFileGenerator(); } break;
                 default: { throw new ArgumentOutOfRangeException(nameof(e)); }
             }
             //Debug.WriteLine(result.GetType().Name);

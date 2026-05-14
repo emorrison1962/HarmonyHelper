@@ -58,5 +58,11 @@ namespace NeckDiagrams.Controls
             vmList.ForEach(x => this.Add(x, parent));
         }
 
+        public void Clear()
+        {
+            this.ChordFormulas.Clear();
+            this._chordNamesTablePanel.Controls.Clear();
+        }
+
     }//class
 }//ns

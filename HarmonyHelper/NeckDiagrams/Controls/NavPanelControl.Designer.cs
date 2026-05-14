@@ -34,6 +34,7 @@ namespace NeckDiagrams.Controls
             this._pnlNav = new System.Windows.Forms.Panel();
             this.bnOptions = new System.Windows.Forms.Button();
             this.pnlSpacer = new System.Windows.Forms.Panel();
+            this._bnMidiFileGenerator = new FeatureTypeButton();
             this._bnSandbox = new FeatureTypeButton();
             this._bnSquareOfStitch = new FeatureTypeButton();
             this._bnFeatureChordShape = new FeatureTypeButton();
@@ -45,6 +46,7 @@ namespace NeckDiagrams.Controls
             this._bnFeatureHarmonicAnalysis = new FeatureTypeButton();
             this._bnFeatureArpeggios = new FeatureTypeButton();
             this._pnlNav.SuspendLayout();
+            this.pnlSpacer.SuspendLayout();
             this.SuspendLayout();
             // 
             // _pnlNav
@@ -83,11 +85,27 @@ namespace NeckDiagrams.Controls
             // pnlSpacer
             // 
             this.pnlSpacer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSpacer.Controls.Add(this._bnMidiFileGenerator);
             this.pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSpacer.Location = new System.Drawing.Point(0, 300);
             this.pnlSpacer.Name = "pnlSpacer";
             this.pnlSpacer.Size = new System.Drawing.Size(468, 100);
             this.pnlSpacer.TabIndex = 12;
+            // 
+            // _bnMidiFileGenerator
+            // 
+            this._bnMidiFileGenerator.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnMidiFileGenerator.AutoSize = true;
+            this._bnMidiFileGenerator.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnMidiFileGenerator.FeatureType = FeatureType.MidiFileGenerator;
+            this._bnMidiFileGenerator.Location = new System.Drawing.Point(0, 0);
+            this._bnMidiFileGenerator.Name = "_bnMidiFileGenerator";
+            this._bnMidiFileGenerator.Size = new System.Drawing.Size(466, 30);
+            this._bnMidiFileGenerator.TabIndex = 15;
+            this._bnMidiFileGenerator.TabStop = true;
+            this._bnMidiFileGenerator.Tag = "";
+            this._bnMidiFileGenerator.Text = "MIDI File Generator";
+            this._bnMidiFileGenerator.UseVisualStyleBackColor = true;
             // 
             // _bnSandbox
             // 
@@ -234,6 +252,8 @@ namespace NeckDiagrams.Controls
             this.Size = new System.Drawing.Size(468, 1039);
             this._pnlNav.ResumeLayout(false);
             this._pnlNav.PerformLayout();
+            this.pnlSpacer.ResumeLayout(false);
+            this.pnlSpacer.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -253,5 +273,6 @@ namespace NeckDiagrams.Controls
         private System.Windows.Forms.Panel pnlSpacer;
         private FeatureTypeButton _bnSquareOfStitch;
         private FeatureTypeButton _bnSandbox;
+        private FeatureTypeButton _bnMidiFileGenerator;
     }
 }
