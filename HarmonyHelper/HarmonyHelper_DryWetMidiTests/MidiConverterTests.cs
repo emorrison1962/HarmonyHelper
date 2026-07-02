@@ -885,6 +885,19 @@ namespace HarmonyHelper_DryWetMidi.Tests
             new object();
         }
 
+        [TestMethod()]
+        public void Test_260514()
+        {
+            var chords = @"Bm gbm a e";
+
+
+            var model = this.CreateModel(chords);
+            var midi = new MidiFileConverter();
+
+            var filename = @"c:\temp\_temp.mid";
+            midi.Create(model, filename);
+            new object();
+        }
 
 
     }//class

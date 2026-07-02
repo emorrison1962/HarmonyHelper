@@ -52,7 +52,7 @@ namespace NeckDiagrams.Controls
             this._bnFeatureLeadSheets.CheckedChanged += this._CheckedChanged;
             this._bnFeatureHarmonicAnalysis.CheckedChanged += this._CheckedChanged;
             this._bnFeatureArpeggios.CheckedChanged += this._CheckedChanged;
-            this._bnSandbox.CheckedChanged += this._CheckedChanged;
+            this._bnTonnetz.CheckedChanged += this._CheckedChanged;
             this._bnMidiFileGenerator.CheckedChanged += this._CheckedChanged;
 
         }

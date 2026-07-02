@@ -206,7 +206,7 @@ namespace NeckDiagrams
                 case FeatureType.ReHarmonize: { result = new ReHarmonizerControl(); } break;
                 case FeatureType.Scales: { result = new ScalesControl(); } break;
                 case FeatureType.SquareOfStitch: { result = new SquareOfStichView(); } break;
-                case FeatureType.SandBox: { result = new SandBoxView(); } break;
+                case FeatureType.Tonnetz: { result = new TonnetzView(); } break;
                 case FeatureType.MidiFileGenerator: { result = new MidiFileGenerator(); } break;
                 default: { throw new ArgumentOutOfRangeException(nameof(e)); }
             }

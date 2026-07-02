@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace NeckDiagrams.Views
 {
-    public partial class SandBoxView : UserControl
+    public partial class TonnetzView : UserControl
     {
-        public SandBoxView()
+        public TonnetzView()
         {
             InitializeComponent();
         }

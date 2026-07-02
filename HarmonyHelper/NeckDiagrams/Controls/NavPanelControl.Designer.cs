@@ -35,7 +35,7 @@ namespace NeckDiagrams.Controls
             this.bnOptions = new System.Windows.Forms.Button();
             this.pnlSpacer = new System.Windows.Forms.Panel();
             this._bnMidiFileGenerator = new FeatureTypeButton();
-            this._bnSandbox = new FeatureTypeButton();
+            this._bnTonnetz = new FeatureTypeButton();
             this._bnSquareOfStitch = new FeatureTypeButton();
             this._bnFeatureChordShape = new FeatureTypeButton();
             this._bnModalInterchange = new FeatureTypeButton();
@@ -54,7 +54,7 @@ namespace NeckDiagrams.Controls
             this._pnlNav.BackColor = System.Drawing.SystemColors.ControlLight;
             this._pnlNav.Controls.Add(this.bnOptions);
             this._pnlNav.Controls.Add(this.pnlSpacer);
-            this._pnlNav.Controls.Add(this._bnSandbox);
+            this._pnlNav.Controls.Add(this._bnTonnetz);
             this._pnlNav.Controls.Add(this._bnSquareOfStitch);
             this._pnlNav.Controls.Add(this._bnFeatureChordShape);
             this._pnlNav.Controls.Add(this._bnModalInterchange);
@@ -107,20 +107,20 @@ namespace NeckDiagrams.Controls
             this._bnMidiFileGenerator.Text = "MIDI File Generator";
             this._bnMidiFileGenerator.UseVisualStyleBackColor = true;
             // 
-            // _bnSandbox
+            // _bnTonnetz
             // 
-            this._bnSandbox.Appearance = System.Windows.Forms.Appearance.Button;
-            this._bnSandbox.AutoSize = true;
-            this._bnSandbox.Dock = System.Windows.Forms.DockStyle.Top;
-            this._bnSandbox.FeatureType = FeatureType.SandBox;
-            this._bnSandbox.Location = new System.Drawing.Point(0, 270);
-            this._bnSandbox.Name = "_bnSandbox";
-            this._bnSandbox.Size = new System.Drawing.Size(468, 30);
-            this._bnSandbox.TabIndex = 14;
-            this._bnSandbox.TabStop = true;
-            this._bnSandbox.Tag = "";
-            this._bnSandbox.Text = "SandBox";
-            this._bnSandbox.UseVisualStyleBackColor = true;
+            this._bnTonnetz.Appearance = System.Windows.Forms.Appearance.Button;
+            this._bnTonnetz.AutoSize = true;
+            this._bnTonnetz.Dock = System.Windows.Forms.DockStyle.Top;
+            this._bnTonnetz.FeatureType = FeatureType.Tonnetz;
+            this._bnTonnetz.Location = new System.Drawing.Point(0, 270);
+            this._bnTonnetz.Name = "_bnTonnetz";
+            this._bnTonnetz.Size = new System.Drawing.Size(468, 30);
+            this._bnTonnetz.TabIndex = 14;
+            this._bnTonnetz.TabStop = true;
+            this._bnTonnetz.Tag = "";
+            this._bnTonnetz.Text = "Tonnetz";
+            this._bnTonnetz.UseVisualStyleBackColor = true;
             // 
             // _bnSquareOfStitch
             // 
@@ -272,7 +272,7 @@ namespace NeckDiagrams.Controls
         private System.Windows.Forms.Button bnOptions;
         private System.Windows.Forms.Panel pnlSpacer;
         private FeatureTypeButton _bnSquareOfStitch;
-        private FeatureTypeButton _bnSandbox;
+        private FeatureTypeButton _bnTonnetz;
         private FeatureTypeButton _bnMidiFileGenerator;
     }
 }

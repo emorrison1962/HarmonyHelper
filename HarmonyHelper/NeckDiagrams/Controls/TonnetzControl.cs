@@ -369,10 +369,22 @@ namespace NeckDiagrams.Controls
         void Play()
         {
             var formula = _selectedChord.Value.Formula;
-            var chord = new Chord(formula, NoteRange.Default);
+            var chord = this.CreateChord(formula);
 
             Debug.Assert(chord.Notes.Count == 3, "We shouldn't have more than 3 notes in a triad.");  
             this.MidiSender.Play(chord);
+        }
+
+        Chord CreateChord(ChordFormula formula)
+        {
+            var octave = OctaveEnum.Octave4;
+            var lowerLimit = new Note(formula.Root, octave);
+            var upperLimit = lowerLimit + Interval.Major7th;
+
+            var nr = new NoteRange(lowerLimit, upperLimit);
+
+            var result = new Chord(formula, nr);
+            return result;
         }
 
         MidiEventsSender _MidiSender = null;

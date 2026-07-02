@@ -24,7 +24,7 @@ namespace NeckDiagrams
         Arpeggios,
         ChordFingering,
         SquareOfStitch,
-        SandBox,
+        Tonnetz,
         MidiFileGenerator
     }
 }

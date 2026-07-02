@@ -1,6 +1,6 @@
 ﻿namespace NeckDiagrams.Views
 {
-    partial class SandBoxView
+    partial class TonnetzView
     {
         /// <summary> 
         /// Required designer variable.
@@ -44,7 +44,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tonnetzControl1);
-            this.Name = "SandBoxView";
+            this.Name = "TonnetzView";
             this.Size = new System.Drawing.Size(1645, 667);
             this.ResumeLayout(false);
         }
